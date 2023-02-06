@@ -1,8 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Incridea client repo
 
-## Getting Started
+### Tech Stack
 
-First, run the development server:
+![Frontend](https://user-images.githubusercontent.com/83623339/217042007-561c14a6-b918-4a03-bd83-96858eee2db8.png)
+
+### Docs
+
+- [**Next JS**](https://nextjs.org/docs/getting-started)
+- [**Typescript**](https://www.typescriptlang.org/docs/)
+- [**TailwindCSS**](https://tailwindcss.com/docs/installation)
+- [**Radix**](https://www.radix-ui.com/docs/primitives/overview/getting-started)
+- [**Apollo Client**](https://www.apollographql.com/docs/react/)
+- [**Framer Motion**](https://www.framer.com/motion/)
+
+### Local setup
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/incridea-23/incridea-client.git
+```
+
+2. Install all dependencies
+
+```bash
+npm i
+```
+
+3. Run the development server:
 
 ```bash
 npm run dev
@@ -12,27 +37,30 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+> **Note** > `index.tsx` includes example for using Apollo client, Framer motion and cva.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Branching and Making PRs
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+1. After cloning and setting up the environment, checkout to a new branch (name is related to your task, for eg: feat/user-login, fix/image-overflow)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+git checkout -b ＜branch_name＞
+```
 
-## Learn More
+2. Make the required changes according to your task.
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+//Staging changes
+git add .
+//Commiting changes
+git commit -m <short message about task>
+//Pushing changes
+git push origin <branch_name>
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Make a Pull request to main branch, and wait for it to get reviewed by someone in the team. If there are review comments, make a new commit making those changes to the same branch to address those comments.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+> **Note**
+> Use [semantic commit messages](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716) to keep the commit history clean.

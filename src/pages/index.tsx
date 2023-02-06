@@ -63,7 +63,7 @@ const Home: NextPage = () => {
             <Button
               intent="secondary"
               size="medium"
-              className="rounded-xl mt-3 font-bold"
+              className="rounded-xl mt-3 font-bold" // custom class
             >
               Secondary Bold
             </Button>

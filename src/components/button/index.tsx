@@ -22,9 +22,10 @@ const button = cva('button', {
     },
   },
   compoundVariants: [
-    { intent: 'primary', size: 'medium', className: 'uppercase' },
+    // variants that apply when multiple other variant conditions are met
+    { intent: 'primary', size: 'medium', className: 'uppercase' }, // when intent is primary and size is medium, add the className "uppercase"
   ],
-  defaultVariants: {
+  defaultVariants: { // when no variants are specified, these defaults are applied
     intent: 'primary',
     size: 'medium',
   },
