@@ -1,7 +1,7 @@
 schema: https://incridea-test.onrender.com/graphql
 documents: './src/**/*.graphql'
 generates:
-  ./src/graphql/generated.ts:
+  ./src/generated/generated.ts:
     plugins:
       - typescript
       - typescript-operations

@@ -2,7 +2,8 @@ import { initializeApollo } from '@/src/lib/apollo';
 import { useQuery } from '@apollo/client';
 import { type NextPage } from 'next';
 import Head from 'next/head';
-import { GetUsersDocument } from '../graphql/generated';
+import { GetUsersDocument } from '../generated/generated';
+import { motion } from 'framer-motion';
 
 /* 3 data fetching options in Next.js:
 1. Client-side rendering - useQuery is called on client-side.
@@ -27,15 +28,26 @@ const Home: NextPage = () => {
           Incridea &apos;23
         </div>
         <div className="text-center mt-4">
-          <a>Apollo client demo</a>
+          <a>Apollo Client + Framer Motion Demo</a>
           <div className="flex flex-col sm:flex-row gap-5 mt-5">
             {results.data?.users.map((user) => (
-              <div
+              <motion.button
+                // gesture animation example
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                // draggable example
+                drag
+                dragConstraints={{
+                  top: -100,
+                  left: -100,
+                  right: 100,
+                  bottom: 100,
+                }}
                 key={user.id}
                 className="border border-gray-400 rounded-lg p-5 hover:bg-gray-50 hover:border-black"
               >
                 <div>{user.name}</div>
-              </div>
+              </motion.button>
             ))}
           </div>
         </div>
