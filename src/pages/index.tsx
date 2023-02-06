@@ -4,6 +4,7 @@ import { type NextPage } from 'next';
 import Head from 'next/head';
 import { GetUsersDocument } from '../generated/generated';
 import { motion } from 'framer-motion';
+import { Button } from '../components/button';
 
 /* 3 data fetching options in Next.js:
 1. Client-side rendering - useQuery is called on client-side.
@@ -23,11 +24,12 @@ const Home: NextPage = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="h-screen w-screen flex justify-center items-center flex-col">
+      <main className="h-screen w-screen flex justify-center items-center flex-col gap-5">
         <div className="text-2xl border-b border-gray-400">
           Incridea &apos;23
         </div>
-        <div className="text-center mt-4">
+
+        <div className="text-center">
           <a>Apollo Client + Framer Motion Demo</a>
           <div className="flex flex-col sm:flex-row gap-5 mt-5">
             {results.data?.users.map((user) => (
@@ -49,6 +51,22 @@ const Home: NextPage = () => {
                 <div>{user.name}</div>
               </motion.button>
             ))}
+          </div>
+        </div>
+
+        <div className="text-center">
+          <a>class-variance-authority example</a>
+          <div className="flex flex-col sm:flex-row items-center gap-3">
+            <Button intent="primary" size="small" className="rounded-xl mt-3">
+              Primary Rounded
+            </Button>
+            <Button
+              intent="secondary"
+              size="medium"
+              className="rounded-xl mt-3 font-bold"
+            >
+              Secondary Bold
+            </Button>
           </div>
         </div>
       </main>
