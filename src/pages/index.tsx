@@ -2,9 +2,11 @@ import { initializeApollo } from '@/src/lib/apollo';
 import { useQuery } from '@apollo/client';
 import { type NextPage } from 'next';
 import Head from 'next/head';
-import { GetUsersDocument } from '../generated/generated';
+import { GetAllUsersDocument } from '../generated/generated';
 import { motion } from 'framer-motion';
 import { Button } from '../components/button';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import Link from 'next/link';
 
 /* 3 data fetching options in Next.js:
 1. Client-side rendering - useQuery is called on client-side.
@@ -14,7 +16,8 @@ import { Button } from '../components/button';
 
 const Home: NextPage = () => {
   // 1. Client side rendering example
-  const results = useQuery(GetUsersDocument);
+  const results = useQuery(GetAllUsersDocument);
+  const { data: session, status } = useSession();
 
   return (
     <>
@@ -30,7 +33,17 @@ const Home: NextPage = () => {
         </div>
 
         <div className="text-center">
-          <a>Apollo Client + Framer Motion Demo</a>
+          {status === 'loading' && <div>Loading...</div>}
+          {status === 'authenticated' && (
+            <div>
+              <div>Authenticated as {session?.user?.email}</div>
+              <div>Session expires in {session?.expires}</div>
+            </div>
+          )}
+          {status === 'unauthenticated' && <div>Not authenticated</div>}
+          <div className="text-blue-500 mt-3">
+            Apollo Client + Framer Motion Demo
+          </div>
           <div className="flex flex-col sm:flex-row gap-5 mt-5">
             {results.data?.users.map((user) => (
               <motion.button
@@ -40,10 +53,8 @@ const Home: NextPage = () => {
                 // draggable example
                 drag
                 dragConstraints={{
-                  top: -100,
-                  left: -100,
-                  right: 100,
-                  bottom: 100,
+                  top: -5,
+                  bottom: 5,
                 }}
                 key={user.id}
                 className="border border-gray-400 rounded-lg p-5 hover:bg-gray-50 hover:border-black"
@@ -55,17 +66,32 @@ const Home: NextPage = () => {
         </div>
 
         <div className="text-center">
-          <a>class-variance-authority example</a>
+          <div className="text-blue-500 mt-3">
+            class-variance-authority example
+          </div>
           <div className="flex flex-col sm:flex-row items-center gap-3">
-            <Button intent="primary" size="small" className="rounded-xl mt-3">
-              Primary Rounded
+            <Button
+              onClick={() => {
+                signIn();
+              }}
+              intent="primary"
+              size="small"
+              className="rounded-xl mt-3"
+            >
+              Login
+            </Button>
+            <Button intent={'primary'} size={'small'} className="mt-3">
+              <Link href={'/auth/signup'}>Sign Up</Link>
             </Button>
             <Button
+              onClick={() => {
+                signOut();
+              }}
               intent="secondary"
               size="medium"
               className="rounded-xl mt-3 font-bold" // custom class
             >
-              Secondary Bold
+              Sign Out
             </Button>
           </div>
         </div>
@@ -80,7 +106,7 @@ export default Home;
 export const getStaticProps = async () => {
   const apolloClient = initializeApollo();
   await apolloClient.query({
-    query: GetUsersDocument,
+    query: GetAllUsersDocument,
   });
   return {
     props: { initialApolloState: apolloClient.cache.extract() },

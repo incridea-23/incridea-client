@@ -5,7 +5,7 @@ function createApolloClient() {
     ssrMode: typeof window === 'undefined',
     link: new HttpLink({
       uri: 'https://incridea-test.onrender.com/graphql',
-      credentials: 'same-origin',
+      credentials: 'include',
     }),
     cache: new InMemoryCache(),
   });

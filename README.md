@@ -31,15 +31,12 @@ npm i
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
 > Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-> **Note** > `index.tsx` includes example for using Apollo client, Framer motion and cva.
+> **Note** 
+> `index.tsx` includes example for using Apollo client, Framer motion and cva.
 
 ### Branching and Making PRs
 

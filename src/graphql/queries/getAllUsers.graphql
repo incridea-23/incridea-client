@@ -1,4 +1,4 @@
-query GetUsers {
+query GetAllUsers {
   users {
     id
     name

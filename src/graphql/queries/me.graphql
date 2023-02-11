@@ -1,0 +1,11 @@
+query QueryMe {
+  me {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on QueryMeSuccess {
+      __typename
+    }
+  }
+}
