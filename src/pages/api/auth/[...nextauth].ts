@@ -1,9 +1,9 @@
-import { isJwtExpired } from '@/src/utils/isJwtExpired';
-import NextAuth from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-const graphqlServer = 'https://incridea-test.onrender.com/graphql';
+import { isJwtExpired } from "@/src/utils/isJwtExpired";
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+const graphqlServer = "https://incridea-test.onrender.com/graphql";
 
-declare module 'next-auth' {
+declare module "next-auth" {
   /**
    * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
    */
@@ -52,7 +52,7 @@ declare module 'next-auth' {
         isVerified: boolean;
         name: string;
         role: string;
-      }
+      };
     };
     accessToken: string;
   }
@@ -61,7 +61,7 @@ declare module 'next-auth' {
 export const refreshToken = async function (refreshToken: string) {
   try {
     const query = JSON.stringify({
-      query: `
+      query: `#graphql
       mutation {
         refreshToken(refreshToken: "${refreshToken}") {
           ... on Error {
@@ -81,8 +81,8 @@ export const refreshToken = async function (refreshToken: string) {
     });
 
     const response = await fetch(`${graphqlServer}`, {
-      headers: { 'content-type': 'application/json' },
-      method: 'POST',
+      headers: { "content-type": "application/json" },
+      method: "POST",
       body: query,
     })
       .then((res) => {
@@ -102,18 +102,18 @@ export const refreshToken = async function (refreshToken: string) {
 
 export default NextAuth({
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
     maxAge: 24 * 60 * 60, // 24 hours
   },
-  debug: process.env.NODE_ENV === 'development',
+  debug: process.env.NODE_ENV === "development",
   providers: [
     CredentialsProvider({
-      name: 'Email',
+      name: "Email",
       credentials: {},
       async authorize(credentials: any, _req): Promise<any> {
         const { email, password } = credentials;
         const query = JSON.stringify({
-          query: `
+          query: `#graphql
           mutation {
             login(data: { email: "${email}", password: "${password}" }) {
               __typename
@@ -133,14 +133,14 @@ export default NextAuth({
         });
 
         const response = await fetch(`${graphqlServer}`, {
-          headers: { 'content-type': 'application/json' },
-          method: 'POST',
+          headers: { "content-type": "application/json" },
+          method: "POST",
           body: query,
         });
 
         const data = await response.json();
 
-        if (data.data.login.__typename === 'MutationLoginSuccess') {
+        if (data.data.login.__typename === "MutationLoginSuccess") {
           return data.data;
         }
 
@@ -149,7 +149,7 @@ export default NextAuth({
     }),
   ],
   pages: {
-    signIn: '/auth/login',
+    signIn: "/auth/login",
   },
   callbacks: {
     async redirect({ url, baseUrl }) {
@@ -219,10 +219,10 @@ export default NextAuth({
 
       const response = await fetch(`${graphqlServer}`, {
         headers: {
-          'content-type': 'application/json',
+          "content-type": "application/json",
           Authorization: `Bearer ${token.accessToken}`,
         },
-        method: 'POST',
+        method: "POST",
         body: query,
       });
 
