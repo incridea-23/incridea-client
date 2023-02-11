@@ -1,18 +1,16 @@
-import { LoginDocument } from '@/src/generated/generated';
-import { useMutation } from '@apollo/client';
+import { Button } from '@/src/components/button';
 import { NextPage } from 'next';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import { FormEventHandler, useState } from 'react';
 
 const SignIn: NextPage = () => {
   const [userInfo, setUserInfo] = useState({ email: '', password: '' });
   const [error, setError] = useState<string>('');
-
-  const [loginMutation, { data, loading, error: mutationError }] =
-    useMutation(LoginDocument);
+  const router = useRouter();
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-    // add some validations
+    // add some client side validations
     e.preventDefault();
 
     const res = await signIn('credentials', {
@@ -28,12 +26,7 @@ const SignIn: NextPage = () => {
     if (res?.ok) {
       setError('');
       setUserInfo({ email: '', password: '' });
-      loginMutation({
-        variables: {
-          email: userInfo.email,
-          password: userInfo.password,
-        },
-      });
+      router.push('/');
     }
   };
 
@@ -59,15 +52,8 @@ const SignIn: NextPage = () => {
           type="password"
           placeholder="********"
         />
-        <button type="submit">Login</button>
+        <Button>Login</Button>
         {error && <div className="text-red-500">{error}</div>}
-        {loading && <div className="text-green-500">Loading...</div>}
-        {mutationError && (
-          <div className="text-red-500">{mutationError.message}</div>
-        )}
-        {data?.login.__typename === 'MutationLoginSuccess' && (
-          <div className="text-green-500">Login successful</div>
-        )}
       </form>
     </div>
   );

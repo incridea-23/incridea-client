@@ -18,7 +18,6 @@ const Home: NextPage = () => {
   // 1. Client side rendering example
   const results = useQuery(GetAllUsersDocument);
   const { data: session, status } = useSession();
-
   return (
     <>
       <Head>
@@ -36,7 +35,7 @@ const Home: NextPage = () => {
           {status === 'loading' && <div>Loading...</div>}
           {status === 'authenticated' && (
             <div>
-              <div>Authenticated as {session?.user?.email}</div>
+              <div>Authenticated as {session?.user?.data.email}</div>
               <div>Session expires in {session?.expires}</div>
             </div>
           )}
@@ -44,7 +43,8 @@ const Home: NextPage = () => {
           <div className="text-blue-500 mt-3">
             Apollo Client + Framer Motion Demo
           </div>
-          <div className="flex flex-col sm:flex-row gap-5 mt-5">
+          <div className="flex flex-wrap justify-center gap-5 mt-5">
+            {results.loading && <div>Loading...</div>}
             {results.data?.users.map((user) => (
               <motion.button
                 // gesture animation example
@@ -70,29 +70,34 @@ const Home: NextPage = () => {
             class-variance-authority example
           </div>
           <div className="flex flex-col sm:flex-row items-center gap-3">
-            <Button
-              onClick={() => {
-                signIn();
-              }}
-              intent="primary"
-              size="small"
-              className="rounded-xl mt-3"
-            >
-              Login
-            </Button>
-            <Button intent={'primary'} size={'small'} className="mt-3">
-              <Link href={'/auth/signup'}>Sign Up</Link>
-            </Button>
-            <Button
-              onClick={() => {
-                signOut();
-              }}
-              intent="secondary"
-              size="medium"
-              className="rounded-xl mt-3 font-bold" // custom class
-            >
-              Sign Out
-            </Button>
+            {status === 'authenticated' ? (
+              <Button
+                onClick={() => {
+                  signOut();
+                }}
+                intent="secondary"
+                size="medium"
+                className="rounded-xl mt-3 font-bold" // custom class
+              >
+                Sign Out
+              </Button>
+            ) : (
+              <>
+                <Button
+                  onClick={() => {
+                    signIn();
+                  }}
+                  intent="primary"
+                  size="small"
+                  className="rounded-xl mt-3"
+                >
+                  Login
+                </Button>
+                <Button intent={'primary'} size={'small'} className="mt-3">
+                  <Link href={'/auth/signup'}>Sign Up</Link>
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </main>

@@ -1,9 +1,12 @@
+import { Button } from '@/src/components/button';
 import { SignUpDocument } from '@/src/generated/generated';
 import { useMutation } from '@apollo/client';
 import { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { useState, FormEventHandler } from 'react';
 
 const SignUp: NextPage = () => {
+  const router = useRouter();
   const [userInfo, setUserInfo] = useState({
     name: '',
     email: '',
@@ -14,7 +17,7 @@ const SignUp: NextPage = () => {
     useMutation(SignUpDocument);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-    // add some validations like checking if the email is already in use, etc.
+    // add some validations like checking if the email is already in use, password length etc.
     e.preventDefault();
     signUpMutation({
       variables: {
@@ -22,7 +25,15 @@ const SignUp: NextPage = () => {
         email: userInfo.email,
         password: userInfo.password,
       },
-    });
+    })
+      .then((res) => {
+        if (res.data?.signUp.__typename === 'MutationSignUpSuccess') {
+          router.push('/auth/verify-email');
+        }
+      })
+      .catch((err) => {
+        return err;
+      });
   };
 
   return (
@@ -55,13 +66,8 @@ const SignUp: NextPage = () => {
           type="password"
           placeholder="Password"
         />
-        <button type="submit">Sign Up</button>
+        <Button>Sign Up</Button>
         {mutationError && <p>{mutationError.message}</p>}
-        {data && (
-          <p>
-            {data.signUp.__typename === 'MutationSignUpSuccess' && 'Success'}
-          </p>
-        )}
         {loading && <p>Loading...</p>}
       </form>
     </div>
