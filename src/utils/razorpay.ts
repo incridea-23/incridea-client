@@ -14,39 +14,46 @@ export const initializeRazorpay = () => {
     document.body.appendChild(script);
   });
 };
-
-export const usePayment = async () => {
-  console.log("here...");
-  const res = await initializeRazorpay();
-
-  if (!res) {
-    alert("Razorpay SDK Failed to load");
-  }
-  const [mutateFunction, { data: resp, loading, error }] = useMutation(
+const usePayment = () => {
+  const [mutate, { data: resp, loading, error }] = useMutation(
     FestRegPaymentOrderDocument
   );
-  if (
-    resp?.createPaymentOrder.__typename === "MutationCreatePaymentOrderSuccess"
-  ) {
-    const options = {
-      key: process.env.RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
-      name: "Incridea 2022",
-      currency: "INR",
-      amount: resp.createPaymentOrder.data.amount,
-      order_id: resp.createPaymentOrder.data.orderId,
-      description: "Incridea 2023 Registration",
-      image: "/images/logo.svg",
-      handler: function (response: any) {
-        Router.push("/profile");
-      },
-      prefill: {
-        email: resp.createPaymentOrder.data.user.email,
-        name: resp.createPaymentOrder.data.user.name,
-      },
-    };
-    const paymentObject = new (window as any).Razorpay(options);
-    paymentObject.open();
-  } else {
-    alert("Something went wrong");
-  }
+  console.log(resp, loading, error);
+
+  const initiatePayment = async () => {
+    const res = await initializeRazorpay();
+
+    if (!res) {
+      alert("Razorpay SDK Failed to load");
+    }
+
+    if (
+      resp?.createPaymentOrder.__typename ===
+      "MutationCreatePaymentOrderSuccess"
+    ) {
+      const options = {
+        key: process.env.RAZORPAY_KEY,
+        name: "Incridea 2022",
+        currency: "INR",
+        amount: resp.createPaymentOrder.data.amount,
+        order_id: resp.createPaymentOrder.data.orderId,
+        description: "Incridea 2023 Registration",
+        image: "/images/logo.svg",
+        handler: function (response: any) {
+          Router.push("/profile");
+        },
+        prefill: {
+          email: resp.createPaymentOrder.data.user.email,
+          name: resp.createPaymentOrder.data.user.name,
+        },
+      };
+      const paymentObject = new (window as any).Razorpay(options);
+      paymentObject.open();
+      console.log(resp.createPaymentOrder.data);
+    }
+  };
+
+  return { initiatePayment, mutate };
 };
+
+export default usePayment;

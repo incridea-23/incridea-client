@@ -103,7 +103,7 @@ export const refreshToken = async function (refreshToken: string) {
 export default NextAuth({
   session: {
     strategy: "jwt",
-    maxAge: 24 * 60 * 60, // 24 hours
+    maxAge: 15 * 60,
   },
   debug: process.env.NODE_ENV === "development",
   providers: [

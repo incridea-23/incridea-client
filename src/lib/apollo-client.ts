@@ -1,36 +1,27 @@
-import {
-  ApolloClient,
-  ApolloLink,
-  HttpLink,
-  InMemoryCache,
-  from,
-} from "@apollo/client";
-import { getSession } from "next-auth/react";
+import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { getSession } from "next-auth/react";
 
-const authLink = setContext(async (_) => {
-  const session = await getSession();
-  const modifiedHeader = {
-    headers: {
-      authorization: session?.accessToken
-        ? `Bearer ${session.accessToken}`
-        : "",
-    },
-  };
-  return modifiedHeader;
+const httpLink = createHttpLink({
+  uri: "https://incridea-test.onrender.com/graphql",
 });
 
-const httpLink = new HttpLink({
-  uri: "https://incridea-test.onrender.com/graphql",
-  credentials: "include",
+const authLink = setContext(async (_, { headers }) => {
+  const session = await getSession();
+  const token = session?.accessToken;
+
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    },
+  };
 });
 
 function createApolloClient() {
   return new ApolloClient({
-    ssrMode: typeof window === "undefined",
-    link: from([httpLink, authLink]),
+    link: authLink.concat(httpLink),
     cache: new InMemoryCache(),
   });
 }
-
 export default createApolloClient;
