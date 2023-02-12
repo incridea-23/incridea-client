@@ -181,7 +181,7 @@ export default NextAuth({
             accessToken: newAccessToken,
             refreshToken: newRefreshToken,
             iat: Math.floor(Date.now() / 1000),
-            exp: Math.floor(Date.now() / 1000 + 2 * 60 * 60),
+            exp: Math.floor(Date.now() / 1000 + 15 * 60),
           };
 
           return token;
