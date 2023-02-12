@@ -19,16 +19,9 @@ export type Error = {
   message: Scalars['String'];
 };
 
-export type Message = {
-  __typename?: 'Message';
-  body: Scalars['String'];
-  createdAt: Scalars['Date'];
-  id: Scalars['ID'];
-  user: User;
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
+  createPaymentOrder: MutationCreatePaymentOrderResult;
   login: MutationLoginResult;
   refreshToken: MutationRefreshTokenResult;
   resetPassword: MutationResetPasswordResult;
@@ -36,6 +29,12 @@ export type Mutation = {
   sendPasswordResetEmail: MutationSendPasswordResetEmailResult;
   signUp: MutationSignUpResult;
   verifyEmail: MutationVerifyEmailResult;
+};
+
+
+export type MutationCreatePaymentOrderArgs = {
+  eventId?: InputMaybe<Scalars['ID']>;
+  type: OrderType;
 };
 
 
@@ -72,6 +71,13 @@ export type MutationSignUpArgs = {
 
 export type MutationVerifyEmailArgs = {
   token: Scalars['String'];
+};
+
+export type MutationCreatePaymentOrderResult = Error | MutationCreatePaymentOrderSuccess;
+
+export type MutationCreatePaymentOrderSuccess = {
+  __typename?: 'MutationCreatePaymentOrderSuccess';
+  data: PaymentOrder;
 };
 
 export type MutationLoginResult = Error | MutationLoginSuccess;
@@ -123,6 +129,20 @@ export type MutationVerifyEmailSuccess = {
   data: User;
 };
 
+export enum OrderType {
+  EventRegistration = 'EVENT_REGISTRATION',
+  FestRegistration = 'FEST_REGISTRATION'
+}
+
+export type PaymentOrder = {
+  __typename?: 'PaymentOrder';
+  amount: Scalars['Int'];
+  id: Scalars['ID'];
+  orderId: Scalars['ID'];
+  status: Scalars['String'];
+  user: User;
+};
+
 export type Query = {
   __typename?: 'Query';
   me: QueryMeResult;
@@ -138,10 +158,10 @@ export type QueryMeSuccess = {
 
 export type User = {
   __typename?: 'User';
+  createdAt: Scalars['Date'];
   email: Scalars['String'];
   id: Scalars['ID'];
   isVerified: Scalars['Boolean'];
-  message: Array<Message>;
   name: Scalars['String'];
   role: Scalars['String'];
 };
@@ -163,6 +183,11 @@ export type UserLoginPayload = {
   refreshToken: Scalars['String'];
 };
 
+export type FestRegPaymentOrderMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FestRegPaymentOrderMutation = { __typename?: 'Mutation', createPaymentOrder: { __typename: 'Error', message: string } | { __typename: 'MutationCreatePaymentOrderSuccess', data: { __typename?: 'PaymentOrder', amount: number, orderId: string, status: string, user: { __typename?: 'User', email: string, name: string } } } };
+
 export type SignUpMutationVariables = Exact<{
   email: Scalars['String'];
   name: Scalars['String'];
@@ -178,5 +203,6 @@ export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetAllUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, name: string, email: string }> };
 
 
+export const FestRegPaymentOrderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"festRegPaymentOrder"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createPaymentOrder"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"type"},"value":{"kind":"EnumValue","value":"FEST_REGISTRATION"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Error"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MutationCreatePaymentOrderSuccess"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"orderId"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<FestRegPaymentOrderMutation, FestRegPaymentOrderMutationVariables>;
 export const SignUpDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SignUp"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"password"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signUp"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"password"},"value":{"kind":"Variable","name":{"kind":"Name","value":"password"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Error"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"message"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MutationSignUpSuccess"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}}]}}]}}]}}]} as unknown as DocumentNode<SignUpMutation, SignUpMutationVariables>;
 export const GetAllUsersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllUsers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"users"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]} as unknown as DocumentNode<GetAllUsersQuery, GetAllUsersQueryVariables>;

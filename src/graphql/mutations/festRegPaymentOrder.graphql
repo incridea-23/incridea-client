@@ -1,0 +1,20 @@
+mutation festRegPaymentOrder {
+  createPaymentOrder(type: FEST_REGISTRATION) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationCreatePaymentOrderSuccess {
+      __typename
+      data {
+        amount
+        orderId
+        status
+        user {
+          email
+          name
+        }
+      }
+    }
+  }
+}

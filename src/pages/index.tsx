@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { Button } from "../components/button";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { usePayment } from "../utils/razorpay";
 
 /* 3 data fetching options in Next.js:
 1. Client-side rendering - useQuery is called on client-side.
@@ -37,6 +38,13 @@ const Home: NextPage = () => {
             <div>
               <div>Authenticated as {session?.user?.data.email}</div>
               <div>Session expires in {session?.expires}</div>
+              {session.user.data.role === "USER" ? (
+                <button onClick={() => {}}>
+                  Register for fest By Paying Pay 250
+                </button>
+              ) : (
+                <p>Hello Participant your pid is {session.user.data.id}</p>
+              )}
             </div>
           )}
           {status === "unauthenticated" && <div>Not authenticated</div>}
