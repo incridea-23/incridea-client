@@ -31,8 +31,8 @@ export const makePayment = async () => {
     data?.createPaymentOrder.__typename === "MutationCreatePaymentOrderSuccess"
   ) {
     const options = {
-      key: process.env.RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
-      name: "Incridea 2022",
+      key: process.env.RAZORPAY_KEY,
+      name: "Incridea 2023",
       currency: "INR",
       amount: data.createPaymentOrder.data.amount,
       order_id: data.createPaymentOrder.data.orderId,

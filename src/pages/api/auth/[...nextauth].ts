@@ -1,7 +1,14 @@
 import { isJwtExpired } from "@/src/utils/isJwtExpired";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { client } from "../../../lib/apollo";
 const graphqlServer = "http://192.168.43.35:4000/graphql";
+
+import {
+  MeDocument,
+  SignInDocument,
+  RefreshTokenDocument,
+} from "../../../generated/generated";
 
 declare module "next-auth" {
   /**
@@ -59,51 +66,25 @@ declare module "next-auth" {
 }
 
 export const refreshToken = async function (token: string) {
-  console.log("Token ????", token);
-  try {
-    const query = JSON.stringify({
-      query: `#graphql
-      mutation {
-        refreshToken(refreshToken: "${token}") {
-          ... on Error {
-            __typename
-            message
-          }
-          ... on MutationRefreshTokenSuccess {
-            __typename
-            data {
-              accessToken
-              refreshToken
-            }
-          }
-        }
-      }
-      `,
-    });
-
-    const response = await fetch(`${graphqlServer}`, {
-      headers: { "content-type": "application/json" },
-      method: "POST",
-      body: query,
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .catch((err) => {
-        return err;
-      });
-    const { accessToken, refreshToken } = response.data.refreshToken.data;
-    console.log("refreshed token", accessToken, refreshToken);
-    return [accessToken, refreshToken];
-  } catch {
-    return [null, null];
+  const { data } = await client.mutate({
+    mutation: RefreshTokenDocument,
+    variables: {
+      refreshToken: token,
+    },
+  });
+  if (data?.refreshToken.__typename === "MutationRefreshTokenSuccess") {
+    return [
+      data.refreshToken.data.accessToken,
+      data.refreshToken.data.refreshToken,
+    ];
   }
+  return [null, null];
 };
 
 export default NextAuth({
   session: {
     strategy: "jwt",
-    maxAge: 15 * 60,
+    maxAge: 24 * 60 * 60,
   },
   debug: process.env.NODE_ENV === "development",
   providers: [
@@ -112,39 +93,18 @@ export default NextAuth({
       credentials: {},
       async authorize(credentials: any, _req): Promise<any> {
         const { email, password } = credentials;
-        const query = JSON.stringify({
-          query: `#graphql
-          mutation {
-            login(data: { email: "${email}", password: "${password}" }) {
-              __typename
-              ... on Error {
-                message
-              }
-              ... on MutationLoginSuccess {
-                __typename
-                data {
-                  accessToken
-                  refreshToken
-                }
-              }
-            }
-          }
-          `,
+        const { data } = await client.mutate({
+          mutation: SignInDocument,
+          variables: {
+            email: email as string,
+            password: password as string,
+          },
         });
 
-        const response = await fetch(`${graphqlServer}`, {
-          headers: { "content-type": "application/json" },
-          method: "POST",
-          body: query,
-        });
-
-        const data = await response.json();
-
-        if (data.data.login.__typename === "MutationLoginSuccess") {
-          return data.data;
+        if (data?.login.__typename === "MutationLoginSuccess") {
+          return data;
         }
-
-        throw new Error(data.data.login.message);
+        throw new Error(data?.login.message);
       },
     }),
   ],
@@ -194,41 +154,24 @@ export default NextAuth({
         };
       }
 
-      const query = JSON.stringify({
-        query: `
-        query {
-          me {
-            ... on Error {
-              __typename
-              message
-            }
-            ... on QueryMeSuccess {
-              __typename
-              data {
-                email
-                id
-                isVerified
-                name
-                role
-              }
-            }
-          }
-        }
-        `,
-      });
-
-      const response = await fetch(`${graphqlServer}`, {
-        headers: {
-          "content-type": "application/json",
-          Authorization: `Bearer ${token.accessToken}`,
+      const { data } = await client.query({
+        query: MeDocument,
+        context: {
+          headers: {
+            authorization: `Bearer ${token.accessToken}`,
+          },
         },
-        method: "POST",
-        body: query,
       });
-
-      const data = await response.json();
-      token.data = data.data.me.data;
-      return token;
+      console.log(data);
+      if (data?.me.__typename === "QueryMeSuccess") {
+        token.data = data.me.data;
+        return token;
+      }
+      throw new Error(
+        data?.me.__typename === "Error"
+          ? data.me.message
+          : "Something went wrong"
+      );
     },
 
     async session({ session, token, user }) {
