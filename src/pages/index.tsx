@@ -1,12 +1,13 @@
-import { initializeApollo } from '@/src/lib/apollo';
-import { useQuery } from '@apollo/client';
-import { type NextPage } from 'next';
-import Head from 'next/head';
-import { GetAllUsersDocument } from '../generated/generated';
-import { motion } from 'framer-motion';
-import { Button } from '../components/button';
-import { signIn, signOut, useSession } from 'next-auth/react';
-import Link from 'next/link';
+import { initializeApollo } from "@/src/lib/apollo";
+import { useQuery } from "@apollo/client";
+import { type NextPage } from "next";
+import Head from "next/head";
+import { GetAllUsersDocument } from "../generated/generated";
+import { motion } from "framer-motion";
+import { Button } from "../components/button";
+import { signIn, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
+import { makePayment } from "../utils/razorpay";
 
 /* 3 data fetching options in Next.js:
 1. Client-side rendering - useQuery is called on client-side.
@@ -18,6 +19,7 @@ const Home: NextPage = () => {
   // 1. Client side rendering example
   const results = useQuery(GetAllUsersDocument);
   const { data: session, status } = useSession();
+
   return (
     <>
       <Head>
@@ -32,14 +34,21 @@ const Home: NextPage = () => {
         </div>
 
         <div className="text-center">
-          {status === 'loading' && <div>Loading...</div>}
-          {status === 'authenticated' && (
+          {status === "loading" && <div>Loading...</div>}
+          {status === "authenticated" && (
             <div>
               <div>Authenticated as {session?.user?.data.email}</div>
               <div>Session expires in {session?.expires}</div>
+              {session.user.data.role === "USER" ? (
+                <button onClick={makePayment}>
+                  Register for fest By Paying Pay 250{" "}
+                </button>
+              ) : (
+                <p>Hello Participant your pid is {session.user.data.id}</p>
+              )}
             </div>
           )}
-          {status === 'unauthenticated' && <div>Not authenticated</div>}
+          {status === "unauthenticated" && <div>Not authenticated</div>}
           <div className="text-blue-500 mt-3">
             Apollo Client + Framer Motion Demo
           </div>
@@ -57,8 +66,7 @@ const Home: NextPage = () => {
                   bottom: 5,
                 }}
                 key={user.id}
-                className="border border-gray-400 rounded-lg p-5 hover:bg-gray-50 hover:border-black"
-              >
+                className="border border-gray-400 rounded-lg p-5 hover:bg-gray-50 hover:border-black">
                 <div>{user.name}</div>
               </motion.button>
             ))}
@@ -70,7 +78,7 @@ const Home: NextPage = () => {
             class-variance-authority example
           </div>
           <div className="flex flex-col sm:flex-row items-center gap-3">
-            {status === 'authenticated' ? (
+            {status === "authenticated" ? (
               <Button
                 onClick={() => {
                   signOut();
@@ -89,12 +97,11 @@ const Home: NextPage = () => {
                   }}
                   intent="primary"
                   size="small"
-                  className="rounded-xl mt-3"
-                >
+                  className="rounded-xl mt-3">
                   Login
                 </Button>
-                <Button intent={'primary'} size={'small'} className="mt-3">
-                  <Link href={'/auth/signup'}>Sign Up</Link>
+                <Button intent={"primary"} size={"small"} className="mt-3">
+                  <Link href={"/auth/signup"}>Sign Up</Link>
                 </Button>
               </>
             )}

@@ -1,0 +1,15 @@
+mutation RefreshToken($refreshToken: String!) {
+  refreshToken(refreshToken: $refreshToken) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationRefreshTokenSuccess {
+      __typename
+      data {
+        accessToken
+        refreshToken
+      }
+    }
+  }
+}

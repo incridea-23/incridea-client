@@ -1,0 +1,19 @@
+query Me {
+  me {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on QueryMeSuccess {
+      __typename
+      data {
+        createdAt
+        email
+        id
+        isVerified
+        name
+        role
+      }
+    }
+  }
+}
