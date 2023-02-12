@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import Router from "next/router";
 import { FestRegPaymentOrderDocument } from "../generated/generated";
-import { initializeApollo } from "../lib/apollo";
+import { client } from "../lib/apollo";
 export const initializeRazorpay = () => {
   return new Promise((resolve) => {
     const script = document.createElement("script");
@@ -23,7 +23,6 @@ export const makePayment = async () => {
   if (!res) {
     alert("Razorpay SDK Failed to load");
   }
-  const client = initializeApollo();
   const { data } = await client.mutate({
     mutation: FestRegPaymentOrderDocument,
   });
