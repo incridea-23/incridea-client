@@ -1,4 +1,4 @@
-mutation festRegPaymentOrder {
+mutation FestRegPaymentOrder {
   createPaymentOrder(type: FEST_REGISTRATION) {
     ... on Error {
       __typename

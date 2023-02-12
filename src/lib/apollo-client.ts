@@ -3,7 +3,7 @@ import { setContext } from "@apollo/client/link/context";
 import { getSession } from "next-auth/react";
 
 const httpLink = createHttpLink({
-  uri: "https://incridea-test.onrender.com/graphql",
+  uri: "http://192.168.43.35:4000/graphql",
 });
 
 const authLink = setContext(async (_, { headers }) => {

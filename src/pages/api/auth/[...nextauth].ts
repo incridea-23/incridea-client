@@ -1,7 +1,7 @@
 import { isJwtExpired } from "@/src/utils/isJwtExpired";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-const graphqlServer = "https://incridea-test.onrender.com/graphql";
+const graphqlServer = "http://192.168.43.35:4000/graphql";
 
 declare module "next-auth" {
   /**
@@ -58,12 +58,13 @@ declare module "next-auth" {
   }
 }
 
-export const refreshToken = async function (refreshToken: string) {
+export const refreshToken = async function (token: string) {
+  console.log("Token ????", token);
   try {
     const query = JSON.stringify({
       query: `#graphql
       mutation {
-        refreshToken(refreshToken: "${refreshToken}") {
+        refreshToken(refreshToken: "${token}") {
           ... on Error {
             __typename
             message
@@ -91,10 +92,9 @@ export const refreshToken = async function (refreshToken: string) {
       .catch((err) => {
         return err;
       });
-
-    const { access, refresh } = response.data;
-    // still within this block, return true
-    return [access, refresh];
+    const { accessToken, refreshToken } = response.data.refreshToken.data;
+    console.log("refreshed token", accessToken, refreshToken);
+    return [accessToken, refreshToken];
   } catch {
     return [null, null];
   }

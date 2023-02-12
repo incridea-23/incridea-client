@@ -30,3 +30,4 @@ export function useApollo(initialState: any) {
   const store = useMemo(() => initializeApollo(initialState), [initialState]);
   return store;
 }
+export const client = initializeApollo();
