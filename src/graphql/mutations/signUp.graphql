@@ -1,7 +1,7 @@
 mutation SignUp($email: String!, $name: String!, $password: String!) {
   signUp(data: { email: $email, name: $name, password: $password }) {
-    __typename
     ... on Error {
+      __typename
       message
     }
     ... on MutationSignUpSuccess {

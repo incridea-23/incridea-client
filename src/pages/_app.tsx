@@ -3,6 +3,7 @@ import '@/src/styles/globals.css';
 import { ApolloProvider } from '@apollo/client';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
+import HeadComponent from '../components/head';
 
 export default function App({
   Component,
@@ -13,6 +14,10 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <ApolloProvider client={apolloClient}>
+        <HeadComponent
+          title="Incridea"
+          description="Official Website of Incridea 2023, National level techno-cultural fest, NMAMIT, Nitte. Innovate. Create. Ideate."
+        />
         <Component {...pageProps} />
       </ApolloProvider>
     </SessionProvider>
