@@ -38,7 +38,9 @@ const Home: NextPage = () => {
           {status === "authenticated" && (
             <div>
               <div>Authenticated as {session?.user?.data.email}</div>
-              <div>Session expires in {session?.expires}</div>
+              <div>
+                Session expires in {new Date(session?.expires).toLocaleString()}
+              </div>
               {session.user.data.role === "USER" ? (
                 <button onClick={makePayment}>
                   Register for fest By Paying Pay 250{" "}
