@@ -2,7 +2,6 @@ import { isJwtExpired } from "@/src/utils/isJwtExpired";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { client } from "../../../lib/apollo";
-const graphqlServer = "http://192.168.43.35:4000/graphql";
 
 import {
   MeDocument,
@@ -162,7 +161,7 @@ export default NextAuth({
           },
         },
       });
-      console.log(data);
+      // console.log(data);
       if (data?.me.__typename === "QueryMeSuccess") {
         token.data = data.me.data;
         return token;
