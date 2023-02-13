@@ -83,7 +83,7 @@ export const refreshToken = async function (token: string) {
 export default NextAuth({
   session: {
     strategy: "jwt",
-    maxAge: 24 * 60 * 60,
+    maxAge: 7 * 24 * 60 * 60,
   },
   debug: process.env.NODE_ENV === "development",
   providers: [
@@ -140,7 +140,7 @@ export default NextAuth({
             accessToken: newAccessToken,
             refreshToken: newRefreshToken,
             iat: Math.floor(Date.now() / 1000),
-            exp: Math.floor(Date.now() / 1000 + 15 * 60),
+            exp: Math.floor(Date.now() / 1000 + 60 * 60 * 24 * 7),
           };
 
           return token;
@@ -161,7 +161,6 @@ export default NextAuth({
           },
         },
       });
-      // console.log(data);
       if (data?.me.__typename === "QueryMeSuccess") {
         token.data = data.me.data;
         return token;

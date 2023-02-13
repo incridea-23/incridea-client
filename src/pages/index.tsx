@@ -20,13 +20,14 @@ const Home: NextPage = () => {
           {status === 'authenticated' && (
             <div>
               <div>Authenticated as {session?.user?.data.email}</div>
-              <div>Session expires in {session?.expires}</div>
-              {session.user.data.role === 'USER' ? (
-                <button
+              <div>
+                Session expires in {new Date(session?.expires).toLocaleString()}
+              </div>
+              {session.user.data.role === "USER" ? (
+                <button 
                   className="bg-green-500 text-white px-3 py-1 rounded-md mt-3"
-                  onClick={makePayment}
-                >
-                  Register for fest By Paying Pay 250
+                  onClick={makePayment}>
+                  Register for fest By Paying Pay 250{" "}
                 </button>
               ) : (
                 <p>Hello Participant👋🏻, your PID is {session.user.data.id}</p>
