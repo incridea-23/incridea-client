@@ -1,4 +1,4 @@
-import { isJwtExpired } from "@/src/utils/isJwtExpired";
+import { isJwtExpired, getRefreshTokenExpiry } from "@/src/utils/jwt";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { client } from "../../../lib/apollo";
@@ -114,15 +114,19 @@ export default NextAuth({
     async redirect({ url, baseUrl }) {
       return baseUrl;
     },
-
     async jwt({ token, user }): Promise<any> {
-      // user just signed in
+      if (!token && !user) {
+        return null;
+      }
+
       if (user) {
         const { accessToken, refreshToken } = user.login.data;
         token = {
           ...token,
           accessToken: accessToken,
           refreshToken: refreshToken,
+          iat: Math.floor(Date.now() / 1000),
+          exp: getRefreshTokenExpiry(refreshToken),
         };
         return token;
       }
@@ -133,24 +137,21 @@ export default NextAuth({
         const [newAccessToken, newRefreshToken] = await refreshToken(
           String(token.refreshToken)
         );
+        console.log("newAccessToken", newAccessToken, newRefreshToken);
 
         if (newAccessToken && newRefreshToken) {
           token = {
             ...token,
             accessToken: newAccessToken,
             refreshToken: newRefreshToken,
-            iat: Math.floor(Date.now() / 1000),
-            exp: Math.floor(Date.now() / 1000 + 60 * 60 * 24 * 7),
+            exp: getRefreshTokenExpiry(newRefreshToken),
           };
 
           return token;
         }
 
         // unable to refresh tokens from backend, invalidate the token
-        return {
-          ...token,
-          exp: 0,
-        };
+        return null;
       }
 
       const { data } = await client.query({
