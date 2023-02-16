@@ -8,6 +8,7 @@ import {
   SignInDocument,
   RefreshTokenDocument,
 } from "../../../generated/generated";
+import jwt from "jsonwebtoken";
 
 declare module "next-auth" {
   /**
@@ -127,7 +128,9 @@ export default NextAuth({
           refreshToken: refreshToken,
           iat: Math.floor(Date.now() / 1000),
           exp: getRefreshTokenExpiry(refreshToken),
+          data: await fetchUser(String(token.accessToken)),
         };
+        // user Info is not returnd by the backend, so we need to fetch it
         return token;
       }
 
@@ -145,6 +148,7 @@ export default NextAuth({
             accessToken: newAccessToken,
             refreshToken: newRefreshToken,
             exp: getRefreshTokenExpiry(newRefreshToken),
+            data: await fetchUser(String(token.accessToken)),
           };
 
           return token;
@@ -153,24 +157,8 @@ export default NextAuth({
         // unable to refresh tokens from backend, invalidate the token
         return null;
       }
-
-      const { data } = await client.query({
-        query: MeDocument,
-        context: {
-          headers: {
-            authorization: `Bearer ${token.accessToken}`,
-          },
-        },
-      });
-      if (data?.me.__typename === "QueryMeSuccess") {
-        token.data = data.me.data;
-        return token;
-      }
-      throw new Error(
-        data?.me.__typename === "Error"
-          ? data.me.message
-          : "Something went wrong"
-      );
+      token.data = await fetchUser(String(token.accessToken));
+      return token;
     },
 
     async session({ session, token, user }) {
@@ -181,3 +169,21 @@ export default NextAuth({
     },
   },
 });
+
+const fetchUser = async (accessToken: string) => {
+  const { data } = await client.query({
+    query: MeDocument,
+    context: {
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+    },
+    fetchPolicy: "no-cache",
+  });
+  if (data?.me.__typename === "QueryMeSuccess") {
+    return data.me.data;
+  }
+  throw new Error(
+    data?.me.__typename === "Error" ? data.me.message : "Something went wrong"
+  );
+};
