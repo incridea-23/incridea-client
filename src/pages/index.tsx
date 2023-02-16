@@ -1,13 +1,13 @@
-import { initializeApollo } from '@/src/lib/apollo';
-import { useQuery } from '@apollo/client';
-import { type NextPage } from 'next';
-import { signIn, signOut, useSession } from 'next-auth/react';
-import Link from 'next/link';
-import { makePayment } from '../utils/razorpay';
-
+import { initializeApollo } from "@/src/lib/apollo";
+import { useQuery } from "@apollo/client";
+import { type NextPage } from "next";
+import { signIn, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
+import { makePayment } from "../utils/razorpay";
+import { MeDocument } from "../generated/generated";
 const Home: NextPage = () => {
   const { data: session, status } = useSession();
-
+  const { data, loading, error } = useQuery(MeDocument);
   return (
     <>
       <main className="h-screen w-screen flex justify-center items-center flex-col gap-5">
@@ -16,15 +16,22 @@ const Home: NextPage = () => {
         </div>
 
         <div className="text-center">
-          {status === 'loading' && <div>Loading...</div>}
-          {status === 'authenticated' && (
+          {status === "loading" && <div>Loading...</div>}
+          {status === "authenticated" && (
             <div>
+              <div>
+                <p>
+                  {data &&
+                    data.me.__typename === "QueryMeSuccess" &&
+                    JSON.stringify(data.me.data)}
+                </p>
+              </div>
               <div>Authenticated as {session?.user?.data.email}</div>
               <div>
                 Session expires in {new Date(session?.expires).toLocaleString()}
               </div>
               {session.user.data.role === "USER" ? (
-                <button 
+                <button
                   className="bg-green-500 text-white px-3 py-1 rounded-md mt-3"
                   onClick={makePayment}>
                   Register for fest By Paying Pay 250{" "}
@@ -34,18 +41,17 @@ const Home: NextPage = () => {
               )}
             </div>
           )}
-          {status === 'unauthenticated' && <div>Not authenticated</div>}
+          {status === "unauthenticated" && <div>Not authenticated</div>}
         </div>
 
         <div className="text-center">
           <div className="flex flex-col sm:flex-row items-center gap-3">
-            {status === 'authenticated' ? (
+            {status === "authenticated" ? (
               <button
                 onClick={() => {
                   signOut();
                 }}
-                className="bg-red-500 text-white px-3 py-1 rounded-md"
-              >
+                className="bg-red-500 text-white px-3 py-1 rounded-md">
                 Sign Out
               </button>
             ) : (
@@ -54,12 +60,11 @@ const Home: NextPage = () => {
                   onClick={() => {
                     signIn();
                   }}
-                  className="bg-blue-500 text-white px-3 py-1 rounded-md"
-                >
+                  className="bg-blue-500 text-white px-3 py-1 rounded-md">
                   Login
                 </button>
                 <button className="bg-green-500 text-white px-3 py-1 rounded-md">
-                  <Link href={'/auth/signup'}>Sign Up</Link>
+                  <Link href={"/auth/signup"}>Sign Up</Link>
                 </button>
               </>
             )}
