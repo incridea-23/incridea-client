@@ -9,7 +9,7 @@ export const isJwtExpired = (token: string) => {
     if (decodedToken?.exp) {
       const adjustedExpiry = decoded["exp"] || 0;
       const remaining = adjustedExpiry - currentTime;
-      console.log("access token :", remaining.toLocaleString());
+      // console.log("access token :", remaining.toLocaleString());
       if (adjustedExpiry < currentTime) {
         return true;
       }
@@ -27,7 +27,7 @@ export const getRefreshTokenExpiry = (token: string) => {
     const decodedToken: jwt.JwtPayload = decoded;
     if (decodedToken?.exp) {
       const adjustedExpiry = decoded["exp"] || 0;
-      console.log("Refresh :", (adjustedExpiry - currentTime).toLocaleString());
+      // console.log("Refresh :", (adjustedExpiry - currentTime).toLocaleString());
       return adjustedExpiry;
     }
   }

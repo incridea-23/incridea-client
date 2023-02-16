@@ -8,7 +8,6 @@ import {
   SignInDocument,
   RefreshTokenDocument,
 } from "../../../generated/generated";
-import jwt from "jsonwebtoken";
 
 declare module "next-auth" {
   /**
@@ -128,7 +127,7 @@ export default NextAuth({
           refreshToken: refreshToken,
           iat: Math.floor(Date.now() / 1000),
           exp: getRefreshTokenExpiry(refreshToken),
-          data: await fetchUser(String(token.accessToken)),
+          data: await fetchUser(accessToken),
         };
         // user Info is not returnd by the backend, so we need to fetch it
         return token;
@@ -140,7 +139,7 @@ export default NextAuth({
         const [newAccessToken, newRefreshToken] = await refreshToken(
           String(token.refreshToken)
         );
-        console.log("newAccessToken", newAccessToken, newRefreshToken);
+        // console.log("newAccessToken", newAccessToken, newRefreshToken);
 
         if (newAccessToken && newRefreshToken) {
           token = {
