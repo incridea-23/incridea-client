@@ -1,4 +1,3 @@
-import { useMutation } from "@apollo/client";
 import Router from "next/router";
 import { FestRegPaymentOrderDocument } from "../generated/generated";
 import { client } from "../lib/apollo";
@@ -36,7 +35,7 @@ export const makePayment = async () => {
       amount: data.createPaymentOrder.data.amount,
       order_id: data.createPaymentOrder.data.orderId,
       description: "Incridea 2023 Registration",
-      image: "/images/logo.svg",
+      image: "/logo.png",
       handler: function (response: any) {
         Router.push("/profile");
       },

@@ -12,7 +12,7 @@ export default function App({
   const apolloClient = useApollo(pageProps.initialApolloState);
 
   return (
-    <SessionProvider session={session}>
+    <SessionProvider session={session} refetchInterval={9000}>
       <ApolloProvider client={apolloClient}>
         <HeadComponent
           title="Incridea"
