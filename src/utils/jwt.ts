@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 export const isJwtExpired = (token: string) => {
-  const currentTime = Math.floor(Date.now() / 1000);
+  const currentTime = Math.floor(Date.now() / 1000) + 60;
   const decoded = jwt.decode(token);
 
   if (decoded && typeof decoded === "object") {
@@ -9,7 +9,6 @@ export const isJwtExpired = (token: string) => {
     if (decodedToken?.exp) {
       const adjustedExpiry = decoded["exp"] || 0;
       const remaining = adjustedExpiry - currentTime;
-      // console.log("access token :", remaining.toLocaleString());
       if (adjustedExpiry < currentTime) {
         return true;
       }
