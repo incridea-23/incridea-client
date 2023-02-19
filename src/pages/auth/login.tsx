@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { FormEventHandler, useState } from 'react';
 
@@ -14,25 +13,25 @@ const SignIn: NextPage = () => {
     e.preventDefault();
 
     setLoading(true);
-    const res = await signIn('credentials', {
-      email: userInfo.email,
-      password: userInfo.password,
-      redirect: false,
-    }).then((res) => {
-      setLoading(false);
-      return res;
-    });
+    // const res = await signIn('credentials', {
+    //   email: userInfo.email,
+    //   password: userInfo.password,
+    //   redirect: false,
+    // }).then((res) => {
+    //   setLoading(false);
+    //   return res;
+    // });
 
-    if (res?.error) {
-      setLoading(false);
-      setError(res.error);
-    }
+    // if (res?.error) {
+    //   setLoading(false);
+    //   setError(res.error);
+    // }
 
-    if (res?.ok) {
-      setError('');
-      setUserInfo({ email: '', password: '' });
-      router.push('/');
-    }
+    // if (res?.ok) {
+    //   setError('');
+    //   setUserInfo({ email: '', password: '' });
+    //   router.push('/');
+    // }
   };
 
   return (

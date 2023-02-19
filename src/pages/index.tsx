@@ -1,12 +1,11 @@
-import { initializeApollo } from "@/src/lib/apollo";
-import { useQuery } from "@apollo/client";
-import { type NextPage } from "next";
-import { signIn, signOut, useSession } from "next-auth/react";
-import Link from "next/link";
-import { makePayment } from "../utils/razorpay";
-import { MeDocument } from "../generated/generated";
+import { useQuery } from '@apollo/client';
+import { type NextPage } from 'next';
+// import { signIn, signOut, useSession } from "next-auth/react";
+import Link from 'next/link';
+import { makePayment } from '../utils/razorpay';
+import { MeDocument } from '../generated/generated';
 const Home: NextPage = () => {
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
   const { data, loading, error } = useQuery(MeDocument);
   return (
     <>
@@ -15,7 +14,7 @@ const Home: NextPage = () => {
           Incridea &apos;23
         </div>
 
-        <div className="text-center">
+        {/* <div className="text-center">
           {status === "loading" && <div>Loading...</div>}
           {status === "authenticated" && (
             <div>
@@ -42,29 +41,31 @@ const Home: NextPage = () => {
             </div>
           )}
           {status === "unauthenticated" && <div>Not authenticated</div>}
-        </div>
+        </div> */}
 
         <div className="text-center">
           <div className="flex flex-col sm:flex-row items-center gap-3">
-            {status === "authenticated" ? (
+            {status === 'authenticated' ? (
               <button
                 onClick={() => {
-                  signOut();
+                  // signOut();
                 }}
-                className="bg-red-500 text-white px-3 py-1 rounded-md">
+                className="bg-red-500 text-white px-3 py-1 rounded-md"
+              >
                 Sign Out
               </button>
             ) : (
               <>
                 <button
                   onClick={() => {
-                    signIn();
+                    // signIn();
                   }}
-                  className="bg-blue-500 text-white px-3 py-1 rounded-md">
+                  className="bg-blue-500 text-white px-3 py-1 rounded-md"
+                >
                   Login
                 </button>
                 <button className="bg-green-500 text-white px-3 py-1 rounded-md">
-                  <Link href={"/auth/signup"}>Sign Up</Link>
+                  <Link href={'/auth/signup'}>Sign Up</Link>
                 </button>
               </>
             )}
