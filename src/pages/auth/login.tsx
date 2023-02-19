@@ -7,7 +7,7 @@ import { FormEventHandler, useState } from 'react';
 const SignIn: NextPage = () => {
   const [userInfo, setUserInfo] = useState({ email: '', password: '' });
   const [error, setError] = useState<string>('');
-  const [signInMutation, { data, loading, error: mutationError }] =
+  const [signInMutation, { loading, error: mutationError }] =
     useMutation(SignInDocument);
   const router = useRouter();
 
@@ -21,9 +21,7 @@ const SignIn: NextPage = () => {
         password: userInfo.password,
       },
     }).then((res) => {
-      if (res.data?.login.__typename === 'Error') {
-        setError(res.data.login.message);
-      }
+      mutationError && setError(mutationError.message);
 
       if (res.data?.login.__typename === 'MutationLoginSuccess') {
         const { accessToken, refreshToken } = res.data.login.data;
@@ -37,9 +35,6 @@ const SignIn: NextPage = () => {
             refreshToken,
           }),
         });
-
-        setError('');
-        setUserInfo({ email: '', password: '' });
         router.push('/');
       }
     });

@@ -1,11 +1,5 @@
-import {
-  ApolloClient,
-  createHttpLink,
-  InMemoryCache,
-  ApolloLink,
-} from '@apollo/client';
+import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import cookie from 'cookie';
 
 const httpLink = createHttpLink({
   uri:
@@ -14,7 +8,7 @@ const httpLink = createHttpLink({
 });
 
 // const authLink = setContext(async (_, { headers }) => {
-//   const token = cookie.parse(document.cookie).access_token;
+//   const token = // get the token from cookie
 
 //   return {
 //     headers: {

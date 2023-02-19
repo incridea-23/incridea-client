@@ -8,7 +8,8 @@ export const REFRESH_TOKEN_NAME = 'refresh_token';
 export function setTokenCookie(
   res: NextApiResponse,
   name: string,
-  value: string
+  value: string,
+  expires: number
 ) {
   const cookieValue = jwt.sign(value, process.env.AUTH_SECRET as string); // sign the token with AUTH_SECRET
   res.setHeader(
@@ -16,9 +17,9 @@ export function setTokenCookie(
     cookie.serialize(name, cookieValue, {
       httpOnly: true,
       secure: process.env.NODE_ENV !== 'development',
-      maxAge: 60 * 60 * 24 * 7, // 1 week
+      maxAge: expires,
       sameSite: 'strict',
-      path: '/',
+      path: '/api/',
     })
   );
 }
