@@ -1,18 +1,24 @@
-import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
-// import { setContext } from "@apollo/client/link/context";
+import {
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache,
+  ApolloLink,
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import cookie from 'cookie';
 
 const httpLink = createHttpLink({
   uri:
-    process.env.BACKEND_URL || "https://incridea-test.up.railway.app/graphql",
+    process.env.BACKEND_URL || 'https://incridea-test.up.railway.app/graphql',
+  credentials: 'include',
 });
 
 // const authLink = setContext(async (_, { headers }) => {
-//   const session = await getSession();
-//   const token = session?.accessToken;
+//   const token = cookie.parse(document.cookie).access_token;
 
 //   return {
 //     headers: {
-//       authorization: token ? `Bearer ${token}` : "",
+//       authorization: token ? `Bearer ${token}` : '',
 //       ...headers,
 //     },
 //   };

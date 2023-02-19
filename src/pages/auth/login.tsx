@@ -1,3 +1,5 @@
+import { SignInDocument } from '@/src/generated/generated';
+import { useMutation } from '@apollo/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { FormEventHandler, useState } from 'react';
@@ -5,33 +7,42 @@ import { FormEventHandler, useState } from 'react';
 const SignIn: NextPage = () => {
   const [userInfo, setUserInfo] = useState({ email: '', password: '' });
   const [error, setError] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
+  const [signInMutation, { data, loading, error: mutationError }] =
+    useMutation(SignInDocument);
   const router = useRouter();
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     // add some client side validations like empty fields, password length, etc.
     e.preventDefault();
 
-    setLoading(true);
-    // const res = await signIn('credentials', {
-    //   email: userInfo.email,
-    //   password: userInfo.password,
-    //   redirect: false,
-    // }).then((res) => {
-    //   setLoading(false);
-    //   return res;
-    // });
+    signInMutation({
+      variables: {
+        email: userInfo.email,
+        password: userInfo.password,
+      },
+    }).then((res) => {
+      if (res.data?.login.__typename === 'Error') {
+        setError(res.data.login.message);
+      }
 
-    // if (res?.error) {
-    //   setLoading(false);
-    //   setError(res.error);
-    // }
+      if (res.data?.login.__typename === 'MutationLoginSuccess') {
+        const { accessToken, refreshToken } = res.data.login.data;
+        fetch('/api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            accessToken,
+            refreshToken,
+          }),
+        });
 
-    // if (res?.ok) {
-    //   setError('');
-    //   setUserInfo({ email: '', password: '' });
-    //   router.push('/');
-    // }
+        setError('');
+        setUserInfo({ email: '', password: '' });
+        router.push('/');
+      }
+    });
   };
 
   return (
