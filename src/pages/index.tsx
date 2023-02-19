@@ -6,6 +6,7 @@ import { makePayment } from "../utils/razorpay";
 import { MeDocument } from "../generated/generated";
 const Home: NextPage = () => {
   const { data, loading, error } = useQuery(MeDocument);
+  if (loading) return <div>Loading...</div>;
   return (
     <>
       <main className="h-screen w-screen flex justify-center items-center flex-col gap-5">
