@@ -1,5 +1,5 @@
 import { FormEventHandler, FunctionComponent, useState } from 'react';
-import { ResetPasswordDocument } from '@/src/generated/generated';
+import { ResetPasswordEmailDocument } from '@/src/generated/generated';
 import { useMutation } from '@apollo/client';
 
 type ResetPasswordFormProps = {
@@ -12,12 +12,14 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
   const [email, setEmail] = useState<string>('');
 
   const [resetMutation, { data, loading, error }] = useMutation(
-    ResetPasswordDocument
+    ResetPasswordEmailDocument
   );
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     // add some client side validations like empty fields, password length, etc.
     e.preventDefault();
+    if (email === '') return;
+
     resetMutation({
       variables: {
         email: email,
@@ -29,8 +31,9 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
     <>
       {loading ? (
         <div>Loading...</div>
-      ) : data ? (
-        <div className="text-green-500">✅ Check your email for a reset link</div>
+      ) : data?.sendPasswordResetEmail.__typename ===
+        'MutationSendPasswordResetEmailSuccess' ? (
+        <div className="text-green-500">✅ Reset link is sent to your email. Please check your inbox.</div>
       ) : (
         <form
           className="flex flex-col gap-3 border border-black p-5 rounded-xl"
@@ -46,7 +49,7 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
-            Reset Password
+            Send Reset Link
           </button>
           <button
             onClick={() => setWhichForm('signIn')}

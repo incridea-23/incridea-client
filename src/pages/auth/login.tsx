@@ -1,5 +1,5 @@
-import ResetPasswordForm from '@/src/components/signIn/resetPasswordForm';
-import SignInForm from '@/src/components/signIn/signInForm';
+import ResetPasswordForm from '@/src/components/form/signIn/resetPasswordForm';
+import SignInForm from '@/src/components/form/signIn/signInForm';
 import { NextPage } from 'next';
 import { useState } from 'react';
 
