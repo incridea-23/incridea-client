@@ -17,15 +17,14 @@ const Home: NextPage = () => {
         <div>
           <div className="flex flex-col gap-3">
             {status === "authenticated" ? (
-              <div className="text-center space-y-1 text-md font-sans">
+              <div className="text-center space-y-2 text-md font-sans">
                 <div className="text-xl font-semibold ">
                   Welcome {user?.name}
                 </div>
                 <div className="text-sm font-light">
-                  Your email is {user?.email}
+                  Signed in as {user?.email}
                 </div>
-                <div>Your role is {user?.role}</div>
-                <div>Your id is {user?.id}</div>
+                <div className="font-thin border border-blue-500 rounded-full">{user?.role} : {user?.id}</div>
                 <div className="flex gap-5 justify-center">
                   {user?.role === "USER" && (
                     <button
