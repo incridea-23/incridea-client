@@ -2,6 +2,7 @@ import { type NextPage } from 'next';
 import { signIn, signOut } from 'next-auth/react';
 import { makePayment } from '../utils/razorpay';
 import { useAuth } from '../hooks/useAuth';
+import Link from 'next/link';
 
 const Home: NextPage = () => {
   const { user, loading, error, status } = useAuth();
@@ -49,7 +50,7 @@ const Home: NextPage = () => {
                 </div>
               </div>
             ) : (
-              <div className="text-center space-y-2">
+              <div className="text-center space-y-2 space-x-3">
                 <div className="text-lg ">You are not logged in</div>
                 <button
                   onClick={() => signIn()}
@@ -57,6 +58,11 @@ const Home: NextPage = () => {
                 >
                   Sign In
                 </button>
+                <Link href="/auth/signup">
+                  <button className="bg-blue-500 text-white px-3 py-2 rounded-md">
+                    Sign Up
+                  </button>
+                </Link>
               </div>
             )}
           </div>

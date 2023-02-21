@@ -10,8 +10,9 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
   setWhichForm,
 }) => {
   const [email, setEmail] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
 
-  const [resetMutation, { data, loading, error }] = useMutation(
+  const [resetMutation, { data, loading, error: mutationError }] = useMutation(
     ResetPasswordEmailDocument
   );
 
@@ -24,6 +25,10 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
       variables: {
         email: email,
       },
+    }).then((res) => {
+      if (res.data?.sendPasswordResetEmail.__typename === 'Error') {
+        setError(res.data.sendPasswordResetEmail.message);
+      }
     });
   };
 
@@ -33,7 +38,9 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
         <div>Loading...</div>
       ) : data?.sendPasswordResetEmail.__typename ===
         'MutationSendPasswordResetEmailSuccess' ? (
-        <div className="text-green-500">✅ Reset link is sent to your email. Please check your inbox.</div>
+        <div className="text-green-500">
+          ✅ Reset link is sent to your email. Please check your inbox.
+        </div>
       ) : (
         <form
           className="flex flex-col gap-3 border border-black p-5 rounded-xl"
@@ -58,7 +65,11 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
           >
             Cancel
           </button>
-          {error && <div className="text-red-500">{error.message}</div>}
+          {(error || mutationError) && (
+            <div className="text-red-500">
+              {error || mutationError?.message}
+            </div>
+          )}
         </form>
       )}
     </>

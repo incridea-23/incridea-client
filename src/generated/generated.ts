@@ -53,26 +53,42 @@ export type Event = {
 };
 
 export type EventCreateInput = {
-  date?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   eventDate?: InputMaybe<Scalars['Date']>;
   name: Scalars['String'];
   venue?: InputMaybe<Scalars['String']>;
 };
 
+export type EventUpdateInput = {
+  description?: InputMaybe<Scalars['String']>;
+  eventDate?: InputMaybe<Scalars['Date']>;
+  name?: InputMaybe<Scalars['String']>;
+  venue?: InputMaybe<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  addOrganizer: MutationAddOrganizerResult;
   createCollege: MutationCreateCollegeResult;
   createEvent: MutationCreateEventResult;
   createPaymentOrder: MutationCreatePaymentOrderResult;
+  deleteEvent: MutationDeleteEventResult;
   login: MutationLoginResult;
   /** Refreshes the access token */
   refreshToken: MutationRefreshTokenResult;
+  removeOrganizer: MutationRemoveOrganizerResult;
   resetPassword: MutationResetPasswordResult;
   sendEmailVerification: MutationSendEmailVerificationResult;
   sendPasswordResetEmail: MutationSendPasswordResetEmailResult;
   signUp: MutationSignUpResult;
+  updateEvent: MutationUpdateEventResult;
   verifyEmail: MutationVerifyEmailResult;
+};
+
+
+export type MutationAddOrganizerArgs = {
+  eventId: Scalars['ID'];
+  userId: Scalars['ID'];
 };
 
 
@@ -93,6 +109,11 @@ export type MutationCreatePaymentOrderArgs = {
 };
 
 
+export type MutationDeleteEventArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type MutationLoginArgs = {
   data: UserLoginInput;
 };
@@ -100,6 +121,12 @@ export type MutationLoginArgs = {
 
 export type MutationRefreshTokenArgs = {
   refreshToken: Scalars['String'];
+};
+
+
+export type MutationRemoveOrganizerArgs = {
+  eventId: Scalars['ID'];
+  userId: Scalars['ID'];
 };
 
 
@@ -124,8 +151,21 @@ export type MutationSignUpArgs = {
 };
 
 
+export type MutationUpdateEventArgs = {
+  data: EventUpdateInput;
+  id: Scalars['Int'];
+};
+
+
 export type MutationVerifyEmailArgs = {
   token: Scalars['String'];
+};
+
+export type MutationAddOrganizerResult = Error | MutationAddOrganizerSuccess;
+
+export type MutationAddOrganizerSuccess = {
+  __typename?: 'MutationAddOrganizerSuccess';
+  data: Organizer;
 };
 
 export type MutationCreateCollegeResult = Error | MutationCreateCollegeSuccess;
@@ -149,6 +189,13 @@ export type MutationCreatePaymentOrderSuccess = {
   data: PaymentOrder;
 };
 
+export type MutationDeleteEventResult = Error | MutationDeleteEventSuccess;
+
+export type MutationDeleteEventSuccess = {
+  __typename?: 'MutationDeleteEventSuccess';
+  data: Scalars['String'];
+};
+
 export type MutationLoginResult = Error | MutationLoginSuccess;
 
 export type MutationLoginSuccess = {
@@ -161,6 +208,13 @@ export type MutationRefreshTokenResult = Error | MutationRefreshTokenSuccess;
 export type MutationRefreshTokenSuccess = {
   __typename?: 'MutationRefreshTokenSuccess';
   data: UserLoginPayload;
+};
+
+export type MutationRemoveOrganizerResult = Error | MutationRemoveOrganizerSuccess;
+
+export type MutationRemoveOrganizerSuccess = {
+  __typename?: 'MutationRemoveOrganizerSuccess';
+  data: Scalars['String'];
 };
 
 export type MutationResetPasswordResult = Error | MutationResetPasswordSuccess;
@@ -191,6 +245,13 @@ export type MutationSignUpSuccess = {
   data: User;
 };
 
+export type MutationUpdateEventResult = Error | MutationUpdateEventSuccess;
+
+export type MutationUpdateEventSuccess = {
+  __typename?: 'MutationUpdateEventSuccess';
+  data: Event;
+};
+
 export type MutationVerifyEmailResult = Error | MutationVerifyEmailSuccess;
 
 export type MutationVerifyEmailSuccess = {
@@ -206,7 +267,7 @@ export enum OrderType {
 export type Organizer = {
   __typename?: 'Organizer';
   eventId: Scalars['ID'];
-  userId: Scalars['ID'];
+  user: User;
 };
 
 export type PageInfo = {
@@ -310,6 +371,13 @@ export type UserLoginPayload = {
   refreshToken: Scalars['String'];
 };
 
+export type EmailVerificationMutationVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type EmailVerificationMutation = { __typename?: 'Mutation', sendEmailVerification: { __typename: 'Error', message: string } | { __typename: 'MutationSendEmailVerificationSuccess', data: string } };
+
 export type FestRegPaymentOrderMutationVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -360,6 +428,7 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 export type MeQuery = { __typename?: 'Query', me: { __typename: 'Error', message: string } | { __typename: 'QueryMeSuccess', data: { __typename?: 'User', createdAt: any, email: string, id: string, isVerified: boolean, name: string, role: string } } };
 
 
+export const EmailVerificationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"EmailVerification"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sendEmailVerification"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Error"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MutationSendEmailVerificationSuccess"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"data"}}]}}]}}]}}]} as unknown as DocumentNode<EmailVerificationMutation, EmailVerificationMutationVariables>;
 export const FestRegPaymentOrderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"FestRegPaymentOrder"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createPaymentOrder"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"type"},"value":{"kind":"EnumValue","value":"FEST_REGISTRATION"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Error"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MutationCreatePaymentOrderSuccess"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"orderId"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<FestRegPaymentOrderMutation, FestRegPaymentOrderMutationVariables>;
 export const RefreshTokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RefreshToken"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"refreshToken"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"refreshToken"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"refreshToken"},"value":{"kind":"Variable","name":{"kind":"Name","value":"refreshToken"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Error"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MutationRefreshTokenSuccess"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"refreshToken"}}]}}]}}]}}]}}]} as unknown as DocumentNode<RefreshTokenMutation, RefreshTokenMutationVariables>;
 export const ResetPasswordDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ResetPassword"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"password"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"token"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"resetPassword"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"password"},"value":{"kind":"Variable","name":{"kind":"Name","value":"password"}}},{"kind":"Argument","name":{"kind":"Name","value":"token"},"value":{"kind":"Variable","name":{"kind":"Name","value":"token"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Error"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MutationResetPasswordSuccess"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}}]}}]}}]}}]} as unknown as DocumentNode<ResetPasswordMutation, ResetPasswordMutationVariables>;

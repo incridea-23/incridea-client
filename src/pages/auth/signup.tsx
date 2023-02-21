@@ -1,4 +1,7 @@
-import { SignUpDocument } from '@/src/generated/generated';
+import {
+  EmailVerificationDocument,
+  SignUpDocument,
+} from '@/src/generated/generated';
 import { useMutation } from '@apollo/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -11,13 +14,30 @@ const SignUp: NextPage = () => {
     email: '',
     password: '',
   });
+  const [error, setError] = useState('');
 
   const [signUpMutation, { data, loading, error: mutationError }] =
     useMutation(SignUpDocument);
 
+  const [
+    emailVerificationMutation,
+    { loading: emailVerificationLoading, error: emailVerificationError },
+  ] = useMutation(EmailVerificationDocument);
+
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-    // add some validations like checking if the email is already in use, password length, empty fields, etc.
     e.preventDefault();
+    if (
+      userInfo.name === '' ||
+      userInfo.email === '' ||
+      userInfo.password === ''
+    ) {
+      setError('Please fill all the fields');
+      return;
+    }
+    if (userInfo.password.length < 8) {
+      setError('Password must be at least 8 characters long');
+      return;
+    }
     signUpMutation({
       variables: {
         name: userInfo.name,
@@ -26,8 +46,18 @@ const SignUp: NextPage = () => {
       },
     })
       .then((res) => {
+        console.log(res);
         if (res.data?.signUp.__typename === 'MutationSignUpSuccess') {
-          router.push('/auth/verify-email');
+          emailVerificationMutation({
+            variables: {
+              email: userInfo.email,
+            },
+          }).then((res) => {
+            router.push('/auth/verify-email');
+          });
+        }
+        if (res.data?.signUp.__typename === 'Error') {
+          setError(res.data.signUp.message);
         }
       })
       .catch((err) => {
@@ -37,8 +67,8 @@ const SignUp: NextPage = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      {loading ? (
-        <div>Loading...</div>
+      {loading || emailVerificationLoading ? (
+        <div>{loading ? 'Signing up...' : 'Sending verification email...'}</div>
       ) : (
         <form
           onSubmit={handleSubmit}
@@ -71,7 +101,13 @@ const SignUp: NextPage = () => {
           <button className="bg-green-500 text-white px-3 py-1 rounded-md">
             Sign Up
           </button>
-          {mutationError && <p>{mutationError.message}</p>}
+          {(error || mutationError || emailVerificationError) && (
+            <div className="text-red-500">
+              {error ||
+                mutationError?.message ||
+                emailVerificationError?.message}
+            </div>
+          )}
         </form>
       )}
     </div>
