@@ -1,0 +1,12 @@
+mutation EmailVerification($email: String!) {
+  sendEmailVerification(email: $email) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationSendEmailVerificationSuccess {
+      __typename
+      data
+    }
+  }
+}
