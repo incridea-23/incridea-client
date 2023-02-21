@@ -16,12 +16,12 @@ const SignUp: NextPage = () => {
   });
   const [error, setError] = useState('');
 
-  const [signUpMutation, { data, loading, error: mutationError }] =
+  const [signUpMutation, { loading, error: mutationError }] =
     useMutation(SignUpDocument);
 
   const [
     emailVerificationMutation,
-    { loading: emailVerificationLoading, error: emailVerificationError },
+    { data, loading: emailVerificationLoading, error: emailVerificationError },
   ] = useMutation(EmailVerificationDocument);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
@@ -53,7 +53,9 @@ const SignUp: NextPage = () => {
               email: userInfo.email,
             },
           }).then((res) => {
-            router.push('/auth/verify-email');
+            if (res.data?.sendEmailVerification.__typename === 'Error') {
+              setError(res.data.sendEmailVerification.message);
+            }
           });
         }
         if (res.data?.signUp.__typename === 'Error') {
@@ -69,6 +71,9 @@ const SignUp: NextPage = () => {
     <div className="flex justify-center items-center h-screen">
       {loading || emailVerificationLoading ? (
         <div>{loading ? 'Signing up...' : 'Sending verification email...'}</div>
+      ) : data?.sendEmailVerification.__typename ===
+        'MutationSendEmailVerificationSuccess' ? (
+        <div className="text-green-500">✅ Verification email sent</div>
       ) : (
         <form
           onSubmit={handleSubmit}

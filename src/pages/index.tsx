@@ -28,8 +28,10 @@ const Home: NextPage = () => {
                 <div className="text-sm font-light">
                   Signed in as {user?.email}
                 </div>
-                <div className="font-thin border border-blue-500 rounded-full">
-                  {user?.role} {user?.role != 'USER' && user?.id}
+                <div className="text-center">
+                  <div className="font-light border border-blue-500 rounded-full inline-block px-5">
+                    {user?.role} {user?.role != 'USER' && user?.id}
+                  </div>
                 </div>
                 <div className="flex gap-5 justify-center">
                   {user?.role === 'USER' && (
