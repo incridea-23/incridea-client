@@ -1,0 +1,22 @@
+query EventsByBranchRep($branchRepId: ID!) {
+  eventsByBranchRep(branchRepId: $branchRepId) {
+    branch {
+      id
+      name
+    }
+    description
+    eventDate
+    id
+    fees
+    image
+    name
+    venue
+    organizer {
+      user {
+        name
+        id
+        email
+      }
+    }
+  }
+}
