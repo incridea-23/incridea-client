@@ -1,6 +1,7 @@
 import {
   EventsByBranchRepDocument,
   CreateEventDocument,
+  DeleteEventDocument,
 } from '@/src/generated/generated';
 import { useAuth } from '@/src/hooks/useAuth';
 import { useMutation, useQuery } from '@apollo/client';
@@ -45,6 +46,16 @@ function BranchRep() {
     },
   ] = useMutation(CreateEventDocument);
 
+  // delete event
+  const [
+    deleteEventMutation,
+    {
+      data: deleteEventData,
+      loading: deleteEventLoading,
+      error: deleteEventError,
+    },
+  ] = useMutation(DeleteEventDocument);
+
   const handleAddEvent = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const target = e.target as typeof e.target & {
@@ -55,6 +66,17 @@ function BranchRep() {
     createEventMutation({
       variables: {
         name,
+      },
+    }).then(() => {
+      eventsRefetch();
+      handleClose();
+    });
+  };
+
+  const handleDeleteEvent = (id: number) => {
+    deleteEventMutation({
+      variables: {
+        id: id,
       },
     }).then(() => {
       eventsRefetch();
@@ -98,7 +120,9 @@ function BranchRep() {
               <button onClick={() => handleOpen('Add Organizers')}>
                 Add Organizers
               </button>
-              <button onClick={() => handleOpen('Delete Event')}>Delete</button>
+              <button onClick={() => handleDeleteEvent(parseInt(event.id))}>
+                {deleteEventLoading ? 'Deleting...' : 'Delete'}
+              </button>
             </div>
           </div>
         ))}
@@ -110,29 +134,27 @@ function BranchRep() {
         {modalContent === 'Add Event' && (
           <div>
             <h1>Add Event</h1>
-            <form
-              onSubmit={(e) => {
-                handleAddEvent(e);
-              }}
-              className="flex gap-5"
-            >
-              <input
-                type="text"
-                placeholder="Event Name"
-                className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
-              />
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Add Event
-              </button>
-            </form>
+            {createEventLoading && <div>Loading...</div>}
+            {!createEventLoading && (
+              <form
+                onSubmit={(e) => {
+                  handleAddEvent(e);
+                }}
+                className="flex gap-5"
+              >
+                <input
+                  type="text"
+                  placeholder="Event Name"
+                  className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
+                />
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  Add Event
+                </button>
+              </form>
+            )}
           </div>
         )}
-        {modalContent === 'Delete Event' && (
-          <div>
-            <h1>Delete Event</h1>
-            {/* Add form or content for Delete Event modal here */}
-          </div>
-        )}
+
         {modalContent === 'Add Organizers' && (
           <div>
             <h1>Add Organizers</h1>

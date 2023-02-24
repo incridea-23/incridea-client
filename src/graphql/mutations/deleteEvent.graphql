@@ -1,0 +1,12 @@
+mutation DeleteEvent($id: Int!) {
+  deleteEvent(id: $id) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationDeleteEventSuccess {
+      __typename
+      data
+    }
+  }
+}
