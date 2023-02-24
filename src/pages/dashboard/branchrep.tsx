@@ -2,6 +2,7 @@ import {
   EventsByBranchRepDocument,
   CreateEventDocument,
   DeleteEventDocument,
+  SearchUsersDocument,
 } from '@/src/generated/generated';
 import { useAuth } from '@/src/hooks/useAuth';
 import { useMutation, useQuery } from '@apollo/client';
@@ -31,6 +32,42 @@ const BranchRep: NextPage = () => {
       branchRepId: user?.id as string,
     },
   });
+
+  // Currently searched user
+  const [name, setName] = useState<string>('');
+
+  /* Queries */
+  // 1. Search Users
+  const {
+    data: searchUsersData,
+    loading: searchUsersLoading,
+    error: searchUsersError,
+    fetchMore: searchUsersFetchMore,
+  } = useQuery(SearchUsersDocument, {
+    variables: {
+      first: 5,
+      contains: name,
+    },
+  });
+
+  const { endCursor, hasNextPage } = searchUsersData?.users.pageInfo || {};
+
+  // Infinite Scroll Logic
+  function handleScroll(event: React.UIEvent<HTMLDivElement, UIEvent>) {
+    const element = event.target as HTMLElement;
+    if (element?.scrollHeight - element?.scrollTop === element?.clientHeight) {
+      searchUsersFetchMore({
+        variables: { after: endCursor },
+        updateQuery: (prevResult, { fetchMoreResult }) => {
+          fetchMoreResult.users.edges = [
+            ...prevResult.users.edges,
+            ...fetchMoreResult.users.edges,
+          ];
+          return fetchMoreResult;
+        },
+      });
+    }
+  }
 
   /* Mutations */
   // 1. Add Event
@@ -211,7 +248,55 @@ const BranchRep: NextPage = () => {
         {modalContent === 'Add Organizers' && (
           <div>
             <h1>Add Organizers</h1>
-            {/* Add form or content for Add Organizers modal here */}
+            {/* Search for users */}
+            <div className="flex gap-5">
+              <input
+                type="text"
+                placeholder="Search for users"
+                className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
+                defaultValue={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+              />
+            </div>
+            {/* List of queried users */}
+            <div
+              className="mt-5 max-h-40 overflow-y-scroll"
+              onScroll={(e) => {
+                handleScroll(e);
+              }}
+            >
+              {searchUsersLoading && <div>Loading...</div>}
+              {searchUsersData?.users?.edges.map((user) => (
+                <div key={user?.node.id} className="border">
+                  <h1 className="text-xl">{user?.node.name}</h1>
+                </div>
+              ))}
+            </div>
+            {hasNextPage ? (
+              <button
+                className="px-4 py-2 bg-blue-500 text-white rounded my-10"
+                onClick={() => {
+                  searchUsersFetchMore({
+                    variables: { after: endCursor },
+                    updateQuery: (prevResult, { fetchMoreResult }) => {
+                      fetchMoreResult.users.edges = [
+                        ...prevResult.users.edges,
+                        ...fetchMoreResult.users.edges,
+                      ];
+                      return fetchMoreResult;
+                    },
+                  });
+                }}
+              >
+                more
+              </button>
+            ) : (
+              <p className="my-10 text-center font-medium">
+                No more users to show
+              </p>
+            )}
           </div>
         )}
       </Modal>
