@@ -338,9 +338,27 @@ const BranchRep: NextPage = () => {
                 </div>
               ))}
               {!hasNextPage && (
-                <p className='my-10 text-center font-medium'>
-                  No more users to show
-                </p>
+                <p className='my-10 text-center'>No more users to show</p>
+              )}
+            </div>
+            <div>
+              {events?.eventsByBranchRep.map(
+                event =>
+                  parseInt(event.id) === currentEvent && (
+                    <div key={event.id}>
+                      <h1>{event.name}</h1>
+                      {event.organizers.length === 0 && (
+                        <div className='text-center'>
+                          <h1>No Organizers Added</h1>
+                        </div>
+                      )}
+                      {event.organizers.map(organizer => (
+                        <div key={organizer.user.id}>
+                          <h1>{organizer.user.name}</h1>
+                        </div>
+                      ))}
+                    </div>
+                  )
               )}
             </div>
           </div>

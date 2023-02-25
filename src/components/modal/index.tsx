@@ -17,7 +17,7 @@ const Modal: FunctionComponent<{
       className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-70 z-50"
       onClick={handleClose}
     >
-      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-1/2 bg-white text-black z-50 p-10 rounded-lg">
+      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-4/6 bg-white text-black z-50 p-10 rounded-lg">
         <div className="flex justify-end">
           <button
             onClick={onClose}
