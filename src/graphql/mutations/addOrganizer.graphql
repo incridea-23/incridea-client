@@ -1,0 +1,11 @@
+mutation AddOrganizer($eventId: ID!, $userId: ID!) {
+  addOrganizer(eventId: $eventId, userId: $userId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationAddOrganizerSuccess {
+      __typename
+    }
+  }
+}

@@ -12,7 +12,7 @@ query EventsByBranchRep($branchRepId: ID!) {
     name
     venue
     published
-    organizer {
+    organizers {
       user {
         name
         id
