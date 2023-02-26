@@ -18,6 +18,7 @@ import Button from '@/src/components/button'
 import SearchBox from '@/src/components/searchbox'
 import { BiTrash } from 'react-icons/bi'
 import { AiOutlinePlus } from 'react-icons/ai'
+import TextInput from '@/src/components/input'
 
 const BranchRep: NextPage = () => {
   // Get User Data
@@ -25,20 +26,11 @@ const BranchRep: NextPage = () => {
 
   // Modal State and Handlers
   const [isOpen, setIsOpen] = useState(false)
-  const [innerIsOpen, setInnerIsOpen] = useState(false)
   const [modalContent, setModalContent] = useState<string | null>(null)
 
   //Controlled Inputs
   const [eventName, setEventName] = useState('')
   const [eventType, setEventType] = useState<EventType>(EventType.Individual)
-  const [date, setDate] = useState(new Date())
-  const [organizers, setOrganizers] = useState<
-    {
-      name: string
-      id: string
-      email: string
-    }[]
-  >([])
 
   /* Queries */
   // 1. Get events of Branch Rep
@@ -226,14 +218,6 @@ const BranchRep: NextPage = () => {
     setIsOpen(false)
   }
 
-  // 4. Inner Modal Handlers (for adding organizers inside 'Add Events' modal)
-  const handleInnerOpen = () => {
-    setInnerIsOpen(true)
-  }
-  const handleInnerClose = () => {
-    setInnerIsOpen(false)
-  }
-
   // 4. Add Organizer Handler
   const handleAddOrganizer = (id: number, organizerId: string) => {
     addOrganizerMutation({
@@ -278,7 +262,7 @@ const BranchRep: NextPage = () => {
   if (!user) router.push('/auth/login')
 
   return (
-    <div className='h-screen w-screen bg-gradient-to-t from-black  to-blue-900 text-gray-100 p-10'>
+    <div className='min-h-screen min-w-screen bg-gradient-to-t from-black  to-blue-900 text-gray-100 md:p-10 p-6'>
       {/* Welcome Header */}
       <div className='text-center '>
         <h1 className='text-4xl '>Hello {user?.name}!</h1>
@@ -293,7 +277,7 @@ const BranchRep: NextPage = () => {
       {/* Events */}
       <div className='mt-5 flex flex-col gap-2'>
         {/* Event Header */}
-        <div className='bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg p-2 flex items-center justify-between gap-5 text-2xl font-bold'>
+        <div className='hidden md:flex bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg p-2 items-center justify-between gap-5 text-2xl font-bold'>
           <h1 className='basis-1/5 text-start pl-4'>Event Name</h1>
           <h1 className='basis-1/5 text-center'>Type</h1>
           <h1 className='basis-1/5 text-center'>Status</h1>
@@ -314,14 +298,14 @@ const BranchRep: NextPage = () => {
         {events?.eventsByBranchRep.map(event => (
           <div
             key={event.id}
-            className='bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg p-5 flex items-center justify-between gap-5'
+            className='bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg md:p-5 p-3 flex flex-col md:flex-row md:items-center items-start justify-between md:gap-5 gap-3'
           >
-            <h1 className='text-xl text-start basis-1/5'>{event.name}</h1>
-            <h1 className='text-xl text-center basis-1/5'>{event.eventType}</h1>
-            <div className='text-center basis-1/5'>
+            <h1 className='text-xl text-start inline-flex gap-2 font-bold md:basis-1/5'>{event.name} <span className='block font-light md:hidden'>({event.eventType})</span></h1>
+            <h1 className='hidden md:block text-xl text-center md:basis-1/5'>{event.eventType}</h1>
+            <div className='text-center md:basis-1/5'>
               <h1
                 className={`
-                text-lg border rounded-full px-3 leading-7 text-center mx-auto w-fit
+                 border rounded-full px-3 leading-7 text-center mx-auto w-fit
                 ${
                   event.published
                     ? 'border-green-500 text-green-500'
@@ -331,35 +315,33 @@ const BranchRep: NextPage = () => {
                 {event.published ? 'Published' : 'Pending'}
               </h1>
             </div>
-            <div className='basis-1/5 text-center'>
-              <button
-                className='bg-blue-500 transition-colors hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded'
+            <div className='md:basis-1/5 text-center'>
+              <Button
+                className='mx-auto'
                 onClick={() => {
                   handleOpen('Add Organizers')
                   setCurrentEvent(parseInt(event.id))
                 }}
               >
-                Add Organizers{' '}
+                Add Organizers
                 <span className='font-light'>
                   {event.organizers.length > 0 && (
                     <span>({event.organizers.length})</span>
                   )}
                 </span>
-              </button>
+              </Button>
             </div>
-            <div className='basis-1/5 text-end '>
-              <button
-                className={`flex gap-2 ml-auto items-center bg-red-500 transition-colors hover:bg-red-700 text-white font-bold py-2 px-4 rounded ${
-                  (deleteEventLoading || event.published) &&
-                  'bg-red-300 hover:bg-red-300 text-gray-500 cursor-not-allowed'
-                }}`}
+            <div className='md:basis-1/5 text-end '>
+              <Button
+                intent={'danger'}
+                className='ml-auto '
                 onClick={() => {
                   handleDeleteEvent(parseInt(event.id))
                 }}
                 disabled={deleteEventLoading || event.published}
               >
                 Delete <BiTrash />
-              </button>
+              </Button>
             </div>
           </div>
         ))}
@@ -397,26 +379,12 @@ const BranchRep: NextPage = () => {
                     <label className='basis-1/5' htmlFor='eventName'>
                       Name
                     </label>
-                    <input
-                      type='text'
+                    <TextInput
                       value={eventName}
                       onChange={e => setEventName(e.target.value)}
                       id='eventName'
                       placeholder='Event Name'
-                      className='basis-4/5 border border-gray-300 bg-white h-10 px-4 pr-16 rounded-lg text-sm focus:outline-none'
-                    />
-                  </div>
-                  <div className='flex gap-3 items-center'>
-                    <label className='basis-1/5' htmlFor='eventDate'>
-                      Date
-                    </label>
-                    <input
-                      onChange={e => {
-                        setDate(new Date(e.target.value))
-                      }}
-                      type='date'
-                      id='eventDate'
-                      className='basis-4/5 border border-gray-300 bg-white h-10 px-4 rounded-lg text-sm focus:outline-none'
+                      additionalClasses='basis-4/5'
                     />
                   </div>
                   <div className='flex gap-3 items-center'>
@@ -424,13 +392,13 @@ const BranchRep: NextPage = () => {
                       Type
                     </label>
                     <select
-                      onChange={e =>{
+                      onChange={e => {
                         setEventType(e.target.value as EventType)
                       }}
                       value={eventType}
                       id='eventType'
                       placeholder='Event Type'
-                      className='basis-4/5 border border-gray-300 bg-white h-10 px-4 rounded-lg text-sm focus:outline-none'
+                      className='basis-4/5  bg-gray-700 border border-gray-500 h-10 px-4 pr-16 rounded-lg text-sm focus:outline-none focus:ring-2 ring-gray-500'
                     >
                       {Object.values(EventType).map(type => (
                         <option key={type} value={type}>
@@ -439,14 +407,6 @@ const BranchRep: NextPage = () => {
                       ))}
                     </select>
                   </div>
-                  <Button
-                    type='button'
-                    onClick={() => handleInnerOpen()}
-                    fullWidth
-                    intent={'secondary'}
-                  >
-                    Add Organisers
-                  </Button>
                   <Button type='submit' intent={'primary'} fullWidth>
                     Add Event
                   </Button>
@@ -457,8 +417,8 @@ const BranchRep: NextPage = () => {
         )}
         {/* Add Organizers */}
         {modalContent === 'Add Organizers' && (
-          <div className='flex gap-3'>
-            <div className='basis-5/12 bg-primary-100 rounded-lg p-3'>
+          <div className='flex flex-col md:flex-row gap-3'>
+            <div className='basis-5/12 bg-gray-700 rounded-lg p-3'>
               {events?.eventsByBranchRep.map(
                 event =>
                   parseInt(event.id) === currentEvent && (
@@ -471,7 +431,7 @@ const BranchRep: NextPage = () => {
                           <h1 className=''>No Organizers Added</h1>
                         </div>
                       )}
-                      <div className='max-h-80 overflow-y-auto'>
+                      <div className='md:max-h-80 max-h-64 overflow-y-auto pt-1'>
                         {event.organizers.map(organizer => (
                           <div
                             key={organizer.user.id}
@@ -481,16 +441,13 @@ const BranchRep: NextPage = () => {
                             <Button
                               intent={'danger'}
                               size='small'
-                              outline
+                              className='mr-1'
                               onClick={() =>
                                 handleRemoveOrganizer(
                                   parseInt(event.id),
                                   organizer.user.id
                                 )
                               }
-                              className={`px-1 ${
-                                removeOrganizerLoading && 'opacity-50 cursor-not-allowed'
-                              }}`}
                               disabled={removeOrganizerLoading}
                             >
                               <BiTrash />
@@ -503,19 +460,19 @@ const BranchRep: NextPage = () => {
               )}
             </div>
             {/* List of queried users */}
-            <div className='basis-7/12 bg-primary-100 rounded-lg p-3'>
+            <div className='basis-7/12 bg-gray-700 rounded-lg p-3'>
               <SearchBox
                 value={name}
                 onChange={e => {
                   setName(e.target.value)
                 }}
               />
-              <div className='mt-3 max-h-72 overflow-y-auto'>
+              <div className='mt-3 md:max-h-72 max-h-64 overflow-y-auto'>
                 {searchUsersLoading && <Spinner />}
                 {searchUsersData?.users?.edges.map((user, index) => (
                   <div
                     key={index}
-                    className='border rounded-lg mb-2 mr-2 p-3 flex justify-between items-center'
+                    className='border border-gray-500  rounded-lg mb-2 mr-2 md:p-2 p-1 px-2 flex justify-between items-center'
                     ref={
                       index === searchUsersData.users.edges.length - 1
                         ? lastItemRef
@@ -523,7 +480,7 @@ const BranchRep: NextPage = () => {
                     }
                   >
                     <div>
-                      <h1 className='text-xl'>{user?.node.name}</h1>
+                      <h1 className='md:text-xl text-lg'>{user?.node.name}</h1>
                       <h1 className='text-sm font-thin'>{user?.node.email}</h1>
                     </div>
                     <Button
@@ -553,101 +510,6 @@ const BranchRep: NextPage = () => {
             </div>
           </div>
         )}
-      </Modal>
-
-      {/* Inner modal for adding organizers inside 'Add Event' modal */}
-      <Modal
-        size='small'
-        title={`Add Organizers`}
-        isOpen={innerIsOpen}
-        onClose={handleInnerClose}
-      >
-        <div className='flex gap-3 '>
-          <div className='basis-5/12 min-w-[200px] bg-primary-100 rounded-lg p-3'>
-            <h1 className='font-semibold text-lg mb-3'>{eventName}</h1>
-            {organizers.length === 0 && (
-              <div className='text-gray-500'>
-                <h1 className=''>No Organizers Selected</h1>
-              </div>
-            )}
-            <div className='max-h-80 overflow-y-auto'>
-              {organizers.map(organizer => (
-                <div
-                  key={organizer.id}
-                  className='flex mb-3 justify-between items-center gap-5'
-                >
-                  <h1>{organizer.name}</h1>
-                  <Button
-                    intent={'danger'}
-                    size='small'
-                    outline
-                    onClick={() => {
-                      setOrganizers(prev =>
-                        prev.filter(o => o.id !== organizer.id)
-                      )
-                    }}
-                    className={`px-1`}
-                  >
-                    <BiTrash />
-                  </Button>
-                </div>
-              ))}
-            </div>
-          </div>
-          {/* List of queried users */}
-          <div className='basis-7/12 bg-primary-100 min-h-80 rounded-lg p-3'>
-            <SearchBox
-              value={name}
-              onChange={e => {
-                setName(e.target.value)
-              }}
-            />
-            <div className='mt-3 max-h-72 overflow-y-auto'>
-              {searchUsersLoading && <Spinner />}
-              {searchUsersData?.users?.edges.map((user, index) => (
-                <div
-                  key={index}
-                  className='border rounded-lg mb-2 mr-2 p-3 flex justify-between items-center'
-                  ref={
-                    index === searchUsersData.users.edges.length - 1
-                      ? lastItemRef
-                      : null
-                  }
-                >
-                  <div>
-                    <h1 className='text-xl'>{user?.node.name}</h1>
-                    <h1 className='text-sm font-thin'>{user?.node.email}</h1>
-                  </div>
-                  <Button
-                    intent={'secondary'}
-                    size='small'
-                    className='flex gap-1 ml-4 items-center disabled:opacity-40 disabled:cursor-not-allowed '
-                    disabled={organizers.some(o => o.id === user?.node.id)}
-                    onClick={() =>
-                      setOrganizers(prev => [
-                        ...prev,
-                        {
-                          id: user?.node.id as string,
-                          name: user?.node.name as string,
-                          email: user?.node.email as string
-                        }
-                      ])
-                    }
-                  >
-                    Add
-                    <AiOutlinePlus />
-                  </Button>
-                </div>
-              ))}
-              {isFetching && <Spinner />}
-              {!hasNextPage && !searchUsersLoading && (
-                <p className='my-5 text-gray-400 text-center'>
-                  no more users to show
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
       </Modal>
     </div>
   )

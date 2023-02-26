@@ -1,5 +1,6 @@
 import React from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
+import TextInput from '../input'
 
 type Props = {
   value: string
@@ -9,16 +10,16 @@ type Props = {
 const SearchBox = ({ value, onChange }: Props) => {
   return (
     <div className='relative'>
-      <input
+      <TextInput
         type={'text'}
         value={value}
         onChange={onChange}
-        className='p-2 pr-10 text-gray-500 border w-full rounded-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-gray-500'
+        additionalClasses='p-2 pr-10 w-full'
         placeholder='Search by name or PID'
       />
       <AiOutlineSearch
         size={'1.4rem'}
-        className='absolute right-3 top-2.5 text-gray-500'
+        className='absolute right-3 top-2.5 text-gray-400'
       />
     </div>
   )
