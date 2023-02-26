@@ -1,0 +1,37 @@
+mutation UpdateEvent(
+  $description: String
+  $eventDate: Date
+  $fees: Int
+  $maxTeamSize: Int
+  $maxTeams: Int
+  $minTeamSize: Int
+  $name: String
+  $venue: String
+  $id: ID!
+) {
+  updateEvent(
+    data: {
+      description: $description
+      eventDate: $eventDate
+      eventType: INDIVIDUAL
+      fees: $fees
+      maxTeamSize: $maxTeamSize
+      maxTeams: $maxTeams
+      minTeamSize: $minTeamSize
+      name: $name
+      venue: $venue
+    }
+    id: $id
+  ) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationUpdateEventSuccess {
+      __typename
+      data {
+        id
+      }
+    }
+  }
+}

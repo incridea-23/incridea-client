@@ -1,5 +1,5 @@
 schema: https://incridea-test.up.railway.app/graphql
-documents: './src/**/*.graphql'
+documents: "./src/**/*.graphql"
 generates:
   ./src/generated/generated.ts:
     plugins:
