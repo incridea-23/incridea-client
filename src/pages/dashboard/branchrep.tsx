@@ -30,6 +30,7 @@ const BranchRep: NextPage = () => {
 
   //Controlled Inputs
   const [eventName, setEventName] = useState('')
+  const [eventType, setEventType] = useState<EventType>(EventType.Individual)
   const [date, setDate] = useState(new Date())
   const [organizers, setOrganizers] = useState<
     {
@@ -38,7 +39,6 @@ const BranchRep: NextPage = () => {
       email: string
     }[]
   >([])
-  const [query, setQuery] = useState('')
 
   /* Queries */
   // 1. Get events of Branch Rep
@@ -234,21 +234,6 @@ const BranchRep: NextPage = () => {
     setInnerIsOpen(false)
   }
 
-  //Dummy Users
-  const dummyUsers = [
-    {
-      name: 'John Doe',
-      id: '1001'
-    },
-    {
-      name: 'Jane Doe',
-      id: '1002'
-    },
-    {
-      name: 'John Smith',
-      id: '1003'
-    }
-  ]
   // 4. Add Organizer Handler
   const handleAddOrganizer = (id: number, organizerId: string) => {
     addOrganizerMutation({
@@ -306,9 +291,9 @@ const BranchRep: NextPage = () => {
       </div>
 
       {/* Events */}
-      <div className='mt-5 flex flex-col gap-5'>
+      <div className='mt-5 flex flex-col gap-2'>
         {/* Event Header */}
-        <div className='bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg p-2 flex items-center justify-between gap-5 text-2xl font-bold'>
+        <div className='bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg p-2 flex items-center justify-between gap-5 text-2xl font-bold'>
           <h1 className='basis-1/5 text-start pl-4'>Event Name</h1>
           <h1 className='basis-1/5 text-center'>Type</h1>
           <h1 className='basis-1/5 text-center'>Status</h1>
@@ -439,6 +424,10 @@ const BranchRep: NextPage = () => {
                       Type
                     </label>
                     <select
+                      onChange={e =>{
+                        setEventType(e.target.value as EventType)
+                      }}
+                      value={eventType}
                       id='eventType'
                       placeholder='Event Type'
                       className='basis-4/5 border border-gray-300 bg-white h-10 px-4 rounded-lg text-sm focus:outline-none'
@@ -486,12 +475,13 @@ const BranchRep: NextPage = () => {
                         {event.organizers.map(organizer => (
                           <div
                             key={organizer.user.id}
-                            className='flex mr-2 mb-3 justify-between items-center gap-5'
+                            className='flex mb-3 justify-between items-center gap-5'
                           >
                             <h1>{organizer.user.name}</h1>
                             <Button
                               intent={'danger'}
                               size='small'
+                              outline
                               onClick={() =>
                                 handleRemoveOrganizer(
                                   parseInt(event.id),
@@ -499,8 +489,7 @@ const BranchRep: NextPage = () => {
                                 )
                               }
                               className={`px-1 ${
-                                removeOrganizerLoading &&
-                                `bg-red-300 hover:bg-red-300 text-gray-500 cursor-not-allowed`
+                                removeOrganizerLoading && 'opacity-50 cursor-not-allowed'
                               }}`}
                               disabled={removeOrganizerLoading}
                             >
@@ -540,7 +529,8 @@ const BranchRep: NextPage = () => {
                     <Button
                       intent={'secondary'}
                       size='small'
-                      className='flex gap-1 items-center hover:bg-gray-200'
+                      className='flex gap-1 items-center disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200'
+                      disabled={addOrganizerLoading}
                       onClick={() =>
                         handleAddOrganizer(
                           currentEvent as number,
@@ -568,13 +558,13 @@ const BranchRep: NextPage = () => {
       {/* Inner modal for adding organizers inside 'Add Event' modal */}
       <Modal
         size='small'
-        title={`${eventName} organizers`}
+        title={`Add Organizers`}
         isOpen={innerIsOpen}
         onClose={handleInnerClose}
       >
         <div className='flex gap-3 '>
           <div className='basis-5/12 min-w-[200px] bg-primary-100 rounded-lg p-3'>
-            <h1 className='font-semibold text-lg mb-3'>Selected</h1>
+            <h1 className='font-semibold text-lg mb-3'>{eventName}</h1>
             {organizers.length === 0 && (
               <div className='text-gray-500'>
                 <h1 className=''>No Organizers Selected</h1>
@@ -584,12 +574,13 @@ const BranchRep: NextPage = () => {
               {organizers.map(organizer => (
                 <div
                   key={organizer.id}
-                  className='flex mr-2 mb-3 justify-between items-center gap-5'
+                  className='flex mb-3 justify-between items-center gap-5'
                 >
                   <h1>{organizer.name}</h1>
                   <Button
                     intent={'danger'}
                     size='small'
+                    outline
                     onClick={() => {
                       setOrganizers(prev =>
                         prev.filter(o => o.id !== organizer.id)
@@ -630,7 +621,7 @@ const BranchRep: NextPage = () => {
                   <Button
                     intent={'secondary'}
                     size='small'
-                    className='flex gap-1 ml-4 items-center disabled:opacity-40 duration-75 hover:bg-gray-200'
+                    className='flex gap-1 ml-4 items-center disabled:opacity-40 disabled:cursor-not-allowed '
                     disabled={organizers.some(o => o.id === user?.node.id)}
                     onClick={() =>
                       setOrganizers(prev => [

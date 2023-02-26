@@ -1,12 +1,12 @@
 import { cva, VariantProps } from 'class-variance-authority'
 import React from 'react'
 
-const buttonStyles = cva('font-semibold border rounded transition-colors', {
+const buttonStyles = cva('font-semibold rounded transition-colors', {
   variants: {
     intent: {
-      primary: 'bg-primary-500 text-white border-transparent hover:bg-primary-600',
-      secondary: 'bg-transparent text-secondary-800 border-secondary-600 hover:bg-secondary-200',
-      danger: 'bg-red-500 text-white border-transparent hover:bg-red-600'
+      primary: 'bg-primary-500 text-white hover:bg-primary-600',
+      secondary: 'bg-secondary-200 text-secondary-800 hover:bg-secondary-300',
+      danger: 'border-red-500 bg-red-500 text-white'
     },
     size: {
       small: ['text-sm', 'py-1', 'px-2'],
@@ -15,6 +15,10 @@ const buttonStyles = cva('font-semibold border rounded transition-colors', {
     fullWidth: {
       true: 'w-full',
 			false: 'w-fit'
+    },
+    outline: {
+      true: 'border',
+      false: 'border-0'
     }
   },
   compoundVariants: [
@@ -22,7 +26,12 @@ const buttonStyles = cva('font-semibold border rounded transition-colors', {
       intent: 'primary',
       size: 'medium',
       className: 'uppercase'
-    }
+    },
+    {
+      intent: 'danger',
+      outline: true,
+      className: 'bg-transparent border-red-500 hover:bg-red-200 text-red-500'
+    },
   ],
   defaultVariants: {
     intent: 'primary',
@@ -34,9 +43,9 @@ export interface Props
   extends VariantProps<typeof buttonStyles>,
     React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
-const Button = ({ intent, size, fullWidth, children, className, ...props }: Props) => {
+const Button = ({ intent, size, fullWidth, children, outline, className, ...props }: Props) => {
   return (
-    <button className={`${className} ${buttonStyles({ intent, size, fullWidth })}`} {...props}>
+    <button className={`${className} ${buttonStyles({ intent, size, fullWidth, outline })}`} {...props}>
       {children}
     </button>
   )
