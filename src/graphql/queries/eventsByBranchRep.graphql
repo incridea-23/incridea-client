@@ -6,13 +6,14 @@ query EventsByBranchRep($branchRepId: ID!) {
     }
     description
     eventDate
+    eventType
     id
     fees
     image
     name
     venue
     published
-    organizer {
+    organizers {
       user {
         name
         id

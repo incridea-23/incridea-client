@@ -1,0 +1,12 @@
+mutation RemoveOrganizer($eventId: ID!, $userId: ID!) {
+  removeOrganizer(eventId: $eventId, userId: $userId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationRemoveOrganizerSuccess {
+      __typename
+      data
+    }
+  }
+}

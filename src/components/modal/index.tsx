@@ -21,7 +21,7 @@ const Modal: FunctionComponent<{
       onMouseDown={handleClose}
       onClick={handleClose}
     >
-      <div className={`${size === 'small' ? 'w-fit' : 'w-1/2'} rounded-xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white text-black z-50`}>
+      <div className={`${size === 'small' ? '' : 'w-1/2'} rounded-xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white text-black z-50`}>
         <div className={`flex items-center justify-between ${size === 'small' ? 'px-6 py-4' : 'px-8 py-6'}`}>
           {title && <h1 className={`${size==='small' ? 'text-xl' : 'text-2xl'} font-semibold`}>{title}</h1>}
           <button className='text-gray-500 hover:text-black transition-colors ml-auto text-2xl' onClick={onClose}><IoClose /></button>

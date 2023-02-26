@@ -1,0 +1,17 @@
+query SearchUsers($contains: String, $first: Int, $after: String) {
+  users(contains: $contains, first: $first, after: $after) {
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+    edges {
+      cursor
+      node {
+        id
+        name
+        role
+        email
+      }
+    }
+  }
+}

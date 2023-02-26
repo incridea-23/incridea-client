@@ -5,7 +5,8 @@ const buttonStyles = cva('font-semibold border rounded transition-colors', {
   variants: {
     intent: {
       primary: 'bg-primary-500 text-white border-transparent hover:bg-primary-600',
-      secondary: 'bg-transparent text-secondary-800 border-secondary-600 hover:bg-secondary-200'
+      secondary: 'bg-transparent text-secondary-800 border-secondary-600 hover:bg-secondary-200',
+      danger: 'bg-red-500 text-white border-transparent hover:bg-red-600'
     },
     size: {
       small: ['text-sm', 'py-1', 'px-2'],
@@ -33,9 +34,9 @@ export interface Props
   extends VariantProps<typeof buttonStyles>,
     React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
-const Button = ({ intent, size, fullWidth, children, ...props }: Props) => {
+const Button = ({ intent, size, fullWidth, children, className, ...props }: Props) => {
   return (
-    <button className={buttonStyles({ intent, size, fullWidth })} {...props}>
+    <button className={`${className} ${buttonStyles({ intent, size, fullWidth })}`} {...props}>
       {children}
     </button>
   )
