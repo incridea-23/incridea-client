@@ -21,7 +21,8 @@ const BranchRep: NextPage = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [modalContent, setModalContent] = useState<React.ReactNode | null>(null)
 
-  // Get events of Branch Rep
+  /* Queries */
+  // 1. Get events of Branch Rep
   const {
     data: events,
     loading: eventsLoading,
@@ -35,11 +36,10 @@ const BranchRep: NextPage = () => {
 
   const [currentEvent, setCurrentEvent] = useState<number>()
 
+  // 2. Search Users
   // Currently searched user
   const [name, setName] = useState<string>('')
 
-  /* Queries */
-  // 1. Search Users
   const {
     data: searchUsersData,
     loading: searchUsersLoading,
@@ -52,6 +52,7 @@ const BranchRep: NextPage = () => {
     }
   })
 
+  // Get pageInfo for infinite scroll
   const { endCursor, hasNextPage } = searchUsersData?.users.pageInfo || {}
 
   // Infinite Scroll Logic
@@ -110,17 +111,19 @@ const BranchRep: NextPage = () => {
       0: { value: string }
       1: { value: EventType }
     }
-    const eventName = target[0].value
-    const eventType = target[1].value
+    const eventName = target[0].value as string
+    const eventType = target[1].value as EventType
 
     createEventMutation({
       variables: {
         eventType: eventType,
         name: eventName
       }
-    }).then(() => {
-      eventsRefetch()
-      handleClose()
+    }).then(res => {
+      if (res.data?.createEvent.__typename === 'MutationCreateEventSuccess') {
+        eventsRefetch()
+        handleClose()
+      }
     })
   }
 
@@ -130,9 +133,11 @@ const BranchRep: NextPage = () => {
       variables: {
         id: id
       }
-    }).then(() => {
-      eventsRefetch()
-      handleClose()
+    }).then(res => {
+      if (res.data?.deleteEvent.__typename === 'MutationDeleteEventSuccess') {
+        eventsRefetch()
+        handleClose()
+      }
     })
   }
 
@@ -154,8 +159,10 @@ const BranchRep: NextPage = () => {
         eventId: id.toString(),
         userId: organizerId
       }
-    }).then(() => {
-      eventsRefetch()
+    }).then(res => {
+      if (res.data?.addOrganizer.__typename === 'MutationAddOrganizerSuccess') {
+        eventsRefetch()
+      }
     })
   }
 
@@ -167,7 +174,9 @@ const BranchRep: NextPage = () => {
   const router = useRouter()
   if (loading) return <div>Loading...</div>
   if (user && user.role !== 'BRANCH_REP') router.push('/profile')
-  if (!user) router.push('/')
+
+  // Redirect to login if not logged in
+  if (!user) router.push('/login')
 
   return (
     <div className='h-screen w-screen bg-gradient-to-t from-black  to-blue-900 text-gray-100 p-10'>
@@ -283,12 +292,13 @@ const BranchRep: NextPage = () => {
                   placeholder='Event Type'
                   className='border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none'
                 >
-                  {Object.keys(EventType).map(type => (
+                  {Object.values(EventType).map(type => (
                     <option key={type} value={type}>
                       {type}
                     </option>
                   ))}
                 </select>
+
                 <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
                   Add Event
                 </button>
