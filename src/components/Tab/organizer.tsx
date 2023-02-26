@@ -2,6 +2,7 @@ import { EventByOrganizerDocument } from "@/src/generated/generated";
 import { useQuery } from "@apollo/client";
 import { Tab } from "@headlessui/react";
 import { Fragment } from "react";
+import RoundsTab from "../pages/dashboard/organizer/RoundsTab";
 function OrganizerTab({ organizerId }: { organizerId: string }) {
   const { data, loading, error } = useQuery(EventByOrganizerDocument, {
     variables: {
@@ -49,10 +50,7 @@ function OrganizerTab({ organizerId }: { organizerId: string }) {
                 </button>
               </div>
             </div>
-            <div className="flex    gap-5">
-              <div className=" backdrop-blur-md rounded-2xl border p-3 w-full max-w-xs  border-gray-600 bg-gray-900/30"></div>
-              <div className="backdrop-blur-md rounded-2xl border p-3 w-full border-gray-600 bg-gray-900/30"></div>
-            </div>
+            <RoundsTab rounds={event.rounds} />
           </Tab.Panel>
         ))}
       </Tab.Panels>
