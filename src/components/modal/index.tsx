@@ -40,7 +40,7 @@ const Modal: FunctionComponent<{
           {title && <h1 className={`${size==='small' ? 'text-xl' : 'text-2xl'} font-semibold`}>{title}</h1>}
           <button className='text-gray-500 hover:text-gray-300 transition-colors ml-auto text-2xl' onClick={onClose}><IoClose /></button>
         </div>
-        {<hr className='border-gray-400 ' />}
+        {<hr className='border-gray-500 ' />}
         <div className={`${size === 'small' ? 'p-6 pt-4' : 'md:p-6 p-4 '}`}>
           {children}
         </div>

@@ -45,8 +45,11 @@ const BranchRep: NextPage = () => {
     }
   })
 
-  // Currently selected event | set when 'Add Organizer' is clicked. Helps in getting event id for mutation.
-  const [currentEvent, setCurrentEvent] = useState<number>()
+  // Currently selected event | set when 'Add Organizer' or 'Delete Event' is clicked. Helps in getting event id for mutation.
+  const [currentEvent, setCurrentEvent] = useState<{
+    id: number
+    name?: string
+  }>()
 
   // 2. Search Users
   // Currently searched user
@@ -202,6 +205,7 @@ const BranchRep: NextPage = () => {
         id: id
       }
     }).then(res => {
+      handleClose()
       if (res.data?.deleteEvent.__typename === 'MutationDeleteEventSuccess') {
         eventsRefetch()
       }
@@ -264,13 +268,29 @@ const BranchRep: NextPage = () => {
   return (
     <div className='min-h-screen min-w-screen bg-gradient-to-t from-black  to-blue-900 text-gray-100 md:p-10 p-6'>
       {/* Welcome Header */}
-      <div className='text-center '>
-        <h1 className='text-4xl '>Hello {user?.name}!</h1>
-      </div>
-      <div>
-        <div className='flex items-center justify-center gap-2'>
-          <h1 className='text-2xl underline'>Registered Events</h1>
-          {branch && <a className='text-xs border rounded-lg px-2'>{branch}</a>}
+      <div className='flex justify-between items-stretch'>
+        <div className=''>
+          <h1 className='text-4xl mb-3'>
+            Hello <span className='font-semibold'>{user?.name}</span>!
+          </h1>
+          <div className='flex gap-3 items-center'>
+            <h1 className='text-2xl '>Registered Events</h1>
+            {branch && (
+              <a className='text-xs border rounded-full py-1 justify-center px-2'>
+                {branch}
+              </a>
+            )}
+          </div>
+        </div>
+        {/* Add Event */}
+        <div className='flex items-center justify-center'>
+          <Button
+            intent={'info'}
+            size='large'
+            onClick={() => handleOpen('Add Event')}
+          >
+            Add Event
+          </Button>
         </div>
       </div>
 
@@ -300,8 +320,15 @@ const BranchRep: NextPage = () => {
             key={event.id}
             className='bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg md:p-5 p-3 flex flex-col md:flex-row md:items-center items-start justify-between md:gap-5 gap-3'
           >
-            <h1 className='text-xl text-start inline-flex gap-2 font-bold md:basis-1/5'>{event.name} <span className='block font-light md:hidden'>({event.eventType})</span></h1>
-            <h1 className='hidden md:block text-xl text-center md:basis-1/5'>{event.eventType}</h1>
+            <h1 className='text-xl text-start inline-flex gap-2 font-bold md:basis-1/5'>
+              {event.name}{' '}
+              <span className='block font-light md:hidden'>
+                ({event.eventType})
+              </span>
+            </h1>
+            <h1 className='hidden md:block text-xl text-center md:basis-1/5'>
+              {event.eventType}
+            </h1>
             <div className='text-center md:basis-1/5'>
               <h1
                 className={`
@@ -320,7 +347,7 @@ const BranchRep: NextPage = () => {
                 className='mx-auto'
                 onClick={() => {
                   handleOpen('Add Organizers')
-                  setCurrentEvent(parseInt(event.id))
+                  setCurrentEvent({ id: parseInt(event.id) })
                 }}
               >
                 Add Organizers
@@ -336,7 +363,8 @@ const BranchRep: NextPage = () => {
                 intent={'danger'}
                 className='ml-auto '
                 onClick={() => {
-                  handleDeleteEvent(parseInt(event.id))
+                  handleOpen('Delete Event')
+                  setCurrentEvent({ id: parseInt(event.id), name: event.name })
                 }}
                 disabled={deleteEventLoading || event.published}
               >
@@ -347,23 +375,13 @@ const BranchRep: NextPage = () => {
         ))}
       </div>
 
-      {/* Add Event */}
-      <div className='flex items-center justify-center mt-5'>
-        <button
-          onClick={() => handleOpen('Add Event')}
-          className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-        >
-          Add Event
-        </button>
-      </div>
-
       {/* Modal component 
       1. Add Event
-      2. Add Organizers */}
+      2. Add Organizers 
+      3. Delete Event*/}
 
-      <Modal title={modalContent || ''} isOpen={isOpen} onClose={handleClose}>
+      <Modal size={modalContent === 'Delete Event' ? 'small' : 'medium'} title={modalContent || ''} isOpen={isOpen} onClose={handleClose}>
         {/* Add Event */}
-
         {modalContent === 'Add Event' && (
           <div>
             {createEventLoading && <Spinner />}
@@ -421,7 +439,7 @@ const BranchRep: NextPage = () => {
             <div className='basis-5/12 bg-gray-700 rounded-lg p-3'>
               {events?.eventsByBranchRep.map(
                 event =>
-                  parseInt(event.id) === currentEvent && (
+                  parseInt(event.id) === currentEvent?.id && (
                     <div key={event.id}>
                       <h1 className='font-semibold text-xl mb-3'>
                         {event.name}
@@ -441,7 +459,8 @@ const BranchRep: NextPage = () => {
                             <Button
                               intent={'danger'}
                               size='small'
-                              className='mr-1'
+                              outline
+                              className='mr-1 px-1'
                               onClick={() =>
                                 handleRemoveOrganizer(
                                   parseInt(event.id),
@@ -490,7 +509,7 @@ const BranchRep: NextPage = () => {
                       disabled={addOrganizerLoading}
                       onClick={() =>
                         handleAddOrganizer(
-                          currentEvent as number,
+                          currentEvent?.id as number,
                           user?.node.id as string
                         )
                       }
@@ -507,6 +526,27 @@ const BranchRep: NextPage = () => {
                   </p>
                 )}
               </div>
+            </div>
+          </div>
+        )}
+        {/* Delete Event Confirmation */}
+        {modalContent === 'Delete Event' && (
+          <div>
+            <h1 className='text-center text-xl'>
+              Are you sure you want to delete{' '}
+              <span className='font-bold'>{currentEvent?.name}</span>?
+            </h1>
+            <div className='flex justify-center gap-3 mt-5'>
+              <Button
+                intent={'danger'}
+                onClick={() => handleDeleteEvent(currentEvent?.id as number)}
+                disabled={deleteEventLoading}
+              >
+                Delete
+              </Button>
+              <Button intent={'secondary'} onClick={() => handleClose()}>
+                Cancel
+              </Button>
             </div>
           </div>
         )}
