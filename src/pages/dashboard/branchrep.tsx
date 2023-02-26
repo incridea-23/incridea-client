@@ -4,6 +4,7 @@ import {
   DeleteEventDocument,
   SearchUsersDocument,
   AddOrganizerDocument,
+  RemoveOrganizerDocument,
   EventType
 } from '@/src/generated/generated'
 import { useAuth } from '@/src/hooks/useAuth'
@@ -103,6 +104,16 @@ const BranchRep: NextPage = () => {
     }
   ] = useMutation(AddOrganizerDocument)
 
+  // 4. Remove Organizer
+  const [
+    removeOrganizerMutation,
+    {
+      data: removeOrganizerData,
+      loading: removeOrganizerLoading,
+      error: removeOrganizerError
+    }
+  ] = useMutation(RemoveOrganizerDocument)
+
   /* Handlers */
   // 1. Add Event Handler
   const handleAddEvent = (e: React.FormEvent<HTMLFormElement>) => {
@@ -161,6 +172,23 @@ const BranchRep: NextPage = () => {
       }
     }).then(res => {
       if (res.data?.addOrganizer.__typename === 'MutationAddOrganizerSuccess') {
+        eventsRefetch()
+      }
+    })
+  }
+
+  // 5. Remove Organizer Handler
+  const handleRemoveOrganizer = (id: number, organizerId: string) => {
+    removeOrganizerMutation({
+      variables: {
+        eventId: id.toString(),
+        userId: organizerId
+      }
+    }).then(res => {
+      if (
+        res.data?.removeOrganizer.__typename ===
+        'MutationRemoveOrganizerSuccess'
+      ) {
         eventsRefetch()
       }
     })
@@ -242,9 +270,8 @@ const BranchRep: NextPage = () => {
             </button>
             <button
               className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ${
-                deleteEventLoading ||
-                (event.published &&
-                  'bg-red-300 hover:bg-red-300 text-gray-500 cursor-not-allowed')
+                (deleteEventLoading || event.published) &&
+                'bg-red-300 hover:bg-red-300 text-gray-500 cursor-not-allowed'
               }}`}
               onClick={() => {
                 handleDeleteEvent(parseInt(event.id))
@@ -364,8 +391,26 @@ const BranchRep: NextPage = () => {
                         </div>
                       )}
                       {event.organizers.map(organizer => (
-                        <div key={organizer.user.id}>
+                        <div
+                          key={organizer.user.id}
+                          className='flex items-center gap-5'
+                        >
                           <h1>{organizer.user.name}</h1>
+                          <button
+                            onClick={() =>
+                              handleRemoveOrganizer(
+                                parseInt(event.id),
+                                organizer.user.id
+                              )
+                            }
+                            className={`bg-red-500 hover:bg-red-700 text-white font-bold py-q px-2 rounded ${
+                              removeOrganizerLoading &&
+                              `bg-red-300 hover:bg-red-300 text-gray-500 cursor-not-allowed`
+                            }}`}
+                            disabled={removeOrganizerLoading}
+                          >
+                            X
+                          </button>
                         </div>
                       ))}
                     </div>
