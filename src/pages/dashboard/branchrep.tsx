@@ -10,7 +10,7 @@ import {
 import { useAuth } from '@/src/hooks/useAuth'
 import { useMutation, useQuery } from '@apollo/client'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import Modal from '@/src/components/modal'
 import { NextPage } from 'next'
 
@@ -18,7 +18,7 @@ const BranchRep: NextPage = () => {
   // Get User Data
   const { user, loading, error } = useAuth()
 
-  // Modal State and Handlers
+  // Modal States
   const [isOpen, setIsOpen] = useState(false)
   const [modalContent, setModalContent] = useState<React.ReactNode | null>(null)
 
@@ -35,6 +35,7 @@ const BranchRep: NextPage = () => {
     }
   })
 
+  // Currently selected event | set when 'Add Organizer' is clicked. Helps in getting event id for mutation.
   const [currentEvent, setCurrentEvent] = useState<number>()
 
   // 2. Search Users
@@ -48,30 +49,76 @@ const BranchRep: NextPage = () => {
     fetchMore: searchUsersFetchMore
   } = useQuery(SearchUsersDocument, {
     variables: {
-      first: 5,
+      first: 10,
       contains: name
     }
   })
 
+  /* Infinite Scroll Logic */
   // Get pageInfo for infinite scroll
   const { endCursor, hasNextPage } = searchUsersData?.users.pageInfo || {}
 
-  // Infinite Scroll Logic
-  function handleScroll (event: React.UIEvent<HTMLDivElement, UIEvent>) {
-    const element = event.target as HTMLElement
-    if (element?.scrollHeight - element?.scrollTop === element?.clientHeight) {
-      searchUsersFetchMore({
-        variables: { after: endCursor },
-        updateQuery: (prevResult, { fetchMoreResult }) => {
-          fetchMoreResult.users.edges = [
-            ...prevResult.users.edges,
-            ...fetchMoreResult.users.edges
-          ]
-          return fetchMoreResult
-        }
-      })
+  // Create a ref for the last item in the list
+  const lastItemRef = useRef<HTMLDivElement>(null)
+
+  // State to check if we're fetching more data
+  const [isFetching, setIsFetching] = useState(false)
+
+  /* Intersection Observer callback function 
+  (memoize the handleObserver to avoid triggering unnecessary re-renders, 
+  function will only be recreated if any of its dependencies change, and not on every render) */
+  const handleObserver = useCallback(
+    (entries: IntersectionObserverEntry[]) => {
+      const target = entries[0]
+      if (target.isIntersecting && hasNextPage) {
+        setIsFetching(true)
+        searchUsersFetchMore({
+          variables: { after: endCursor },
+          updateQuery: (prevResult, { fetchMoreResult }) => {
+            fetchMoreResult.users.edges = [
+              ...prevResult.users.edges,
+              ...fetchMoreResult.users.edges
+            ]
+            setIsFetching(false)
+            return fetchMoreResult
+          }
+        })
+      }
+    },
+    [endCursor, hasNextPage, searchUsersFetchMore]
+  )
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(handleObserver, { threshold: 1 })
+
+    if (lastItemRef.current) {
+      observer.observe(lastItemRef.current)
     }
-  }
+
+    let currentRef = lastItemRef.current
+
+    // Observe changes to the lastItemRef.current value and update the observer accordingly, because initial value will be null
+    const updateObserver = () => {
+      if (currentRef !== lastItemRef.current) {
+        if (currentRef) {
+          observer.unobserve(currentRef)
+        }
+
+        if (lastItemRef.current) {
+          observer.observe(lastItemRef.current)
+          currentRef = lastItemRef.current
+        }
+      }
+    }
+
+    const timeoutId = setInterval(updateObserver, 1000)
+
+    // Return cleanup function that clears the intrval and disconnects observer.
+    return () => {
+      clearInterval(timeoutId)
+      observer.disconnect()
+    }
+  }, [handleObserver, lastItemRef])
 
   /* Mutations */
   // 1. Add Event
@@ -147,7 +194,6 @@ const BranchRep: NextPage = () => {
     }).then(res => {
       if (res.data?.deleteEvent.__typename === 'MutationDeleteEventSuccess') {
         eventsRefetch()
-        handleClose()
       }
     })
   }
@@ -204,7 +250,7 @@ const BranchRep: NextPage = () => {
   if (user && user.role !== 'BRANCH_REP') router.push('/profile')
 
   // Redirect to login if not logged in
-  if (!user) router.push('/login')
+  if (!user) router.push('/auth/login')
 
   return (
     <div className='h-screen w-screen bg-gradient-to-t from-black  to-blue-900 text-gray-100 p-10'>
@@ -351,15 +397,18 @@ const BranchRep: NextPage = () => {
               />
             </div>
             {/* List of queried users */}
-            <div
-              className='mt-5 max-h-40 overflow-y-scroll'
-              onScroll={e => {
-                handleScroll(e)
-              }}
-            >
+            <div className='mt-5 max-h-40 overflow-y-scroll'>
               {searchUsersLoading && <div>Loading...</div>}
-              {searchUsersData?.users?.edges.map(user => (
-                <div key={user?.node.id} className='border'>
+              {searchUsersData?.users?.edges.map((user, index) => (
+                <div
+                  key={index}
+                  className='border'
+                  ref={
+                    index === searchUsersData.users.edges.length - 1
+                      ? lastItemRef
+                      : null
+                  }
+                >
                   <h1 className='text-xl'>{user?.node.name}</h1>
                   <h1 className='text-sm font-thin'>{user?.node.email}</h1>
                   <button
@@ -375,6 +424,7 @@ const BranchRep: NextPage = () => {
                   </button>
                 </div>
               ))}
+              {isFetching && <div>Loading users...</div>}
               {!hasNextPage && (
                 <p className='my-10 text-center'>No more users to show</p>
               )}
