@@ -1,7 +1,6 @@
 import { EventByOrganizerDocument } from "@/src/generated/generated";
 import { useQuery } from "@apollo/client";
 import { Tab } from "@headlessui/react";
-import { Fragment } from "react";
 import RoundsTab from "../pages/dashboard/organizer/RoundsTab";
 function OrganizerTab({ organizerId }: { organizerId: string }) {
   const { data, loading, error } = useQuery(EventByOrganizerDocument, {
@@ -50,7 +49,7 @@ function OrganizerTab({ organizerId }: { organizerId: string }) {
                 </button>
               </div>
             </div>
-            <RoundsTab rounds={event.rounds} />
+            <RoundsTab rounds={event.rounds} eventId={event.id} />
           </Tab.Panel>
         ))}
       </Tab.Panels>

@@ -1,0 +1,15 @@
+mutation CreateRound($eventId: ID!) {
+  createRound(eventId: $eventId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationCreateRoundSuccess {
+      __typename
+      data {
+        eventId
+        roundNo
+      }
+    }
+  }
+}
