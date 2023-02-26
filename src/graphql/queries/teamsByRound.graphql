@@ -1,0 +1,7 @@
+query TeamsByRound($eventId: ID!, $roundNo: Int!) {
+  teamsByRound(eventId: $eventId, roundNo: $roundNo) {
+    attended
+    id
+    name
+  }
+}

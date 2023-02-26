@@ -38,7 +38,7 @@ function RoundsTab({
       <Tab.Group>
         <Tab.List className=" flex flex-row overflow-x-auto items-center gap-2 md:flex-col backdrop-blur-md rounded-2xl border p-3  w-full  md:max-w-xs  border-gray-600 bg-gray-900/30">
           {rounds.map((round) => (
-            <Tab key={round.roundNo} className="focus:outline-none">
+            <Tab key={round.roundNo} className="focus:outline-none md:w-full">
               {({ selected }) => (
                 /* Use the `selected` state to conditionally style the selected tab. */
                 <button
