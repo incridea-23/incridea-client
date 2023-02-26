@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.7",
+    "@headlessui/react": "^1.7.12",
     "@next/font": "13.1.6",
     "class-variance-authority": "^0.4.0",
     "framer-motion": "^9.0.1",
