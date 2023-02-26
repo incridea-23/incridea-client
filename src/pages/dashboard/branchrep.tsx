@@ -13,14 +13,32 @@ import { useRouter } from 'next/router'
 import { useState, useRef, useEffect, useCallback } from 'react'
 import Modal from '@/src/components/modal'
 import { NextPage } from 'next'
+import Spinner from '@/src/components/spinner'
+import Button from '@/src/components/button'
+import SearchBox from '@/src/components/searchbox'
+import { BiTrash } from 'react-icons/bi'
+import { AiOutlinePlus } from 'react-icons/ai'
 
 const BranchRep: NextPage = () => {
   // Get User Data
   const { user, loading, error } = useAuth()
 
-  // Modal States
+  // Modal State and Handlers
   const [isOpen, setIsOpen] = useState(false)
-  const [modalContent, setModalContent] = useState<React.ReactNode | null>(null)
+  const [innerIsOpen, setInnerIsOpen] = useState(false)
+  const [modalContent, setModalContent] = useState<string | null>(null)
+
+  //Controlled Inputs
+  const [eventName, setEventName] = useState('')
+  const [eventType, setEventType] = useState<EventType>(EventType.Individual)
+  const [date, setDate] = useState(new Date())
+  const [organizers, setOrganizers] = useState<
+    {
+      name: string
+      id: string
+      email: string
+    }[]
+  >([])
 
   /* Queries */
   // 1. Get events of Branch Rep
@@ -199,14 +217,21 @@ const BranchRep: NextPage = () => {
   }
 
   // 3. Modal Handlers
-  const handleOpen = (content: React.ReactNode) => {
+  const handleOpen = (content: string) => {
     setModalContent(content)
     setIsOpen(true)
   }
-
   const handleClose = () => {
     setModalContent(null)
     setIsOpen(false)
+  }
+
+  // 4. Inner Modal Handlers (for adding organizers inside 'Add Events' modal)
+  const handleInnerOpen = () => {
+    setInnerIsOpen(true)
+  }
+  const handleInnerClose = () => {
+    setInnerIsOpen(false)
   }
 
   // 4. Add Organizer Handler
@@ -246,7 +271,7 @@ const BranchRep: NextPage = () => {
 
   // Redirect to profile if not branch rep
   const router = useRouter()
-  if (loading) return <div>Loading...</div>
+  if (loading) return <Spinner />
   if (user && user.role !== 'BRANCH_REP') router.push('/profile')
 
   // Redirect to login if not logged in
@@ -266,18 +291,18 @@ const BranchRep: NextPage = () => {
       </div>
 
       {/* Events */}
-      <div className='mt-5 flex flex-col gap-5'>
+      <div className='mt-5 flex flex-col gap-2'>
         {/* Event Header */}
-        <div className='bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg p-2 flex items-center justify-between gap-5 text-2xl font-bold'>
-          <h1>Event Name</h1>
-          <h1>Type</h1>
-          <h1>Status</h1>
-          <h1>Add Organizers</h1>
-          <h1>Delete</h1>
+        <div className='bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg p-2 flex items-center justify-between gap-5 text-2xl font-bold'>
+          <h1 className='basis-1/5 text-start pl-4'>Event Name</h1>
+          <h1 className='basis-1/5 text-center'>Type</h1>
+          <h1 className='basis-1/5 text-center'>Status</h1>
+          <h1 className='basis-1/5 text-center'>Add Organizers</h1>
+          <h1 className='basis-1/5 text-end pr-5'>Delete</h1>
         </div>
 
         {/* Status Updates */}
-        {eventsLoading && <div>Loading...</div>}
+        {eventsLoading && <Spinner />}
         {eventsError && <div>Error</div>}
         {events?.eventsByBranchRep.length === 0 && (
           <div className='text-center'>
@@ -291,41 +316,51 @@ const BranchRep: NextPage = () => {
             key={event.id}
             className='bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg p-5 flex items-center justify-between gap-5'
           >
-            <h1 className='text-xl'>{event.name}</h1>
-            <h1 className='text-xl'>{event.eventType}</h1>
-            <h1
-              className={`
-              text-lg border rounded-lg px-2    w-fit
-              ${event.published ? 'text-green-500' : 'text-red-500'}`}
-            >
-              {event.published ? 'Published' : 'Pending'}
-            </h1>
-            <button
-              className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-              onClick={() => {
-                handleOpen('Add Organizers')
-                setCurrentEvent(parseInt(event.id))
-              }}
-            >
-              Add Organizers
-              <span className='text-xs'>
-                {event.organizers.length > 0 && (
-                  <span>({event.organizers.length})</span>
-                )}
-              </span>
-            </button>
-            <button
-              className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ${
-                (deleteEventLoading || event.published) &&
-                'bg-red-300 hover:bg-red-300 text-gray-500 cursor-not-allowed'
-              }}`}
-              onClick={() => {
-                handleDeleteEvent(parseInt(event.id))
-              }}
-              disabled={deleteEventLoading || event.published}
-            >
-              Delete
-            </button>
+            <h1 className='text-xl text-start basis-1/5'>{event.name}</h1>
+            <h1 className='text-xl text-center basis-1/5'>{event.eventType}</h1>
+            <div className='text-center basis-1/5'>
+              <h1
+                className={`
+                text-lg border rounded-full px-3 leading-7 text-center mx-auto w-fit
+                ${
+                  event.published
+                    ? 'border-green-500 text-green-500'
+                    : 'border-red-500 text-red-500'
+                }`}
+              >
+                {event.published ? 'Published' : 'Pending'}
+              </h1>
+            </div>
+            <div className='basis-1/5 text-center'>
+              <button
+                className='bg-blue-500 transition-colors hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded'
+                onClick={() => {
+                  handleOpen('Add Organizers')
+                  setCurrentEvent(parseInt(event.id))
+                }}
+              >
+                Add Organizers{' '}
+                <span className='font-light'>
+                  {event.organizers.length > 0 && (
+                    <span>({event.organizers.length})</span>
+                  )}
+                </span>
+              </button>
+            </div>
+            <div className='basis-1/5 text-end '>
+              <button
+                className={`flex gap-2 ml-auto items-center bg-red-500 transition-colors hover:bg-red-700 text-white font-bold py-2 px-4 rounded ${
+                  (deleteEventLoading || event.published) &&
+                  'bg-red-300 hover:bg-red-300 text-gray-500 cursor-not-allowed'
+                }}`}
+                onClick={() => {
+                  handleDeleteEvent(parseInt(event.id))
+                }}
+                disabled={deleteEventLoading || event.published}
+              >
+                Delete <BiTrash />
+              </button>
+            </div>
           </div>
         ))}
       </div>
@@ -343,132 +378,276 @@ const BranchRep: NextPage = () => {
       {/* Modal component 
       1. Add Event
       2. Add Organizers */}
-      <Modal isOpen={isOpen} onClose={handleClose}>
+
+      <Modal title={modalContent || ''} isOpen={isOpen} onClose={handleClose}>
         {/* Add Event */}
+
         {modalContent === 'Add Event' && (
           <div>
-            <h1>Add Event</h1>
-            {createEventLoading && <div>Loading...</div>}
+            {createEventLoading && <Spinner />}
             {!createEventLoading && (
-              <form
-                onSubmit={e => {
-                  handleAddEvent(e)
-                }}
-                className='flex flex-col gap-5'
-              >
-                <input
-                  type='text'
-                  placeholder='Event Name'
-                  className='border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none'
-                />
-                <select
-                  placeholder='Event Type'
-                  className='border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none'
+              <>
+                <form
+                  onSubmit={e => {
+                    handleAddEvent(e)
+                  }}
+                  className='flex flex-col gap-5'
                 >
-                  {Object.values(EventType).map(type => (
-                    <option key={type} value={type}>
-                      {type}
-                    </option>
-                  ))}
-                </select>
-
-                <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
-                  Add Event
-                </button>
-              </form>
+                  <div className='flex gap-3 items-center'>
+                    <label className='basis-1/5' htmlFor='eventName'>
+                      Name
+                    </label>
+                    <input
+                      type='text'
+                      value={eventName}
+                      onChange={e => setEventName(e.target.value)}
+                      id='eventName'
+                      placeholder='Event Name'
+                      className='basis-4/5 border border-gray-300 bg-white h-10 px-4 pr-16 rounded-lg text-sm focus:outline-none'
+                    />
+                  </div>
+                  <div className='flex gap-3 items-center'>
+                    <label className='basis-1/5' htmlFor='eventDate'>
+                      Date
+                    </label>
+                    <input
+                      onChange={e => {
+                        setDate(new Date(e.target.value))
+                      }}
+                      type='date'
+                      id='eventDate'
+                      className='basis-4/5 border border-gray-300 bg-white h-10 px-4 rounded-lg text-sm focus:outline-none'
+                    />
+                  </div>
+                  <div className='flex gap-3 items-center'>
+                    <label className='basis-1/5' htmlFor='eventType'>
+                      Type
+                    </label>
+                    <select
+                      onChange={e =>{
+                        setEventType(e.target.value as EventType)
+                      }}
+                      value={eventType}
+                      id='eventType'
+                      placeholder='Event Type'
+                      className='basis-4/5 border border-gray-300 bg-white h-10 px-4 rounded-lg text-sm focus:outline-none'
+                    >
+                      {Object.values(EventType).map(type => (
+                        <option key={type} value={type}>
+                          {type}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <Button
+                    type='button'
+                    onClick={() => handleInnerOpen()}
+                    fullWidth
+                    intent={'secondary'}
+                  >
+                    Add Organisers
+                  </Button>
+                  <Button type='submit' intent={'primary'} fullWidth>
+                    Add Event
+                  </Button>
+                </form>
+              </>
             )}
           </div>
         )}
-
         {/* Add Organizers */}
         {modalContent === 'Add Organizers' && (
-          <div>
-            <h1>Add Organizers</h1>
-            {/* Search for users */}
-            <div className='flex gap-5'>
-              <input
-                type='text'
-                placeholder='Search for users'
-                className='border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none'
-                defaultValue={name}
+          <div className='flex gap-3'>
+            <div className='basis-5/12 bg-primary-100 rounded-lg p-3'>
+              {events?.eventsByBranchRep.map(
+                event =>
+                  parseInt(event.id) === currentEvent && (
+                    <div key={event.id}>
+                      <h1 className='font-semibold text-xl mb-3'>
+                        {event.name}
+                      </h1>
+                      {event.organizers.length === 0 && (
+                        <div className='text-gray-500'>
+                          <h1 className=''>No Organizers Added</h1>
+                        </div>
+                      )}
+                      <div className='max-h-80 overflow-y-auto'>
+                        {event.organizers.map(organizer => (
+                          <div
+                            key={organizer.user.id}
+                            className='flex mb-3 justify-between items-center gap-5'
+                          >
+                            <h1>{organizer.user.name}</h1>
+                            <Button
+                              intent={'danger'}
+                              size='small'
+                              outline
+                              onClick={() =>
+                                handleRemoveOrganizer(
+                                  parseInt(event.id),
+                                  organizer.user.id
+                                )
+                              }
+                              className={`px-1 ${
+                                removeOrganizerLoading && 'opacity-50 cursor-not-allowed'
+                              }}`}
+                              disabled={removeOrganizerLoading}
+                            >
+                              <BiTrash />
+                            </Button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )
+              )}
+            </div>
+            {/* List of queried users */}
+            <div className='basis-7/12 bg-primary-100 rounded-lg p-3'>
+              <SearchBox
+                value={name}
                 onChange={e => {
                   setName(e.target.value)
                 }}
               />
+              <div className='mt-3 max-h-72 overflow-y-auto'>
+                {searchUsersLoading && <Spinner />}
+                {searchUsersData?.users?.edges.map((user, index) => (
+                  <div
+                    key={index}
+                    className='border rounded-lg mb-2 mr-2 p-3 flex justify-between items-center'
+                    ref={
+                      index === searchUsersData.users.edges.length - 1
+                        ? lastItemRef
+                        : null
+                    }
+                  >
+                    <div>
+                      <h1 className='text-xl'>{user?.node.name}</h1>
+                      <h1 className='text-sm font-thin'>{user?.node.email}</h1>
+                    </div>
+                    <Button
+                      intent={'secondary'}
+                      size='small'
+                      className='flex gap-1 items-center disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200'
+                      disabled={addOrganizerLoading}
+                      onClick={() =>
+                        handleAddOrganizer(
+                          currentEvent as number,
+                          user?.node.id as string
+                        )
+                      }
+                    >
+                      Add
+                      <AiOutlinePlus />
+                    </Button>
+                  </div>
+                ))}
+                {isFetching && <Spinner />}
+                {!hasNextPage && !searchUsersLoading && (
+                  <p className='my-5 text-gray-400 text-center'>
+                    no more users to show
+                  </p>
+                )}
+              </div>
             </div>
-            {/* List of queried users */}
-            <div className='mt-5 max-h-40 overflow-y-scroll'>
-              {searchUsersLoading && <div>Loading...</div>}
+          </div>
+        )}
+      </Modal>
+
+      {/* Inner modal for adding organizers inside 'Add Event' modal */}
+      <Modal
+        size='small'
+        title={`Add Organizers`}
+        isOpen={innerIsOpen}
+        onClose={handleInnerClose}
+      >
+        <div className='flex gap-3 '>
+          <div className='basis-5/12 min-w-[200px] bg-primary-100 rounded-lg p-3'>
+            <h1 className='font-semibold text-lg mb-3'>{eventName}</h1>
+            {organizers.length === 0 && (
+              <div className='text-gray-500'>
+                <h1 className=''>No Organizers Selected</h1>
+              </div>
+            )}
+            <div className='max-h-80 overflow-y-auto'>
+              {organizers.map(organizer => (
+                <div
+                  key={organizer.id}
+                  className='flex mb-3 justify-between items-center gap-5'
+                >
+                  <h1>{organizer.name}</h1>
+                  <Button
+                    intent={'danger'}
+                    size='small'
+                    outline
+                    onClick={() => {
+                      setOrganizers(prev =>
+                        prev.filter(o => o.id !== organizer.id)
+                      )
+                    }}
+                    className={`px-1`}
+                  >
+                    <BiTrash />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* List of queried users */}
+          <div className='basis-7/12 bg-primary-100 min-h-80 rounded-lg p-3'>
+            <SearchBox
+              value={name}
+              onChange={e => {
+                setName(e.target.value)
+              }}
+            />
+            <div className='mt-3 max-h-72 overflow-y-auto'>
+              {searchUsersLoading && <Spinner />}
               {searchUsersData?.users?.edges.map((user, index) => (
                 <div
                   key={index}
-                  className='border'
+                  className='border rounded-lg mb-2 mr-2 p-3 flex justify-between items-center'
                   ref={
                     index === searchUsersData.users.edges.length - 1
                       ? lastItemRef
                       : null
                   }
                 >
-                  <h1 className='text-xl'>{user?.node.name}</h1>
-                  <h1 className='text-sm font-thin'>{user?.node.email}</h1>
-                  <button
-                    className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                  <div>
+                    <h1 className='text-xl'>{user?.node.name}</h1>
+                    <h1 className='text-sm font-thin'>{user?.node.email}</h1>
+                  </div>
+                  <Button
+                    intent={'secondary'}
+                    size='small'
+                    className='flex gap-1 ml-4 items-center disabled:opacity-40 disabled:cursor-not-allowed '
+                    disabled={organizers.some(o => o.id === user?.node.id)}
                     onClick={() =>
-                      handleAddOrganizer(
-                        currentEvent as number,
-                        user?.node.id as string
-                      )
+                      setOrganizers(prev => [
+                        ...prev,
+                        {
+                          id: user?.node.id as string,
+                          name: user?.node.name as string,
+                          email: user?.node.email as string
+                        }
+                      ])
                     }
                   >
-                    Add Organizer
-                  </button>
+                    Add
+                    <AiOutlinePlus />
+                  </Button>
                 </div>
               ))}
-              {isFetching && <div>Loading users...</div>}
-              {!hasNextPage && (
-                <p className='my-10 text-center'>No more users to show</p>
-              )}
-            </div>
-            <div>
-              {events?.eventsByBranchRep.map(
-                event =>
-                  parseInt(event.id) === currentEvent && (
-                    <div key={event.id}>
-                      <h1>{event.name}</h1>
-                      {event.organizers.length === 0 && (
-                        <div className='text-center'>
-                          <h1>No Organizers Added</h1>
-                        </div>
-                      )}
-                      {event.organizers.map(organizer => (
-                        <div
-                          key={organizer.user.id}
-                          className='flex items-center gap-5'
-                        >
-                          <h1>{organizer.user.name}</h1>
-                          <button
-                            onClick={() =>
-                              handleRemoveOrganizer(
-                                parseInt(event.id),
-                                organizer.user.id
-                              )
-                            }
-                            className={`bg-red-500 hover:bg-red-700 text-white font-bold py-q px-2 rounded ${
-                              removeOrganizerLoading &&
-                              `bg-red-300 hover:bg-red-300 text-gray-500 cursor-not-allowed`
-                            }}`}
-                            disabled={removeOrganizerLoading}
-                          >
-                            X
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  )
+              {isFetching && <Spinner />}
+              {!hasNextPage && !searchUsersLoading && (
+                <p className='my-5 text-gray-400 text-center'>
+                  no more users to show
+                </p>
               )}
             </div>
           </div>
-        )}
+        </div>
       </Modal>
     </div>
   )
