@@ -1,5 +1,5 @@
-mutation CreateEvent($name: String!, $eventType: EventType!) {
-  createEvent(data: { name: $name, eventType: $eventType }) {
+mutation CreateEvent($eventType: EventType!, $name: String!) {
+  createEvent(data: { eventType: $eventType, name: $name }) {
     ... on Error {
       __typename
       message

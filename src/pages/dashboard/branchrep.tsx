@@ -115,8 +115,8 @@ const BranchRep: NextPage = () => {
 
     createEventMutation({
       variables: {
-        name: eventName,
-        eventType
+        eventType: eventType,
+        name: eventName
       }
     }).then(() => {
       eventsRefetch()
@@ -156,7 +156,6 @@ const BranchRep: NextPage = () => {
       }
     }).then(() => {
       eventsRefetch()
-      handleClose()
     })
   }
 
@@ -188,7 +187,7 @@ const BranchRep: NextPage = () => {
         {/* Event Header */}
         <div className='bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg p-2 flex items-center justify-between gap-5 text-2xl font-bold'>
           <h1>Event Name</h1>
-          <h1>Fees</h1>
+          <h1>Type</h1>
           <h1>Status</h1>
           <h1>Add Organizers</h1>
           <h1>Delete</h1>
@@ -210,9 +209,7 @@ const BranchRep: NextPage = () => {
             className='bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg p-5 flex items-center justify-between gap-5'
           >
             <h1 className='text-xl'>{event.name}</h1>
-            <h1 className='text-xl'>
-              {event.fees === 0 ? 'Free' : event.fees}
-            </h1>
+            <h1 className='text-xl'>{event.eventType}</h1>
             <h1
               className={`
               text-lg border rounded-lg px-2    w-fit
@@ -235,13 +232,17 @@ const BranchRep: NextPage = () => {
               </span>
             </button>
             <button
-              className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'
+              className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ${
+                deleteEventLoading ||
+                (event.published &&
+                  'bg-red-300 hover:bg-red-300 text-gray-500 cursor-not-allowed')
+              }}`}
               onClick={() => {
                 handleDeleteEvent(parseInt(event.id))
               }}
-              disabled={deleteEventLoading || !event.published}
+              disabled={deleteEventLoading || event.published}
             >
-              {deleteEventLoading ? 'Deleting...' : 'Delete'}
+              Delete
             </button>
           </div>
         ))}
@@ -271,7 +272,7 @@ const BranchRep: NextPage = () => {
                 onSubmit={e => {
                   handleAddEvent(e)
                 }}
-                className='flex gap-5'
+                className='flex flex-col gap-5'
               >
                 <input
                   type='text'

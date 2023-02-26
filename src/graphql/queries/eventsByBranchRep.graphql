@@ -6,6 +6,7 @@ query EventsByBranchRep($branchRepId: ID!) {
     }
     description
     eventDate
+    eventType
     id
     fees
     image
