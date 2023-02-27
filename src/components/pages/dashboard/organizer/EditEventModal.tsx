@@ -1,9 +1,10 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { EventByOrganizerQuery } from "@/src/generated/generated";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import dynamic from "next/dynamic";
-
+import { EventType } from "@/src/generated/generated";
+import { EditorState, convertFromRaw } from "draft-js";
 const Editor = dynamic(
   () => {
     return import("react-draft-wysiwyg").then((mod) => mod.Editor);
@@ -16,6 +17,7 @@ export default function EditEventModal({
   event: EventByOrganizerQuery["eventByOrganizer"][0];
 }) {
   let [isOpen, setIsOpen] = useState(false);
+  const [maxTeams, setMaxTeams] = useState(event.maxTeams);
 
   function closeModal() {
     setIsOpen(false);
@@ -24,7 +26,21 @@ export default function EditEventModal({
   function openModal() {
     setIsOpen(true);
   }
-  const [editorState, setEditorState] = useState<any>(null);
+  const [editorState, setEditorState] = useState<any>(
+    EditorState.createEmpty()
+  );
+
+  useEffect(() => {
+    const { description } = event;
+    try {
+      const editorState = JSON.parse(description as string) as any;
+      setEditorState(
+        EditorState.createWithContent(convertFromRaw(editorState))
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }, [event]);
   return (
     <>
       <button
@@ -93,24 +109,137 @@ export default function EditEventModal({
                         toolbarClassName="bg-gray-700  text-black text-white"
                       />
                     </div>
-                    <div className="mb-6">
-                      <label
-                        htmlFor="Venue"
-                        className="block mb-2 text-sm font-medium text-white">
-                        Location
-                      </label>
-                      <input
-                        className=" border   text-sm rounded-lg   block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="LC01"
-                      />
+                    <div className="mb-6 flex flex-wrap gap-6 justify-between ">
+                      <div>
+                        <label
+                          htmlFor="Venue"
+                          className="block mb-2 text-sm font-medium text-white">
+                          Venue
+                        </label>
+                        <input
+                          type="text"
+                          id="Venue"
+                          defaultValue={event.venue as string}
+                          className=" border w-fit   text-sm rounded-lg   block p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                          placeholder="LC01"
+                        />
+                      </div>
+                      <div>
+                        <label className="block mb-2 text-sm font-medium text-white">
+                          Event Type
+                        </label>
+                        <select
+                          id="eventType"
+                          placeholder="Event Type"
+                          defaultValue={event.eventType}
+                          className="w-fit  bg-gray-700 border border-gray-500 h-10 px-4 pr-16 rounded-lg text-sm focus:outline-none focus:ring-2 ring-gray-500">
+                          {Object.values(EventType).map((type) => (
+                            <option key={type} value={type}>
+                              {type}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
                     </div>
-                    {/* date and time picker*/}
-                    <div className="mb-6">
-                      <label
-                        htmlFor="date"
-                        className="block mb-2 text-sm font-medium text-white">
-                        Date
-                      </label>
+
+                    <div className="mb-6 flex flex-wrap gap-6 justify-between ">
+                      <div>
+                        <label
+                          htmlFor="fees"
+                          className="block mb-2 text-sm font-medium text-white">
+                          Entry Fees
+                        </label>
+                        <input
+                          type="number"
+                          id="fees"
+                          className=" border w-fit  text-sm rounded-lg   block  p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                          placeholder="Entry Fees..."
+                          defaultValue={event.fees}
+                        />
+                      </div>
+                      {(event.eventType === EventType.Team ||
+                        event.eventType === EventType.TeamMultipleEntry) && (
+                        <div className="">
+                          <label className="block mb-2 text-sm font-medium text-white">
+                            Team Size
+                          </label>
+
+                          <div className="flex gap-2 items-center">
+                            <input
+                              type="number"
+                              id="minTeamSize"
+                              className=" border w-14  text-sm rounded-lg   block  p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                              placeholder="Min Team Size..."
+                              defaultValue={event.minTeamSize}
+                              min={1}
+                            />
+                            <span className="text-white">to</span>
+
+                            <input
+                              type="number"
+                              id="maxTeamSize"
+                              className=" border w-14  text-sm rounded-lg   block  p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                              placeholder="Max Team Size..."
+                              min={1}
+                              defaultValue={event.maxTeamSize}
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="mb-6 flex flex-wrap gap-6 justify-between ">
+                      <div>
+                        <label className="block mb-2 text-sm font-medium text-white">
+                          Banner
+                        </label>
+                        <input
+                          type="file"
+                          id="image"
+                          className=" border   text-sm rounded-lg   block  p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                          placeholder="Banner..."
+                        />
+                      </div>
+                      <div>
+                        <div className="flex gap-2 mb-2 items-center">
+                          <label className="block  text-sm font-medium text-white">
+                            Teams Limit
+                          </label>
+                          <input
+                            type="checkbox"
+                            id="teamsLimit"
+                            className=" border   text-sm rounded-lg   block  p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Has Teams Limit..."
+                            defaultChecked={event.maxTeams !== null}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setMaxTeams(60);
+                              } else {
+                                setMaxTeams(null);
+                              }
+                            }}
+                          />
+                        </div>
+
+                        {maxTeams ? (
+                          <input
+                            type="number"
+                            id="maxTeams"
+                            className=" border w-14  text-sm rounded-lg   block  p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Max Teams..."
+                            min={1}
+                            defaultValue={maxTeams}
+                            disabled={event.maxTeams === null}
+                            onChange={(e) => {
+                              setMaxTeams(parseInt(e.target.value));
+                            }}
+                          />
+                        ) : (
+                          <div className=" border  text-sm rounded-lg   block  p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                            No Limit
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
 
