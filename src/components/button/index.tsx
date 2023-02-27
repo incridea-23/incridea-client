@@ -6,18 +6,21 @@ const buttonStyles = cva('font-semibold flex gap-2 items-center justify-center r
     intent: {
       primary: 'bg-primary-500 text-white hover:bg-primary-600',
       secondary: 'bg-gray-700 text-gray-200 hover:bg-gray-600',
-      danger: 'bg-red-500 text-white hover:bg-red-600'
+      danger: 'bg-red-500 text-white hover:bg-red-600',
+      success: 'bg-green-500 text-white hover:bg-green-600',
+      info: 'bg-teal-500 text-white hover:bg-teal-600',
     },
     size: {
       small: ['text-sm', 'py-1', 'px-2'],
-      medium: ['text-base', 'py-2', 'px-4']
+      medium: ['text-base', 'py-2', 'px-4'],
+      large: ['text-lg', 'py-2', 'px-4'],
     },
     fullWidth: {
       true: 'w-full',
 			false: 'w-fit'
     },
     outline: {
-      true: 'border',
+      true: 'border bg-transparent',
       false: 'border-0'
     },
     disabled: {
@@ -28,7 +31,17 @@ const buttonStyles = cva('font-semibold flex gap-2 items-center justify-center r
     {
       intent: 'danger',
       outline: true,
-      className: 'bg-transparent hover:bg-transparent transition-all duration-75 border-red-500 text-red-500'
+      className: 'hover:bg-red-500/30 border-red-500 text-red-500'
+    },
+    {
+      intent: 'success',
+      outline: true,
+      className: 'hover:bg-green-500/30 border-green-500 text-green-500'
+    },
+    {
+      intent: 'info',
+      outline: true,
+      className: 'hover:bg-teal-500/30 border-teal-500 text-teal-500'
     },
   ],
   defaultVariants: {

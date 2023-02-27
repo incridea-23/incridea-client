@@ -2,11 +2,11 @@ import React, { FunctionComponent, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 
 const Modal: FunctionComponent<{
-  isOpen: boolean;
-  title?: string;
-  onClose: () => void;
-  children: React.ReactNode;
-  size?: "small" | "medium";
+  isOpen: boolean
+  title?: string | null
+  onClose: () => void
+  children: React.ReactNode
+  size?: 'small' | 'medium'
 }> = ({ isOpen, onClose, children, title, size }) => {
   const handleClose = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
@@ -56,8 +56,8 @@ const Modal: FunctionComponent<{
             <IoClose />
           </button>
         </div>
-        {<hr className="border-gray-400 " />}
-        <div className={`${size === "small" ? "p-6 pt-4" : "md:p-6 p-4 "}`}>
+        {<hr className='border-gray-500 ' />}
+        <div className={`${size === 'small' ? 'p-6 pt-4' : 'md:p-6 p-4 '}`}>
           {children}
         </div>
       </div>
