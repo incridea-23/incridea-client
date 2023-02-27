@@ -1,5 +1,5 @@
 import Dashboard from "@/src/components/Layout/dashboard";
-import OrganizerTab from "@/src/components/Tab/organizer";
+import OrganizerTab from "@/src/components/pages/dashboard/organizer/OrganizerTab";
 import { useAuth } from "@/src/hooks/useAuth";
 import { NextPage } from "next";
 import { useRouter } from "next/router";

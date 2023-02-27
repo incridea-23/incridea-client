@@ -1,8 +1,13 @@
 import { EventByOrganizerDocument } from "@/src/generated/generated";
 import { useQuery } from "@apollo/client";
 import { Tab } from "@headlessui/react";
-import RoundsTab from "../pages/dashboard/organizer/RoundsTab";
+import RoundsTab from "./RoundsTab";
+import { Dialog } from "@headlessui/react";
+import { useState } from "react";
+import ViewEventModal from "../ViewEventMoadl";
+import EditEventModal from "./EditEventModal";
 function OrganizerTab({ organizerId }: { organizerId: string }) {
+  let [isOpen, setIsOpen] = useState(true);
   const { data, loading, error } = useQuery(EventByOrganizerDocument, {
     variables: {
       organizerId,
@@ -12,12 +17,11 @@ function OrganizerTab({ organizerId }: { organizerId: string }) {
     return <div>Loading...</div>;
   }
   if (!data || data.eventByOrganizer.length == 0) return <div>No events</div>;
-
   return (
     <Tab.Group>
       <Tab.List className="w-full px-3 py-2 overflow-x-auto gap-2 flex  backdrop-blur-md rounded-2xl border  border-gray-600 bg-gray-900/30 ">
         {data.eventByOrganizer.map((event) => (
-          <Tab className=" focus:outline-none" key={event.id}>
+          <Tab className="focus:outline-none" key={event.id}>
             {({ selected }) => (
               /* Use the `selected` state to conditionally style the selected tab. */
               <button
@@ -41,12 +45,8 @@ function OrganizerTab({ organizerId }: { organizerId: string }) {
                 <p className="text-green-500">{event.branch.name}</p>
               </div>
               <div className="space-x-2">
-                <button className="bg-blue-500 text-white px-3 py-2 rounded-xl">
-                  View
-                </button>
-                <button className="bg-blue-500 text-white px-3 py-2 rounded-xl">
-                  Edit
-                </button>
+                <ViewEventModal event={event} />
+                <EditEventModal event={event} />
               </div>
             </div>
             <RoundsTab rounds={event.rounds} eventId={event.id} />

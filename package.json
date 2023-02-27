@@ -14,6 +14,7 @@
     "@headlessui/react": "^1.7.12",
     "@next/font": "13.1.6",
     "class-variance-authority": "^0.4.0",
+    "draft-js": "^0.11.7",
     "framer-motion": "^9.0.1",
     "graphql": "^16.6.0",
     "jsonwebtoken": "^9.0.0",
@@ -21,6 +22,7 @@
     "next-auth": "^4.19.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-draft-wysiwyg": "^1.15.0",
     "react-icons": "^4.7.1",
     "typescript": "4.9.5"
   },
@@ -32,6 +34,7 @@
     "@types/node": "18.11.19",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
+    "@types/react-draft-wysiwyg": "^1.13.4",
     "autoprefixer": "^10.4.13",
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
