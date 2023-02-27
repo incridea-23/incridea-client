@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react'
 import { BiLoaderAlt } from 'react-icons/bi'
 import { cva, VariantProps } from 'class-variance-authority'
 
-const spinnerStyles = cva('animate-spin mx-auto my-auto', {
+const spinnerStyles = cva('flex h-full w-full items-center justify-center mx-auto my-auto', {
   variants: {
     size: {
       small: 'text-2xl',
@@ -26,8 +26,8 @@ export interface Props extends VariantProps<typeof spinnerStyles> { className?: 
 
 const Spinner = ({ size, intent, className }: Props) => {
   return (
-    <div>
-      <BiLoaderAlt className={`${className} ${spinnerStyles({ size, intent })}`} />
+    <div className={`${className} ${spinnerStyles({ size, intent })}`}>
+      <BiLoaderAlt className='animate-spin'  />
     </div>
   )
 }

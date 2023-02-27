@@ -19,6 +19,7 @@ import SearchBox from '@/src/components/searchbox'
 import { BiTrash } from 'react-icons/bi'
 import { AiOutlinePlus } from 'react-icons/ai'
 import TextInput from '@/src/components/input'
+import toast, { Toaster } from 'react-hot-toast'
 
 const BranchRep: NextPage = () => {
   // Get User Data
@@ -76,6 +77,25 @@ const BranchRep: NextPage = () => {
 
   // State to check if we're fetching more data
   const [isFetching, setIsFetching] = useState(false)
+
+  /** Custom toast function to notify users while mutation is in progress
+   * @param {Promise} promise - Promise returned by mutation
+   * @param {string} loadingText - (optional) Text to be displayed while loading. Error text is inferred from this.
+   */
+  const createToast = (promise: Promise<any>, loadingText?: string) => {
+    const errorText = loadingText?.toLowerCase().replace('...', '')
+    return toast.promise(
+      promise,
+      {
+        loading: loadingText || 'Loading...',
+        success: 'All done!',
+        error: `Error ${errorText} 🫤`
+      },
+      {
+        position: 'bottom-center'
+      }
+    )
+  }
 
   /* Intersection Observer callback function 
   (memoize the handleObserver to avoid triggering unnecessary re-renders, 
@@ -178,38 +198,34 @@ const BranchRep: NextPage = () => {
   // 1. Add Event Handler
   const handleAddEvent = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const target = e.target as typeof e.target & {
-      0: { value: string }
-      1: { value: EventType }
-    }
-    const eventName = target[0].value as string
-    const eventType = target[1].value as EventType
 
-    createEventMutation({
+    let promise = createEventMutation({
       variables: {
         eventType: eventType,
         name: eventName
       }
     }).then(res => {
       if (res.data?.createEvent.__typename === 'MutationCreateEventSuccess') {
-        eventsRefetch()
         handleClose()
+        return eventsRefetch()
       }
     })
+    createToast(promise, 'Adding event...')
   }
 
   // 2. Delete Event Handler
   const handleDeleteEvent = (id: number) => {
-    deleteEventMutation({
+    let promise = deleteEventMutation({
       variables: {
         id: id
       }
     }).then(res => {
-      handleClose()
       if (res.data?.deleteEvent.__typename === 'MutationDeleteEventSuccess') {
-        eventsRefetch()
+        handleClose()
+        return eventsRefetch()
       }
     })
+    createToast(promise, 'Deleting event...')
   }
 
   // 3. Modal Handlers
@@ -224,21 +240,22 @@ const BranchRep: NextPage = () => {
 
   // 4. Add Organizer Handler
   const handleAddOrganizer = (id: number, organizerId: string) => {
-    addOrganizerMutation({
+    let promise = addOrganizerMutation({
       variables: {
         eventId: id.toString(),
         userId: organizerId
       }
     }).then(res => {
       if (res.data?.addOrganizer.__typename === 'MutationAddOrganizerSuccess') {
-        eventsRefetch()
+        return eventsRefetch()
       }
     })
+    createToast(promise, 'Adding organizer...')
   }
 
   // 5. Remove Organizer Handler
   const handleRemoveOrganizer = (id: number, organizerId: string) => {
-    removeOrganizerMutation({
+    let promise = removeOrganizerMutation({
       variables: {
         eventId: id.toString(),
         userId: organizerId
@@ -248,9 +265,10 @@ const BranchRep: NextPage = () => {
         res.data?.removeOrganizer.__typename ===
         'MutationRemoveOrganizerSuccess'
       ) {
-        eventsRefetch()
+        return eventsRefetch()
       }
     })
+    createToast(promise, 'Removing organizer...')
   }
 
   // Get branch name
@@ -268,6 +286,7 @@ const BranchRep: NextPage = () => {
   return (
     <div className='min-h-screen min-w-screen bg-gradient-to-t from-black  to-blue-900 text-gray-100 md:p-10 p-6'>
       {/* Welcome Header */}
+      <Toaster />
       <div className='flex justify-between items-stretch'>
         <div className=''>
           <h1 className='text-4xl mb-3'>
@@ -301,13 +320,17 @@ const BranchRep: NextPage = () => {
           <h1 className='basis-1/5 text-start pl-4'>Event Name</h1>
           <h1 className='basis-1/5 text-center'>Type</h1>
           <h1 className='basis-1/5 text-center'>Status</h1>
-          <h1 className='basis-1/5 text-center'>Add Organizers</h1>
+          <h1 className='basis-1/5 text-center'>Edit Organizers</h1>
           <h1 className='basis-1/5 text-end pr-5'>Delete</h1>
         </div>
 
         {/* Status Updates */}
         {eventsLoading && <Spinner />}
-        {eventsError && <div>Error</div>}
+        {eventsError && (
+          <div className='text-center font-semibold my-10 text-xl text-red-400'>
+            Couldn&apos;t fetch data. Please try again later.
+          </div>
+        )}
         {events?.eventsByBranchRep.length === 0 && (
           <div className='text-center'>
             <h1>No Events Registered</h1>
@@ -320,13 +343,13 @@ const BranchRep: NextPage = () => {
             key={event.id}
             className='bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg md:p-5 p-3 flex flex-col md:flex-row md:items-center items-start justify-between md:gap-5 gap-3'
           >
-            <h1 className='text-xl text-start inline-flex gap-2 font-bold md:basis-1/5'>
+            <h1 className='text-xl overflow-x-auto text-start inline-flex flex-wrap gap-2 font-bold md:basis-1/5'>
               {event.name}{' '}
-              <span className='block font-light md:hidden'>
+              <span className='block text-lg font-light md:hidden'>
                 ({event.eventType})
               </span>
             </h1>
-            <h1 className='hidden md:block text-xl text-center md:basis-1/5'>
+            <h1 className='hidden md:block text-lg text-center md:basis-1/5'>
               {event.eventType}
             </h1>
             <div className='text-center md:basis-1/5'>
@@ -346,11 +369,11 @@ const BranchRep: NextPage = () => {
               <Button
                 className='mx-auto'
                 onClick={() => {
-                  handleOpen('Add Organizers')
+                  handleOpen('Edit Organizers')
                   setCurrentEvent({ id: parseInt(event.id) })
                 }}
               >
-                Add Organizers
+                Edit Organizers
                 <span className='font-light'>
                   {event.organizers.length > 0 && (
                     <span>({event.organizers.length})</span>
@@ -364,9 +387,12 @@ const BranchRep: NextPage = () => {
                 className='ml-auto '
                 onClick={() => {
                   handleOpen('Delete Event')
-                  setCurrentEvent({ id: parseInt(event.id), name: event.name })
+                  setCurrentEvent({
+                    id: parseInt(event.id),
+                    name: event.name
+                  })
                 }}
-                disabled={deleteEventLoading || event.published}
+                disabled={event.published}
               >
                 Delete <BiTrash />
               </Button>
@@ -377,64 +403,69 @@ const BranchRep: NextPage = () => {
 
       {/* Modal component 
       1. Add Event
-      2. Add Organizers 
+      2. Edit Organizers 
       3. Delete Event*/}
 
-      <Modal size={modalContent === 'Delete Event' ? 'small' : 'medium'} title={modalContent || ''} isOpen={isOpen} onClose={handleClose}>
+      <Modal
+        size={modalContent === 'Delete Event' ? 'small' : 'medium'}
+        title={modalContent}
+        isOpen={isOpen}
+        onClose={handleClose}
+      >
         {/* Add Event */}
         {modalContent === 'Add Event' && (
           <div>
-            {createEventLoading && <Spinner />}
-            {!createEventLoading && (
-              <>
-                <form
-                  onSubmit={e => {
-                    handleAddEvent(e)
-                  }}
-                  className='flex flex-col gap-5'
-                >
-                  <div className='flex gap-3 items-center'>
-                    <label className='basis-1/5' htmlFor='eventName'>
-                      Name
-                    </label>
-                    <TextInput
-                      value={eventName}
-                      onChange={e => setEventName(e.target.value)}
-                      id='eventName'
-                      placeholder='Event Name'
-                      additionalClasses='basis-4/5'
-                    />
-                  </div>
-                  <div className='flex gap-3 items-center'>
-                    <label className='basis-1/5' htmlFor='eventType'>
-                      Type
-                    </label>
-                    <select
-                      onChange={e => {
-                        setEventType(e.target.value as EventType)
-                      }}
-                      value={eventType}
-                      id='eventType'
-                      placeholder='Event Type'
-                      className='basis-4/5  bg-gray-700 border border-gray-500 h-10 px-4 pr-16 rounded-lg text-sm focus:outline-none focus:ring-2 ring-gray-500'
-                    >
-                      {Object.values(EventType).map(type => (
-                        <option key={type} value={type}>
-                          {type}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <Button type='submit' intent={'primary'} fullWidth>
-                    Add Event
-                  </Button>
-                </form>
-              </>
-            )}
+            <>
+              <form
+                onSubmit={e => {
+                  handleAddEvent(e)
+                }}
+                className={`flex flex-col gap-5 ${
+                  createEventLoading &&
+                  'opacity-50 pointer-events-none cursor-not-allowed '
+                }}`}
+              >
+                <div className='flex gap-3 items-center'>
+                  <label className='basis-1/5' htmlFor='eventName'>
+                    Name
+                  </label>
+                  <TextInput
+                    value={eventName}
+                    onChange={e => setEventName(e.target.value)}
+                    id='eventName'
+                    placeholder='Event Name'
+                    additionalclasses='basis-4/5'
+                  />
+                </div>
+                <div className='flex gap-3 items-center'>
+                  <label className='basis-1/5' htmlFor='eventType'>
+                    Type
+                  </label>
+                  <select
+                    onChange={e => {
+                      setEventType(e.target.value as EventType)
+                    }}
+                    value={eventType}
+                    id='eventType'
+                    placeholder='Event Type'
+                    className='basis-4/5  bg-gray-700 border border-gray-500 h-10 px-4 pr-16 rounded-lg text-sm focus:outline-none focus:ring-2 ring-gray-500'
+                  >
+                    {Object.values(EventType).map(type => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <Button type='submit' intent={'primary'} fullWidth>
+                  Add Event
+                </Button>
+              </form>
+            </>
           </div>
         )}
-        {/* Add Organizers */}
-        {modalContent === 'Add Organizers' && (
+        {/* Edit Organizers */}
+        {modalContent === 'Edit Organizers' && (
           <div className='flex flex-col md:flex-row gap-3'>
             <div className='basis-5/12 bg-gray-700 rounded-lg p-3'>
               {events?.eventsByBranchRep.map(
@@ -445,8 +476,8 @@ const BranchRep: NextPage = () => {
                         {event.name}
                       </h1>
                       {event.organizers.length === 0 && (
-                        <div className='text-gray-500'>
-                          <h1 className=''>No Organizers Added</h1>
+                        <div className='h-64 flex items-center justify-center text-gray-400'>
+                          <h1 className=''>No organizers added</h1>
                         </div>
                       )}
                       <div className='md:max-h-80 max-h-64 overflow-y-auto pt-1'>
@@ -467,7 +498,6 @@ const BranchRep: NextPage = () => {
                                   organizer.user.id
                                 )
                               }
-                              disabled={removeOrganizerLoading}
                             >
                               <BiTrash />
                             </Button>
@@ -486,8 +516,8 @@ const BranchRep: NextPage = () => {
                   setName(e.target.value)
                 }}
               />
-              <div className='mt-3 md:max-h-72 max-h-64 overflow-y-auto'>
-                {searchUsersLoading && <Spinner />}
+              <div className='mt-3 md:max-h-72 max-h-64 md:h-72 overflow-y-auto'>
+                {searchUsersLoading && <Spinner size={'small'} />}
                 {searchUsersData?.users?.edges.map((user, index) => (
                   <div
                     key={index}
@@ -506,7 +536,6 @@ const BranchRep: NextPage = () => {
                       intent={'secondary'}
                       size='small'
                       className='flex gap-1 items-center disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200'
-                      disabled={addOrganizerLoading}
                       onClick={() =>
                         handleAddOrganizer(
                           currentEvent?.id as number,
@@ -519,7 +548,7 @@ const BranchRep: NextPage = () => {
                     </Button>
                   </div>
                 ))}
-                {isFetching && <Spinner />}
+                {isFetching && <Spinner size={'small'} />}
                 {!hasNextPage && !searchUsersLoading && (
                   <p className='my-5 text-gray-400 text-center'>
                     no more users to show

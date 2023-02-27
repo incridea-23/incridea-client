@@ -3,7 +3,7 @@ import { IoClose } from 'react-icons/io5'
 
 const Modal: FunctionComponent<{
   isOpen: boolean
-  title?: string
+  title?: string | null
   onClose: () => void
   children: React.ReactNode
   size?: 'small' | 'medium'
