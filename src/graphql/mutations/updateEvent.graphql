@@ -7,17 +7,18 @@ mutation UpdateEvent(
   $name: String
   $venue: String
   $id: ID!
+  $eventType: EventType
 ) {
   updateEvent(
     data: {
       description: $description
-      eventType: INDIVIDUAL
       fees: $fees
       maxTeamSize: $maxTeamSize
       maxTeams: $maxTeams
       minTeamSize: $minTeamSize
       name: $name
       venue: $venue
+      eventType: $eventType
     }
     id: $id
   ) {

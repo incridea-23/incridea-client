@@ -1,10 +1,16 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
-import { EventByOrganizerQuery } from "@/src/generated/generated";
+import {
+  EventByOrganizerQuery,
+  UpdateEventDocument,
+} from "@/src/generated/generated";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import dynamic from "next/dynamic";
 import { EventType } from "@/src/generated/generated";
-import { EditorState, convertFromRaw } from "draft-js";
+import { EditorState, convertFromRaw, convertToRaw } from "draft-js";
+import { useMutation } from "@apollo/client";
+import { EnumType } from "typescript";
+import Spinner from "@/src/components/spinner";
 const Editor = dynamic(
   () => {
     return import("react-draft-wysiwyg").then((mod) => mod.Editor);
@@ -18,6 +24,12 @@ export default function EditEventModal({
 }) {
   let [isOpen, setIsOpen] = useState(false);
   const [maxTeams, setMaxTeams] = useState(event.maxTeams);
+  const [name, setName] = useState(event.name);
+  const [eventType, setEventType] = useState(event.eventType);
+  const [maxTeamSize, setMaxTeamSize] = useState(event.maxTeamSize);
+  const [minTeamSize, setMinTeamSize] = useState(event.minTeamSize);
+  const [venue, setVenue] = useState(event.venue);
+  const [fees, setFees] = useState(event.fees);
 
   function closeModal() {
     setIsOpen(false);
@@ -29,6 +41,29 @@ export default function EditEventModal({
   const [editorState, setEditorState] = useState<any>(
     EditorState.createEmpty()
   );
+  const [updateEvent, { data, loading, error }] = useMutation(
+    UpdateEventDocument,
+    {
+      refetchQueries: ["EventByOrganizer"],
+    }
+  );
+  function saveHandler() {
+    updateEvent({
+      variables: {
+        id: event.id,
+        maxTeams,
+        name,
+        maxTeamSize,
+        minTeamSize,
+        venue,
+        fees,
+        eventType: eventType as EventType,
+        description: JSON.stringify(
+          convertToRaw(editorState.getCurrentContent())
+        ),
+      },
+    });
+  }
 
   useEffect(() => {
     const { description } = event;
@@ -90,6 +125,8 @@ export default function EditEventModal({
                       <input
                         type="text"
                         id="name"
+                        onChange={(e) => setName(e.target.value)}
+                        value={name}
                         className=" border   text-sm rounded-lg   block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Event Name..."
                         required
@@ -104,7 +141,7 @@ export default function EditEventModal({
                       <Editor
                         editorState={editorState}
                         onEditorStateChange={setEditorState}
-                        wrapperClassName=""
+                        wrapperClassName="wrapper-class"
                         editorClassName="bg-gray-700 p-2 rounded-md text-white"
                         toolbarClassName="bg-gray-700  text-black text-white"
                       />
@@ -119,7 +156,9 @@ export default function EditEventModal({
                         <input
                           type="text"
                           id="Venue"
-                          defaultValue={event.venue as string}
+                          required
+                          onChange={(e) => setVenue(e.target.value)}
+                          value={venue || ""}
                           className=" border w-fit   text-sm rounded-lg   block p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                           placeholder="LC01"
                         />
@@ -131,7 +170,8 @@ export default function EditEventModal({
                         <select
                           id="eventType"
                           placeholder="Event Type"
-                          defaultValue={event.eventType}
+                          value={eventType}
+                          onChange={(e) => setEventType(e.target.value)}
                           className="w-fit  bg-gray-700 border border-gray-500 h-10 px-4 pr-16 rounded-lg text-sm focus:outline-none focus:ring-2 ring-gray-500">
                           {Object.values(EventType).map((type) => (
                             <option key={type} value={type}>
@@ -152,13 +192,15 @@ export default function EditEventModal({
                         <input
                           type="number"
                           id="fees"
+                          onChange={(e) => setFees(Number(e.target.value) || 0)}
+                          value={fees}
                           className=" border w-fit  text-sm rounded-lg   block  p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                           placeholder="Entry Fees..."
                           defaultValue={event.fees}
                         />
                       </div>
-                      {(event.eventType === EventType.Team ||
-                        event.eventType === EventType.TeamMultipleEntry) && (
+                      {(eventType === EventType.Team ||
+                        eventType === EventType.TeamMultipleEntry) && (
                         <div className="">
                           <label className="block mb-2 text-sm font-medium text-white">
                             Team Size
@@ -170,7 +212,10 @@ export default function EditEventModal({
                               id="minTeamSize"
                               className=" border w-14  text-sm rounded-lg   block  p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                               placeholder="Min Team Size..."
-                              defaultValue={event.minTeamSize}
+                              value={minTeamSize}
+                              onChange={(e) =>
+                                setMinTeamSize(Number(e.target.value) || 0)
+                              }
                               min={1}
                             />
                             <span className="text-white">to</span>
@@ -181,7 +226,10 @@ export default function EditEventModal({
                               className=" border w-14  text-sm rounded-lg   block  p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                               placeholder="Max Team Size..."
                               min={1}
-                              defaultValue={event.maxTeamSize}
+                              value={maxTeamSize}
+                              onChange={(e) =>
+                                setMaxTeamSize(Number(e.target.value) || 0)
+                              }
                             />
                           </div>
                         </div>
@@ -210,7 +258,7 @@ export default function EditEventModal({
                             id="teamsLimit"
                             className=" border   text-sm rounded-lg   block  p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                             placeholder="Has Teams Limit..."
-                            defaultChecked={event.maxTeams !== null}
+                            checked={maxTeams !== null}
                             onChange={(e) => {
                               if (e.target.checked) {
                                 setMaxTeams(60);
@@ -228,8 +276,8 @@ export default function EditEventModal({
                             className=" border w-14  text-sm rounded-lg   block  p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                             placeholder="Max Teams..."
                             min={1}
-                            defaultValue={maxTeams}
-                            disabled={event.maxTeams === null}
+                            value={maxTeams}
+                            disabled={maxTeams === null}
                             onChange={(e) => {
                               setMaxTeams(parseInt(e.target.value));
                             }}
@@ -246,8 +294,17 @@ export default function EditEventModal({
                   <div className="w-full flex justify-end bottom-5 gap-2 right-5">
                     <button
                       type="submit"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 text-black px-4 py-2 text-sm font-medium  hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
-                      save
+                      onClick={saveHandler}
+                      disabled={loading}
+                      className="inline-flex items-center gap-2 justify-center rounded-md border border-transparent bg-blue-100 text-black px-4 py-2 text-sm font-medium  hover:bg-blue-200 focus:outline-none disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                      {loading ? (
+                        <>
+                          <Spinner size="small" className=" text-black " />{" "}
+                          Saving
+                        </>
+                      ) : (
+                        "Save"
+                      )}
                     </button>
                     <button
                       type="button"
