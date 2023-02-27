@@ -105,7 +105,13 @@ export default function EditEventModal({
                       />
                     </div>
                     {/* date and time picker*/}
-                    <div></div>
+                    <div className="mb-6">
+                      <label
+                        htmlFor="date"
+                        className="block mb-2 text-sm font-medium text-white">
+                        Date
+                      </label>
+                    </div>
                   </div>
 
                   <div className="w-full flex justify-end bottom-5 gap-2 right-5">

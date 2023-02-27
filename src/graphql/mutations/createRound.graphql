@@ -1,5 +1,5 @@
-mutation CreateRound($eventId: ID!) {
-  createRound(eventId: $eventId) {
+mutation CreateRound($eventId: ID!, $date: Date) {
+  createRound(eventId: $eventId, date: $date) {
     ... on Error {
       __typename
       message

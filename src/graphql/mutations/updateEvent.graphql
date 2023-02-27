@@ -1,6 +1,5 @@
 mutation UpdateEvent(
   $description: String
-  $eventDate: Date
   $fees: Int
   $maxTeamSize: Int
   $maxTeams: Int
@@ -12,7 +11,6 @@ mutation UpdateEvent(
   updateEvent(
     data: {
       description: $description
-      eventDate: $eventDate
       eventType: INDIVIDUAL
       fees: $fees
       maxTeamSize: $maxTeamSize

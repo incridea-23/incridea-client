@@ -4,9 +4,9 @@ query EventByOrganizer($organizerId: ID!) {
       completed
       roundNo
       eventId
+      date
     }
     description
-    eventDate
     eventType
     fees
     id
