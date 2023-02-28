@@ -1,11 +1,12 @@
-import { EventByOrganizerDocument } from "@/src/generated/generated";
-import { useQuery } from "@apollo/client";
-import { Tab } from "@headlessui/react";
-import RoundsTab from "./RoundsTab";
-import { Dialog } from "@headlessui/react";
-import { useState } from "react";
-import ViewEventModal from "../ViewEventModal";
-import EditEventModal from "./EditEventModal";
+import { EventByOrganizerDocument } from '@/src/generated/generated';
+import { useQuery } from '@apollo/client';
+import { Tab } from '@headlessui/react';
+import RoundsTab from './RoundsTab';
+import { useState } from 'react';
+import ViewEventModal from '../ViewEventModal';
+import EditEventModal from './EditEventModal';
+import RoundEventModal from './rounds/RoundEventModal';
+
 function OrganizerTab({ organizerId }: { organizerId: string }) {
   let [isOpen, setIsOpen] = useState(true);
   const { data, loading, error } = useQuery(EventByOrganizerDocument, {
@@ -27,9 +28,10 @@ function OrganizerTab({ organizerId }: { organizerId: string }) {
               <button
                 className={` px-3 whitespace-nowrap py-2 rounded-xl   ${
                   selected
-                    ? "bg-blue-500/50 text-white"
-                    : "bg-gray-300 text-black"
-                }`}>
+                    ? 'bg-blue-500/50 text-white'
+                    : 'bg-gray-300 text-black'
+                }`}
+              >
                 {event.name}
               </button>
             )}
@@ -47,6 +49,7 @@ function OrganizerTab({ organizerId }: { organizerId: string }) {
               <div className="space-x-2">
                 <ViewEventModal event={event} />
                 <EditEventModal event={event} />
+                <RoundEventModal event={event} />
               </div>
             </div>
             <RoundsTab rounds={event.rounds} eventId={event.id} />
