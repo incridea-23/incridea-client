@@ -4,7 +4,7 @@ import { Tab } from "@headlessui/react";
 import RoundsTab from "./RoundsTab";
 import { Dialog } from "@headlessui/react";
 import { useState } from "react";
-import ViewEventModal from "../ViewEventMoadl";
+import ViewEventModal from "../ViewEventModal";
 import EditEventModal from "./EditEventModal";
 function OrganizerTab({ organizerId }: { organizerId: string }) {
   let [isOpen, setIsOpen] = useState(true);
