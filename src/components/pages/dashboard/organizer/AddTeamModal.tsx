@@ -4,6 +4,7 @@ import { OrganizerCreateTeamDocument } from "@/src/generated/generated";
 
 import { useMutation } from "@apollo/client";
 import Spinner from "@/src/components/spinner";
+import Button from "@/src/components/button";
 
 export default function AddTeamModal({ eventId }: { eventId: string }) {
   let [isOpen, setIsOpen] = useState(false);
@@ -21,12 +22,14 @@ export default function AddTeamModal({ eventId }: { eventId: string }) {
   const [teamName, setTeamName] = useState("");
   return (
     <>
-      <button
+      <Button
         type="button"
+        intent={"secondary"}
         onClick={openModal}
-        className="rounded-md whitespace-nowrap bg-gray-900/70 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+        className='whitespace-nowrap rounded-lg'
+      >
         Add Team
-      </button>
+      </Button>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -75,8 +78,7 @@ export default function AddTeamModal({ eventId }: { eventId: string }) {
                       className="inline-flex items-center gap-2 justify-center rounded-md border border-transparent bg-blue-100 text-black px-4 py-2 text-sm font-medium  hover:bg-blue-200 focus:outline-none disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                       {false ? (
                         <>
-                          <Spinner size="small" className=" text-black " />{" "}
-                          Creating Team
+                          <Spinner size="small" className=" text-black " /> Creating Team
                         </>
                       ) : (
                         "Create Team"
@@ -90,8 +92,7 @@ export default function AddTeamModal({ eventId }: { eventId: string }) {
                       className="inline-flex items-center gap-2 justify-center rounded-md border border-transparent bg-blue-100 text-black px-4 py-2 text-sm font-medium  hover:bg-blue-200 focus:outline-none disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                       {false ? (
                         <>
-                          <Spinner size="small" className=" text-black " />{" "}
-                          Adding Team
+                          <Spinner size="small" className=" text-black " /> Adding Team
                         </>
                       ) : (
                         "Add Team"

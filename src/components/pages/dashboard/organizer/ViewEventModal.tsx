@@ -13,6 +13,7 @@ import {
 import Button from '../../../button';
 import draftToHtml from 'draftjs-to-html';
 import Modal from '@/src/components/modal';
+import { AiOutlineEye } from 'react-icons/ai';
 
 export default function ViewEventModal({
   event,
@@ -69,9 +70,9 @@ export default function ViewEventModal({
     <>
       <Button
         onClick={() => setShowModal(true)}
-        className="rounded-md bg-gray-900/70 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+        intent='secondary'
       >
-        View
+        <AiOutlineEye /> View
       </Button>
 
       <Modal

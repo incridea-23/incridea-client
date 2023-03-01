@@ -71,9 +71,7 @@ export default function EditEventModal({
   }, [event]);
   return (
     <>
-      <Button
-        onClick={() => setShowModal(true)}
-        className="rounded-md bg-gray-900/70 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+      <Button onClick={() => setShowModal(true)} intent="secondary">
         Edit
       </Button>
       <Modal

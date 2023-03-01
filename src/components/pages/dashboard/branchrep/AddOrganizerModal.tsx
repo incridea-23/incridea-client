@@ -201,7 +201,7 @@ const AddOrganizerModal: FC<{
                   <Button
                     intent={'secondary'}
                     size="small"
-                    className="flex gap-1 items-center disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200"
+                    className="flex gap-1 items-center disabled:opacity-50 disabled:cursor-not-allowed"
                     onClick={() => handleAddOrganizer(user?.node.id as string)}
                     disabled={addOrganizerLoading}
                   >
