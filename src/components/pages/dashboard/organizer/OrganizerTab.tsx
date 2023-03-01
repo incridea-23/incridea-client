@@ -43,7 +43,7 @@ function OrganizerTab({ organizerId }: { organizerId: string }) {
                 <h2 className="text-xl font-bold">{event.name}</h2>
                 <p className="text-green-500">{event.branch.name}</p>
               </div>
-              <div className="space-x-2">
+              <div className="space-x-2 flex">
                 <ViewEventModal event={event} />
                 <EditEventModal event={event} />
                 <RoundEventModal event={event} />
