@@ -50,13 +50,13 @@ const buttonStyles = cva('font-semibold flex gap-2 items-center justify-center r
 		fullWidth: false
   }
 })
-export interface Props
+export interface ButtonProps
   extends VariantProps<typeof buttonStyles>,
     React.ButtonHTMLAttributes<HTMLButtonElement> {
       disabled?: boolean
     }
 
-const Button = ({ intent, size, fullWidth, children, outline, disabled, className, ...props }: Props) => {
+const Button = ({ intent, size, fullWidth, children, outline, disabled, className, ...props }: ButtonProps) => {
   return (
     <button className={`${className} ${buttonStyles({ intent, size, fullWidth, outline, disabled })}`} {...props}>
       {children}

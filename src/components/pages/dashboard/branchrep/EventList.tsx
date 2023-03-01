@@ -1,9 +1,8 @@
-import Button from '@/src/components/button';
+import Badge from '@/src/components/badge';
 import Spinner from '@/src/components/spinner';
 import { EventsByBranchRepDocument } from '@/src/generated/generated';
 import { useQuery } from '@apollo/client';
 import { FC } from 'react';
-import { BiTrash } from 'react-icons/bi';
 import AddEventModal from './AddEventModal';
 import AddOrganizerModal from './AddOrganizerModal';
 import DeleteEvent from './DeleteEvent';
@@ -11,8 +10,7 @@ import DeleteEvent from './DeleteEvent';
 const EventList: FC<{
   branchRepId: string;
 }> = ({ branchRepId }) => {
-  /* Queries */
-  // 1. Get events of Branch Rep
+  // Get Events Query
   const {
     data: events,
     loading: eventsLoading,
@@ -22,8 +20,17 @@ const EventList: FC<{
       branchRepId: branchRepId as string,
     },
   });
+
+  // Get Branch Name
+  const branch = events?.eventsByBranchRep.find((event) => event.branch.name)
+    ?.branch.name;
+
   return (
     <>
+      <div className="flex gap-3 items-center">
+        <h1 className="text-2xl ">Registered Events</h1>
+        {branch && <Badge color={'success'}>{branch}</Badge>}
+      </div>
       <AddEventModal eventsRefetch={eventsRefetch} />
       <div className="mt-5 flex flex-col gap-2">
         {/* Event Header */}
@@ -35,12 +42,13 @@ const EventList: FC<{
           <h1 className="basis-1/5 text-end pr-5">Delete</h1>
         </div>
 
-        {/* Events list */}
         {eventsLoading && (
           <div className="flex justify-center items-center">
             <Spinner />
           </div>
         )}
+        
+        {/* Events list */}
         {events?.eventsByBranchRep.map((event) => (
           <div
             key={event.id}
@@ -77,10 +85,10 @@ const EventList: FC<{
               />
             </div>
             <div className="md:basis-1/5 text-end ">
-              <DeleteEvent 
-              eventId={event.id}
-              eventsRefetch={eventsRefetch}
-              published={event.published}
+              <DeleteEvent
+                eventId={event.id}
+                eventsRefetch={eventsRefetch}
+                published={event.published}
               />
             </div>
           </div>

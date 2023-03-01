@@ -1,67 +1,73 @@
-import React, { FunctionComponent, useEffect } from "react";
-import { IoClose } from "react-icons/io5";
+import React, { FC, Fragment, useState } from 'react';
+import { IoClose } from 'react-icons/io5';
+import { Dialog, Transition } from '@headlessui/react';
 
-const Modal: FunctionComponent<{
-  isOpen: boolean
-  title?: string | null
-  onClose: () => void
-  children: React.ReactNode
-  size?: 'small' | 'medium'
-}> = ({ isOpen, onClose, children, title, size }) => {
-  const handleClose = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
+type ModalProps = {
+  children: React.ReactNode;
+  title: string;
+  size: 'small' | 'medium';
+  onClose: () => void;
+  showModal: boolean;
+};
 
-  // Close modal on escape key press
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        onClose();
-      }
-    };
-    window?.addEventListener("keydown", handleEsc);
-    return () => {
-      window?.removeEventListener("keydown", handleEsc);
-    };
-  }, [onClose]);
-
-  if (!isOpen) return null;
-
+const Modal: FC<ModalProps> = ({
+  children,
+  title,
+  size,
+  onClose,
+  showModal,
+}) => {
   return (
-    <div
-      className="fixed top-0 left-0 w-screen h-screen backdrop-blur-sm bg-black/40 z-50"
-      onMouseDown={handleClose}
-      onClick={handleClose}>
-      <div
-        className={`${
-          size === "small" ? "md:w-fit" : "md:w-1/2"
-        } w-[95%] rounded-xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-800 text-white z-50`}>
-        <div
-          className={`flex  items-center justify-between ${
-            size === "small" ? "px-6 py-4" : "md:p-6  p-4"
-          }`}>
-          {title && (
-            <h1
-              className={`${
-                size === "small" ? "text-xl" : "text-2xl"
-              } font-semibold`}>
-              {title}
-            </h1>
-          )}
-          <button
-            className="text-gray-500 hover:text-gray-300 transition-colors ml-auto text-2xl"
-            onClick={onClose}>
-            <IoClose />
-          </button>
+    <Transition appear show={showModal} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={onClose}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-black/25 backdrop-blur-sm" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-gray-700/70 text-gray-100 backdrop-blur-xl text-left align-middle shadow-xl transition-all">
+                <Dialog.Title
+                  as="div"
+                  className="flex justify-between items-center md:p-6 p-5"
+                >
+                  <h3 className="text-lg font-medium leading-6 text-white">
+                    {title}
+                  </h3>
+                  <button
+                    className="hover:text-white text-gray-400 transition-colors"
+                    onClick={onClose}
+                  >
+                    <IoClose size="1.4rem" />
+                  </button>
+                </Dialog.Title>
+                <hr className="opacity-30" />
+                <div className={`${size === 'small' ? 'pb-3' : 'pb-6'}`}>
+                  {children}
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
         </div>
-        {<hr className='border-gray-500 ' />}
-        <div className={`${size === 'small' ? 'p-6 pt-4' : 'md:p-6 p-4 '}`}>
-          {children}
-        </div>
-      </div>
-    </div>
+      </Dialog>
+    </Transition>
   );
 };
 

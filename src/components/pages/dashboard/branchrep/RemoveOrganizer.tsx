@@ -10,10 +10,11 @@ const RemoveOrganizer: FC<{
   eventId: string;
   eventsRefetch: () => Promise<any>;
 }> = ({ organizerId, eventId, eventsRefetch }) => {
-  // 4. Remove Organizer
-  const [removeOrganizerMutation] = useMutation(RemoveOrganizerDocument);
+  // Remove Organizer Mutation
+  const [removeOrganizerMutation, { loading: removeOrganizerLoading }] =
+    useMutation(RemoveOrganizerDocument);
 
-  // 5. Remove Organizer Handler
+  // Remove Organizer Handler
   const handleRemoveOrganizer = () => {
     let promise = removeOrganizerMutation({
       variables: {
@@ -38,6 +39,7 @@ const RemoveOrganizer: FC<{
       outline
       className="mr-1 px-1"
       onClick={() => handleRemoveOrganizer()}
+      disabled={removeOrganizerLoading}
     >
       <BiTrash />
     </Button>
