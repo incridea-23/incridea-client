@@ -3,6 +3,8 @@ import Spinner from '@/src/components/spinner';
 import { TeamsByRoundDocument } from '@/src/generated/generated';
 import { useQuery } from '@apollo/client/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import ViewTeamModal from './ViewTeamModal';
+
 function Teams({ roundNo, eventId }: { roundNo: number; eventId: string }) {
   const { data, loading, error, fetchMore } = useQuery(TeamsByRoundDocument, {
     variables: {
@@ -73,7 +75,10 @@ function Teams({ roundNo, eventId }: { roundNo: number; eventId: string }) {
           }
         >
           <h2 className="text-xl font-semibold"> {team?.node.name}</h2>
-          <Button className="bg-blue-800/60 p-2 rounded-md ">View</Button>
+          <ViewTeamModal
+            teamName={team?.node.name || ''}
+            teamMembers={team?.node.members}
+          />
         </div>
       ))}
       {isFetching && <Spinner />}

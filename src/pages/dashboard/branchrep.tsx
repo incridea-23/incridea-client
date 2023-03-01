@@ -30,13 +30,9 @@ const BranchRep: NextPage = () => {
     <Dashboard>
       <Toaster />
       {/* Welcome Header */}
-      <div className="text-xl flex justify-between">
-        <div>
-          <h1 className="text-4xl mb-3">
-            Hello <span className="font-semibold">{user?.name}</span>!
-          </h1>
-        </div>
-      </div>
+        <h1 className="text-4xl mb-3">
+          Hello <span className="font-semibold">{user?.name}</span>!
+        </h1>
       <div className="mt-3">
         <EventList branchRepId={user.id} />
       </div>
