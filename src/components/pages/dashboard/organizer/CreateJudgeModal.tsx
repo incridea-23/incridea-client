@@ -77,15 +77,15 @@ const CreateJudgeModal: FC<{
           >
             <div className="flex flex-col gap-2">
               <label htmlFor="name">Name</label>
-              <TextInput placeholder="John Doe" />
+              <TextInput name='name' placeholder="John Doe" />
             </div>
             <div className="flex flex-col gap-2">
               <label htmlFor="email">Email</label>
-              <TextInput type={'email'} placeholder="admin@incridea.in" />
+              <TextInput name='email' type={'email'} placeholder="admin@incridea.in" />
             </div>
             <div className="flex flex-col gap-2">
               <label htmlFor="password">Password</label>
-              <TextInput type={'password'} placeholder="*********" />
+              <TextInput name='password' type={'password'} placeholder="*********" />
             </div>
             <div className="flex justify-end">
               <Button type="submit">
