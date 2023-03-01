@@ -49,7 +49,11 @@ function OrganizerTab({ organizerId }: { organizerId: string }) {
                 <EditEventModal event={event} />
               </div>
             </div>
-            <RoundsTab rounds={event.rounds} eventId={event.id} />
+            <RoundsTab
+              eventType={event.eventType}
+              rounds={event.rounds}
+              eventId={event.id}
+            />
           </Tab.Panel>
         ))}
       </Tab.Panels>

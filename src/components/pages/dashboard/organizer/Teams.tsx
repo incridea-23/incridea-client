@@ -2,11 +2,20 @@ import Spinner from "@/src/components/spinner";
 import { TeamsByRoundDocument } from "@/src/generated/generated";
 import { useQuery } from "@apollo/client/react";
 import { useCallback, useEffect, useRef, useState } from "react";
-function Teams({ roundNo, eventId }: { roundNo: number; eventId: string }) {
+function Teams({
+  roundNo,
+  eventId,
+  searchParam,
+}: {
+  roundNo: number;
+  eventId: string;
+  searchParam?: string;
+}) {
   const { data, loading, error, fetchMore } = useQuery(TeamsByRoundDocument, {
     variables: {
       roundNo,
       eventId,
+      contains: searchParam,
     },
   });
   const { endCursor, hasNextPage } = data?.teamsByRound.pageInfo || {};

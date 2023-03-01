@@ -4,12 +4,12 @@ import {
   EventByOrganizerQuery,
   UpdateEventDocument,
 } from "@/src/generated/generated";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import dynamic from "next/dynamic";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
 import { EventType } from "@/src/generated/generated";
 import { EditorState, convertFromRaw, convertToRaw } from "draft-js";
 import { useMutation } from "@apollo/client";
-import { EnumType } from "typescript";
 import Spinner from "@/src/components/spinner";
 const Editor = dynamic(
   () => {
@@ -75,6 +75,13 @@ export default function EditEventModal({
     } catch (error) {
       console.log(error);
     }
+    // public-DraftStyleDefault-block
+    const style = document.createElement("style");
+    style.innerHTML = `.public-DraftStyleDefault-block {
+      margin: 0;
+    }`;
+
+    document.head.appendChild(style);
   }, [event]);
   return (
     <>
@@ -141,8 +148,8 @@ export default function EditEventModal({
                       <Editor
                         editorState={editorState}
                         onEditorStateChange={setEditorState}
-                        wrapperClassName="wrapper-class"
-                        editorClassName="bg-gray-700 p-2 rounded-md text-white"
+                        wrapperClassName="wrapper-class "
+                        editorClassName="bg-gray-700 p-2  rounded-md text-white"
                         toolbarClassName="bg-gray-700  text-black text-white"
                       />
                     </div>

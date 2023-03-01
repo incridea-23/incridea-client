@@ -1,0 +1,15 @@
+mutation OrganizerMarkAttendance($attended: Boolean!, $teamId: ID!) {
+  organizerMarkAttendance(teamId: $teamId, attended: $attended) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationOrganizerMarkAttendanceSuccess {
+      __typename
+      data {
+        id
+        name
+      }
+    }
+  }
+}

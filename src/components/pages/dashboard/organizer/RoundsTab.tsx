@@ -2,19 +2,25 @@ import {
   CreateRoundDocument,
   DeleteRoundDocument,
   EventByOrganizerQuery,
+  EventType,
 } from "@/src/generated/generated";
 import { Tab } from "@headlessui/react";
 import Teams from "./Teams";
 import { useMutation } from "@apollo/client";
-import { BiLoaderAlt } from "react-icons/bi";
+import { BiLoaderAlt, BiSearch } from "react-icons/bi";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
+import { useState } from "react";
+import AddTeamModal from "./AddTeamModal";
+import AddParticipantModal from "./AddParticipantModal";
 function RoundsTab({
   rounds,
   eventId,
+  eventType,
 }: {
   rounds: EventByOrganizerQuery["eventByOrganizer"][0]["rounds"];
   eventId: string;
+  eventType: string;
 }) {
   const [createRound, { data, loading, error }] = useMutation(
     CreateRoundDocument,
@@ -25,6 +31,7 @@ function RoundsTab({
       },
     }
   );
+  const [searchParam, setSearchParam] = useState("");
   const [deleteRound, { data: data2, loading: loading2, error: error2 }] =
     useMutation(DeleteRoundDocument, {
       refetchQueries: ["EventByOrganizer"],
@@ -92,8 +99,33 @@ function RoundsTab({
         </Tab.List>
         <Tab.Panels className="backdrop-blur-md h-fit max-h-[70vh] overflow-y-auto rounded-2xl border p-3 w-full border-gray-600 bg-gray-900/30">
           {rounds.map((event) => (
-            <Tab.Panel key={event.roundNo}>
-              <Teams roundNo={event.roundNo} eventId={event.eventId} />
+            <Tab.Panel className="space-y-4" key={event.roundNo}>
+              {/* search bar  */}
+              <div className="flex gap-2">
+                <div className="flex rounded-lg group  bg-gray-600/40 p-1 w-full gap-2 items-center justify-center">
+                  <input
+                    value={searchParam}
+                    onChange={(e) => {
+                      setSearchParam(e.target.value);
+                    }}
+                    type="text"
+                    className="bg-transparent w-full text-white outline-none p-2  rounded-xl"
+                    placeholder="Search by team name"
+                  />
+                  <BiSearch className="text-white text-2xl mx-2" />
+                </div>
+                {eventType === "INDIVIDUAL" ||
+                eventType === "INDIVIDUAL_MULTIPLE_ENTRY" ? (
+                  <AddParticipantModal />
+                ) : (
+                  <AddTeamModal eventId={eventId} />
+                )}
+              </div>
+              <Teams
+                roundNo={event.roundNo}
+                eventId={event.eventId}
+                searchParam={searchParam}
+              />
             </Tab.Panel>
           ))}
         </Tab.Panels>

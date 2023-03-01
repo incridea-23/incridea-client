@@ -1,0 +1,19 @@
+mutation organizerAddTeamMember($teamId: ID!, $userId: ID!) {
+  organizerAddTeamMember(teamId: $teamId, userId: $userId) {
+    ... on MutationOrganizerAddTeamMemberSuccess {
+      __typename
+      data {
+        team {
+          id
+        }
+        user {
+          id
+        }
+      }
+    }
+    ... on Error {
+      __typename
+      message
+    }
+  }
+}

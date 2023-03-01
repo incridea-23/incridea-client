@@ -1,0 +1,15 @@
+mutation OrganizerDeleteTeam($teamId: ID!) {
+  organizerDeleteTeam(teamId: $teamId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationOrganizerDeleteTeamSuccess {
+      __typename
+      data {
+        name
+        id
+      }
+    }
+  }
+}
