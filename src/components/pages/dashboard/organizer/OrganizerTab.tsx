@@ -4,7 +4,7 @@ import { Tab } from '@headlessui/react';
 import RoundsTab from './RoundsTab';
 import ViewEventModal from './ViewEventModal';
 import EditEventModal from './EditEventModal';
-import RoundEventModal from './rounds/RoundEventModal';
+import RoundEventModal from './RoundEventModal';
 
 function OrganizerTab({ organizerId }: { organizerId: string }) {
   const { data, loading, error } = useQuery(EventByOrganizerDocument, {
