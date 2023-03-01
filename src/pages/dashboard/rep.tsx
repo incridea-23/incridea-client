@@ -23,6 +23,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import Dashboard from '@/src/components/layout/dashboard';
 import Badge from '@/src/components/badge';
 import AddEventModal from '@/src/components/pages/dashboard/branchrep/AddEventModal';
+import EventList from '@/src/components/pages/dashboard/branchrep/EventList';
 
 const BranchRep: NextPage = () => {
   const router = useRouter();
@@ -306,7 +307,9 @@ const BranchRep: NextPage = () => {
             {branch && <Badge color={'success'}>{branch}</Badge>}
           </div>
         </div>
-        <AddEventModal eventsRefetch={eventsRefetch} />
+      </div>
+      <div className="mt-3">
+        <EventList branchRepId={user.id} />
       </div>
     </Dashboard>
   );

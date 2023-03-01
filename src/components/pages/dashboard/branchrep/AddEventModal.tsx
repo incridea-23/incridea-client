@@ -80,7 +80,7 @@ const AddEventModal: FC<{
                     className="flex justify-between items-center md:p-6 p-5"
                   >
                     <h3 className="text-lg font-medium leading-6 text-white">
-                      Round Details
+                      Add Event
                     </h3>
                     <button
                       className="hover:text-white text-gray-400 transition-colors"
