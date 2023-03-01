@@ -1,11 +1,11 @@
-import React, { FC, Fragment, useState } from 'react';
-import { IoClose } from 'react-icons/io5';
-import { Dialog, Transition } from '@headlessui/react';
+import React, { FC, Fragment, useState } from "react";
+import { IoClose } from "react-icons/io5";
+import { Dialog, Transition } from "@headlessui/react";
 
 type ModalProps = {
   children: React.ReactNode;
   title: string;
-  size: 'small' | 'medium';
+  size: "small" | "medium";
   onClose: () => void;
   showModal: boolean;
 };
@@ -27,13 +27,12 @@ const Modal: FC<ModalProps> = ({
           enterTo="opacity-100"
           leave="ease-in duration-200"
           leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
+          leaveTo="opacity-0">
           <div className="fixed inset-0 bg-black/25 backdrop-blur-sm" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center text-center my-5">
+          <div className="flex min-h-full items-center justify-center text-center py-5 md:py-7">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -41,25 +40,22 @@ const Modal: FC<ModalProps> = ({
               enterTo="opacity-100 scale-100"
               leave="ease-in duration-200"
               leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
+              leaveTo="opacity-0 scale-95">
               <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-gray-700/70 text-gray-100 backdrop-blur-xl text-left align-middle shadow-xl transition-all">
                 <Dialog.Title
                   as="div"
-                  className="flex justify-between items-center md:p-6 p-5"
-                >
+                  className="flex justify-between items-center md:p-6 p-5">
                   <h3 className="text-lg font-medium leading-6 text-white">
                     {title}
                   </h3>
                   <button
                     className="hover:text-white text-gray-400 transition-colors"
-                    onClick={onClose}
-                  >
+                    onClick={onClose}>
                     <IoClose size="1.4rem" />
                   </button>
                 </Dialog.Title>
                 <hr className="opacity-30" />
-                <div className={`${size === 'small' ? 'pb-3' : 'pb-6'}`}>
+                <div className={`${size === "small" ? "pb-3" : "pb-6"}`}>
                   {children}
                 </div>
               </Dialog.Panel>

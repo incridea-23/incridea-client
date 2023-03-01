@@ -10,6 +10,7 @@ function Teams({ roundNo, eventId }: { roundNo: number; eventId: string }) {
     variables: {
       roundNo,
       eventId,
+      first: 10,
     },
   });
   const { endCursor, hasNextPage } = data?.teamsByRound.pageInfo || {};
@@ -65,7 +66,7 @@ function Teams({ roundNo, eventId }: { roundNo: number; eventId: string }) {
   if (!data || data.teamsByRound.edges.length === 0)
     return <p className="my-5 text-gray-400 text-center">No teams here</p>;
   return (
-    <div>
+    <div className="space-y-2">
       {data.teamsByRound.edges.map((team, index) => (
         <div
           className="bg-gray-600/40 p-3  items-center rounded-lg flex justify-between flex-wrap gap-2"
