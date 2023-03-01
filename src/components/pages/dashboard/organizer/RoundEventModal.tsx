@@ -67,7 +67,6 @@ const RoundEventModal: FC<{
                       <IoClose size="1.4rem" />
                     </button>
                   </Dialog.Title>
-                  {/* Body */}
                   <RoundsSidebar eventId={event.id} rounds={event.rounds} />
                 </Dialog.Panel>
               </Transition.Child>

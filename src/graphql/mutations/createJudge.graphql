@@ -1,0 +1,23 @@
+mutation CreateJudge(
+  $email: String!
+  $eventId: ID!
+  $name: String!
+  $password: String!
+  $roundNo: Int!
+) {
+  createJudge(
+    email: $email
+    eventId: $eventId
+    name: $name
+    password: $password
+    roundNo: $roundNo
+  ) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationCreateJudgeSuccess {
+      __typename
+    }
+  }
+}

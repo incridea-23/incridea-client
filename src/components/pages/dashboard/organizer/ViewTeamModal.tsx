@@ -59,14 +59,14 @@ const ViewTeamModal: FC<{
                   </div>
 
                   <div className="flex flex-col gap-1">
-                    <span className="text-gray-400 text-sm flex items-start gap-1">
+                    <span className="text-gray-400 text-sm flex items-center gap-1">
                       Name
                     </span>
                     {member.user.name}
                   </div>
 
                   <div className="flex flex-col gap-1">
-                    <span className="text-gray-400 text-sm flex items-start gap-1">
+                    <span className="text-gray-400 text-sm flex items-center gap-1">
                       Email
                       <MdOutlineMail />
                     </span>
@@ -79,7 +79,7 @@ const ViewTeamModal: FC<{
                   </div>
                   
                   <div className="flex flex-col gap-1">
-                    <span className="text-gray-400 text-sm flex items-start gap-1">
+                    <span className="text-gray-400 text-sm flex items-center gap-1">
                       Phone
                       <MdOutlinePhone />
                     </span>
