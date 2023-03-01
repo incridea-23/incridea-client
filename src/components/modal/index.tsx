@@ -5,7 +5,7 @@ import { Dialog, Transition } from '@headlessui/react';
 type ModalProps = {
   children: React.ReactNode;
   title: string;
-  size: 'small' | 'medium';
+  size?: 'small' | 'medium';
   onClose: () => void;
   showModal: boolean;
 };
@@ -59,7 +59,7 @@ const Modal: FC<ModalProps> = ({
                   </button>
                 </Dialog.Title>
                 <hr className="opacity-30" />
-                <div className={`${size === 'small' ? 'pb-3' : 'pb-6'}`}>
+                <div>
                   {children}
                 </div>
               </Dialog.Panel>

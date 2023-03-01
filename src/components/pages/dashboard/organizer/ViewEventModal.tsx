@@ -138,7 +138,7 @@ export default function ViewEventModal({
         </div>
 
         <div className="w-full flex justify-end p-5 pt-0 gap-2">
-          <Button type="button" intent={'danger'} onClick={handleCloseModal}>
+          <Button className='rounded-lg' type="button" intent={'danger'} onClick={handleCloseModal}>
             Close
           </Button>
         </div>
