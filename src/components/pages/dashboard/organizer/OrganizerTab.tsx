@@ -1,13 +1,12 @@
-import { EventByOrganizerDocument } from "@/src/generated/generated";
-import { useQuery } from "@apollo/client";
-import { Tab } from "@headlessui/react";
-import RoundsTab from "./RoundsTab";
-import { Dialog } from "@headlessui/react";
-import { useState } from "react";
-import ViewEventModal from "../ViewEventModal";
-import EditEventModal from "./EditEventModal";
+import { EventByOrganizerDocument } from '@/src/generated/generated';
+import { useQuery } from '@apollo/client';
+import { Tab } from '@headlessui/react';
+import RoundsTab from './RoundsTab';
+import ViewEventModal from './ViewEventModal';
+import EditEventModal from './EditEventModal';
+import RoundEventModal from './rounds/RoundEventModal';
+
 function OrganizerTab({ organizerId }: { organizerId: string }) {
-  let [isOpen, setIsOpen] = useState(true);
   const { data, loading, error } = useQuery(EventByOrganizerDocument, {
     variables: {
       organizerId,
@@ -23,13 +22,13 @@ function OrganizerTab({ organizerId }: { organizerId: string }) {
         {data.eventByOrganizer.map((event) => (
           <Tab className="focus:outline-none" key={event.id}>
             {({ selected }) => (
-              /* Use the `selected` state to conditionally style the selected tab. */
               <button
                 className={` px-3 whitespace-nowrap py-2 rounded-xl   ${
                   selected
-                    ? "bg-blue-500/50 text-white"
-                    : "bg-gray-300 text-black"
-                }`}>
+                    ? 'bg-blue-500/50 text-white'
+                    : 'bg-gray-300 text-black'
+                }`}
+              >
                 {event.name}
               </button>
             )}
@@ -44,9 +43,10 @@ function OrganizerTab({ organizerId }: { organizerId: string }) {
                 <h2 className="text-xl font-bold">{event.name}</h2>
                 <p className="text-green-500">{event.branch.name}</p>
               </div>
-              <div className="space-x-2">
+              <div className="space-x-2 flex">
                 <ViewEventModal event={event} />
                 <EditEventModal event={event} />
+                <RoundEventModal event={event} />
               </div>
             </div>
             <RoundsTab

@@ -17,6 +17,14 @@ query TeamsByRound(
         attended
         id
         name
+        members{
+          user{
+            id
+            name
+            phoneNumber
+            email
+          }
+        }
       }
     }
     pageInfo {

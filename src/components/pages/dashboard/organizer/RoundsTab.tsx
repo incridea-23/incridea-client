@@ -2,7 +2,6 @@ import {
   CreateRoundDocument,
   DeleteRoundDocument,
   EventByOrganizerQuery,
-  EventType,
 } from "@/src/generated/generated";
 import { Tab } from "@headlessui/react";
 import Teams from "./Teams";
@@ -10,9 +9,10 @@ import { useMutation } from "@apollo/client";
 import { BiLoaderAlt, BiSearch } from "react-icons/bi";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
-import { useState } from "react";
-import AddTeamModal from "./AddTeamModal";
 import AddParticipantModal from "./AddParticipantModal";
+import AddTeamModal from "./AddTeamModal";
+import { useState } from "react";
+
 function RoundsTab({
   rounds,
   eventId,
@@ -59,43 +59,6 @@ function RoundsTab({
               )}
             </Tab>
           ))}
-          <div className="flex gap-2 items-end justify-center  text-xs">
-            <button
-              className="bg-blue-500/50 text-white p-2 w-fit rounded-xl inline-flex gap-1 items-center"
-              disabled={loading2 || loading}
-              onClick={() => {
-                createRound();
-              }}>
-              {loading ? (
-                <>
-                  <BiLoaderAlt className="animate-spin text-xl" />
-                  Adding...{" "}
-                </>
-              ) : (
-                <>
-                  <AiOutlinePlus className=" text-xl" /> Add Round
-                </>
-              )}
-            </button>
-            <button
-              className="bg-red-500 text-white p-2 w-fit rounded-xl inline-flex gap-1 items-center"
-              disabled={loading2 || loading}
-              onClick={() => {
-                deleteRound();
-              }}>
-              {loading2 ? (
-                <>
-                  <BiLoaderAlt className="animate-spin text-xl" />
-                  Deleting...
-                </>
-              ) : (
-                <>
-                  <MdDelete className=" text-xl" />
-                  Delete Round
-                </>
-              )}
-            </button>
-          </div>
         </Tab.List>
         <Tab.Panels className="backdrop-blur-md h-fit max-h-[70vh] overflow-y-auto rounded-2xl border p-3 w-full border-gray-600 bg-gray-900/30">
           {rounds.map((event) => (
@@ -121,11 +84,7 @@ function RoundsTab({
                   <AddTeamModal eventId={eventId} />
                 )}
               </div>
-              <Teams
-                roundNo={event.roundNo}
-                eventId={event.eventId}
-                searchParam={searchParam}
-              />
+              <Teams roundNo={event.roundNo} eventId={event.eventId} />
             </Tab.Panel>
           ))}
         </Tab.Panels>
