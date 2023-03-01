@@ -170,6 +170,7 @@ const RoundsSidebar: FC<{
         <Tab.List className="flex flex-row">
           <div className="w-1/2 p-3 mx-2 basis-7/12 bg-gray-700 rounded-lg">
             <h1 className="text-xl font-bold">Judges</h1>
+
           </div>
           <div className="basis-7/12 bg-gray-700 rounded-lg p-3 w-1/2">
             <SearchBox

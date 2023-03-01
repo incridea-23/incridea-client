@@ -1,5 +1,6 @@
-import Dashboard from "@/src/components/Layout/dashboard";
+import Dashboard from "@/src/components/layout/dashboard";
 import OrganizerTab from "@/src/components/pages/dashboard/organizer/OrganizerTab";
+import Spinner from "@/src/components/spinner";
 import { useAuth } from "@/src/hooks/useAuth";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
@@ -8,7 +9,7 @@ const Organizer: NextPage = () => {
   const router = useRouter();
   const { user, loading, error } = useAuth();
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className="h-screen w-screen flex justify-center"><Spinner/></div>;
   if (!user) {
     router.push("/auth/login");
     return <div>Redirecting...</div>;

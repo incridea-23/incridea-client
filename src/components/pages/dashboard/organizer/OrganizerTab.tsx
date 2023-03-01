@@ -2,13 +2,11 @@ import { EventByOrganizerDocument } from '@/src/generated/generated';
 import { useQuery } from '@apollo/client';
 import { Tab } from '@headlessui/react';
 import RoundsTab from './RoundsTab';
-import { useState } from 'react';
-import ViewEventModal from '../ViewEventModal';
+import ViewEventModal from './ViewEventModal';
 import EditEventModal from './EditEventModal';
 import RoundEventModal from './rounds/RoundEventModal';
 
 function OrganizerTab({ organizerId }: { organizerId: string }) {
-  let [isOpen, setIsOpen] = useState(true);
   const { data, loading, error } = useQuery(EventByOrganizerDocument, {
     variables: {
       organizerId,
@@ -24,7 +22,6 @@ function OrganizerTab({ organizerId }: { organizerId: string }) {
         {data.eventByOrganizer.map((event) => (
           <Tab className="focus:outline-none" key={event.id}>
             {({ selected }) => (
-              /* Use the `selected` state to conditionally style the selected tab. */
               <button
                 className={` px-3 whitespace-nowrap py-2 rounded-xl   ${
                   selected

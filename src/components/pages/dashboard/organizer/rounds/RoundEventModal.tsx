@@ -1,7 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { FC, Fragment, useState } from 'react';
 import { EventByOrganizerQuery } from '@/src/generated/generated';
-import Button from '../../../../button';
 import { IoClose } from 'react-icons/io5';
 import RoundsSidebar from './RoundsSidebar';
 

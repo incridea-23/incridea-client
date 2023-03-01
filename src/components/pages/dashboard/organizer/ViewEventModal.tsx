@@ -1,6 +1,6 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
-import { EventByOrganizerQuery } from "@/src/generated/generated";
+import { Dialog, Transition } from '@headlessui/react';
+import { Fragment, useState } from 'react';
+import { EventByOrganizerQuery } from '@/src/generated/generated';
 import {
   IoCashOutline,
   IoClose,
@@ -9,14 +9,14 @@ import {
   IoLocationOutline,
   IoPeopleOutline,
   IoPersonOutline,
-} from "react-icons/io5";
-import Button from "../../button";
-import draftToHtml from "draftjs-to-html";
+} from 'react-icons/io5';
+import Button from '../../../button';
+import draftToHtml from 'draftjs-to-html';
 
 export default function ViewEventModal({
   event,
 }: {
-  event: EventByOrganizerQuery["eventByOrganizer"][0];
+  event: EventByOrganizerQuery['eventByOrganizer'][0];
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -24,45 +24,45 @@ export default function ViewEventModal({
 
   const closeModal = () => {
     setIsOpen(false);
-  }
+  };
 
   const openModal = () => {
     setIsOpen(true);
-  }
+  };
 
   const getEventAttributes = () => {
-    let teamSizeText = "";
+    let teamSizeText = '';
     if (event.minTeamSize === event.maxTeamSize) {
       teamSizeText += event.minTeamSize;
       if (event.minTeamSize === 1) {
-        teamSizeText += " member";
-      } else teamSizeText += " members";
+        teamSizeText += ' member';
+      } else teamSizeText += ' members';
     } else {
       teamSizeText = `${event.minTeamSize} - ${event.maxTeamSize} members`;
     }
     return [
       {
-        name: "Venue",
+        name: 'Venue',
         text: event.venue,
         Icon: IoLocationOutline,
       },
       {
-        name: "Event Type",
+        name: 'Event Type',
         text: event.eventType,
         Icon: IoPersonOutline,
       },
       {
-        name: "Fees",
+        name: 'Fees',
         text: event.fees,
         Icon: IoCashOutline,
       },
       {
-        name: "Team Size",
+        name: 'Team Size',
         text: teamSizeText,
         Icon: IoPeopleOutline,
       },
       {
-        name: "Maximum Teams",
+        name: 'Maximum Teams',
         text: event.maxTeams,
         Icon: IoInformationOutline,
       },
@@ -74,7 +74,8 @@ export default function ViewEventModal({
       <button
         type="button"
         onClick={openModal}
-        className="rounded-md bg-gray-900/70 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+        className="rounded-md bg-gray-900/70 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+      >
         View
       </button>
 
@@ -87,7 +88,8 @@ export default function ViewEventModal({
             enterTo="opacity-100"
             leave="ease-in duration-200"
             leaveFrom="opacity-100"
-            leaveTo="opacity-0">
+            leaveTo="opacity-0"
+          >
             <div className="fixed inset-0 bg-black/25 backdrop-blur-sm" />
           </Transition.Child>
 
@@ -100,17 +102,20 @@ export default function ViewEventModal({
                 enterTo="opacity-100 scale-100"
                 leave="ease-in duration-200"
                 leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95">
+                leaveTo="opacity-0 scale-95"
+              >
                 <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-gray-700/70 text-gray-100 backdrop-blur-xl text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="div"
-                    className="flex justify-between items-center md:p-6 p-5">
+                    className="flex justify-between items-center md:p-6 p-5"
+                  >
                     <h3 className="text-lg font-medium leading-6 text-white">
                       Event Details
                     </h3>
                     <button
                       className="hover:text-white text-gray-400 transition-colors"
-                      onClick={closeModal}>
+                      onClick={closeModal}
+                    >
                       <IoClose size="1.4rem" />
                     </button>
                   </Dialog.Title>
@@ -118,11 +123,14 @@ export default function ViewEventModal({
                   <div className="md:p-6 p-5">
                     <div
                       className={`${
-                        event.image ? "h-64" : "h-40  bg-gray-800/25"
+                        event.image ? 'h-64' : 'h-40  bg-gray-800/25'
                       } overflow-hidden relative mb-3 items-end flex rounded-lg bg-cover bg-center w-full`}
                       style={{
-                        backgroundImage: event.image ? `url(${event.image})` : "none",
-                      }}>
+                        backgroundImage: event.image
+                          ? `url(${event.image})`
+                          : 'none',
+                      }}
+                    >
                       {!event.image && (
                         <span className="absolute top-1/3 translate-x-1/2 text-white/25 text-2xl italic right-1/2">
                           no image added
@@ -138,10 +146,13 @@ export default function ViewEventModal({
                         attr.text ? (
                           <div
                             key={attr.name}
-                            className="flex px-3 py-2 bg-gray-600 shrink-0 rounded-lg grow gap-2 items-center">
+                            className="flex px-3 py-2 bg-gray-600 shrink-0 rounded-lg grow gap-2 items-center"
+                          >
                             {<attr.Icon />}
                             <p>
-                              <span className="font-semibold">{attr.name}: </span>
+                              <span className="font-semibold">
+                                {attr.name}:{' '}
+                              </span>
                               {attr.text}
                             </p>
                           </div>
@@ -162,7 +173,8 @@ export default function ViewEventModal({
                       ) : (
                         <p
                           className="text-gray-400 italic
-                      ">
+                      "
+                        >
                           no description added
                         </p>
                       )}
@@ -170,7 +182,11 @@ export default function ViewEventModal({
                   </div>
 
                   <div className="w-full flex justify-end p-5 pt-0 gap-2">
-                    <Button type="button" intent={"danger"} onClick={closeModal}>
+                    <Button
+                      type="button"
+                      intent={'danger'}
+                      onClick={closeModal}
+                    >
                       Close
                     </Button>
                   </div>
