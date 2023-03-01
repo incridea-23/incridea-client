@@ -12,6 +12,7 @@ import { IoClose } from 'react-icons/io5';
 import { AiOutlinePlus } from 'react-icons/ai';
 import SearchBox from '@/src/components/searchbox';
 import Spinner from '@/src/components/spinner';
+import RemoveOrganizer from './RemoveOrganizer';
 
 const AddOrganizerModal: FC<{
   eventId: string;
@@ -205,20 +206,11 @@ const AddOrganizerModal: FC<{
                               className="flex mb-3 justify-between items-center gap-5"
                             >
                               <h1>{organizer.user.name}</h1>
-                              {/* <Button
-                                      intent={'danger'}
-                                      size="small"
-                                      outline
-                                      className="mr-1 px-1"
-                                      onClick={() =>
-                                        handleRemoveOrganizer(
-                                          parseInt(event.id),
-                                          organizer.user.id
-                                        )
-                                      }
-                                    >
-                                      <BiTrash />
-                                    </Button> */}
+                              <RemoveOrganizer
+                                organizerId={organizer.user.id}
+                                eventId={eventId}
+                                eventsRefetch={eventsRefetch}
+                              />
                             </div>
                           ))}
                         </div>

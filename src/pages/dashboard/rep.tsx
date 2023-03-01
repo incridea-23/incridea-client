@@ -11,18 +11,11 @@ import { useAuth } from '@/src/hooks/useAuth';
 import { useMutation, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { useState, useRef, useEffect, useCallback } from 'react';
-import Modal from '@/src/components/modal';
 import { NextPage } from 'next';
 import Spinner from '@/src/components/spinner';
-import Button from '@/src/components/button';
-import SearchBox from '@/src/components/searchbox';
-import { BiTrash } from 'react-icons/bi';
-import { AiOutlinePlus } from 'react-icons/ai';
-import TextInput from '@/src/components/input';
 import toast, { Toaster } from 'react-hot-toast';
 import Dashboard from '@/src/components/layout/dashboard';
 import Badge from '@/src/components/badge';
-import AddEventModal from '@/src/components/pages/dashboard/branchrep/AddEventModal';
 import EventList from '@/src/components/pages/dashboard/branchrep/EventList';
 
 const BranchRep: NextPage = () => {

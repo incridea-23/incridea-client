@@ -1,10 +1,12 @@
 import Button from '@/src/components/button';
+import Spinner from '@/src/components/spinner';
 import { EventsByBranchRepDocument } from '@/src/generated/generated';
 import { useQuery } from '@apollo/client';
 import { FC } from 'react';
 import { BiTrash } from 'react-icons/bi';
 import AddEventModal from './AddEventModal';
 import AddOrganizerModal from './AddOrganizerModal';
+import DeleteEvent from './DeleteEvent';
 
 const EventList: FC<{
   branchRepId: string;
@@ -14,7 +16,6 @@ const EventList: FC<{
   const {
     data: events,
     loading: eventsLoading,
-    error: eventsError,
     refetch: eventsRefetch,
   } = useQuery(EventsByBranchRepDocument, {
     variables: {
@@ -35,6 +36,11 @@ const EventList: FC<{
         </div>
 
         {/* Events list */}
+        {eventsLoading && (
+          <div className="flex justify-center items-center">
+            <Spinner />
+          </div>
+        )}
         {events?.eventsByBranchRep.map((event) => (
           <div
             key={event.id}
@@ -68,24 +74,14 @@ const EventList: FC<{
                 organizers={event.organizers}
                 eventsRefetch={eventsRefetch}
                 eventName={event.name}
-                
               />
             </div>
             <div className="md:basis-1/5 text-end ">
-              <Button
-                intent={'danger'}
-                className="ml-auto "
-                // onClick={() => {
-                //   handleOpen('Delete Event');
-                //   setCurrentEvent({
-                //     id: parseInt(event.id),
-                //     name: event.name,
-                //   });
-                // }}
-                disabled={event.published}
-              >
-                Delete <BiTrash />
-              </Button>
+              <DeleteEvent 
+              eventId={event.id}
+              eventsRefetch={eventsRefetch}
+              published={event.published}
+              />
             </div>
           </div>
         ))}
