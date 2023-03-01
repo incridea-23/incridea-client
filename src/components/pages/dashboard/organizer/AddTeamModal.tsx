@@ -1,4 +1,3 @@
-import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { OrganizerCreateTeamDocument } from "@/src/generated/generated";
 
@@ -18,6 +17,8 @@ export default function AddTeamModal({ eventId }: { eventId: string }) {
   );
   const [teamName, setTeamName] = useState("");
   const createHandler = () => {
+    // Closing modal as soon as "Add" button is clicked. Toast will show the status of the request
+    setIsOpen(false);
     let promise = organizerCreateTeam({
       variables: {
         eventId,
@@ -28,32 +29,28 @@ export default function AddTeamModal({ eventId }: { eventId: string }) {
         res.data?.organizerCreateTeam.__typename ===
         "MutationOrganizerCreateTeamSuccess"
       ) {
-        setIsOpen(false);
         setTeamName("");
+      } else {
+        throw new Error("Error creating team");
       }
     });
     createToast(promise, "Creating Team...");
   };
-  useEffect(() => {
-    if (error) {
-      createToast(Promise.reject(error), error.message);
-    }
-  }, [error]);
 
   return (
     <>
       <Button
-        intent={"dark"}
+        intent={"info"}
+        outline
         size={"large"}
-        className="whitespace-nowrap"
+        className="w-full md:w-fit whitespace-nowrap rounded-lg"
         onClick={() => setIsOpen(true)}>
         Add Team
       </Button>
       <Modal
         showModal={isOpen}
         onClose={() => setIsOpen(false)}
-        title={"Add Team"}
-        size={"small"}>
+        title={"Add Team"}>
         <div className="md:p-6 p-5">
           <div className="flex flex-col gap-2">
             <label
@@ -63,7 +60,7 @@ export default function AddTeamModal({ eventId }: { eventId: string }) {
             </label>
             <input
               type="text"
-              className="bg-gray-900/50 text-gray-100 rounded-md p-2"
+              className="bg-gray-600 text-gray-100 rounded-md p-2"
               placeholder="RCB"
               value={teamName}
               onChange={(e) => setTeamName(e.target.value)}
@@ -73,10 +70,9 @@ export default function AddTeamModal({ eventId }: { eventId: string }) {
             <Button
               intent={"info"}
               size={"large"}
-              className="whitespace-nowrap mt-4"
+              className="whitespace-nowrap mt-4 rounded-lg"
               disabled={loading}
               onClick={createHandler}>
-              {loading ? <Spinner size={"small"} /> : null}
               Add Team
             </Button>
           </div>

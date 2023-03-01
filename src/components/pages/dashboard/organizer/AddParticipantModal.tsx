@@ -19,7 +19,7 @@ export default function AddParticipantModal() {
 
   return (
     <>
-      <Button type="button" intent={'secondary'} onClick={openModal} className='whitespace-nowrap rounded-lg'>
+      <Button type="button" intent={'info'} size='large' outline onClick={openModal} className='w-full md:w-fit whitespace-nowrap rounded-lg'>
         Add Participant
       </Button>
 

@@ -9,6 +9,7 @@ import Spinner from "@/src/components/spinner";
 import Modal from "@/src/components/modal";
 import Button from "@/src/components/button";
 import ToggleSwitch from "@/src/components/switch";
+import createToast from "@/src/components/toast";
 const Editor = dynamic(
   () => {
     return import("react-draft-wysiwyg").then((mod) => mod.Editor);
@@ -38,7 +39,8 @@ export default function EditEventModal({
     refetchQueries: ["EventByOrganizer"],
   });
   function saveHandler() {
-    updateEvent({
+    setShowModal(false);
+    let promise = updateEvent({
       variables: {
         id: event.id,
         maxTeams,
@@ -50,7 +52,8 @@ export default function EditEventModal({
         eventType: eventType as EventType,
         description: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
       },
-    });
+    })
+    createToast(promise, "Updating event...")
   }
 
   useEffect(() => {
@@ -228,7 +231,7 @@ export default function EditEventModal({
                   />
                 </div>
 
-                {maxTeams ? (
+                {maxTeams !== null ? (
                   <input
                     type="number"
                     id="maxTeams"
@@ -242,7 +245,7 @@ export default function EditEventModal({
                     }}
                   />
                 ) : (
-                  <div className=" border  text-sm rounded-lg   block  p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500">
+                  <div className="opacity-50 border  text-sm rounded-lg   block  p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500">
                     No Limit
                   </div>
                 )}
@@ -257,13 +260,7 @@ export default function EditEventModal({
               onClick={saveHandler}
               disabled={loading}
               className="rounded-lg">
-              {loading ? (
-                <>
-                  <Spinner size="small" className=" text-black " /> Saving
-                </>
-              ) : (
-                "Save"
-              )}
+                Save
             </Button>
           </div>
         </div>

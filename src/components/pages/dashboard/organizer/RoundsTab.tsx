@@ -60,11 +60,11 @@ function RoundsTab({
             </Tab>
           ))}
         </Tab.List>
-        <Tab.Panels className="backdrop-blur-md h-fit max-h-[70vh] overflow-y-auto rounded-lg p-3 w-full border border-gray-600 bg-gray-900/30">
+        <Tab.Panels className="backdrop-blur-md grow max-h-[70vh] overflow-y-auto rounded-lg p-3 w-full border border-gray-600 bg-gray-900/30">
           {rounds.map((event) => (
-            <Tab.Panel className="space-y-4" key={event.roundNo}>
+            <Tab.Panel key={event.roundNo}>
               {/* search bar  */}
-              <div className="flex gap-2">
+              <div className="flex mb-4 flex-col-reverse md:flex-row gap-2">
                 <div className="flex rounded-lg group  bg-gray-600/40 p-1 w-full gap-2 items-center justify-center">
                   <input
                     value={searchParam}

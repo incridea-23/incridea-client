@@ -10,6 +10,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
 import { FC, useState } from 'react';
 import CreateJudgeModal from './CreateJudgeModal';
+import createToast from '@/src/components/toast';
 
 const RoundsSidebar: FC<{
   rounds: EventByOrganizerQuery['eventByOrganizer'][0]['rounds'];
@@ -22,19 +23,32 @@ const RoundsSidebar: FC<{
       variables: {
         eventId: eventId,
       },
+      awaitRefetchQueries: true // waits for changes to be reflected, better UX(?) but slower
     }
   );
 
+  
   const [deleteRound, { data: data2, loading: loading2, error: error2 }] =
-    useMutation(DeleteRoundDocument, {
+  useMutation(DeleteRoundDocument, {
       refetchQueries: ['EventByOrganizer'],
       variables: {
         eventId: eventId,
       },
+      awaitRefetchQueries: true,
     });
-
+    
   const [selectedRound, setSelectedRound] = useState(1);
 
+  const handleCreateRound = () => {
+    let promise = createRound();
+    createToast(promise, 'Adding round...');
+  }
+
+  const handleDeleteRound = () => {
+    let promise = deleteRound();
+    createToast(promise, 'Deleting round...');
+  }
+    
   return (
     <div className="flex flex-col gap-5 px-2 pb-2">
       <Tab.Group>
@@ -61,9 +75,7 @@ const RoundsSidebar: FC<{
             <button
               className="bg-blue-500/50 text-white p-3 w-fit rounded-xl inline-flex gap-1 items-center"
               disabled={loading2 || loading}
-              onClick={() => {
-                createRound();
-              }}
+              onClick={handleCreateRound}
             >
               {loading ? (
                 <>
@@ -79,9 +91,7 @@ const RoundsSidebar: FC<{
             <button
               className="bg-red-500 text-white p-3 w-fit rounded-xl inline-flex gap-1 items-center"
               disabled={loading2 || loading}
-              onClick={() => {
-                deleteRound();
-              }}
+              onClick={handleDeleteRound}
             >
               {loading2 ? (
                 <>

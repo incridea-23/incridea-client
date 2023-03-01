@@ -52,7 +52,7 @@ const DeleteEvent: FC<{
         onClose={handleCloseModal}
         showModal={showModal}
       >
-        <div className="flex justify-center gap-3 mt-5">
+        <div className="flex justify-center gap-3 my-5">
           <Button
             intent={'danger'}
             onClick={handleDeleteEvent}

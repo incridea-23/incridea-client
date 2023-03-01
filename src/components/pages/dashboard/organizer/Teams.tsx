@@ -64,12 +64,12 @@ function Teams({ roundNo, eventId }: { roundNo: number; eventId: string }) {
 
   if (loading) return <Spinner />;
   if (!data || data.teamsByRound.edges.length === 0)
-    return <p className="my-5 text-gray-400 text-center">No teams here</p>;
+    return <p className="my-3 text-gray-400/70 italic text-center">no teams here</p>;
   return (
-    <div className="space-y-2">
+    <div>
       {data.teamsByRound.edges.map((team, index) => (
         <div
-          className="bg-gray-600/40 p-3  items-center rounded-lg flex justify-between flex-wrap gap-2"
+          className="bg-gray-600/40 p-3 mb-2 items-center rounded-lg flex justify-between flex-wrap gap-2"
           key={team?.node.id}
           ref={
             index === data.teamsByRound.edges.length - 1 ? lastItemRef : null
@@ -83,7 +83,7 @@ function Teams({ roundNo, eventId }: { roundNo: number; eventId: string }) {
       ))}
       {isFetching && <Spinner />}
       {!hasNextPage && !loading && (
-        <p className="my-5 text-gray-400 text-center">no teams users to show</p>
+        <p className="my-3 mt-5 text-gray-400/70 italic text-center">no more teams/users to show</p>
       )}
     </div>
   );

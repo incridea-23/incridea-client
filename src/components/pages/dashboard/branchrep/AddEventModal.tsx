@@ -51,7 +51,7 @@ const AddEventModal: FC<{
             onSubmit={(e) => {
               handleAddEvent(e);
             }}
-            className={`flex flex-col gap-5 p-4 md:p-10 ${
+            className={`flex flex-col gap-5 p-4 md:p-6 ${
               createEventLoading &&
               'opacity-50 pointer-events-none cursor-not-allowed'
             }}`}
@@ -79,7 +79,7 @@ const AddEventModal: FC<{
                 value={eventType}
                 id="eventType"
                 placeholder="Event Type"
-                className="basis-4/5  bg-gray-700 border border-gray-500 h-10 px-4 pr-16 rounded-lg text-sm focus:outline-none focus:ring-2 ring-gray-500"
+                className="basis-4/5  bg-gray-600  border-gray-500 h-10 px-4 pr-16 rounded-lg text-sm focus:outline-none focus:ring-2 ring-gray-500"
               >
                 {Object.values(EventType).map((type) => (
                   <option key={type} value={type}>
@@ -88,7 +88,7 @@ const AddEventModal: FC<{
                 ))}
               </select>
             </div>
-            <Button type="submit" intent={'primary'} fullWidth>
+            <Button type="submit" className='rounded-lg self-end' fullWidth={false} intent={'info'}>
               Add Event
             </Button>
           </form>
