@@ -6,7 +6,6 @@ import ViewEventModal from './ViewEventModal';
 import EditEventModal from './EditEventModal';
 import RoundEventModal from './RoundEventModal';
 import Spinner from '@/src/components/spinner';
-import ScanModal from './ScanModal';
 
 function OrganizerTab({ organizerId }: { organizerId: string }) {
   const { data, loading, error } = useQuery(EventByOrganizerDocument, {
@@ -50,7 +49,6 @@ function OrganizerTab({ organizerId }: { organizerId: string }) {
                   <ViewEventModal event={event} />
                   <EditEventModal event={event} />
                   <RoundEventModal event={event} />
-                  <ScanModal />
                 </div>
               </div>
               <RoundsTab

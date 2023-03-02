@@ -23,32 +23,31 @@ const RoundsSidebar: FC<{
       variables: {
         eventId: eventId,
       },
-      awaitRefetchQueries: true // waits for changes to be reflected, better UX(?) but slower
+      awaitRefetchQueries: true, // waits for changes to be reflected, better UX(?) but slower
     }
   );
 
-  
   const [deleteRound, { data: data2, loading: loading2, error: error2 }] =
-  useMutation(DeleteRoundDocument, {
+    useMutation(DeleteRoundDocument, {
       refetchQueries: ['EventByOrganizer'],
       variables: {
         eventId: eventId,
       },
       awaitRefetchQueries: true,
     });
-    
+
   const [selectedRound, setSelectedRound] = useState(1);
 
   const handleCreateRound = () => {
     let promise = createRound();
     createToast(promise, 'Adding round...');
-  }
+  };
 
   const handleDeleteRound = () => {
     let promise = deleteRound();
     createToast(promise, 'Deleting round...');
-  }
-    
+  };
+
   return (
     <div className="flex flex-col gap-5 px-2 pb-2">
       <Tab.Group>
@@ -112,6 +111,22 @@ const RoundsSidebar: FC<{
           <div className="w-full p-3 mx-2 bg-gray-700 rounded-lg">
             <h1 className="text-xl font-bold">Judges</h1>
             {/* List of judges for this round */}
+            {rounds.map((round) => (
+              <div key={round.eventId}>
+                {round.roundNo === selectedRound &&
+                  round.judges.map((judge) => (
+                    <div
+                      key={round.roundNo}
+                      className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg p-3 my-2"
+                    >
+                      <h1 className="text-lg font-bold">{judge.user.name}</h1>
+                      <h1 className="text-sm text-gray-400">
+                        {judge.user.email}
+                      </h1>
+                    </div>
+                  ))}
+              </div>
+            ))}
             <CreateJudgeModal eventId={eventId} roundNo={selectedRound} />
           </div>
         </Tab.List>

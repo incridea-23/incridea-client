@@ -5,6 +5,13 @@ query EventByOrganizer($organizerId: ID!) {
       roundNo
       eventId
       date
+      judges {
+        user {
+          email
+          name
+          id
+        }
+      }
     }
     description
     eventType

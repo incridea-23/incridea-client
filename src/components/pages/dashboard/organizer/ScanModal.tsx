@@ -13,10 +13,13 @@ const ScanModal: FC = () => {
   return (
     <>
       <Button
+        intent={'info'}
+        outline
+        size={'large'}
+        className="w-full md:w-fit whitespace-nowrap rounded-lg"
         onClick={() => {
           setShowModal(true);
         }}
-        intent="secondary"
       >
         Scan
       </Button>
