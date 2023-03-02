@@ -4,6 +4,7 @@ import Spinner from "@/src/components/spinner";
 import { useAuth } from "@/src/hooks/useAuth";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
+import { Toaster } from "react-hot-toast";
 
 const Organizer: NextPage = () => {
   const router = useRouter();
@@ -23,6 +24,7 @@ const Organizer: NextPage = () => {
 
   return (
     <Dashboard>
+      <Toaster />
       <h1 className="text-3xl mb-3">
         Hello <span className="font-semibold">{user?.name}</span>!
       </h1>

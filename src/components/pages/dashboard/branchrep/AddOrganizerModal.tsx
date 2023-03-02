@@ -38,6 +38,8 @@ const AddOrganizerModal: FC<{
     }).then((res) => {
       if (res.data?.addOrganizer.__typename === 'MutationAddOrganizerSuccess') {
         return eventsRefetch();
+      } else {
+        return Promise.reject('Error adding organizer');
       }
     });
     createToast(promise, 'Adding organizer...');
@@ -144,12 +146,9 @@ const AddOrganizerModal: FC<{
         title="Edit Organizers"
       >
         <div
-          className={`flex flex-col md:flex-row gap-3 p-3 ${
-            addOrganizerLoading &&
-            'opacity-50 pointer-events-none cursor-not-allowed'
-          }`}
+          className={`flex flex-col md:flex-row gap-3 p-3`}
         >
-          <div className="basis-5/12 bg-gray-700 rounded-lg p-3">
+          <div className="basis-5/12  rounded-lg p-3">
             <div key={eventId}>
               <h1 className="font-semibold text-xl mb-3">{eventName}</h1>
               {organizers.length === 0 && (
@@ -201,7 +200,7 @@ const AddOrganizerModal: FC<{
                   <Button
                     intent={'secondary'}
                     size="small"
-                    className="flex gap-1 items-center disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200"
+                    className="flex gap-1 items-center disabled:opacity-50 disabled:cursor-not-allowed"
                     onClick={() => handleAddOrganizer(user?.node.id as string)}
                     disabled={addOrganizerLoading}
                   >

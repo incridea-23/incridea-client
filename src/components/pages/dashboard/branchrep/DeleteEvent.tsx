@@ -23,14 +23,16 @@ const DeleteEvent: FC<{
 
   // Delete Event Handler
   const handleDeleteEvent = () => {
+    handleCloseModal();
     let promise = deleteEventMutation({
       variables: {
         id: parseInt(eventId),
       },
     }).then((res) => {
       if (res.data?.deleteEvent.__typename === 'MutationDeleteEventSuccess') {
-        handleCloseModal();
         return eventsRefetch();
+      } else {
+        return Promise.reject('Error deleting event');
       }
     });
     createToast(promise, 'Deleting event...');
@@ -52,7 +54,7 @@ const DeleteEvent: FC<{
         onClose={handleCloseModal}
         showModal={showModal}
       >
-        <div className="flex justify-center gap-3 mt-5">
+        <div className="flex justify-center gap-3 my-5">
           <Button
             intent={'danger'}
             onClick={handleDeleteEvent}

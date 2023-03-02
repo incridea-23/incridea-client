@@ -40,12 +40,10 @@ const CreateJudgeModal: FC<{
     }).then((res) => {
       if (res.data?.createJudge.__typename === 'MutationCreateJudgeSuccess') {
         handleCloseModal();
-      }
+      } else throw new Error('Error creating judge');
     });
-    createToast(promise, 'Adding event...');
+    createToast(promise, `Adding Judge '${name}'...`);
   };
-
-  console.log(error);
 
   return (
     <div className="mt-5">
@@ -88,8 +86,8 @@ const CreateJudgeModal: FC<{
               <TextInput name='password' type={'password'} placeholder="*********" />
             </div>
             <div className="flex justify-end">
-              <Button type="submit">
-                {createJudgeLoading ? <Spinner size="small" /> : 'Create Judge'}
+              <Button className='rounded-lg' type="submit">
+                Create Judge
               </Button>
             </div>
           </form>

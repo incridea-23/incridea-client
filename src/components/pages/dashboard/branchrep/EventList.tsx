@@ -27,32 +27,34 @@ const EventList: FC<{
 
   return (
     <>
-      <div className="flex gap-3 items-center">
-        <h1 className="text-2xl ">Registered Events</h1>
-        {branch && <Badge color={'success'}>{branch}</Badge>}
-      </div>
+      <div className="flex gap-3 flex-col md:flex-row md:justify-between md:items-center">
+        <div className='flex gap-3 items-center'>
+          <h1 className="text-2xl ">Registered Events</h1>
+          {branch && <Badge color={'success'}>{branch}</Badge>}
+        </div>
       <AddEventModal eventsRefetch={eventsRefetch} />
-      <div className="mt-5 flex flex-col gap-2">
+      </div>
+      <div className="mt-5 flex gap-3 md:gap-0.5 flex-col">
         {/* Event Header */}
-        <div className="hidden md:flex bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg p-2 items-center justify-between gap-5 text-2xl font-bold">
-          <h1 className="basis-1/5 text-start pl-4">Event Name</h1>
-          <h1 className="basis-1/5 text-center">Type</h1>
-          <h1 className="basis-1/5 text-center">Status</h1>
-          <h1 className="basis-1/5 text-center">Edit Organizers</h1>
-          <h1 className="basis-1/5 text-end pr-5">Delete</h1>
+        <div className="hidden md:flex bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-t-lg p-2 items-center justify-between gap-5 text-2xl font-bold">
+          <h1 className="basis-1/5 py-2.5 text-start pl-4">Event Name</h1>
+          <h1 className="basis-1/5 py-2.5 text-center">Type</h1>
+          <h1 className="basis-1/5 py-2.5 text-center">Status</h1>
+          <h1 className="basis-1/5 py-2.5 text-center">Edit Organizers</h1>
+          <h1 className="basis-1/5 py-2.5 text-end pr-5">Delete</h1>
         </div>
 
         {eventsLoading && (
-          <div className="flex justify-center items-center">
-            <Spinner />
+          <div className="flex mt-10 justify-center items-center">
+            <Spinner className='text-gray-300' />
           </div>
         )}
         
         {/* Events list */}
-        {events?.eventsByBranchRep.map((event) => (
+        {events?.eventsByBranchRep.map((event, i) => (
           <div
             key={event.id}
-            className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg md:p-5 p-3 flex flex-col md:flex-row md:items-center items-start justify-between md:gap-5 gap-3"
+            className={`bg-white/10 ${i === events.eventsByBranchRep.length-1 && 'md:rounded-b-lg'} md:rounded-none rounded-lg md:p-5 p-3 flex flex-col md:flex-row md:items-center items-start justify-between md:gap-5 gap-3`}
           >
             <h1 className="text-xl overflow-x-auto text-start inline-flex flex-wrap gap-2 font-bold md:basis-1/5">
               {event.name}{' '}

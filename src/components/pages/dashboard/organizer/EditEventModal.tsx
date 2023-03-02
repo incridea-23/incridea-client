@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  EventByOrganizerQuery,
-  UpdateEventDocument,
-} from "@/src/generated/generated";
+import { EventByOrganizerQuery, UpdateEventDocument } from "@/src/generated/generated";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import dynamic from "next/dynamic";
 import { EventType } from "@/src/generated/generated";
@@ -11,6 +8,8 @@ import { useMutation } from "@apollo/client";
 import Spinner from "@/src/components/spinner";
 import Modal from "@/src/components/modal";
 import Button from "@/src/components/button";
+import ToggleSwitch from "@/src/components/switch";
+import createToast from "@/src/components/toast";
 const Editor = dynamic(
   () => {
     return import("react-draft-wysiwyg").then((mod) => mod.Editor);
@@ -35,17 +34,13 @@ export default function EditEventModal({
     setShowModal(false);
   }
 
-  const [editorState, setEditorState] = useState<any>(
-    EditorState.createEmpty()
-  );
-  const [updateEvent, { data, loading, error }] = useMutation(
-    UpdateEventDocument,
-    {
-      refetchQueries: ["EventByOrganizer"],
-    }
-  );
+  const [editorState, setEditorState] = useState<any>(EditorState.createEmpty());
+  const [updateEvent, { data, loading, error }] = useMutation(UpdateEventDocument, {
+    refetchQueries: ["EventByOrganizer"],
+  });
   function saveHandler() {
-    updateEvent({
+    setShowModal(false);
+    let promise = updateEvent({
       variables: {
         id: event.id,
         maxTeams,
@@ -55,20 +50,17 @@ export default function EditEventModal({
         venue,
         fees,
         eventType: eventType as EventType,
-        description: JSON.stringify(
-          convertToRaw(editorState.getCurrentContent())
-        ),
+        description: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
       },
-    });
+    })
+    createToast(promise, "Updating event...")
   }
 
   useEffect(() => {
     const { description } = event;
     try {
       const editorState = JSON.parse(description as string) as any;
-      setEditorState(
-        EditorState.createWithContent(convertFromRaw(editorState))
-      );
+      setEditorState(EditorState.createWithContent(convertFromRaw(editorState)));
     } catch (error) {
       console.log(error);
     }
@@ -82,9 +74,7 @@ export default function EditEventModal({
   }, [event]);
   return (
     <>
-      <Button
-        onClick={() => setShowModal(true)}
-        className="rounded-md bg-gray-900/70 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+      <Button onClick={() => setShowModal(true)} intent="secondary">
         Edit
       </Button>
       <Modal
@@ -95,9 +85,7 @@ export default function EditEventModal({
         <div className=" p-5 ">
           <div className="mt-2">
             <div className="mb-6">
-              <label
-                htmlFor="name"
-                className="block mb-2 text-sm font-medium text-white">
+              <label htmlFor="name" className="block mb-2 text-sm font-medium text-white">
                 Event Name
               </label>
               <input
@@ -105,7 +93,7 @@ export default function EditEventModal({
                 id="name"
                 onChange={(e) => setName(e.target.value)}
                 value={name}
-                className=" border   text-sm rounded-lg   block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                className=" border   text-sm rounded-lg   block w-full p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
                 placeholder="Event Name..."
                 required
               />
@@ -120,12 +108,12 @@ export default function EditEventModal({
                 editorState={editorState}
                 onEditorStateChange={setEditorState}
                 wrapperClassName="wrapper-class"
-                editorClassName="bg-gray-700 p-2 rounded-md text-white"
-                toolbarClassName="bg-gray-700  text-black text-white"
+                editorClassName="bg-gray-600 p-2 rounded-md text-white"
+                toolbarClassName="bg-gray-600  text-black text-white"
               />
             </div>
             <div className="mb-6 flex flex-wrap gap-6 justify-between ">
-              <div>
+              <div className="grow md:basis-1/3 basis-full">
                 <label
                   htmlFor="Venue"
                   className="block mb-2 text-sm font-medium text-white">
@@ -137,11 +125,11 @@ export default function EditEventModal({
                   required
                   onChange={(e) => setVenue(e.target.value)}
                   value={venue || ""}
-                  className=" border w-fit   text-sm rounded-lg   block p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                  className=" border w-full   text-sm rounded-lg   block p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
                   placeholder="LC01"
                 />
               </div>
-              <div>
+              <div className="grow md:basis-1/3 basis-full">
                 <label className="block mb-2 text-sm font-medium text-white">
                   Event Type
                 </label>
@@ -150,7 +138,7 @@ export default function EditEventModal({
                   placeholder="Event Type"
                   value={eventType}
                   onChange={(e) => setEventType(e.target.value)}
-                  className="w-fit  bg-gray-700 border border-gray-500 h-10 px-4 pr-16 rounded-lg text-sm focus:outline-none focus:ring-2 ring-gray-500">
+                  className="w-full  bg-gray-600 border border-gray-600 h-10 px-4 pr-16 rounded-lg text-sm focus:outline-none focus:ring-2 ring-gray-500">
                   {Object.values(EventType).map((type) => (
                     <option key={type} value={type}>
                       {type}
@@ -161,7 +149,7 @@ export default function EditEventModal({
             </div>
 
             <div className="mb-6 flex flex-wrap gap-6 justify-between ">
-              <div>
+              <div className="grow md:basis-1/3 basis-full">
                 <label
                   htmlFor="fees"
                   className="block mb-2 text-sm font-medium text-white">
@@ -172,14 +160,14 @@ export default function EditEventModal({
                   id="fees"
                   onChange={(e) => setFees(Number(e.target.value) || 0)}
                   value={fees}
-                  className=" border w-fit  text-sm rounded-lg   block  p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                  className=" border w-full  text-sm rounded-lg   block  p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
                   placeholder="Entry Fees..."
                   defaultValue={event.fees}
                 />
               </div>
               {(eventType === EventType.Team ||
                 eventType === EventType.TeamMultipleEntry) && (
-                <div className="">
+                <div className="grow md:basis-1/3 basis-full">
                   <label className="block mb-2 text-sm font-medium text-white">
                     Team Size
                   </label>
@@ -188,12 +176,10 @@ export default function EditEventModal({
                     <input
                       type="number"
                       id="minTeamSize"
-                      className=" border w-14  text-sm rounded-lg   block  p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                      className=" border w-full  text-sm rounded-lg   block  p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
                       placeholder="Min Team Size..."
                       value={minTeamSize}
-                      onChange={(e) =>
-                        setMinTeamSize(Number(e.target.value) || 0)
-                      }
+                      onChange={(e) => setMinTeamSize(Number(e.target.value) || 0)}
                       min={1}
                     />
                     <span className="text-white">to</span>
@@ -201,13 +187,11 @@ export default function EditEventModal({
                     <input
                       type="number"
                       id="maxTeamSize"
-                      className=" border w-14  text-sm rounded-lg   block  p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                      className=" border w-full  text-sm rounded-lg   block  p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
                       placeholder="Max Team Size..."
                       min={1}
                       value={maxTeamSize}
-                      onChange={(e) =>
-                        setMaxTeamSize(Number(e.target.value) || 0)
-                      }
+                      onChange={(e) => setMaxTeamSize(Number(e.target.value) || 0)}
                     />
                   </div>
                 </div>
@@ -215,30 +199,30 @@ export default function EditEventModal({
             </div>
 
             <div className="mb-6 flex flex-wrap gap-6 justify-between ">
-              <div>
+              <div className="grow md:basis-1/3 basis-full">
                 <label className="block mb-2 text-sm font-medium text-white">
                   Banner
                 </label>
                 <input
                   type="file"
                   id="image"
-                  className=" border   text-sm rounded-lg   block  p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                  className="file:mr-4 file:py-2.5 file:rounded-r-none file:px-4
+                  file:rounded-md file:border-0
+                  file:text-sm file:font-semibold file:transition-colors file:cursor-pointer
+                  file:bg-blue-50 file:text-blue-700
+                  hover:file:bg-blue-100 border w-full text-sm rounded-lg   block  bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
                   placeholder="Banner..."
                 />
               </div>
-              <div>
+              <div className="grow md:basis-1/3 basis-full">
                 <div className="flex gap-2 mb-2 items-center">
                   <label className="block  text-sm font-medium text-white">
                     Teams Limit
                   </label>
-                  <input
-                    type="checkbox"
-                    id="teamsLimit"
-                    className=" border   text-sm rounded-lg   block  p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Has Teams Limit..."
+                  <ToggleSwitch
                     checked={maxTeams !== null}
-                    onChange={(e) => {
-                      if (e.target.checked) {
+                    onChange={(checked) => {
+                      if (checked) {
                         setMaxTeams(60);
                       } else {
                         setMaxTeams(null);
@@ -247,11 +231,11 @@ export default function EditEventModal({
                   />
                 </div>
 
-                {maxTeams ? (
+                {maxTeams !== null ? (
                   <input
                     type="number"
                     id="maxTeams"
-                    className=" border w-14  text-sm rounded-lg   block  p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                    className=" border w-full  text-sm rounded-lg  block  p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
                     placeholder="Max Teams..."
                     min={1}
                     value={maxTeams}
@@ -261,7 +245,7 @@ export default function EditEventModal({
                     }}
                   />
                 ) : (
-                  <div className=" border  text-sm rounded-lg   block  p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                  <div className="opacity-50 border  text-sm rounded-lg   block  p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500">
                     No Limit
                   </div>
                 )}
@@ -270,19 +254,14 @@ export default function EditEventModal({
           </div>
 
           <div className="w-full flex justify-end gap-2">
-            <button
+            <Button
               type="submit"
+              intent={"success"}
               onClick={saveHandler}
               disabled={loading}
-              className="inline-flex items-center gap-2 justify-center rounded-md border border-transparent bg-blue-100 text-black px-4 py-2 text-sm font-medium  hover:bg-blue-200 focus:outline-none disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
-              {loading ? (
-                <>
-                  <Spinner size="small" className=" text-black " /> Saving
-                </>
-              ) : (
-                "Save"
-              )}
-            </button>
+              className="rounded-lg">
+                Save
+            </Button>
           </div>
         </div>
       </Modal>

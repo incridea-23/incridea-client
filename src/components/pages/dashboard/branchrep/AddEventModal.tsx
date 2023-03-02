@@ -5,6 +5,7 @@ import { CreateEventDocument, EventType } from '@/src/generated/generated';
 import createToast from '@/src/components/toast';
 import TextInput from '@/src/components/input';
 import Modal from '@/src/components/modal';
+import { IoAdd } from 'react-icons/io5';
 
 const AddEventModal: FC<{
   eventsRefetch: () => Promise<any>;
@@ -20,6 +21,7 @@ const AddEventModal: FC<{
 
   const handleAddEvent = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    handleCloseModal();
 
     let promise = createEventMutation({
       variables: {
@@ -28,7 +30,6 @@ const AddEventModal: FC<{
       },
     }).then((res) => {
       if (res.data?.createEvent.__typename === 'MutationCreateEventSuccess') {
-        handleCloseModal();
         return eventsRefetch();
       }
     });
@@ -42,8 +43,8 @@ const AddEventModal: FC<{
 
   return (
     <div className="flex items-center justify-center">
-      <Button intent={'info'} size={'large'} onClick={() => setShowModal(true)}>
-        Add Event
+      <Button fullWidth intent={'info'} size={'large'} onClick={() => setShowModal(true)}>
+        <IoAdd />  Add Event
       </Button>
       {showModal && (
         <Modal title="Add Event" size="medium" onClose={handleCloseModal} showModal={showModal}>
@@ -51,7 +52,7 @@ const AddEventModal: FC<{
             onSubmit={(e) => {
               handleAddEvent(e);
             }}
-            className={`flex flex-col gap-5 p-4 md:p-10 ${
+            className={`flex flex-col gap-5 p-4 md:p-6 ${
               createEventLoading &&
               'opacity-50 pointer-events-none cursor-not-allowed'
             }}`}
@@ -79,7 +80,7 @@ const AddEventModal: FC<{
                 value={eventType}
                 id="eventType"
                 placeholder="Event Type"
-                className="basis-4/5  bg-gray-700 border border-gray-500 h-10 px-4 pr-16 rounded-lg text-sm focus:outline-none focus:ring-2 ring-gray-500"
+                className="basis-4/5  bg-gray-600  border-gray-500 h-10 px-4 pr-16 rounded-lg text-sm focus:outline-none focus:ring-2 ring-gray-500"
               >
                 {Object.values(EventType).map((type) => (
                   <option key={type} value={type}>
@@ -88,7 +89,7 @@ const AddEventModal: FC<{
                 ))}
               </select>
             </div>
-            <Button type="submit" intent={'primary'} fullWidth>
+            <Button type="submit" className='rounded-lg self-end' fullWidth={false} intent={'info'}>
               Add Event
             </Button>
           </form>
