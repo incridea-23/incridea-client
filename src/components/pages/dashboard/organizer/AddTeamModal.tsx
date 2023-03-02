@@ -1,7 +1,10 @@
 import { Fragment, useEffect, useState } from "react";
-import { OrganizerCreateTeamDocument } from "@/src/generated/generated";
+import {
+  OrganizerCreateTeamDocument,
+  TeamDetailsDocument,
+} from "@/src/generated/generated";
 
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import Spinner from "@/src/components/spinner";
 import Button from "@/src/components/button";
 import Modal from "@/src/components/modal";
@@ -14,13 +17,20 @@ export default function AddTeamModal({ eventId }: { eventId: string }) {
   const [organizerCreateTeam, { data, loading, error }] = useMutation(
     OrganizerCreateTeamDocument,
     {
-      refetchQueries: ["TeamsByEventId"],
+      refetchQueries: ["TeamDetails"],
     }
   );
+  // const {
+  //   data: teamData,
+  //   error: teamError,
+  //   loading: teamLoading,
+  // } = useQuery(TeamDetailsDocument, {
+  //   variables: {
+
+  //   },
+  // });
   const [teamName, setTeamName] = useState("");
   const createHandler = () => {
-    // Closing modal as soon as "Add" button is clicked. Toast will show the status of the request
-    setIsOpen(false);
     let promise = organizerCreateTeam({
       variables: {
         eventId,
@@ -35,7 +45,11 @@ export default function AddTeamModal({ eventId }: { eventId: string }) {
         setIsOpen(false);
         setIsOpenParticipantModal(true);
       } else {
-        throw new Error("Error creating team");
+        if (res.errors) {
+          throw new Error(res.errors[0].message);
+        } else {
+          throw new Error("Error creating team");
+        }
       }
     });
     createToast(promise, "Creating Team...");
@@ -64,7 +78,8 @@ export default function AddTeamModal({ eventId }: { eventId: string }) {
             </label>
             <input
               type="text"
-              className="bg-gray-600 text-gray-100 rounded-md p-2"
+              disabled={loading}
+              className="bg-gray-600 text-gray-100 rounded-md p-2 disabled:opacity-50"
               placeholder="RCB"
               value={teamName}
               onChange={(e) => setTeamName(e.target.value)}
