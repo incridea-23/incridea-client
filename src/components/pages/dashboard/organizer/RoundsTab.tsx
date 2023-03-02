@@ -79,7 +79,7 @@ function RoundsTab({
                 </div>
                 {eventType === "INDIVIDUAL" ||
                 eventType === "INDIVIDUAL_MULTIPLE_ENTRY" ? (
-                  <AddParticipantModal />
+                  <AddParticipantModal eventId={eventId} />
                 ) : (
                   <AddTeamModal eventId={eventId} />
                 )}

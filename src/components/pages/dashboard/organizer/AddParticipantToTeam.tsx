@@ -2,6 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import {
   OrganizerAddTeamMemberDocument,
+  OrganizerDeleteTeamMemberDocument,
   TeamDetailsDocument,
 } from "@/src/generated/generated";
 
@@ -39,7 +40,35 @@ export default function AddParticipantToTeam({
       id: teamId,
     },
   });
+  const [organizerDeleteTeamMember, _] = useMutation(
+    OrganizerDeleteTeamMemberDocument,
+    {
+      refetchQueries: ["TeamDetails"],
+    }
+  );
   const [userId, setUserId] = useState<string>("");
+  const removeHandler = (userId: string) => {
+    let promise = organizerDeleteTeamMember({
+      variables: {
+        teamId,
+        userId,
+      },
+    }).then((res) => {
+      if (
+        res.data?.organizerDeleteTeamMember.__typename ===
+        "MutationOrganizerDeleteTeamMemberSuccess"
+      ) {
+        setUserId("");
+      } else {
+        if (res.errors) {
+          throw new Error(res.errors[0].message);
+        } else {
+          throw new Error("Error adding member to team");
+        }
+      }
+    });
+    createToast(promise, "Removing Participant...");
+  };
   const addHandler = () => {
     if (!userId) return;
     let promise = organizerAddParticipantToTeam({
@@ -134,7 +163,11 @@ export default function AddParticipantToTeam({
                         </p>
                       </div>
                     </div>
-                    <Button intent={"danger"} outline className=" text-xl">
+                    <Button
+                      intent={"danger"}
+                      onClick={() => removeHandler(member.user.id)}
+                      outline
+                      className=" text-xl">
                       <MdOutlineDeleteOutline className="text-2xl" />
                     </Button>
                   </div>
