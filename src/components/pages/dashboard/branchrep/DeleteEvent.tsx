@@ -23,14 +23,16 @@ const DeleteEvent: FC<{
 
   // Delete Event Handler
   const handleDeleteEvent = () => {
+    handleCloseModal();
     let promise = deleteEventMutation({
       variables: {
         id: parseInt(eventId),
       },
     }).then((res) => {
       if (res.data?.deleteEvent.__typename === 'MutationDeleteEventSuccess') {
-        handleCloseModal();
         return eventsRefetch();
+      } else {
+        return Promise.reject('Error deleting event');
       }
     });
     createToast(promise, 'Deleting event...');

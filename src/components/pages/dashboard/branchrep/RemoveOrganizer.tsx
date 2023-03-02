@@ -27,6 +27,8 @@ const RemoveOrganizer: FC<{
         'MutationRemoveOrganizerSuccess'
       ) {
         return eventsRefetch();
+      } else {
+        return Promise.reject('Error removing organizer');
       }
     });
     createToast(promise, 'Removing organizer...');

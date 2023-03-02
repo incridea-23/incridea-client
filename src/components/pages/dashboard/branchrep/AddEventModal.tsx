@@ -5,6 +5,7 @@ import { CreateEventDocument, EventType } from '@/src/generated/generated';
 import createToast from '@/src/components/toast';
 import TextInput from '@/src/components/input';
 import Modal from '@/src/components/modal';
+import { IoAdd } from 'react-icons/io5';
 
 const AddEventModal: FC<{
   eventsRefetch: () => Promise<any>;
@@ -20,6 +21,7 @@ const AddEventModal: FC<{
 
   const handleAddEvent = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    handleCloseModal();
 
     let promise = createEventMutation({
       variables: {
@@ -28,7 +30,6 @@ const AddEventModal: FC<{
       },
     }).then((res) => {
       if (res.data?.createEvent.__typename === 'MutationCreateEventSuccess') {
-        handleCloseModal();
         return eventsRefetch();
       }
     });
@@ -42,8 +43,8 @@ const AddEventModal: FC<{
 
   return (
     <div className="flex items-center justify-center">
-      <Button intent={'info'} size={'large'} onClick={() => setShowModal(true)}>
-        Add Event
+      <Button fullWidth intent={'info'} size={'large'} onClick={() => setShowModal(true)}>
+        <IoAdd />  Add Event
       </Button>
       {showModal && (
         <Modal title="Add Event" size="medium" onClose={handleCloseModal} showModal={showModal}>
