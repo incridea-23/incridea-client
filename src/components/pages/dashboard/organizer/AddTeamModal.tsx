@@ -7,9 +7,11 @@ import Spinner from "@/src/components/spinner";
 import Button from "@/src/components/button";
 import Modal from "@/src/components/modal";
 import createToast from "@/src/components/toast";
+import AddParticipantToTeam from "./AddParticipantToTeam";
 
 export default function AddTeamModal({ eventId }: { eventId: string }) {
   let [isOpen, setIsOpen] = useState(false);
+  const [isOpenParticipantModal, setIsOpenParticipantModal] = useState(false);
   const [organizerCreateTeam, { data, loading, error }] = useMutation(
     OrganizerCreateTeamDocument,
     {
@@ -28,8 +30,9 @@ export default function AddTeamModal({ eventId }: { eventId: string }) {
         res.data?.organizerCreateTeam.__typename ===
         "MutationOrganizerCreateTeamSuccess"
       ) {
-        setIsOpen(false);
         setTeamName("");
+        setIsOpen(false);
+        setIsOpenParticipantModal(true);
       }
     });
     createToast(promise, "Creating Team...");
@@ -82,6 +85,16 @@ export default function AddTeamModal({ eventId }: { eventId: string }) {
           </div>
         </div>
       </Modal>
+      {data?.organizerCreateTeam.__typename ===
+        "MutationOrganizerCreateTeamSuccess" &&
+        isOpenParticipantModal && (
+          <AddParticipantToTeam
+            isOpen={isOpenParticipantModal}
+            teamName={data.organizerCreateTeam.data.name}
+            setIsOpen={setIsOpenParticipantModal}
+            teamId={data.organizerCreateTeam.data.id}
+          />
+        )}
     </>
   );
 }

@@ -5,12 +5,21 @@ import { useQuery } from "@apollo/client/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ViewTeamModal from "./ViewTeamModal";
 
-function Teams({ roundNo, eventId }: { roundNo: number; eventId: string }) {
+function Teams({
+  roundNo,
+  eventId,
+  contains,
+}: {
+  roundNo: number;
+  eventId: string;
+  contains?: string;
+}) {
   const { data, loading, error, fetchMore } = useQuery(TeamsByRoundDocument, {
     variables: {
       roundNo,
       eventId,
       first: 10,
+      contains,
     },
   });
   const { endCursor, hasNextPage } = data?.teamsByRound.pageInfo || {};

@@ -84,7 +84,11 @@ function RoundsTab({
                   <AddTeamModal eventId={eventId} />
                 )}
               </div>
-              <Teams roundNo={event.roundNo} eventId={event.eventId} />
+              <Teams
+                contains={searchParam}
+                roundNo={event.roundNo}
+                eventId={event.eventId}
+              />
             </Tab.Panel>
           ))}
         </Tab.Panels>

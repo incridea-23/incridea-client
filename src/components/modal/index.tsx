@@ -32,7 +32,7 @@ const Modal: FC<ModalProps> = ({
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center text-center py-5 md:py-7">
+          <div className="flex min-h-full items-center justify-center text-center p-5 md:p-7">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
