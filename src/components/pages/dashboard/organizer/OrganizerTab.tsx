@@ -6,6 +6,7 @@ import ViewEventModal from './ViewEventModal';
 import EditEventModal from './EditEventModal';
 import RoundEventModal from './RoundEventModal';
 import Spinner from '@/src/components/spinner';
+import ScanModal from './ScanModal';
 
 function OrganizerTab({ organizerId }: { organizerId: string }) {
   const { data, loading, error } = useQuery(EventByOrganizerDocument, {
@@ -45,10 +46,11 @@ function OrganizerTab({ organizerId }: { organizerId: string }) {
                   <h2 className="text-2xl font-bold">{event.name}</h2>
                   <p className="text-green-400 rounded-full px-3 leading-8 border border-green-400">{event.branch.name}</p>
                 </div>
-                <div className="space-x-2 flex">
+                <div className="space-x-2 flex overflow-x-scroll md:overflow-hidden p-4 md:p-0">
                   <ViewEventModal event={event} />
                   <EditEventModal event={event} />
                   <RoundEventModal event={event} />
+                  <ScanModal />
                 </div>
               </div>
               <RoundsTab
