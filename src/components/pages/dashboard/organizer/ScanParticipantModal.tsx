@@ -4,7 +4,9 @@ import { FC, useState } from 'react';
 import { MdOutlineQrCodeScanner } from 'react-icons/md';
 import { QRCodeScanner } from './QRCodeScanner';
 
-const ScanParticipantModal: FC = () => {
+const ScanParticipantModal: FC<{
+  eventId: string;
+}> = ({ eventId }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div>
@@ -22,7 +24,9 @@ const ScanParticipantModal: FC = () => {
         showModal={isOpen}
         onClose={() => setIsOpen(false)}
       >
-        <QRCodeScanner intent="addToEvent" />
+        <div className="p-5">
+          <QRCodeScanner eventId={eventId} intent="addToEvent" />
+        </div>
       </Modal>
     </div>
   );

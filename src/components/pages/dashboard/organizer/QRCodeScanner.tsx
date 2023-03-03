@@ -1,10 +1,12 @@
 import { useZxing } from 'react-zxing';
 import { useState } from 'react';
 import MarkAttendance from './MarkAttendance';
+import AddParticipantToEvent from './AddParticipantToEvent';
 
 export const QRCodeScanner: React.FC<{
   intent: 'attendance' | 'addToTeam' | 'addToEvent';
-}> = ({ intent }) => {
+  eventId?: string;
+}> = ({ intent, eventId }) => {
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -27,6 +29,12 @@ export const QRCodeScanner: React.FC<{
               <span className="font-bold">Team ID:</span> {result}
             </p>
             {intent === 'attendance' && <MarkAttendance teamId={result} />}
+            {intent === 'addToEvent' && (
+              <AddParticipantToEvent
+                eventId={eventId || ''}
+                userId={result}
+              />
+            )}
           </div>
         )}
         {error && (

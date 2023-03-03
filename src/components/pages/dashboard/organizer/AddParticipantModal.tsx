@@ -1,17 +1,10 @@
-import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useEffect, useState } from 'react';
+import {  useState } from 'react';
 import {
-  OrganizerAddTeamMemberDocument,
-  OrganizerDeleteTeamMemberDocument,
   OrganizerRegisterSoloDocument,
-  TeamDetailsDocument,
 } from '@/src/generated/generated';
-
 import { useMutation, useQuery } from '@apollo/client';
-import Spinner from '@/src/components/spinner';
 import Modal from '@/src/components/modal';
 import createToast from '@/src/components/toast';
-import { MdOutlineDeleteOutline, MdOutlineQrCodeScanner } from 'react-icons/md';
 import Button from '@/src/components/button';
 import ScanParticipantModal from './ScanParticipantModal';
 
@@ -75,7 +68,9 @@ export default function AddParticipantModal({ eventId }: { eventId: string }) {
             >
               Scan Participant ID
             </label>
-            <ScanParticipantModal />
+            <ScanParticipantModal 
+            eventId={eventId}
+            />
           </div>
           <div className="w-full text-center ">OR</div>
           <div className="space-y-2">
