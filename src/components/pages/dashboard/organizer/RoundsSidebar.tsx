@@ -17,17 +17,15 @@ import Button from '@/src/components/button';
 const RoundsSidebar: FC<{
   rounds: EventByOrganizerQuery['eventByOrganizer'][0]['rounds'];
   eventId: string;
-}> = ({ rounds, eventId }) => {
-  const [createRound, { data, loading, error }] = useMutation(
-    CreateRoundDocument,
-    {
-      refetchQueries: ['EventByOrganizer'],
-      variables: {
-        eventId: eventId,
-      },
-      awaitRefetchQueries: true, // waits for changes to be reflected, better UX(?) but slower
-    }
-  );
+  isPublished: boolean;
+}> = ({ rounds, eventId, isPublished }) => {
+  const [createRound, { loading }] = useMutation(CreateRoundDocument, {
+    refetchQueries: ['EventByOrganizer'],
+    variables: {
+      eventId: eventId,
+    },
+    awaitRefetchQueries: true, // waits for changes to be reflected, better UX(?) but slower
+  });
 
   const [deleteRound, { data: data2, loading: loading2, error: error2 }] =
     useMutation(DeleteRoundDocument, {
@@ -93,8 +91,12 @@ const RoundsSidebar: FC<{
           ))}
           <div className="flex gap-2 items-end justify-center  text-xs">
             <button
-              className="bg-blue-500/50 text-white p-3 w-fit rounded-xl inline-flex gap-1 items-center"
-              disabled={loading2 || loading}
+              className={`bg-blue-500/50 text-white p-3 w-fit rounded-xl inline-flex gap-1 items-center ${
+                loading2 || loading || isPublished
+                  ? 'opacity-50 pointer-events-none cursor-not-allowed'
+                  : ''
+              }`}
+              disabled={loading2 || loading || isPublished}
               onClick={handleCreateRound}
             >
               {loading ? (
@@ -109,8 +111,12 @@ const RoundsSidebar: FC<{
               )}
             </button>
             <button
-              className="bg-red-500 text-white p-3 w-fit rounded-xl inline-flex gap-1 items-center"
-              disabled={loading2 || loading}
+              className={`bg-red-500 text-white p-3 w-fit rounded-xl inline-flex gap-1 items-center ${
+                loading2 || loading || isPublished
+                  ? 'opacity-50 pointer-events-none cursor-not-allowed'
+                  : ''
+              }`}
+              disabled={loading2 || loading || isPublished}
               onClick={handleDeleteRound}
             >
               {loading2 ? (
