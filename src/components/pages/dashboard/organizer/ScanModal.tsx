@@ -25,7 +25,9 @@ const ScanModal: FC = () => {
       </Button>
       <Modal title="Scan Team" showModal={showModal} onClose={handleCloseModal}>
         <div className="p-5">
-          <QRCodeScanner />
+          <QRCodeScanner 
+          intent={'attendance'}
+          />
         </div>
       </Modal>
     </>
