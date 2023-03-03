@@ -88,6 +88,7 @@ function RoundsTab({
                 )}
               </div>
               <Teams
+                eventType={eventType}
                 contains={searchParam}
                 roundNo={event.roundNo}
                 eventId={event.eventId}

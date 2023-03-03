@@ -23,9 +23,6 @@ export const QRCodeScanner: React.FC = ({}) => {
     {
       refetchQueries: ['TeamsByRound'],
       awaitRefetchQueries: true,
-      onError: (error) => {
-        toast.error(error.message);
-      },
     }
   );
 
@@ -46,6 +43,18 @@ export const QRCodeScanner: React.FC = ({}) => {
                     teamId: result,
                     attended: true,
                   },
+                }).then((res) => {
+                  if (
+                    res.data?.organizerMarkAttendance.__typename === 'Error'
+                  ) {
+                    toast.error('Not a valid team ID');
+                  }
+                  if (
+                    res.data?.organizerMarkAttendance.__typename ===
+                    'MutationOrganizerMarkAttendanceSuccess'
+                  ) {
+                    toast.success('Attendance marked');
+                  }
                 });
               }}
               disabled={AttendanceLoading}
