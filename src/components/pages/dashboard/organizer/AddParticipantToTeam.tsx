@@ -1,18 +1,19 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useState } from "react";
+import { Dialog, Transition } from '@headlessui/react';
+import { Fragment, useEffect, useState } from 'react';
 import {
   OrganizerAddTeamMemberDocument,
   OrganizerDeleteTeamMemberDocument,
   TeamDetailsDocument,
-} from "@/src/generated/generated";
+} from '@/src/generated/generated';
 
-import { useMutation, useQuery } from "@apollo/client";
-import Spinner from "@/src/components/spinner";
-import Modal from "@/src/components/modal";
-import createToast from "@/src/components/toast";
-import Teams from "./Teams";
-import { MdOutlineDeleteOutline, MdOutlineQrCodeScanner } from "react-icons/md";
-import Button from "@/src/components/button";
+import { useMutation, useQuery } from '@apollo/client';
+import Spinner from '@/src/components/spinner';
+import Modal from '@/src/components/modal';
+import createToast from '@/src/components/toast';
+import Teams from './Teams';
+import { MdOutlineDeleteOutline, MdOutlineQrCodeScanner } from 'react-icons/md';
+import Button from '@/src/components/button';
+import { QRCodeScanner } from './QRCodeScanner';
 
 export default function AddParticipantToTeam({
   isOpen,
@@ -28,7 +29,7 @@ export default function AddParticipantToTeam({
   const [organizerAddParticipantToTeam, { data, loading, error }] = useMutation(
     OrganizerAddTeamMemberDocument,
     {
-      refetchQueries: ["TeamDetails"],
+      refetchQueries: ['TeamDetails'],
     }
   );
   const {
@@ -43,10 +44,10 @@ export default function AddParticipantToTeam({
   const [organizerDeleteTeamMember, _] = useMutation(
     OrganizerDeleteTeamMemberDocument,
     {
-      refetchQueries: ["TeamDetails"],
+      refetchQueries: ['TeamDetails'],
     }
   );
-  const [userId, setUserId] = useState<string>("");
+  const [userId, setUserId] = useState<string>('');
   const removeHandler = (userId: string) => {
     let promise = organizerDeleteTeamMember({
       variables: {
@@ -56,18 +57,18 @@ export default function AddParticipantToTeam({
     }).then((res) => {
       if (
         res.data?.organizerDeleteTeamMember.__typename ===
-        "MutationOrganizerDeleteTeamMemberSuccess"
+        'MutationOrganizerDeleteTeamMemberSuccess'
       ) {
-        setUserId("");
+        setUserId('');
       } else {
         if (res.errors) {
           throw new Error(res.errors[0].message);
         } else {
-          throw new Error("Error adding member to team");
+          throw new Error('Error adding member to team');
         }
       }
     });
-    createToast(promise, "Removing Participant...");
+    createToast(promise, 'Removing Participant...');
   };
   const addHandler = () => {
     if (!userId) return;
@@ -79,47 +80,63 @@ export default function AddParticipantToTeam({
     }).then((res) => {
       if (
         res.data?.organizerAddTeamMember.__typename ===
-        "MutationOrganizerAddTeamMemberSuccess"
+        'MutationOrganizerAddTeamMemberSuccess'
       ) {
-        setUserId("");
+        setUserId('');
       } else {
         if (res.errors) {
           throw new Error(res.errors[0].message);
         } else {
-          throw new Error("Error adding member to team");
+          throw new Error('Error adding member to team');
         }
       }
     });
-    createToast(promise, "Adding Participant...");
+    createToast(promise, 'Adding Participant...');
   };
+
+  const [scanModalOpen, setScanModalOpen] = useState<boolean>(false);
 
   return (
     <Modal
       showModal={isOpen}
       onClose={() => setIsOpen(false)}
-      title={"Add Participant"}>
+      title={'Add Participant'}
+    >
       <div className="flex flex-wrap md:p-6 p-5 gap-10">
         <div className="w-full md:w-fit space-y-5">
           <div className="space-y-2">
             {/* scan user */}
             <label
               htmlFor="ParticipantID"
-              className="block text-sm font-medium text-gray-300">
+              className="block text-sm font-medium text-gray-300"
+            >
               Scan Participant ID
             </label>
             <Button
-              intent={"primary"}
+              intent={'primary'}
               className=" w-full"
               outline
-              size={"large"}>
+              size={'large'}
+              onClick={() => setScanModalOpen(true)}
+            >
               Scan <MdOutlineQrCodeScanner className="inline-block text-2xl" />
             </Button>
+            <Modal
+              title="Scan Participant ID"
+              showModal={scanModalOpen}
+              onClose={() => setScanModalOpen(false)}
+            >
+              <div className="p-5">
+                <QRCodeScanner intent="addToTeam" teamId={teamId} />
+              </div>
+            </Modal>
           </div>
           <div className="w-full text-center ">OR</div>
           <div className="space-y-2">
             <label
               htmlFor="ParticipantID"
-              className="block text-sm font-medium text-gray-300">
+              className="block text-sm font-medium text-gray-300"
+            >
               Enter Participant ID
             </label>
             <input
@@ -131,11 +148,12 @@ export default function AddParticipantToTeam({
             />
           </div>
           <Button
-            intent={"info"}
+            intent={'info'}
             outline
-            size={"large"}
+            size={'large'}
             onClick={addHandler}
-            className="w-full  whitespace-nowrap rounded-lg">
+            className="w-full  whitespace-nowrap rounded-lg"
+          >
             Add Participant
           </Button>
         </div>
@@ -144,12 +162,13 @@ export default function AddParticipantToTeam({
 
           <div>
             {teamData &&
-            teamData.teamDetails.__typename === "QueryTeamDetailsSuccess" ? (
+            teamData.teamDetails.__typename === 'QueryTeamDetailsSuccess' ? (
               <div className="space-y-2">
                 {teamData.teamDetails.data.members.map((member) => (
                   <div
                     key={member.user.id}
-                    className="bg-white  bg-opacity-10   rounded-lg md:p-3 p-2 flex   items-start justify-between md:gap-5 gap-3">
+                    className="bg-white  bg-opacity-10   rounded-lg md:p-3 p-2 flex   items-start justify-between md:gap-5 gap-3"
+                  >
                     <div className="flex items-center space-x-3">
                       <div className="text-lg  text-green-500 font-mono">
                         {member.user.id}
@@ -164,10 +183,11 @@ export default function AddParticipantToTeam({
                       </div>
                     </div>
                     <Button
-                      intent={"danger"}
+                      intent={'danger'}
                       onClick={() => removeHandler(member.user.id)}
                       outline
-                      className=" text-xl">
+                      className=" text-xl"
+                    >
                       <MdOutlineDeleteOutline className="text-2xl" />
                     </Button>
                   </div>

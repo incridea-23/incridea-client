@@ -2,11 +2,14 @@ import { useZxing } from 'react-zxing';
 import { useState } from 'react';
 import MarkAttendance from './MarkAttendance';
 import AddParticipantToEvent from './AddParticipantToEvent';
+import ScanParticipantToTeam from './ScanParticipantToTeam';
+import Badge from '@/src/components/badge';
 
 export const QRCodeScanner: React.FC<{
   intent: 'attendance' | 'addToTeam' | 'addToEvent';
   eventId?: string;
-}> = ({ intent, eventId }) => {
+  teamId?: string;
+}> = ({ intent, eventId, teamId }) => {
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -25,15 +28,13 @@ export const QRCodeScanner: React.FC<{
       <div className="mt-4">
         {result && (
           <div className="flex flex-col items-center">
-            <p className="text-xl text-green-500">
-              <span className="font-bold">Team ID:</span> {result}
-            </p>
+            <Badge color={'info'}>Scanned ID: {result}</Badge>
             {intent === 'attendance' && <MarkAttendance teamId={result} />}
             {intent === 'addToEvent' && (
-              <AddParticipantToEvent
-                eventId={eventId || ''}
-                userId={result}
-              />
+              <AddParticipantToEvent eventId={eventId || ''} userId={result} />
+            )}
+            {intent === 'addToTeam' && (
+              <ScanParticipantToTeam teamId={teamId || ''} userId={result} />
             )}
           </div>
         )}
