@@ -1,16 +1,18 @@
 import {
   CreateRoundDocument,
+  DeleteJudgeDocument,
   DeleteRoundDocument,
   EventByOrganizerQuery,
 } from '@/src/generated/generated';
 import { Tab } from '@headlessui/react';
 import { useMutation } from '@apollo/client';
-import { BiLoaderAlt } from 'react-icons/bi';
+import { BiLoaderAlt, BiTrash } from 'react-icons/bi';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
 import { FC, useState } from 'react';
 import CreateJudgeModal from './CreateJudgeModal';
 import createToast from '@/src/components/toast';
+import Button from '@/src/components/button';
 
 const RoundsSidebar: FC<{
   rounds: EventByOrganizerQuery['eventByOrganizer'][0]['rounds'];
@@ -36,6 +38,14 @@ const RoundsSidebar: FC<{
       awaitRefetchQueries: true,
     });
 
+  const [deleteJudge, { loading: deleteJudgeLoading }] = useMutation(
+    DeleteJudgeDocument,
+    {
+      refetchQueries: ['EventByOrganizer'],
+      awaitRefetchQueries: true,
+    }
+  );
+
   const [selectedRound, setSelectedRound] = useState(1);
 
   const handleCreateRound = () => {
@@ -46,6 +56,17 @@ const RoundsSidebar: FC<{
   const handleDeleteRound = () => {
     let promise = deleteRound();
     createToast(promise, 'Deleting round...');
+  };
+
+  const handleDeleteJudge = (id: string) => {
+    let promise = deleteJudge({
+      variables: {
+        eventId: eventId,
+        roundNo: selectedRound,
+        userId: id,
+      },
+    });
+    createToast(promise, 'Deleting judge...');
   };
 
   return (
@@ -117,12 +138,24 @@ const RoundsSidebar: FC<{
                   round.judges.map((judge) => (
                     <div
                       key={round.roundNo}
-                      className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg p-3 my-2"
+                      className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg p-3 my-2 flex justify-between items-center"
                     >
-                      <h1 className="text-lg font-bold">{judge.user.name}</h1>
-                      <h1 className="text-sm text-gray-400">
-                        {judge.user.email}
-                      </h1>
+                      <div>
+                        <h1 className="text-lg font-bold">{judge.user.name}</h1>
+                        <h1 className="text-sm text-gray-400">
+                          {judge.user.email}
+                        </h1>
+                      </div>
+                      <Button
+                        intent={'danger'}
+                        size="small"
+                        outline
+                        className="h-8 w-8"
+                        onClick={() => handleDeleteJudge(judge.user.id)}
+                        disabled={deleteJudgeLoading}
+                      >
+                        <BiTrash />
+                      </Button>
                     </div>
                   ))}
               </div>

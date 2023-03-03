@@ -46,11 +46,8 @@ function Teams({
     {
       refetchQueries: ['TeamsByRound'],
       awaitRefetchQueries: true,
-      onError: (error) => {
-        console.log(error);
-      },
     }
-  );
+  )
 
   const [showModal, setShowModal] = useState(false);
 
@@ -59,7 +56,7 @@ function Teams({
   }
 
   const handleDelete = (teamId: string) => {
-    console.log(teamId);
+    setShowModal(false);
     let promise = deleteTeam({
       variables: {
         teamId: teamId,
@@ -67,12 +64,10 @@ function Teams({
     }).then((res) => {
       if (res?.data?.organizerDeleteTeam.__typename === 'Error') {
         toast.success('Team deleted successfully');
-        setShowModal(false);
       }
 
       if (res?.data?.organizerDeleteTeam.__typename === 'Error') {
         toast.error('Error deleting team');
-        setShowModal(false);
       }
     });
     createToast(promise, 'Deleting');
@@ -197,7 +192,6 @@ function Teams({
                   intent={'danger'}
                   onClick={() => {
                     handleDelete(team?.node.id as string);
-                    console.log(team?.node.id);
                   }}
                   disabled={team?.node.attended || deleteTeamLoading}
                 >
