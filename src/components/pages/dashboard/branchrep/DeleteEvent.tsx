@@ -7,13 +7,15 @@ import { BiTrash } from 'react-icons/bi';
 import Modal from '@/src/components/modal';
 
 const DeleteEvent: FC<{
-  eventsRefetch: () => Promise<any>;
   eventId: string;
   published: boolean;
-}> = ({ eventsRefetch, eventId, published }) => {
+}> = ({  eventId, published }) => {
   // Delete Event Mutation
   const [deleteEventMutation, { loading: deleteEventLoading }] =
-    useMutation(DeleteEventDocument);
+    useMutation(DeleteEventDocument, {
+      refetchQueries: ['EventsByBranchRep'],
+      awaitRefetchQueries: true,
+    });
 
   const [showModal, setShowModal] = useState(false);
 
@@ -29,9 +31,7 @@ const DeleteEvent: FC<{
         id: parseInt(eventId),
       },
     }).then((res) => {
-      if (res.data?.deleteEvent.__typename === 'MutationDeleteEventSuccess') {
-        return eventsRefetch();
-      } else {
+      if (res.data?.deleteEvent.__typename !== 'MutationDeleteEventSuccess') {
         return Promise.reject('Error deleting event');
       }
     });
@@ -43,7 +43,7 @@ const DeleteEvent: FC<{
       <Button
         intent={'danger'}
         className="ml-auto "
-        disabled={published}
+        disabled={published || deleteEventLoading}
         onClick={() => setShowModal(true)}
       >
         Delete <BiTrash />

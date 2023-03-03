@@ -89,7 +89,6 @@ const EventList: FC<{
             <div className="md:basis-1/5 text-end ">
               <DeleteEvent
                 eventId={event.id}
-                eventsRefetch={eventsRefetch}
                 published={event.published}
               />
             </div>

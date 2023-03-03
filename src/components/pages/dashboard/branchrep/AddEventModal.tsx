@@ -46,7 +46,6 @@ const AddEventModal: FC<{
       <Button fullWidth intent={'info'} size={'large'} onClick={() => setShowModal(true)}>
         <IoAdd />  Add Event
       </Button>
-      {showModal && (
         <Modal title="Add Event" size="medium" onClose={handleCloseModal} showModal={showModal}>
           <form
             onSubmit={(e) => {
@@ -94,7 +93,6 @@ const AddEventModal: FC<{
             </Button>
           </form>
         </Modal>
-      )}
     </div>
   );
 };

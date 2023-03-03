@@ -1,17 +1,15 @@
 import Button from '@/src/components/button';
-import createToast from '@/src/components/toast';
 import {
-  AddOrganizerDocument,
   EventsByBranchRepQuery,
   SearchUsersDocument,
 } from '@/src/generated/generated';
-import { useMutation, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { FC, useState, useRef, useEffect, useCallback } from 'react';
-import { AiOutlinePlus } from 'react-icons/ai';
 import SearchBox from '@/src/components/searchbox';
 import Spinner from '@/src/components/spinner';
-import RemoveOrganizer from './RemoveOrganizer';
+import RemoveOrganizerButton from './RemoveOrganizerButton';
 import Modal from '@/src/components/modal';
+import AddOrganizerButton from './AddOrganizerButton';
 
 const AddOrganizerModal: FC<{
   eventId: string;
@@ -25,25 +23,6 @@ const AddOrganizerModal: FC<{
     setShowModal(false);
   }
 
-  // Add Organizer Mutation
-  const [addOrganizerMutation, { loading: addOrganizerLoading }] =
-    useMutation(AddOrganizerDocument);
-
-  const handleAddOrganizer = (organizerId: string) => {
-    let promise = addOrganizerMutation({
-      variables: {
-        eventId: eventId,
-        userId: organizerId,
-      },
-    }).then((res) => {
-      if (res.data?.addOrganizer.__typename === 'MutationAddOrganizerSuccess') {
-        return eventsRefetch();
-      } else {
-        return Promise.reject('Error adding organizer');
-      }
-    });
-    createToast(promise, 'Adding organizer...');
-  };
 
   // Search Users Query
   // Currently searched user
@@ -163,10 +142,9 @@ const AddOrganizerModal: FC<{
                     className="flex mb-3 justify-between items-center gap-5"
                   >
                     <h1>{organizer.user.name}</h1>
-                    <RemoveOrganizer
+                    <RemoveOrganizerButton
                       organizerId={organizer.user.id}
                       eventId={eventId}
-                      eventsRefetch={eventsRefetch}
                     />
                   </div>
                 ))}
@@ -197,16 +175,10 @@ const AddOrganizerModal: FC<{
                     <h1 className="md:text-xl text-lg">{user?.node.name}</h1>
                     <h1 className="text-sm font-thin">{user?.node.email}</h1>
                   </div>
-                  <Button
-                    intent={'secondary'}
-                    size="small"
-                    className="flex gap-1 items-center disabled:opacity-50 disabled:cursor-not-allowed"
-                    onClick={() => handleAddOrganizer(user?.node.id as string)}
-                    disabled={addOrganizerLoading}
-                  >
-                    Add
-                    <AiOutlinePlus />
-                  </Button>
+                  <AddOrganizerButton
+                    eventId={eventId}
+                    userId={user?.node.id as string}
+                  />
                 </div>
               ))}
               {isFetching && <Spinner size={'small'} />}

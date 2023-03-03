@@ -6,7 +6,7 @@ type ModalProps = {
   children: React.ReactNode;
   title: string;
   /**
-   * size = 'small' is suited for confirmation modals with just a title and footer buttons. Caps width at 18rem.
+   * size = 'small' is suited for confirmation modals with just a title and footer buttons. Caps width at 20rem
    */
   size?: "small" | "medium";
   onClose: () => void;
@@ -36,7 +36,7 @@ const Modal: FC<ModalProps> = ({
 
         <div
           className={`fixed inset-0  p-4 md:p-8 overflow-y-auto ${
-            size === "small" && "w-72 mx-auto"
+            size === "small" && "w-80 mx-auto"
           }`}>
           <div className="flex min-h-full items-center justify-center text-center py-5 md:py-7">
             <Transition.Child
