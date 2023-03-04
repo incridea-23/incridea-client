@@ -1,12 +1,9 @@
 import Badge from "@/src/components/badge";
-import Button from "@/src/components/button";
 import Spinner from "@/src/components/spinner";
-import createToast from "@/src/components/toast";
 import {
-  OrganizerMarkAttendanceDocument,
   TeamsByRoundDocument,
 } from "@/src/generated/generated";
-import { useMutation, useQuery } from "@apollo/client/react";
+import { useQuery } from "@apollo/client/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import DeleteTeamModal from "./DeleteTeamModal";
 import MarkAttendanceButton from "./MarkAttendanceButton";

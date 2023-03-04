@@ -1,5 +1,4 @@
-import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   OrganizerAddTeamMemberDocument,
   OrganizerDeleteTeamMemberDocument,
@@ -10,7 +9,6 @@ import { useMutation, useQuery } from '@apollo/client';
 import Spinner from '@/src/components/spinner';
 import Modal from '@/src/components/modal';
 import createToast from '@/src/components/toast';
-import Teams from './Teams';
 import { MdOutlineDeleteOutline, MdOutlineQrCodeScanner } from 'react-icons/md';
 import Button from '@/src/components/button';
 import { QRCodeScanner } from './QRCodeScanner';

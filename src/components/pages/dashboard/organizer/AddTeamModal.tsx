@@ -1,11 +1,9 @@
-import { Fragment, useEffect, useState } from "react";
+import { useState } from "react";
 import {
   OrganizerCreateTeamDocument,
-  TeamDetailsDocument,
 } from "@/src/generated/generated";
 
-import { useMutation, useQuery } from "@apollo/client";
-import Spinner from "@/src/components/spinner";
+import { useMutation } from "@apollo/client";
 import Button from "@/src/components/button";
 import Modal from "@/src/components/modal";
 import createToast from "@/src/components/toast";
@@ -20,15 +18,7 @@ export default function AddTeamModal({ eventId }: { eventId: string }) {
       refetchQueries: ["TeamDetails"],
     }
   );
-  // const {
-  //   data: teamData,
-  //   error: teamError,
-  //   loading: teamLoading,
-  // } = useQuery(TeamDetailsDocument, {
-  //   variables: {
 
-  //   },
-  // });
   const [teamName, setTeamName] = useState("");
   const createHandler = () => {
     let promise = organizerCreateTeam({

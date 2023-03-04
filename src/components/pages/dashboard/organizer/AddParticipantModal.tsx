@@ -15,7 +15,6 @@ export default function AddParticipantModal({ eventId }: { eventId: string }) {
       refetchQueries: ['TeamsByRound'],
     }
   );
-  console.log(_);
   const [userId, setUserId] = useState<string>('');
   const [isOpen, setIsOpen] = useState(false);
   const addHandler = () => {

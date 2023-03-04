@@ -24,8 +24,14 @@ const MarkAttendanceButton = ({ teamId, attended }: Props) => {
         teamId: teamId,
         attended: !attended,
       },
+    }).then((res) => {
+      console.log(res);
+      
+    if(res.data?.organizerMarkAttendance.__typename === "Error") {
+        throw new Error(res.data.organizerMarkAttendance.message);
+      }
     });
-    createToast(promise, "Updating Attendance");
+    createToast(promise, "Updating attendance...");
   };
 
   return (

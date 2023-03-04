@@ -1,14 +1,9 @@
 import {
-  CreateRoundDocument,
-  DeleteRoundDocument,
   EventByOrganizerQuery,
 } from '@/src/generated/generated';
 import { Tab } from '@headlessui/react';
 import Teams from './Teams';
-import { useMutation } from '@apollo/client';
-import { BiLoaderAlt, BiSearch } from 'react-icons/bi';
-import { AiOutlinePlus } from 'react-icons/ai';
-import { MdDelete } from 'react-icons/md';
+import { BiSearch } from 'react-icons/bi';
 import AddParticipantModal from './AddParticipantModal';
 import AddTeamModal from './AddTeamModal';
 import { useState } from 'react';
@@ -23,23 +18,7 @@ function RoundsTab({
   eventId: string;
   eventType: string;
 }) {
-  const [createRound, { data, loading, error }] = useMutation(
-    CreateRoundDocument,
-    {
-      refetchQueries: ['EventByOrganizer'],
-      variables: {
-        eventId: eventId,
-      },
-    }
-  );
   const [searchParam, setSearchParam] = useState('');
-  const [deleteRound, { data: data2, loading: loading2, error: error2 }] =
-    useMutation(DeleteRoundDocument, {
-      refetchQueries: ['EventByOrganizer'],
-      variables: {
-        eventId: eventId,
-      },
-    });
 
   return (
     <div className="flex flex-col  h-full  md:flex-row gap-3">

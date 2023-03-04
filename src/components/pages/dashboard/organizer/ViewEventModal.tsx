@@ -1,9 +1,7 @@
-import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import { EventByOrganizerQuery } from '@/src/generated/generated';
 import {
   IoCashOutline,
-  IoClose,
   IoCreateOutline,
   IoInformationOutline,
   IoLocationOutline,

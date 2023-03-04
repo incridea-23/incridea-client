@@ -19,15 +19,15 @@ function OrganizerTab({ organizerId }: { organizerId: string }) {
   if (!data || data.eventByOrganizer.length == 0) return <div>No events</div>;
   return (
     <Tab.Group as={'div'} className='rounded-xl mt-5 overflow-hidden border-0 border-gray-900/40'>
-      <Tab.List className="w-full overflow-x-auto flex  backdrop-blur-md bg-gray-800/30 ">
+      <Tab.List className="w-full overflow-x-auto flex  backdrop-blur-md bg-gray-600/60 ">
         {data.eventByOrganizer.map((event) => (
           <Tab className="focus:outline-none" key={event.id}>
             {({ selected }) => (
               <button
-                className={` px-5 transition-colors whitespace-nowrap py-4 text-lg font-semibold    ${
+                className={` px-5 transition-colors whitespace-nowrap py-4 text-lg font-semibold ${
                   selected
                     ? 'bg-gray-900 shadow-lg shadow-black text-white'
-                    : 'bg-gray-700/40 hover:bg-gray-800/60 text-white'
+                    : 'bg-transparent hover:bg-gray-800/60 text-white'
                 }`}
               >
                 {event.name}
