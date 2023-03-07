@@ -4,6 +4,7 @@ import { EventByOrganizerQuery } from '@/src/generated/generated';
 import { IoClose } from 'react-icons/io5';
 import RoundsSidebar from './RoundsSidebar';
 import Button from '@/src/components/button';
+import { AiFillSetting } from 'react-icons/ai';
 
 const RoundEventModal: FC<{
   event: EventByOrganizerQuery['eventByOrganizer'][0];
@@ -21,6 +22,7 @@ const RoundEventModal: FC<{
   return (
     <>
       <Button onClick={openModal} intent="secondary">
+        <AiFillSetting />
         Rounds
       </Button>
 

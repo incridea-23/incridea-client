@@ -4,6 +4,7 @@ import Modal from '@/src/components/modal';
 import Link from 'next/link';
 import { FC, useState } from 'react';
 import { MdOutlineMail, MdOutlinePhone } from 'react-icons/md';
+import { BsFillEyeFill } from 'react-icons/bs';
 
 const ViewTeamModal: FC<{
   teamName: string;
@@ -30,7 +31,9 @@ const ViewTeamModal: FC<{
 
   return (
     <div>
-      <Button onClick={() => setShowModal(true)}>View</Button>
+      <Button onClick={() => setShowModal(true)}>
+        <BsFillEyeFill />
+      </Button>
       <Modal
         title="Team Details"
         showModal={showModal}
@@ -77,7 +80,7 @@ const ViewTeamModal: FC<{
                       {member.user.email}
                     </Link>
                   </div>
-                  
+
                   <div className="flex flex-col gap-1">
                     <span className="text-gray-400 text-sm flex items-center gap-1">
                       Phone

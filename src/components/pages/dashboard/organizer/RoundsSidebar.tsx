@@ -140,32 +140,44 @@ const RoundsSidebar: FC<{
             {/* List of judges for this round */}
             {rounds.map((round) => (
               <div key={round.eventId}>
-                {round.roundNo === selectedRound &&
-                  round.judges.map((judge) => (
-                    <div
-                      key={round.roundNo}
-                      className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg p-3 my-2 flex justify-between items-center"
-                    >
-                      <div>
-                        <h1 className="text-lg font-bold">{judge.user.name}</h1>
-                        <h1 className="text-sm text-gray-400">
-                          {judge.user.email}
-                        </h1>
-                      </div>
-                      <Button
-                        intent={'danger'}
-                        size="small"
-                        outline
-                        className="h-8 w-8"
-                        onClick={() => handleDeleteJudge(judge.user.id)}
-                        disabled={deleteJudgeLoading}
-                      >
-                        <BiTrash />
-                      </Button>
-                    </div>
-                  ))}
+                {round.roundNo === selectedRound && (
+                  <>
+                    {round.judges.length === 0 ? (
+                      <p className="text-gray-400">
+                        No judges added yet.
+                      </p>
+                    ) : (
+                      round.judges.map((judge) => (
+                        <div
+                          key={round.roundNo}
+                          className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg p-3 my-2 flex justify-between items-center"
+                        >
+                          <div>
+                            <h1 className="text-lg font-bold">
+                              {judge.user.name}
+                            </h1>
+                            <h1 className="text-sm text-gray-400">
+                              {judge.user.email}
+                            </h1>
+                          </div>
+                          <Button
+                            intent={'danger'}
+                            size="small"
+                            outline
+                            className="h-8 w-8"
+                            onClick={() => handleDeleteJudge(judge.user.id)}
+                            disabled={deleteJudgeLoading}
+                          >
+                            <BiTrash />
+                          </Button>
+                        </div>
+                      ))
+                    )}
+                  </>
+                )}
               </div>
             ))}
+
             <CreateJudgeModal eventId={eventId} roundNo={selectedRound} />
           </div>
         </Tab.List>

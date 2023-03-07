@@ -1,8 +1,9 @@
-import Button from "@/src/components/button";
-import createToast from "@/src/components/toast";
-import { OrganizerMarkAttendanceDocument } from "@/src/generated/generated";
-import { useMutation } from "@apollo/client";
-import React from "react";
+import Button from '@/src/components/button';
+import createToast from '@/src/components/toast';
+import { OrganizerMarkAttendanceDocument } from '@/src/generated/generated';
+import { useMutation } from '@apollo/client';
+import React from 'react';
+import { ImCheckmark, ImCross } from 'react-icons/im';
 
 type Props = {
   teamId: string;
@@ -13,7 +14,7 @@ const MarkAttendanceButton = ({ teamId, attended }: Props) => {
   const [markAttendance, { loading: AttendanceLoading }] = useMutation(
     OrganizerMarkAttendanceDocument,
     {
-      refetchQueries: ["TeamsByRound"],
+      refetchQueries: ['TeamsByRound'],
       awaitRefetchQueries: true,
     }
   );
@@ -26,20 +27,22 @@ const MarkAttendanceButton = ({ teamId, attended }: Props) => {
       },
     }).then((res) => {
       console.log(res);
-      
-    if(res.data?.organizerMarkAttendance.__typename === "Error") {
+
+      if (res.data?.organizerMarkAttendance.__typename === 'Error') {
         throw new Error(res.data.organizerMarkAttendance.message);
       }
     });
-    createToast(promise, "Updating attendance...");
+    createToast(promise, 'Updating attendance...');
   };
 
   return (
     <Button
       onClick={handleMarkAttendance}
       disabled={AttendanceLoading}
-      intent={attended ? "danger" : "primary"}>
-      {attended ? "Unmark Attendance" : "Mark Present"}
+      intent={attended ? 'danger' : 'success'}
+    >
+      {/* {attended ? "Unmark Attendance" : "Mark Present"} */}
+      {attended ? <ImCross /> : <ImCheckmark />}
     </Button>
   );
 };
