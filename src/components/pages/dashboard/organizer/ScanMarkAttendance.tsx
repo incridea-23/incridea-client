@@ -5,7 +5,7 @@ import {
   OrganizerMarkAttendanceSoloDocument,
 } from '@/src/generated/generated';
 import Button from '@/src/components/button';
-import { toast, Toaster } from 'react-hot-toast';
+import createToast from '@/src/components/toast';
 
 const MarkAttendance: FC<{
   result: string;
@@ -30,46 +30,31 @@ const MarkAttendance: FC<{
 
   const handleMarkAttendance = () => {
     let promise: Promise<any>;
-    if (eventType === 'INDIVIDUAL' || eventType === 'INDIVIDUAL_MULTIPLE_ENTRY') {
+    if (
+      eventType === 'INDIVIDUAL' ||
+      eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
+    ) {
       promise = markAttendanceSolo({
         variables: {
           userId: result,
           eventId: eventId as string,
           attended: true,
         },
-      }).then((res) => {
-        if (
-          res.data?.organizerMarkAttendanceSolo.__typename ===
-          'MutationOrganizerMarkAttendanceSoloSuccess'
-        ) {
-          toast.success('Attendance marked successfully');
-        } else {
-          toast.error('Attendance could not be marked');
-        }
       });
+      createToast(promise, 'Marking attendance...');
     } else if (eventType === 'TEAM' || eventType === 'TEAM_MULTIPLE_ENTRY') {
       promise = markAttendanceTeam({
         variables: {
           teamId: result,
           attended: true,
         },
-      }).then((res) => {
-        if (
-          res.data?.organizerMarkAttendance.__typename ===
-          'MutationOrganizerMarkAttendanceSuccess'
-        ) {
-          toast.success('Attendance marked successfully');
-        } else {
-          toast.error('Attendance could not be marked');
-          console.log(res.data?.organizerMarkAttendance);
-        }
       });
+      createToast(promise, 'Marking attendance...');
     }
   };
 
   return (
     <div>
-      <Toaster />
       <Button
         onClick={handleMarkAttendance}
         disabled={TeamAttendanceLoading || SoloAttendanceLoading}
