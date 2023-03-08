@@ -1,13 +1,11 @@
-import Badge from "@/src/components/badge";
-import Spinner from "@/src/components/spinner";
-import {
-  TeamsByRoundDocument,
-} from "@/src/generated/generated";
-import { useQuery } from "@apollo/client/react";
-import { useCallback, useEffect, useRef, useState } from "react";
-import DeleteTeamModal from "./DeleteTeamModal";
-import MarkAttendanceButton from "./MarkAttendanceButton";
-import ViewTeamModal from "./ViewTeamModal";
+import Badge from '@/src/components/badge';
+import Spinner from '@/src/components/spinner';
+import { TeamsByRoundDocument } from '@/src/generated/generated';
+import { useQuery } from '@apollo/client/react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import DeleteTeamModal from './DeleteTeamModal';
+import MarkAttendanceButton from './MarkAttendanceButton';
+import ViewTeamModal from './ViewTeamModal';
 
 function Teams({
   eventType,
@@ -28,8 +26,6 @@ function Teams({
       contains,
     },
   });
-
-
 
   const { endCursor, hasNextPage } = data?.teamsByRound.pageInfo || {};
   const lastItemRef = useRef<HTMLDivElement>(null);
@@ -81,13 +77,15 @@ function Teams({
   }, [handleObserver, lastItemRef]);
 
   const teamOrParticipant =
-    eventType === "INDIVIDUAL" || eventType === "INDIVIDUAL_MULTIPLE_ENTRY"
-      ? "Participant"
-      : "Team";
+    eventType === 'INDIVIDUAL' || eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
+      ? 'Participant'
+      : 'Team';
 
   if (loading) return <Spinner />;
   if (!data || data.teamsByRound.edges.length === 0)
-    return <p className="my-3 text-gray-400/70 italic text-center">no teams here</p>;
+    return (
+      <p className="my-3 text-gray-400/70 italic text-center">no teams here</p>
+    );
 
   return (
     <div>
@@ -95,9 +93,12 @@ function Teams({
         <div
           className="bg-gray-600/40 p-3 mb-2 items-center rounded-lg flex justify-between flex-wrap gap-2"
           key={team?.node.id}
-          ref={index === data.teamsByRound.edges.length - 1 ? lastItemRef : null}>
+          ref={
+            index === data.teamsByRound.edges.length - 1 ? lastItemRef : null
+          }
+        >
           <h2 className="text-xl font-semibold flex gap-2">
-            <Badge color={"info"}>{team?.node.id}</Badge>
+            <Badge color={'info'}>{team?.node.id}</Badge>
             {team?.node.name}
           </h2>
           <div className="flex flex-col md:flex-row gap-2">
@@ -109,7 +110,7 @@ function Teams({
 
             {/* View Team */}
             <ViewTeamModal
-              teamName={team?.node.name || ""}
+              teamName={team?.node.name || ''}
               teamMembers={team?.node.members}
             />
 

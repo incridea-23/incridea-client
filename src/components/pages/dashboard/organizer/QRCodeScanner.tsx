@@ -9,7 +9,8 @@ export const QRCodeScanner: React.FC<{
   intent: 'attendance' | 'addToTeam' | 'addToEvent';
   eventId?: string;
   teamId?: string;
-}> = ({ intent, eventId, teamId }) => {
+  eventType?: string;
+}> = ({ intent, eventId, teamId, eventType }) => {
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -29,7 +30,13 @@ export const QRCodeScanner: React.FC<{
         {result && (
           <div className="flex flex-col items-center">
             <Badge color={'info'}>Scanned ID: {result}</Badge>
-            {intent === 'attendance' && <MarkAttendance teamId={result} />}
+            {intent === 'attendance' && (
+              <MarkAttendance
+                eventId={eventId}
+                eventType={eventType || ''}
+                result={result}
+              />
+            )}
             {intent === 'addToEvent' && (
               <AddParticipantToEvent eventId={eventId || ''} userId={result} />
             )}

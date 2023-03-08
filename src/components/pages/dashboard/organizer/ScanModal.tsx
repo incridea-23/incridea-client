@@ -3,7 +3,10 @@ import Modal from '@/src/components/modal';
 import { FC, useState } from 'react';
 import { QRCodeScanner } from './QRCodeScanner';
 
-const ScanModal: FC = () => {
+const ScanModal: FC<{
+  eventType: string;
+  eventId?: string;
+}> = ({ eventType, eventId }) => {
   const [showModal, setShowModal] = useState(false);
 
   function handleCloseModal() {
@@ -26,8 +29,9 @@ const ScanModal: FC = () => {
       <Modal title="Scan Team" showModal={showModal} onClose={handleCloseModal}>
         <div className="p-5">
           <QRCodeScanner 
-          intent={'attendance'}
-          />
+          eventId={eventId}
+          eventType={eventType}
+          intent={'attendance'} />
         </div>
       </Modal>
     </>

@@ -58,7 +58,10 @@ function RoundsTab({
                   />
                   <BiSearch className="text-white text-2xl mx-2" />
                 </div>
-                <ScanModal />
+                <ScanModal 
+                eventId={eventId}
+                eventType={eventType}
+                />
                 {eventType === 'INDIVIDUAL' ||
                 eventType === 'INDIVIDUAL_MULTIPLE_ENTRY' ? (
                   <AddParticipantModal eventId={eventId} />

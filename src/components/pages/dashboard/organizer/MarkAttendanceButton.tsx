@@ -26,8 +26,6 @@ const MarkAttendanceButton = ({ teamId, attended }: Props) => {
         attended: !attended,
       },
     }).then((res) => {
-      console.log(res);
-
       if (res.data?.organizerMarkAttendance.__typename === 'Error') {
         throw new Error(res.data.organizerMarkAttendance.message);
       }
@@ -41,7 +39,6 @@ const MarkAttendanceButton = ({ teamId, attended }: Props) => {
       disabled={AttendanceLoading}
       intent={attended ? 'danger' : 'success'}
     >
-      {/* {attended ? "Unmark Attendance" : "Mark Present"} */}
       {attended ? <ImCross /> : <ImCheckmark />}
     </Button>
   );

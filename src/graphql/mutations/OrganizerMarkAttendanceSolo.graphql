@@ -1,0 +1,20 @@
+mutation OrganizerMarkAttendanceSolo(
+  $eventId: ID!
+  $userId: ID!
+  $attended: Boolean!
+) {
+  organizerMarkAttendanceSolo(
+    eventId: $eventId
+    userId: $userId
+    attended: $attended
+  ) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationOrganizerMarkAttendanceSoloSuccess {
+      __typename
+      data
+    }
+  }
+}
