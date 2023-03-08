@@ -1,0 +1,24 @@
+query TeamDetails($id: ID!) {
+  teamDetails(id: $id) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on QueryTeamDetailsSuccess {
+      __typename
+      data {
+        attended
+        id
+        members {
+          user {
+            email
+            id
+            name
+          }
+        }
+        confirmed
+        name
+      }
+    }
+  }
+}

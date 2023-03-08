@@ -4,7 +4,7 @@ import { getSession } from "next-auth/react";
 
 const httpLink = createHttpLink({
   uri:
-    process.env.BACKEND_URL || "https://incridea-test.up.railway.app/graphql",
+    process.env.BACKEND_URL || "https://incridea-test.onrender.com/graphql",
 });
 
 const authLink = setContext(async (_, { headers }) => {

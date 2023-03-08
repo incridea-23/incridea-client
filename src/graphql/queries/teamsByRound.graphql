@@ -1,0 +1,35 @@
+query TeamsByRound(
+  $eventId: ID!
+  $roundNo: Int!
+  $after: String
+  $first: Int
+  $contains: String
+) {
+  teamsByRound(
+    eventId: $eventId
+    roundNo: $roundNo
+    after: $after
+    first: $first
+    contains: $contains
+  ) {
+    edges {
+      node {
+        attended
+        id
+        name
+        members{
+          user{
+            id
+            name
+            phoneNumber
+            email
+          }
+        }
+      }
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

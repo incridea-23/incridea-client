@@ -1,0 +1,16 @@
+mutation OrganizerRegisterSolo($eventId: ID!, $userId: ID!) {
+  organizerRegisterSolo(eventId: $eventId, userId: $userId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationOrganizerRegisterSoloSuccess {
+      __typename
+      data {
+        attended
+        id
+        name
+      }
+    }
+  }
+}

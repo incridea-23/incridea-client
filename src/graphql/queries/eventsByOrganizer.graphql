@@ -1,0 +1,39 @@
+query EventByOrganizer($organizerId: ID!) {
+  eventByOrganizer(organizerId: $organizerId) {
+    rounds {
+      completed
+      roundNo
+      eventId
+      date
+      judges {
+        user {
+          email
+          name
+          id
+        }
+      }
+    }
+    description
+    eventType
+    fees
+    id
+    image
+    maxTeamSize
+    maxTeams
+    minTeamSize
+    name
+    organizers {
+      user {
+        email
+        name
+        id
+      }
+    }
+    branch {
+      id
+      name
+    }
+    published
+    venue
+  }
+}

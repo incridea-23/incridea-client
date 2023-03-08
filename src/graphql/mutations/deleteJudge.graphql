@@ -1,0 +1,11 @@
+mutation DeleteJudge($eventId: ID!, $roundNo: Int!, $userId: ID!) {
+  deleteJudge(eventId: $eventId, roundNo: $roundNo, userId: $userId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationDeleteJudgeSuccess {
+      __typename
+    }
+  }
+}

@@ -1,0 +1,15 @@
+mutation DeleteRound($eventId: ID!) {
+  deleteRound(eventId: $eventId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationDeleteRoundSuccess {
+      __typename
+      data {
+        eventId
+        roundNo
+      }
+    }
+  }
+}

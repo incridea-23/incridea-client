@@ -1,37 +1,43 @@
-import { EventsByBranchRepDocument } from "@/src/generated/generated";
-import { useAuth } from "@/src/hooks/useAuth";
-import { useQuery } from "@apollo/client";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useAuth } from '@/src/hooks/useAuth';
+import { useRouter } from 'next/router';
+import { NextPage } from 'next';
+import Spinner from '@/src/components/spinner';
+import { Toaster } from 'react-hot-toast';
+import Dashboard from '@/src/components/layout/dashboard';
+import EventList from '@/src/components/pages/dashboard/branchrep/EventList';
 
-function BranchRep() {
-  const { user, loading, error } = useAuth();
-  const {
-    data: events,
-    loading: eventsLoading,
-    error: eventsError,
-  } = useQuery(EventsByBranchRepDocument, {
-    variables: {
-      branchRepId: user?.id as string,
-    },
-  });
+const BranchRep: NextPage = () => {
   const router = useRouter();
-  if (loading) return <div>Loading...</div>;
-  console.log(user);
-  if (user && user.role !== "BRANCH_REP") router.push("/profile");
+  const { user, loading } = useAuth();
+
+  if (loading)
+    return (
+      <div className="h-screen w-screen flex justify-center">
+        <Spinner />
+      </div>
+    );
+
+  // 1. Redirect to login if user is not logged in
+  if (!user) {
+    router.push('/auth/login');
+    return <div>Redirecting...</div>;
+  }
+
+  // 2. Redirect to profile if user is not a branch rep
+  if (user && user.role !== 'BRANCH_REP') router.push('/profile');
 
   return (
-    <div className="h-screen w-screen bg-gradient-to-t from-black  to-blue-900 text-gray-100">
-      <div className="text-center ">
-        <h1 className="text-4xl ">Hello {user?.name}</h1>
+    <Dashboard>
+      <Toaster />
+      {/* Welcome Header */}
+        <h1 className="text-4xl mb-3">
+          Hello <span className="font-semibold">{user?.name}</span>!
+        </h1>
+      <div className="mt-3">
+        <EventList branchRepId={user.id} />
       </div>
-      <div>
-        {events?.eventsByBranchRep.map((event) => (
-          <div key={event.id}>{event.name}</div>
-        ))}
-      </div>
-    </div>
+    </Dashboard>
   );
-}
+};
 
 export default BranchRep;

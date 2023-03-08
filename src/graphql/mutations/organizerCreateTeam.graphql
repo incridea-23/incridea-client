@@ -1,0 +1,15 @@
+mutation OrganizerCreateTeam($eventId: ID!, $name: String!) {
+  organizerCreateTeam(eventId: $eventId, name: $name) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationOrganizerCreateTeamSuccess {
+      __typename
+      data {
+        id
+        name
+      }
+    }
+  }
+}
