@@ -24,31 +24,41 @@ export const QRCodeScanner: React.FC<{
   });
 
   return (
-    <div className="flex flex-col items-center">
-      <video className="w-full border border-gray-500 rounded-lg" ref={ref} />
+    <div className="flex flex-col items-center relative">
+      <video className="w-full rounded-lg border border-gray-400" ref={ref} />
+      {!result && (
+        <div className="text-sm text-gray-400 mt-2 text-center">
+          <span className="text-green-500">Note:</span> Detection is retried
+          every 300ms. If you are not seeing the detection, try moving the
+          camera closer to the QR code.
+        </div>
+      )}
       <div className="mt-4">
         {result && (
           <div className="flex flex-col items-center">
             <Badge color={'info'}>Scanned ID: {result}</Badge>
-            {intent === 'attendance' && (
-              <MarkAttendance
-                eventId={eventId}
-                eventType={eventType || ''}
-                result={result}
-              />
-            )}
-            {intent === 'addToEvent' && (
-              <AddParticipantToEvent eventId={eventId || ''} userId={result} />
-            )}
-            {intent === 'addToTeam' && (
-              <ScanParticipantToTeam teamId={teamId || ''} userId={result} />
-            )}
+            <div className="mt-2">
+              {intent === 'attendance' && (
+                <MarkAttendance
+                  eventId={eventId}
+                  eventType={eventType || ''}
+                  result={result}
+                />
+              )}
+              {intent === 'addToEvent' && (
+                <AddParticipantToEvent
+                  eventId={eventId || ''}
+                  userId={result}
+                />
+              )}
+              {intent === 'addToTeam' && (
+                <ScanParticipantToTeam teamId={teamId || ''} userId={result} />
+              )}
+            </div>
           </div>
         )}
-        {error && (
-          <p className="text-xl text-red-500">
-            {error && !result && 'No QR Code in sight'}
-          </p>
+        {error && !result && (
+          <Badge color={'danger'}>No QR Code in sight</Badge>
         )}
       </div>
     </div>

@@ -5,7 +5,7 @@ import {
   OrganizerMarkAttendanceSoloDocument,
 } from '@/src/generated/generated';
 import Button from '@/src/components/button';
-import createToast from '@/src/components/toast';
+import { toast } from 'react-hot-toast';
 
 const MarkAttendance: FC<{
   result: string;
@@ -40,16 +40,34 @@ const MarkAttendance: FC<{
           eventId: eventId as string,
           attended: true,
         },
+      }).then((res) => {
+        if (res.data?.organizerMarkAttendanceSolo.__typename === 'Error') {
+          toast.error('Error marking attendance');
+        } else if (
+          res.data?.organizerMarkAttendanceSolo.__typename ===
+          'MutationOrganizerMarkAttendanceSoloSuccess'
+        ) {
+          toast.success('Marked attendance');
+        }
       });
-      createToast(promise, 'Marking attendance...');
     } else if (eventType === 'TEAM' || eventType === 'TEAM_MULTIPLE_ENTRY') {
       promise = markAttendanceTeam({
         variables: {
           teamId: result,
           attended: true,
         },
+      }).then((res) => {
+        // Custom toasts when teamId is not found, because backend mutation doesn't check if it exists
+        // hence createToast will still present it as a success as promise is resolved
+        if (res.data?.organizerMarkAttendance.__typename === 'Error') {
+          toast.error('Error marking attendance');
+        } else if (
+          res.data?.organizerMarkAttendance.__typename ===
+          'MutationOrganizerMarkAttendanceSuccess'
+        ) {
+          toast.success('Marked attendance');
+        }
       });
-      createToast(promise, 'Marking attendance...');
     }
   };
 
