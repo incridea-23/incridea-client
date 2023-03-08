@@ -1,6 +1,6 @@
 import { useZxing } from 'react-zxing';
 import { useState } from 'react';
-import MarkAttendance from './MarkAttendance';
+import MarkAttendance from './ScanMarkAttendance';
 import AddParticipantToEvent from './AddParticipantToEvent';
 import ScanParticipantToTeam from './ScanParticipantToTeam';
 import Badge from '@/src/components/badge';
