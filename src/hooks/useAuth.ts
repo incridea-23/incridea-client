@@ -7,7 +7,9 @@ export enum AuthStatus {
 }
 
 export const useAuth = () => {
-  const { data, loading, error } = useQuery(MeDocument);
+  const { data, loading, error } = useQuery(MeDocument, {
+    fetchPolicy: "cache-and-network",
+  });
   if (loading) {
     return { status: AuthStatus.LOADING, loading, error };
   }
