@@ -25,9 +25,11 @@ const Home: NextPage = () => {
       </div>
     );
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-x-hidden ">
       <RiveComponent className="w-auto h-screen " />
-      <Prof user={user} />
+      <div className="bg-gradient-to-b h-[200vh] from-[#5CA3AD] to-[#1b5b94]">
+        <Prof user={user} />
+      </div>
     </div>
   );
 };
