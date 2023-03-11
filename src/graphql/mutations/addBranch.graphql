@@ -1,0 +1,17 @@
+mutation AddBranch($name: String!) {
+    addBranch(name: $name) {
+     ... on Error {
+      __typename
+      message
+    }
+    ... on MutationAddBranchSuccess {
+      __typename
+      data
+      {
+        id
+        name
+      }
+    }
+
+}
+}

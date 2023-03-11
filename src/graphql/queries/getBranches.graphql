@@ -1,0 +1,8 @@
+query GetBranches{
+       getBranches
+       {
+        id
+        name
+       }
+
+}
