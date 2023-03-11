@@ -9,6 +9,7 @@ import { User } from '@/src/generated/generated';
 import { BiMenuAltRight as MenuIcon } from 'react-icons/bi';
 import { AiOutlineClose as XIcon } from 'react-icons/ai';
 import { Transition } from '@headlessui/react';
+import ProfileMenu from './profileMenu';
 
 const Navbar: FC<{
   status: AuthStatus;
@@ -60,7 +61,7 @@ const Navbar: FC<{
           <AuthButtons
             className="hidden lg:flex"
             status={status}
-            role={user?.role!}
+            user={user!}
           />
           <div className="flex items-center space-x-4 lg:hidden">
             {isMenuOpen ? (
@@ -93,7 +94,7 @@ const Navbar: FC<{
               {link.label}
             </Link>
           ))}
-          <AuthButtons className="mb-2" status={status} role={user?.role!} />
+          <AuthButtons className="mb-2" status={status} user={user!} />
         </Transition>
       </div>
     </nav>
@@ -102,14 +103,12 @@ const Navbar: FC<{
 
 const AuthButtons: FC<{
   status: AuthStatus;
-  role: User['role'];
+  user: User;
   className?: string;
-}> = ({ status, role, className }) => {
+}> = ({ status, user, className }) => {
   return (
     <div className={`flex space-x-2 px-3 lg:px-0 ${className}`}>
-      {status === 'authenticated' && (
-        <Button onClick={() => signOut()}>Sign Out</Button>
-      )}
+      {status === 'authenticated' && <ProfileMenu user={user} status={status} />}
       {status === 'unauthenticated' && (
         <>
           <Link href="/auth/login">
@@ -119,9 +118,6 @@ const AuthButtons: FC<{
             <Button>Sign up</Button>
           </Link>
         </>
-      )}
-      {status === 'unauthenticated' && role === 'USER' && (
-        <Button onClick={() => makePayment()}>Register</Button>
       )}
     </div>
   );
