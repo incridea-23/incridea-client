@@ -2,7 +2,7 @@ import { cva, VariantProps } from 'class-variance-authority';
 import React from 'react';
 
 const buttonStyles = cva(
-  'font-semibold flex gap-2 items-center justify-center rounded transition-colors',
+  'font-semibold flex gap-2 items-center justify-center rounded transition-colors duration-300',
   {
     variants: {
       intent: {
@@ -13,11 +13,11 @@ const buttonStyles = cva(
         info: 'bg-teal-500 text-white hover:bg-teal-600',
         dark: 'bg-gray-900/60 text-white hover:bg-opacity-30',
         ghost:
-          'bg-transparent text-gray-700 border border-gray-400 hover:border-gray-700',
+          'bg-transparent border border-primary-400 hover:border-primary-700',
       },
       size: {
         small: ['text-sm', 'py-1', 'px-2'],
-        medium: ['text-base', 'py-2', 'px-4'],
+        medium: ['text-sm md:text-base', 'py-1 md:py-2', 'px-2 md:px-4'],
         large: ['text-lg', 'py-2', 'px-4'],
       },
       fullWidth: {
@@ -48,7 +48,6 @@ const buttonStyles = cva(
         outline: true,
         className: 'hover:bg-teal-500/30 border-teal-500 text-teal-500',
       },
-      {},
     ],
     defaultVariants: {
       intent: 'primary',

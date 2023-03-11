@@ -4,7 +4,7 @@
 
 /* create a youtube-like scrollbar */
 ::-webkit-scrollbar {
-  width: 0.5rem;
+  width: 0.4rem;
 }
 ::-webkit-scrollbar-track {
   @apply bg-gray-800;
