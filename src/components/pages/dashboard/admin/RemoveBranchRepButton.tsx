@@ -1,22 +1,22 @@
 import Button from '@/src/components/button';
 import { FC } from 'react';
-import { IoAdd } from 'react-icons/io5';
+import { IoTrash } from 'react-icons/io5';
 
 
-const AddBranchRepButton: FC<{
+const RemoveBranchRepButton: FC<{
     branchId: string;
     userId: string;
 }> = ({ branchId, userId }) => {
     return (
         <Button 
-            intent="success"
+            intent="danger"
             size="medium"
             className="flex gap-1 items-center disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={ () => console.log('Add Branch Rep') }
         >
-            <IoAdd />
+            <IoTrash />
         </Button>
     )
 };
 
-export default AddBranchRepButton;
+export default RemoveBranchRepButton;

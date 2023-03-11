@@ -4,7 +4,7 @@ import { EventsDocument } from '@/src/generated/generated';
 import { BranchesDocument } from '@/src/generated/generated';
 import Spinner from '@/src/components/spinner';
 import Button from '@/src/components/button';
-import AddBranchRep from './AddBranchRepButton';
+import AddBranchRep from './AddBranchRep';
 
 const AdminTab: FC<{
     AdminId: string;
@@ -26,9 +26,6 @@ const AdminTab: FC<{
       first: first as number,
     },
   });
-
-    const eventNames = events?.events?.edges?.map((event) => event?.node?.name);
-    const branchNames = branches?.getBranches?.map((branch) => branch?.name);
 
     return (<>
         <div>
@@ -95,6 +92,8 @@ const AdminTab: FC<{
                             <AddBranchRep 
                                 branchId={branch?.id}
                                 branchName={branch?.name}
+                                branchReps={branch?.branchReps}
+                                eventsRefetch={eventsRefetch}
                             />
                             </h1>
                         </div>
