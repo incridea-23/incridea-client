@@ -1,8 +1,10 @@
-query GetBranches{
-       getBranches
-       {
-        id
-        name
-       }
-
+query Branches {
+  getBranches {
+    branchReps {
+      branchId
+      userId
+    }
+    id
+    name
+  }
 }

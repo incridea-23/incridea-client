@@ -1,17 +1,15 @@
-mutation AddBranch($name: String!) {
-    addBranch(name: $name) {
-     ... on Error {
+mutation addBranch($name: String!, $details: String!, $name1: String!) {
+  addBranch(name: $name) {
+    ... on Error {
       __typename
       message
     }
     ... on MutationAddBranchSuccess {
       __typename
-      data
-      {
+      data {
         id
         name
       }
     }
-
-}
+  }
 }

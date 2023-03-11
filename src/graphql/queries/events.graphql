@@ -1,4 +1,4 @@
-query MyQuery($first: Int) {
+query Events($first: Int) {
   events(first: $first) {
     edges {
       node {

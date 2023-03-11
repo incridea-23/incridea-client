@@ -24,18 +24,9 @@ const AdminTab: FC<{
 
     return (<>
         <div>
+        <div className="flex gap-1 flex-row md:flex-row md:justify-between ">
             {/* Admin Header */}
-            <div className="flex gap-1 flex-row md:flex-row md:justify-between ">
-                <div className="mt-5 flex gap-1 md:gap-0.5 flex-col basis-2/5">
-                    <div className='flex gap-3 items-center mr-2'>
-                        <h1 className="text-2xl">Branches</h1>
-                    </div>
-                    <div className="hidden md:flex mr-2 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-t-lg p-1 items-center justify-between gap-2.5 font-bold">
-                        <h1 className="basis-1/2 py-2.5 text-start pl-2 text-lg">Branch Name</h1>
-                        <h1 className="basis-1/2 py-2.5 text-end  text-base pr-5">Add Branch Representative</h1>
-                    </div>
-                </div>
-                <div className="mt-5 flex gap-1 md:gap-0.5 flex-col basis-3/5">
+            <div className="mt-5 flex gap-1 md:gap-0.5 flex-col basis-3/5">
                     <div className='flex gap-3 items-center  ml-2'>
                         <h1 className="text-2xl">Events</h1>
                     </div>
@@ -74,6 +65,16 @@ const AdminTab: FC<{
                         </div>
                     ))}
                 </div>  
+                <div className="mt-5 flex gap-1 md:gap-0.5 flex-col basis-2/5">
+                    <div className='flex gap-3 items-center mr-2'>
+                        <h1 className="text-2xl">Branches</h1>
+                    </div>
+                    <div className="hidden md:flex mr-2 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-t-lg p-1 items-center justify-between gap-2.5 font-bold">
+                        <h1 className="basis-1/2 py-2.5 text-start pl-2 text-lg">Branch Name</h1>
+                        <h1 className="basis-1/2 py-2.5 text-end  text-base pr-5">Add Branch Representative</h1>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </>);

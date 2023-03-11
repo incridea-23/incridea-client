@@ -1,17 +1,15 @@
-mutation CreateCollege($name: String!, $details: String!) {
-    createCollege(name: $name, details: $details) {
-     ... on Error {
+mutation CreateCollege($details: String!, $name1: String!) {
+  createCollege(name: $name1, details: $details) {
+    ... on Error {
       __typename
       message
     }
     ... on MutationCreateCollegeSuccess {
       __typename
-      data
-      {
+      data {
         id
         name
       }
     }
-
-}
+  }
 }
