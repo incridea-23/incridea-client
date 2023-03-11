@@ -9,11 +9,11 @@ import Rive, { useRive, Layout, Fit, Alignment } from "@rive-app/react-canvas";
 const Home: NextPage = () => {
   const { user, loading, error, status } = useAuth();
   const { rive, RiveComponent } = useRive({
-    src: `assets/rive/wave1.riv/`,
+    src: `assets/rive/wave.riv/`,
     stateMachines: ["State Machine 1"],
     autoplay: true,
     layout: new Layout({
-      fit: Fit.Cover,
+      fit: Fit.FitWidth,
       alignment: Alignment.BottomCenter,
     }),
   });
@@ -26,7 +26,7 @@ const Home: NextPage = () => {
     );
   return (
     <div className="overflow-x-hidden">
-      <RiveComponent className="w-full h-screen " />
+      <RiveComponent className="w-auto h-screen " />
       <Prof user={user} />
     </div>
   );
