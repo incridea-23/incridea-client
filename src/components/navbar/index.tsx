@@ -2,8 +2,6 @@ import { FC, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Button from '../button';
-import { makePayment } from '@/src/utils/razorpay';
-import { signOut } from 'next-auth/react';
 import { AuthStatus } from '@/src/hooks/useAuth';
 import { User } from '@/src/generated/generated';
 import { BiMenuAltRight as MenuIcon } from 'react-icons/bi';
@@ -33,17 +31,6 @@ const Navbar: FC<{
     <nav className="fixed top-0 z-10 bg-white backdrop-filter backdrop-blur-sm bg-opacity-10 border-b border-gray-200 w-full">
       <div className="max-w-5xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <div className="space-x-4 text-gray-900 hidden lg:flex">
-            {links.map((link) => (
-              <Link
-                className="hover:text-primary-500 transition-colors duration-300"
-                key={link.url}
-                href={link.url}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
           <Link href="/" className="flex items-center space-x-2">
             <Image
               className="bg-white bg-opacity-30 p-1 rounded-full backdrop-filter backdrop-blur-lg"
@@ -57,6 +44,18 @@ const Navbar: FC<{
               Incridea&apos;23
             </span>
           </Link>
+
+          <div className="space-x-6 text-gray-900 hidden lg:flex">
+            {links.map((link) => (
+              <Link
+                className="hover:text-primary-500 transition-colors duration-300"
+                key={link.url}
+                href={link.url}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
 
           <AuthButtons
             className="hidden lg:flex"
@@ -108,7 +107,9 @@ const AuthButtons: FC<{
 }> = ({ status, user, className }) => {
   return (
     <div className={`flex space-x-2 px-3 lg:px-0 ${className}`}>
-      {status === 'authenticated' && <ProfileMenu user={user} status={status} />}
+      {status === 'authenticated' && (
+        <ProfileMenu user={user} status={status} />
+      )}
       {status === 'unauthenticated' && (
         <>
           <Link href="/auth/login">

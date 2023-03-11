@@ -42,7 +42,7 @@ const ProfileMenu: FC<{
               style={{
                 left: 0, // fix the default left position
               }}
-              className="absolute right-0 w-48 mt-2 origin-top-right bg-white bg-opacity-40 backdrop-filter backdrop-blur-lg divide-y divide-gray-300 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none cursor-pointer"
+              className="absolute right-0 w-48 mt-2 origin-top-right bg-white bg-opacity-30 backdrop-filter backdrop-blur-lg divide-y divide-gray-300 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none cursor-pointer"
             >
               <Link
                 href={'/profile'}
