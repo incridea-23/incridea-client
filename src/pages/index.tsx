@@ -5,12 +5,12 @@ import { makePayment } from "../utils/razorpay";
 import { useAuth } from "../hooks/useAuth";
 import Link from "next/link";
 import Rive, { useRive, Layout, Fit, Alignment } from "@rive-app/react-canvas";
-
+import Image from "next/image";
 const Home: NextPage = () => {
   const { user, loading, error, status } = useAuth();
   const { rive, RiveComponent } = useRive({
-    src: `assets/rive/wave.riv/`,
-    stateMachines: ["State Machine 1"],
+    src: `assets/rive/landing-scene.riv/`,
+    stateMachines: ["state-machine"],
     autoplay: true,
     layout: new Layout({
       fit: Fit.FitWidth,
@@ -26,7 +26,8 @@ const Home: NextPage = () => {
     );
   return (
     <div className="overflow-x-hidden ">
-      <RiveComponent className="w-auto h-screen " />
+      <RiveComponent className="w-full h-screen bg-gradient-to-bl from-yellow-100 to-sky-400" />
+
       <div className="bg-gradient-to-b h-[200vh] from-[#5CA3AD] to-[#1b5b94]">
         <Prof user={user} />
       </div>
