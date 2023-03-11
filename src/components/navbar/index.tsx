@@ -2,11 +2,15 @@ import { FC } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Button from '../button';
-import { useAuth } from '@/src/hooks/useAuth';
 import { makePayment } from '@/src/utils/razorpay';
 import { signOut } from 'next-auth/react';
+import { AuthStatus } from '@/src/hooks/useAuth';
+import { User } from '@/src/generated/generated';
 
-const Navbar: FC = () => {
+const Navbar: FC<{
+  status: AuthStatus;
+  user: User | undefined | null;
+}> = ({ status, user }) => {
   const links = [
     { label: 'Home', url: '/' },
     { label: 'Pronites', url: '/pronites' },
@@ -14,8 +18,6 @@ const Navbar: FC = () => {
     { label: 'Gallery', url: '/gallery' },
     { label: 'About', url: '/about' },
   ];
-
-  const { status, user, error, loading } = useAuth();
 
   return (
     <nav className="fixed top-0 z-10 bg-white backdrop-filter backdrop-blur-lg bg-opacity-30 border-b border-gray-200 w-full">
@@ -45,7 +47,7 @@ const Navbar: FC = () => {
             {status === 'unauthenticated' && (
               <>
                 <Link href="/auth/login">
-                  <Button>Login</Button>
+                  <Button intent={'ghost'}>Login</Button>
                 </Link>
                 <Link href="/auth/signup">
                   <Button>Sign up</Button>
