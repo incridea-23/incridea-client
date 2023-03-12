@@ -35,7 +35,7 @@ const CountDown: FC = () => {
   }, [countdown.seconds]);
 
   return (
-    <div className={`text-white text-center ${titleFont.className}`}>
+    <section className={`text-white text-center ${titleFont.className} mb-72`}>
       <h1 className="text-xl font-semibold lg:text-3xl">The wait is almost over!</h1>
       <div className="flex justify-center items-start sm:items-center flex-col lg:flex-row gap-5 lg:gap-10 mt-4 drop-shadow-xl relative">
         <Image
@@ -74,7 +74,7 @@ const CountDown: FC = () => {
           <span className="ml-2 text-xl">Seconds</span>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

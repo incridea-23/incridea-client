@@ -6,6 +6,7 @@ import { useAuth } from '../hooks/useAuth';
 import { motion } from 'framer-motion';
 import Parallax from '../components/animation/parallax';
 import CountDown from '../components/countdown';
+import About from '../components/about';
 const Home: NextPage = () => {
   const { RiveComponent: LandingBg } = useRive({
     src: `assets/rive/landing-scene-bg.riv/`,
@@ -42,6 +43,7 @@ const Home: NextPage = () => {
         {/* Body */}
         <div className="h-[200px]"></div>
         <CountDown />
+        <About />
       </div>
     </div>
   );
