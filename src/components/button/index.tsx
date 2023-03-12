@@ -2,7 +2,7 @@ import { cva, VariantProps } from 'class-variance-authority';
 import React from 'react';
 
 const buttonStyles = cva(
-  'font-semibold flex gap-2 items-center justify-center rounded transition-colors duration-300',
+  'flex gap-2 items-center justify-center rounded transition-colors duration-300',
   {
     variants: {
       intent: {

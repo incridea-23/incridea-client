@@ -1,5 +1,7 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React, { FC } from 'react';
+import Button from '../button';
 
 const GalleryPeek: FC = () => {
   const images = [
@@ -9,15 +11,12 @@ const GalleryPeek: FC = () => {
   ]; // TODO: Replace with actual images (top 3)
 
   return (
-    <div className="flex items-center justify-center backdrop-filter backdrop-blur-lg">
-      <div className="w-[400%] h-52 border-t border-b border-gray-400 overflow-visible relative">
-        <div className="w-[200%] flex items-center h-52 justify-around absolute left-0 animate">
+    <>
+      <div className="relative">
+        <div className="w-[200%] flex gap-1 lg:gap-5 py-2 lg:py-5 items-center absolute left-0 animate border border-t-2 border-b-2 border-gray-400 backdrop-filter">
           {images.map((i) => {
             return (
-              <div
-                className="flex justify-center items-start w-[20rem]"
-                key={i}
-              >
+              <div className="flex justify-center items-start gap-5" key={i}>
                 <Image
                   src={'https://res.cloudinary.com/dpfpk49oa/image/upload/' + i}
                   alt="Gallery Image"
@@ -30,10 +29,7 @@ const GalleryPeek: FC = () => {
           })}
           {images.map((i) => {
             return (
-              <div
-                className="flex justify-center items-start w-[20rem]"
-                key={i}
-              >
+              <div className="flex justify-center items-start gap-5" key={i}>
                 <Image
                   src={'https://res.cloudinary.com/dpfpk49oa/image/upload/' + i}
                   alt="Gallery Image"
@@ -45,7 +41,10 @@ const GalleryPeek: FC = () => {
           })}
         </div>
       </div>
-    </div>
+      <Link href={'/gallery'} className="flex justify-center items-center">
+        <Button className="absolute">View Gallery</Button>
+      </Link>
+    </>
   );
 };
 

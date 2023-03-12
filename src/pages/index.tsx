@@ -8,8 +8,6 @@ import Parallax from '../components/animation/parallax';
 import CountDown from '../components/countdown';
 import About from '../components/about';
 import GalleryPeek from '../components/galleryPeek';
-import Button from '../components/button';
-import Link from 'next/link';
 const Home: NextPage = () => {
   const { RiveComponent: LandingBg } = useRive({
     src: `assets/rive/landing-scene-bg.riv/`,
@@ -47,15 +45,7 @@ const Home: NextPage = () => {
         <div className="h-[200px]"></div>
         <CountDown />
         <About />
-        <div className="-rotate-12 blur-sm">
-          <GalleryPeek />
-        </div>
-        <div className="rotate-[20deg]">
-          <GalleryPeek />
-        </div>
-        <Link href={'/gallery'}>
-          <Button className="mx-auto mt-20">View Gallery</Button>
-        </Link>
+        <GalleryPeek />
       </div>
     </div>
   );

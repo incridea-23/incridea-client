@@ -66,14 +66,14 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
           />
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
           >
             Login
           </button>
           <button
             onClick={() => setWhichForm('resetPassword')}
             type="button"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
           >
             Forgot Password
           </button>
