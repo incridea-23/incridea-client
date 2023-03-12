@@ -11,9 +11,8 @@ const AddBranchRep: FC<{
     branchId: string;
     branchName: string;
     branchReps: BranchesQuery['getBranches'][0]['branchReps'];
-  eventsRefetch: () => Promise<any>;
 }
-> = ({ branchId, branchName, branchReps, eventsRefetch }) => {
+> = ({ branchId, branchName, branchReps }) => {
     const [showModal, setShowModal] = useState(false);
 
   function handleCloseModal() {
@@ -39,7 +38,6 @@ const AddBranchRep: FC<{
             branchId={branchId}
             branchName={branchName}
             branchReps={branchReps}
-            eventsRefetch={eventsRefetch}
           />
         </Modal>
       </div>

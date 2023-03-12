@@ -6,6 +6,8 @@ import Spinner from '@/src/components/spinner';
 import Button from '@/src/components/button';
 import AddBranchRep from './AddBranchRep';
 import PublishEventModal from './PublishEventModal';
+import { IoAdd } from 'react-icons/io5';
+import AddBranchModal from './AddBranchModal';
 
 const AdminTab: FC<{
     AdminId: string;
@@ -73,7 +75,7 @@ const AdminTab: FC<{
                     <div className='flex gap-3 items-center mr-2'>
                         <h1 className="text-2xl">Branches</h1>
                     </div>
-                    <div className="hidden md:flex mr-2 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-t-lg p-1 items-center justify-between gap-2.5 font-bold h-20">
+                    <div className="hidden md:flex bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-t-lg p-1 items-center justify-between gap-2.5 font-bold h-20">
                         <h1 className="basis-1/2 py-2.5 text-start pl-2 text-lg">Branch Name</h1>
                         <h1 className="basis-1/2 py-2.5 text-end  text-base pr-5">Add Branch Representative</h1>
                     </div>
@@ -85,18 +87,18 @@ const AdminTab: FC<{
 
                     {branches?.getBranches?.map((branch,i) => (
                         <div key={branch?.id}
-                        className={`bg-white/10 md:rounded-none rounded-lg ml-2 md:ml-0 md:p-4 md:mr-2 p-3 flex flex-col md:flex-row md:items-center items-start justify-between md:gap-5 gap-3`}>
+                        className={`bg-white/10 md:rounded-none rounded-lg md:ml-0 md:p-4  p-3 flex flex-col md:flex-row md:items-center items-start justify-between md:gap-5 gap-3`}>
                             <h1 className="basis-1/2 py-0.5 text-start pl-2 text-lg">{branch?.name}</h1>
                             <h1 className="basis-1/2 py-0.5 text-center pr-5 text-lg">
                             <AddBranchRep 
                                 branchId={branch?.id}
                                 branchName={branch?.name}
                                 branchReps={branch?.branchReps}
-                                eventsRefetch={eventsRefetch}
                             />
                             </h1>
                         </div>
-                        ))}
+                    ))}
+                    <AddBranchModal />
                 </div>
             </div>
         </div>

@@ -6,14 +6,14 @@ import Spinner from '@/src/components/spinner';
 import SearchBox from '@/src/components/searchbox';
 import AddBranchRepButton from './AddBranchRepButton';
 import RemoveBranchRepButton from './RemoveBranchRepButton';
+import Badge from '@/src/components/badge';
 
 const AddBranchRep: FC<{
     branchId: string;
     branchName: string;
     branchReps: BranchesQuery['getBranches'][0]['branchReps'];
-  eventsRefetch: () => Promise<any>;
 }
-> = ({ branchId, branchName, branchReps, eventsRefetch }) => {
+> = ({ branchId, branchName, branchReps }) => {
 
     // Search Users Query
   // Currently searched user
@@ -102,7 +102,14 @@ useEffect(() => {
         >
           <div className="basis-5/12  rounded-lg p-3">
             <div key={branchId}>
-              <h1 className="font-semibold text-xl mb-3">{branchName}</h1>
+              <h1 className="font-semibold text-xl mb-3">
+                <Badge
+                  color="success"
+                  className="md:text-lg"
+                >
+                  {branchName}
+                </Badge>
+              </h1>
               {branchReps.length === 0 && (
                 <div className="h-64 flex items-center justify-center text-gray-400">
                   <h1 className="">No Branch Representatives added</h1>

@@ -1,4 +1,4 @@
-mutation addBranch($name: String!, $details: String!, $name1: String!) {
+mutation addBranch($name: String!) {
   addBranch(name: $name) {
     ... on Error {
       __typename
