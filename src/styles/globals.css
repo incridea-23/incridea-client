@@ -122,3 +122,16 @@
   @apply px-4;
   @apply py-2;
 }
+
+@keyframes scroll {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -100%;
+  }
+}
+
+.animate {
+  animation: scroll 15s linear infinite;
+}
