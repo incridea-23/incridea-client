@@ -8,6 +8,7 @@ import { BiMenuAltRight as MenuIcon } from 'react-icons/bi';
 import { AiOutlineClose as XIcon } from 'react-icons/ai';
 import { Transition } from '@headlessui/react';
 import ProfileMenu from './profileMenu';
+import { titleFont } from '@/src/utils/fonts';
 
 const Navbar: FC<{
   status: AuthStatus;
@@ -28,7 +29,7 @@ const Navbar: FC<{
   };
 
   return (
-    <nav className="fixed top-0 z-10 bg-white backdrop-filter backdrop-blur-sm bg-opacity-10 border-b border-gray-200 w-full">
+    <nav className="fixed top-0 z-10 bg-white backdrop-filter backdrop-blur-lg bg-opacity-10 border-b border-gray-200 w-full">
       <div className="max-w-5xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center space-x-2">
@@ -40,7 +41,7 @@ const Navbar: FC<{
               height={40}
               priority
             />
-            <span className="text-gray-800 font-bold block lg:hidden">
+            <span className={`${titleFont.className} text-gray-800 font-bold block lg:hidden`}>
               Incridea&apos;23
             </span>
           </Link>
