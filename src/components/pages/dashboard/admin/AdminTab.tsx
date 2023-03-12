@@ -5,6 +5,7 @@ import { BranchesDocument } from '@/src/generated/generated';
 import Spinner from '@/src/components/spinner';
 import Button from '@/src/components/button';
 import AddBranchRep from './AddBranchRep';
+import PublishEventModal from './PublishEventModal';
 
 const AdminTab: FC<{
     AdminId: string;
@@ -29,7 +30,7 @@ const AdminTab: FC<{
 
     return (<>
         <div>
-        <div className="flex gap-1 flex-row md:flex-row md:justify-between ">
+        <div className="flex gap-1 flex-col md:flex-row md:justify-between ">
             {/* Admin Header */}
             <div className="mt-5 flex gap-1 md:gap-0.5 flex-col basis-3/5">
                     <div className='flex gap-3 items-center  ml-2'>
@@ -59,18 +60,16 @@ const AdminTab: FC<{
                                                             }`}>{event?.node.published ? 'Published' : 'Pending'}
                             </h1>
                             <h1 className="basis-1/2 py-0.5 text-center pr-5 text-lg">
-                            <Button
-                                intent={event?.node.published ? 'success' : 'danger'}
-                                className="ml-auto"
-                                disabled={false}
-                            >
-                            {event?.node.published ? 'Published' : 'Publish'}
-                            </Button>
+                            <PublishEventModal 
+                                eventId={event?.node?.id as string}
+                                eventName={event?.node?.name as string}
+                                published={event?.node?.published as boolean}
+                            />
                             </h1>
                         </div>
                     ))}
                 </div>  
-                <div className="mt-5 flex gap-1 md:gap-0.5 flex-col basis-2/5">
+                <div className="mt-5 flex gap-1 md:gap-0.5 flex-col basis-2/5 ml-2">
                     <div className='flex gap-3 items-center mr-2'>
                         <h1 className="text-2xl">Branches</h1>
                     </div>
@@ -86,7 +85,7 @@ const AdminTab: FC<{
 
                     {branches?.getBranches?.map((branch,i) => (
                         <div key={branch?.id}
-                        className={`bg-white/10 md:rounded-none rounded-lg md:p-4 mr-2 p-3 flex flex-col md:flex-row md:items-center items-start justify-between md:gap-5 gap-3`}>
+                        className={`bg-white/10 md:rounded-none rounded-lg ml-2 md:ml-0 md:p-4 md:mr-2 p-3 flex flex-col md:flex-row md:items-center items-start justify-between md:gap-5 gap-3`}>
                             <h1 className="basis-1/2 py-0.5 text-start pl-2 text-lg">{branch?.name}</h1>
                             <h1 className="basis-1/2 py-0.5 text-center pr-5 text-lg">
                             <AddBranchRep 
