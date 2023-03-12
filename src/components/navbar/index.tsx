@@ -9,6 +9,8 @@ import { AiOutlineClose as XIcon } from 'react-icons/ai';
 import { Transition } from '@headlessui/react';
 import ProfileMenu from './profileMenu';
 import { titleFont } from '@/src/utils/fonts';
+import TextAnimation from '../animation/text';
+import CharacterAnimation from '../animation/character';
 
 const Navbar: FC<{
   status: AuthStatus;
@@ -41,7 +43,9 @@ const Navbar: FC<{
               height={40}
               priority
             />
-            <span className={`${titleFont.className} text-gray-800 font-bold block lg:hidden`}>
+            <span
+              className={`${titleFont.className} text-gray-800 font-bold block lg:hidden`}
+            >
               Incridea&apos;23
             </span>
           </Link>
@@ -53,7 +57,10 @@ const Navbar: FC<{
                 key={link.url}
                 href={link.url}
               >
-                {link.label}
+                <CharacterAnimation
+                  text={link.label}
+                  textStyle="text-lg font-medium"
+                />
               </Link>
             ))}
           </div>
