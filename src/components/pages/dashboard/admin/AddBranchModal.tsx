@@ -2,18 +2,36 @@ import Button from '@/src/components/button';
 import Modal from '@/src/components/modal';
 import { IoAdd } from 'react-icons/io5';
 import { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { AddBranchDocument } from '@/src/generated/generated';
+import createToast from '@/src/components/toast';
 
 const AddBranchModal = () => {
 
     const [showModal, setShowModal] = useState(false);
     const [branchName, setBranchName] = useState<String>('');
 
+    const [addBranchMutation, { loading: addBranchLoading }] = useMutation(AddBranchDocument, {
+        variables: {
+            name: branchName as string,
+        },
+        refetchQueries: ['Branches'],
+        awaitRefetchQueries: true,
+    });
+
     const handleBranchAdded = () => {
         if(branchName === ''){
             return setShowModal(false);
         }
+        let promise = addBranchMutation().then((res) => {
+            if (res.data?.addBranch.__typename !== 'MutationAddBranchSuccess') {
+                return Promise.reject('Error could not add branch');
+            }
+        });
+        createToast(promise, 'Adding Branch...');
         setShowModal(false);
-      }
+    }
+    
 
     return (
         <div>
