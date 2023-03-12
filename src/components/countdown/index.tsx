@@ -1,4 +1,5 @@
 import { titleFont } from '@/src/utils/fonts';
+import Image from 'next/image';
 import { FC, useEffect, useState } from 'react';
 
 const CountDown: FC = () => {
@@ -26,10 +27,25 @@ const CountDown: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const [rotation, setRotation] = useState('rotate-0');
+
+  useEffect(() => {
+    const rot = `${-(countdown.seconds * 6) % 360}deg`;
+    setRotation(rot);
+  }, [countdown.seconds]);
+
   return (
     <div className={`text-white text-center ${titleFont.className}`}>
-      <h1 className="text-xl lg:text-3xl">The wait is almost over!</h1>
-      <div className="flex justify-center items-start sm:items-center flex-col lg:flex-row gap-5 lg:gap-10 mt-4 drop-shadow-xl">
+      <h1 className="text-xl font-semibold lg:text-3xl">The wait is almost over!</h1>
+      <div className="flex justify-center items-start sm:items-center flex-col lg:flex-row gap-5 lg:gap-10 mt-4 drop-shadow-xl relative">
+        <Image
+          src={'/assets/png/helm.png'}
+          width={500}
+          height={500}
+          alt="Ship Helm"
+          className="absolute opacity-[8%]"
+          style={{ transform: `rotate(${rotation})` }}
+        />
         <div className="flex items-end">
           <a className="text-4xl lg:text-7xl font-extrabold w-[100px]">
             {countdown.days}
