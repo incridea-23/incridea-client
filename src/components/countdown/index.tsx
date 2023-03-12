@@ -1,6 +1,7 @@
 import { titleFont } from '@/src/utils/fonts';
 import Image from 'next/image';
 import { FC, useEffect, useState } from 'react';
+import TextAnimation from '../animation/text';
 
 const CountDown: FC = () => {
   const endDate = new Date('2023-03-30'); // TODO: Change this to the actual date
@@ -36,7 +37,11 @@ const CountDown: FC = () => {
 
   return (
     <section className={`text-white text-center ${titleFont.className} mb-72`}>
-      <h1 className="text-xl font-semibold lg:text-3xl">The wait is almost over!</h1>
+      <TextAnimation
+        text="The wait is almost over!"
+        className="flex justify-center"
+        textStyle='text-xl font-semibold lg:text-3xl'
+      />
       <div className="flex justify-center items-start sm:items-center flex-col lg:flex-row gap-5 lg:gap-10 mt-4 drop-shadow-xl relative">
         <Image
           src={'/assets/png/helm.png'}
