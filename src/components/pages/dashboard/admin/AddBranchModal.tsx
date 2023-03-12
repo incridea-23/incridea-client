@@ -35,7 +35,7 @@ const AddBranchModal = () => {
 
     return (
         <div>
-            <Button fullWidth intent={'info'} size={'large'} className='md:mr-2' onClick={() => setShowModal(true)}>
+            <Button fullWidth intent={'info'} size={'large'} className='md:mr-2 md:max-h-12' onClick={() => setShowModal(true)}>
                 <IoAdd />  Add Branch
             </Button>
 
