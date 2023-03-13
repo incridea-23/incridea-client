@@ -10,6 +10,7 @@ import { IoAdd } from 'react-icons/io5';
 import AddBranchModal from './AddBranchModal';
 import{ RiUserSearchFill } from 'react-icons/ri';
 import { IoSchoolSharp } from 'react-icons/io5';
+import SearchUsersModal from './SearchUsersModal';
 
 const AdminTab: FC<{
     AdminId: string;
@@ -37,13 +38,7 @@ const AdminTab: FC<{
             {/* Admin Header */}
             <div className='flex flex-row justify-end items-center text-center'>
                 <div className='mx-3'>
-                    <Button
-                        intent={'info'}
-                        className='flex gap-2 items-center justify-center'
-                        size={'medium'}
-                    >
-                        <RiUserSearchFill />Users
-                    </Button>
+                    <SearchUsersModal />
                 </div>
                 <div>
                     <Button
