@@ -15,7 +15,6 @@ import SearchUsersModal from './SearchUsersModal';
 const AdminTab: FC<{
     AdminId: string;
   }> = ({ AdminId }) => {
-     // Get Events Query
     const first:number = 10;
   const {
     data: branches,
