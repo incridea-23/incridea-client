@@ -1,4 +1,4 @@
-mutation MyMutation($userId: ID!, $branchId: ID!) {
+mutation RemoveBranchRep($userId: ID!, $branchId: ID!) {
   removeBranchRep(userId: $userId, branchId: $branchId) {
     ... on Error {
       __typename
@@ -9,5 +9,4 @@ mutation MyMutation($userId: ID!, $branchId: ID!) {
       data
     }
   }
-
 }
