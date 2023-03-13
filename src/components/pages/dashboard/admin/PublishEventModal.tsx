@@ -2,12 +2,17 @@ import { FC } from 'react';
 import Button from '@/src/components/button';
 import Modal from '@/src/components/modal';
 import { useState } from 'react';
+import { useMutation } from '@apollo/client';
 
 const PublishEventModal: FC<{
     eventId: string;
     eventName: string;
     published: boolean;
 }> = ({ eventId, eventName, published }) => {
+
+    function handlePublishEvent() {
+        console.log('Publish Event');
+    }
     
     const [showModal, setShowModal] = useState(false);
 
@@ -61,16 +66,16 @@ const PublishEventModal: FC<{
                                     </Button>
                                 </h1>
                                 <h1 className='text-center m-3'>
-                                    <Button
-                                        intent="success"
-                                        className="ml-auto"
-                                        disabled={false}
-                                        onClick={() => {
-                                            setShowModal(false);
-                                        }}
-                                    >
-                                        Publish
-                                    </Button>
+                                <Button
+                                    intent="success"
+                                    className="ml-auto"
+                                    disabled={false}
+                                    onClick={() => {
+                                        handlePublishEvent();
+                                    }}
+                                >
+                                    Publish
+                                </Button>
                                 </h1>
                             </div>
                         </div>

@@ -7,6 +7,7 @@ import SearchBox from '@/src/components/searchbox';
 import AddBranchRepButton from './AddBranchRepButton';
 import RemoveBranchRepButton from './RemoveBranchRepButton';
 import Badge from '@/src/components/badge';
+import { BranchesDocument } from '@/src/generated/generated';
 
 const AddBranchRep: FC<{
     branchId: string;
