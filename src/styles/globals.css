@@ -122,3 +122,12 @@
   @apply px-4;
   @apply py-2;
 }
+
+.scroll-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none; 
+}
