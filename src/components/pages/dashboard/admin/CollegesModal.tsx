@@ -6,6 +6,8 @@ import { CollegesDocument } from '@/src/generated/generated';
 import { useQuery } from '@apollo/client';
 import Spinner from '@/src/components/spinner';
 import DeleteCollege from './DeleteCollege';
+import { IoAdd } from 'react-icons/io5';
+import AddCollegeModal from './AddCollegeModal';
 
 const CollegesModal: FC = () => {
 
@@ -52,6 +54,7 @@ const CollegesModal: FC = () => {
                     </div>
                 ))}
             </div>
+            <AddCollegeModal />
         </Modal>
     </>
     );

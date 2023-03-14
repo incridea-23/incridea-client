@@ -1,5 +1,5 @@
-mutation CreateCollege($details: String!, $name1: String!) {
-  createCollege(name: $name1, details: $details) {
+mutation CreateCollege($details: String!, $name: String!) {
+  createCollege(name: $name, details: $details) {
     ... on Error {
       __typename
       message

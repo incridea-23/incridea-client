@@ -27,10 +27,10 @@ const DeleteCollege:FC<
             }
         }).then((res) => {
             if (res.data?.removeCollege.__typename !== 'MutationRemoveCollegeSuccess') {
-                return Promise.reject('Error could not remove branch rep');
+                return Promise.reject('Error could not delete college');
             }
         });
-        createToast(promise, 'Removing Colleg...');
+        createToast(promise, 'Removing College...');
         setShowModal(false);
     }
 
