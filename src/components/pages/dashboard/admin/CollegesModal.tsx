@@ -5,6 +5,7 @@ import Modal from '@/src/components/modal';
 import { CollegesDocument } from '@/src/generated/generated';
 import { useQuery } from '@apollo/client';
 import Spinner from '@/src/components/spinner';
+import DeleteCollege from './DeleteCollege';
 
 const CollegesModal: FC = () => {
 
@@ -43,15 +44,9 @@ const CollegesModal: FC = () => {
                             <h1 className="md:text-xl text-lg text-start basis-1/3 pl-2">{college?.id}</h1>
                             <h1 className="md:text-xl text-lg text-center basis-1/3">{college?.name}</h1>
                             <h1 className="md:text-xl text-lg text-end basis-1/3 pr-5">
-                            <div className="flex items-end justify-end ">
-                            <Button intent="danger"
-                                size="medium"
-                                className="flex gap-1 items-center disabled:opacity-50 disabled:cursor-not-allowed"
-                                onClick={ () => setShowModal(true) }
-                                >
-                                <IoTrash />  Delete College
-                                </Button>
-                            </div>
+                            <DeleteCollege 
+                                collegeId={college?.id}    
+                            />
                             </h1>
                         </div>
                     </div>
