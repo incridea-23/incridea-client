@@ -11,6 +11,7 @@ import AddBranchModal from './AddBranchModal';
 import{ RiUserSearchFill } from 'react-icons/ri';
 import { IoSchoolSharp } from 'react-icons/io5';
 import SearchUsersModal from './SearchUsersModal';
+import CollegesModal from './CollegesModal';
 
 const AdminTab: FC<{
     AdminId: string;
@@ -40,13 +41,7 @@ const AdminTab: FC<{
                     <SearchUsersModal />
                 </div>
                 <div>
-                    <Button
-                        intent={'info'}
-                        className='flex gap-2 items-center justify-center'
-                        size={'medium'}
-                    >
-                        <IoSchoolSharp/>Colleges
-                    </Button>
+                    <CollegesModal />
                 </div>
             </div>
             <div className="flex gap-1 flex-col md:flex-row md:justify-between ">
