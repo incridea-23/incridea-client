@@ -4,7 +4,7 @@
 
 /* create a youtube-like scrollbar */
 ::-webkit-scrollbar {
-  width: 0.5rem;
+  width: 0.4rem;
 }
 ::-webkit-scrollbar-track {
   @apply bg-gray-800;
@@ -123,6 +123,7 @@
   @apply py-2;
 }
 
+
 .scroll-hide::-webkit-scrollbar {
   display: none;
 }
@@ -130,4 +131,17 @@
 .scroll-hide {
   -ms-overflow-style: none;
   scrollbar-width: none; 
+}
+
+@keyframes scroll {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -100%;
+  }
+}
+
+.animate {
+  animation: scroll 15s linear infinite;
 }

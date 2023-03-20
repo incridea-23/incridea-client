@@ -1,9 +1,9 @@
-import { useApollo } from "@/src/lib/apollo";
-import "@/src/styles/globals.css";
-import { ApolloProvider } from "@apollo/client";
-import type { AppProps } from "next/app";
-
-import HeadComponent from "../components/head";
+import { useApollo } from '@/src/lib/apollo';
+import '@/src/styles/globals.css';
+import { ApolloProvider } from '@apollo/client';
+import type { AppProps } from 'next/app';
+import HeadComponent from '../components/head';
+import { bodyFont } from '../utils/fonts';
 
 export default function App({
   Component,
@@ -17,7 +17,9 @@ export default function App({
         title="Incridea"
         description="Official Website of Incridea 2023, National level techno-cultural fest, NMAMIT, Nitte. Innovate. Create. Ideate."
       />
-      <Component {...pageProps} />
+      <main className={bodyFont.className}>
+        <Component {...pageProps} />
+      </main>
     </ApolloProvider>
   );
 }
