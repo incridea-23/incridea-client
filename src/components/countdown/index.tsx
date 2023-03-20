@@ -4,7 +4,7 @@ import { FC, useEffect, useState } from 'react';
 import TextAnimation from '../animation/text';
 
 const CountDown: FC = () => {
-  const endDate = new Date('2023-03-30'); // TODO: Change this to the actual date
+  const endDate = new Date('2023-04-26');
 
   const calculateCountdown = () => {
     const now = new Date();
