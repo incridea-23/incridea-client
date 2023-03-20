@@ -123,6 +123,16 @@
   @apply py-2;
 }
 
+
+.scroll-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none; 
+}
+
 @keyframes scroll {
   0% {
     left: 0;
