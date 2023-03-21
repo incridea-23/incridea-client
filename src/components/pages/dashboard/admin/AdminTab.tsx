@@ -12,6 +12,7 @@ import{ RiUserSearchFill } from 'react-icons/ri';
 import { IoSchoolSharp } from 'react-icons/io5';
 import SearchUsersModal from './SearchUsersModal';
 import CollegesModal from './CollegesModal';
+import RoundsDone from './RoundsDone';
 
 const AdminTab: FC<{
     AdminId: string;
@@ -65,7 +66,11 @@ const AdminTab: FC<{
                                 <div key={event?.node.id}
                                 className={`bg-white/10 md:rounded-none rounded-lg md:p-4 ml-2 p-3 flex flex-col md:flex-row md:items-center items-start justify-between md:gap-5 gap-3`}>
                                     <h1 className="basis-1/2 py-0.5 text-start pl-2 text-lg">{event?.node?.name}</h1>
-                                    <h1 className="basis-1/2 py-0.5 text-center pr-5 text-lg">1/3</h1>
+                                    <h1 className="basis-1/2 py-0.5 text-center pr-5 text-lg">
+                                        <RoundsDone 
+                                            eventId={event?.node?.id as string}
+                                        />
+                                    </h1>
                                     <h1 className={`basis-1/2 py-0.5 text-center pr-5 text-lg ${
                                                                     event?.node?.published
                                                                         ? 'border-green-500 text-green-500'

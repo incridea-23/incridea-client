@@ -1,0 +1,8 @@
+query RoundsByEvent($eventId: ID!) {
+  roundsByEvent(eventId: $eventId) {
+    completed
+    date
+    eventId
+    roundNo
+  }
+}
