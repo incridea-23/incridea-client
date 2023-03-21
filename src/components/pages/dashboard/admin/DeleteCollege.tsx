@@ -37,14 +37,16 @@ const DeleteCollege:FC<
 
     return (
         <>
-            <div className="flex items-end justify-end ">
-                <Button intent="danger"
-                    size="medium"
-                    className="flex gap-1 items-center disabled:opacity-50 disabled:cursor-not-allowed"
-                    onClick={ () => setShowModal(true) }
-                    >
-                    <IoTrash />  Delete College
-                </Button>
+            <div className="flex items-center justify-center ">
+                <div className="flex items-center justify-center text-end">
+                    <Button intent="danger"
+                        size="medium"
+                        className="flex gap-1 items-center justify-center"
+                        onClick={ () => setShowModal(true) }
+                        >
+                        <IoTrash />  Delete College
+                    </Button>
+                </div>
                 <Modal 
                     showModal={showModal}
                     onClose={() => setShowModal(false)}

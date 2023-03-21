@@ -21,7 +21,7 @@ const AddBranchRep: FC<{
 
     return (
       <div className="flex items-center justify-center">
-        <Button intent="danger"
+        <Button intent="success"
         size="medium"
         className="flex gap-1 items-center disabled:opacity-50 disabled:cursor-not-allowed"
         onClick={ () => setShowModal(true) }
