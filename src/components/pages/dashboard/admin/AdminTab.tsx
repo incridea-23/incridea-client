@@ -3,13 +3,9 @@ import { useQuery } from '@apollo/client';
 import { EventsDocument } from '@/src/generated/generated';
 import { BranchesDocument } from '@/src/generated/generated';
 import Spinner from '@/src/components/spinner';
-import Button from '@/src/components/button';
 import AddBranchRep from './AddBranchRep';
 import PublishEventModal from './PublishEventModal';
-import { IoAdd } from 'react-icons/io5';
 import AddBranchModal from './AddBranchModal';
-import{ RiUserSearchFill } from 'react-icons/ri';
-import { IoSchoolSharp } from 'react-icons/io5';
 import SearchUsersModal from './SearchUsersModal';
 import CollegesModal from './CollegesModal';
 import RoundsDone from './RoundsDone';
@@ -37,11 +33,11 @@ const AdminTab: FC<{
     return (<>
         <div> 
             {/* Admin Header */}
-            <div className='flex flex-row justify-end items-center text-center'>
-                <div className='mx-3'>
+            <div className='flex flex-row md:justify-end justify-start items-center text-center md:m-3 mt-6'>
+                <div className='flex justify-center items-center mx-3'>
                     <SearchUsersModal />
                 </div>
-                <div>
+                <div className='flex justify-center items-center'>
                     <CollegesModal />
                 </div>
             </div>

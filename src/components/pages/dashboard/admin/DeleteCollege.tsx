@@ -15,6 +15,7 @@ const DeleteCollege:FC<
 
     const [showModal, setShowModal] = useState(false);
 
+    //mutation to remove college
     const [removeCollege] = useMutation(RemoveCollegeDocument, {
         refetchQueries: ['Colleges'],
         awaitRefetchQueries: true

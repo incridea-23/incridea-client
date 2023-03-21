@@ -1,5 +1,4 @@
 import Button from "@/src/components/button";
-import { IoTrash } from "react-icons/io5";
 import Modal from "@/src/components/modal";
 import { FC, useState } from "react";
 import { CreateCollegeDocument } from "@/src/generated/generated";

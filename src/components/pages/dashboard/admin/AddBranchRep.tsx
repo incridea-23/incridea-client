@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { IoAdd } from 'react-icons/io5';
-import { useQuery } from '@apollo/client';
 import { useState } from 'react';
 import Button from '@/src/components/button';
 import { BranchesQuery } from '@/src/generated/generated';

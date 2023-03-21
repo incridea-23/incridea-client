@@ -12,6 +12,7 @@ const PublishEventModal: FC<{
     published: boolean;
 }> = ({ eventId, eventName, published }) => {
 
+    //mutation to publish event
     const [publishEvent] = useMutation(PublishEventDocument, {
         refetchQueries: ['Events'],
         awaitRefetchQueries: true,

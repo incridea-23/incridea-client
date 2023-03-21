@@ -8,6 +8,7 @@ const RoundsDone:FC<
     }
 > = ( eventId ) => {
 
+    //query to get rounds by event
     const { loading, error, data } = useQuery(RoundsByEventDocument, {
         variables: {
             eventId: eventId.eventId
@@ -17,8 +18,8 @@ const RoundsDone:FC<
     let total = 0, done = 0;
 
     return (<>
-        {data?.roundsByEvent.map((round) => {
-            round.completed ? done++ : total++;
+        {data?.roundsByEvent.map((round) => { //checks if the rounds are completed or not
+            round.completed ? done++ : total++; 
         }
         )}
         <div className={`flex justify-center items-center ${done===total ? "border-green-500 text-green-500" : ""}`}>

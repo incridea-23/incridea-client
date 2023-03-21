@@ -11,6 +11,7 @@ const AddBranchModal = () => {
     const [showModal, setShowModal] = useState(false);
     const [branchName, setBranchName] = useState<String>('');
 
+    //mutation to add branch
     const [addBranchMutation, { loading: addBranchLoading }] = useMutation(AddBranchDocument, {
         variables: {
             name: branchName as string,
