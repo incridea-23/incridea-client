@@ -133,10 +133,10 @@ return (<>
                         : null
                     }
                     >
-                    <div className="flex flex-row w-full">
-                        <h1 className="md:text-xl text-lg text-start basis-1/3">{user?.node.id}</h1>
-                        <h1 className="md:text-xl text-lg text-center basis-1/3">{user?.node.name}</h1>
-                        <h1 className="md:text-xl text-lg text-end basis-1/3">
+                    <div className="flex flex-row w-full justify-center items-center">
+                        <h1 className="md:text-xl text-lg text-start basis-1/4">{user?.node.id}</h1>
+                        <h1 className="flex justify-start md:justify-center items-center  md:text-xl text-lg text-center basis-2/4">{user?.node.name}</h1>
+                        <h1 className="md:text-xl text-lg text-end basis-1/4">
                             <Badge
                                 color={user?.node.role === 'ADMIN' ? 'success' : user?.node.role==='USER' ? 'danger' : user?.node.role==='PARTICIPANT' ? 'success' : user?.node.role==='BRANCHREP' ? 'info': user?.node.role === "ORGANIZER" ? 'info' : user?.node.role === 'JUDGE' ? 'info' : 'danger'}
                             >

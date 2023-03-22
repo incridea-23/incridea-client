@@ -62,8 +62,8 @@ const AdminTab: FC<{
                         <div className='md:max-h-80 max-h-80 md:h-[300px] overflow-y-auto'>
                             {events?.events?.edges?.map((event,i) => (
                                 <div key={event?.node.id}
-                                className={`bg-white/10 md:rounded-none rounded-lg md:p-4 ml-2 p-3 flex flex-col md:flex-row md:items-center items-start justify-between md:gap-5 gap-3`}>
-                                    <h1 className="basis-1/5 py-0.5 text-start pl-2 text-lg">{event?.node?.name}</h1>
+                                className={`bg-white/10 md:rounded-none rounded-lg md:p-4 ml-2 p-3 flex flex-col md:flex-row md:items-center items-start justify-between md:gap-5 gap-3 mb-3 md:my-0`}>
+                                    <h1 className="basis-1/5 py-0.5 text-start md:pl-2 text-lg">{event?.node?.name}</h1>
                                     <h1 className="basis-1/5 py-0.5 text-center text-lg">
                                         {event?.node.rounds[0].event.branch.name.toLowerCase() === "core" ? 
                                         <Badge color="success">{event?.node.rounds[0].event.branch.name}</Badge>
@@ -109,7 +109,7 @@ const AdminTab: FC<{
                         <div className='md:max-h-64 max-h-60 md:h-64 overflow-y-auto'>
                             {branches?.getBranches?.map((branch,i) => (
                                 <div key={branch?.id}
-                                className={`bg-white/10 md:rounded-none rounded-lg md:ml-0 md:p-4  p-3 flex flex-col md:flex-row md:items-center items-start justify-between md:gap-5 gap-3`}>
+                                className={`bg-white/10 md:rounded-none rounded-lg md:ml-0 md:p-4  p-3 flex flex-col md:flex-row md:items-center items-start justify-between md:gap-5 gap-3 mb-3 md:my-0`}>
                                     <h1 className="basis-1/2 py-0.5 text-start pl-2 text-lg">{branch?.name}</h1>
                                     <h1 className="basis-1/2 py-0.5 text-center pr-5 text-lg">
                                     <AddBranchRep 

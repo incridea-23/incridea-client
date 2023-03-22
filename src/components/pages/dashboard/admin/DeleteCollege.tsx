@@ -42,7 +42,7 @@ const DeleteCollege:FC<
                 <div className="flex items-center justify-center text-end">
                     <Button intent="danger"
                         size="medium"
-                        className="flex gap-1 items-center justify-center"
+                        className="flex gap-1 items-center justify-center h-12"
                         onClick={ () => setShowModal(true) }
                         >
                         <IoTrash />  Delete College
