@@ -17,6 +17,11 @@ query Events($first: Int) {
           roundNo
           date
           eventId
+          event {
+            branch {
+              name
+            }
+          }
         }
         venue
       }
