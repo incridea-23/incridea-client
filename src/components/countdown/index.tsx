@@ -1,10 +1,10 @@
-import { titleFont } from '@/src/utils/fonts';
-import Image from 'next/image';
-import { FC, useEffect, useState } from 'react';
-import TextAnimation from '../animation/text';
+import { titleFont } from "@/src/utils/fonts";
+import Image from "next/image";
+import { FC, useEffect, useState } from "react";
+import TextAnimation from "../animation/text";
 
 const CountDown: FC = () => {
-  const endDate = new Date('2023-04-26');
+  const endDate = new Date("2023-04-26");
 
   const calculateCountdown = () => {
     const now = new Date();
@@ -28,7 +28,7 @@ const CountDown: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [rotation, setRotation] = useState('rotate-0');
+  const [rotation, setRotation] = useState("rotate-0");
 
   useEffect(() => {
     const rot = `${-(countdown.seconds * 6) % 360}deg`;
@@ -40,11 +40,11 @@ const CountDown: FC = () => {
       <TextAnimation
         text="The wait is almost over!"
         className="flex justify-center"
-        textStyle='text-xl font-semibold lg:text-3xl'
+        textStyle="text-xl font-semibold lg:text-3xl"
       />
       <div className="flex justify-center items-start sm:items-center flex-col lg:flex-row gap-5 lg:gap-10 mt-4 drop-shadow-xl relative">
         <Image
-          src={'/assets/png/helm.png'}
+          src={"/assets/png/helm.png"}
           width={500}
           height={500}
           alt="Ship Helm"
