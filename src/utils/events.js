@@ -6,6 +6,9 @@ export const events = [
     image: "https://spotme.com/wp-content/uploads/2020/07/Hero-1.jpg",
     link: "#",
     branch: "ISE",
+    venue: "Online",
+    rounds: 3,
+    price: 60,
   },
   {
     id: "2",
@@ -14,6 +17,9 @@ export const events = [
     image: "https://spotme.com/wp-content/uploads/2020/07/Hero-1.jpg",
     link: "#",
     branch: "CSE",
+    venue: "ISL02",
+    rounds: 3,
+    price: 50,
   },
   {
     id: "3",
@@ -22,6 +28,9 @@ export const events = [
     image: "https://spotme.com/wp-content/uploads/2020/07/Hero-1.jpg",
     link: "#",
     branch: "CSE",
+    venue: "ISL02",
+    rounds: 3,
+    price: 20,
   },
   {
     id: "4",
@@ -30,6 +39,9 @@ export const events = [
     image: "https://spotme.com/wp-content/uploads/2020/07/Hero-1.jpg",
     link: "#",
     branch: "EEE",
+    venue: "ISL02",
+    rounds: 3,
+    price: 10,
   },
   {
     id: "5",
@@ -38,6 +50,9 @@ export const events = [
     image: "https://spotme.com/wp-content/uploads/2020/07/Hero-1.jpg",
     link: "#",
     branch: "CC",
+    venue: "ISL02",
+    rounds: 3,
+    price: 0,
   },
   {
     id: "6",
@@ -46,6 +61,9 @@ export const events = [
     image: "https://spotme.com/wp-content/uploads/2020/07/Hero-1.jpg",
     link: "#",
     branch: "CORE",
+    venue: "ISL02",
+    rounds: 3,
+    price: 200,
   },
   {
     id: "7",
@@ -54,6 +72,9 @@ export const events = [
     image: "https://spotme.com/wp-content/uploads/2020/07/Hero-1.jpg",
     link: "#",
     branch: "ISE",
+    venue: "ISL02",
+    rounds: 3,
+    price: 100,
   },
   {
     id: "8",
@@ -62,5 +83,8 @@ export const events = [
     image: "https://spotme.com/wp-content/uploads/2020/07/Hero-1.jpg",
     link: "#",
     branch: "ISE",
+    venue: "ISL02",
+    rounds: 3,
+    price: 0,
   },
 ];

@@ -11,6 +11,9 @@ interface EventProps {
     image: string;
     link: string;
     branch: string;
+    venue: string;
+    rounds: Number;
+    price: Number;
   };
 }
 
@@ -41,10 +44,12 @@ const Event = ({ data }: EventProps) => {
             {data.date}
           </span>
           <span className="text-gray-800 text-sm font-semibold">
-            {data.branch}
+            Venue : {data.venue}
           </span>
         </div>
-        <Button className="absolute bottom-2 right-2">Register</Button>
+        <Button className="absolute bottom-2 right-2 font-bold">
+          {data.price === 0 ? "Free" : `Rs ${data.price}`}
+        </Button>
       </motion.div>
     </motion.div>
   );
