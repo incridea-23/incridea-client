@@ -13,7 +13,7 @@ export const events = [
     date: "12/05/2023",
     image: "https://spotme.com/wp-content/uploads/2020/07/Hero-1.jpg",
     link: "#",
-    branch: "ISE",
+    branch: "CSE",
   },
   {
     id: "3",
@@ -21,7 +21,7 @@ export const events = [
     date: "12/05/2023",
     image: "https://spotme.com/wp-content/uploads/2020/07/Hero-1.jpg",
     link: "#",
-    branch: "ISE",
+    branch: "CSE",
   },
   {
     id: "4",
@@ -29,7 +29,7 @@ export const events = [
     date: "12/05/2023",
     image: "https://spotme.com/wp-content/uploads/2020/07/Hero-1.jpg",
     link: "#",
-    branch: "ISE",
+    branch: "EEE",
   },
   {
     id: "5",
@@ -37,7 +37,7 @@ export const events = [
     date: "12/05/2023",
     image: "https://spotme.com/wp-content/uploads/2020/07/Hero-1.jpg",
     link: "#",
-    branch: "ISE",
+    branch: "CC",
   },
   {
     id: "6",
@@ -45,7 +45,7 @@ export const events = [
     date: "12/05/2023",
     image: "https://spotme.com/wp-content/uploads/2020/07/Hero-1.jpg",
     link: "#",
-    branch: "ISE",
+    branch: "CORE",
   },
   {
     id: "7",
