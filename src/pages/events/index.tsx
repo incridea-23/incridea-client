@@ -4,11 +4,21 @@ import { bodyFont, titleFont } from "@/src/utils/fonts";
 import { events } from "@/src/utils/events";
 import Event from "@/src/components/event";
 import { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Events: NextPage = () => {
   const { status, user } = useAuth();
   const [filter, setFilter] = useState("All");
+  const [data, setData] = useState(events);
+
+  useEffect(() => {
+    if (filter === "All") {
+      setData(events);
+    } else {
+      setData(events.filter((event) => event.branch === filter));
+    }
+  }, [filter]);
+
   return (
     <div className="bg-[#B2E2D7] h-[100vh] w-[100vw]">
       <Navbar status={status} user={user} />
@@ -32,13 +42,16 @@ const Events: NextPage = () => {
       </div>
       <div className="absolute mt-[16rem] flex justify-center w-screen bg-[#B2E2D7] ">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-10">
-          {filter === "All"
-            ? events.map((event) => <Event data={event} key={event.id} />)
-            : events
-                .filter((event) => event.branch === filter)
-                .map((event) => <Event data={event} key={event.id} />)}
+          {data.map((event) => (
+            <Event data={event} key={event.id} />
+          ))}
         </div>
       </div>
+      {data.length === 0 && (
+        <div className="mt-[25rem] text-2xl w-screen text-center text-[#6d878a]">
+          No Event Found !!
+        </div>
+      )}
     </div>
   );
 };
