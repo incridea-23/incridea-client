@@ -7,6 +7,7 @@ import { RiUserSearchFill } from "react-icons/ri";
 import Button from "@/src/components/button";
 import SearchBox from "@/src/components/searchbox";
 import Badge from "@/src/components/badge";
+import { idToPid, pidToId } from "@/src/components/pidFormatter";
 
 
 const SearchUsers = () => {
@@ -134,7 +135,7 @@ return (<>
                     }
                     >
                     <div className="flex flex-row w-full justify-center items-center">
-                        <h1 className="md:text-xl text-lg text-start basis-1/4">{user?.node.id}</h1>
+                        <h1 className="md:text-xl text-sm text-start basis-1/4">{user?.node.id}</h1>
                         <h1 className="flex justify-start md:justify-center items-center  md:text-xl text-lg text-center basis-2/4">{user?.node.name}</h1>
                         <h1 className="md:text-xl text-lg text-end basis-1/4">
                             <Badge
@@ -144,7 +145,7 @@ return (<>
                             </Badge>
                         </h1>
                     </div>
-                    </div>
+                  </div>
                 ))}
                 {isFetching && <Spinner size={'small'} />}
                 {!hasNextPage && !searchUsersLoading && (
