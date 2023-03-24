@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { FC, useState } from 'react';
 import { MdOutlineMail, MdOutlinePhone } from 'react-icons/md';
 import { BsFillEyeFill } from 'react-icons/bs';
+import { idToPid } from '@/src/utils/pid';
 
 const ViewTeamModal: FC<{
   teamName: string;
@@ -58,7 +59,7 @@ const ViewTeamModal: FC<{
                   className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg md:p-5 p-3 flex flex-col md:flex-row md:items-center items-start justify-between md:gap-5 gap-3"
                 >
                   <div className="flex flex-col gap-1">
-                    <Badge color={'info'}>{member.user.id}</Badge>
+                    <Badge color={'info'}>{idToPid(member.user.id)}</Badge>
                   </div>
 
                   <div className="flex flex-col gap-1">
