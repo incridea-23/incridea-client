@@ -17,8 +17,8 @@ const AdminTab: FC<{
     const first:number = 10;
   const {
     data: branches,
-    loading: branhesLoading,
-    refetch: branhesRefetch,
+    loading: branchesLoading,
+    refetch: branchesRefetch,
   } = useQuery(BranchesDocument, {});
 
   const {
@@ -101,7 +101,7 @@ const AdminTab: FC<{
                             <h1 className="basis-1/2 py-2.5 text-start pl-2 text-lg">Branch Name</h1>
                             <h1 className="basis-1/2 py-2.5 text-end  text-base pr-5">Add Branch Representative</h1>
                         </div>
-                        {branhesLoading && (
+                        {branchesLoading && (
                         <div className="flex mt-10 justify-center items-center">
                             <Spinner className='text-gray-300' />
                         </div>

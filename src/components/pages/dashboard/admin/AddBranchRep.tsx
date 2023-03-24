@@ -25,7 +25,7 @@ const AddBranchRep: FC<{
         className="flex gap-1 items-center disabled:opacity-50 disabled:cursor-not-allowed"
         onClick={ () => setShowModal(true) }
         >
-          <IoAdd />  Add Branch Rep
+          <IoAdd />  Add
         </Button>
         <Modal
           showModal={showModal}

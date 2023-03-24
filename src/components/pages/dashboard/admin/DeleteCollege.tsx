@@ -45,7 +45,7 @@ const DeleteCollege:FC<
                         className="flex gap-1 items-center justify-center h-12"
                         onClick={ () => setShowModal(true) }
                         >
-                        <IoTrash />  Delete College
+                        <IoTrash /> 
                     </Button>
                 </div>
                 <Modal 
