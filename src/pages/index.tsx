@@ -1,42 +1,15 @@
-// @refresh reset
 import { type NextPage } from 'next';
-import { useRive, Layout, Fit, Alignment } from '@rive-app/react-canvas';
 import Navbar from '../components/navbar';
 import { useAuth } from '../hooks/useAuth';
-import { motion } from 'framer-motion';
-import Parallax from '../components/animation/parallax';
 import CountDown from '../components/countdown';
 import About from '../components/about';
-import GalleryPeek from '../components/galleryPeek';
 import Image from 'next/image';
-
 import { useRef } from 'react';
-import useParallax from '../hooks/useParallax';
-import { titleFont } from '../utils/fonts';
-import TextAnimation from '../components/animation/text';
-import CharacterAnimation from '../components/animation/character';
+import GalleryReel from '../components/galleryPeek/reel';
+import Hero from '../components/hero';
+
 const Home: NextPage = () => {
-  const { RiveComponent: LandingBg } = useRive({
-    src: `assets/rive/landing-scene-bg.riv/`,
-    stateMachines: ['state-machine'],
-    autoplay: true,
-    layout: new Layout({
-      fit: Fit.FitWidth,
-      alignment: Alignment.BottomCenter,
-    }),
-  });
-  const { RiveComponent: LandingWave } = useRive({
-    src: `assets/rive/landing-scene-wave.riv/`,
-    stateMachines: ['state-machine'],
-    autoplay: true,
-    layout: new Layout({
-      fit: Fit.FitWidth,
-      alignment: Alignment.BottomCenter,
-    }),
-  });
   const ref = useRef(null);
-  const transformBg = useParallax(ref, 7);
-  const transformTitle = useParallax(ref, 10);
   const { status, user, error, loading } = useAuth();
 
   if (loading) return <div>Loading...</div>; // Loading page here
@@ -46,45 +19,33 @@ const Home: NextPage = () => {
     <div ref={ref} className="overflow-x-hidden">
       <Navbar status={status} user={user} />
 
-      <div className="relative bg-gradient-to-bl -z-10  from-yellow-100 to-sky-400">
-        {/* sun Rays */}
+      <div>
+        {/* 1. Hero Section */}
+        <Hero ref={ref} />
 
-        <motion.div
-          className="absolute -z-10  top-0 left-0   "
-          style={{ y: transformBg }}
-        >
-          <LandingBg className="w-screen  h-screen " />
-        </motion.div>
-        <motion.div
-          style={{ y: transformTitle }}
-          className="absolute  top-0 right-0 -z-10 backdrop-blur-[1.5px] text-white flex flex-col justify-center items-center w-screen min-h-screen"
-        >
-          <CharacterAnimation
-            text="INCRIDEA"
-            // make responsive text size
-            textStyle="lg:text-7xl md:text-5xl sm:text-4xl text-3xl font-bold"
-            className={titleFont.className}
-          />
-          <TextAnimation
-            text="Tides Of Change"
-            textStyle="text-xl font-semibold"
-          />
-        </motion.div>
-        <LandingWave className="w-auto h-screen z-0" />
-      </div>
-      <div className="relative bg-gradient-to-b h-[300vh] from-[#5CA3AD]  via-[#2b8da2] to-[#2b8da2]">
-        {/* Body */}
-        <div className="h-[200px]"></div>
-        <CountDown />
-        <About />
-        <GalleryPeek />
-        <Image
-          className="absolute bottom-0 w-screen h-auto"
-          src="/assets/svg/atlantis-ai.svg"
-          alt=""
-          height={500}
-          width={1000}
-        />
+        <div className="relative bg-gradient-to-b h-[300vh] from-[#5CA3AD]  via-[#2b8da2] to-[#2b8da2]">
+          <div className="h-[200px]"></div>
+
+          {/* 2. Countdown Section */}
+          <CountDown />
+
+          {/* 3. About Section */}
+          <About />
+
+          {/* 4. Gallery Reel Section */}
+          <GalleryReel />
+
+          {/* 5. Footer Section */}
+          <section>
+            <Image
+              className="absolute bottom-0 w-screen h-auto"
+              src="/assets/svg/atlantis-ai.svg"
+              alt=""
+              height={500}
+              width={1000}
+            />
+          </section>
+        </div>
       </div>
     </div>
   );
