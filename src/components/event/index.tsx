@@ -2,6 +2,7 @@
 
 import Button from "../button";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 interface EventProps {
   data: {
@@ -47,9 +48,11 @@ const Event = ({ data }: EventProps) => {
             Venue : {data.venue}
           </span>
         </div>
-        <Button className="absolute bottom-2 right-2 font-bold">
-          {data.price === 0 ? "Free" : `Rs ${data.price}`}
-        </Button>
+        <Link href={`events/${data.id}`}>
+          <Button className="absolute bottom-2 right-2 font-bold">
+            {data.price === 0 ? "Free" : `Rs ${data.price}`}
+          </Button>
+        </Link>
       </motion.div>
     </motion.div>
   );
