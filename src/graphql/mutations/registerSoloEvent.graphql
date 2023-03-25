@@ -1,0 +1,27 @@
+mutation RegisterSoloEvent($eventId: ID!) {
+  registerSoloEvent(eventId: $eventId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationRegisterSoloEventSuccess {
+      __typename
+      data {
+        id
+        name
+        confirmed
+        event {
+          id
+          eventType
+          name
+        }
+        members {
+          user {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+}
