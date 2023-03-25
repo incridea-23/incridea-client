@@ -1,5 +1,6 @@
 import { cva, VariantProps } from 'class-variance-authority';
-import React from 'react';
+import { HTMLMotionProps, motion, MotionProps } from 'framer-motion';
+import React, { ReactNode } from 'react';
 
 const buttonStyles = cva(
   'flex gap-2 items-center justify-center rounded transition-colors duration-300',
@@ -55,10 +56,12 @@ const buttonStyles = cva(
     },
   }
 );
-export interface ButtonProps
-  extends VariantProps<typeof buttonStyles>,
-    React.ButtonHTMLAttributes<HTMLButtonElement> {
+
+interface ButtonProps
+  extends Omit<HTMLMotionProps<'button'>, 'onAnimationStart' | 'onDrag' | 'onDragEnd' | 'onDragStart' | 'style'>,
+    VariantProps<typeof buttonStyles> {
   disabled?: boolean;
+  style?: React.CSSProperties & { [key: string]: any };
 }
 
 const Button = ({
@@ -72,7 +75,9 @@ const Button = ({
   ...props
 }: ButtonProps) => {
   return (
-    <button
+    <motion.button
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
       className={`${className} ${buttonStyles({
         intent,
         size,
@@ -83,7 +88,7 @@ const Button = ({
       {...props}
     >
       {children}
-    </button>
+    </motion.button>
   );
 };
 
