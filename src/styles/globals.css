@@ -145,3 +145,24 @@
 .animate {
   animation: scroll 15s linear infinite;
 }
+
+.neonText {
+  color: #fff;
+  text-shadow:
+    /* 0 0 7px #fff,
+    0 0 10px #fff,
+    0 0 21px #fff,
+    0 0 42px #0fa,
+    0 0 82px #0fa,
+    0 0 92px #0fa,
+    0 0 102px #0fa,
+    0 0 151px #0fa; */
+    0 0 7px #fff,
+    0 0 10px #fff,
+    0 0 21px #fff,
+    0 0 42px #e600ff,
+    0 0 82px #e600ff,
+    0 0 92px #e600ff,
+    0 0 102px #e600ff,
+    0 0 151px #e600ff;
+}
