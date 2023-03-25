@@ -7,7 +7,6 @@ import { RiUserSearchFill } from "react-icons/ri";
 import Button from "@/src/components/button";
 import SearchBox from "@/src/components/searchbox";
 import Badge from "@/src/components/badge";
-import { idToPid, pidToId } from "@/src/components/pidFormatter";
 
 
 const SearchUsers = () => {
