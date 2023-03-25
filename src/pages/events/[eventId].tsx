@@ -1,5 +1,5 @@
-import { useRouter } from 'next/router';
-import { NextPage } from 'next';
+import { useRouter } from "next/router";
+import { NextPage } from "next";
 import Navbar from "@/src/components/navbar";
 import { useAuth } from "@/src/hooks/useAuth";
 import { bodyFont, titleFont } from "@/src/utils/fonts";
@@ -14,11 +14,11 @@ const EventPage: NextPage = () => {
   if (error) return <div>Something went wrong</div>; // Error page here
 
   return (
-    <div className="relative bg-gradient-to-b h-[300vh] from-[#5CA3AD]  via-[#2b8da2] to-[#2b8da2] overflow-x-hidden">
+    <div className="relative bg-[#B2E2D7] h-[300vh] overflow-x-hidden">
       <Navbar status={status} user={user} />
       <EventCard eventId={eventId as string} />
     </div>
   );
-}
+};
 
 export default EventPage;
