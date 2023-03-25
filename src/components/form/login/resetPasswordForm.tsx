@@ -1,15 +1,18 @@
-import { FormEventHandler, FunctionComponent, useState } from 'react';
-import { ResetPasswordEmailDocument } from '@/src/generated/generated';
-import { useMutation } from '@apollo/client';
+import { FormEventHandler, FunctionComponent, useState } from "react";
+import { ResetPasswordEmailDocument } from "@/src/generated/generated";
+import { useMutation } from "@apollo/client";
+import { FaAngleLeft } from "react-icons/fa";
+import { BiCheckCircle, BiErrorCircle } from "react-icons/bi";
+import Spinner from "../../spinner";
 
 type ResetPasswordFormProps = {
-  setWhichForm: (whichForm: 'signIn' | 'resetPassword') => void;
+  setWhichForm: (whichForm: "signIn" | "resetPassword") => void;
 };
 
 const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
   setWhichForm,
 }) => {
-  const [email, setEmail] = useState<string>('');
+  const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
 
   const [resetMutation, { data, loading, error: mutationError }] = useMutation(
@@ -18,15 +21,16 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     // add some client side validations like empty fields, password length, etc.
+    setError(null);
     e.preventDefault();
-    if (email === '') return;
+    if (email === "") return;
 
     resetMutation({
       variables: {
         email: email,
       },
     }).then((res) => {
-      if (res.data?.sendPasswordResetEmail.__typename === 'Error') {
+      if (res.data?.sendPasswordResetEmail.__typename === "Error") {
         setError(res.data.sendPasswordResetEmail.message);
       }
     });
@@ -34,44 +38,60 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
 
   return (
     <>
-      {loading ? (
-        <div>Loading...</div>
-      ) : data?.sendPasswordResetEmail.__typename ===
-        'MutationSendPasswordResetEmailSuccess' ? (
-        <div className="text-green-500">
-          ✅ Reset link is sent to your email. Please check your inbox.
-        </div>
-      ) : (
-        <form
-          className="flex flex-col gap-3 border border-black p-5 rounded-xl"
-          onSubmit={handleSubmit}
-        >
-          <input
-            value={email}
-            onChange={({ target }) => setEmail(target.value)}
-            type="email"
-            placeholder="john@email.com"
-          />
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Send Reset Link
-          </button>
-          <button
-            onClick={() => setWhichForm('signIn')}
-            type="button"
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Cancel
-          </button>
-          {(error || mutationError) && (
-            <div className="text-red-500">
-              {error || mutationError?.message}
+      <form
+        className={`relative flex flex-col gap-2 min-h-full justify-center ${
+          loading && "cursor-not-allowed pointer-events-none"
+        }`}
+        onSubmit={handleSubmit}>
+        <h2 className="text-center text-2xl pb-1 font-semibold">Forgot password?</h2>
+        {data?.sendPasswordResetEmail.__typename ===
+        "MutationSendPasswordResetEmailSuccess" ? (
+          <>
+            <div className="flex flex-col gap-2 text-center items-center text-green-500 bg-green-100 font-semibold p-4 rounded-md">
+              <BiCheckCircle size={"2rem"} /> Reset link sent to your email. Please check
+              your inbox.
             </div>
-          )}
-        </form>
-      )}
+          </>
+        ) : (
+          <>
+            <h6 className="text-center mb-10 ">
+              Enter your email to receive a password reset link
+            </h6>
+            <input
+              value={email}
+              onChange={({ target }) => {
+                setError(null);
+                setEmail(target.value);
+              }}
+              type="email"
+              required
+              className=" py-2 px-1 border-b  transition-all border-gray-400  focus:border-sky-500 outline-none"
+              placeholder="Email"
+            />
+            <button
+              type="submit"
+              className="mt-3 transition-colors bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded">
+              Send Reset Link
+            </button>
+            <button
+              onClick={() => setWhichForm("signIn")}
+              className="mt-1 mb-3 flex items-center w-full text-center justify-center gap-2 transition-colors border border-sky-500 hover:bg-sky-100 text-sky-500 font-bold py-2 px-4 rounded">
+              <FaAngleLeft /> Go Back
+            </button>
+            {loading && (
+              <div className="absolute h-full w-full bg-white/60 inset-0 rounded-lg cursor-not-allowed pointer-events-none z-50">
+                <Spinner className="text-sky-600" />
+              </div>
+            )}
+            {(error || mutationError) && (
+              <div className="bg-red-100 p-2 flex items-center gap-3 px-4 rounded-md font-semibold text-red-500">
+                <BiErrorCircle size={"1.3rem"} />
+                {error || mutationError?.message}
+              </div>
+            )}
+          </>
+        )}
+      </form>
     </>
   );
 };

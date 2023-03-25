@@ -60,7 +60,11 @@ const Home: NextPage = () => {
                 >
                   Sign In
                 </button>
-                <Link href="/auth/signup">
+                <Link href={'/auth/login?whichForm=signUp'}
+                //using the whichForm query param to tell the login page to show the signup form 
+                as="/auth/login"
+                //hiding the query param cause it's ugly
+                >
                   <button className="bg-blue-500 text-white px-3 py-2 rounded-md">
                     Sign Up
                   </button>
