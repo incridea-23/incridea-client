@@ -4,7 +4,7 @@ import TextAnimation from '../animation/text';
 
 const About: FC = () => {
   return (
-    <section className="text-white mx-auto max-w-screen-xl px-4 py-8 sm:py-12 sm:px-6 lg:py-16 lg:px-8 mb-20">
+    <section data-scroll data-scroll-speed="5" className="text-white mx-auto max-w-screen-xl px-4 py-8 sm:py-12 sm:px-6 lg:py-16 lg:px-8 mb-72">
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
         <div className="max-w-2xl">
           <TextAnimation

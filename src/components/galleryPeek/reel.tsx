@@ -4,17 +4,19 @@ import Button from '../button';
 
 const GalleryReel = () => {
   return (
-    <section>
-      <GalleryPeek />
-      {/* <div className="-rotate-12 blur-sm">
+    <section className="mt-20">
+      <div className="-rotate-12 blur-xl">
         <GalleryPeek />
       </div>
       <div className="rotate-[20deg]">
         <GalleryPeek />
+        <Link
+          href={'/gallery'}
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        >
+          <Button>View Gallery</Button>
+        </Link>
       </div>
-      <Link href={'/gallery'}>
-        <Button className="mx-auto mt-20">View Gallery</Button>
-      </Link> */}
     </section>
   );
 };

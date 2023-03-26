@@ -19,7 +19,6 @@
     "draftjs-to-html": "^0.9.1",
     "framer-motion": "^9.0.1",
     "graphql": "^16.6.0",
-    "gsap": "^3.11.5",
     "jsonwebtoken": "^9.0.0",
     "locomotive-scroll": "^4.1.4",
     "next": "13.1.6",

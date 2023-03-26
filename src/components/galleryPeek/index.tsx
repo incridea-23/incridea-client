@@ -1,4 +1,3 @@
-import { useMotionValueEvent, useScroll } from 'framer-motion';
 import Image from 'next/image';
 import React, { FC } from 'react';
 
@@ -9,20 +8,18 @@ const GalleryPeek: FC = () => {
     'v1678613774/3.jpg',
   ]; // TODO: Replace with actual images (top 3)
 
-  const { scrollY } = useScroll();
-  const [y, setY] = React.useState(0);
-
-  useMotionValueEvent(scrollY, 'change', (latest) => {
-    setY(latest);
-  });
-
   return (
-    <section className="relative">
+    <section
+      className="relative"
+      style={{
+        transform: 'translateX(-60%)',
+      }}
+    >
       <div
-        className="w-[500%] lg:w-[200%] flex gap-1 lg:gap-5 py-2 lg:py-5 items-center absolute left-0 border border-t-2 border-b-2 border-gray-400 backdrop-filter"
-        style={{
-          transform: `translateY(${y * 0.05}px)`,
-        }}
+        data-scroll
+        data-scroll-speed="5"
+        data-scroll-direction="horizontal"
+        className="w-[500%] lg:w-[200%] flex gap-1 lg:gap-5 py-2 lg:py-5 items-center absolute border border-t-2 border-b-2 border-gray-400 backdrop-filter"
       >
         {images.map((i) => {
           return (
@@ -33,7 +30,7 @@ const GalleryPeek: FC = () => {
                 width={500}
                 height={300}
               />
-              <div className="absolute top-0 left-0 w-full h-full bg-white bg-opacity-5"></div>
+              <div className="absolute top-0 left-0 w-full h-full bg-blue-300 bg-opacity-10"></div>
             </div>
           );
         })}

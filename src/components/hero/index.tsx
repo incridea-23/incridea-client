@@ -32,15 +32,22 @@ const Hero: React.FC<{
   const transformTitle = useParallax(ref, 10);
 
   return (
-    <section className="relative bg-gradient-to-bl -z-10  from-yellow-100 to-sky-400">
+    <section
+      data-scroll-section
+      className="relative bg-gradient-to-bl -z-10  from-yellow-100 to-sky-400"
+    >
       {/* sun Rays */}
       <motion.div
+        data-scroll
+        data-scroll-speed = "-8"
         className="absolute -z-10  top-0 left-0   "
         style={{ y: transformBg }}
       >
         <LandingBg className="w-screen  h-screen " />
       </motion.div>
       <motion.div
+        data-scroll
+        data-scroll-speed = "-6"
         style={{ y: transformTitle }}
         className="absolute  top-0 right-0 -z-10 backdrop-blur-[1.5px] text-white flex flex-col justify-center items-center w-screen min-h-screen"
       >
