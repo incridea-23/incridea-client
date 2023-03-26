@@ -7,10 +7,13 @@ import Image from 'next/image';
 import { useRef } from 'react';
 import GalleryReel from '../components/galleryPeek/reel';
 import Hero from '../components/hero';
+import { LocomotiveScrollProvider } from 'react-locomotive-scroll';
+import 'locomotive-scroll/dist/locomotive-scroll.css';
 
 const Home: NextPage = () => {
   const ref = useRef(null);
   const { status, user, error, loading } = useAuth();
+  const containerRef = useRef(null);
 
   if (loading) return <div>Loading...</div>; // Loading page here
   if (error) return <div>Something went wrong</div>; // Error page here
@@ -18,35 +21,42 @@ const Home: NextPage = () => {
   return (
     <div ref={ref} className="overflow-x-hidden">
       <Navbar status={status} user={user} />
+      <LocomotiveScrollProvider
+        options={{
+          smooth: true,
+        }}
+        watch={[]}
+        containerRef={containerRef}
+      >
+        <main data-scroll-container ref={containerRef}>
+          {/* 1. Hero Section */}
+          <Hero ref={ref} />
 
-      <div>
-        {/* 1. Hero Section */}
-        <Hero ref={ref} />
+          <div className="relative bg-gradient-to-b h-[300vh] from-[#5CA3AD]  via-[#2b8da2] to-[#2b8da2]">
+            <div className="h-[200px]"></div>
 
-        <div className="relative bg-gradient-to-b h-[300vh] from-[#5CA3AD]  via-[#2b8da2] to-[#2b8da2]">
-          <div className="h-[200px]"></div>
+            {/* 2. Countdown Section */}
+            <CountDown />
 
-          {/* 2. Countdown Section */}
-          <CountDown />
+            {/* 3. About Section */}
+            <About />
 
-          {/* 3. About Section */}
-          <About />
+            {/* 4. Gallery Reel Section */}
+            <GalleryReel />
 
-          {/* 4. Gallery Reel Section */}
-          <GalleryReel />
-
-          {/* 5. Footer Section */}
-          <section>
-            <Image
-              className="absolute bottom-0 w-screen h-auto"
-              src="/assets/svg/atlantis-ai.svg"
-              alt=""
-              height={500}
-              width={1000}
-            />
-          </section>
-        </div>
-      </div>
+            {/* 5. Footer Section */}
+            <section>
+              <Image
+                className="absolute bottom-0 w-screen h-auto"
+                src="/assets/svg/atlantis-ai.svg"
+                alt=""
+                height={500}
+                width={1000}
+              />
+            </section>
+          </div>
+        </main>
+      </LocomotiveScrollProvider>
     </div>
   );
 };

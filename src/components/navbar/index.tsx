@@ -32,7 +32,7 @@ const Navbar: FC<{
 
   return (
     <nav
-      className={`fixed  ${titleFont.className}  top-0 z-10 bg-white backdrop-filter backdrop-blur-lg bg-opacity-10 border-b border-gray-200 w-full`}>
+      className={`fixed ${titleFont.className}  top-0 z-20 bg-white backdrop-filter backdrop-blur-lg bg-opacity-10 border-b border-gray-200 w-full`}>
       <div className="max-w-5xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center space-x-2">

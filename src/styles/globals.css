@@ -124,7 +124,6 @@
   @apply py-2;
 }
 
-/* Gallery peek animation */
 .scroll-hide::-webkit-scrollbar {
   display: none;
 }
@@ -132,17 +131,4 @@
 .scroll-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-
-@keyframes scroll {
-  0% {
-    left: 0;
-  }
-  100% {
-    left: -100%;
-  }
-}
-
-.animate-scroll {
-  animation: scroll 15s linear infinite;
 }
