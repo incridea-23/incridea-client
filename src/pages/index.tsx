@@ -24,6 +24,12 @@ const Home: NextPage = () => {
       <LocomotiveScrollProvider
         options={{
           smooth: true,
+          smartphone: {
+            smooth: true,
+          },
+          tablet: {
+            smooth: true,
+          },
         }}
         watch={[]}
         containerRef={containerRef}
@@ -32,7 +38,10 @@ const Home: NextPage = () => {
           {/* 1. Hero Section */}
           <Hero ref={ref} />
 
-          <div data-scroll-section className="relative bg-gradient-to-b h-[350vh] from-[#5CA3AD]  via-[#2b8da2] to-[#2b8da2]">
+          <div
+            data-scroll-section
+            className="relative bg-gradient-to-b h-[350vh] from-[#5CA3AD]  via-[#2b8da2] to-[#2b8da2]"
+          >
             <div className="h-[200px]"></div>
 
             {/* 2. Countdown Section */}
