@@ -48,7 +48,7 @@ const EditEvent: FC<
     const [updateEvent, { data, loading, error }] = useMutation(
       UpdateEventDocument,
       {
-        refetchQueries: ['EventByOrganizer'],
+        refetchQueries: ['Events'],
       }
     );
     function saveHandler() {
