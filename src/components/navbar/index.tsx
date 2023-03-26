@@ -31,12 +31,12 @@ const Navbar: FC<{
   };
 
   return (
-    <nav className="fixed top-0 z-10 bg-white backdrop-filter backdrop-blur-lg bg-opacity-10 border-b border-gray-200 w-full">
-      <div className="max-w-5xl mx-auto px-4">
+    <nav className="fixed top-0 z-20 w-full bg-white border-b border-gray-200 backdrop-filter backdrop-blur-lg bg-opacity-10">
+      <div className="max-w-5xl px-4 mx-auto">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center space-x-2">
             <Image
-              className="bg-white bg-opacity-30 p-1 rounded-full backdrop-filter backdrop-blur-lg"
+              className="p-1 bg-white rounded-full bg-opacity-30 backdrop-filter backdrop-blur-lg"
               src="/logo.png"
               alt="Logo"
               width={40}
@@ -50,10 +50,10 @@ const Navbar: FC<{
             </span>
           </Link>
 
-          <div className="space-x-6 text-gray-900 hidden lg:flex">
+          <div className="hidden space-x-6 text-gray-900 lg:flex">
             {links.map((link) => (
               <Link
-                className="hover:text-primary-500 transition-colors duration-300"
+                className="transition-colors duration-300 hover:text-primary-500"
                 key={link.url}
                 href={link.url}
               >
@@ -72,10 +72,10 @@ const Navbar: FC<{
           />
           <div className="flex items-center space-x-4 lg:hidden">
             {isMenuOpen ? (
-              <XIcon className="h-6 w-6 text-gray-900" onClick={toggleMenu} />
+              <XIcon className="w-6 h-6 text-gray-900" onClick={toggleMenu} />
             ) : (
               <MenuIcon
-                className="h-6 w-6 text-gray-900"
+                className="w-6 h-6 text-gray-900"
                 onClick={toggleMenu}
               />
             )}
@@ -96,7 +96,7 @@ const Navbar: FC<{
             <Link
               key={link.url}
               href={link.url}
-              className="block py-2 px-4 text-sm hover:bg-primary-100"
+              className="block px-4 py-2 text-sm hover:bg-primary-100"
             >
               {link.label}
             </Link>
