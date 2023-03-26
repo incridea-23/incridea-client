@@ -36,7 +36,7 @@ const Home: NextPage = () => {
       >
         <main data-scroll-container ref={containerRef}>
           {/* 1. Hero Section */}
-          <Hero ref={ref} />
+          <Hero />
 
           <div
             data-scroll-section
@@ -71,23 +71,3 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-function Sun() {
-  return (
-    <div className="w-40 h-40 rounded-full bg-yellow-400 relative">
-      {[...Array(8)].map((_, index) => (
-        <div
-          key={index}
-          className={`w-full h-2 rounded-full absolute ${
-            index % 2 === 0 ? 'bg-transparent' : 'bg-yellow-500'
-          }`}
-          style={{
-            top: '50%',
-            left: '50%',
-            transform: `rotate(${index * 45}deg) translateY(-50%)`,
-            background: `linear-gradient(to top, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%)`,
-          }}
-        />
-      ))}
-    </div>
-  );
-}

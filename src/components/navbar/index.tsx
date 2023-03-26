@@ -9,7 +9,6 @@ import { AiOutlineClose as XIcon } from "react-icons/ai";
 import { Transition } from "@headlessui/react";
 import ProfileMenu from "./profileMenu";
 import { titleFont } from "@/src/utils/fonts";
-import TextAnimation from "../animation/text";
 import CharacterAnimation from "../animation/character";
 
 const Navbar: FC<{
