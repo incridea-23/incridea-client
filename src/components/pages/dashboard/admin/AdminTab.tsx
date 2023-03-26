@@ -67,7 +67,7 @@ const AdminTab: FC<{
                                 <div key={event?.node.id}
                                 className={`bg-white/10 md:rounded-none rounded-lg md:p-4 ml-2 p-3 flex flex-col md:flex-row md:items-center items-start md:justify-center  mb-3 md:my-0`}>
                                     <h1 className="basis-1/6 flex justify-start py-0.5 text-start text-lg">{event?.node?.name}</h1>
-                                    <h1 className="basis-1/6 flex justify-center py-0.5 text-start text-lg">
+                                    <h1 className="basis-1/6 flex justify-center py-0.5 text-start text-lg pr-2">
                                         {event?.node.rounds[0].event.branch.name.toLowerCase() === "core" ? 
                                         <Badge color="success">{event?.node.rounds[0].event.branch.name}</Badge>
                                         :
@@ -92,8 +92,10 @@ const AdminTab: FC<{
                                         published={event?.node?.published as boolean}
                                     />
                                     </h1>
-                                    <h1 className="basis-1/6 py-0.5 text-lg flex text-center justify-center">
-                                        <EditEvent />
+                                    <h1 className="basis-1/6 py-0.5 text-lg flex text-center justify-center pl-5">
+                                        <EditEvent 
+                                            Event = {event}
+                                        />
                                     </h1>
                                 </div>
                             ))}
