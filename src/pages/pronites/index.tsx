@@ -5,6 +5,12 @@ import { motion } from 'framer-motion';
 import React from "react";
 
 const Pronite: NextPage = () => {
+    const artArray=[
+        {'reverse':false,'artistname':'Raghav Chaitanya','imagesrc':'/assets/png/artist1.png','date':'26th April 2023','time':'9pm'},
+        {'reverse':true,'artistname':'Raghav Chaitanya','imagesrc':'/assets/png/artist1.png','date':'26th April 2023','time':'9pm'},
+        {'reverse':false,'artistname':'Raghav Chaitanya','imagesrc':'/assets/png/artist1.png','date':'26th April 2023','time':'9pm'}
+    ]
+    const [artists,setArtists] = React.useState(artArray);
     const { status, user, error, loading } = useAuth();
     return (
         <div className="w-full min-h-screen overflow-x-hidden overflow-y-auto text-gray-100">
@@ -35,8 +41,11 @@ const Pronite: NextPage = () => {
             </div>
             <div className="h-[600px] w-full absolute top-0 left-0 flex bg-center bg-primary-800/40"></div>
             <div className="bg-gradient-to-br from-[#110141]  to-[#040c2b] pt-12 pb-12">
-                <ArtistsCard reverse={false} src="/assets/png/artist1.png" artistname="RAGHAV CHAITANYA" date="26th April 2023" time="9pm"/>
-                <ArtistsCard reverse={true} src="/assets/png/artist1.png" artistname="RAGHAV CHAITANYA" date="26th April 2023" time="9pm"/>
+                {
+                    artists?.map((artist,index)=>(
+                        <ArtistsCard key={index} reverse={artist.reverse} src={artist.imagesrc} artistname={artist.artistname} date={artist.date} time={artist.time}/>
+                    ))
+                }
             </div>
         </div>
     );
