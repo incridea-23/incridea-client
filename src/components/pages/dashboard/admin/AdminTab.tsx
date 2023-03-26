@@ -10,7 +10,6 @@ import SearchUsersModal from './SearchUsersModal';
 import CollegesModal from './CollegesModal';
 import RoundsDone from './RoundsDone';
 import Badge from '@/src/components/badge';
-import EditEventModal from '../organizer/EditEventModal';
 import EditEvent from './EditEvent';
 
 const AdminTab: FC<{
@@ -92,7 +91,7 @@ const AdminTab: FC<{
                                         published={event?.node?.published as boolean}
                                     />
                                     </h1>
-                                    <h1 className="basis-1/6 py-0.5 text-lg flex text-center justify-center pl-5">
+                                    <h1 className="basis-1/6 py-0.5 text-lg flex md:text-center md:justify-center md:pl-5 mt-2 md:mt-0">
                                         <EditEvent 
                                             Event = {event}
                                         />

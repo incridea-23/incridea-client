@@ -1,5 +1,5 @@
 import Button from '@/src/components/button';
-import { AiOutlineEdit, AiOutlineEye } from 'react-icons/ai';
+import { AiOutlineEdit } from 'react-icons/ai';
 import { EventsQuery } from '@/src/generated/generated';
 import { FC } from 'react';
 import { useState,useEffect } from 'react'; 
@@ -11,7 +11,6 @@ import Modal from '@/src/components/modal';
 import ToggleSwitch from '@/src/components/switch';
 import createToast from '@/src/components/toast';
 import {
-    EventByOrganizerQuery,
     UpdateEventDocument,
   } from '@/src/generated/generated';
 import dynamic from 'next/dynamic';
