@@ -1,5 +1,4 @@
 // @refresh reset
-import useParallax from '@/src/hooks/useParallax';
 import { titleFont } from '@/src/utils/fonts';
 import { Alignment, Fit, Layout, useRive } from '@rive-app/react-canvas';
 import { motion } from 'framer-motion';
@@ -28,8 +27,6 @@ const Hero: React.FC<{
       alignment: Alignment.BottomCenter,
     }),
   });
-  const transformBg = useParallax(ref, 7);
-  const transformTitle = useParallax(ref, 10);
 
   return (
     <section
@@ -39,16 +36,14 @@ const Hero: React.FC<{
       {/* sun Rays */}
       <motion.div
         data-scroll
-        data-scroll-speed = "-8"
+        data-scroll-speed="-8"
         className="absolute -z-10  top-0 left-0   "
-        style={{ y: transformBg }}
       >
         <LandingBg className="w-screen  h-screen " />
       </motion.div>
       <motion.div
         data-scroll
-        data-scroll-speed = "-6"
-        style={{ y: transformTitle }}
+        data-scroll-speed="-6"
         className="absolute  top-0 right-0 -z-10 backdrop-blur-[1.5px] text-white flex flex-col justify-center items-center w-screen min-h-screen"
       >
         <CharacterAnimation

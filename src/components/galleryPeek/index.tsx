@@ -19,7 +19,7 @@ const GalleryPeek: FC = () => {
         data-scroll
         data-scroll-speed="5"
         data-scroll-direction="horizontal"
-        className="w-[500%] lg:w-[200%] flex gap-1 lg:gap-5 py-2 lg:py-5 items-center absolute border border-t-2 border-b-2 border-gray-400 backdrop-filter"
+        className="w-[500%] lg:w-[200%] flex gap-2 py-2 items-center absolute backdrop-filter"
       >
         {images.map((i) => {
           return (
