@@ -7,8 +7,8 @@ import React from "react";
 const Pronite: NextPage = () => {
     const artArray=[
         {'reverse':false,'artistname':'Raghav Chaitanya','imagesrc':'/assets/png/artist1.png','date':'26th April 2023','time':'9pm'},
-        {'reverse':true,'artistname':'Raghav Chaitanya','imagesrc':'/assets/png/artist1.png','date':'26th April 2023','time':'9pm'},
-        {'reverse':false,'artistname':'Raghav Chaitanya','imagesrc':'/assets/png/artist1.png','date':'26th April 2023','time':'9pm'}
+        {'reverse':true,'artistname':'Unknown artist','imagesrc':'/assets/png/unknown.png','date':'Revealing soon','time':'Xpm'},
+        {'reverse':false,'artistname':'Unknown artist','imagesrc':'/assets/png/unknownB.png','date':'Revealing soon','time':'Xpm'}
     ]
     const [artists,setArtists] = React.useState(artArray);
     const { status, user, error, loading } = useAuth();
