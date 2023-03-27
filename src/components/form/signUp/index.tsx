@@ -37,7 +37,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
     error: collegesError,
   } = useQuery(CollegesDocument);
 
-  const [selectedCollege, setSelectedCollege] = useState(collegeData?.colleges[0]);
+  const [selectedCollege, setSelectedCollege] = useState<{name: string, id:string}>({name: "", id: ""});
   const [query, setQuery] = useState("");
 
   const filteredColleges =
@@ -52,8 +52,12 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    if (userInfo.name === "" || userInfo.email === "" || userInfo.password === "") {
+    if (!userInfo.name || !userInfo.email || !userInfo.password || !userInfo.phoneNumber  || !userInfo.college ) {
       setError("Please fill all the fields");
+      return;
+    }
+    if (userInfo.phoneNumber.length !== 10 || isNaN(Number(userInfo.phoneNumber))) {
+      setError("Please enter a valid 10-digit mobile number");
       return;
     }
     if (userInfo.password.length < 8) {
@@ -106,7 +110,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
       }`}>
       <h2 className="text-3xl text-center font-semibold">Welcome to Incridea! 👋</h2>
       <h6 className="mb-10 text-center">
-        We&apos;re excited to have you here! Sign up below.{" "}
+        We&apos;re excited to have you here! Sign up below{" "}
       </h6>
       <input
         value={userInfo.name}
@@ -142,23 +146,23 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         name="phoneNumber"
         type="text"
         required
-        pattern="[0-9]{10}"
         placeholder="Mobile"
         className=" py-2 px-1 border-b transition-all border-gray-400  focus:border-sky-500 outline-none"
       />
       <Combobox
         value={selectedCollege}
         onChange={(value) => {
-          setUserInfo((prev) => ({ ...prev, college: value?.id }));
+          setUserInfo((prev) => ({ ...prev, college: value.id }));
           setSelectedCollege(value);
         }}>
         <div className="relative">
-          <div className="relative w-full focus:border-sky-500 border-gray-400 cursor-default overflow-hidden border-b ">
+          <div className="relative w-full focus-within:border-sky-500 focus:border-sky-500 border-gray-400 cursor-default overflow-hidden border-b ">
             <Combobox.Input
+              required
               placeholder="College"
               displayValue={(college: { name: string }) => college.name}
-              className="w-full outline-none border-none py-2 pl-2 pr-10 text-gray-900 focus:ring-0"
-              onChange={(event) => setQuery(event.target.value)}
+              className="w-full outline-none py-2 pl-2 pr-10 text-gray-900 "
+              onChange={(e) => setQuery(e.target.value)}
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
               <BsChevronExpand className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -173,20 +177,20 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
           >
           <Combobox.Options className="z-10 absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 border text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
             {collegesLoading ? (
-              <div className="select-none py-2 px-4 italic text-gray-500">
-                Loading colleges...
+              <div className="select-none text-center py-2 px-4 italic text-gray-500">
+                <Spinner className='text-gray-400' size={'small'} />
               </div>
             ) : filteredColleges?.length === 0 && query !== "" ? (
               <div className="relative font-semibold select-none py-2 px-4 text-gray-600">
                 College not found. Please contact admin.
-                {/* TODO: Make this a hyperlink for contacting adming */}
+                {/* TODO: Make this a hyperlink for contacting admin */}
               </div>
             ) : (
               filteredColleges?.map((college) => (
                 <Combobox.Option
                   className={({ active }) =>
                     `relative select-none py-2 cursor-pointer px-4 ${
-                      active ? "bg-sky-500 text-white" : "text-gray-900"
+                      active ? "bg-sky-600 text-white" : "text-gray-900"
                     }`
                   }
                   key={college.id}
