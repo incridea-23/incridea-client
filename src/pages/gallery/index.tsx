@@ -1,14 +1,34 @@
 import { NextPage } from "next";
 import { motion } from "framer-motion";
+import { useRef } from "react";
+
+import { LocomotiveScrollProvider } from "react-locomotive-scroll";
+import 'locomotive-scroll/dist/locomotive-scroll.css';
 
 import GallerySlide from "@/src/components/galleryslide";
 
 const Gallery:NextPage = () => {
+
+    const containerRef = useRef(null);
+
     return (
-        <div className="min-h-screen w-full overflow-x-hidden overflow-y-auto text-gray-100">
+        <div data-scroll-container className="min-h-screen w-full overflow-x-hidden overflow-y-auto text-gray-100 bg-gradient-to-br from-[#001d67]  to-[#040c2b]" ref={containerRef}>
+            <LocomotiveScrollProvider
+                options={{
+                smooth: true,
+                smartphone: {
+                  smooth: true,
+                },
+                tablet: {
+                  smooth: true,
+                },
+              }}
+              watch={[]}
+              containerRef={containerRef}
+            >
             {/* Header Part */}
-            <div className="h-screen w-full relative flex bg-black">
-                <video autoPlay loop muted className="object-cover object-center w-full h-full opacity-75">
+            <div data-scroll-section className="h-screen w-full relative flex bg-black overflow-hidden">
+                <video data-scroll data-scroll-speed="-3" autoPlay loop muted className="object-cover object-center w-full h-full opacity-75">
                     <source src="ocean.mp4" type="video/mp4"></source>
                 </video>
                 <motion.div
@@ -24,12 +44,12 @@ const Gallery:NextPage = () => {
                 style={{x:"-50%"}}
                 className="h-1 w-40 flex bg-gray-100 absolute bottom-8 left-1/2"></motion.div>
             </div>
-            <div className="bg-gradient-to-br from-[#001d67]  to-[#040c2b]">
+            <div data-scroll-section className="mt-24">
                 <GallerySlide title={'2022'} />
-                {/* <GallerySlide title={'2020'} /> */}
-                {/* <GallerySlide title={'2019'} /> */}
+                <GallerySlide title={'2020'} />
+                <GallerySlide title={'2019'} />
             </div>
-            
+            </LocomotiveScrollProvider>
         </div>
     )
 }
