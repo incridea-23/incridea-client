@@ -7,8 +7,12 @@ import { MdOutlineDeleteOutline, MdOutlineMail, MdOutlinePhone } from 'react-ico
 import { BsFillEyeFill } from 'react-icons/bs';
 import { idToPid } from '@/src/utils/pid';
 import { BiTrashAlt } from 'react-icons/bi';
+import { useMutation } from '@apollo/client';
+import { OrganizerDeleteTeamMemberDocument } from '@/src/generated/generated';
+import createToast from '@/src/components/toast';
 
 const ViewTeamModal: FC<{
+  teamId: string;
   teamName: string;
   teamMembers:
     | {
@@ -22,12 +26,31 @@ const ViewTeamModal: FC<{
         };
       }[]
     | undefined;
-}> = ({ teamName, teamMembers }) => {
+}> = ({ teamId, teamName, teamMembers }) => {
   const [showModal, setShowModal] = useState(false);
 
   function handleCloseModal() {
     setShowModal(false);
   }
+
+  const [deleteMember] = useMutation(OrganizerDeleteTeamMemberDocument,{
+    refetchQueries: ['TeamsByRound'],
+    awaitRefetchQueries: true,
+  });
+
+  const removeMember = (id: string) => {
+    let promise = deleteMember({
+      variables: {
+        teamId: teamId as string,
+        userId: id as string,
+      },
+    }).then((res) => {
+      if (res.data?.organizerDeleteTeamMember.__typename !== 'MutationOrganizerDeleteTeamMemberSuccess') {
+        return Promise.reject('Error could not remove team member');
+      }
+    });
+    createToast(promise, 'Removing Team member...');
+  };
 
   const teamSize = teamMembers?.length;
 
@@ -104,7 +127,7 @@ const ViewTeamModal: FC<{
                       intent={'danger'}
                       size={'small'}
                       outline
-                      className=" text-base bg-opacity-100 backdrop-blur-none"
+                      onClick={ () => {removeMember(member.user.id)}}
                     >
                       <BiTrashAlt  className="text-base" />
                     </Button>
