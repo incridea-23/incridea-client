@@ -17,16 +17,6 @@ import Spinner from '@/src/components/spinner';
 const ViewTeamModal: FC<{
   teamId: string;
   teamName: string;
-  teamMembers: {
-    __typename?: "TeamMember" | undefined;
-    user: {
-        __typename?: "User" | undefined;
-        id: string;
-        name: string;
-        phoneNumber?: string | null | undefined;
-        email: string;
-    };
-}[] | undefined
 }> = ({ teamId, teamName }) => {
   const [showModal, setShowModal] = useState(false);
 
