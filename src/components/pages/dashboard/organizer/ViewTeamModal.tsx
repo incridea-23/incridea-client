@@ -8,34 +8,46 @@ import { BsFillEyeFill } from 'react-icons/bs';
 import { idToPid } from '@/src/utils/pid';
 import { BiPlus, BiTrashAlt } from 'react-icons/bi';
 import { useMutation } from '@apollo/client';
-import { OrganizerDeleteTeamMemberDocument } from '@/src/generated/generated';
+import { OrganizerDeleteTeamMemberDocument,TeamDetailsDocument } from '@/src/generated/generated';
 import createToast from '@/src/components/toast';
 import AddTeamMember from './AddTeamMember';
+import { useQuery } from '@apollo/client';
+import Spinner from '@/src/components/spinner';
 
 const ViewTeamModal: FC<{
   teamId: string;
   teamName: string;
-  teamMembers:
-    | {
-        __typename?: 'TeamMember' | undefined;
-        user: {
-          __typename?: 'User' | undefined;
-          id: string;
-          name: string;
-          phoneNumber?: string | null | undefined;
-          email: string;
-        };
-      }[]
-    | undefined;
-}> = ({ teamId, teamName, teamMembers }) => {
+  teamMembers: {
+    __typename?: "TeamMember" | undefined;
+    user: {
+        __typename?: "User" | undefined;
+        id: string;
+        name: string;
+        phoneNumber?: string | null | undefined;
+        email: string;
+    };
+}[] | undefined
+}> = ({ teamId, teamName }) => {
   const [showModal, setShowModal] = useState(false);
+
+  const {
+    data: teamData,
+    error: teamError,
+    loading: teamLoading,
+  } = useQuery(TeamDetailsDocument, {
+    variables: {
+      id: teamId,
+    },
+  });
+
+  const teamSize = teamData?.teamDetails.__typename === "QueryTeamDetailsSuccess" ? teamData?.teamDetails.data.members.length : 0;
 
   function handleCloseModal() {
     setShowModal(false);
   }
 
   const [deleteMember] = useMutation(OrganizerDeleteTeamMemberDocument,{
-    refetchQueries: ['TeamsDetails'],
+    refetchQueries: ['TeamDetails'],
     awaitRefetchQueries: true,
   });
 
@@ -52,8 +64,6 @@ const ViewTeamModal: FC<{
     });
     createToast(promise, 'Removing Team member...');
   };
-
-  const teamSize = teamMembers?.length;
 
   return (
     <div>
@@ -84,7 +94,9 @@ const ViewTeamModal: FC<{
               </div>
             </div>
             <div className="flex flex-col just gap-3 mt-5 md:h-28">
-              {teamMembers?.map((member) => (
+            {teamData &&
+            teamData.teamDetails.__typename === 'QueryTeamDetailsSuccess' ? (
+              teamData?.teamDetails.data.members?.map((member) => (
                 <div
                   key={member.user.id}
                   className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg md:p-5 p-3 flex flex-col md:flex-row md:items-center items-start justify-between md:gap-5 gap-3 md:h-28"
@@ -116,15 +128,16 @@ const ViewTeamModal: FC<{
                   <div className="flex flex-col gap-1">
                     <span className="text-gray-400 text-sm flex items-center gap-1">
                       Phone
-                      <MdOutlinePhone />
+                      <MdOutlineMail />
                     </span>
                     <Link
-                      href={`tel:${member.user.phoneNumber}`}
+                      href={`mailto:${"phoneNumber"}`}
                       className="hover:underline"
                     >
-                      {member.user.phoneNumber}
+                      {"phoneNumber"}
                     </Link>
                   </div>
+
                   <div className="flex flex-col gap-1 md:mt-3">
                     <span className="text-gray-400 text-sm flex items-center gap-1">
                       Delete
@@ -141,7 +154,11 @@ const ViewTeamModal: FC<{
                     </Button>
                   </div>
                 </div>
-              ))}
+              ))):
+              (
+                <Spinner />
+              )
+              }
             </div>
           </div>
         </div>

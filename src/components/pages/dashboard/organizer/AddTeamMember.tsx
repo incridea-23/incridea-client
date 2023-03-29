@@ -109,7 +109,7 @@ const AddTeamMember: FC<
       onClose={() => setShowModal(false)}
       title={'Add Participant'}
     >
-      <div className="flex flex-wrap md:p-6 p-5 gap-10">
+      <div className="flex md:flex-row flex-wrap md:p-6 p-5 gap-10">
         <div className="w-full md:w-fit space-y-5">
           <div className="space-y-2">
             {/* scan user */}
@@ -170,21 +170,24 @@ const AddTeamMember: FC<
           <div>
             {teamData &&
             teamData.teamDetails.__typename === 'QueryTeamDetailsSuccess' ? (
-              <div className="space-y-2">
+              <div className="space-y-2 w-auto">
                 {teamData.teamDetails.data.members.map((member) => (
                   <div
                     key={member.user.id}
-                    className="bg-white  bg-opacity-10   rounded-lg md:p-3 p-2 flex   items-start justify-between md:gap-5 gap-3"
+                    className="bg-white  bg-opacity-10  rounded-lg md:p-3 p-2 flex   items-start justify-between md:gap-5 gap-3"
                   >
                     <div className="flex items-center space-x-3">
-                      <div className="text-lg  text-green-500 font-mono">
+                      <div className="text-lg  text-green-500 font-mono flex basis-1/4">
                         {idToPid(member.user.id)}
                       </div>
                       <div className="flex flex-col">
-                        <p className="text-white font-medium">
+                        <p className="text-white font-medium flex basis-1/4">
                           {member.user.name}
                         </p>
-                        <p className="text-gray-400 text-sm">
+                        <p 
+                        className="text-gray-400 text-xs md:text-sm flex basis-1/2 w-14 "
+                        style={{ wordBreak: 'break-word' }}
+                        >
                           {member.user.email}
                         </p>
                       </div>
