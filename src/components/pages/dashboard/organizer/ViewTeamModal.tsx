@@ -6,10 +6,11 @@ import { FC, useState } from 'react';
 import { MdOutlineDeleteOutline, MdOutlineMail, MdOutlinePhone } from 'react-icons/md';
 import { BsFillEyeFill } from 'react-icons/bs';
 import { idToPid } from '@/src/utils/pid';
-import { BiTrashAlt } from 'react-icons/bi';
+import { BiPlus, BiTrashAlt } from 'react-icons/bi';
 import { useMutation } from '@apollo/client';
 import { OrganizerDeleteTeamMemberDocument } from '@/src/generated/generated';
 import createToast from '@/src/components/toast';
+import AddTeamMember from './AddTeamMember';
 
 const ViewTeamModal: FC<{
   teamId: string;
@@ -34,7 +35,7 @@ const ViewTeamModal: FC<{
   }
 
   const [deleteMember] = useMutation(OrganizerDeleteTeamMemberDocument,{
-    refetchQueries: ['TeamsByRound'],
+    refetchQueries: ['TeamsDetails'],
     awaitRefetchQueries: true,
   });
 
@@ -69,14 +70,17 @@ const ViewTeamModal: FC<{
           <div className="flex flex-col justify-start ">
             <div className="flex justify-between">
               <h2 className="text-xl font-semibold">{teamName}</h2>
-              <Badge
-                className="w-fit"
-                color={teamSize === 0 ? 'danger' : 'success'}
-              >
-                {teamSize === 0 ? 'No Members' : `${teamSize} Members`}
-              </Badge>
+              <div className="flex justify-end items-center gap-2">
+                <AddTeamMember />
+                <Badge
+                  className="w-fit"
+                  color={teamSize === 0 ? 'danger' : 'success'}
+                >
+                  {teamSize === 0 ? 'No Members' : `${teamSize} Members`}
+                </Badge>
+              </div>
             </div>
-            <div className="flex flex-col just gap-3 mt-5">
+            <div className="flex flex-col just gap-3 mt-5 md:h-28">
               {teamMembers?.map((member) => (
                 <div
                   key={member.user.id}
@@ -118,16 +122,17 @@ const ViewTeamModal: FC<{
                       {member.user.phoneNumber}
                     </Link>
                   </div>
-                  <div className="flex flex-col gap-1">
+                  <div className="flex flex-col gap-1 md:mt-3">
                     <span className="text-gray-400 text-sm flex items-center gap-1">
                       Delete
                       <MdOutlineDeleteOutline />
                     </span>
                     <Button
-                      intent={'danger'}
-                      size={'small'}
+                      intent='danger'
+                      size={'medium'}
                       outline
                       onClick={ () => {removeMember(member.user.id)}}
+                      className='w-full'
                     >
                       <BiTrashAlt  className="text-base" />
                     </Button>
