@@ -71,7 +71,10 @@ const ViewTeamModal: FC<{
             <div className="flex justify-between">
               <h2 className="text-xl font-semibold">{teamName}</h2>
               <div className="flex justify-end items-center gap-2">
-                <AddTeamMember />
+                <AddTeamMember
+                  teamId={teamId}
+                  teamName={teamName}
+                />
                 <Badge
                   className="w-fit"
                   color={teamSize === 0 ? 'danger' : 'success'}
