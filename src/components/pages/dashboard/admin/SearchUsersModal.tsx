@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { FC, useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { SearchUsersDocument } from "@/src/generated/generated";
 import Modal from "@/src/components/modal";
 import Spinner from "@/src/components/spinner";

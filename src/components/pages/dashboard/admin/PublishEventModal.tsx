@@ -55,10 +55,9 @@ const PublishEventModal: FC<{
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div>
+    <div className='text-center flex justify-center items-center'>
       <Button
         intent={published ? 'danger' : 'success'}
-        className="ml-auto"
         disabled={false}
         onClick={() => {
           setShowModal(true);

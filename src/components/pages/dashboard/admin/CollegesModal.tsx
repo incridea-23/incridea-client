@@ -1,6 +1,6 @@
 import { FC,useState } from 'react';
 import Button from '@/src/components/button';
-import { IoSchoolSharp, IoTrash } from 'react-icons/io5';
+import { IoSchoolSharp } from 'react-icons/io5';
 import Modal from '@/src/components/modal';
 import { CollegesDocument } from '@/src/generated/generated';
 import { useQuery } from '@apollo/client';
