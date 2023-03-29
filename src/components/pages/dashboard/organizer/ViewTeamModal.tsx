@@ -131,10 +131,10 @@ const ViewTeamModal: FC<{
                       <MdOutlineMail />
                     </span>
                     <Link
-                      href={`mailto:${"phoneNumber"}`}
+                      href={`mailto:${member.user.phoneNumber}`}
                       className="hover:underline"
                     >
-                      {"phoneNumber"}
+                      {member.user.phoneNumber}
                     </Link>
                   </div>
 
