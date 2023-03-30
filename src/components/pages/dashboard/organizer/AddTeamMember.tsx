@@ -174,7 +174,7 @@ const AddTeamMember: FC<
                 {teamData.teamDetails.data.members.map((member) => (
                   <div
                     key={member.user.id}
-                    className="bg-white  bg-opacity-10  rounded-lg md:p-3 p-2 flex   items-start justify-between md:gap-5 gap-3"
+                    className="bg-white  bg-opacity-10  rounded-lg md:p-3 p-2 flex  items-center md:items-start justify-between md:gap-5 gap-3"
                   >
                     <div className="flex items-center space-x-3">
                       <div className="text-lg  text-green-500 font-mono flex basis-1/4">
@@ -185,7 +185,7 @@ const AddTeamMember: FC<
                           {member.user.name}
                         </p>
                         <p 
-                        className="text-gray-400 text-xs md:text-sm flex basis-1/2 w-14 "
+                        className="text-gray-400 text-xs md:text-sm flex basis-1/2 md:w-[14vw] w-20 "
                         style={{ wordBreak: 'break-word' }}
                         >
                           {member.user.email}

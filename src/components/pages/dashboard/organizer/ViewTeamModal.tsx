@@ -83,7 +83,7 @@ const ViewTeamModal: FC<{
                 </Badge>
               </div>
             </div>
-            <div className="flex flex-col just gap-3 mt-5 md:h-28">
+            <div className="flex flex-col just gap-3 mt-5">
             {teamData &&
             teamData.teamDetails.__typename === 'QueryTeamDetailsSuccess' ? (
               teamData?.teamDetails.data.members?.map((member) => (
