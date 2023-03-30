@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import React, { FC } from 'react';
 
-const GalleryPeek: FC = () => {
+const EventsPeek: FC<{
+  speed: number;
+}> = ({ speed }) => {
   const images = [
     'v1678613776/1.jpg',
     'v1678613775/2.jpg',
@@ -9,17 +11,12 @@ const GalleryPeek: FC = () => {
   ]; // TODO: Replace with actual images (top 3)
 
   return (
-    <section
-      className="relative"
-      style={{
-        transform: 'translateX(-60%)',
-      }}
-    >
+    <section style={{ transform: 'translateX(-60%)' }}>
       <div
         data-scroll
-        data-scroll-speed="5"
+        data-scroll-speed={speed}
         data-scroll-direction="horizontal"
-        className="w-[500%] lg:w-[200%] flex gap-2 py-2 items-center absolute backdrop-filter"
+        className="w-[500%] lg:w-[200%] flex gap-2 py-2 items-center backdrop-filter"
       >
         {images.map((i) => {
           return (
@@ -51,4 +48,4 @@ const GalleryPeek: FC = () => {
   );
 };
 
-export default GalleryPeek;
+export default EventsPeek;

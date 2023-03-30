@@ -5,10 +5,10 @@ import CountDown from "../components/countdown";
 import About from "../components/about";
 import Image from "next/image";
 import { useRef } from "react";
-import GalleryReel from "../components/galleryPeek/reel";
 import Hero from "../components/hero";
 import { LocomotiveScrollProvider } from "react-locomotive-scroll";
 import "locomotive-scroll/dist/locomotive-scroll.css";
+import EventsReel from "../components/eventsPeek/reel";
 
 const Home = ({ setLoading }: { setLoading: (loading: boolean) => void }) => {
   const ref = useRef(null);
@@ -49,7 +49,7 @@ const Home = ({ setLoading }: { setLoading: (loading: boolean) => void }) => {
             <About />
 
             {/* 4. Gallery Reel Section */}
-            <GalleryReel />
+            <EventsReel />
 
             {/* 5. Footer Section */}
             <section>
