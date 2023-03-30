@@ -1,5 +1,5 @@
-mutation SignUp($email: String!, $name: String!, $password: String!, $phoneNumber: String!, $collegeId: Int!) {
-  signUp(data: { email: $email, name: $name, password: $password, phoneNumber: $phoneNumber, collegeId: $collegeId }) {
+mutation SignUp($email: String!, $name: String!, $password: String!) {
+  signUp(data: { email: $email, name: $name, password: $password }) {
     ... on Error {
       __typename
       message
