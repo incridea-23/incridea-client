@@ -1,64 +1,68 @@
-import { cva, VariantProps } from 'class-variance-authority';
-import { HTMLMotionProps, motion, MotionProps } from 'framer-motion';
-import React, { ReactNode } from 'react';
+import { cva, VariantProps } from "class-variance-authority";
+import { HTMLMotionProps, motion, MotionProps } from "framer-motion";
+import React, { ReactNode } from "react";
 
 const buttonStyles = cva(
-  'flex gap-2 items-center justify-center rounded transition-colors duration-300',
+  "flex gap-2 items-center justify-center rounded transition-colors duration-300",
   {
     variants: {
       intent: {
-        primary: 'bg-primary-500 text-white hover:bg-primary-600',
-        secondary: 'bg-gray-700 text-gray-200 hover:bg-gray-600',
-        danger: 'bg-red-500 text-white hover:bg-red-600',
-        success: 'bg-green-500 text-white hover:bg-green-600',
-        info: 'bg-teal-500 text-white hover:bg-teal-600',
-        dark: 'bg-gray-900/60 text-white hover:bg-opacity-30',
+        primary:
+          "bg-gradient-to-br from-[#e95c71] via-[#dd5c6e] to-[#bb384c]  text-white ",
+        secondary: "bg-gray-700 text-gray-200 hover:bg-gray-600",
+        danger: "bg-red-500 text-white hover:bg-red-600",
+        success: "bg-green-500 text-white hover:bg-green-600",
+        info: "bg-teal-500 text-white hover:bg-teal-600",
+        dark: "bg-gray-900/60 text-white hover:bg-opacity-30",
         ghost:
-          'bg-transparent border border-primary-400 hover:border-primary-700',
+          "bg-transparent border border-primary-400 hover:border-primary-700",
       },
       size: {
-        small: ['text-sm', 'py-1', 'px-2'],
-        medium: ['text-sm md:text-base', 'py-1 md:py-2', 'px-2 md:px-4'],
-        large: ['text-lg', 'py-2', 'px-4'],
+        small: ["text-sm", "py-1", "px-2"],
+        medium: ["text-sm md:text-base", "py-1 md:py-2", "px-2 md:px-4"],
+        large: ["text-lg", "py-2", "px-4"],
       },
       fullWidth: {
-        true: 'w-full',
-        false: 'w-fit',
+        true: "w-full",
+        false: "w-fit",
       },
       outline: {
-        true: 'border bg-transparent',
-        false: 'border-0',
+        true: "border bg-transparent",
+        false: "border-0",
       },
       disabled: {
-        true: 'opacity-50 cursor-not-allowed pointer-events-none',
+        true: "opacity-50 cursor-not-allowed pointer-events-none",
       },
     },
     compoundVariants: [
       {
-        intent: 'danger',
+        intent: "danger",
         outline: true,
-        className: 'hover:bg-red-500/30 border-red-500 text-red-500',
+        className: "hover:bg-red-500/30 border-red-500 text-red-500",
       },
       {
-        intent: 'success',
+        intent: "success",
         outline: true,
-        className: 'hover:bg-green-500/30 border-green-500 text-green-500',
+        className: "hover:bg-green-500/30 border-green-500 text-green-500",
       },
       {
-        intent: 'info',
+        intent: "info",
         outline: true,
-        className: 'hover:bg-teal-500/30 border-teal-500 text-teal-500',
+        className: "hover:bg-teal-500/30 border-teal-500 text-teal-500",
       },
     ],
     defaultVariants: {
-      intent: 'primary',
-      size: 'medium',
+      intent: "primary",
+      size: "medium",
     },
   }
 );
 
 interface ButtonProps
-  extends Omit<HTMLMotionProps<'button'>, 'onAnimationStart' | 'onDrag' | 'onDragEnd' | 'onDragStart' | 'style'>,
+  extends Omit<
+      HTMLMotionProps<"button">,
+      "onAnimationStart" | "onDrag" | "onDragEnd" | "onDragStart" | "style"
+    >,
     VariantProps<typeof buttonStyles> {
   disabled?: boolean;
   style?: React.CSSProperties & { [key: string]: any };
@@ -85,8 +89,7 @@ const Button = ({
         outline,
         disabled,
       })}`}
-      {...props}
-    >
+      {...props}>
       {children}
     </motion.button>
   );

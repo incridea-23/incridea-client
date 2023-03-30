@@ -1,22 +1,22 @@
-import { type NextPage } from 'next';
-import Navbar from '../components/navbar';
-import { useAuth } from '../hooks/useAuth';
-import CountDown from '../components/countdown';
-import About from '../components/about';
-import Image from 'next/image';
-import { useRef } from 'react';
-import GalleryReel from '../components/galleryPeek/reel';
-import Hero from '../components/hero';
-import { LocomotiveScrollProvider } from 'react-locomotive-scroll';
-import 'locomotive-scroll/dist/locomotive-scroll.css';
+import { type NextPage } from "next";
+import Navbar from "../components/navbar";
+import { useAuth } from "../hooks/useAuth";
+import CountDown from "../components/countdown";
+import About from "../components/about";
+import Image from "next/image";
+import { useRef } from "react";
+import GalleryReel from "../components/galleryPeek/reel";
+import Hero from "../components/hero";
+import { LocomotiveScrollProvider } from "react-locomotive-scroll";
+import "locomotive-scroll/dist/locomotive-scroll.css";
 
-const Home: NextPage = () => {
+const Home = ({ setLoading }: { setLoading: (loading: boolean) => void }) => {
   const ref = useRef(null);
   const { status, user, error, loading } = useAuth();
   const containerRef = useRef(null);
 
   if (loading) return <div>Loading...</div>; // Loading page here
-  if (error) return <div>Something went wrong</div>; // Error page here
+  //if (error) return <div>Something went wrong</div>; // Error page here
 
   return (
     <div ref={ref} className="overflow-x-hidden">
@@ -32,16 +32,14 @@ const Home: NextPage = () => {
           },
         }}
         watch={[]}
-        containerRef={containerRef}
-      >
+        containerRef={containerRef}>
         <main data-scroll-container ref={containerRef}>
           {/* 1. Hero Section */}
           <Hero />
 
           <div
             data-scroll-section
-            className="relative bg-gradient-to-b h-[350vh] from-[#5CA3AD]  via-[#2b8da2] to-[#2b8da2]"
-          >
+            className="relative -mt-2 bg-gradient-to-b h-[350vh] from-[#46aacf]  via-indigo-400 to-[#2b8da2]">
             <div className="h-[200px]"></div>
 
             {/* 2. Countdown Section */}
