@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import React from "react";
 import CharacterAnimation from "../animation/character";
 import TextAnimation from "../animation/text";
+import Image from "next/image";
 
 const Hero: React.FC = () => {
   const { RiveComponent: LandingBg } = useRive({
@@ -45,15 +46,16 @@ const Hero: React.FC = () => {
         data-scroll
         data-scroll-speed="-6"
         className="absolute  top-0 right-0 -z-10 backdrop-blur-[1px] text-white flex flex-col justify-center items-center w-screen min-h-screen">
-        <CharacterAnimation
-          text="INCRIDEA"
-          // make responsive text size
-          textStyle="lg:text-7xl md:text-5xl sm:text-4xl text-3xl font-bold"
-          className={titleFont.className}
+        <Image
+          className="w-full max-w-lg px-10 h-fit"
+          src="/assets/png/logo.png"
+          width={500}
+          height={500}
+          alt="INCRIDEA"
         />
         <TextAnimation
           text="Tides Of Change"
-          textStyle="text-xl font-semibold"
+          textStyle={`${titleFont.className} drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.5)] text-xl sm:text-2xl font-semibold tracking-widest`}
         />
       </motion.div>
 
