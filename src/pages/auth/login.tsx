@@ -14,9 +14,12 @@ const SignIn: NextPage = () => {
 
   return (
     <div className="min-h-screen min-w-screen bg-cover bg-gradient-to-bl from-sky-300 to-sky-700">
-      <div className="flex w-screen h-screen  backdrop-blur-sm">
+      {/* <div className={`fixed top-1/2 -translate-y-1/2 ${whichForm === 'signUp' ? 'rotate-90 left-1/4' : '-rotate-90 right-1/4'}`}>
+        <img src={"/wave.svg"} className="w-[100vh]" />
+      </div> */}
+      <div className="flex w-screen h-screen">
         <div
-          className={`hidden basis-1/2 md:flex items-center transition-transform duration-500 justify-center text-white font-bold text-2xl ${
+          className={`hidden basis-1/2  md:flex items-center transition-transform duration-500 justify-center text-white font-bold text-2xl ${
             whichForm === "signUp" && "md:translate-x-full"
           }`}>
           {whichForm === "signUp" ? (
@@ -26,16 +29,18 @@ const SignIn: NextPage = () => {
           )}
         </div>
         <div
-          className={`md:basis-1/2 basis-full overflow-auto bg-white shadow-2xl md:px-44 md:p-20 p-6 md:w-full w-[90vw] transition-transform duration-500 ${
+          className={`md:basis-1/2 basis-full flex items-center justify-center overflow-auto bg-white p-6 md:w-full w-[90vw] transition-transform duration-500 ${
             whichForm === "signUp" && "md:-translate-x-full"
           }`}>
-          {whichForm === "signIn" ? (
-            <SignInForm setWhichForm={setWhichForm} />
-          ) : whichForm === "resetPassword" ? (
-            <ResetPasswordForm setWhichForm={setWhichForm} />
-          ) : (
-            <SignUpForm setWhichForm={setWhichForm} />
-          )}
+          <div className="max-w-sm ">
+            {whichForm === "signIn" ? (
+              <SignInForm setWhichForm={setWhichForm} />
+            ) : whichForm === "resetPassword" ? (
+              <ResetPasswordForm setWhichForm={setWhichForm} />
+            ) : (
+              <SignUpForm setWhichForm={setWhichForm} />
+            )}
+          </div>
         </div>
       </div>
     </div>
