@@ -4,6 +4,7 @@ import { useMutation } from "@apollo/client";
 import { FaAngleLeft } from "react-icons/fa";
 import { BiCheckCircle, BiErrorCircle } from "react-icons/bi";
 import Spinner from "../../spinner";
+import Button from "../../button";
 
 type ResetPasswordFormProps = {
   setWhichForm: (whichForm: "signIn" | "resetPassword") => void;
@@ -65,19 +66,13 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
               }}
               type="email"
               required
-              className=" py-2 px-1 border-b  transition-all border-gray-400  focus:border-sky-500 outline-none"
+              className=" py-2 px-1 border-b  bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-sky-500 outline-none"
               placeholder="Email"
             />
-            <button
-              type="submit"
-              className="mt-3 transition-colors bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded">
-              Send Reset Link
-            </button>
-            <button
-              onClick={() => setWhichForm("signIn")}
-              className="mt-1 mb-3 flex items-center w-full text-center justify-center gap-2 transition-colors border border-sky-500 hover:bg-sky-100 text-sky-500 font-bold py-2 px-4 rounded">
+            <Button type="submit">Send Reset Link</Button>
+            <Button onClick={() => setWhichForm("signIn")}>
               <FaAngleLeft /> Go Back
-            </button>
+            </Button>
             {loading && (
               <div className="absolute h-full w-full bg-white/60 inset-0 rounded-lg cursor-not-allowed pointer-events-none z-50">
                 <Spinner className="text-sky-600" />

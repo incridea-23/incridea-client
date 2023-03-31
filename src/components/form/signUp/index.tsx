@@ -8,6 +8,7 @@ import { Combobox, Transition } from "@headlessui/react";
 import { useState, FormEventHandler, FunctionComponent, Fragment } from "react";
 import { BiErrorCircle } from "react-icons/bi";
 import { BsChevronExpand } from "react-icons/bs";
+import Button from "../../button";
 import Spinner from "../../spinner";
 
 type SignUpFormProps = {
@@ -109,7 +110,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         loading && "cursor-not-allowed pointer-events-none"
       }`}>
       <h2 className="text-3xl text-center font-semibold">Welcome to Incridea! 👋</h2>
-      <h6 className="mb-10 text-center">
+      <h6 className="mb-10 text-center md:font-normal font-semibold">
         We&apos;re excited to have you here! Sign up below{" "}
       </h6>
       <input
@@ -118,7 +119,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         name="name"
         type="text"
         required
-        className=" py-2 px-1 border-b transition-all border-gray-400  focus:border-sky-500 outline-none"
+                  className=" py-2 px-1 border-b  bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-sky-500 outline-none"
+
         placeholder="Name"
       />
 
@@ -128,7 +130,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         name="email"
         type="email"
         required
-        className=" py-2 px-1 border-b transition-all border-gray-400  focus:border-sky-500 outline-none"
+                  className=" py-2 px-1 border-b  bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-sky-500 outline-none"
+
         placeholder="Email"
       />
       <input
@@ -138,7 +141,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         type="password"
         required
         placeholder="Password"
-        className=" py-2 px-1 border-b transition-all border-gray-400  focus:border-sky-500 outline-none"
+                  className=" py-2 px-1 border-b  bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-sky-500 outline-none"
+
       />
       <input
         value={userInfo.phoneNumber}
@@ -147,7 +151,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         type="text"
         required
         placeholder="Mobile"
-        className=" py-2 px-1 border-b transition-all border-gray-400  focus:border-sky-500 outline-none"
+                  className=" py-2 px-1 border-b  bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-sky-500 outline-none"
+
       />
       <Combobox
         value={selectedCollege}
@@ -156,12 +161,12 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
           setSelectedCollege(value);
         }}>
         <div className="relative">
-          <div className="relative w-full focus-within:border-sky-500 focus:border-sky-500 border-gray-400 cursor-default overflow-hidden border-b ">
+          <div className="relative w-full md:focus-within:border-sky-500 md:focus:border-sky-500 md:border-gray-400 border-gray-100 cursor-default overflow-hidden border-b ">
             <Combobox.Input
               required
               placeholder="College"
               displayValue={(college: { name: string }) => college.name}
-              className="w-full outline-none py-2 pl-2 pr-10 text-gray-900 "
+              className="w-full bg-transparent outline-none py-2 pl-2 pr-10 md:text-gray-900 md:placeholder:text-gray-400 text-gray-100 placeholder:text-gray-100 "
               onChange={(e) => setQuery(e.target.value)}
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -203,26 +208,27 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
           </Transition>
         </div>
       </Combobox>
-      <button className="bg-sky-500 mt-3 transition-colors hover:bg-sky-600 text-white font-bold py-2 px-4 rounded">
+      <Button >
         Sign Up
-      </button>
+      </Button>
       {(error || mutationError || emailVerificationError) && (
         <div className="bg-red-100 p-2 flex items-center gap-3 px-4 rounded-md font-semibold text-red-500">
           <BiErrorCircle size={"1.3rem"} />
           {error || mutationError?.message || emailVerificationError?.message}
         </div>
       )}
-      <div className="flex flex-col mt-2 relative text-center">
-        <hr className="my-3" />
-        <h4 className="absolute top-0 translate-x-1/2 whitespace-nowrap bg-white text-gray-400 right-1/2 px-3 text-sm">
+      <div className="flex flex-col md:mt-2 mt-5 relative text-center">
+        <hr className="my-3 hidden md:block" />
+        <h4 className="md:absolute top-0.5 md:translate-x-1/2 w-fit md:w-max mx-auto md:bg-white bg-white/20 rounded-full text-white md:text-gray-400 right-1/2 md:px-2 px-3 text-sm">
           Already have an account?
         </h4>
-        <button
+        <Button
           onClick={() => setWhichForm("signIn")}
           type="button"
-          className="border-sky-500 border mt-3 transition-colors hover:bg-sky-100 text-sky-500 font-bold py-2 px-4 rounded">
+          className="mt-4"
+          >
           Sign in instead
-        </button>
+        </Button>
       </div>
       {loading && (
         <div className="absolute h-full w-full bg-white/40 inset-0 rounded-lg cursor-not-allowed pointer-events-none z-50">
