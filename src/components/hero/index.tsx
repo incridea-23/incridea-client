@@ -68,7 +68,7 @@ const Hero: React.FC = () => {
       </motion.div>
 
       {/* 4. Foreground Animation */}
-      <LandingWave className=" h-[80vh] w-screen  md:h-screen z-0" />
+      <LandingWave className=" h-[70vh] w-screen  md:h-screen z-0" />
     </section>
   );
 };
