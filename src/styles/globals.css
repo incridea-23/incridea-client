@@ -132,3 +132,14 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+.gradient-bg {
+  background: linear-gradient(
+    -170deg,
+    #a5b4fc,
+    #818cf8,
+    #22d3ee,
+    #fefce8,
+    #fff,
+    #fff
+  );
+}

@@ -9,6 +9,7 @@ import Hero from "../components/hero";
 import { LocomotiveScrollProvider } from "react-locomotive-scroll";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import EventsReel from "../components/eventsPeek/reel";
+import Footer from "../components/footer";
 
 const Home = ({ setLoading }: { setLoading: (loading: boolean) => void }) => {
   const ref = useRef(null);
@@ -37,29 +38,21 @@ const Home = ({ setLoading }: { setLoading: (loading: boolean) => void }) => {
           {/* 1. Hero Section */}
           <Hero />
 
-          <div
-            data-scroll-section
-            className="relative -mt-2 bg-gradient-to-b h-[350vh] from-[#46aacf]  via-indigo-400 to-[#2b8da2]">
-            <div className="h-[200px]"></div>
-
-            {/* 2. Countdown Section */}
-            <CountDown />
-
+          <div data-scroll-section className=" -mt-2  ">
+            <div className="pt-[200px] w-full flex justify-center items-center bg-gradient-to-b   from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
+              {/* 2. Countdown Section */}
+              <CountDown />
+            </div>
             {/* 3. About Section */}
-            <About />
+            <div className=" bg-gradient-to-b   from-[#2d6aa6] -mt-2   to-[#052749]">
+              <About />
 
-            {/* 4. Gallery Reel Section */}
-            <EventsReel />
+              <EventsReel />
+            </div>
 
             {/* 5. Footer Section */}
-            <section>
-              <Image
-                className="absolute bottom-0 w-screen h-auto"
-                src="/assets/svg/atlantis-ai.svg"
-                alt=""
-                height={500}
-                width={1000}
-              />
+            <section className="-mt-2 bg-[#052749]">
+              <Footer />
             </section>
           </div>
         </main>
