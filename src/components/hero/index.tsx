@@ -46,7 +46,7 @@ const Hero: React.FC = () => {
         data-scroll
         data-scroll-speed="-8"
         className="absolute -z-10  top-0 left-0   ">
-        <LandingBg className="w-screen  h-screen " />
+        <LandingBg className="h-[70vh] w-screen  md:h-screen " />
       </motion.div>
 
       {/* 3. Hero Title */}
@@ -68,7 +68,7 @@ const Hero: React.FC = () => {
       </motion.div>
 
       {/* 4. Foreground Animation */}
-      <LandingWave className="w-auto h-screen z-0" />
+      <LandingWave className=" h-[80vh] w-screen  md:h-screen z-0" />
     </section>
   );
 };
