@@ -32,7 +32,15 @@ const Hero: React.FC = () => {
       data-scroll-section
       className="relative bg-gradient-to-bl -z-10  from-indigo-200 via-sky-500 to-cyan-100">
       {/* 1. Sun Rays */}
-
+      <Image
+        className="absolute top-0 right-0 z-50 "
+        data-scroll
+        data-scroll-speed="2"
+        src="/assets/png/lensflare.webp"
+        width={1000}
+        height={1000}
+        alt="flare"
+      />
       {/* 2. Background Animation */}
       <motion.div
         data-scroll
@@ -58,12 +66,10 @@ const Hero: React.FC = () => {
           textStyle={`${titleFont.className} drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.5)] text-xl sm:text-2xl font-semibold tracking-widest`}
         />
       </motion.div>
-      
 
       {/* 4. Foreground Animation */}
       <LandingWave className="w-auto h-screen z-0" />
     </section>
-
   );
 };
 
