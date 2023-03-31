@@ -16,10 +16,10 @@ const EventsReel = () => {
       </div>
 
       <div className="relative">
-        <div className="absolute inset-14 blur-md">
+        <div className="absolute blur-md top-6">
           <EventsPeek speed={-5} />
         </div>
-        <div className="relative">
+        <div>
           <EventsPeek speed={5} />
         </div>
       </div>
