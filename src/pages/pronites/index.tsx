@@ -4,7 +4,10 @@ import { useAuth } from "../../hooks/useAuth";
 import { motion } from "framer-motion";
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-import { useHorizontalScroll, useHorizontalTouch } from "./useHorizontalScroll";
+import {
+  useHorizontalScroll,
+  useHorizontalTouch,
+} from "../../hooks/useHorizontal";
 
 const Pronite: NextPage = () => {
   const scrollRef = useHorizontalScroll();
