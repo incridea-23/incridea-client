@@ -1,12 +1,15 @@
 import { useQuery } from "@apollo/client";
 import { MeDocument } from "../generated/generated";
-enum AuthStatus {
+export enum AuthStatus {
   LOADING = "loading",
   NOT_AUTHENTICATED = "unauthenticated",
   AUTHENTICATED = "authenticated",
 }
+
 export const useAuth = () => {
-  const { data, loading, error } = useQuery(MeDocument);
+  const { data, loading, error } = useQuery(MeDocument, {
+    fetchPolicy: "cache-and-network",
+  });
   if (loading) {
     return { status: AuthStatus.LOADING, loading, error };
   }
