@@ -1,0 +1,13 @@
+mutation RemoveCollege($id: ID!) {
+removeCollege(id: $id) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationRemoveCollegeSuccess {
+      __typename
+      data
+    }
+  }
+
+}
