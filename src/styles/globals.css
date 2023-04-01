@@ -4,7 +4,7 @@
 
 /* create a youtube-like scrollbar */
 ::-webkit-scrollbar {
-  width: 0.5rem;
+  width: 0.4rem;
 }
 ::-webkit-scrollbar-track {
   @apply bg-gray-800;
@@ -18,6 +18,7 @@
   @apply bg-gray-300;
 }
 
+/* Markdown Rendering styles */
 .rendered-markdown h1 {
   @apply text-3xl;
   @apply font-bold;
@@ -121,4 +122,24 @@
   @apply border border-gray-400;
   @apply px-4;
   @apply py-2;
+}
+
+.scroll-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.gradient-bg {
+  background: linear-gradient(
+    -170deg,
+    #a5b4fc,
+    #818cf8,
+    #22d3ee,
+    #fefce8,
+    #fff,
+    #fff
+  );
 }

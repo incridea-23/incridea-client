@@ -110,8 +110,8 @@ function Teams({
 
             {/* View Team */}
             <ViewTeamModal
+              teamId={team?.node.id as string}
               teamName={team?.node.name || ''}
-              teamMembers={team?.node.members}
             />
 
             {/* Delete Team or Participant */}
