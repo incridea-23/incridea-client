@@ -1,8 +1,9 @@
 import { FC, useState,useEffect } from "react";
 import Image from "next/image";
 import {Swiper, SwiperSlide} from 'swiper/react';
-import { Autoplay } from 'swiper';
+import { Autoplay,Navigation } from 'swiper';
 import 'swiper/css';
+import "swiper/css/navigation";
 
 
 type GalleryProps = {
@@ -27,20 +28,25 @@ const GallerySlide:FC<GalleryProps> = ({title}) => {
     return(
         <div data-scroll data-scroll-speed="3" className="flex flex-col h-screen w-full relative">
 
-            <h1 className="text-5xl text-center">{title}</h1>
+            <div className="relative">
+                <h1 className="text-6xl text-center">{title}</h1>
+                <h2 className="text-7xl text-center absolute w-full -translate-y-16 opacity-25">{title}</h2>
+            </div>
+            
 
             <div className="absolute top-1/2 left-1/2 opacity-40 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] bg-black skew-x-0 sm:skew-x-12 overflow-hidden">
                 <Image fill src={imgSrc+activeImg} alt="incridea" className="skew-0 sm:-skew-x-12 scale-110 object-cover object-center" />
             </div>
-            <div className='flex max-w-5xl sm:max-w-full h-[700px] self-center absolute left-1/2 -translate-x-1/2'>
+            <div className='flex max-w-5xl sm:max-w-full h-[700px] self-center absolute left-1/2 -translate-x-1/2 sm:translate-y-6'>
                     <Swiper
+                    navigation={true}
                     slidesPerView={3}
                     onSlideChange={(cur) => setActive(cur.realIndex)}
                     loop={true}
                     centeredSlides={true}
                     speed={800}
                     autoplay={{delay:3000}}
-                    modules={[Autoplay]}
+                    modules={[Autoplay,Navigation]}
                     >
                         {imgArr?.map((img,index)=>(
                             <SwiperSlide key={index} >
@@ -49,7 +55,7 @@ const GallerySlide:FC<GalleryProps> = ({title}) => {
                                         <div className={`flex h-[250px] w-[250px] absolute ${active===index? 'rotate-90':'rotate-0'}`}>
                                             <Image src={imgSrc+img} alt="incridea" fill className={`object-cover object-center`} />
                                         </div>
-                                        <div className={`h-full w-full bg-black/50 absolute top-0 left-0 group-hover:bg-transparent transition-all duration-500 ease-in-out justify-center items-center`} >
+                                        <div className={`h-full w-full absolute top-0 left-0 ${active===index ? 'bg-transparent' : 'bg-black/50' } transition-all duration-500 ease-in-out justify-center items-center`} >
                                             <h1 className={`${active===index ? 'block' : 'hidden' } text-xl`} >Dance</h1>
                                         </div>
                                     </div>

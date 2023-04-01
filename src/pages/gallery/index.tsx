@@ -12,7 +12,7 @@ const Gallery:NextPage = () => {
     const containerRef = useRef(null);
 
     return (
-        <div data-scroll-container className="min-h-screen w-full overflow-x-hidden overflow-y-auto text-gray-100 bg-gradient-to-br from-[#001d67]  to-[#040c2b]" ref={containerRef}>
+        <div data-scroll-container className="min-h-screen w-full overflow-x-hidden overflow-y-auto text-gray-100 bg-gradient-to-br from-[#044b8b]  to-[#020024]" ref={containerRef}>
             <LocomotiveScrollProvider
                 options={{
                 smooth: true,
@@ -28,8 +28,8 @@ const Gallery:NextPage = () => {
             >
             {/* Header Part */}
             <div data-scroll-section className="h-screen w-full relative flex bg-black overflow-hidden">
-                <video data-scroll data-scroll-speed="-3" autoPlay loop muted className="object-cover object-center w-full h-full opacity-75">
-                    <source src="ocean.mp4" type="video/mp4"></source>
+                <video data-scroll data-scroll-speed="-3" autoPlay loop muted className="object-cover object-center w-full h-full grayscale opacity-50">
+                    <source src="gallery.mp4" type="video/mp4"></source>
                 </video>
                 <motion.div
                 animate={{y:[20,0],opacity:[0,1],repeatCount:1}}
@@ -44,7 +44,7 @@ const Gallery:NextPage = () => {
                 style={{x:"-50%"}}
                 className="h-1 w-40 flex bg-gray-100 absolute bottom-8 left-1/2"></motion.div>
             </div>
-            <div data-scroll-section className="mt-24">
+            <div data-scroll-section className="mt-20">
                 <GallerySlide title={'2022'} />
                 <GallerySlide title={'2020'} />
                 <GallerySlide title={'2019'} />

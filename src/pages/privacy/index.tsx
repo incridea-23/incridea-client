@@ -1,8 +1,9 @@
 import { NextPage } from 'next';
+import Image from 'next/image';
 
 const Privacy: NextPage = () => {
     return (
-      <div className="h-screen w-screen overflow-x-hidden overflow-y-auto bg-gradient-to-br from-[#001d67]  to-[#040c2b] text-gray-100 p-5 sm:p-10">
+      <div className="relative min-h-screen w-full overflow-x-hidden overflow-y-auto bg-gradient-to-br from-[#044b8b]  to-[#020024] text-gray-100 p-5 sm:p-10">
         <h1 className='text-5xl mb-3 text-center'>Privacy Policy</h1>
         <div className='mt-8'>
           <p>
@@ -102,6 +103,10 @@ const Privacy: NextPage = () => {
             should contact us immediately via telephone at +91 phone no or via
             email
           </h3>
+        </div>
+        <div className={`flex w-full -translate-x-10 translate-y-10 opacity-75`} >
+          <Image src={'/assets/png/atlantis.png'} width={750} height={50} className='object-center' alt='atlantis' />
+          <Image src={'/assets/png/atlantis.png'} width={750} height={50} className='object-center' alt='atlantis' />
         </div>
       </div>
     );

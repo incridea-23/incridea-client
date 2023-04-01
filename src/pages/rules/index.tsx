@@ -1,8 +1,9 @@
 import { NextPage } from "next";
+import Image from "next/image";
 
 const Terms:NextPage = ()=>{
     return (
-      <div className="h-screen w-screen overflow-x-hidden overflow-y-auto bg-gradient-to-br from-[#001d67]  to-[#040c2b] text-gray-100 p-5 sm:p-10">
+      <div className="min-h-screen w-full overflow-x-hidden overflow-y-auto bg-gradient-to-br from-[#044b8b]  to-[#020024] text-gray-100 p-5 sm:p-10">
         <h1 className="text-5xl mb-3 text-center">Terms and Conditions</h1>
         <ul className="list-disc ml-6 mt-8">
           <li>
@@ -68,6 +69,10 @@ const Terms:NextPage = ()=>{
           <li>name +91 phone no</li>
           <li>name +91 phone no</li>
         </ul>
+        <div className={`flex w-full -translate-x-10 translate-y-6 lg:translate-y-12 opacity-75`} >
+          <Image src={'/assets/png/atlantis.png'} width={750} height={50} className='object-center' alt='atlantis' />
+          <Image src={'/assets/png/atlantis.png'} width={750} height={50} className='object-center' alt='atlantis' />
+        </div>
       </div>
     );
 }
