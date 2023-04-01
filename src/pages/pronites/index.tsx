@@ -29,9 +29,9 @@ const Pronite: NextPage = () => {
             </h2>
           </motion.div>
         </div>
-        <div className=" text-orange-400">
+        <div className="h-screen w-screen text-orange-400">
           <Image
-            className="h-full w-screen "
+            className="h-screen w-screen "
             src="/assets/svg/proBro.svg"
             width={100}
             height={1000}
