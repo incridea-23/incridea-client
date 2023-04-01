@@ -1,5 +1,6 @@
 import { User } from '@/src/generated/generated';
 import { titleFont } from '@/src/utils/fonts';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { QRCodeSVG } from 'qrcode.react';
@@ -13,7 +14,7 @@ const ProfileInfo: FC<{
   user: User | null | undefined;
 }> = ({ user }) => {
   return (
-    <section data-scroll-section className="text-white min-h-screen py-10">
+    <section data-scroll-section className="text-white min-h-fit py-10 mb-10">
       <div data-scroll className="flex items-center justify-center">
         <a
           className={`${titleFont.className} text-2xl lg:text-4xl font-bold text-center`}
@@ -36,10 +37,9 @@ const ProfileInfo: FC<{
           >
             {user?.name}
           </a>
-          {/* Todo: replace college */}
           <a className="text-md lg:text-2xl flex items-center gap-5">
             <FaUniversity />
-            NMAM Institute of Technology
+            {user?.college.name}
           </a>
           <a className="text-md lg:text-2xl flex items-center gap-5">
             <BsPersonFill />
@@ -59,8 +59,7 @@ const ProfileInfo: FC<{
                 href={`tel:${user?.phoneNumber}`}
                 className="hover:underline"
               >
-                {user?.phoneNumber ?? '+91 9999999999'}
-                {/* Todo: replace with user's phone number */}
+                {user?.phoneNumber}
               </Link>
             </div>
           </div>
@@ -69,26 +68,40 @@ const ProfileInfo: FC<{
         <div className="flex flex-col justify-center items-center space-y-5">
           {/* Todo: add idToPid fn */}
           <div className="relative">
-            <Image
-              src={'/assets/png/map.png'}
-              width={300}
-              height={300}
-              alt="map"
-              className="opacity-50"
-            />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <Image
+                src={'/assets/png/map.png'}
+                width={300}
+                height={300}
+                alt="map"
+                className="opacity-50"
+              />
+            </motion.div>
 
-            <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center"
+            >
               <QRCodeSVG
                 value={user?.id as string}
                 size={150}
                 bgColor="#A5BEA9"
               />
+
               <a
                 className={`${titleFont.className} text-[#4d5e57] text-xl p-2 mt-2`}
               >
                 INC2023-00{user?.id}
               </a>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

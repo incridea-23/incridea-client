@@ -7,6 +7,10 @@ query Me {
     ... on QueryMeSuccess {
       __typename
       data {
+        college {
+          id
+          name
+        }
         createdAt
         email
         id

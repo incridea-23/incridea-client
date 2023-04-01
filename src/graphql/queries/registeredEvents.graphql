@@ -7,13 +7,24 @@ query RegisterdEvents {
     ... on QueryRegisteredEventsSuccess {
       __typename
       data {
-        branch {
-          name
-        }
         id
         image
         name
         venue
+        rounds {
+          date
+          roundNo
+        }
+        teams {
+          confirmed
+          name
+          members {
+            user {
+              id
+              name
+            }
+          }
+        }
       }
     }
   }

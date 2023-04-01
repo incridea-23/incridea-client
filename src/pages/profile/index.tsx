@@ -3,8 +3,8 @@ import { NextPage } from 'next';
 import 'locomotive-scroll/dist/locomotive-scroll.css';
 import { LocomotiveScrollProvider } from 'react-locomotive-scroll';
 import { useRef } from 'react';
-import { titleFont } from '@/src/utils/fonts';
 import ProfileInfo from '@/src/components/pages/profile/profileInfo';
+import UserEvents from '@/src/components/pages/profile/registeredEvents';
 
 const Profile: NextPage = () => {
   const { error, user, loading } = useAuth();
@@ -49,13 +49,7 @@ const Profile: NextPage = () => {
         <ProfileInfo user={user} />
 
         {/* 2. Registered Events section */}
-        <section data-scroll-section className="min-h-screen">
-          <h1
-            className={`${titleFont.className} text-2xl lg:text-4xl font-bold text-center text-white flex justify-center`}
-          >
-            Dive into action with your upcoming adventures!
-          </h1>
-        </section>
+        <UserEvents />
 
         {/* 3. Teams section */}
         <section data-scroll-section className="min-h-screen"></section>
