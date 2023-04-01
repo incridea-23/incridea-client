@@ -109,8 +109,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
             onClick={() => setWhichForm("signUp")}
             type="button"
             intent={'primary'}
-            className='mt-4'
-            // className="border-sky-500 border mt-3 transition-colors hover:bg-sky-100 text-sky-500 font-bold py-2 px-4 rounded"
+            className='mt-5'
             >
             Sign up instead
           </Button>

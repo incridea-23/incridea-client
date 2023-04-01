@@ -225,7 +225,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         <Button
           onClick={() => setWhichForm("signIn")}
           type="button"
-          className="mt-4"
+          className="mt-5"
           >
           Sign in instead
         </Button>
