@@ -26,7 +26,7 @@ const Pronite: NextPage = () => {
             <motion.div
               animate={{ y: [20, 0], opacity: [0, 1], repeatCount: 1 }}
               transition={{ duration: 3 }}
-              className="flex flex-col w-full py-10 top-1/4 md:py-2 md:px-8 ">
+              className="flex pointer-events-none flex-col w-full py-10 top-1/4 md:py-2 md:px-8 ">
               <h1 className="text-4xl text-center sm:text-6xl">PRONITES</h1>
               <h2 className="text-2xl text-center sm:text-4xl">
                 These are the nights that never die.
