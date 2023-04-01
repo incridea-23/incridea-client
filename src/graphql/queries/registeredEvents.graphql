@@ -1,0 +1,20 @@
+query RegisterdEvents {
+  registeredEvents {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on QueryRegisteredEventsSuccess {
+      __typename
+      data {
+        branch {
+          name
+        }
+        id
+        image
+        name
+        venue
+      }
+    }
+  }
+}
