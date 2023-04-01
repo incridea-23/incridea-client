@@ -3,8 +3,6 @@ import Navbar from '../../components/navbar';
 import { useAuth } from '../../hooks/useAuth';
 import { motion } from 'framer-motion';
 import React from "react";
-import Script from "next/script";
-import Head from "next/head";
 
 const Pronite: NextPage = () => {
     const artArray=[
@@ -16,9 +14,6 @@ const Pronite: NextPage = () => {
     const { status, user, error, loading } = useAuth();
     return (
         <>
-            <Head>
-                <script src="/ripple.js" async></script>
-            </Head>
             <div className="w-full min-h-screen overflow-x-hidden overflow-y-auto text-gray-100">
                 {/* Navbar */}
                 <Navbar status={status} user={user} />
