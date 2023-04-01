@@ -38,9 +38,16 @@ const Home = ({ setLoading }: { setLoading: (loading: boolean) => void }) => {
           {/* 1. Hero Section */}
           <Hero />
 
-          <div data-scroll-section className=" -mt-2  ">
-            <div className="pt-[200px] w-full flex justify-center items-center bg-gradient-to-b   from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
+          <div data-scroll-section className="relative -mt-2  ">
+            <div className="relative pt-[200px] w-full flex justify-center items-center bg-gradient-to-b   from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
               {/* 2. Countdown Section */}
+              <Image
+                src="/assets/png/waterflare.png"
+                height={1000}
+                width={1000}
+                alt="flare"
+                className="absolute opacity-40 z-50 top-0 right-0"
+              />
               <CountDown />
             </div>
             {/* 3. About Section */}

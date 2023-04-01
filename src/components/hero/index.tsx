@@ -33,7 +33,7 @@ const Hero: React.FC = () => {
       className="relative bg-gradient-to-bl -z-10  from-indigo-200 via-sky-500 to-cyan-100">
       {/* 1. Sun Rays */}
       <Image
-        className="absolute top-0 right-0 z-50 "
+        className="hidden md:block absolute  top-0 right-0 z-50 "
         data-scroll
         data-scroll-speed="2"
         src="/assets/png/lensflare.webp"
@@ -68,7 +68,7 @@ const Hero: React.FC = () => {
       </motion.div>
 
       {/* 4. Foreground Animation */}
-      <LandingWave className=" h-[70vh] w-screen  md:h-screen z-0" />
+      <LandingWave className=" h-[75vh] w-screen  md:h-screen z-0" />
     </section>
   );
 };
