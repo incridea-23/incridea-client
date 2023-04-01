@@ -38,7 +38,10 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
     error: collegesError,
   } = useQuery(CollegesDocument);
 
-  const [selectedCollege, setSelectedCollege] = useState<{name: string, id:string}>({name: "", id: ""});
+  const [selectedCollege, setSelectedCollege] = useState<{ name: string; id: string }>({
+    name: "",
+    id: "",
+  });
   const [query, setQuery] = useState("");
 
   const filteredColleges =
@@ -53,7 +56,13 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    if (!userInfo.name || !userInfo.email || !userInfo.password || !userInfo.phoneNumber  || !userInfo.college ) {
+    if (
+      !userInfo.name ||
+      !userInfo.email ||
+      !userInfo.password ||
+      !userInfo.phoneNumber ||
+      !userInfo.college
+    ) {
       setError("Please fill all the fields");
       return;
     }
@@ -110,7 +119,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         loading && "cursor-not-allowed pointer-events-none"
       }`}>
       <h2 className="text-3xl text-center font-semibold">Welcome to Incridea! 👋</h2>
-      <h6 className="mb-10 text-center md:font-normal font-semibold">
+      <h6 className="mb-10 mt-2 md:mt-0 text-center md:font-normal font-semibold">
         We&apos;re excited to have you here! Sign up below{" "}
       </h6>
       <input
@@ -119,8 +128,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         name="name"
         type="text"
         required
-                  className=" py-2 px-1 border-b  bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-sky-500 outline-none"
-
+        className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-[#dd5c6e] outline-none"
         placeholder="Name"
       />
 
@@ -130,8 +138,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         name="email"
         type="email"
         required
-                  className=" py-2 px-1 border-b  bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-sky-500 outline-none"
-
+        className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-[#dd5c6e] outline-none"
         placeholder="Email"
       />
       <input
@@ -141,8 +148,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         type="password"
         required
         placeholder="Password"
-                  className=" py-2 px-1 border-b  bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-sky-500 outline-none"
-
+        className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-[#dd5c6e] outline-none"
       />
       <input
         value={userInfo.phoneNumber}
@@ -151,8 +157,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         type="text"
         required
         placeholder="Mobile"
-                  className=" py-2 px-1 border-b  bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-sky-500 outline-none"
-
+        className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-[#dd5c6e] outline-none"
       />
       <Combobox
         value={selectedCollege}
@@ -161,16 +166,16 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
           setSelectedCollege(value);
         }}>
         <div className="relative">
-          <div className="relative w-full md:focus-within:border-sky-500 md:focus:border-sky-500 md:border-gray-400 border-gray-100 cursor-default overflow-hidden border-b ">
+          <div className="relative w-full md:focus-within:border-[#dd5c6e] md:focus:border-[#dd5c6e] md:border-gray-400 border-gray-100 cursor-default overflow-hidden border-b ">
             <Combobox.Input
               required
               placeholder="College"
               displayValue={(college: { name: string }) => college.name}
-              className="w-full bg-transparent outline-none py-2 pl-2 pr-10 md:text-gray-900 md:placeholder:text-gray-400 text-gray-100 placeholder:text-gray-100 "
+              className="w-full bg-transparent outline-none text-sm md:text-base py-2 pl-2 pr-10 md:text-gray-900 md:placeholder:text-gray-400 text-gray-100 placeholder:text-gray-100 "
               onChange={(e) => setQuery(e.target.value)}
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-              <BsChevronExpand className="h-5 w-5 text-gray-400" aria-hidden="true" />
+              <BsChevronExpand className="h-5 w-5 text-gray-100 md:text-gray-400" aria-hidden="true" />
             </Combobox.Button>
           </div>
           <Transition
@@ -178,39 +183,36 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
             leave="transition ease-in duration-100"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
-            afterLeave={() => setQuery('')}
-          >
-          <Combobox.Options className="z-10 absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 border text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-            {collegesLoading ? (
-              <div className="select-none text-center py-2 px-4 italic text-gray-500">
-                <Spinner className='text-gray-400' size={'small'} />
-              </div>
-            ) : filteredColleges?.length === 0 && query !== "" ? (
-              <div className="relative font-semibold select-none py-2 px-4 text-gray-600">
-                College not found. Please contact admin.
-                {/* TODO: Make this a hyperlink for contacting admin */}
-              </div>
-            ) : (
-              filteredColleges?.map((college) => (
-                <Combobox.Option
-                  className={({ active }) =>
-                    `relative select-none py-2 cursor-pointer px-4 ${
-                      active ? "bg-sky-600 text-white" : "text-gray-900"
-                    }`
-                  }
-                  key={college.id}
-                  value={college}>
-                  {college.name}
-                </Combobox.Option>
-              ))
-            )}
-          </Combobox.Options>
+            afterLeave={() => setQuery("")}>
+            <Combobox.Options className="z-10 absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 border text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+              {collegesLoading ? (
+                <div className="select-none text-center py-2 px-4 italic text-gray-500">
+                  <Spinner className="text-gray-400" size={"small"} />
+                </div>
+              ) : filteredColleges?.length === 0 && query !== "" ? (
+                <div className="relative font-semibold select-none py-2 px-4 text-gray-600">
+                  College not found. Please contact admin.
+                  {/* TODO: Make this a hyperlink for contacting admin */}
+                </div>
+              ) : (
+                filteredColleges?.map((college) => (
+                  <Combobox.Option
+                    className={({ active }) =>
+                      `relative select-none py-2 cursor-pointer px-4 ${
+                        active ? "bg-[#dd5c6e] text-white" : "text-gray-900"
+                      }`
+                    }
+                    key={college.id}
+                    value={college}>
+                    {college.name}
+                  </Combobox.Option>
+                ))
+              )}
+            </Combobox.Options>
           </Transition>
         </div>
       </Combobox>
-      <Button className="mt-3">
-        Sign Up
-      </Button>
+      <Button className="mt-3">Sign Up</Button>
       {(error || mutationError || emailVerificationError) && (
         <div className="bg-red-100 p-2 flex items-center gap-3 px-4 rounded-md font-semibold text-red-500">
           <BiErrorCircle size={"1.3rem"} />
@@ -222,11 +224,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         <h4 className="md:absolute top-0.5 md:translate-x-1/2 w-fit md:w-max mx-auto md:bg-white bg-white/20 rounded-full text-white md:text-gray-400 right-1/2 md:px-2 px-3 text-sm">
           Already have an account?
         </h4>
-        <Button
-          onClick={() => setWhichForm("signIn")}
-          type="button"
-          className="mt-5"
-          >
+        <Button onClick={() => setWhichForm("signIn")} type="button" className="mt-5">
           Sign in instead
         </Button>
       </div>

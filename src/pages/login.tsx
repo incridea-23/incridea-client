@@ -4,6 +4,7 @@ import SignUpForm from "@/src/components/form/signUp";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { titleFont } from "../utils/fonts";
 
 const SignIn: NextPage = () => {
   const { query }: { query: { whichForm?: "signIn" | "resetPassword" | "signUp" } } =
@@ -13,7 +14,7 @@ const SignIn: NextPage = () => {
   );
 
   return (
-    <div className="min-h-screen min-w-screen bg-cover bg-gradient-to-bl from-sky-300 to-sky-700">
+    <div className="min-h-screen min-w-screen bg-cover bg-gradient-to-bl from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
       <div className={`hidden md:block fixed top-1/2 -translate-y-1/2 transition-transform duration-500 -rotate-90 right-1/4 ${whichForm === 'signUp' && '-translate-x-3/4'}`}>
         <img src={"/wave.svg"} className="w-[100vh]" />
       </div>
@@ -22,13 +23,13 @@ const SignIn: NextPage = () => {
       </div>
       <div className="flex w-screen h-screen">
         <div
-          className={`hidden basis-1/2  md:flex items-center transition-transform duration-500 justify-center text-white font-bold text-2xl ${
+          className={`hidden basis-1/2 p-6 pr-12 md:flex items-center transition-transform duration-500 justify-center text-white font-bold text-2xl ${
             whichForm === "signUp" && "md:translate-x-full"
           }`}>
           {whichForm === "signUp" ? (
-            <div>Signup text/mascot</div>
+            <div className={`${titleFont.className}`}>Signup text/mascot</div>
           ) : (
-            <div>Signin text/mascot</div>
+            <div className={`${titleFont.className}`}>Signin text/mascot</div>
           )}
         </div>
         <div

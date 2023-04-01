@@ -60,7 +60,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
           value={userInfo.email}
           id="email"
           onChange={handleChange}
-          className=" py-2 px-1 border-b  bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-sky-500 outline-none"
+          className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-[#dd5c6e] outline-none"
           type="email"
           name="email"
           placeholder="Email"
@@ -70,7 +70,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
           value={userInfo.password}
           id="password"
           onChange={handleChange}
-          className=" py-2 px-1 border-b  bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-sky-500 outline-none"
+          className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-[#dd5c6e] outline-none"
           type="password"
           name="password"
           placeholder="Password"
@@ -79,7 +79,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
         <button
           onClick={() => setWhichForm("resetPassword")}
           type="button"
-          className="text-sm w-fit -md:mt-1 hover:underline md:text-gray-500 text-white  text-start">
+          className="text-sm w-fit -md:mt-1 mb-2 hover:underline md:text-gray-500 text-gray-200  text-start">
           Forgot your password?
         </button>
         <Button
