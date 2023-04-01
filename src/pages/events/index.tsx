@@ -35,41 +35,57 @@ const Events: NextPage = () => {
   }, [currentFilter]);
 
   return (
-    <div className="bg-[#B2E2D7] min-h-screen relative">
+    <div className="bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6] min-h-screen relative">
       <Navbar status={status} user={user} />
       <h1
-        className={`${titleFont.className} font-bold text-5xl tracking-wide text-center pt-[8rem] text-white`}>
+        className={`${titleFont.className} font-bold text-5xl tracking-wide text-center pt-32 text-white`}>
         EVENTS
       </h1>
-      <div className="md:flex justify-center gap-3 mt-5 mx-auto  hidden eventNavigation font-semibold">
+      <div className="lg:flex justify-center gap-3 mt-10 mx-auto  hidden eventNavigation font-semibold">
         {filters.map((filter) => (
           <span
             key={filter}
             className={`${
-              filter === currentFilter ? "bg-white/60" : "hover:bg-white/40"
-            } text-black cursor-pointer rounded-full px-3 py-1`}
+              filter === currentFilter ? "bg-gray-300/60" : "hover:bg-gray-300/40"
+            } text-white cursor-pointer rounded-full px-3 py-1`}
             onClick={() => setFilter(filter)}>
             {filter}
           </span>
         ))}
       </div>
-      <span className="md:hidden flex justify-end mx-auto px-4 py-2 rounded-md">
-        <Menu as={'div'} className={'relative inline-block'}>
-          <Menu.Button className={"inline-flex bg-white/80 w-full justify-center rounded-md px-4 py-2 text-sm font-medium text-black"}>Filter</Menu.Button>
-          <Menu.Items className="overflow-hidden absolute z-50 right-0 mt-2 w-40 divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+      <div className="lg:hidden flex justify-center my-2 px-4 py-2 rounded-md">
+        <Menu as={"div"} className={"relative inline-block"}>
+          <Menu.Button
+            className={
+              "inline-flex bg-white/90 w-full justify-center rounded-full px-4 py-2 text-sm font-medium text-black"
+            }>
+            Filters
+          </Menu.Button>
+          <Menu.Items className="overflow-hidden pb-1.5 bg-white absolute z-[1] text-center translate-x-1/2 right-1/2  top-0 rounded-md shadow-lg">
             {filters.map((filter) => (
-              <Menu.Item key={filter} >
-                {({ active }) => <button
-                className={`${active ? 'bg-sky-500' : 'bg-white'} text-black flex w-full justify-end items-center px-3 py-2  text-sm`}
-                 onClick={() => setFilter(filter)}>
-                  {filter}
-                  </button>}
+              <Menu.Item key={filter}>
+                {({ active }) => (
+                  <button
+                    className={`${
+                      currentFilter === filter ? "bg-sky-300" : "bg-white"
+                    } text-black rounded-sm m-1.5 mb-0 w-32 px-3 py-2 text-sm`}
+                    onClick={() => setFilter(filter)}>
+                    {filter}
+                  </button>
+                )}
               </Menu.Item>
             ))}
           </Menu.Items>
         </Menu>
-      </span>
-      <div className="md:p-10 md:pt-10 pt-1 p-4 flex justify-center bg-[#B2E2D7] ">
+      </div>
+      {currentFilter !== "ALL" && data.length > 0 && (
+        <div className="md:hidden flex mb-3 justify-center">
+          <span className="text-gray-200  text-xs">
+            Displaying {data.length} {currentFilter} event(s)
+          </span>
+        </div>
+      )}
+      <div className="md:p-10 md:pt-10 pt-1 p-4 flex justify-center ">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {data.map((event) => (
             <Event data={event} key={event.id} />
@@ -77,8 +93,8 @@ const Events: NextPage = () => {
         </div>
       </div>
       {data.length === 0 && (
-        <div className="flex items-center justify-center min-h-[20rem] text-2xl w-screen text-center text-[#6d878a] bg-[#B2E2D7]">
-          <span>No Events Found</span>
+        <div className="flex italic items-center justify-center min-h-[20rem] text-2xl w-screen text-center text-gray-200/70">
+          <span>no events found</span>
         </div>
       )}
     </div>
