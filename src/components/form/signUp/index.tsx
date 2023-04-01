@@ -190,7 +190,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                   <Spinner className="text-gray-400" size={"small"} />
                 </div>
               ) : filteredColleges?.length === 0 && query !== "" ? (
-                <div className="relative font-semibold select-none py-2 px-4 text-gray-600">
+                <div className="relative font-semibold md:text-base text-xs select-none py-2 px-4 text-gray-600">
                   College not found. Please contact admin.
                   {/* TODO: Make this a hyperlink for contacting admin */}
                 </div>
@@ -198,7 +198,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                 filteredColleges?.map((college) => (
                   <Combobox.Option
                     className={({ active }) =>
-                      `relative select-none py-2 cursor-pointer px-4 ${
+                      `relative select-none py-2 text-xs md:text-base cursor-pointer px-4 ${
                         active ? "bg-[#dd5c6e] text-white" : "text-gray-900"
                       }`
                     }
