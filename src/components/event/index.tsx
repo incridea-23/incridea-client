@@ -32,7 +32,7 @@ const Event = ({ data }: EventProps) => {
         initial={{ transform: "scale(0)" }}
         animate={{ transform: "scale(1)" }}
         exit={{ transform: "scale(0)" }}
-        className="shadow-md xl:h-[20rem] xl:w-[25rem] lg:h-[15rem] lg:w-[20rem] overflow-hidden rounded-md bg-white backdrop-filter backdrop-blur-lg bg-opacity-30 border border-gray-200 p-4 relative cursor-pointer transition-all duration-[400] ease-in-out"
+        className="shadow-md overflow-hidden rounded-md bg-white backdrop-filter backdrop-blur-lg bg-opacity-30 border border-gray-200 p-4 relative cursor-pointer transition-all duration-[400] ease-in-out"
       >
         <motion.img
           src={data.image}

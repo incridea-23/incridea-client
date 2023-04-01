@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-  .eventNavigation span {
-    @apply cursor-pointer hover:bg-white backdrop-filter backdrop-blur-lg bg-opacity-30 rounded-[5rem] px-3 py-1;
-  }
-}
-
 /* create a youtube-like scrollbar */
 ::-webkit-scrollbar {
   width: 0.4rem;
