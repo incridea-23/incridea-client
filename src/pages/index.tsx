@@ -1,83 +1,69 @@
-import { type NextPage } from 'next';
-import { signIn, signOut } from 'next-auth/react';
-import { makePayment } from '../utils/razorpay';
-import { useAuth } from '../hooks/useAuth';
-import Link from 'next/link';
+import { type NextPage } from "next";
+import Navbar from "../components/navbar";
+import { useAuth } from "../hooks/useAuth";
+import CountDown from "../components/countdown";
+import About from "../components/about";
+import Image from "next/image";
+import { useRef } from "react";
+import Hero from "../components/hero";
+import { LocomotiveScrollProvider } from "react-locomotive-scroll";
+import "locomotive-scroll/dist/locomotive-scroll.css";
+import EventsReel from "../components/eventsPeek/reel";
+import Footer from "../components/footer";
 
-const Home: NextPage = () => {
-  const { user, loading, error, status } = useAuth();
-  if (loading)
-    return (
-      <div className="h-screen w-screen flex justify-center items-center">
-        Loading...
-      </div>
-    );
+const Home = ({ setLoading }: { setLoading: (loading: boolean) => void }) => {
+  const ref = useRef(null);
+  const { status, user, error, loading } = useAuth();
+  const containerRef = useRef(null);
+
+  if (loading) return <div>Loading...</div>; // Loading page here
+  //if (error) return <div>Something went wrong</div>; // Error page here
+
   return (
-    <>
-      <main className="h-screen w-screen flex justify-center items-center flex-col gap-5">
-        <div className="text-2xl border-b border-gray-400">
-          Incridea &apos;23
-        </div>
-        <div>
-          <div className="flex flex-col gap-3">
-            {status === 'authenticated' ? (
-              <div className="text-center space-y-2 text-md font-sans">
-                <div className="text-xl font-semibold ">
-                  Welcome {user?.name}
-                </div>
-                <div className="text-sm font-light">
-                  Signed in as {user?.email}
-                </div>
-                <div className="text-center">
-                  <div className="font-light border border-blue-500 rounded-full inline-block px-5">
-                    {user?.role} {user?.role != 'USER' && user?.id}
-                  </div>
-                </div>
-                <div className="flex gap-5 justify-center">
-                  {user?.role === 'USER' && (
-                    <button
-                      onClick={makePayment}
-                      className="bg-green-500 px-3 py-1 text-white rounded-md"
-                    >
-                      Register
-                    </button>
-                  )}
+    <div ref={ref} className="overflow-x-hidden">
+      <Navbar status={status} user={user} />
+      <LocomotiveScrollProvider
+        options={{
+          smooth: true,
+          smartphone: {
+            smooth: true,
+          },
+          tablet: {
+            smooth: true,
+          },
+        }}
+        watch={[]}
+        containerRef={containerRef}>
+        <main data-scroll-container ref={containerRef}>
+          {/* 1. Hero Section */}
+          <Hero />
 
-                  <button
-                    className="bg-red-500 px-3 py-1 text-white rounded-md"
-                    onClick={() => signOut()}
-                  >
-                    Sign Out
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div className="text-center space-y-2 space-x-3">
-                <div className="text-lg ">You are not logged in</div>
-                <button
-                  onClick={() => signIn()}
-                  className="bg-blue-500 text-white px-3 py-2 rounded-md"
-                >
-                  Sign In
-                </button>
-                <Link href={'/auth/login?whichForm=signUp'}
-                //using the whichForm query param to tell the login page to show the signup form 
-                as="/auth/login"
-                //hiding the query param cause it's ugly
-                >
-                  <button className="bg-blue-500 text-white px-3 py-2 rounded-md">
-                    Sign Up
-                  </button>
-                </Link>
-              </div>
-            )}
+          <div data-scroll-section className="relative -mt-2  ">
+            <div className="relative pt-[200px] w-full flex justify-center items-center bg-gradient-to-b   from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
+              {/* 2. Countdown Section */}
+              <Image
+                src="/assets/png/waterflare.png"
+                height={1000}
+                width={1000}
+                alt="flare"
+                className="absolute opacity-40 z-50 top-0 right-0"
+              />
+              <CountDown />
+            </div>
+            {/* 3. About Section */}
+            <div className=" bg-gradient-to-b   from-[#2d6aa6] -mt-2   to-[#052749]">
+              <About />
+
+              <EventsReel />
+            </div>
+            {/* 5. Footer Section */}
+            <section className="-mt-2 bg-[#052749]">
+              <Footer />
+            </section>
           </div>
-        </div>
-        <div className="text-center">
-          <div className="flex flex-col sm:flex-row items-center gap-3"></div>
-        </div>
-      </main>
-    </>
+        </main>
+      </LocomotiveScrollProvider>
+    </div>
   );
 };
 

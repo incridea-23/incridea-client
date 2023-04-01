@@ -85,7 +85,6 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
         <Button
         intent={`primary`}
           type="submit"
-          // className="bg-sky-500 mt-3 transition-colors hover:bg-sky-600 text-white font-bold py-2 px-4 rounded"
           >
           Login
         </Button>
@@ -115,6 +114,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
           </Button>
         </div>
       </form>
+
     </>
   );
 };
