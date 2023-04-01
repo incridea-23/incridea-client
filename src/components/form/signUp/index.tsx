@@ -208,7 +208,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
           </Transition>
         </div>
       </Combobox>
-      <Button >
+      <Button className="mt-3">
         Sign Up
       </Button>
       {(error || mutationError || emailVerificationError) && (
