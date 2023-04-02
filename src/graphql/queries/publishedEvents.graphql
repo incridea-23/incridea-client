@@ -1,0 +1,23 @@
+query PublishedEventsSlug {
+  publishedEvents {
+    id
+    name
+  }
+}
+query PublishedEvents {
+  publishedEvents {
+    id
+    name
+    image
+    venue
+    branch {
+      name
+      id
+    }
+    fees
+    maxTeamSize
+    maxTeams
+    minTeamSize
+    eventType
+  }
+}
