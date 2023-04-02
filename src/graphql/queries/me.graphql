@@ -18,6 +18,10 @@ query Me {
         name
         phoneNumber
         role
+        college {
+          id
+          name
+        }
       }
     }
   }

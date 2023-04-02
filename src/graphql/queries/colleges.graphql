@@ -1,0 +1,6 @@
+query Colleges {
+  colleges {
+    id
+    name
+  }
+}
