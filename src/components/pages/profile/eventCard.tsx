@@ -29,12 +29,11 @@ const EventCard: FC<{ event: any }> = ({ event }) => {
       </div>
 
       <div className="pt-5">
-        <Link
-          href={`/events/${event?.id}`}
-          className={`${titleFont.className} text-2xl font-bold text-center text-gray-900 hover:text-gray-700`}
+        <h1
+          className={`${titleFont.className} text-2xl font-bold text-center text-gray-900`}
         >
           {event?.name}
-        </Link>
+        </h1>
       </div>
 
       <div className="flex justify-between w-full p-5">
@@ -50,6 +49,9 @@ const EventCard: FC<{ event: any }> = ({ event }) => {
           </p>
         </div>
       </div>
+      <button className="w-full p-2 bg-white bg-opacity-40 hover:bg-opacity-70 transition-colors duration-300 rounded-b-lg">
+        <Link href={`/events/${event?.id}`}>View Event</Link>
+      </button>
     </motion.div>
   );
 };

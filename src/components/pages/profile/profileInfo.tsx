@@ -14,7 +14,7 @@ const ProfileInfo: FC<{
   user: User | null | undefined;
 }> = ({ user }) => {
   return (
-    <section data-scroll-section className="text-white min-h-fit py-10 mb-10">
+    <section className="text-white min-h-fit py-10 mb-10">
       <div data-scroll className="flex items-center justify-center">
         <a
           className={`${titleFont.className} text-2xl lg:text-4xl font-bold text-center`}

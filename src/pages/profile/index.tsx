@@ -48,11 +48,8 @@ const Profile: NextPage = () => {
         {/* 1. Profile Info section */}
         <ProfileInfo user={user} />
 
-        {/* 2. Registered Events section */}
+        {/* 2. Registered Events section & Teams section */}
         <UserEvents />
-
-        {/* 3. Teams section */}
-        <section data-scroll-section className="min-h-screen"></section>
       </main>
     </LocomotiveScrollProvider>
   );

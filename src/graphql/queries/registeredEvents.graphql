@@ -16,6 +16,7 @@ query RegisterdEvents {
           roundNo
         }
         teams {
+          leaderId
           confirmed
           name
           members {
@@ -23,6 +24,10 @@ query RegisterdEvents {
               id
               name
             }
+          }
+          event {
+            name
+            id
           }
         }
       }
