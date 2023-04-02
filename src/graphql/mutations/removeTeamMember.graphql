@@ -1,0 +1,11 @@
+mutation RemoveTeamMember($teamId: ID!, $userId: ID!) {
+  removeTeamMember(teamId: $teamId, userId: $userId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationRemoveTeamMemberSuccess {
+      __typename
+    }
+  }
+}

@@ -4,8 +4,10 @@ import Link from 'next/link';
 import { QRCodeSVG } from 'qrcode.react';
 import { FC } from 'react';
 import DeleteTeamModal from './deleteTeam';
-import Button from '../../button';
 import AddMemberModal from './addMember';
+import { BiTrashAlt } from 'react-icons/bi';
+import Button from '../../button';
+import DeleteTeamMember from './deleteMember';
 
 export type Team = {
   id: string;
@@ -72,17 +74,26 @@ const UserTeams: FC<{
             <hr className="w-full border-gray-500 my-5" />
 
             <div className="w-full">
-              <div className="text-gray-900 flex items-center space-x-2">
-                <div>{team.name} Members</div>
+              <div className="text-gray-900 flex justify-center items-center space-x-2">
+                <div className="underline font-bold">{team.name} Members</div>
                 {!team.confirmed &&
                   team.members.length < team.event.maxTeamSize && (
                     <AddMemberModal team={team} />
                   )}
               </div>
-              {team?.members?.map((member: any, index: number) => (
-                <div className="flex gap-2" key={member.user.id}>
-                  <a className="text-black w-3">{++index}.</a>
-                  <h1>{member.user.name}</h1>
+              {team?.members?.map((member: any) => (
+                <div
+                  className="flex justify-between items-center my-2"
+                  key={member.user.id}
+                >
+                  <h1>{member.user.name}</h1>{' '}
+                  {!team.confirmed && team.leaderId == userId && (
+                    <DeleteTeamMember
+                      teamId={team.id}
+                      userId={member.user.id}
+                      name={member.user.name}
+                    />
+                  )}
                 </div>
               ))}
             </div>
