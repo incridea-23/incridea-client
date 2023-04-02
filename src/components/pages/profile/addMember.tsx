@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast';
 import { FC, useState } from 'react';
 import { Team } from './userTeams';
 import Modal from '../../modal';
+import { idToTeamId } from '@/src/utils/id';
 
 const AddMemberModal: FC<{
   team: Team;
@@ -41,8 +42,8 @@ const AddMemberModal: FC<{
               await navigator.clipboard.writeText(
                 'Join my team for ' +
                   team.event.name +
-                  " event at Incridea 2023! Here's the code: T23-0" +
-                  team.id
+                  " event at Incridea 2023! Here's the code: " +
+                  idToTeamId(team.id)
               );
               toast.success('Copied to clipboard!');
             }}

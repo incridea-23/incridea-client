@@ -6,6 +6,7 @@ import { useRef } from 'react';
 import ProfileInfo from '@/src/components/pages/profile/profileInfo';
 import UserEvents from '@/src/components/pages/profile/registeredEvents';
 import { Toaster } from 'react-hot-toast';
+import Image from 'next/image';
 
 const Profile: NextPage = () => {
   const { error, user, loading } = useAuth();
@@ -45,8 +46,15 @@ const Profile: NextPage = () => {
       <main
         data-scroll-container
         ref={containerRef}
-        className="bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]"
+        className="relative bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]"
       >
+        <Image
+          src="/assets/png/waterflare.png"
+          height={1000}
+          width={1000}
+          alt="flare"
+          className="absolute opacity-40 top-0 right-0"
+        />
         {/* 1. Profile Info section */}
         <ProfileInfo user={user} />
 

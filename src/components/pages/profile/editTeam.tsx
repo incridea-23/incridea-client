@@ -7,6 +7,7 @@ import AddMemberModal from './addMember';
 import { Team } from './userTeams';
 import DeleteTeamModal from './deleteTeam';
 import { titleFont } from '@/src/utils/fonts';
+import { idToTeamId } from '@/src/utils/id';
 
 const EditTeamModal: FC<{
   team: Team;
@@ -37,7 +38,7 @@ const EditTeamModal: FC<{
             )}
           </div>
           <div className="text-sm">
-            <p>Team ID: T23-0{team.id}</p>
+            <p>Team ID: {idToTeamId(team.id)}</p>
             <p>
               Confirmation Status:{' '}
               {team.confirmed ? 'Confirmed' : 'Unconfirmed'}

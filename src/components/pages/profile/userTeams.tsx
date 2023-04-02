@@ -9,6 +9,7 @@ import { BiEditAlt, BiTrashAlt } from 'react-icons/bi';
 import Button from '../../button';
 import DeleteTeamMember from './deleteMember';
 import EditTeamModal from './editTeam';
+import { idToTeamId } from '@/src/utils/id';
 
 export type Team = {
   id: string;
@@ -48,10 +49,10 @@ const UserTeams: FC<{
             className="relative flex flex-col items-start justify-center my-4 bg-white rounded-lg shadow-lg bg-opacity-30 backdrop-blur-2xl max-w-2xl w-[300px] p-5 border-t border-l border-white"
           >
             <span className="absolute -top-3 -right-3 text-black text-xs bg-white rounded-full px-2 py-1 cursor-pointer">
-              T23-0{team.id}
+              {idToTeamId(team.id)}
             </span>
             <QRCodeSVG
-              value={team.id}
+              value={idToTeamId(team.id)}
               size={100}
               className="mb-5"
               bgColor="transparent"

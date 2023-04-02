@@ -9,6 +9,7 @@ import { BsPersonFill } from 'react-icons/bs';
 import { FaUniversity } from 'react-icons/fa';
 import { MdOutlineEmail, MdPhone } from 'react-icons/md';
 import TextAnimation from '../../animation/text';
+import { idToPid } from '@/src/utils/id';
 
 const ProfileInfo: FC<{
   user: User | null | undefined;
@@ -66,7 +67,6 @@ const ProfileInfo: FC<{
         </div>
 
         <div className="flex flex-col justify-center items-center space-y-5">
-          {/* Todo: add idToPid fn */}
           <div className="relative">
             <motion.div
               initial={{ opacity: 0 }}
@@ -91,7 +91,7 @@ const ProfileInfo: FC<{
               className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center"
             >
               <QRCodeSVG
-                value={user?.id as string}
+                value={idToPid(user?.id!)}
                 size={150}
                 bgColor="#9BBAB5"
               />
@@ -99,7 +99,7 @@ const ProfileInfo: FC<{
               <a
                 className={`${titleFont.className} text-[#4d5e57] text-xl p-2 mt-2`}
               >
-                INC23-00{user?.id}
+                {idToPid(user?.id!)}
               </a>
             </motion.div>
           </div>
