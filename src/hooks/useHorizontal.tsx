@@ -6,9 +6,11 @@ export function useHorizontalScroll() {
     const el = elRef.current;
     if (el) {
       const onWheel = (e: WheelEvent) => {
+        if (e.deltaY === 0) return;
+
         e.preventDefault();
         el.scrollTo({
-          left: el.scrollLeft + e.deltaY * 7,
+          left: el.scrollLeft + window.innerWidth * (e.deltaY > 0 ? 1 : -1),
           behavior: "smooth",
         });
       };
@@ -42,7 +44,7 @@ export function useHorizontalTouch(elRef: RefObject<HTMLDivElement>) {
 
         e.preventDefault();
         el.scrollTo({
-          left: el.scrollLeft - dy - dx,
+          left: el.scrollLeft - window.innerWidth * (dx + dy > 0 ? 1 : -1),
           behavior: "smooth",
         });
       };
