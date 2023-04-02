@@ -25,7 +25,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
   });
   const [error, setError] = useState("");
 
-  const [signUpMutation, { loading, error: mutationError }] = useMutation(SignUpDocument);
+  const [signUpMutation, { loading, error: mutationError }] =
+    useMutation(SignUpDocument);
 
   const [
     emailVerificationMutation,
@@ -38,7 +39,10 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
     error: collegesError,
   } = useQuery(CollegesDocument);
 
-  const [selectedCollege, setSelectedCollege] = useState<{ name: string; id: string }>({
+  const [selectedCollege, setSelectedCollege] = useState<{
+    name: string;
+    id: string;
+  }>({
     name: "",
     id: "",
   });
@@ -66,7 +70,10 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
       setError("Please fill all the fields");
       return;
     }
-    if (userInfo.phoneNumber.length !== 10 || isNaN(Number(userInfo.phoneNumber))) {
+    if (
+      userInfo.phoneNumber.length !== 10 ||
+      isNaN(Number(userInfo.phoneNumber))
+    ) {
       setError("Please enter a valid 10-digit mobile number");
       return;
     }
@@ -79,8 +86,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         name: userInfo.name,
         email: userInfo.email,
         password: userInfo.password,
-        // mobile: userInfo.phoneNumber,
-        // college:   userInfo.college,
+        phoneNumber: userInfo.phoneNumber,
+        collegeId: Number(userInfo.college),
       },
     })
       .then((res) => {
@@ -106,7 +113,9 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
 
   // NOTE: change handler for all fields except college
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
   ) => {
     setError("");
     setUserInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -118,7 +127,9 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
       className={`flex relative justify-center min-h-full flex-col gap-3 ${
         loading && "cursor-not-allowed pointer-events-none"
       }`}>
-      <h2 className="text-3xl text-center font-semibold">Welcome to Incridea! 👋</h2>
+      <h2 className="text-3xl text-center font-semibold">
+        Welcome to Incridea! 👋
+      </h2>
       <h6 className="mb-10 mt-2 md:mt-0 text-center md:font-normal font-semibold">
         We&apos;re excited to have you here! Sign up below{" "}
       </h6>
@@ -175,7 +186,10 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
               onChange={(e) => setQuery(e.target.value)}
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-              <BsChevronExpand className="h-5 w-5 text-gray-100 md:text-gray-400" aria-hidden="true" />
+              <BsChevronExpand
+                className="h-5 w-5 text-gray-100 md:text-gray-400"
+                aria-hidden="true"
+              />
             </Combobox.Button>
           </div>
           <Transition
@@ -224,7 +238,10 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         <h4 className="md:absolute top-0.5 md:translate-x-1/2 w-fit md:w-max mx-auto md:bg-white bg-white/20 rounded-full text-white md:text-gray-400 right-1/2 md:px-2 px-3 text-sm">
           Already have an account?
         </h4>
-        <Button onClick={() => setWhichForm("signIn")} type="button" className="mt-5">
+        <Button
+          onClick={() => setWhichForm("signIn")}
+          type="button"
+          className="mt-5">
           Sign in instead
         </Button>
       </div>
