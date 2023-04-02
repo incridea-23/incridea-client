@@ -16,6 +16,7 @@ query RegisterdEvents {
           roundNo
         }
         teams {
+          id
           leaderId
           confirmed
           name
@@ -28,6 +29,7 @@ query RegisterdEvents {
           event {
             name
             id
+            maxTeamSize
           }
         }
       }

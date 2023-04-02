@@ -9,7 +9,7 @@ import { RiNumbersLine } from 'react-icons/ri';
 const EventCard: FC<{ event: any }> = ({ event }) => {
   return (
     <motion.div
-      whileHover={{ scale: 1.05 }}
+      whileHover={{ scale: 1.03 }}
       className="flex flex-col items-center justify-center my-4 bg-white rounded-lg shadow-lg bg-opacity-30 backdrop-blur-2xl max-w-2xl w-[300px]"
     >
       <div className="flex items-center justify-center w-full h-40 overflow-hidden border-b border-gray-300 rounded-t">

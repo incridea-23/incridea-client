@@ -5,6 +5,7 @@ import { LocomotiveScrollProvider } from 'react-locomotive-scroll';
 import { useRef } from 'react';
 import ProfileInfo from '@/src/components/pages/profile/profileInfo';
 import UserEvents from '@/src/components/pages/profile/registeredEvents';
+import { Toaster } from 'react-hot-toast';
 
 const Profile: NextPage = () => {
   const { error, user, loading } = useAuth();
@@ -40,16 +41,17 @@ const Profile: NextPage = () => {
       watch={[]}
       containerRef={containerRef}
     >
+      <Toaster />
       <main
         data-scroll-container
         ref={containerRef}
-        className="bg-gradient-to-b from-[#5CA3AD]  via-[#1a6779] to-[#0e4450]"
+        className="bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]"
       >
         {/* 1. Profile Info section */}
         <ProfileInfo user={user} />
 
         {/* 2. Registered Events section & Teams section */}
-        <UserEvents />
+        <UserEvents userId={user?.id!} />
       </main>
     </LocomotiveScrollProvider>
   );

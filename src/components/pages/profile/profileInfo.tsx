@@ -14,7 +14,7 @@ const ProfileInfo: FC<{
   user: User | null | undefined;
 }> = ({ user }) => {
   return (
-    <section className="text-white min-h-fit py-10 mb-10">
+    <section data-scroll-section className="text-white min-h-fit py-10 mb-10">
       <div data-scroll className="flex items-center justify-center">
         <a
           className={`${titleFont.className} text-2xl lg:text-4xl font-bold text-center`}
@@ -93,13 +93,13 @@ const ProfileInfo: FC<{
               <QRCodeSVG
                 value={user?.id as string}
                 size={150}
-                bgColor="#A5BEA9"
+                bgColor="#9BBAB5"
               />
 
               <a
                 className={`${titleFont.className} text-[#4d5e57] text-xl p-2 mt-2`}
               >
-                INC2023-00{user?.id}
+                INC23-00{user?.id}
               </a>
             </motion.div>
           </div>

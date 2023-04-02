@@ -6,12 +6,15 @@ import Button from '../../button';
 import Spinner from '../../spinner';
 import EventCard from './eventCard';
 import UserTeams from './userTeams';
+import { FC } from 'react';
 
-const UserEvents = () => {
+const UserEvents: FC<{
+  userId: string;
+}> = ({ userId }) => {
   const { data: events, loading, error } = useQuery(RegisterdEventsDocument);
 
   return (
-    <section className="min-h-screen">
+    <section data-scroll-section className="min-h-screen">
       <h1
         className={`${titleFont.className} text-2xl lg:text-4xl font-bold text-center text-white flex justify-center lg:max-w-full md:max-w-full max-w-sm`}
       >
@@ -44,6 +47,7 @@ const UserEvents = () => {
           {events.registeredEvents.__typename ===
             'QueryRegisteredEventsSuccess' && (
             <UserTeams
+              userId={userId}
               teams={events.registeredEvents.data
                 ?.map((event) => event?.teams)
                 .flat()}
