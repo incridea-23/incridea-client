@@ -1,13 +1,13 @@
-import { Dialog, Transition } from '@headlessui/react';
-import { FC, Fragment, useState } from 'react';
-import { EventByOrganizerQuery } from '@/src/generated/generated';
-import { IoClose } from 'react-icons/io5';
-import RoundsSidebar from './RoundsSidebar';
-import Button from '@/src/components/button';
-import { AiFillSetting } from 'react-icons/ai';
+import { Dialog, Transition } from "@headlessui/react";
+import { FC, Fragment, useState } from "react";
+import { EventByOrganizerQuery } from "@/src/generated/generated";
+import { IoClose } from "react-icons/io5";
+import RoundsSidebar from "./RoundsSidebar";
+import Button from "@/src/components/button";
+import { AiFillSetting } from "react-icons/ai";
 
 const RoundEventModal: FC<{
-  event: EventByOrganizerQuery['eventByOrganizer'][0];
+  event: EventByOrganizerQuery["eventByOrganizer"][0];
 }> = ({ event }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -35,8 +35,7 @@ const RoundEventModal: FC<{
             enterTo="opacity-100"
             leave="ease-in duration-200"
             leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
+            leaveTo="opacity-0">
             <div className="fixed inset-0 bg-black/25 backdrop-blur-sm" />
           </Transition.Child>
 
@@ -49,20 +48,17 @@ const RoundEventModal: FC<{
                 enterTo="opacity-100 scale-100"
                 leave="ease-in duration-200"
                 leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
+                leaveTo="opacity-0 scale-95">
                 <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-gray-700/70 text-gray-100 backdrop-blur-xl text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="div"
-                    className="flex justify-between items-center md:p-6 p-5"
-                  >
+                    className="flex justify-between items-center md:p-6 p-5">
                     <h3 className="text-lg font-medium leading-6 text-white">
                       {event.name} | Round Details
                     </h3>
                     <button
                       className="hover:text-white text-gray-400 transition-colors"
-                      onClick={closeModal}
-                    >
+                      onClick={closeModal}>
                       <IoClose size="1.4rem" />
                     </button>
                   </Dialog.Title>
