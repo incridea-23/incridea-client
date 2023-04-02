@@ -1,0 +1,15 @@
+mutation AddBranchRep($branchId: ID!, $userId: ID!) {
+  addBranchRep(branchId: $branchId, userId: $userId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationAddBranchRepSuccess {
+      __typename
+      data {
+        branchId
+        userId
+      }
+    }
+  }
+}

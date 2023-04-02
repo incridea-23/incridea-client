@@ -23,7 +23,7 @@ const EventCard: FC<{ event: EventsByBranchRepQuery["eventsByBranchRep"][0] }> =
             className="rounded-lg"
           />
         ) : (
-          <span className="text-xl font-semibold italic text-center h-full bg-gray-300/40 w-full flex items-center justify-center text-gray-800/70">
+          <span className="text-xl italic text-center h-full bg-gray-800/70 w-full flex items-center justify-center text-gray-300/70">
             no image
           </span>
         )}

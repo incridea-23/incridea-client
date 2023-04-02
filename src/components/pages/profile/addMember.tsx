@@ -19,6 +19,7 @@ const AddMemberModal: FC<{
         onClick={() => {
           setShowModal(true);
         }}
+        className='h-5'
       >
         +
       </Button>

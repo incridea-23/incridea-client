@@ -1,0 +1,12 @@
+mutation RemoveBranchRep($userId: ID!, $branchId: ID!) {
+  removeBranchRep(userId: $userId, branchId: $branchId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationRemoveBranchRepSuccess {
+      __typename
+      data
+    }
+  }
+}

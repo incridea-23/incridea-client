@@ -10,8 +10,8 @@ mutation SignUp(
       email: $email
       name: $name
       password: $password
-      collegeId: $collegeId
       phoneNumber: $phoneNumber
+      collegeId: $collegeId
     }
   ) {
     ... on Error {

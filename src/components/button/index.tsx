@@ -1,9 +1,10 @@
+import { titleFont } from "@/src/utils/fonts";
 import { cva, VariantProps } from "class-variance-authority";
 import { HTMLMotionProps, motion, MotionProps } from "framer-motion";
 import React, { ReactNode } from "react";
 
 const buttonStyles = cva(
-  "flex gap-2 items-center justify-center rounded transition-colors duration-300",
+  `flex gap-2 items-center justify-center rounded transition-colors duration-300 ${titleFont.className}`,
   {
     variants: {
       intent: {
