@@ -39,7 +39,7 @@ const ProfileInfo: FC<{
           </a>
           <a className="text-md lg:text-2xl flex items-center gap-5">
             <FaUniversity />
-            {user?.college.name}
+            {user?.college?.name}
           </a>
           <a className="text-md lg:text-2xl flex items-center gap-5">
             <BsPersonFill />

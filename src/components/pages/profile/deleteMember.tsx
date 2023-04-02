@@ -11,7 +11,8 @@ const DeleteTeamMember: FC<{
   teamId: string;
   userId: string;
   name: string;
-}> = ({ teamId, userId, name }) => {
+  editable?: boolean;
+}> = ({ teamId, userId, name, editable }) => {
   const [showModal, setShowModal] = useState(false);
 
   const [deleteTeamMember, { loading: deleteMemberLoading }] = useMutation(
@@ -51,7 +52,7 @@ const DeleteTeamMember: FC<{
         onClick={() => {
           setShowModal(true);
         }}
-        disabled={deleteMemberLoading}
+        disabled={deleteMemberLoading || !editable}
       >
         <BiTrashAlt />
       </Button>
