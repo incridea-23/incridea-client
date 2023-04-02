@@ -1,3 +1,4 @@
+import { EventsByBranchRepQuery } from '@/src/generated/generated';
 import { titleFont } from '@/src/utils/fonts';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -6,13 +7,13 @@ import { FC } from 'react';
 import { IoLocationOutline } from 'react-icons/io5';
 import { RiNumbersLine } from 'react-icons/ri';
 
-const EventCard: FC<{ event: any }> = ({ event }) => {
+const EventCard: FC<{ event: EventsByBranchRepQuery["eventsByBranchRep"][0] }> = ({ event }) => {
   return (
     <motion.div
       whileHover={{ scale: 1.03 }}
       className="flex flex-col items-center justify-center my-4 bg-white rounded-lg shadow-lg bg-opacity-30 backdrop-blur-2xl max-w-2xl w-[300px]"
     >
-      <div className="flex items-center justify-center w-full h-40 overflow-hidden border-b border-gray-300 rounded-t">
+      <div className="flex items-center justify-center w-full h-40 overflow-hidden border-gray-300 rounded-t">
         {event?.image ? (
           <Image
             src={event?.image}
@@ -22,8 +23,8 @@ const EventCard: FC<{ event: any }> = ({ event }) => {
             className="rounded-lg"
           />
         ) : (
-          <span className="text-xl font-bold text-center text-gray-800">
-            No Image Available.
+          <span className="text-xl font-semibold italic text-center h-full bg-gray-300/40 w-full flex items-center justify-center text-gray-800/70">
+            no image
           </span>
         )}
       </div>
@@ -50,7 +51,7 @@ const EventCard: FC<{ event: any }> = ({ event }) => {
         </div>
       </div>
       <button className="w-full p-2 bg-white bg-opacity-40 hover:bg-opacity-70 transition-colors duration-300 rounded-b-lg">
-        <Link href={`/events/${event?.id}`}>View Event</Link>
+        <Link href={`/events/${event.name.toLowerCase().replaceAll(' ', '-')}-${event.id}`}>View Event</Link>
       </button>
     </motion.div>
   );

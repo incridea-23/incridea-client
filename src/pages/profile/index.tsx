@@ -45,7 +45,7 @@ const Profile: NextPage = () => {
       <main
         data-scroll-container
         ref={containerRef}
-        className="bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]"
+        className="bg-gradient-to-b from-[#46aacf] p-4 via-[#075985] to-[#2d6aa6]"
       >
         {/* 1. Profile Info section */}
         <ProfileInfo user={user} />

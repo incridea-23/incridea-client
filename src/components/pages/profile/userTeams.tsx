@@ -69,11 +69,11 @@ const UserTeams: FC<{
               </h1>
             </Link>
 
-            <hr className="w-full border-gray-500 my-5" />
+            <hr className="w-full border-white/40 my-3" />
 
             <div className="w-full">
               <div className="text-gray-900 flex items-center space-x-2">
-                <div>{team.name} Members</div>
+                <div className='font-semibold'>Members</div>
                 {!team.confirmed &&
                   team.members.length < team.event.maxTeamSize && (
                     <AddMemberModal team={team} />

@@ -15,7 +15,7 @@ const ProfileInfo: FC<{
 }> = ({ user }) => {
   return (
     <section data-scroll-section className="text-white min-h-fit py-10 mb-10">
-      <div data-scroll className="flex items-center justify-center">
+      <div data-scroll className="flex mb-4 items-center justify-center">
         <a
           className={`${titleFont.className} text-2xl lg:text-4xl font-bold text-center`}
         >
@@ -23,7 +23,6 @@ const ProfileInfo: FC<{
         </a>
         <span className="animate-wave text-2xl lg:text-4xl">👋</span>
       </div>
-      <br />
       <TextAnimation
         text="Ready to dive in?"
         textStyle="text-lg lg:text-2xl"
@@ -39,7 +38,7 @@ const ProfileInfo: FC<{
           </a>
           <a className="text-md lg:text-2xl flex items-center gap-5">
             <FaUniversity />
-            {user?.college.name}
+            {user?.college?.name || '-'}
           </a>
           <a className="text-md lg:text-2xl flex items-center gap-5">
             <BsPersonFill />
@@ -47,6 +46,7 @@ const ProfileInfo: FC<{
           </a>
 
           <div className="flex flex-col gap-2">
+            <span className='font-semibold'>Contact details</span>
             <div className="flex gap-2 items-center">
               <MdOutlineEmail />
               <Link href={`mailto:${user?.email}`} className="hover:underline">
