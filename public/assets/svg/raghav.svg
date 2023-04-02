@@ -25,7 +25,7 @@
      showgrid="false"
      inkscape:zoom="0.41955002"
      inkscape:cx="1699.4398"
-     inkscape:cy="1719.6996"
+     inkscape:cy="1722.0831"
      inkscape:window-width="1920"
      inkscape:window-height="1051"
      inkscape:window-x="-9"
@@ -4627,7 +4627,7 @@
              id="path166081-2-0"
              class="cls-1"
              d="m 1618.831,2055.462 1216.614,-8.644 -253.285,-133.4 H 578.11 l -253,133.4 1216.614,8.644 v 0.467 l 38.555,-0.233 38.556,0.233 z"
-             style="display:inline"
+             style="display:inline;opacity:0.9;fill:#5fb6c9;fill-opacity:1"
              inkscape:label="floor" />
           <path
              id="path166083-0-9"
