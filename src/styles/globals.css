@@ -132,6 +132,7 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
 .gradient-bg {
   background: linear-gradient(
     -170deg,
@@ -142,4 +143,10 @@
     #fff,
     #fff
   );
+}
+
+/* Workaround for disappearing elements (scope: locomotive scroll) */
+.has-scroll-smooth {
+  position: fixed;
+  inset: 0;
 }
