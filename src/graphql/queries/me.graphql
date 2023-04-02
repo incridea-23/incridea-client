@@ -12,7 +12,12 @@ query Me {
         id
         isVerified
         name
+        phoneNumber
         role
+        college {
+          id
+          name
+        }
       }
     }
   }

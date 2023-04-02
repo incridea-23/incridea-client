@@ -28,3 +28,30 @@ query Events($first: Int) {
     }
   }
 }
+
+query EventById($id: ID!) {
+  eventById(id: $id) {
+    description
+    eventType
+    fees
+    id
+    image
+    maxTeamSize
+    maxTeams
+    minTeamSize
+    name
+    organizers {
+      user {
+        email
+        phoneNumber
+        name
+        id
+      }
+    }
+    rounds {
+      date
+      roundNo
+    }
+    venue
+  }
+}

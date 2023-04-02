@@ -56,7 +56,6 @@ const Home = ({ setLoading }: { setLoading: (loading: boolean) => void }) => {
 
               <EventsReel />
             </div>
-
             {/* 5. Footer Section */}
             <section className="-mt-2 bg-[#052749]">
               <Footer />
