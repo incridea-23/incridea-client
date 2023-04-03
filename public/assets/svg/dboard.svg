@@ -4431,7 +4431,7 @@
            x="154.14348"
            y="-40.802052" /><text
            xml:space="preserve"
-           style="font-weight:bold;font-size:18.6656px;font-family:'Comic Sans MS';-inkscape-font-specification:'Comic Sans MS Bold';opacity:0.9;fill:#5fb6c9;stroke-width:0.334584"
+           style="font-weight:bold;font-size:18.6656px;font-family:'Comic Sans MS';-inkscape-font-specification:'Comic Sans MS Bold';opacity:0.9;fill:#000000;stroke-width:0.334584;fill-opacity:1"
            x="268.76776"
            y="84.779076"
            id="text2681"
@@ -4439,11 +4439,11 @@
            inkscape:label="policy"><tspan
              sodipodi:role="line"
              id="tspan2679"
-             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6656px;font-family:'Trade Winds';-inkscape-font-specification:'Trade Winds Bold';fill:#ffffff;fill-opacity:1;stroke-width:0.334584"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6656px;font-family:'Trade Winds';-inkscape-font-specification:'Trade Winds Bold';fill:#000000;fill-opacity:1;stroke-width:0.334584"
              x="268.76776"
              y="84.779076">Privacy policy</tspan></text><text
            xml:space="preserve"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6656px;font-family:'Trade Winds';-inkscape-font-specification:'Trade Winds Bold';opacity:0.9;fill:#ffffff;fill-opacity:1;stroke-width:0.69996"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6656px;font-family:'Trade Winds';-inkscape-font-specification:'Trade Winds Bold';opacity:0.9;fill:#000000;fill-opacity:1;stroke-width:0.69996"
            x="180.60269"
            y="175.99689"
            id="text2945"
@@ -4451,11 +4451,11 @@
            inkscape:label="terms"><tspan
              sodipodi:role="line"
              id="tspan2943"
-             style="stroke-width:0.69996"
+             style="stroke-width:0.69996;fill:#000000;fill-opacity:1"
              x="180.60269"
              y="175.99689">Terms &amp; conditions</tspan></text><text
            xml:space="preserve"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6656px;font-family:'Trade Winds';-inkscape-font-specification:'Trade Winds Bold';opacity:0.9;fill:#ffffff;fill-opacity:1;stroke-width:0.69996"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6656px;font-family:'Trade Winds';-inkscape-font-specification:'Trade Winds Bold';opacity:0.9;fill:#000000;fill-opacity:1;stroke-width:0.69996"
            x="313.16019"
            y="253.75409"
            id="text2949"
@@ -4463,25 +4463,66 @@
            inkscape:label="about"><tspan
              sodipodi:role="line"
              id="tspan2947"
-             style="stroke-width:0.69996"
+             style="stroke-width:0.69996;fill:#000000;fill-opacity:1"
              x="313.16019"
              y="253.75409">About</tspan></text><text
            xml:space="preserve"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6656px;font-family:'Trade Winds';-inkscape-font-specification:'Trade Winds Bold';opacity:0.9;fill:#ffffff;fill-opacity:1;stroke-width:0.69996"
-           x="249.47333"
-           y="387.79269"
-           id="text2953"
-           transform="scale(0.90964371,1.0993315)"
-           inkscape:label="rights"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:26.6667px;font-family:'Trade Winds';-inkscape-font-specification:'Trade Winds Bold';opacity:0.9;fill:#000000;fill-opacity:1"
+           x="216.88631"
+           y="776.55872"
+           id="text6360"
+           transform="matrix(0.63671399,0,0,0.76948784,89.510952,-169.61156)"><tspan
              sodipodi:role="line"
-             id="tspan2951"
-             style="stroke-width:0.69996"
-             x="249.47333"
-             y="387.79269">Incridea 2023- </tspan><tspan
+             id="tspan6358"
+             x="216.88631"
+             y="776.55872">© Incridea 2023 -</tspan><tspan
              sodipodi:role="line"
-             style="stroke-width:0.69996"
-             x="249.47333"
-             y="411.12469"
-             id="tspan2955">All rights reserved</tspan></text></g></g></g><metadata
+             x="216.88631"
+             y="809.89209"
+             id="tspan6362">All rights reserved</tspan></text></g></g></g><metadata
      id="metadata146434"><rdf:RDF><cc:Work
-         rdf:about=""><dc:title>3849472_2009223-ai</dc:title></cc:Work></rdf:RDF></metadata></svg>
+         rdf:about=""><dc:title>3849472_2009223-ai</dc:title></cc:Work></rdf:RDF></metadata><image
+     width="63.20256"
+     height="56.854668"
+     preserveAspectRatio="none"
+     style="image-rendering:optimizeQuality"
+     xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAATgAAAE4AFRGXIFAAAA
+GXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAV9JREFUWIXt1s0qRVEYxvGfne+P
+Oia4AiZImbgA5QoQZoqpoYlbcRtmhkop5KOIkIEy4Jzi+IoYnLPlKKe99tk5A556W5N3vc9/77Va
+Pfzrr6shYV83utCYsP8Vd8iHAAxjHoNlw1x57U5o+pPyKJTXPA6xir2vTTN4wfsv1QtmY/NePPyi
+eVyP6Iswhbawv5qJWjEdYbQO5rFGIvQHbLjBWoYAA3Au+bmdlTeOYT1gX9V5tykAYk1gqwaAW7iv
+ASDWOHZSANzBcwYAEGESJwHznuAtI4BYTVhJOO8ta4BOLCs9vYkBsjiCdizhOmDW5xEUawBoxiKu
+Ao0rLmE+BUATFnCZ0jiuG8IeogvMCbvp1eoUNjMalqY2Ihypn44jbNcRYJf6BZIiemKSGWHvQa31
+jGkqQ+mQUigdUhlKc5Kn5+96VxlIC9hXCqUH3wGqKYcWdCTsLyp9ZSEA9l9/VB/oqbgVlhOHdwAA
+AABJRU5ErkJggg==
+"
+     id="image6372"
+     x="261.98868"
+     y="648.1521"
+     inkscape:label="utube" /><image
+     width="45.205746"
+     height="43.089783"
+     preserveAspectRatio="none"
+     style="image-rendering:optimizeQuality"
+     xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
+AAAAsgAAALIBa5Ro4AAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAMUSURB
+VFiFtddLqFVVGAfw3z33migleJOy8noVqUFpdaGogVT0GBRRlILioEhHjXLk3EGzRg2CBgU1KoKi
+qKiImlgEUU16aVb4KK9mT7ly86qnwdr77u9s1z77HDl9sGHv9T3+317re60xeZrGw7gTa7EGSwN/
+CS6t6ZzC2fA9j2M4gk/xJvY34C3S5XgRC+iO+DmP1zDVBH4tDrYYOYc/Wp4252dxWx18JQ4EoQW8
+jAexHpe0bV2GxqWjuxfPYi7YP4F1Ufi5wDyGWy4CsI3W45uA83bJWC0FTFcKoltHCDqNJzETvv8K
+TszArrDwygjBV+Gk6sduL9afDnh7O9gclF4fAmAFrsdGTGb4N0lZRYqHuzIYm+Gj4NHGFtBx7JTy
++pze6P4Su1X1YgUOFbzTuLFYXx50DtIbGCv7gK/FF5rTq3wO4IZCZxKPqkU8fi9k5+jN/WUN4Gvw
+Sw3oBN7HOzha4/2NTX1+5tdC7gz8HBRz+d7BZzXgbdJxlDSG+2u2fuzzQ4dV1bHH+7GM8I7A/02q
+mE10JX4K8nsa5KKjZlVlNkcfBuHH+oCXdHeQ/75B5ofoQJmr/2YEl0jn1JUKyKAlOZb1XPP5ruR3
+MFEs5nZgdeEEKVvODOjAV+E958AiVicsdjOCcS0XH00UZfva7aiGiImM4HGpM5Kq3qBHcHN4P5rh
+92AdN3gQPj4A+D2GDMKYhp2McEzDk0aThlFmsV53VQEXKVeItruwED1g+EK0UPdm2FL8njRYXGwp
+nifkpP7NaAqf14Byz35VM2qishn9Ax8H5TbFcTyBT+Tb8VPaM2WZ1AMWg/SlYGRri3Kky1QDSb+d
+q9NMwPugg32B+cgQhk7hW3yNP4fQ2xLe98FVUh8oo3ImozQqikPpeSFQ41h+RDU+jZLWSbtV4rwR
+mZN6q9M8nsd9uNpwfSDSFdLg+Yx0ZKX9WUWTioavw7vYkDF0tjAQaU7VHSekoIy0XO+FtqRZPCSl
+9AU0iRf8f5fTV3FNBGza2mnpen6HNA1Pab+en9Y71CxI1fOQNMa/JXM9/w9bsWoaAC8UVgAAAABJ
+RU5ErkJggg==
+"
+     id="image6384"
+     x="158.31204"
+     y="656.62152"
+     inkscape:label="insta" /></svg>
