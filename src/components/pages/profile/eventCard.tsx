@@ -1,4 +1,3 @@
-import { EventsByBranchRepQuery } from '@/src/generated/generated';
 import { titleFont } from '@/src/utils/fonts';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -7,7 +6,9 @@ import { FC } from 'react';
 import { IoLocationOutline } from 'react-icons/io5';
 import { RiNumbersLine } from 'react-icons/ri';
 
-const EventCard: FC<{ event: EventsByBranchRepQuery["eventsByBranchRep"][0] }> = ({ event }) => {
+const EventCard: FC<{
+  event: any;
+}> = ({ event }) => {
   return (
     <motion.div
       whileHover={{ scale: 1.03 }}
@@ -51,7 +52,13 @@ const EventCard: FC<{ event: EventsByBranchRepQuery["eventsByBranchRep"][0] }> =
         </div>
       </div>
       <button className="w-full p-2 bg-white bg-opacity-40 hover:bg-opacity-70 transition-colors duration-300 rounded-b-lg">
-        <Link href={`/events/${event.name.toLowerCase().replaceAll(' ', '-')}-${event.id}`}>View Event</Link>
+        <Link
+          href={`/events/${event.name.toLowerCase().replaceAll(' ', '-')}-${
+            event.id
+          }`}
+        >
+          View Event
+        </Link>
       </button>
     </motion.div>
   );
