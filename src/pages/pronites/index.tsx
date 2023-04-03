@@ -60,6 +60,15 @@ const Pronite: NextPage = () => {
               alt="raghav"
             />
           </div>
+          <div className="snap-start  min-w-full h-screen place-items-center   w-screen">
+            <Image
+              className="h-screen w-screen"
+              src="/assets/svg/iboard.svg"
+              width={1000}
+              height={1000}
+              alt="board"
+            />
+          </div>
         </div>
       </div>
     </>
