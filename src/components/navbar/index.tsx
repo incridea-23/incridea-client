@@ -7,7 +7,7 @@ import { User } from "@/src/generated/generated";
 import { BiMenuAltRight as MenuIcon } from "react-icons/bi";
 import { AiOutlineClose as XIcon } from "react-icons/ai";
 import { Transition } from "@headlessui/react";
-import ProfileMenu from "./profileMenu";
+import AuthenticatedButtons from "./authenticatedButtons";
 import { titleFont } from "@/src/utils/fonts";
 import CharacterAnimation from "../animation/character";
 
@@ -111,7 +111,7 @@ const AuthButtons: FC<{
   return (
     <div className={`flex space-x-2 px-3 lg:px-0 ${className}`}>
       {status === "authenticated" && (
-        <ProfileMenu user={user} status={status} />
+        <AuthenticatedButtons user={user} status={status} />
       )}
       {status === "unauthenticated" && (
         <>
