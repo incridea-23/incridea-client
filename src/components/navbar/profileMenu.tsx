@@ -52,12 +52,12 @@ const ProfileMenu: FC<{
               </Link>
 
               {user?.role === 'USER' && (
-                <div
-                  className="px-4 py-3 text-sm text-gray-700 hover:bg-gray-50/50 hover:text-gray-900"
-                  onClick={() => makePayment()}
+                <Link
+                  href={'/register'}
+                  className="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50/50 hover:text-gray-900"
                 >
                   Register
-                </div>
+                </Link>
               )}
 
               <div
