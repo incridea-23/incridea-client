@@ -100,14 +100,14 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
           </div>
         )}
         <div className="flex flex-col md:mt-2 mt-5 relative text-center">
-          <hr className="my-3 hidden md:block" />
+          <hr className="mt-3 hidden md:block" />
           <h4 className="md:absolute top-0.5 md:translate-x-1/2 w-fit md:w-max mx-auto md:bg-white bg-white/20 rounded-full text-white md:text-gray-400 right-1/2 md:px-2 px-3 text-sm">
             New here?
           </h4>
           <Button
             onClick={() => setWhichForm("signUp")}
             type="button"
-            intent={'primary'}
+            intent={'ghost'}
             className='mt-5'
             >
             Sign up instead
