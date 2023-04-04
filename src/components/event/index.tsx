@@ -17,13 +17,18 @@ import {
   IoPersonOutline,
 } from "react-icons/io5";
 
-const Event = ({ data }: { data: PublishedEventsQuery["publishedEvents"][0] }) => {
+const Event = ({
+  data,
+}: {
+  data: PublishedEventsQuery["publishedEvents"][0];
+}) => {
   const router = useRouter();
 
   const getEventAttributes = () => {
     let teamSizeText = "";
     if (data.minTeamSize === data.maxTeamSize) {
-      if (data.minTeamSize !== 1) teamSizeText += `${data.minTeamSize} members per team`;
+      if (data.minTeamSize !== 1)
+        teamSizeText += `${data.minTeamSize} members per team`;
     } else {
       teamSizeText = `${data.minTeamSize} - ${data.maxTeamSize} members per team`;
     }
@@ -45,7 +50,8 @@ const Event = ({ data }: { data: PublishedEventsQuery["publishedEvents"][0] }) =
       },
       {
         name: "Type",
-        text: data.eventType[0] + data.eventType.slice(1).toLowerCase() + ' Event',
+        text:
+          data.eventType[0] + data.eventType.slice(1).toLowerCase() + " Event",
         Icon: IoPersonOutline,
       },
       {
@@ -61,7 +67,9 @@ const Event = ({ data }: { data: PublishedEventsQuery["publishedEvents"][0] }) =
       <motion.div
         onClick={() => {
           router.push(
-            `events/${data.name.toLocaleLowerCase().split(" ").join("-")}-${data.id}`
+            `event/${data.name.toLocaleLowerCase().split(" ").join("-")}-${
+              data.id
+            }`
           );
         }}
         whileHover={{
@@ -110,7 +118,10 @@ const Event = ({ data }: { data: PublishedEventsQuery["publishedEvents"][0] }) =
           )}
         </div>
         <Button noScaleOnHover className="hover:scale-0 shrink-0 mt-2">
-          <Link href={`/${data.name.toLowerCase().replaceAll(" ", "-")}-${data.id}}`}>
+          <Link
+            href={`/event/${data.name.toLowerCase().replaceAll(" ", "-")}-${
+              data.id
+            }`}>
             Register
           </Link>
         </Button>
