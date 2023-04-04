@@ -7,39 +7,9 @@ const SVGComponent = (props: SVGProps<SVGSVGElement>) => (
     width={590}
     height={980}
     id="svg142408"
-    // sodipodi:docname="dboard.svg"
-    // inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
     xmlSpace="preserve"
-    // xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-    // xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-    // xmlnsXlink="http://www.w3.org/1999/xlink"
-    // xmlns="http://www.w3.org/2000/svg"
-    // xmlns:svg="http://www.w3.org/2000/svg"
-    // xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    // xmlns:cc="http://creativecommons.org/ns#"
-    // xmlns:dc="http://purl.org/dc/elements/1.1/"
     {...props}
   >
-    {/* <sodipodi:namedview
-      id="namedview142410"
-      pagecolor="#ffffff"
-      bordercolor="#000000"
-      borderopacity={0.25}
-      inkscape:showpageshadow={2}
-      inkscape:pageopacity={0}
-      inkscape:pagecheckerboard={0}
-      inkscape:deskcolor="#d1d1d1"
-      showgrid="false"
-      inkscape:zoom={0.94519573}
-      inkscape:cx={398.85919}
-      inkscape:cy={562.31739}
-      inkscape:window-width={1920}
-      inkscape:window-height={1051}
-      inkscape:window-x={-9}
-      inkscape:window-y={-9}
-      inkscape:window-maximized={1}
-      inkscape:current-layer="g142403"
-    /> */}
     <title id="title140452">{"3849472_2009223-ai"}</title>
     <defs id="defs140543">
       <linearGradient
