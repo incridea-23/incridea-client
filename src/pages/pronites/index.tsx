@@ -4,6 +4,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { motion } from "framer-motion";
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
+import ProniteFooter from "../../components/proniteFooter";
 import {
   useHorizontalScroll,
   useHorizontalTouch,
@@ -69,14 +70,15 @@ const Pronite: NextPage = () => {
               alt="rules"
             />
           </div>
-          <div className="snap-start  min-w-full h-screen place-items-center   w-screen">
-            <Image
+          <div className="snap-start  min-w-full h-screen place-items-center  w-screen">
+            <ProniteFooter className="h-screen w-screen bottom-6"/>
+            {/* <Image
               className="h-screen w-screen"
               src="/assets/svg/dboard.svg"
               width={1000}
               height={1000}
               alt="footer"
-            />
+            /> */}
           </div>
         </div>
       </div>
