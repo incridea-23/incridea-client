@@ -66,6 +66,7 @@ interface ButtonProps
     VariantProps<typeof buttonStyles> {
   disabled?: boolean;
   style?: React.CSSProperties & { [key: string]: any };
+  noScaleOnHover?: boolean;
 }
 
 const Button = ({
@@ -76,11 +77,12 @@ const Button = ({
   outline,
   disabled,
   className,
+  noScaleOnHover,
   ...props
 }: ButtonProps) => {
   return (
     <motion.button
-      whileHover={{ scale: 1.1 }}
+      whileHover={noScaleOnHover ? { scale: 1} : { scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
       className={`${className} ${buttonStyles({
         intent,

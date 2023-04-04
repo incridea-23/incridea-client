@@ -1,0 +1,25 @@
+mutation ConfirmTeam($teamId : ID!) {
+  confirmTeam(teamId: $teamId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationConfirmTeamSuccess {
+      __typename
+      data {
+        confirmed
+        id
+        name
+        event {
+          name
+        }
+        members {
+          user {
+            name
+            email
+          }
+        }
+      }
+    }
+  }
+}
