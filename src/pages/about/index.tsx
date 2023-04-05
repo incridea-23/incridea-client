@@ -6,6 +6,7 @@ import { LocomotiveScrollProvider } from 'react-locomotive-scroll';
 import { useRef } from 'react';
 import AboutIncridea from '@/src/components/pages/about/AboutIncridea';
 import AboutCollege from '@/src/components/pages/about/AboutCollege';
+import AboutTeam from '@/src/components/pages/about/AboutTeam';
 
 const About: NextPage = () => {
   const containerRef = useRef(null);
@@ -34,6 +35,9 @@ const About: NextPage = () => {
 
         {/* 2. About College */}
         <AboutCollege />
+
+        {/* 3. About Team */}
+        <AboutTeam />
       </main>
     </LocomotiveScrollProvider>
   );
