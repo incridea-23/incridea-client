@@ -1,10 +1,11 @@
 import Button from '../../button';
-import { BiShareAlt } from 'react-icons/bi';
 import { toast } from 'react-hot-toast';
 import { FC, useState } from 'react';
 import { Team } from './userTeams';
 import Modal from '../../modal';
-import { idToTeamId } from '@/src/utils/id';
+import { AiOutlineCopy, AiOutlineUserAdd } from 'react-icons/ai';
+import { BsWhatsapp } from 'react-icons/bs';
+import Link from 'next/link';
 
 const AddMemberModal: FC<{
   team: Team;
@@ -13,16 +14,23 @@ const AddMemberModal: FC<{
   const handleCloseModal = () => {
     setShowModal(false);
   };
+
+  const url = `Join my team for ${team.event.name} event at Incridea 2023! Here's the link: https://incridea.in/event/slug?jointeam=${team.id}`;
+
+  const copyUrl = async () => {
+    await navigator.clipboard.writeText(url);
+    toast.success('Copied to clipboard!');
+  };
+
   return (
     <>
       <Button
-        size={'small'}
         onClick={() => {
           setShowModal(true);
         }}
-        className='h-5'
+        className="mt-5"
       >
-        +
+        <AiOutlineUserAdd size={20} /> Add More
       </Button>
       <Modal
         title={`There's still room for ${
@@ -34,23 +42,35 @@ const AddMemberModal: FC<{
       >
         <div className="p-5 text-center flex flex-col justify-center">
           <p className="text-xs">
-            Share this code with your friends to add them to your team!
+            Share this link with your friends to add them to your team!
           </p>
-          <Button
-            size={'small'}
-            onClick={async () => {
-              await navigator.clipboard.writeText(
-                'Join my team for ' +
-                  team.event.name +
-                  " event at Incridea 2023! Here's the code: " +
-                  idToTeamId(team.id)
-              );
-              toast.success('Copied to clipboard!');
-            }}
-            className="mt-2"
+          <div className="flex items-center justify-evenly mt-2">
+            <input
+              type="url"
+              className="bg-white bg-opacity-20 rounded-lg text-sm p-2"
+              value={url}
+            />
+            <AiOutlineCopy
+              onClick={copyUrl}
+              size={20}
+              className="cursor-pointer hover:text-gray-400"
+            />
+          </div>
+
+          <div className="flex items-center py-2">
+            <div className="flex-grow h-px bg-gray-600"></div>
+            <span className="flex-shrink text-sm px-4 italic font-light">
+              or
+            </span>
+            <div className="flex-grow h-px bg-gray-600"></div>
+          </div>
+
+          <Link
+            href={`https://wa.me/?text=${encodeURIComponent(url)}`}
+            className="flex items-center justify-center gap-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg p-2 cursor-pointer text-sm"
           >
-            Share <BiShareAlt />
-          </Button>
+            <BsWhatsapp /> Share on WhatsApp
+          </Link>
         </div>
       </Modal>
     </>
