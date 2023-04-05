@@ -1,0 +1,57 @@
+query Events($first: Int) {
+  events(first: $first) {
+    edges {
+      node {
+        id
+        description
+        eventType
+        name
+        fees
+        image
+        maxTeamSize
+        maxTeams
+        minTeamSize
+        published
+        rounds {
+          completed
+          roundNo
+          date
+          eventId
+          event {
+            branch {
+              name
+            }
+          }
+        }
+        venue
+      }
+    }
+  }
+}
+
+query EventById($id: ID!) {
+  eventById(id: $id) {
+    description
+    eventType
+    fees
+    id
+    image
+    maxTeamSize
+    maxTeams
+    minTeamSize
+    name
+    organizers {
+      user {
+        email
+        phoneNumber
+        name
+        id
+      }
+    }
+    rounds {
+      date
+      roundNo
+    }
+    venue
+  }
+}

@@ -16,8 +16,7 @@ const Home = ({ setLoading }: { setLoading: (loading: boolean) => void }) => {
   const { status, user, error, loading } = useAuth();
   const containerRef = useRef(null);
 
-  if (loading) return <div>Loading...</div>; // Loading page here
-  //if (error) return <div>Something went wrong</div>; // Error page here
+  if (loading) return <div>Loading...</div>; // Todo: Loading page here
 
   return (
     <div ref={ref} className="overflow-x-hidden">
@@ -56,7 +55,6 @@ const Home = ({ setLoading }: { setLoading: (loading: boolean) => void }) => {
 
               <EventsReel />
             </div>
-
             {/* 5. Footer Section */}
             <section className="-mt-2 bg-[#052749]">
               <Footer />

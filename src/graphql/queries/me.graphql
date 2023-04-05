@@ -7,12 +7,21 @@ query Me {
     ... on QueryMeSuccess {
       __typename
       data {
+        college {
+          id
+          name
+        }
         createdAt
         email
         id
         isVerified
         name
+        phoneNumber
         role
+        college {
+          id
+          name
+        }
       }
     }
   }

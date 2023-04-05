@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client';
 import { FC } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import Button from '@/src/components/button';
+import { pidToId } from '@/src/utils/id';
 
 const ScanParticipantToTeam: FC<{
   teamId: string;
@@ -17,15 +18,14 @@ const ScanParticipantToTeam: FC<{
       <Toaster />
       <Button
         onClick={() => {
-            console.log(teamId, userId)
           add({
             variables: {
               teamId,
-              userId,
+              userId: pidToId(userId),
             },
           }).then((res) => {
             if (res.data?.organizerAddTeamMember.__typename === 'Error') {
-                console.log(res.data.organizerAddTeamMember.message)
+              console.log(res.data.organizerAddTeamMember.message);
               toast.error('Not a valid PID');
             }
             if (

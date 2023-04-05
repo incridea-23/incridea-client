@@ -129,7 +129,7 @@ const AuthButtons: FC<{
         </>
       )}
       {status === 'unauthenticated' && (
-        <Link href="/login">
+        <Link href={"/login?whichForm=signUp"} as="/login">
           <Button intent={'primary'}>Login / Register</Button>
         </Link>
       )}
