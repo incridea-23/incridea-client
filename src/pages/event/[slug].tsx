@@ -1,4 +1,5 @@
 import EventDetails from "@/src/components/pages/event/EventDetails";
+import EventRegistration from "@/src/components/pages/event/EventRegistration";
 import {
   Event,
   EventByIdDocument,
@@ -128,6 +129,11 @@ function event({ event }: { event: Event }) {
               </div>
             </div>
           </div>
+          <EventRegistration
+            fees={event.fees}
+            eventId={event.id}
+            type={event.eventType}
+          />
           <div className="w-full">
             <h2 className={`${titleFont.className} mb-2 text-2xl`}>
               Organizers
