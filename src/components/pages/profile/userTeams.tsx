@@ -3,12 +3,8 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { QRCodeSVG } from 'qrcode.react';
 import { FC } from 'react';
-import DeleteTeamModal from './deleteTeam';
-import AddMemberModal from './addMember';
-import { BiEditAlt, BiTrashAlt } from 'react-icons/bi';
-import Button from '../../button';
-import DeleteTeamMember from './deleteMember';
 import EditTeamModal from './editTeam';
+import ConfirmTeamModal from './confirmTeam';
 
 export type Team = {
   id: string;
@@ -19,6 +15,7 @@ export type Team = {
     id: string;
     name: string;
     maxTeamSize: number;
+    fees: number;
   };
   members: {
     user: {
@@ -66,7 +63,12 @@ const UserTeams: FC<{
               )}
             </div>
 
-            <Link href={`/events/${team.event.id}`}>
+            <Link
+              href={`/events/${team.event.name
+                .toLocaleLowerCase()
+                .split(' ')
+                .join('-')}-${team.event.id}`}
+            >
               <h1 className="text-gray-900 hover:text-gray-300 transition-colors duration-300">
                 {team.event.name}
               </h1>
@@ -75,7 +77,7 @@ const UserTeams: FC<{
             <hr className="w-full border-white/40 my-3" />
 
             <div className="w-full">
-              <span className='font-semibold'>Members</span>
+              <span className="font-semibold">Members</span>
               {team?.members?.map((member: any) => (
                 <div
                   className="flex justify-between items-center"
@@ -97,6 +99,13 @@ const UserTeams: FC<{
                 </h1>
               )}
             </div>
+
+            {!team.confirmed && team.leaderId == userId && (
+              <ConfirmTeamModal
+                teamId={team.id}
+                isPaid={team.event.fees !== 0}
+              />
+            )}
           </motion.div>
         ))}
       </div>
