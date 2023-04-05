@@ -1,4 +1,4 @@
-mutation ConfirmTeam($teamId : ID!) {
+mutation ConfirmTeam($teamId: ID!) {
   confirmTeam(teamId: $teamId) {
     ... on Error {
       __typename
@@ -6,20 +6,6 @@ mutation ConfirmTeam($teamId : ID!) {
     }
     ... on MutationConfirmTeamSuccess {
       __typename
-      data {
-        confirmed
-        id
-        name
-        event {
-          name
-        }
-        members {
-          user {
-            name
-            email
-          }
-        }
-      }
     }
   }
 }

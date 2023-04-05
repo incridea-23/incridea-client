@@ -2,18 +2,19 @@ import Button from '@/src/components/button';
 import Modal from '@/src/components/modal';
 import Spinner from '@/src/components/spinner';
 import createToast from '@/src/components/toast';
-import { DeleteTeamDocument } from '@/src/generated/generated';
+import { ConfirmTeamDocument } from '@/src/generated/generated';
 import { useMutation } from '@apollo/client';
 import React, { FC, useState } from 'react';
 import { BiTrashAlt } from 'react-icons/bi';
 
-const DeleteTeamModal: FC<{
+const ConfirmTeamModal: FC<{
   teamId: string;
-}> = ({ teamId }) => {
+  isPaid: boolean;
+}> = ({ teamId, isPaid }) => {
   const [showModal, setShowModal] = useState(false);
 
-  const [deleteTeam, { loading: deleteTeamLoading }] = useMutation(
-    DeleteTeamDocument,
+  const [confirmTeam, { loading: confirmTeamLoading }] = useMutation(
+    ConfirmTeamDocument,
     {
       refetchQueries: ['RegisterdEvents'],
       awaitRefetchQueries: true,
@@ -24,52 +25,52 @@ const DeleteTeamModal: FC<{
     setShowModal(false);
   };
 
-  const handleDelete = (teamId: string) => {
+  const handleConfirm = (teamId: string) => {
     setShowModal(false);
-    let promise = deleteTeam({
+    let promise = confirmTeam({
       variables: {
-        teamId: teamId,
+        teamId,
       },
     }).then((res) => {
-      if (res?.data?.deleteTeam.__typename !== 'MutationDeleteTeamSuccess') {
-        return Promise.reject('Error deleting team');
+      if (res?.data?.confirmTeam.__typename !== 'MutationConfirmTeamSuccess') {
+        return Promise.reject('Error confirming team');
       }
     });
-    createToast(promise, 'Deleting');
+    createToast(promise, 'Confirming');
   };
 
   return (
     <>
-      <div className="flex justify-end p-5">
-        <Button
-          onClick={() => {
-            setShowModal(true);
-          }}
-          disabled={deleteTeamLoading}
-        >
-          Delete Team
-          <BiTrashAlt />
-        </Button>
-      </div>
+      <Button
+        size={'small'}
+        className="mt-3"
+        onClick={() => {
+          setShowModal(true);
+        }}
+      >
+        {isPaid ? 'Pay & Confirm' : 'Confirm'}
+      </Button>
       <Modal
-        title={`Are you sure you want to delete the team?`}
+        title={`Are you sure you want to confirm the team?`}
         showModal={showModal}
         onClose={handleCloseModal}
         size={'small'}
       >
-        <div className="text-sm text-center">This action cannot be undone.</div>
+        <div className="text-sm text-center p-5">
+          You won&apos;t be able to make changes to your team after confirming.
+        </div>
         <div className="flex justify-center gap-3 my-5">
           <Button
             size={'small'}
             onClick={() => {
-              handleDelete(teamId as string);
+              handleConfirm(teamId as string);
             }}
-            disabled={deleteTeamLoading}
+            disabled={confirmTeamLoading}
           >
-            {deleteTeamLoading ? (
+            {confirmTeamLoading ? (
               <Spinner intent={'white'} size={'small'} />
             ) : (
-              'Delete'
+              'Confirm'
             )}
           </Button>
           <Button
@@ -85,4 +86,4 @@ const DeleteTeamModal: FC<{
   );
 };
 
-export default DeleteTeamModal;
+export default ConfirmTeamModal;
