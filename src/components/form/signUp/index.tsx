@@ -128,7 +128,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         name="name"
         type="text"
         required
-        className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-[#dd5c6e] outline-none"
+        className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none"
         placeholder="Name"
       />
 
@@ -138,7 +138,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         name="email"
         type="email"
         required
-        className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-[#dd5c6e] outline-none"
+        className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none"
         placeholder="Email"
       />
       <input
@@ -148,7 +148,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         type="password"
         required
         placeholder="Password"
-        className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-[#dd5c6e] outline-none"
+        className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none"
       />
       <input
         value={userInfo.phoneNumber}
@@ -157,7 +157,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         type="text"
         required
         placeholder="Mobile"
-        className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-[#dd5c6e] outline-none"
+        className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none"
       />
       <Combobox
         value={selectedCollege}
@@ -166,12 +166,12 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
           setSelectedCollege(value);
         }}>
         <div className="relative">
-          <div className="relative w-full md:focus-within:border-[#dd5c6e] md:focus:border-[#dd5c6e] md:border-gray-400 border-gray-100 cursor-default overflow-hidden border-b ">
+          <div className="relative w-full md:focus-within:border-[#dd5c6e] md:focus:border-[#dd5c6e] border-gray-400 cursor-default overflow-hidden border-b ">
             <Combobox.Input
               required
               placeholder="College"
               displayValue={(college: { name: string }) => college.name}
-              className="w-full bg-transparent outline-none text-sm md:text-base py-2 pl-2 pr-10 md:text-gray-900 md:placeholder:text-gray-400 text-gray-100 placeholder:text-gray-100 "
+              className="w-full bg-transparent outline-none text-sm md:text-base py-2 pl-2 pr-10 md:text-gray-900 placeholder:text-gray-500 text-black   "
               onChange={(e) => setQuery(e.target.value)}
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -220,8 +220,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         </div>
       )}
       <div className="flex flex-col md:mt-2 mt-5 relative text-center">
-        <hr className="my-3 hidden md:block" />
-        <h4 className="md:absolute top-0.5 md:translate-x-1/2 w-fit md:w-max mx-auto md:bg-white bg-white/20 rounded-full text-white md:text-gray-400 right-1/2 md:px-2 px-3 text-sm">
+        <hr className="my-3  border-white" />
+        <h4 className="absolute top-0.5 translate-x-1/2 w-max mx-auto bg-white rounded-full text-gray-400 right-1/2 md:px-2 px-3 text-sm">
           Already have an account?
         </h4>
         <Button onClick={() => setWhichForm("signIn")} type="button" className="mt-5">
@@ -229,8 +229,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         </Button>
       </div>
       {loading && (
-        <div className="absolute h-full w-full bg-white/40 inset-0 rounded-lg cursor-not-allowed pointer-events-none z-50">
-          <Spinner className="text-sky-600" />
+        <div className="absolute h-full w-full bg-[#f3e9d1] bg-opacity-60 inset-0 rounded-lg cursor-not-allowed pointer-events-none z-50">
+          <Spinner className="text-[#dd5c6e]" />
         </div>
       )}
     </form>

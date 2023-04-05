@@ -60,7 +60,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
           value={userInfo.email}
           id="email"
           onChange={handleChange}
-          className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-[#dd5c6e] outline-none"
+          className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none"
           type="email"
           name="email"
           placeholder="Email"
@@ -70,7 +70,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
           value={userInfo.password}
           id="password"
           onChange={handleChange}
-          className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all md:border-gray-400 border-gray-100 placeholder:text-gray-100 md:placeholder:text-gray-400   md:focus:border-[#dd5c6e] outline-none"
+          className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none"
           type="password"
           name="password"
           placeholder="Password"
@@ -79,7 +79,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
         <button
           onClick={() => setWhichForm("resetPassword")}
           type="button"
-          className="text-sm w-fit -md:mt-1 mb-2 hover:underline md:text-gray-500 text-gray-200  text-start">
+          className="text-sm w-fit -md:mt-1 mb-2 hover:underline text-gray-500   text-start">
           Forgot your password?
         </button>
         <Button
@@ -89,8 +89,8 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
           Login
         </Button>
         {loading && (
-          <div className="absolute h-full w-full bg-white/40 inset-0 rounded-lg cursor-not-allowed pointer-events-none z-50">
-            <Spinner className="text-sky-600" />
+          <div className="absolute h-full w-full bg-[#f3e9d1] bg-opacity-60 inset-0 rounded-lg cursor-not-allowed pointer-events-none z-50">
+            <Spinner className="text-[#dd5c6e]" />
           </div>
         )}
         {error && (
@@ -100,8 +100,8 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
           </div>
         )}
         <div className="flex flex-col md:mt-2 mt-5 relative text-center">
-          <hr className="my-3 hidden md:block" />
-          <h4 className="md:absolute top-0.5 md:translate-x-1/2 w-fit md:w-max mx-auto md:bg-white bg-white/20 rounded-full text-white md:text-gray-400 right-1/2 md:px-2 px-3 text-sm">
+          <hr className="my-3 border-white" />
+          <h4 className="absolute top-0.5 translate-x-1/2 w-max mx-auto bg-white rounded-full text-gray-400 right-1/2 md:px-2 px-3 text-sm">
             New here?
           </h4>
           <Button
