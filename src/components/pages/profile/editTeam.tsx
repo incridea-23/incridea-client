@@ -1,3 +1,4 @@
+import { idToTeamId } from '@/src/utils/id';
 import Button from '@/src/components/button';
 import Modal from '@/src/components/modal';
 import React, { FC, useState } from 'react';
@@ -31,19 +32,9 @@ const EditTeamModal: FC<{
         size={'medium'}
       >
         <div className="w-full p-5">
-          {/* <div className="text-sm">
-           
-            {team.confirmed ? (
-              <h1>Your team is confirmed and ready to dive!</h1>
-            ) : (
-              <h1>Heads up! Your team is not confirmed yet.</h1>
-            )}
-            <p>Team Members: {team.members.length}</p>
-          </div> */}
-
           <div className="text-center">
             <h1 className={`${titleFont.className} text-2xl mb-5`}>
-              T23-0{team.id}
+              {idToTeamId(team.id)}
             </h1>
           </div>
 

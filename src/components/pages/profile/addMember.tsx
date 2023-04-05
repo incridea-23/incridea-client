@@ -1,5 +1,4 @@
 import Button from '../../button';
-import { BiShareAlt } from 'react-icons/bi';
 import { toast } from 'react-hot-toast';
 import { FC, useState } from 'react';
 import { Team } from './userTeams';
