@@ -34,7 +34,7 @@ const AboutCollege: FC = () => {
           height={300}
         />
 
-        <div className="text-white text-lg lg:text-2xl font-bold basis-1/2">
+        <div className="text-white text-lg lg:text-2xl font-bold basis-1/2 my-5">
           Never gonna give you up Never gonna let you down Never gonna run
           around and desert you Never gonna make you cry Never gonna say goodbye
           Never gonna tell a lie and hurt you Never gonna give you up Never
