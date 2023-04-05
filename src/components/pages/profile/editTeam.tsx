@@ -7,6 +7,7 @@ import AddMemberModal from './addMember';
 import { Team } from './userTeams';
 import DeleteTeamModal from './deleteTeam';
 import { titleFont } from '@/src/utils/fonts';
+import Badge from '../../badge';
 
 const EditTeamModal: FC<{
   team: Team;
@@ -24,39 +25,47 @@ const EditTeamModal: FC<{
         <BiEditAlt />
       </Button>
       <Modal
-        title={`Edit ${team.name}`}
+        title={`${team.name}`}
         showModal={showModal}
         onClose={handleCloseModal}
         size={'medium'}
       >
         <div className="w-full p-5">
-          <div className={`${titleFont.className} text-2xl flex items-center gap-2`}>
-            <div>{team.name}</div>
-            {!team.confirmed && team.leaderId == userId && (
-              <DeleteTeamModal teamId={team.id} />
+          {/* <div className="text-sm">
+           
+            {team.confirmed ? (
+              <h1>Your team is confirmed and ready to dive!</h1>
+            ) : (
+              <h1>Heads up! Your team is not confirmed yet.</h1>
             )}
-          </div>
-          <div className="text-sm">
-            <p>Team ID: T23-0{team.id}</p>
-            <p>
-              Confirmation Status:{' '}
-              {team.confirmed ? 'Confirmed' : 'Unconfirmed'}
-            </p>
             <p>Team Members: {team.members.length}</p>
+          </div> */}
+
+          <div className="text-center">
+            <h1 className={`${titleFont.className} text-2xl mb-5`}>
+              T23-0{team.id}
+            </h1>
           </div>
 
-          <hr className="border-gray-300 border-1 my-5" />
-
-          <div className="flex items-center space-x-2">
-            <div className="font-bold">Crewmates</div>
-            {!team.confirmed &&
-              team.members.length < team.event.maxTeamSize && (
-                <AddMemberModal team={team} />
-              )}
+          <div className="hidden md:flex bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-t-lg p-1 items-center justify-between font-bold">
+            <h1 className="py-1 w-full text-center">Name</h1>
+            <h1 className="py-1 w-full text-center">Role</h1>
+            <h1 className="py-1 w-full text-center">Remove</h1>
           </div>
+
           {team?.members?.map((member: any) => (
-            <div className="flex gap-2 items-center my-2" key={member.user.id}>
-              <h1>{member.user.name}</h1>{' '}
+            <div
+              className="flex gap-2 items-center my-2 justify-between bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-2 rounded-sm"
+              key={member.user.id}
+            >
+              <h1 className="w-full text-center">{member.user.name}</h1>{' '}
+              <div className="w-full text-center">
+                <Badge
+                  color={member.user.id == team.leaderId ? 'success' : 'info'}
+                >
+                  {member.user.id == team.leaderId ? 'Leader' : 'Member'}
+                </Badge>
+              </div>
               {!team.confirmed && team.leaderId == userId && (
                 <DeleteTeamMember
                   teamId={team.id}
@@ -67,7 +76,16 @@ const EditTeamModal: FC<{
               )}
             </div>
           ))}
+          <div className="flex justify-center">
+            {!team.confirmed &&
+              team.members.length < team.event.maxTeamSize && (
+                <AddMemberModal team={team} />
+              )}
+          </div>
         </div>
+        {!team.confirmed && team.leaderId == userId && (
+          <DeleteTeamModal teamId={team.id} />
+        )}
       </Modal>
     </>
   );

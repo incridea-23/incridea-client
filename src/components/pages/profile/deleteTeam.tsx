@@ -40,15 +40,17 @@ const DeleteTeamModal: FC<{
 
   return (
     <>
-      <Button
-        size={'small'}
-        onClick={() => {
-          setShowModal(true);
-        }}
-        disabled={deleteTeamLoading}
-      >
-        <BiTrashAlt />
-      </Button>
+      <div className="flex justify-end p-5">
+        <Button
+          onClick={() => {
+            setShowModal(true);
+          }}
+          disabled={deleteTeamLoading}
+        >
+          Delete Team
+          <BiTrashAlt />
+        </Button>
+      </div>
       <Modal
         title={`Are you sure you want to delete the team?`}
         showModal={showModal}

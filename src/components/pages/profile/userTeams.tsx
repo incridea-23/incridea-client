@@ -47,65 +47,69 @@ const UserTeams: FC<{
             <span className="absolute -top-3 -right-3 text-black text-xs bg-white rounded-full px-2 py-1 cursor-pointer">
               T23-0{team.id}
             </span>
-            <QRCodeSVG
-              value={team.id}
-              size={100}
-              className="mb-5"
-              bgColor="transparent"
-            />
 
-            <div
-              className={`${titleFont.className} text-3xl font-bold text-center text-gray-900 flex items-center space-x-2`}
-            >
-              <div>{team.name}</div>
-              {!team.confirmed && team.leaderId == userId && (
-                <EditTeamModal userId={userId} team={team} />
-              )}
+            <div className="basis-1/2">
+              <QRCodeSVG
+                value={team.id}
+                size={100}
+                className="mb-5"
+                bgColor="transparent"
+              />
+
+              <div
+                className={`${titleFont.className} text-3xl font-bold text-center text-gray-900 flex items-center space-x-2`}
+              >
+                <div>{team.name}</div>
+                {!team.confirmed && team.leaderId == userId && (
+                  <EditTeamModal userId={userId} team={team} />
+                )}
+              </div>
+
+              <Link
+                href={`/events/${team.event.name
+                  .toLocaleLowerCase()
+                  .split(' ')
+                  .join('-')}-${team.event.id}`}
+              >
+                <h1 className="text-gray-900 hover:text-gray-300 transition-colors duration-300">
+                  {team.event.name}
+                </h1>
+              </Link>
             </div>
-
-            <Link
-              href={`/events/${team.event.name
-                .toLocaleLowerCase()
-                .split(' ')
-                .join('-')}-${team.event.id}`}
-            >
-              <h1 className="text-gray-900 hover:text-gray-300 transition-colors duration-300">
-                {team.event.name}
-              </h1>
-            </Link>
 
             <hr className="w-full border-white/40 my-3" />
 
-            <div className="w-full">
-              <span className="font-semibold">Members</span>
-              {team?.members?.map((member: any) => (
-                <div
-                  className="flex justify-between items-center"
-                  key={member.user.id}
-                >
-                  <h1>{member.user.name}</h1>
-                </div>
-              ))}
-            </div>
+            <div className='basis-1/2'>
+              <div className="w-full">
+                {team?.members?.map((member: any) => (
+                  <div
+                    className="flex justify-between items-center"
+                    key={member.user.id}
+                  >
+                    <h1>{member.user.name}</h1>
+                  </div>
+                ))}
+              </div>
 
-            <div className="w-full mt-2">
-              {team.confirmed ? (
-                <h1 className="text-xs">
-                  Your team is confirmed and ready to dive!
-                </h1>
-              ) : (
-                <h1 className="text-xs">
-                  Heads up! Your team is not confirmed yet.
-                </h1>
+              <div className="w-full mt-2">
+                {team.confirmed ? (
+                  <h1 className="text-xs">
+                    Your team is confirmed and ready to dive!
+                  </h1>
+                ) : (
+                  <h1 className="text-xs">
+                    Heads up! Your team is not confirmed yet.
+                  </h1>
+                )}
+              </div>
+
+              {!team.confirmed && team.leaderId == userId && (
+                <ConfirmTeamModal
+                  teamId={team.id}
+                  isPaid={team.event.fees !== 0}
+                />
               )}
             </div>
-
-            {!team.confirmed && team.leaderId == userId && (
-              <ConfirmTeamModal
-                teamId={team.id}
-                isPaid={team.event.fees !== 0}
-              />
-            )}
           </motion.div>
         ))}
       </div>

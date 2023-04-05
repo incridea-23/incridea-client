@@ -36,17 +36,12 @@ const ProfileInfo: FC<{
           >
             {user?.name}
           </a>
-          <a className="text-md lg:text-2xl flex items-center gap-5">
-            <FaUniversity />
+          <a className="text-xl lg:text-2xl flex items-center gap-5">
             {user?.college?.name || '-'}
-          </a>
-          <a className="text-md lg:text-2xl flex items-center gap-5">
-            <BsPersonFill />
-            {user?.email.split('@')[0]}
           </a>
 
           <div className="flex flex-col gap-2">
-            <span className='font-semibold'>Contact details</span>
+            <span className="font-bold text-xl">Contact details</span>
             <div className="flex gap-2 items-center">
               <MdOutlineEmail />
               <Link href={`mailto:${user?.email}`} className="hover:underline">

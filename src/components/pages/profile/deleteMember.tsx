@@ -47,15 +47,17 @@ const DeleteTeamMember: FC<{
 
   return (
     <>
-      <Button
-        size={'small'}
-        onClick={() => {
-          setShowModal(true);
-        }}
-        disabled={deleteMemberLoading || !editable}
-      >
-        <BiTrashAlt />
-      </Button>
+      <div className="w-full flex justify-center">
+        <Button
+          size={'small'}
+          onClick={() => {
+            setShowModal(true);
+          }}
+          disabled={deleteMemberLoading || !editable}
+        >
+          <BiTrashAlt />
+        </Button>
+      </div>
       <Modal
         title={`Are you sure you want to remove ${name}?`}
         showModal={showModal}
