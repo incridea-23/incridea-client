@@ -1,15 +1,16 @@
-import { FC, useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import Button from '../button';
-import { AuthStatus } from '@/src/hooks/useAuth';
-import { User } from '@/src/generated/generated';
-import { BiMenuAltRight as MenuIcon } from 'react-icons/bi';
-import { AiOutlineClose as XIcon } from 'react-icons/ai';
-import { Transition } from '@headlessui/react';
-import { titleFont } from '@/src/utils/fonts';
-import CharacterAnimation from '../animation/character';
-import { signOut } from 'next-auth/react';
+
+import { FC, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import Button from "../button";
+import { AuthStatus } from "@/src/hooks/useAuth";
+import { User } from "@/src/generated/generated";
+import { BiMenuAltRight as MenuIcon } from "react-icons/bi";
+import { AiOutlineClose as XIcon } from "react-icons/ai";
+import { Transition } from "@headlessui/react";
+import AuthenticatedButtons from "./authenticatedButtons";
+import { titleFont } from "@/src/utils/fonts";
+import CharacterAnimation from "../animation/character";
 
 const Navbar: FC<{
   status: AuthStatus;
@@ -114,7 +115,12 @@ const AuthButtons: FC<{
 }> = ({ status, user, className }) => {
   return (
     <div className={`flex space-x-2 px-3 lg:px-0 ${className}`}>
-      {status === 'authenticated' && (
+
+      {status === "authenticated" && (
+        <AuthenticatedButtons user={user} status={status} />
+      )}
+      {status === "unauthenticated" && (
+
         <>
           <Link href="/profile">
             <Button>Profile</Button>
