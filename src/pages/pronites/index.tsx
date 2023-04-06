@@ -34,34 +34,34 @@ const Pronite: NextPage = () => {
               </h2>
             </motion.div>
           </div>
-          <div className="snap-start  min-w-full h-screen place-items-center   w-screen">
+          <div className="snap-start min-w-full h-screen place-items-center w-screen">
             <Image
-              className="  h-screen w-screen "
+              className="relative h-screen w-screen -bottom-10 sm:bottom-0"
               src="/assets/svg/proBro.svg"
               width={100}
               height={1000}
               alt="proBro"
             />
           </div>
-          <div className="snap-start  min-w-full h-screen place-items-center   w-screen">
+          <div className="snap-start min-w-full h-screen place-items-center w-screen">
             <Image
-              className="h-screen w-screen"
+              className="relative h-screen w-screen -bottom-10 sm:bottom-0"
               src="/assets/svg/women.svg"
               width={1000}
               height={1000}
               alt="women"
             />
           </div>
-          <div className="snap-start  min-w-full h-screen place-items-center   w-screen">
+          <div className="snap-start min-w-full h-screen place-items-center w-screen">
             <Image
-              className="h-screen w-screen"
+              className="relative h-screen w-screen -bottom-10 sm:bottom-0"
               src="/assets/svg/raghav.svg"
               width={1000}
               height={1000}
               alt="raghav"
             />
           </div>
-          <div className="snap-start  min-w-full h-screen place-items-center   w-screen">
+          <div className="snap-start  min-w-full h-screen place-items-center w-screen">
             <Image
               className="h-screen w-screen"
               src="/assets/svg/iboard.svg"
@@ -70,8 +70,8 @@ const Pronite: NextPage = () => {
               alt="rules"
             />
           </div>
-          <div className="snap-start  min-w-full h-screen place-items-center  w-screen">
-            <ProniteFooter className="h-screen w-screen"/>
+          <div className="snap-start min-w-full h-screen place-items-center w-screen">
+            <ProniteFooter className="relative h-screen w-screen -bottom-16 sm:bottom-0"/>
             {/* <Image
               className="h-screen w-screen"
               src="/assets/svg/dboard.svg"
