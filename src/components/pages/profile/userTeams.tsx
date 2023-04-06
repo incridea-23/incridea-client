@@ -36,7 +36,7 @@ const UserTeams: FC<{
       <h1
         className={`${titleFont.className} text-2xl lg:text-4xl font-bold text-center text-white flex justify-center lg:max-w-full md:max-w-full max-w-sm`}
       >
-        Your squad beneath the waves
+        Set sail with your Squad
       </h1>
       <div className="flex gap-5 flex-wrap items-stretch justify-center mt-5">
         {teams?.map((team: Team) => (
@@ -80,7 +80,7 @@ const UserTeams: FC<{
 
             <hr className="w-full border-white/40 my-3" />
 
-            <div className='basis-1/2'>
+            <div className="basis-1/2">
               <div className="w-full">
                 {team?.members?.map((member: any) => (
                   <div
