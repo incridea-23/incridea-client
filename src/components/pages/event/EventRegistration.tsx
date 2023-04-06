@@ -6,12 +6,19 @@ import {
   CreateTeamDocument,
   Event,
   JoinTeamDocument,
-  User,
+  MyTeamDocument,
+  QueryMyTeamSuccess,
 } from "@/src/generated/generated";
 import Modal from "../../modal";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import event from "@/src/pages/event/[slug]";
 import createToast from "../../toast";
+import { QRCodeSVG } from "qrcode.react";
+import { idToTeamId } from "@/src/utils/id";
+import EditTeamModal from "../profile/editTeam";
+import ConfirmTeamModal from "../profile/confirmTeam";
+import { titleFont } from "@/src/utils/fonts";
+import { Team } from "../profile/userTeams";
 
 function EventRegistration({
   eventId,
@@ -31,7 +38,12 @@ function EventRegistration({
           <Button intent={"primary"}>Login to Register</Button>
         </Link>
       ) : (
-        <EventRegistrationButton eventId={eventId} type={type} fees={fees} />
+        <EventRegistrationButton
+          userId={user.id}
+          eventId={eventId}
+          type={type}
+          fees={fees}
+        />
       )}
     </div>
   );
@@ -43,19 +55,36 @@ function EventRegistrationButton({
   eventId,
   type,
   fees,
+  userId,
 }: {
   eventId: Event["id"];
   type: Event["eventType"];
   fees: Event["fees"];
+  userId: string;
 }) {
-  if (type === "INDIVIDUAL" || type === "INDIVIDUAL_MULTIPLE_ENTRY") {
-    if (fees === 0) {
-      return <Button intent={"primary"}>Register Now</Button>;
-    } else {
-      return <Button intent={"primary"}>Pay and Register</Button>;
-    }
+  const { loading, data, error } = useQuery(MyTeamDocument, {
+    variables: {
+      eventId: eventId,
+    },
+  });
+  if (loading) return null;
+  if (data?.myTeam.__typename === "QueryMyTeamSuccess" && data.myTeam.data) {
+    return (
+      <TeamCard
+        userId={userId}
+        team={data.myTeam.data as QueryMyTeamSuccess["data"]}
+      />
+    );
   } else {
-    return <CreateTeamJoinTeam eventId={eventId} />;
+    if (type === "INDIVIDUAL" || type === "INDIVIDUAL_MULTIPLE_ENTRY") {
+      if (fees === 0) {
+        return <Button intent={"primary"}>Register Now</Button>;
+      } else {
+        return <Button intent={"primary"}>Pay and Register</Button>;
+      }
+    } else {
+      return <CreateTeamJoinTeam eventId={eventId} />;
+    }
   }
 }
 
@@ -169,5 +198,85 @@ const JoinTeamModal = () => {
         </div>
       </Modal>
     </>
+  );
+};
+
+const TeamCard = ({
+  team,
+  userId,
+}: {
+  team: QueryMyTeamSuccess["data"];
+  userId: string;
+}) => {
+  return (
+    <div className="relative flex flex-col items-start justify-center my-4 bg-white/20 rounded-sm  max-w-2xl w-[300px] p-5 ">
+      <div className="flex gap-5 flex-wrap">
+        <div className="p-3 text-center  bg-white/70 mx-auto">
+          <QRCodeSVG
+            value={idToTeamId(team.id)}
+            size={100}
+            className="mb-1"
+            bgColor="transparent"
+          />
+          <div className="text-black">{idToTeamId(team.id)}</div>
+        </div>
+        <div>
+          <div
+            className={`${titleFont.className} w-fit text-2xl font-bold  justify-center  text-center text-gray-900 space-x-2`}>
+            {team.name}
+          </div>
+          {Number(userId) === team.leaderId && (
+            // TODO: Add Edit and Delete Team
+            <div className="flex gap-2">
+              <Button
+                intent="primary"
+                className="text-xs"
+                onClick={() => {
+                  console.log("clicked");
+                }}>
+                Edit Team
+              </Button>
+              <Button
+                intent="danger"
+                className="text-xs"
+                onClick={() => {
+                  console.log("clicked");
+                }}>
+                Delete Team
+              </Button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <hr className="w-full border-white/40 my-3" />
+
+      <div className="basis-1/2">
+        <div className="w-full">
+          {team?.members?.map((member: any) => (
+            <div
+              className="flex justify-between items-center"
+              key={member.user.id}>
+              <h1>{member.user.name}</h1>
+            </div>
+          ))}
+        </div>
+
+        <div className="w-full mt-2">
+          {team.confirmed ? (
+            <h1 className="text-xs">
+              Your team is confirmed and ready to dive!
+            </h1>
+          ) : (
+            <h1 className="text-xs">
+              Heads up! Your team is not confirmed yet.
+            </h1>
+          )}
+        </div>
+        {
+          // TODO: Confirm / Pay & Confirm
+        }
+      </div>
+    </div>
   );
 };

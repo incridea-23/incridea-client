@@ -1,4 +1,4 @@
-query MyQuery($eventId: ID!) {
+query MyTeam($eventId: ID!) {
   myTeam(eventId: $eventId) {
     ... on Error {
       __typename

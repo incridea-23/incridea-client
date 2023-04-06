@@ -134,6 +134,7 @@ function event({ event }: { event: Event }) {
             eventId={event.id}
             type={event.eventType}
           />
+
           <div className="w-full">
             <h2 className={`${titleFont.className} mb-2 text-2xl`}>
               Organizers
