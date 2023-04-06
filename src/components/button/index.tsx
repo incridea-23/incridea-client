@@ -82,7 +82,7 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <motion.button
-      whileHover={noScaleOnHover ? undefined : { scale: 1.05 }}
+      whileHover={noScaleOnHover ? {scale: 1} : { scale: 1.05 }}
       whileTap={{ scale: 0.9 }}
       className={`${className} ${buttonStyles({
         intent,
