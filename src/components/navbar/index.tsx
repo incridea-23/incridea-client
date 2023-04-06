@@ -119,24 +119,9 @@ const AuthButtons: FC<{
       {status === "authenticated" && (
         <AuthenticatedButtons user={user} status={status} />
       )}
-      {status === "unauthenticated" && (
-
-        <>
-          <Link href="/profile">
-            <Button>Profile</Button>
-          </Link>
-          {user.role !== 'USER' && user.role !== 'PARTICIPANT' && (
-            <Link
-              href={`/dashboard/${user.role.replace('_', '').toLowerCase()}`}
-            >
-              <Button intent="ghost">Dashboard</Button>
-            </Link>
-          )}
-        </>
-      )}
       {status === 'unauthenticated' && (
         <Link href={"/login?whichForm=signUp"} as="/login">
-          <Button intent={'primary'}>Login / Register</Button>
+          <Button intent={'primary'}>Login / Sign Up</Button>
         </Link>
       )}
     </div>

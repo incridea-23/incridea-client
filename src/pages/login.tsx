@@ -30,7 +30,7 @@ const SignIn: NextPage = () => {
         </div>
         <div
           className={`shrink-0 md:w-[50vw] w-screen flex items-center justify-center bg-[#f3e9d1] text-[#6f5925] `}>
-          <div className="md:max-w-sm flex flex-col h-full min-h-screen">
+          <div className="md:max-w-md flex flex-col h-full min-h-screen">
             <div className="p-6 md:py-10 grow">
               {whichForm === "signIn" ? (
                 <SignInForm setWhichForm={setWhichForm} />
