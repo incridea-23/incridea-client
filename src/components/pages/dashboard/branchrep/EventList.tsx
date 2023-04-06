@@ -94,6 +94,7 @@ const EventList: FC<{
             </div>
           </div>
         ))}
+        {events?.eventsByBranchRep.length === 0 && <div className='text-center bg-white/10 rounded-md md:rounded-t-none p-10 text-xl text-gray-300 italic'>no events found</div>}
       </div>
     </>
   );
