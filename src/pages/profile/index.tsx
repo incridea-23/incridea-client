@@ -6,6 +6,8 @@ import { useRef } from 'react';
 import ProfileInfo from '@/src/components/pages/profile/profileInfo';
 import UserEvents from '@/src/components/pages/profile/registeredEvents';
 import { Toaster } from 'react-hot-toast';
+import Link from 'next/link';
+import Button from '@/src/components/button';
 import Image from 'next/image';
 
 const Profile: NextPage = () => {
@@ -17,7 +19,20 @@ const Profile: NextPage = () => {
       <div className="flex items-center justify-center h-screen bg-gradient-to-b from-[#5CA3AD]  via-[#1a6779] to-[#0e4450]">
         <h1 className="text-2xl font-bold text-white">Loading...</h1>
       </div>
-    ); // Loading page here
+    ); // Todo: Loading page here
+
+  if (!user)
+    return (
+      <div className="flex flex-col text-center space-y-3 items-center justify-center h-screen bg-gradient-to-b from-[#5CA3AD]  via-[#1a6779] to-[#0e4450]">
+        {/* Todo: Any graphic to fill space */}
+        <h1 className="lg:text-2xl text-lg font-bold text-white">
+          Hey there! You need to login to view this page.
+        </h1>
+        <Link href="/login">
+          <Button intent={'primary'}>Login / Register</Button>
+        </Link>
+      </div>
+    );
 
   if (error)
     return (
