@@ -16,46 +16,38 @@ const SignIn: NextPage = () => {
   >(query.whichForm || "signIn");
 
   return (
-    <div className="min-h-screen min-w-screen bg-cover bg-gradient-to-bl from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
+    <div className="min-h-screen overflow-x-hidden min-w-screen bg-[#f3e9d1]">
       <div
-        className={`hidden md:block w-[100vh] fixed top-1/2 -translate-y-1/2 transition-transform duration-500 -rotate-90 left-[47%] ${
-          whichForm === "signUp" ? "-translate-x-[110%]" : "-translate-x-1/2"
+        className={`w-screen transition-transform duration-500 flex ${
+          whichForm === "signUp" ? "md:translate-x-0" : "md:-translate-x-[50vw]"
         }`}>
-        <img src={"/wave.svg"} className="w-[100vh]" />
-      </div>
-      <div
-        className={`hidden md:block w-[100vh]  fixed top-1/2 -translate-y-1/2 transition-transform duration-500 rotate-90 right-[47%] ${
-          whichForm !== "signUp" ? "translate-x-[110%]" : "translate-x-1/2"
-        }`}>
-        <img src={"/wave.svg"} className="w-[100vh]" />
-      </div>
-      <div className="flex w-screen h-screen">
-        <div
-          className={`hidden basis-1/2 p-6 md:flex items-center transition-transform duration-500 justify-center text-white font-bold text-2xl ${
-            whichForm === "signUp" && "md:translate-x-full"
-          }`}>
-          {whichForm === "signUp" ? (
-            <div className={`${titleFont.className} pl-12`}>
-              Signup text/mascot
-            </div>
-          ) : (
-            <div className={`${titleFont.className} pr-12`}>
-              Signin text/mascot
-            </div>
-          )}
+        <div className="hidden md:flex h-full grow">
+          <div
+            className={`${titleFont.className} text-center w-[50vw] items-center justify-center text-white/70 flex bg-gradient-to-r to-[#3baee7] from-[#144f6d] `}>
+            <p className="text-2xl -rotate-90">The adventure ahead awaits!</p>
+          </div>
+          <img src={"/login-wave.png"} className="h-screen" />
         </div>
         <div
-          className={`md:basis-1/2 basis-full flex items-center justify-center overflow-auto md:bg-white text-white md:text-black p-6 transition-transform duration-500 ${
-            whichForm === "signUp" && "md:-translate-x-full"
-          }`}>
-          <div className="max-w-sm ">
-            {whichForm === "signIn" ? (
-              <SignInForm setWhichForm={setWhichForm} />
-            ) : whichForm === "resetPassword" ? (
-              <ResetPasswordForm setWhichForm={setWhichForm} />
-            ) : (
-              <SignUpForm setWhichForm={setWhichForm} />
-            )}
+          className={`shrink-0 md:w-[50vw] w-screen flex items-center justify-center bg-[#f3e9d1] text-[#6f5925] `}>
+          <div className="md:max-w-sm flex flex-col h-full min-h-screen">
+            <div className="p-6 md:py-10 grow">
+              {whichForm === "signIn" ? (
+                <SignInForm setWhichForm={setWhichForm} />
+              ) : whichForm === "resetPassword" ? (
+                <ResetPasswordForm setWhichForm={setWhichForm} />
+              ) : (
+                <SignUpForm setWhichForm={setWhichForm} />
+              )}
+            </div>
+            <img src={"/login-wave.svg"} className="md:hidden block" />
+          </div>
+        </div>
+        <div className="hidden md:flex grow">
+          <img src={"/login-wave.png"} className="rotate-180 h-screen" />
+          <div
+            className={`${titleFont.className} text-center text-white/70 w-[50vw] items-center justify-center flex bg-gradient-to-l to-[#3baee7] from-[#144f6d]`}>
+            <p className="text-2xl rotate-90">Conquer the depths of the ocean!</p>
           </div>
         </div>
       </div>
