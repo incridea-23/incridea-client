@@ -70,7 +70,7 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
               placeholder="Email"
             />
             <Button type="submit">Send Reset Link</Button>
-            <Button onClick={() => setWhichForm("signIn")}>
+            <Button intent={'ghost'} onClick={() => setWhichForm("signIn")}>
               <FaAngleLeft /> Go Back
             </Button>
             {loading && (

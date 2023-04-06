@@ -40,6 +40,7 @@ const Hero: React.FC = () => {
         width={1000}
         height={1000}
         alt="flare"
+        priority
       />
       {/* 2. Background Animation */}
       <motion.div

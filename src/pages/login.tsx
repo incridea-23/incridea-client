@@ -7,11 +7,13 @@ import { useState } from "react";
 import { titleFont } from "../utils/fonts";
 
 const SignIn: NextPage = () => {
-  const { query }: { query: { whichForm?: "signIn" | "resetPassword" | "signUp" } } =
+  const {
+    query,
+  }: { query: { whichForm?: "signIn" | "resetPassword" | "signUp" } } =
     useRouter();
-  const [whichForm, setWhichForm] = useState<"signIn" | "resetPassword" | "signUp">(
-    query.whichForm || "signIn"
-  );
+  const [whichForm, setWhichForm] = useState<
+    "signIn" | "resetPassword" | "signUp"
+  >(query.whichForm || "signIn");
 
   return (
     <div className="min-h-screen overflow-x-hidden min-w-screen bg-[#f3e9d1]">

@@ -107,7 +107,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
           <Button
             onClick={() => setWhichForm("signUp")}
             type="button"
-            intent={'primary'}
+            intent={'ghost'}
             className='mt-5'
             >
             Sign up instead

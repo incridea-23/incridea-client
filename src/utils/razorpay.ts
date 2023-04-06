@@ -15,10 +15,11 @@ export const initializeRazorpay = () => {
   });
 };
 
-export const makePayment = async () => {
+export const makePayment = async (setSDKLoading ?: (arg1: any) => void ) => {
   console.log("here...");
+  setSDKLoading && setSDKLoading(true)
   const res = await initializeRazorpay();
-
+  
   if (!res) {
     alert("Razorpay SDK Failed to load");
   }
@@ -50,4 +51,5 @@ export const makePayment = async () => {
     alert("Something went wrong");
     console.log(data);
   }
+  setSDKLoading && setSDKLoading(false)
 };
