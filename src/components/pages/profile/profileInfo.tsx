@@ -6,10 +6,12 @@ import Link from 'next/link';
 import { QRCodeSVG } from 'qrcode.react';
 import { FC } from 'react';
 import { BsPersonFill } from 'react-icons/bs';
-import { FaUniversity } from 'react-icons/fa';
+import { FaSignOutAlt, FaUniversity } from 'react-icons/fa';
 import { MdOutlineEmail, MdPhone } from 'react-icons/md';
 import TextAnimation from '../../animation/text';
 import { idToPid } from '@/src/utils/id';
+import Button from '../../button';
+import { signOut } from 'next-auth/react';
 
 const ProfileInfo: FC<{
   user: User | null | undefined;
@@ -58,6 +60,10 @@ const ProfileInfo: FC<{
                 {user?.phoneNumber}
               </Link>
             </div>
+            <Button noScaleOnHover onClick={() => signOut()} className='mt-2'>
+              <FaSignOutAlt className="inline-block mr-1" />
+              Sign Out
+            </Button>
           </div>
         </div>
 
