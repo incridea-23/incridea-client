@@ -7,7 +7,7 @@ import { AiOutlineEye } from 'react-icons/ai';
 import Modal from '@/src/components/modal';
 import { IoCashOutline, IoCreateOutline, IoInformationOutline, IoLocationOutline, IoPeopleOutline, IoPersonOutline } from 'react-icons/io5';
 import draftToHtml from 'draftjs-to-html';
-import EditEventModal from '../organizer/EditEventModal';
+import EditEventModal from './EditEvent';
 import TeamModal from './TeamModal';
 
 const VieweventModal: FC<{

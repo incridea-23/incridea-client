@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
   EventByOrganizerQuery,
-  EventsQuery,
   UpdateEventDocument,
 } from '@/src/generated/generated';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
@@ -21,20 +20,17 @@ const Editor = dynamic(
   { ssr: false }
 );
 export default function EditEventModal({
-  Event,
+  event,
 }: {
-  Event: EventsQuery['events']['edges'][0];
+  event: EventByOrganizerQuery['eventByOrganizer'][0];
 }) {
-
-  const event = Event?.node 
-
-  const [maxTeams, setMaxTeams] = useState(event?.maxTeams);
-  const [name, setName] = useState(event?.name);
-  const [eventType, setEventType] = useState(event?.eventType);
-  const [maxTeamSize, setMaxTeamSize] = useState(event?.maxTeamSize);
-  const [minTeamSize, setMinTeamSize] = useState(event?.minTeamSize);
-  const [venue, setVenue] = useState(event?.venue);
-  const [fees, setFees] = useState(event?.fees);
+  const [maxTeams, setMaxTeams] = useState(event.maxTeams);
+  const [name, setName] = useState(event.name);
+  const [eventType, setEventType] = useState(event.eventType);
+  const [maxTeamSize, setMaxTeamSize] = useState(event.maxTeamSize);
+  const [minTeamSize, setMinTeamSize] = useState(event.minTeamSize);
+  const [venue, setVenue] = useState(event.venue);
+  const [fees, setFees] = useState(event.fees);
   const [showModal, setShowModal] = useState(false);
 
   function handleCloseModal() {
@@ -47,14 +43,14 @@ export default function EditEventModal({
   const [updateEvent, { data, loading, error }] = useMutation(
     UpdateEventDocument,
     {
-      refetchQueries: ['Events'],
+      refetchQueries: ['EventByOrganizer'],
     }
   );
   function saveHandler() {
     setShowModal(false);
     let promise = updateEvent({
       variables: {
-        id: event?.id ? event?.id : '',
+        id: event.id,
         maxTeams,
         name,
         maxTeamSize,
@@ -75,7 +71,7 @@ export default function EditEventModal({
   }
 
   useEffect(() => {
-    const description = event?.description;
+    const { description } = event;
     try {
       const editorState = JSON.parse(description as string) as any;
       setEditorState(
@@ -97,9 +93,9 @@ export default function EditEventModal({
       <Button
         onClick={() => setShowModal(true)}
         intent="secondary"
-        disabled={event?.published}
+        disabled={event.published}
         className={
-          event?.published
+          event.published
             ? 'opacity-50 pointer-events-none cursor-not-allowed'
             : ''
         }
@@ -200,7 +196,7 @@ export default function EditEventModal({
                   value={fees}
                   className=" border w-full  text-sm rounded-lg   block  p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
                   placeholder="Entry Fees..."
-                  defaultValue={event?.fees}
+                  defaultValue={event.fees}
                 />
               </div>
               {(eventType === EventType.Team ||
