@@ -16,6 +16,7 @@ import {
   IoPeopleOutline,
   IoPersonOutline,
 } from "react-icons/io5";
+import { generateEventUrl } from "@/src/utils/url";
 
 const Event = ({
   data,
@@ -118,12 +119,7 @@ const Event = ({
           )}
         </div>
         <Button noScaleOnHover className="hover:scale-0 shrink-0 mt-2">
-          <Link
-            href={`/event/${data.name.toLowerCase().replaceAll(" ", "-")}-${
-              data.id
-            }`}>
-            Register
-          </Link>
+          <Link href={generateEventUrl(data.name, data.id)}>Register</Link>
         </Button>
       </motion.div>
     </AnimatePresence>

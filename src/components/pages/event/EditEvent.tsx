@@ -24,7 +24,7 @@ const EditTeamModal: FC<{
     <>
       <Button
         onClick={() => setShowModal(true)}
-        intent={"primary"}
+        intent={"dark"}
         size={"medium"}>
         <BiEditAlt />
       </Button>

@@ -21,6 +21,10 @@ import ConfirmTeamModal from "../profile/confirmTeam";
 import { titleFont } from "@/src/utils/fonts";
 import EditTeamModal from "./EditEvent";
 import { makeTeamPayment } from "@/src/utils/razorpay";
+import { BsWhatsapp } from "react-icons/bs";
+import { AiOutlineCopy } from "react-icons/ai";
+import toast from "react-hot-toast";
+import { generateEventUrl } from "@/src/utils/url";
 
 function EventRegistration({
   eventId,
@@ -299,10 +303,20 @@ const TeamCard = ({
 }) => {
   console.log(team);
   const [sdkLoading, setSdkLoading] = useState(false);
+  const url = `Join my team for ${
+    team.event.name
+  } event at Incridea 2023! Here's the link: https://incridea.in${generateEventUrl(
+    team.event.name,
+    team.event.id
+  )}?jointeam=${team.id}`;
+  const copyUrl = async () => {
+    await navigator.clipboard.writeText(url);
+    toast.success("Copied to clipboard!");
+  };
   return (
     <div className="relative flex flex-col items-start justify-center my-4 bg-white/20 rounded-sm  max-w-2xl w-[300px] p-5 ">
-      <div className="">
-        <div className="flex items-center justify-center ">
+      <div className="w-full">
+        <div className="flex items-center mb-2 justify-center ">
           {team.event.eventType === "INDIVIDUAL" ||
           team.event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY" ? (
             team.confirmed && (
@@ -329,18 +343,19 @@ const TeamCard = ({
           )}
         </div>
         <div>
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center w-full">
             {!(
               team.event.eventType === "INDIVIDUAL" ||
               team.event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY"
             ) && (
               <div
                 className={`${titleFont.className} w-fit text-2xl font-bold  justify-center  text-center space-x-2`}>
-                <span className="text-gray-200">team-</span>
+                <span>team-</span>
                 {team.name}
               </div>
             )}
             {Number(userId) === team.leaderId &&
+              !team.confirmed &&
               !(
                 team.event.eventType === "INDIVIDUAL" ||
                 team.event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY"
@@ -404,9 +419,37 @@ const TeamCard = ({
             </h1>
           )}
         </div>
-        {
-          // TODO: Confirm / Pay & Confirm
-        }
+        <div className="p-5 text-center flex flex-col justify-center">
+          <p className="text-xs">
+            Share this link with your friends to add them to your team!
+          </p>
+          <div className="flex items-center justify-evenly mt-2">
+            <input
+              type="url"
+              className="bg-white bg-opacity-20 rounded-lg text-sm p-2"
+              value={url}
+            />
+            <AiOutlineCopy
+              onClick={copyUrl}
+              size={20}
+              className="cursor-pointer hover:text-gray-400"
+            />
+          </div>
+
+          <div className="flex items-center py-2">
+            <div className="flex-grow h-px bg-gray-600"></div>
+            <span className="flex-shrink text-sm px-4 italic font-light">
+              or
+            </span>
+            <div className="flex-grow h-px bg-gray-600"></div>
+          </div>
+
+          <Link
+            href={`https://wa.me/?text=${encodeURIComponent(url)}`}
+            className="flex items-center justify-center gap-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg p-2 cursor-pointer text-sm">
+            <BsWhatsapp /> Share on WhatsApp
+          </Link>
+        </div>
       </div>
     </div>
   );

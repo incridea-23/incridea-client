@@ -6,6 +6,7 @@ import { AiOutlineCopy, AiOutlineUserAdd } from "react-icons/ai";
 import { BsWhatsapp } from "react-icons/bs";
 import Link from "next/link";
 import { QueryMyTeamSuccess } from "@/src/generated/generated";
+import { generateEventUrl } from "@/src/utils/url";
 
 const AddMemberModal: FC<{
   team: QueryMyTeamSuccess["data"];
@@ -15,8 +16,12 @@ const AddMemberModal: FC<{
     setShowModal(false);
   };
 
-  const url = `Join my team for ${team.event.name} event at Incridea 2023! Here's the link: https://incridea.in/event/slug?jointeam=${team.id}`;
-
+  const url = `Join my team for ${
+    team.event.name
+  } event at Incridea 2023! Here's the link: https://incridea.in${generateEventUrl(
+    team.event.name,
+    team.event.id
+  )}?jointeam=${team.id}`;
   const copyUrl = async () => {
     await navigator.clipboard.writeText(url);
     toast.success("Copied to clipboard!");
