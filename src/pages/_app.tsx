@@ -6,7 +6,8 @@ import HeadComponent from "../components/head";
 import { bodyFont } from "../utils/fonts";
 import { useState } from "react";
 import Footer from "../components/footer";
-import Navbar from "../components/navbar";
+import dynamic from "next/dynamic";
+const Navbar = dynamic(() => import("../components/navbar"), { ssr: false });
 
 export default function App({
   Component,

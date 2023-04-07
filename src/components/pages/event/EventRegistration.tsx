@@ -1,6 +1,6 @@
 import { useAuth } from "@/src/hooks/useAuth";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../button";
 import {
   CreateTeamDocument,
@@ -15,12 +15,11 @@ import { useMutation, useQuery } from "@apollo/client";
 
 import createToast from "../../toast";
 import { QRCodeSVG } from "qrcode.react";
-import { idToPid, idToTeamId } from "@/src/utils/id";
+import { idToPid, idToTeamId, teamIdToId } from "@/src/utils/id";
 
 import ConfirmTeamModal from "../profile/confirmTeam";
 import { titleFont } from "@/src/utils/fonts";
 import EditTeamModal from "./EditEvent";
-import DeleteTeamModal from "../profile/deleteTeam";
 import { makeTeamPayment } from "@/src/utils/razorpay";
 
 function EventRegistration({
@@ -152,6 +151,7 @@ const CreateTeamModal = ({ eventId }: { eventId: Event["id"] }) => {
       refetchQueries: ["MyTeam"],
     }
   );
+
   const [name, setName] = useState("");
   const handleCreateTeam = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -164,7 +164,6 @@ const CreateTeamModal = ({ eventId }: { eventId: Event["id"] }) => {
     }).then((res) => {
       if (res.data?.createTeam.__typename === "Error") {
         setError(res.data.createTeam.message);
-        throw new Error(res.data.createTeam.message);
       } else setOpen(false);
     });
     await createToast(promise, "Creating Team");
@@ -179,7 +178,10 @@ const CreateTeamModal = ({ eventId }: { eventId: Event["id"] }) => {
         Create Team
       </Button>
       <Modal
-        onClose={() => setOpen(false)}
+        onClose={() => {
+          setOpen(false);
+          setError("");
+        }}
         showModal={open}
         size="small"
         title="Create Team"
@@ -224,12 +226,14 @@ const JoinTeamModal = () => {
     e.preventDefault();
     const promise = joinTeam({
       variables: {
-        teamId: teamId,
+        teamId: teamIdToId(teamId),
       },
     }).then((res) => {
       if (res.data?.joinTeam.__typename === "Error") {
         setError(res.data.joinTeam.message);
-        throw new Error(res.data.joinTeam.message);
+      } else {
+        setError("");
+        setOpen(false);
       }
     });
     await createToast(promise, "Joining Team");
@@ -239,6 +243,7 @@ const JoinTeamModal = () => {
     <>
       <Button
         className="w-full"
+        disabled={loading}
         onClick={() => setOpen(true)}
         intent={"primary"}>
         Join Team
@@ -247,7 +252,7 @@ const JoinTeamModal = () => {
         onClose={() => setOpen(false)}
         showModal={open}
         size="small"
-        title="Create Team"
+        title="Join Team"
         rounded="md">
         <form
           onSubmit={handleJoinTeam}
@@ -262,11 +267,12 @@ const JoinTeamModal = () => {
               onChange={(e) => setTeamId(e.target.value)}
               name="teamName"
               id="teamName"
+              placeholder="T23-10902"
               required
               className="w-full bg-gray-800 rounded-sm px-2 py-1 focus:outline-none focus:ring ring-gray-500"
             />
           </div>
-          <Button type="submit" intent="success">
+          <Button disabled={loading} type="submit" intent="success">
             Join Team
           </Button>
           {error && (
@@ -291,6 +297,7 @@ const TeamCard = ({
   name: string;
   email: string;
 }) => {
+  console.log(team);
   const [sdkLoading, setSdkLoading] = useState(false);
   return (
     <div className="relative flex flex-col items-start justify-center my-4 bg-white/20 rounded-sm  max-w-2xl w-[300px] p-5 ">
@@ -329,7 +336,8 @@ const TeamCard = ({
             ) && (
               <div
                 className={`${titleFont.className} w-fit text-2xl font-bold  justify-center  text-center space-x-2`}>
-                TEAM-{team.name}
+                <span className="text-gray-200">team-</span>
+                {team.name}
               </div>
             )}
             {Number(userId) === team.leaderId &&
@@ -338,13 +346,15 @@ const TeamCard = ({
                 team.event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY"
               ) && <EditTeamModal team={team} userId={userId} />}
           </div>
-          <span className="text-xs">
-            almost there! pay {team.event.fees} to confirm your{" "}
-            {team.event.eventType === "INDIVIDUAL" ||
-            team.event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY"
-              ? "entry"
-              : "team"}
-          </span>
+          {!team.confirmed && (
+            <span className="text-xs">
+              almost there! pay {team.event.fees} to confirm your{" "}
+              {team.event.eventType === "INDIVIDUAL" ||
+              team.event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY"
+                ? "entry"
+                : "team"}
+            </span>
+          )}
           {team.event.fees > 0 && !team.confirmed && (
             <Button
               fullWidth

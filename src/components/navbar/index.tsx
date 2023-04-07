@@ -10,6 +10,7 @@ import { Transition } from "@headlessui/react";
 import AuthenticatedButtons from "./authenticatedButtons";
 import { titleFont } from "@/src/utils/fonts";
 import CharacterAnimation from "../animation/character";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
   const links = [
@@ -19,9 +20,9 @@ const Navbar = () => {
     { label: "Gallery", url: "/gallery" },
     { label: "About", url: "/about" },
   ];
-  const { status, user, error, loading } = useAuth();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -55,11 +56,9 @@ const Navbar = () => {
               </Link>
             ))}
           </div>
-          <AuthButtons
-            className="hidden lg:flex"
-            status={status}
-            user={user!}
-          />
+          {!(router.pathname === "/login") && (
+            <AuthButtons className="hidden lg:flex" />
+          )}
           <div className="flex items-center space-x-4 lg:hidden">
             {isMenuOpen ? (
               <XIcon
@@ -92,7 +91,7 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
-          <AuthButtons className="mb-2" status={status} user={user!} />
+          {!(router.pathname === "/login") && <AuthButtons className="mb-2" />}
         </Transition>
       </div>
     </nav>
@@ -100,10 +99,9 @@ const Navbar = () => {
 };
 
 const AuthButtons: FC<{
-  status: AuthStatus;
-  user: User;
   className?: string;
-}> = ({ status, user, className }) => {
+}> = ({ className }) => {
+  const { status, user, error, loading } = useAuth();
   return (
     <div className={`flex space-x-2 px-3 lg:px-0 ${className}`}>
       {status === "authenticated" && <AuthenticatedButtons user={user} />}
