@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC,useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { EventsDocument } from '@/src/generated/generated';
 import { BranchesDocument } from '@/src/generated/generated';
@@ -11,11 +11,12 @@ import CollegesModal from './CollegesModal';
 import RoundsDone from './RoundsDone';
 import Badge from '@/src/components/badge';
 import ViewEvent from './ViewEventModal';
+import EditEvent from './EditEvent';
 
 const AdminTab: FC<{
     AdminId: string;
   }> = ({ AdminId }) => {
-    const first:number = 10;
+    const [first, setFirst] = useState<number>(10);
   const {
     data: branches,
     loading: branchesLoading,

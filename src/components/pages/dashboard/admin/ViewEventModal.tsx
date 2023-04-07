@@ -7,12 +7,12 @@ import { AiOutlineEye } from 'react-icons/ai';
 import Modal from '@/src/components/modal';
 import { IoCashOutline, IoCreateOutline, IoInformationOutline, IoLocationOutline, IoPeopleOutline, IoPersonOutline } from 'react-icons/io5';
 import draftToHtml from 'draftjs-to-html';
+import EditEventModal from '../organizer/EditEventModal';
 
 const VieweventModal: FC<{
   Event: EventsQuery['events']['edges'][0];
-    }> = ( { Event } ) => {
-    
-    const event = Event?.node;
+    }> = ( Event ) => {
+    const event = Event?.Event?.node;
 
     const [showModal, setShowModal] = useState(false);
     const markup = draftToHtml(JSON.parse(event?.description as string));
@@ -92,7 +92,12 @@ const VieweventModal: FC<{
               {event?.name}
             </span>
           </div>
-
+          <div className="mb-3">
+            {Event &&
+              <EditEventModal Event={Event.Event} />
+            }
+            
+          </div>
           <div className="flex flex-wrap gap-2.5">
             {getEventAttributes().map((attr) =>
               attr.text ? (

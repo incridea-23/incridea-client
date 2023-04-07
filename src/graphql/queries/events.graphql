@@ -1,4 +1,4 @@
-query Events($first: Int) {
+query Events($first: Int!) {
   events(first: $first) {
     edges {
       node {
@@ -19,12 +19,32 @@ query Events($first: Int) {
           eventId
           event {
             branch {
+              id
               name
             }
           }
         }
         venue
+        teams {
+          id
+          attended
+          confirmed
+          leaderId
+          name
+          members {
+            user {
+              id
+              name
+              phoneNumber
+              role
+              email
+              isVerified
+              createdAt
+            }
+          }
+        }
       }
+      cursor
     }
   }
 }
