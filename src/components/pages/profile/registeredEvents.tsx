@@ -28,7 +28,7 @@ const UserEvents: FC<{
           'QueryRegisteredEventsSuccess' &&
         events.registeredEvents.data.length === 0 ? (
         <div className="flex flex-col items-center justify-center gap-5 h-40">
-          <p className="text-white text-xl">No events found</p>
+          <p className="text-white/80 text-lg">Register for an event to see it here</p>
           <Button>
             <Link href="/events" className="text-white">
               Explore Events

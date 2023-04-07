@@ -14,7 +14,7 @@ const TeamCard: FC<{
   return (
     <motion.div
       whileHover={{ scale: 1.03 }}
-      className="bg-white bg-opacity-30 rounded-lg p-5 text-center max-w-sm"
+      className="bg-white bg-opacity-30 rounded-md p-5 text-center max-w-sm"
     >
       <div className="flex justify-center">
         <Image
@@ -22,7 +22,7 @@ const TeamCard: FC<{
           alt="Incridea Banner"
           width={250}
           height={250}
-          className="rounded-lg"
+          className="rounded-md"
         />
       </div>
 
@@ -40,7 +40,7 @@ const TeamCard: FC<{
         </Link>
       </div>
 
-      <hr className="text-gray-400 my-5" />
+      <hr className="border-white/40 my-5" />
 
       <div className="relative">
         <svg

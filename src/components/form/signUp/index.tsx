@@ -25,8 +25,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
   });
   const [error, setError] = useState("");
 
-  const [signUpMutation, { loading, error: mutationError }] =
-    useMutation(SignUpDocument);
+  const [signUpMutation, { loading, error: mutationError }] = useMutation(SignUpDocument);
 
   const [
     emailVerificationMutation,
@@ -39,6 +38,10 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
     error: collegesError,
   } = useQuery(CollegesDocument);
 
+  const sortedColleges = !collegesLoading ? [...collegeData?.colleges || []].sort((a, b) => {
+    return a.name.localeCompare(b.name);
+  }) : [];
+
   const [selectedCollege, setSelectedCollege] = useState<{
     name: string;
     id: string;
@@ -46,12 +49,13 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
     name: "",
     id: "",
   });
+  
   const [query, setQuery] = useState("");
 
   const filteredColleges =
     query === ""
-      ? collegeData?.colleges
-      : collegeData?.colleges?.filter((college) => {
+      ? sortedColleges
+      : sortedColleges?.filter((college) => {
           return college.name
             .toLowerCase()
             .replace(/\s+/g, "")
@@ -70,10 +74,13 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
       setError("Please fill all the fields");
       return;
     }
-    if (
-      userInfo.phoneNumber.length !== 10 ||
-      isNaN(Number(userInfo.phoneNumber))
-    ) {
+    if (selectedCollege.name === "N.M.A.M. Institute of Technology") {
+      if (userInfo.email.split("@").length > 1) {
+        setError('Please only enter your USN without "@nmamit.in"');
+        return;
+      }
+    }
+    if (userInfo.phoneNumber.length !== 10 || isNaN(Number(userInfo.phoneNumber))) {
       setError("Please enter a valid 10-digit mobile number");
       return;
     }
@@ -84,7 +91,10 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
     signUpMutation({
       variables: {
         name: userInfo.name,
-        email: userInfo.email,
+        email:
+          selectedCollege.name === "N.M.A.M. Institute of Technology"
+            ? `${userInfo.email}@nmamit.in`
+            : userInfo.email,
         password: userInfo.password,
         phoneNumber: userInfo.phoneNumber,
         collegeId: Number(userInfo.college),
@@ -113,9 +123,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
 
   // NOTE: change handler for all fields except college
   const handleChange = (
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
   ) => {
     setError("");
     setUserInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -127,9 +135,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
       className={`flex relative justify-center min-h-full flex-col gap-3 ${
         loading && "cursor-not-allowed pointer-events-none"
       }`}>
-      <h2 className="text-3xl text-center font-semibold">
-        Welcome to Incridea! 👋
-      </h2>
+      <h2 className="text-3xl text-center font-semibold">Welcome to Incridea! 👋</h2>
       <h6 className="mb-10 mt-2 md:mt-0 text-center md:font-normal font-semibold">
         We&apos;re excited to have you here! Sign up below{" "}
       </h6>
@@ -143,33 +149,6 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         placeholder="Name"
       />
 
-      <input
-        value={userInfo.email}
-        onChange={handleChange}
-        name="email"
-        type="email"
-        required
-        className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none"
-        placeholder="Email"
-      />
-      <input
-        value={userInfo.password}
-        onChange={handleChange}
-        name="password"
-        type="password"
-        required
-        placeholder="Password"
-        className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none"
-      />
-      <input
-        value={userInfo.phoneNumber}
-        onChange={handleChange}
-        name="phoneNumber"
-        type="text"
-        required
-        placeholder="Mobile"
-        className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none"
-      />
       <Combobox
         value={selectedCollege}
         onChange={(value) => {
@@ -182,7 +161,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
               required
               placeholder="College"
               displayValue={(college: { name: string }) => college.name}
-              className="w-full bg-transparent outline-none text-sm md:text-base py-2 pl-2 pr-10 md:text-gray-900 placeholder:text-gray-500 text-black   "
+              className="w-full bg-transparent outline-none text-sm md:text-base py-2 pl-1 pr-10 md:text-gray-900 placeholder:text-gray-500 text-black   "
               onChange={(e) => setQuery(e.target.value)}
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -226,6 +205,38 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
           </Transition>
         </div>
       </Combobox>
+
+      <div className="relative">
+        <input
+          value={userInfo.email}
+          onChange={handleChange}
+          name="email"
+          required
+          className="w-full py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none"
+          placeholder="Email"
+        />
+        {selectedCollege.name === "N.M.A.M. Institute of Technology" && (
+          <span className="absolute top-0 mt-2 right-0 mr-3 text-black">@nmamit.in</span>
+        )}
+      </div>
+      <input
+        value={userInfo.password}
+        onChange={handleChange}
+        name="password"
+        type="password"
+        required
+        placeholder="Password"
+        className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none"
+      />
+      <input
+        value={userInfo.phoneNumber}
+        onChange={handleChange}
+        name="phoneNumber"
+        type="text"
+        required
+        placeholder="Mobile"
+        className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none"
+      />
       <Button className="mt-3">Sign Up</Button>
       {(error || mutationError || emailVerificationError) && (
         <div className="bg-red-100 p-2 flex items-center gap-3 px-4 rounded-md font-semibold text-red-500">
@@ -234,12 +245,12 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         </div>
       )}
       <div className="flex flex-col md:mt-2 mt-5 relative text-center">
-        <hr className="my-3  border-white" />
-        <h4 className="absolute top-0.5 translate-x-1/2 w-max mx-auto bg-white rounded-full text-gray-400 right-1/2 md:px-2 px-3 text-sm">
+        <hr className="my-3  border-[#6f5925]" />
+        <h4 className="absolute top-0.5 translate-x-1/2 w-max mx-auto bg-[#f3e9d1] rounded-full text-[#6f5925] right-1/2 md:px-2 px-3 text-sm">
           Already have an account?
         </h4>
         <Button
-          intent={'ghost'}
+          intent={"ghost"}
           onClick={() => setWhichForm("signIn")}
           type="button"
           className="mt-5">

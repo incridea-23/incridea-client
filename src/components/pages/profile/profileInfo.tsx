@@ -18,7 +18,7 @@ const ProfileInfo: FC<{
 }> = ({ user }) => {
   return (
     <section data-scroll-section className="text-white min-h-fit py-10 mb-10">
-      <div data-scroll className="flex mb-4 items-center justify-center">
+      <div data-scroll className="flex mb-4 items-center justify-center px-5">
         <a
           className={`${titleFont.className} text-2xl lg:text-4xl font-bold text-center`}
         >
@@ -51,7 +51,7 @@ const ProfileInfo: FC<{
                 {user?.email}
               </Link>
             </div>
-            <div className="flex gap-2 items-center">
+           {user?.phoneNumber && <div className="flex gap-2 items-center">
               <MdPhone />
               <Link
                 href={`tel:${user?.phoneNumber}`}
@@ -59,8 +59,8 @@ const ProfileInfo: FC<{
               >
                 {user?.phoneNumber}
               </Link>
-            </div>
-            <Button noScaleOnHover onClick={() => signOut()} className='mt-2'>
+            </div>}
+            <Button onClick={() => signOut()} className='mt-2'>
               <FaSignOutAlt className="inline-block mr-1" />
               Sign Out
             </Button>

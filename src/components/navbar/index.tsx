@@ -29,7 +29,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed ${titleFont.className}  top-0 z-20 bg-white backdrop-filter backdrop-blur-lg bg-opacity-10 border-b border-gray-200 w-full`}>
+      className={`fixed ${titleFont.className}  top-0 z-20 bg-white backdrop-filter backdrop-blur-lg bg-opacity-10 border-b border-gray-200/30 w-full`}>
       <div className="max-w-5xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center space-x-2">
@@ -106,9 +106,14 @@ const AuthButtons: FC<{
     <div className={`flex space-x-2 px-3 lg:px-0 ${className}`}>
       {status === "authenticated" && <AuthenticatedButtons user={user} />}
       {status === "unauthenticated" && (
-        <Link href={"/login?whichForm=signUp"} as="/login">
-          <Button intent={"primary"}>Login / Sign Up</Button>
-        </Link>
+        <>
+          <Link href={"/login"} as="/login">
+            <Button intent={"primary"}>Login</Button>
+          </Link>
+          <Link href={"/login?whichForm=signUp"} as="/login">
+            <Button intent={"ghost"}>Sign Up</Button>
+          </Link>
+        </>
       )}
     </div>
   );
