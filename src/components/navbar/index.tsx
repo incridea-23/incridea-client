@@ -117,7 +117,7 @@ const AuthButtons: FC<{
     <div className={`flex space-x-2 px-3 lg:px-0 ${className}`}>
 
       {status === "authenticated" && (
-        <AuthenticatedButtons user={user} status={status} />
+        <AuthenticatedButtons user={user} />
       )}
       {status === 'unauthenticated' && (
         <Link href={"/login?whichForm=signUp"} as="/login">
