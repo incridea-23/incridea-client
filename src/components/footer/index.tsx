@@ -23,7 +23,7 @@ export function HomePageFooter() {
   return (
     <div>
       <RiveComponent className="w-screen   h-[50vh] lg:h-screen " />
-      <Footer />
+      <FooterBody />
     </div>
   );
 }
