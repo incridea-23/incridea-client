@@ -1,7 +1,4 @@
 import { type NextPage } from "next";
-import Navbar from "../components/navbar";
-import { useAuth } from "../hooks/useAuth";
-import CountDown from "../components/countdown";
 import About from "../components/about";
 import Image from "next/image";
 import { useRef } from "react";
@@ -9,18 +6,15 @@ import Hero from "../components/hero";
 import { LocomotiveScrollProvider } from "react-locomotive-scroll";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import EventsReel from "../components/eventsPeek/reel";
-import Footer from "../components/footer";
-
+import Footer, { HomePageFooter } from "../components/footer";
+import dynamic from "next/dynamic";
+const CountDown = dynamic(() => import("../components/countdown"), {
+  ssr: false,
+});
 const Home = ({ setLoading }: { setLoading: (loading: boolean) => void }) => {
-  const ref = useRef(null);
-  const { status, user, error, loading } = useAuth();
   const containerRef = useRef(null);
-
-  if (loading) return <div>Loading...</div>; // Todo: Loading page here
-
   return (
-    <div ref={ref} className="overflow-x-hidden">
-      <Navbar status={status} user={user} />
+    <div className="overflow-x-hidden">
       <LocomotiveScrollProvider
         options={{
           smooth: true,
@@ -57,7 +51,7 @@ const Home = ({ setLoading }: { setLoading: (loading: boolean) => void }) => {
             </div>
             {/* 5. Footer Section */}
             <section className="-mt-2 bg-[#052749]">
-              <Footer />
+              <HomePageFooter />
             </section>
           </div>
         </main>

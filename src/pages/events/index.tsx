@@ -6,7 +6,10 @@ import Event from "@/src/components/event";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { Menu } from "@headlessui/react";
-import { PublishedEventsDocument, PublishedEventsQuery } from "@/src/generated/generated";
+import {
+  PublishedEventsDocument,
+  PublishedEventsQuery,
+} from "@/src/generated/generated";
 import Image from "next/image";
 import { client } from "@/src/lib/apollo";
 import SearchBox from "@/src/components/searchbox";
@@ -29,11 +32,12 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
     "ROBOTICS",
   ];
   const { status, user } = useAuth();
-  const [currentFilter, setCurrentFilter] = useState<typeof filters[number]>("ALL");
+  const [currentFilter, setCurrentFilter] =
+    useState<typeof filters[number]>("ALL");
   const [query, setQuery] = useState("");
 
   const [filteredEvents, setFilteredEvents] = useState(data || []);
-  
+
   const handleFilter = (filter: typeof filters[number]) => {
     setQuery("");
     setCurrentFilter(filter);
@@ -42,7 +46,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
     } else {
       setFilteredEvents(data.filter((event) => event.branch.name === filter));
     }
-  }
+  };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -51,14 +55,15 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
       setFilteredEvents(data || []);
     } else {
       setFilteredEvents(
-        data.filter((event) => event.name.toLowerCase().includes(e.target.value.toLowerCase()))
+        data.filter((event) =>
+          event.name.toLowerCase().includes(e.target.value.toLowerCase())
+        )
       );
     }
   };
 
   return (
     <div className="bg-gradient-to-b  from-[#41acc9]  via-[#075985] to-[#2d6aa6] min-h-screen relative">
-      <Navbar status={status} user={user} />
       <Image
         src="/assets/png/waterflare.png"
         height={1000}

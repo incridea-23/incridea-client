@@ -77,17 +77,19 @@ function event({ event, error }: { event: Event; error: String }) {
                 height={1000}
               />
             )}
-              <h1
-                className={`${titleFont.className} text-2xl sm:text-4xl px-4 pb-0 sm:p-0 font-bold text-white`}>
-                {event.name}
-              </h1>
-              <div className="px-4 pb-4 sm:p-0">
-                <EventDetails details={event.description as string} />
-              </div>
+            <h1
+              className={`${titleFont.className} text-2xl sm:text-4xl px-4 pb-0 sm:p-0 font-bold text-white`}>
+              {event.name}
+            </h1>
+            <div className="px-4 pb-4 sm:p-0">
+              <EventDetails details={event.description as string} />
+            </div>
           </div>
           <div className="basis-1/4 shrink-0 flex flex-col gap-5  justify-between items-center rounded-md sm:bg-black/20 backdrop-blur-sm p-0 sm:p-10  ">
             <div className="space-y-1.5">
-              <h2 className={`${titleFont.className} mb-2 text-2xl`}>Details</h2>
+              <h2 className={`${titleFont.className} mb-2 text-2xl`}>
+                Details
+              </h2>
               <div className="flex flex-wrap mt-2 gap-1.5  w-full">
                 {getEventAttributes().map(
                   (attr) =>
@@ -113,7 +115,9 @@ function event({ event, error }: { event: Event; error: String }) {
                     <div
                       key={round.roundNo}
                       className="py-2 text-white  rounded-sm bg-gray-300/20     space-y-2 px-3 items-center">
-                      <div className=" font-semibold ">Round {round.roundNo}</div>
+                      <div className=" font-semibold ">
+                        Round {round.roundNo}
+                      </div>
                       <div className="space-y-2">
                         <p className="flex gap-2 items-center">
                           <BsFillCalendar2WeekFill />
@@ -144,13 +148,17 @@ function event({ event, error }: { event: Event; error: String }) {
             />
 
             <div className="w-full">
-              <h2 className={`${titleFont.className} mb-2 text-2xl`}>Organizers</h2>
+              <h2 className={`${titleFont.className} mb-2 text-2xl`}>
+                Organizers
+              </h2>
               <div className="space-y-1.5 w-full  ">
                 {event.organizers.map((organizer) => (
                   <div
                     key={organizer.user.id}
                     className="text-white w-full p-2.5 rounded-sm bg-gray-300/20 px-3  text-md   ">
-                    <h3 className="text-lg font-semibold mb-2">{organizer.user.name}</h3>
+                    <h3 className="text-lg font-semibold mb-2">
+                      {organizer.user.name}
+                    </h3>
                     <div className="flex gap-1 flex-col">
                       {organizer.user.email && (
                         <Link
@@ -231,7 +239,9 @@ export async function getStaticPaths() {
   });
   const paths = events.publishedEvents.map((event) => ({
     params: {
-      slug: `${event.name.toLocaleLowerCase().split(" ").join("-")}-${event.id}`,
+      slug: `${event.name.toLocaleLowerCase().split(" ").join("-")}-${
+        event.id
+      }`,
     },
   }));
 

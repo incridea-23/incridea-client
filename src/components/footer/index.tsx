@@ -4,13 +4,14 @@ import { titleFont } from "@/src/utils/fonts";
 import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import { AiFillYoutube } from "react-icons/ai";
 import { BsInstagram } from "react-icons/bs";
 import { FaYoutube } from "react-icons/fa";
 
-function Footer() {
-  const { RiveComponent: Footer } = useRive({
+export function HomePageFooter() {
+  const { RiveComponent } = useRive({
     src: `assets/rive/footer.riv/`,
     stateMachines: ["State Machine 1"],
     autoplay: true,
@@ -20,8 +21,16 @@ function Footer() {
     }),
   });
   return (
+    <div>
+      <RiveComponent className="w-screen   h-[50vh] lg:h-screen " />
+      <Footer />
+    </div>
+  );
+}
+
+function FooterBody() {
+  return (
     <div className={`${titleFont.className} tracking-wider`}>
-      <Footer className="w-screen   h-[50vh] lg:h-screen " />
       <div className="-mt-2 flex flex-col gap-5 md:flex-row bg-[#131e28] text-gray-100 p-5 items-center justify-between">
         <div className="md:basis-1/5">
           <Image
@@ -77,4 +86,8 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default function Footer() {
+  const router = useRouter();
+  if (router.pathname === "/") return null;
+  return <FooterBody />;
+}
