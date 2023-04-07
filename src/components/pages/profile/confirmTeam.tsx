@@ -1,11 +1,11 @@
-import Button from '@/src/components/button';
-import Modal from '@/src/components/modal';
-import Spinner from '@/src/components/spinner';
-import createToast from '@/src/components/toast';
-import { ConfirmTeamDocument } from '@/src/generated/generated';
-import { useMutation } from '@apollo/client';
-import React, { FC, useState } from 'react';
-import { BiTrashAlt } from 'react-icons/bi';
+import Button from "@/src/components/button";
+import Modal from "@/src/components/modal";
+import Spinner from "@/src/components/spinner";
+import createToast from "@/src/components/toast";
+import { ConfirmTeamDocument } from "@/src/generated/generated";
+import { useMutation } from "@apollo/client";
+import React, { FC, useState } from "react";
+import { BiTrashAlt } from "react-icons/bi";
 
 const ConfirmTeamModal: FC<{
   teamId: string;
@@ -16,7 +16,7 @@ const ConfirmTeamModal: FC<{
   const [confirmTeam, { loading: confirmTeamLoading }] = useMutation(
     ConfirmTeamDocument,
     {
-      refetchQueries: ['RegisterdEvents'],
+      refetchQueries: ["RegisterdEvents"],
       awaitRefetchQueries: true,
     }
   );
@@ -32,52 +32,50 @@ const ConfirmTeamModal: FC<{
         teamId,
       },
     }).then((res) => {
-      if (res?.data?.confirmTeam.__typename !== 'MutationConfirmTeamSuccess') {
-        return Promise.reject('Error confirming team');
+      if (res?.data?.confirmTeam.__typename !== "MutationConfirmTeamSuccess") {
+        return Promise.reject("Error confirming team");
       }
     });
-    createToast(promise, 'Confirming');
+    createToast(promise, "Confirming");
   };
 
   return (
     <>
       <Button
-        size={'small'}
+        size={"small"}
         className="mt-3"
         onClick={() => {
           setShowModal(true);
         }}
-      >
-        {isPaid ? 'Pay & Confirm' : 'Confirm'}
+        intent={"success"}
+        fullWidth>
+        {isPaid ? "Pay & Confirm" : "Confirm"}
       </Button>
       <Modal
         title={`Are you sure you want to confirm the team?`}
         showModal={showModal}
         onClose={handleCloseModal}
-        size={'small'}
-      >
+        size={"small"}>
         <div className="text-sm text-center p-5">
           You won&apos;t be able to make changes to your team after confirming.
         </div>
         <div className="flex justify-center gap-3 my-5">
           <Button
-            size={'small'}
+            size={"small"}
             onClick={() => {
               handleConfirm(teamId as string);
             }}
-            disabled={confirmTeamLoading}
-          >
+            disabled={confirmTeamLoading}>
             {confirmTeamLoading ? (
-              <Spinner intent={'white'} size={'small'} />
+              <Spinner intent={"white"} size={"small"} />
             ) : (
-              'Confirm'
+              "Confirm"
             )}
           </Button>
           <Button
-            size={'small'}
-            intent={'ghost'}
-            onClick={() => handleCloseModal()}
-          >
+            size={"small"}
+            intent={"ghost"}
+            onClick={() => handleCloseModal()}>
             Cancel
           </Button>
         </div>

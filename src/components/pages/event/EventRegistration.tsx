@@ -21,10 +21,11 @@ import ConfirmTeamModal from "../profile/confirmTeam";
 import { titleFont } from "@/src/utils/fonts";
 import EditTeamModal from "./EditEvent";
 import { makeTeamPayment } from "@/src/utils/razorpay";
-import { BsWhatsapp } from "react-icons/bs";
+import { BsCalendar, BsCalendar2Check, BsWhatsapp } from "react-icons/bs";
 import { AiOutlineCopy } from "react-icons/ai";
 import toast from "react-hot-toast";
 import { generateEventUrl } from "@/src/utils/url";
+import { BiInfoCircle } from "react-icons/bi";
 
 function EventRegistration({
   eventId,
@@ -224,8 +225,12 @@ const CreateTeamModal = ({ eventId }: { eventId: Event["id"] }) => {
 const JoinTeamModal = () => {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState("");
-  const [joinTeam, { loading, error: mutationError }] =
-    useMutation(JoinTeamDocument);
+  const [joinTeam, { loading, error: mutationError }] = useMutation(
+    JoinTeamDocument,
+    {
+      refetchQueries: ["MyTeam"],
+    }
+  );
   const handleJoinTeam = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const promise = joinTeam({
@@ -347,19 +352,28 @@ const TeamCard = ({
             {!(
               team.event.eventType === "INDIVIDUAL" ||
               team.event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY"
-            ) && (
+            ) ? (
               <div
                 className={`${titleFont.className} w-fit text-2xl font-bold  justify-center  text-center space-x-2`}>
                 <span>team-</span>
                 {team.name}
               </div>
+            ) : (
+              <div
+                className={`${titleFont.className} w-fit text-2xl font-bold  justify-center  text-center space-x-2`}>
+                {idToPid(userId)}
+              </div>
             )}
-            {Number(userId) === team.leaderId &&
-              !team.confirmed &&
+            {Number(userId) === team.leaderId && !team.confirmed ? (
               !(
                 team.event.eventType === "INDIVIDUAL" ||
                 team.event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY"
-              ) && <EditTeamModal team={team} userId={userId} />}
+              ) && <EditTeamModal team={team} userId={userId} />
+            ) : (
+              <div className="flex  items justify-center gap-2 text-green-500 border-2 font-bold border-green-500 text-xs rounded-md p-1">
+                Registered
+              </div>
+            )}
           </div>
           {!team.confirmed && (
             <span className="text-xs">
@@ -370,63 +384,65 @@ const TeamCard = ({
                 : "team"}
             </span>
           )}
-          {team.event.fees > 0 && !team.confirmed && (
-            <Button
-              fullWidth
-              intent="success"
-              className="mt-2"
-              disabled={sdkLoading}
-              onClick={() => {
-                makeTeamPayment(team.id, name, email, setSdkLoading);
-              }}>
-              Pay {team.event.fees} to confirm
-            </Button>
-          )}
+          {!team.confirmed &&
+            (team.event.fees > 0 ? (
+              <Button
+                fullWidth
+                intent="success"
+                className="mt-2"
+                disabled={sdkLoading}
+                onClick={() => {
+                  makeTeamPayment(team.id, name, email, setSdkLoading);
+                }}>
+                Pay {team.event.fees} to confirm
+              </Button>
+            ) : (
+              <ConfirmTeamModal teamId={team.id} isPaid={false} />
+            ))}
         </div>
       </div>
 
       <hr className="w-full border-white/40 my-3" />
 
-      <div className="basis-1/2">
-        <div className="w-full">
-          {team?.members?.map((member: any) => (
-            <div
-              className="flex justify-between items-center"
-              key={member.user.id}>
-              <h1>{member.user.name}</h1>
-            </div>
-          ))}
-        </div>
+      <div className="w-full">
+        {team?.members?.map((member: any) => (
+          <div
+            className="flex justify-between items-center"
+            key={member.user.id}>
+            <h1>{member.user.name}</h1>
+          </div>
+        ))}
+      </div>
 
-        <div className="w-full mt-2">
-          {team.confirmed ? (
-            team.event.eventType === "INDIVIDUAL" ||
-            team.event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY" ? (
-              <h1 className="text-xs">Your registered and ready to dive!</h1>
-            ) : (
-              <h1 className="text-xs">
-                Your team is registered and ready to dive!
-              </h1>
-            )
-          ) : team.event.eventType === "INDIVIDUAL" ||
-            team.event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY" ? (
-            <h1 className="text-xs">
-              Heads up! Your registration is not confirmed yet.
-            </h1>
+      <div className="w-full mt-2">
+        {team.confirmed ? (
+          team.event.eventType === "INDIVIDUAL" ||
+          team.event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY" ? (
+            <h1 className="text-xs">Your registered and ready to dive!</h1>
           ) : (
             <h1 className="text-xs">
-              Heads up! Your team is not confirmed yet.
+              Your team is registered and ready to dive!
             </h1>
-          )}
-        </div>
-        <div className="p-5 text-center flex flex-col justify-center">
+          )
+        ) : team.event.eventType === "INDIVIDUAL" ||
+          team.event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY" ? (
+          <h1 className="text-xs">
+            Heads up! Your registration is not confirmed yet.
+          </h1>
+        ) : (
+          <h1 className="text-xs">Heads up! Your team is not confirmed yet.</h1>
+        )}
+      </div>
+      <hr className="w-full border-white/40 my-3" />
+      {!team.confirmed ? (
+        <div className="flex w-full flex-col justify-center">
           <p className="text-xs">
             Share this link with your friends to add them to your team!
           </p>
-          <div className="flex items-center justify-evenly mt-2">
+          <div className="flex gap-2 items-center justify-evenly mt-2">
             <input
               type="url"
-              className="bg-white bg-opacity-20 rounded-lg text-sm p-2"
+              className="bg-white bg-opacity-20 rounded-lg overflow-hidden w-full text-sm p-2"
               value={url}
             />
             <AiOutlineCopy
@@ -437,20 +453,28 @@ const TeamCard = ({
           </div>
 
           <div className="flex items-center py-2">
-            <div className="flex-grow h-px bg-gray-600"></div>
+            <div className="flex-grow h-px white/40"></div>
             <span className="flex-shrink text-sm px-4 italic font-light">
               or
             </span>
-            <div className="flex-grow h-px bg-gray-600"></div>
+            <div className="flex-grow h-px white/40"></div>
           </div>
 
           <Link
             href={`https://wa.me/?text=${encodeURIComponent(url)}`}
-            className="flex items-center justify-center gap-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg p-2 cursor-pointer text-sm">
+            className="flex items-center justify-center gap-2 bg-black/30  hover:bg-black/50 text-green-500 text-bold rounded-md p-2 cursor-pointer text-sm">
             <BsWhatsapp /> Share on WhatsApp
           </Link>
         </div>
-      </div>
+      ) : (
+        <div className="w-full space-y-3">
+          <Link
+            href={`https://wa.me/?text=${encodeURIComponent(url)}`}
+            className="flex items-center justify-center gap-2 bg-black/30 font-semibold hover:bg-black/50 text-blue-300 text-bold rounded-md p-2 cursor-pointer text-sm">
+            <BsCalendar2Check /> Add to Calender
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
