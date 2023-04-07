@@ -21,6 +21,7 @@ import ConfirmTeamModal from "../profile/confirmTeam";
 import { titleFont } from "@/src/utils/fonts";
 import EditTeamModal from "./EditEvent";
 import DeleteTeamModal from "../profile/deleteTeam";
+import { makeTeamPayment } from "@/src/utils/razorpay";
 
 function EventRegistration({
   eventId,
@@ -45,6 +46,8 @@ function EventRegistration({
           eventId={eventId}
           type={type}
           fees={fees}
+          name={user.name}
+          email={user.email}
         />
       )}
     </>
@@ -58,17 +61,22 @@ function EventRegistrationButton({
   type,
   fees,
   userId,
+  name,
+  email,
 }: {
   eventId: Event["id"];
   type: Event["eventType"];
   fees: Event["fees"];
   userId: string;
+  name: string;
+  email: string;
 }) {
   const { loading, data, error } = useQuery(MyTeamDocument, {
     variables: {
       eventId: eventId,
     },
   });
+  const [sdkLoaded, setSdkLoaded] = useState(false);
   const [registerSoloEvent, { loading: regLoading, data: regData }] =
     useMutation(RegisterSoloEventDocument, {
       refetchQueries: ["MyTeam"],
@@ -83,7 +91,14 @@ function EventRegistrationButton({
         res.data?.registerSoloEvent.__typename ===
         "MutationRegisterSoloEventSuccess"
       ) {
-        // TODO: Add toast
+        if (fees !== 0) {
+          makeTeamPayment(
+            res.data?.registerSoloEvent.data.id,
+            name,
+            email,
+            setSdkLoaded
+          );
+        }
       }
     });
     createToast(promise, "Registering...");
@@ -93,6 +108,8 @@ function EventRegistrationButton({
     return (
       <TeamCard
         userId={userId}
+        name={name}
+        email={email}
         team={data.myTeam.data as QueryMyTeamSuccess["data"]}
       />
     );
@@ -106,8 +123,12 @@ function EventRegistrationButton({
         );
       } else {
         return (
-          <Button fullWidth intent={"primary"}>
-            Pay and Register
+          <Button
+            disabled={regLoading || sdkLoaded}
+            onClick={handleSoloRegister}
+            fullWidth
+            intent={"primary"}>
+            Pay ₹{fees} and Register
           </Button>
         );
       }
@@ -262,18 +283,23 @@ const JoinTeamModal = () => {
 const TeamCard = ({
   team,
   userId,
+  name,
+  email,
 }: {
   team: QueryMyTeamSuccess["data"];
   userId: string;
+  name: string;
+  email: string;
 }) => {
+  const [sdkLoading, setSdkLoading] = useState(false);
   return (
     <div className="relative flex flex-col items-start justify-center my-4 bg-white/20 rounded-sm  max-w-2xl w-[300px] p-5 ">
       <div className="">
         <div className="flex items-center justify-center ">
-          <div className="p-3 text-center w-fit  bg-white/70 ">
-            {team.event.eventType === "INDIVIDUAL" ||
-            team.event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY" ? (
-              <>
+          {team.event.eventType === "INDIVIDUAL" ||
+          team.event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY" ? (
+            team.confirmed && (
+              <div className="p-3 text-center w-fit  bg-white/70 ">
                 <QRCodeSVG
                   value={idToPid(userId)}
                   size={100}
@@ -281,34 +307,55 @@ const TeamCard = ({
                   bgColor="transparent"
                 />
                 <div className="text-black">{idToPid(userId)}</div>
-              </>
-            ) : (
-              <>
-                <QRCodeSVG
-                  value={idToTeamId(team.id)}
-                  size={100}
-                  className="mb-1"
-                  bgColor="transparent"
-                />
-                <div className="text-black">{idToTeamId(team.id)}</div>
-              </>
-            )}
-          </div>
+              </div>
+            )
+          ) : (
+            <div className="p-3 text-center w-fit  bg-white/70 ">
+              <QRCodeSVG
+                value={idToTeamId(team.id)}
+                size={100}
+                className="mb-1"
+                bgColor="transparent"
+              />
+              <div className="text-black">{idToTeamId(team.id)}</div>
+            </div>
+          )}
         </div>
         <div>
-          <div
-            className={`${titleFont.className} w-fit text-2xl font-bold  justify-center  text-center text-gray-900 space-x-2`}>
-            {team.name}
-          </div>
-          {Number(userId) === team.leaderId && (
-            // TODO: Add Edit and Delete Team
-            <div className="flex gap-2">
-              {!(
+          <div className="flex justify-between items-center">
+            {!(
+              team.event.eventType === "INDIVIDUAL" ||
+              team.event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY"
+            ) && (
+              <div
+                className={`${titleFont.className} w-fit text-2xl font-bold  justify-center  text-center space-x-2`}>
+                TEAM-{team.name}
+              </div>
+            )}
+            {Number(userId) === team.leaderId &&
+              !(
                 team.event.eventType === "INDIVIDUAL" ||
                 team.event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY"
-              ) && <EditTeamModal userId={userId} team={team} />}
-              {!team.confirmed && <DeleteTeamModal teamId={team.id} />}
-            </div>
+              ) && <EditTeamModal team={team} userId={userId} />}
+          </div>
+          <span className="text-xs">
+            almost there! pay {team.event.fees} to confirm your{" "}
+            {team.event.eventType === "INDIVIDUAL" ||
+            team.event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY"
+              ? "entry"
+              : "team"}
+          </span>
+          {team.event.fees > 0 && !team.confirmed && (
+            <Button
+              fullWidth
+              intent="success"
+              className="mt-2"
+              disabled={sdkLoading}
+              onClick={() => {
+                makeTeamPayment(team.id, name, email, setSdkLoading);
+              }}>
+              Pay {team.event.fees} to confirm
+            </Button>
           )}
         </div>
       </div>
@@ -336,6 +383,11 @@ const TeamCard = ({
                 Your team is registered and ready to dive!
               </h1>
             )
+          ) : team.event.eventType === "INDIVIDUAL" ||
+            team.event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY" ? (
+            <h1 className="text-xs">
+              Heads up! Your registration is not confirmed yet.
+            </h1>
           ) : (
             <h1 className="text-xs">
               Heads up! Your team is not confirmed yet.

@@ -22,8 +22,11 @@ const EditTeamModal: FC<{
 
   return (
     <>
-      <Button onClick={() => setShowModal(true)} size={"medium"}>
-        Edit Team
+      <Button
+        onClick={() => setShowModal(true)}
+        intent={"primary"}
+        size={"medium"}>
+        <BiEditAlt />
       </Button>
       <Modal
         title={`${team.name}`}

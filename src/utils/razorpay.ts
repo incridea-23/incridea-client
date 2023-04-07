@@ -72,6 +72,9 @@ export const makeTeamPayment = async (
   }
   const { data } = await client.mutate({
     mutation: EventPaymentOrderDocument,
+    variables: {
+      teamId,
+    },
   });
   if (
     data?.eventPaymentOrder.__typename === "MutationEventPaymentOrderSuccess"
