@@ -72,6 +72,9 @@ export const makeTeamPayment = async (
   }
   const { data } = await client.mutate({
     mutation: EventPaymentOrderDocument,
+    variables: {
+      teamId,
+    },
   });
   if (
     data?.eventPaymentOrder.__typename === "MutationEventPaymentOrderSuccess"
@@ -87,7 +90,7 @@ export const makeTeamPayment = async (
       handler: function (response: any) {
         //  refetch query
         client.refetchQueries({
-          include: ["myTeam"],
+          include: ["MyTeam"],
         });
       },
       prefill: {

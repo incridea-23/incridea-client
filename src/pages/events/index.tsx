@@ -1,7 +1,6 @@
 import Navbar from "@/src/components/navbar";
 import { useAuth } from "@/src/hooks/useAuth";
 import { bodyFont, titleFont } from "@/src/utils/fonts";
-import { events } from "@/src/utils/events";
 import Event from "@/src/components/event";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
