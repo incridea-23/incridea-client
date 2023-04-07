@@ -16,7 +16,7 @@ const SignIn: NextPage = () => {
   >(query.whichForm || "signIn");
 
   return (
-    <div className="min-h-screen overflow-x-hidden min-w-screen bg-[#f3e9d1]">
+    <div className="min-h-screen pt-20 md:pt-0 overflow-x-hidden min-w-screen bg-[#f3e9d1]">
       <div
         className={`w-screen transition-transform duration-500 flex ${
           whichForm === "signUp" ? "md:translate-x-0" : "md:-translate-x-[50vw]"

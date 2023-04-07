@@ -16,14 +16,14 @@ const Profile: NextPage = () => {
 
   if (loading)
     return (
-      <div className="flex items-center justify-center h-screen bg-gradient-to-b from-[#5CA3AD]  via-[#1a6779] to-[#0e4450]">
+      <div className="flex items-center justify-center h-screen bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
         <h1 className="text-2xl font-bold text-white">Loading...</h1>
       </div>
     ); // Todo: Loading page here
 
   if (!user)
     return (
-      <div className="flex flex-col text-center space-y-3 items-center justify-center h-screen bg-gradient-to-b from-[#5CA3AD]  via-[#1a6779] to-[#0e4450]">
+      <div className="flex flex-col text-center space-y-3 items-center justify-center h-screen bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
         {/* Todo: Any graphic to fill space */}
         <h1 className="lg:text-2xl text-lg font-bold text-white">
           Hey there! You need to login to view this page.
@@ -36,7 +36,7 @@ const Profile: NextPage = () => {
 
   if (error)
     return (
-      <div className="flex items-center justify-center h-screen bg-gradient-to-b from-[#5CA3AD]  via-[#1a6779] to-[#0e4450]">
+      <div className="flex items-center justify-center h-screen bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
         <h1 className="text-2xl font-bold text-white">
           Something went wrong. Please try again later.
         </h1>
@@ -54,7 +54,7 @@ const Profile: NextPage = () => {
           height={1000}
           width={1000}
           alt="flare"
-          className="absolute opacity-40 top-0 right-0"
+          className="absolute pointer-events-none opacity-40 top-0 right-0"
         />
         {/* 1. Profile Info section */}
         <ProfileInfo user={user} />

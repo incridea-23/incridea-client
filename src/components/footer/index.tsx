@@ -78,8 +78,8 @@ function FooterBody() {
         </div>
       </div>
       <div className="bg-[#0f1821]">
-        <p className="text-center p-5 text-white   text-sm">
-          ©Incridea 2023 - All rights reserved
+        <p className="text-center p-5 text-gray-200   text-sm">
+          ©  Incridea 2023 - All rights reserved
         </p>
       </div>
     </div>

@@ -100,8 +100,8 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
           </div>
         )}
         <div className="flex flex-col md:mt-2 mt-5 relative text-center">
-          <hr className="my-3 border-white" />
-          <h4 className="absolute top-0.5 translate-x-1/2 w-max mx-auto bg-white rounded-full text-gray-400 right-1/2 md:px-2 px-3 text-sm">
+          <hr className="my-3 border-[#6f5925]" />
+          <h4 className="absolute top-0.5 translate-x-1/2 w-max mx-auto bg-[#f3e9d1] rounded-full text-[#6f5925] right-1/2 md:px-2 px-3 text-sm">
             New here?
           </h4>
           <Button
