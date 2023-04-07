@@ -12,6 +12,13 @@ query MyTeam($eventId: ID!) {
         id
         leaderId
         name
+        event {
+          id
+          name
+          maxTeamSize
+          fees
+          eventType
+        }
         members {
           user {
             email

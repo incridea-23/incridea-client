@@ -87,7 +87,7 @@ export const makeTeamPayment = async (
       handler: function (response: any) {
         //  refetch query
         client.refetchQueries({
-          include: ["myTeam"],
+          include: ["MyTeam"],
         });
       },
       prefill: {

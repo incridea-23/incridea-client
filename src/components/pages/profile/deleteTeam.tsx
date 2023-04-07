@@ -1,11 +1,11 @@
-import Button from '@/src/components/button';
-import Modal from '@/src/components/modal';
-import Spinner from '@/src/components/spinner';
-import createToast from '@/src/components/toast';
-import { DeleteTeamDocument } from '@/src/generated/generated';
-import { useMutation } from '@apollo/client';
-import React, { FC, useState } from 'react';
-import { BiTrashAlt } from 'react-icons/bi';
+import Button from "@/src/components/button";
+import Modal from "@/src/components/modal";
+import Spinner from "@/src/components/spinner";
+import createToast from "@/src/components/toast";
+import { DeleteTeamDocument } from "@/src/generated/generated";
+import { useMutation } from "@apollo/client";
+import React, { FC, useState } from "react";
+import { BiTrashAlt } from "react-icons/bi";
 
 const DeleteTeamModal: FC<{
   teamId: string;
@@ -15,7 +15,7 @@ const DeleteTeamModal: FC<{
   const [deleteTeam, { loading: deleteTeamLoading }] = useMutation(
     DeleteTeamDocument,
     {
-      refetchQueries: ['RegisterdEvents'],
+      refetchQueries: ["RegisterdEvents", "MyTeam"],
       awaitRefetchQueries: true,
     }
   );
@@ -31,11 +31,11 @@ const DeleteTeamModal: FC<{
         teamId: teamId,
       },
     }).then((res) => {
-      if (res?.data?.deleteTeam.__typename !== 'MutationDeleteTeamSuccess') {
-        return Promise.reject('Error deleting team');
+      if (res?.data?.deleteTeam.__typename !== "MutationDeleteTeamSuccess") {
+        return Promise.reject("Error deleting team");
       }
     });
-    createToast(promise, 'Deleting');
+    createToast(promise, "Deleting");
   };
 
   return (
@@ -45,8 +45,7 @@ const DeleteTeamModal: FC<{
           onClick={() => {
             setShowModal(true);
           }}
-          disabled={deleteTeamLoading}
-        >
+          disabled={deleteTeamLoading}>
           Delete Team
           <BiTrashAlt />
         </Button>
@@ -55,28 +54,25 @@ const DeleteTeamModal: FC<{
         title={`Are you sure you want to delete the team?`}
         showModal={showModal}
         onClose={handleCloseModal}
-        size={'small'}
-      >
+        size={"small"}>
         <div className="text-sm text-center">This action cannot be undone.</div>
         <div className="flex justify-center gap-3 my-5">
           <Button
-            size={'small'}
+            size={"small"}
             onClick={() => {
               handleDelete(teamId as string);
             }}
-            disabled={deleteTeamLoading}
-          >
+            disabled={deleteTeamLoading}>
             {deleteTeamLoading ? (
-              <Spinner intent={'white'} size={'small'} />
+              <Spinner intent={"white"} size={"small"} />
             ) : (
-              'Delete'
+              "Delete"
             )}
           </Button>
           <Button
-            size={'small'}
-            intent={'ghost'}
-            onClick={() => handleCloseModal()}
-          >
+            size={"small"}
+            intent={"ghost"}
+            onClick={() => handleCloseModal()}>
             Cancel
           </Button>
         </div>

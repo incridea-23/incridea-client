@@ -8,17 +8,19 @@ import {
   JoinTeamDocument,
   MyTeamDocument,
   QueryMyTeamSuccess,
+  RegisterSoloEventDocument,
 } from "@/src/generated/generated";
 import Modal from "../../modal";
 import { useMutation, useQuery } from "@apollo/client";
-import event from "@/src/pages/event/[slug]";
+
 import createToast from "../../toast";
 import { QRCodeSVG } from "qrcode.react";
-import { idToTeamId } from "@/src/utils/id";
-import EditTeamModal from "../profile/editTeam";
+import { idToPid, idToTeamId } from "@/src/utils/id";
+
 import ConfirmTeamModal from "../profile/confirmTeam";
 import { titleFont } from "@/src/utils/fonts";
-import { Team } from "../profile/userTeams";
+import EditTeamModal from "./EditEvent";
+import DeleteTeamModal from "../profile/deleteTeam";
 
 function EventRegistration({
   eventId,
@@ -67,6 +69,25 @@ function EventRegistrationButton({
       eventId: eventId,
     },
   });
+  const [registerSoloEvent, { loading: regLoading, data: regData }] =
+    useMutation(RegisterSoloEventDocument, {
+      refetchQueries: ["MyTeam"],
+    });
+  const handleSoloRegister = async () => {
+    let promise = registerSoloEvent({
+      variables: {
+        eventId: eventId,
+      },
+    }).then((res) => {
+      if (
+        res.data?.registerSoloEvent.__typename ===
+        "MutationRegisterSoloEventSuccess"
+      ) {
+        // TODO: Add toast
+      }
+    });
+    createToast(promise, "Registering...");
+  };
   if (loading) return null;
   if (data?.myTeam.__typename === "QueryMyTeamSuccess" && data.myTeam.data) {
     return (
@@ -78,15 +99,25 @@ function EventRegistrationButton({
   } else {
     if (type === "INDIVIDUAL" || type === "INDIVIDUAL_MULTIPLE_ENTRY") {
       if (fees === 0) {
-        return <Button fullWidth intent={"primary"}>Register Now</Button>;
+        return (
+          <Button onClick={handleSoloRegister} fullWidth intent={"primary"}>
+            Register Now
+          </Button>
+        );
       } else {
-        return <Button fullWidth intent={"primary"}>Pay and Register</Button>;
+        return (
+          <Button fullWidth intent={"primary"}>
+            Pay and Register
+          </Button>
+        );
       }
     } else {
-      return <div className="w-full space-y-2">
-      <CreateTeamModal eventId={eventId} />
-      <JoinTeamModal />
-    </div>;
+      return (
+        <div className="w-full space-y-2">
+          <CreateTeamModal eventId={eventId} />
+          <JoinTeamModal />
+        </div>
+      );
     }
   }
 }
@@ -94,17 +125,21 @@ function EventRegistrationButton({
 const CreateTeamModal = ({ eventId }: { eventId: Event["id"] }) => {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState("");
-  const [createTeam, { loading, error: mutationError }] = useMutation(CreateTeamDocument, {
-    refetchQueries: ["myTeamByEventId"],
-  });
+  const [createTeam, { loading, error: mutationError }] = useMutation(
+    CreateTeamDocument,
+    {
+      refetchQueries: ["MyTeam"],
+    }
+  );
   const [name, setName] = useState("");
   const handleCreateTeam = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
     const promise = createTeam({
       variables: {
         eventId: eventId,
         name: name,
       },
+      refetchQueries: ["MyTeam"],
     }).then((res) => {
       if (res.data?.createTeam.__typename === "Error") {
         setError(res.data.createTeam.message);
@@ -127,9 +162,10 @@ const CreateTeamModal = ({ eventId }: { eventId: Event["id"] }) => {
         showModal={open}
         size="small"
         title="Create Team"
-        rounded="md"
-        >
-        <form  onSubmit={handleCreateTeam} className="gap-3 md:px-6 md:pb-6 px-5 pb-5  w-full  flex flex-col ">
+        rounded="md">
+        <form
+          onSubmit={handleCreateTeam}
+          className="gap-3 md:px-6 md:pb-6 px-5 pb-5  w-full  flex flex-col ">
           <div className="flex flex-col gap-2">
             <label htmlFor="teamName" className="text-gray-300 font-semibod">
               Team Name
@@ -147,7 +183,11 @@ const CreateTeamModal = ({ eventId }: { eventId: Event["id"] }) => {
           <Button type="submit" intent="success">
             Create Team
           </Button>
-          {error && <p className="text-red-800 bg-red-200 px-3 py-1 rounded-sm font-semibold">{error}</p>}
+          {error && (
+            <p className="text-red-800 bg-red-200 px-3 py-1 rounded-sm font-semibold">
+              {error}
+            </p>
+          )}
         </form>
       </Modal>
     </>
@@ -157,7 +197,8 @@ const CreateTeamModal = ({ eventId }: { eventId: Event["id"] }) => {
 const JoinTeamModal = () => {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState("");
-  const [joinTeam, { loading, error: mutationError }] = useMutation(JoinTeamDocument);
+  const [joinTeam, { loading, error: mutationError }] =
+    useMutation(JoinTeamDocument);
   const handleJoinTeam = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const promise = joinTeam({
@@ -187,7 +228,9 @@ const JoinTeamModal = () => {
         size="small"
         title="Create Team"
         rounded="md">
-        <form onSubmit={handleJoinTeam} className="gap-3 md:px-6 md:pb-6 px-5 pb-5  w-full  flex flex-col ">
+        <form
+          onSubmit={handleJoinTeam}
+          className="gap-3 md:px-6 md:pb-6 px-5 pb-5  w-full  flex flex-col ">
           <div className="flex flex-col gap-2">
             <label htmlFor="teamName" className="text-gray-300 font-semibod">
               Team Id
@@ -205,7 +248,11 @@ const JoinTeamModal = () => {
           <Button type="submit" intent="success">
             Join Team
           </Button>
-          {error && <p className="text-red-800 bg-red-200 px-3 py-1 rounded-sm font-semibold">{error}</p>}
+          {error && (
+            <p className="text-red-800 bg-red-200 px-3 py-1 rounded-sm font-semibold">
+              {error}
+            </p>
+          )}
         </form>
       </Modal>
     </>
@@ -221,15 +268,32 @@ const TeamCard = ({
 }) => {
   return (
     <div className="relative flex flex-col items-start justify-center my-4 bg-white/20 rounded-sm  max-w-2xl w-[300px] p-5 ">
-      <div className="flex gap-5 flex-wrap">
-        <div className="p-3 text-center  bg-white/70 mx-auto">
-          <QRCodeSVG
-            value={idToTeamId(team.id)}
-            size={100}
-            className="mb-1"
-            bgColor="transparent"
-          />
-          <div className="text-black">{idToTeamId(team.id)}</div>
+      <div className="">
+        <div className="flex items-center justify-center ">
+          <div className="p-3 text-center w-fit  bg-white/70 ">
+            {team.event.eventType === "INDIVIDUAL" ||
+            team.event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY" ? (
+              <>
+                <QRCodeSVG
+                  value={idToPid(userId)}
+                  size={100}
+                  className="mb-1"
+                  bgColor="transparent"
+                />
+                <div className="text-black">{idToPid(userId)}</div>
+              </>
+            ) : (
+              <>
+                <QRCodeSVG
+                  value={idToTeamId(team.id)}
+                  size={100}
+                  className="mb-1"
+                  bgColor="transparent"
+                />
+                <div className="text-black">{idToTeamId(team.id)}</div>
+              </>
+            )}
+          </div>
         </div>
         <div>
           <div
@@ -239,22 +303,11 @@ const TeamCard = ({
           {Number(userId) === team.leaderId && (
             // TODO: Add Edit and Delete Team
             <div className="flex gap-2">
-              <Button
-                intent="primary"
-                className="text-xs"
-                onClick={() => {
-                  console.log("clicked");
-                }}>
-                Edit Team
-              </Button>
-              <Button
-                intent="danger"
-                className="text-xs"
-                onClick={() => {
-                  console.log("clicked");
-                }}>
-                Delete Team
-              </Button>
+              {!(
+                team.event.eventType === "INDIVIDUAL" ||
+                team.event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY"
+              ) && <EditTeamModal userId={userId} team={team} />}
+              {!team.confirmed && <DeleteTeamModal teamId={team.id} />}
             </div>
           )}
         </div>
@@ -275,9 +328,14 @@ const TeamCard = ({
 
         <div className="w-full mt-2">
           {team.confirmed ? (
-            <h1 className="text-xs">
-              Your team is confirmed and ready to dive!
-            </h1>
+            team.event.eventType === "INDIVIDUAL" ||
+            team.event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY" ? (
+              <h1 className="text-xs">Your registered and ready to dive!</h1>
+            ) : (
+              <h1 className="text-xs">
+                Your team is registered and ready to dive!
+              </h1>
+            )
           ) : (
             <h1 className="text-xs">
               Heads up! Your team is not confirmed yet.
