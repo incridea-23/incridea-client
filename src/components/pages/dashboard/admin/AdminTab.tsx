@@ -10,7 +10,7 @@ import SearchUsersModal from './SearchUsersModal';
 import CollegesModal from './CollegesModal';
 import RoundsDone from './RoundsDone';
 import Badge from '@/src/components/badge';
-import EditEvent from './EditEvent';
+import ViewEvent from './ViewEventModal';
 
 const AdminTab: FC<{
     AdminId: string;
@@ -54,7 +54,7 @@ const AdminTab: FC<{
                             <h1 className="basis-1/5 py-2.5 text-center">Rounds Done</h1>
                             <h1 className="basis-1/5 py-2.5 text-center pr-4">Status</h1>
                             <h1 className="basis-1/5 py-2.5 text-center pr-5">Publish</h1>
-                            <h1 className="basis-1/5 py-2.5 text-center pr-5">Edit</h1>
+                            <h1 className="basis-1/5 py-2.5 text-center pr-5">View</h1>
                         </div>
                         {eventsLoading && (
                         <div className="flex mt-10 justify-center items-center">
@@ -92,7 +92,7 @@ const AdminTab: FC<{
                                     />
                                     </h1>
                                     <h1 className="basis-1/6 py-0.5 text-lg flex md:text-center md:justify-center md:pl-5 mt-2 md:mt-0">
-                                        <EditEvent 
+                                        <ViewEvent 
                                             Event = {event}
                                         />
                                     </h1>
