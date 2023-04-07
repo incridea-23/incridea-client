@@ -16,7 +16,7 @@ import EditEvent from './EditEvent';
 const AdminTab: FC<{
     AdminId: string;
   }> = ({ AdminId }) => {
-    const [first, setFirst] = useState<number>(10);
+    const first: number = 200;
   const {
     data: branches,
     loading: branchesLoading,

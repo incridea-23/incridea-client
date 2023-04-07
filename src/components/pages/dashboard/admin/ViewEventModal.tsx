@@ -8,6 +8,7 @@ import Modal from '@/src/components/modal';
 import { IoCashOutline, IoCreateOutline, IoInformationOutline, IoLocationOutline, IoPeopleOutline, IoPersonOutline } from 'react-icons/io5';
 import draftToHtml from 'draftjs-to-html';
 import EditEventModal from '../organizer/EditEventModal';
+import TeamModal from './TeamModal';
 
 const VieweventModal: FC<{
   Event: EventsQuery['events']['edges'][0];
@@ -92,11 +93,15 @@ const VieweventModal: FC<{
               {event?.name}
             </span>
           </div>
-          <div className="mb-3">
+          <div className="mb-3 flex flex-row gap-2">
             {Event &&
               <EditEventModal Event={Event.Event} />
             }
-            
+            {Event &&
+              <TeamModal 
+                Team={Event.Event}
+              />
+            }
           </div>
           <div className="flex flex-wrap gap-2.5">
             {getEventAttributes().map((attr) =>
