@@ -18,7 +18,7 @@ const EventCard: FC<{
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       key={event.id}
-      className="bg-white bg-opacity-30 backdrop-blur-sm flex flex-col cursor-pointer rounded-sm rounded-b-lg max-w-2xl w-[300px]"
+      className="bg-white bg-opacity-30 backdrop-blur-sm flex flex-col cursor-pointer rounded-md overflow-hidden rounded-b-lg max-w-2xl w-[300px]"
     >
       <div className="relative grow">
         {event.image ? (
@@ -31,7 +31,7 @@ const EventCard: FC<{
           />
         ) : (
           <div className="h-full min-h-[200px] bg-gray-700 rounded-sm flex items-center justify-center italic text-gray-400">
-            No Image.
+            no image
           </div>
         )}
         <span

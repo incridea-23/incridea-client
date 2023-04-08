@@ -24,7 +24,7 @@ const EventsReel = () => {
         </div>
       </div>
 
-      <div className="mx-auto max-w-2xl">
+      <div className="mx-auto px-4 max-w-2xl">
         <p className="text-sm lg:text-lg mt-12 text-center text-white">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
           voluptates, quod, quia, voluptate quae voluptatem quibusdam quos

@@ -18,13 +18,13 @@ function OrganizerTab({ organizerId }: { organizerId: string }) {
   }
   if (!data || data.eventByOrganizer.length == 0) return <div>No events</div>;
   return (
-    <Tab.Group as={'div'} className='rounded-xl mt-5 overflow-hidden border-0 border-gray-900/40'>
+    <Tab.Group as={'div'} className='sm:rounded-xl mt-5 overflow-hidden border-0 border-gray-900/40'>
       <Tab.List className="w-full overflow-x-auto flex  backdrop-blur-md bg-gray-600/60 ">
         {data.eventByOrganizer.map((event) => (
           <Tab className="focus:outline-none" key={event.id}>
             {({ selected }) => (
               <button
-                className={` px-5 transition-colors whitespace-nowrap py-4 text-lg font-semibold ${
+                className={` sm:px-5 transition-colors whitespace-nowrap sm:py-4 sm:text-lg text-base p-3 font-semibold ${
                   selected
                     ? 'bg-gray-900 shadow-lg shadow-black text-white'
                     : 'bg-transparent hover:bg-gray-800/60 text-white'
@@ -37,15 +37,15 @@ function OrganizerTab({ organizerId }: { organizerId: string }) {
         ))}
       </Tab.List>
       <Tab.Panels>
-        <div className='bg-gray-900 p-5 pt-3 '>
+        <div className='bg-gray-900 p-0 sm:p-5 pt-3 '>
           {data.eventByOrganizer.map((event) => (
             <Tab.Panel className=" space-y-3" key={event.id}>
-              <div className="p-3 flex items-center justify-between flex-wrap gap-5  backdrop-blur-md rounded-lg   border-gray-600 bg-gray-900/30 ">
-                <div className="flex gap-3">
+              <div className="py-3 flex items-center justify-between flex-wrap gap-5  backdrop-blur-md rounded-lg   border-gray-600 bg-gray-900/30 ">
+                <div className="flex px-5 sm:px-0 gap-3">
                   <h2 className="text-2xl font-bold">{event.name}</h2>
                   <p className="text-green-400 rounded-full px-3 leading-8 border border-green-400">{event.branch.name}</p>
                 </div>
-                <div className="space-x-2 flex overflow-x-scroll md:overflow-hidden p-4 md:p-0">
+                <div className="space-x-2 px-5 flex overflow-x-auto md:overflow-hidden md:p-0">
                   <ViewEventModal event={event} />
                   <EditEventModal event={event} />
                   <RoundEventModal event={event} />
