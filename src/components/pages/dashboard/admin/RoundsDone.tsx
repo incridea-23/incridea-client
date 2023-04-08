@@ -22,8 +22,8 @@ const RoundsDone:FC<
             round.completed ? done++ : total++; 
         }
         )}
-        <div className={`flex justify-center items-center ${done===total ? "border-green-500 text-green-500" : ""}`}>
-            {done===total ? "Event has Ended" : done + " / " + total }
+        <div className={`flex justify-center items-center ${done===total && done !== 0 ? "border-green-500 text-green-500" : ""}`}>
+            {done===total && done !== 0 ? "Event has Ended" : done + " / " + total }
         </div>
     </>
     )

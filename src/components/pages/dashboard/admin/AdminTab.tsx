@@ -10,12 +10,13 @@ import SearchUsersModal from './SearchUsersModal';
 import CollegesModal from './CollegesModal';
 import RoundsDone from './RoundsDone';
 import Badge from '@/src/components/badge';
+import ViewEvent from './ViewEventModal';
 import EditEvent from './EditEvent';
 
 const AdminTab: FC<{
     AdminId: string;
   }> = ({ AdminId }) => {
-    const first:number = 10;
+    const first: number = 200;
   const {
     data: branches,
     loading: branchesLoading,
@@ -54,7 +55,7 @@ const AdminTab: FC<{
                             <h1 className="basis-1/5 py-2.5 text-center">Rounds Done</h1>
                             <h1 className="basis-1/5 py-2.5 text-center pr-4">Status</h1>
                             <h1 className="basis-1/5 py-2.5 text-center pr-5">Publish</h1>
-                            <h1 className="basis-1/5 py-2.5 text-center pr-5">Edit</h1>
+                            <h1 className="basis-1/5 py-2.5 text-center pr-5">View</h1>
                         </div>
                         {eventsLoading && (
                         <div className="flex mt-10 justify-center items-center">
@@ -67,10 +68,10 @@ const AdminTab: FC<{
                                 className={`bg-white/10 md:rounded-none rounded-lg md:p-4 ml-2 p-3 flex flex-col md:flex-row md:items-center items-start md:justify-center  mb-3 md:my-0`}>
                                     <h1 className="basis-1/6 flex justify-start py-0.5 text-start text-lg">{event?.node?.name}</h1>
                                     <h1 className="basis-1/6 flex justify-center py-0.5 text-start text-lg pr-2">
-                                        {event?.node.rounds[0].event.branch.name.toLowerCase() === "core" ? 
-                                        <Badge color="success">{event?.node.rounds[0].event.branch.name}</Badge>
+                                        {event?.node.rounds[0]?.event.branch.name.toLowerCase() === "core" ? 
+                                        <Badge color="success">{event?.node.rounds[0]?.event.branch.name}</Badge>
                                         :
-                                        event?.node.rounds[0].event.branch.name
+                                        event?.node.rounds[0]?.event.branch.name
                                     }
                                     </h1>
                                     <h1 className="basis-1/6 flex justify-center py-0.5 text-center text-lg">
@@ -92,7 +93,7 @@ const AdminTab: FC<{
                                     />
                                     </h1>
                                     <h1 className="basis-1/6 py-0.5 text-lg flex md:text-center md:justify-center md:pl-5 mt-2 md:mt-0">
-                                        <EditEvent 
+                                        <ViewEvent 
                                             Event = {event}
                                         />
                                     </h1>
