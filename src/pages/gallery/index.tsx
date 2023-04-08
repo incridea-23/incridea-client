@@ -2,9 +2,6 @@ import { NextPage } from "next";
 import { motion } from "framer-motion";
 import { useRef } from "react";
 
-import { LocomotiveScrollProvider } from "react-locomotive-scroll";
-import 'locomotive-scroll/dist/locomotive-scroll.css';
-
 import GallerySlide from "@/src/components/galleryslide";
 
 const Gallery:NextPage = () => {
@@ -12,23 +9,10 @@ const Gallery:NextPage = () => {
     const containerRef = useRef(null);
 
     return (
-        <div data-scroll-container className="min-h-screen w-full overflow-x-hidden overflow-y-auto text-gray-100 bg-gradient-to-br from-[#044b8b]  to-[#020024]" ref={containerRef}>
-            <LocomotiveScrollProvider
-                options={{
-                smooth: true,
-                smartphone: {
-                  smooth: true,
-                },
-                tablet: {
-                  smooth: true,
-                },
-              }}
-              watch={[]}
-              containerRef={containerRef}
-            >
+        <div className="flex flex-col h-screen w-full overflow-x-hidden overflow-y-auto text-gray-100 bg-gradient-to-b from-[#2d6aa6] to-[#052749] snap-y snap-mandatory snap-start relative">
             {/* Header Part */}
-            <div data-scroll-section className="h-screen w-full relative flex bg-black overflow-hidden">
-                <video data-scroll data-scroll-speed="-3" autoPlay loop muted className="object-cover object-center w-full h-full grayscale opacity-50">
+            <div id="head"  className="snap-start min-h-screen w-full relative flex overflow-hidden bg-black/60">
+                <video autoPlay loop muted className="object-cover object-center w-full h-full opacity-50 scale-[1.1]">
                     <source src="gallery.mp4" type="video/mp4"></source>
                 </video>
                 <motion.div
@@ -44,12 +28,9 @@ const Gallery:NextPage = () => {
                 style={{x:"-50%"}}
                 className="h-1 w-40 flex bg-gray-100 absolute bottom-8 left-1/2"></motion.div>
             </div>
-            <div data-scroll-section className="mt-20">
-                <GallerySlide title={'2022'} />
-                <GallerySlide title={'2020'} />
-                <GallerySlide title={'2019'} />
-            </div>
-            </LocomotiveScrollProvider>
+                <GallerySlide title={'2022'} next={'2020'} prev={'head'} />
+                <GallerySlide title={'2020'} next={'2019'} prev={'2022'} />
+                <GallerySlide title={'2019'} next={''} prev={'2020'} />
         </div>
     )
 }
