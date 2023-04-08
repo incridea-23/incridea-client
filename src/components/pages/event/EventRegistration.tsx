@@ -355,7 +355,6 @@ const TeamCard = ({
             ) ? (
               <div
                 className={`${titleFont.className} w-fit text-2xl font-bold  justify-center  text-center space-x-2`}>
-                <span>team-</span>
                 {team.name}
               </div>
             ) : (

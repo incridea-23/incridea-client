@@ -38,7 +38,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
     if (res?.ok) {
       setError("");
       setUserInfo({ email: "", password: "" });
-      router.push("/");
+      router.push("/profile");
     }
   };
 

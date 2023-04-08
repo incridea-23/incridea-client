@@ -1,5 +1,5 @@
 import { titleFont } from '@/src/utils/fonts';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
@@ -10,15 +10,12 @@ const EventCard: FC<{
   event: any;
 }> = ({ event }) => {
   return (
-    <motion.div
-      whileHover={{
-        scale: 1.02,
-      }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+    <Link
+      href={`/event/${event.name.toLowerCase().replaceAll(' ', '-')}-${
+        event.id
+      }`}
       key={event.id}
-      className="bg-white bg-opacity-30 backdrop-blur-sm flex flex-col cursor-pointer rounded-sm rounded-b-lg max-w-2xl w-[300px]"
+      className="bg-white bg-opacity-30 backdrop-blur-sm flex flex-col cursor-pointer max-w-2xl w-[300px] hover:scale-[1.03] transition-all duration-300 rounded-sm"
     >
       <div className="relative grow">
         {event.image ? (
@@ -54,16 +51,10 @@ const EventCard: FC<{
           </p>
         </div>
       </div>
-      <button className="w-full p-2 bg-white bg-opacity-40 hover:bg-opacity-70 transition-colors duration-300 rounded-b-lg">
-        <Link
-          href={`/events/${event.name.toLowerCase().replaceAll(' ', '-')}-${
-            event.id
-          }`}
-        >
-          View Event
-        </Link>
+      <button className="w-full p-2 bg-white bg-opacity-40 hover:bg-opacity-70 transition-colors duration-300 rounded-b-sm">
+        View Event
       </button>
-    </motion.div>
+    </Link>
   );
 };
 

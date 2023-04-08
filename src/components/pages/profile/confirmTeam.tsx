@@ -47,7 +47,7 @@ const ConfirmTeamModal: FC<{
         onClick={() => {
           setShowModal(true);
         }}
-        intent={"success"}
+        intent={"primary"}
         fullWidth>
         {isPaid ? "Pay & Confirm" : "Confirm"}
       </Button>
