@@ -68,7 +68,11 @@ const ProfileInfo: FC<{
                 </Link>
               </div>
             )}
-            <Button onClick={() => signOut()} className="mt-2">
+            <Button
+              onClick={() => signOut()}
+              className="mt-2 w-fit"
+              intent={'danger'}
+            >
               <FaSignOutAlt className="inline-block mr-1" />
               Sign Out
             </Button>

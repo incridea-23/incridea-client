@@ -15,7 +15,7 @@ const EventCard: FC<{
         event.id
       }`}
       key={event.id}
-      className="bg-white bg-opacity-30 backdrop-blur-sm flex flex-col cursor-pointer rounded-sm rounded-b-lg max-w-2xl w-[300px]"
+      className="bg-white bg-opacity-30 backdrop-blur-sm flex flex-col cursor-pointer rounded-sm rounded-b-lg max-w-2xl w-[300px] hover:scale-[1.03] transition-transform duration-300"
     >
       <div className="relative grow">
         {event.image ? (

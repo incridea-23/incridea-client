@@ -43,7 +43,7 @@ const ConfirmTeamModal: FC<{
     <>
       <Button
         size={"small"}
-        className="mt-3"
+        className="mt-3 w-fit"
         onClick={() => {
           setShowModal(true);
         }}

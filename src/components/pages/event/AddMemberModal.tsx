@@ -24,7 +24,9 @@ const AddMemberModal: FC<{
   )}?jointeam=${team.id}`;
   const copyUrl = async () => {
     await navigator.clipboard.writeText(url);
-    toast.success("Copied to clipboard!");
+    toast.success("Copied to clipboard!",{
+      position: 'bottom-center',
+    });
   };
 
   return (

@@ -6,7 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { AiFillYoutube } from "react-icons/ai";
 import { BsInstagram } from "react-icons/bs";
 import { FaYoutube } from "react-icons/fa";
 
@@ -43,11 +42,11 @@ export function FooterBody() {
         <div className="md:basis-3/5">
           <ul className="flex flex-wrap whitespace-nowrap flex-row flex-1 gap-2 md:gap-5 justify-center text-sm sm:text-sm items-center ">
             <li className=" text-gray-300 hover:text-gray-100">
-              <Link href="/about">Privacy policy</Link>
+              <Link href="/privacy">Privacy policy</Link>
             </li>
             |
             <li className="text-gray-300 hover:text-gray-100">
-              <Link href="/about">Terms & condition</Link>
+              <Link href="/rules">Terms & condition</Link>
             </li>
             |
             <li className="text-gray-300 hover:text-gray-100">
@@ -58,27 +57,27 @@ export function FooterBody() {
         <div className="md:basis-1/5">
           <ul className="flex flex-1 gap-4 justify-center text-2xl items-center ">
             <li className="text-gray-300 hover:text-gray-100">
-              <a
+              <Link
                 target="_blank"
                 href="https://www.instagram.com/incridea/"
                 rel="noreferrer">
                 <BsInstagram />
-              </a>
+              </Link>
             </li>
             <li className="text-gray-300 hover:text-gray-100">
-              <a
+              <Link
                 target="_blank"
                 className="text-3xl"
-                href="https://www.instagram.com/incridea/"
+                href="https://www.youtube.com/@incrideanmamit"
                 rel="noreferrer">
                 <FaYoutube />
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
       </div>
       <div className="bg-[#0f1821]">
-        <p className="text-center p-5 text-gray-200   text-sm">
+        <p className="text-center p-5 text-gray-200 text-sm">
           © Incridea 2023 - All rights reserved
         </p>
       </div>
