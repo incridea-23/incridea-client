@@ -98,11 +98,11 @@ function Teams({
             index === data.teamsByRound.edges.length - 1 ? lastItemRef : null
           }
         >
-          <h2 className="text-xl font-semibold flex gap-2">
+          <h2 className="text-xl font-semibold flex flex-col md:flex-row gap-2">
             <Badge color={'info'}>{idToTeamId(team?.node.id!)}</Badge>
             {team?.node.name}
           </h2>
-          <div className="flex flex-col md:flex-row gap-2">
+          <div className="flex  md:flex-row gap-2">
             {/* Mark Attendance */}
             <MarkAttendanceButton
               attended={team?.node.attended as boolean}

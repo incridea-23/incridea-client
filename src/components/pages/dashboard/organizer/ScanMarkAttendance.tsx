@@ -48,7 +48,9 @@ const MarkAttendance: FC<{
           res.data?.organizerMarkAttendanceSolo.__typename ===
           'MutationOrganizerMarkAttendanceSoloSuccess'
         ) {
-          toast.success('Marked attendance');
+          toast.success('Marked attendance',{
+            position: 'bottom-center',
+          });
         }
       });
     } else if (eventType === 'TEAM' || eventType === 'TEAM_MULTIPLE_ENTRY') {
@@ -66,7 +68,9 @@ const MarkAttendance: FC<{
           res.data?.organizerMarkAttendance.__typename ===
           'MutationOrganizerMarkAttendanceSuccess'
         ) {
-          toast.success('Marked attendance');
+          toast.success('Marked attendance',{
+            position: 'bottom-center',
+          });
         }
       });
     }

@@ -6,6 +6,8 @@ import { FC } from 'react';
 import EditTeamModal from './editTeam';
 import ConfirmTeamModal from './confirmTeam';
 import { idToTeamId } from '@/src/utils/id';
+import LeaveTeamModal from './LeaveTeamModal';
+import { toast } from 'react-hot-toast';
 
 export type Team = {
   id: string;
@@ -43,9 +45,17 @@ const UserTeams: FC<{
           <motion.div
             key={team.id}
             whileHover={{ scale: 1.03 }}
-            className="relative flex flex-col items-start justify-center my-4 bg-white rounded-lg shadow-lg bg-opacity-30 backdrop-blur-2xl max-w-2xl w-[300px] p-5 border-t border-l border-white"
+            className="relative rounded-sm flex flex-col items-start justify-center my-4 bg-white shadow-lg bg-opacity-30 backdrop-blur-2xl max-w-2xl w-[300px] p-5 border-t border-l border-white"
           >
-            <span className="absolute -top-3 -right-3 text-black text-xs bg-white rounded-full px-2 py-1 cursor-pointer">
+            <span
+              onClick={async () => {
+                await navigator.clipboard.writeText(idToTeamId(team.id));
+                toast.success('Copied to clipboard',{
+                  position: 'bottom-center',
+                });
+              }}
+              className="absolute rounded-sm -top-3 -right-3 text-black text-xs bg-white px-2 py-1 cursor-pointer"
+            >
               {idToTeamId(team.id)}
             </span>
 
@@ -67,7 +77,7 @@ const UserTeams: FC<{
               </div>
 
               <Link
-                href={`/events/${team.event.name
+                href={`/event/${team.event.name
                   .toLocaleLowerCase()
                   .split(' ')
                   .join('-')}-${team.event.id}`}
@@ -80,8 +90,8 @@ const UserTeams: FC<{
 
             <hr className="w-full border-white/40 my-3" />
 
-            <div className="basis-1/2">
-              <div className="w-full">
+            <div className="basis-1/2 flex flex-col">
+              <div className="w-full flex-grow">
                 {team?.members?.map((member: any) => (
                   <div
                     className="flex justify-between items-center"
@@ -104,12 +114,18 @@ const UserTeams: FC<{
                 )}
               </div>
 
-              {!team.confirmed && team.leaderId == userId && (
-                <ConfirmTeamModal
-                  teamId={team.id}
-                  isPaid={team.event.fees !== 0}
-                />
-              )}
+              <div>
+                {!team.confirmed && team.leaderId == userId && (
+                  <ConfirmTeamModal
+                    teamId={team.id}
+                    isPaid={team.event.fees !== 0}
+                  />
+                )}
+
+                {!team.confirmed && team.leaderId != userId && (
+                  <LeaveTeamModal teamId={team.id} />
+                )}
+              </div>
             </div>
           </motion.div>
         ))}

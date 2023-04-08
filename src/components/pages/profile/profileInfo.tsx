@@ -4,18 +4,24 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { QRCodeSVG } from 'qrcode.react';
-import { FC } from 'react';
-import { BsPersonFill } from 'react-icons/bs';
-import { FaSignOutAlt, FaUniversity } from 'react-icons/fa';
+import { FC, useEffect } from 'react';
+import { FaSignOutAlt } from 'react-icons/fa';
 import { MdOutlineEmail, MdPhone } from 'react-icons/md';
 import TextAnimation from '../../animation/text';
 import { idToPid } from '@/src/utils/id';
 import Button from '../../button';
 import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 const ProfileInfo: FC<{
   user: User | null | undefined;
 }> = ({ user }) => {
+  const router = useRouter();
+
+  if (user?.role === 'USER') {
+    router.push('/register');
+  }
+
   return (
     <section data-scroll-section className="text-white min-h-fit py-10 mb-10">
       <div data-scroll className="flex mb-4 items-center justify-center px-5">
@@ -51,16 +57,22 @@ const ProfileInfo: FC<{
                 {user?.email}
               </Link>
             </div>
-           {user?.phoneNumber && <div className="flex gap-2 items-center">
-              <MdPhone />
-              <Link
-                href={`tel:${user?.phoneNumber}`}
-                className="hover:underline"
-              >
-                {user?.phoneNumber}
-              </Link>
-            </div>}
-            <Button onClick={() => signOut()} className='mt-2'>
+            {user?.phoneNumber && (
+              <div className="flex gap-2 items-center">
+                <MdPhone />
+                <Link
+                  href={`tel:${user?.phoneNumber}`}
+                  className="hover:underline"
+                >
+                  {user?.phoneNumber}
+                </Link>
+              </div>
+            )}
+            <Button
+              onClick={() => signOut()}
+              className="mt-2 w-fit"
+              intent={'danger'}
+            >
               <FaSignOutAlt className="inline-block mr-1" />
               Sign Out
             </Button>

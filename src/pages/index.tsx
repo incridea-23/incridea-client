@@ -1,4 +1,3 @@
-import { type NextPage } from "next";
 import About from "../components/about";
 import Image from "next/image";
 import { useRef } from "react";
@@ -6,7 +5,7 @@ import Hero from "../components/hero";
 import { LocomotiveScrollProvider } from "react-locomotive-scroll";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import EventsReel from "../components/eventsPeek/reel";
-import Footer, { HomePageFooter } from "../components/footer";
+import  { HomePageFooter } from "../components/footer";
 import dynamic from "next/dynamic";
 const CountDown = dynamic(() => import("../components/countdown"), {
   ssr: false,

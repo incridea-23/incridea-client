@@ -32,7 +32,9 @@ const AddParticipantToEvent: FC<{
               res.data?.organizerRegisterSolo.__typename ===
               'MutationOrganizerRegisterSoloSuccess'
             ) {
-              toast.success('Registered!');
+              toast.success('Registered!',{
+                position: 'bottom-center',
+              });
             }
           });
         }}

@@ -25,7 +25,7 @@ const Organizer: NextPage = () => {
   return (
     <Dashboard>
       <Toaster />
-      <h1 className="text-3xl mb-3">
+      <h1 className="text-3xl px-5 mb-3">
         Hello <span className="font-semibold">{user?.name}</span>!
       </h1>
       <OrganizerTab organizerId={user.id} />
