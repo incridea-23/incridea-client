@@ -2,7 +2,6 @@ import Button from '@/src/components/button';
 import {FC, useState} from 'react';
 import { EventsQuery } from '@/src/generated/generated';
 import Modal from '@/src/components/modal';
-import { AiOutlineEye } from 'react-icons/ai';
 import { idToPid, idToTeamId } from '@/src/utils/id';
 import ViewTeamModal from './ViewTeamModal';
 
@@ -14,7 +13,6 @@ const TeamModal: FC<
 = (Team ) => {
 
     const team = Team?.Team?.node.teams;
-    console.log(Team?.Team?.node.eventType);
     const [showModal, setShowModal] = useState(false);
 
     return <>

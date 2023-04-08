@@ -1,7 +1,5 @@
 import { FC,useState } from 'react';
-import { useQuery } from '@apollo/client';
-import { EventsDocument, EventsQuery } from '@/src/generated/generated';
-import Spinner from '@/src/components/spinner';
+import { EventsQuery } from '@/src/generated/generated';
 import Button from '@/src/components/button';
 import { AiOutlineEye } from 'react-icons/ai';
 import Modal from '@/src/components/modal';

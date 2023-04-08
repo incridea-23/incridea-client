@@ -1,4 +1,4 @@
-import { FC,useState } from 'react';
+import { FC } from 'react';
 import { useQuery } from '@apollo/client';
 import { EventsDocument } from '@/src/generated/generated';
 import { BranchesDocument } from '@/src/generated/generated';
