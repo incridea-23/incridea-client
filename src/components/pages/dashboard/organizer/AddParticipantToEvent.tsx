@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client';
 import { FC } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import Button from '@/src/components/button';
+import { pidToId } from '@/src/utils/id';
 
 const AddParticipantToEvent: FC<{
   userId: string;
@@ -21,7 +22,7 @@ const AddParticipantToEvent: FC<{
           register({
             variables: {
               eventId,
-              userId,
+              userId: pidToId(userId),
             },
           }).then((res) => {
             if (res.data?.organizerRegisterSolo.__typename === 'Error') {

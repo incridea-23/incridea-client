@@ -1,62 +1,54 @@
-import { FC, useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import Button from '../button';
-import { AuthStatus } from '@/src/hooks/useAuth';
-import { User } from '@/src/generated/generated';
-import { BiMenuAltRight as MenuIcon } from 'react-icons/bi';
-import { AiOutlineClose as XIcon } from 'react-icons/ai';
-import { Transition } from '@headlessui/react';
-import ProfileMenu from './profileMenu';
-import { titleFont } from '@/src/utils/fonts';
-import TextAnimation from '../animation/text';
-import CharacterAnimation from '../animation/character';
+import { FC, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import Button from "../button";
+import { AuthStatus, useAuth } from "@/src/hooks/useAuth";
+import { User } from "@/src/generated/generated";
+import { BiMenuAltRight as MenuIcon } from "react-icons/bi";
+import { AiOutlineClose as XIcon } from "react-icons/ai";
+import { Transition } from "@headlessui/react";
+import AuthenticatedButtons from "./authenticatedButtons";
+import { titleFont } from "@/src/utils/fonts";
+import CharacterAnimation from "../animation/character";
+import { useRouter } from "next/router";
 
-const Navbar: FC<{
-  status: AuthStatus;
-  user: User | undefined | null;
-}> = ({ status, user }) => {
+const Navbar = () => {
   const links = [
-    { label: 'Home', url: '/' },
-    { label: 'Pronites', url: '/pronites' },
-    { label: 'Events', url: '/events' },
-    { label: 'Gallery', url: '/gallery' },
-    { label: 'About', url: '/about' },
+    { label: "Home", url: "/" },
+    { label: "Pronites", url: "/pronites" },
+    { label: "Events", url: "/events" },
+    { label: "Gallery", url: "/gallery" },
+    { label: "About", url: "/about" },
   ];
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const router = useRouter();
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   return (
-    <nav className="fixed top-0 z-10 bg-white backdrop-filter backdrop-blur-lg bg-opacity-10 border-b border-gray-200 w-full">
+    <nav
+      className={`fixed ${titleFont.className}  top-0 z-20 bg-white backdrop-filter backdrop-blur-lg bg-opacity-10 border-b border-gray-200/30 w-full`}>
       <div className="max-w-5xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center space-x-2">
             <Image
-              className="bg-white bg-opacity-30 p-1 rounded-full backdrop-filter backdrop-blur-lg"
-              src="/logo.png"
+              className="w-24"
+              src="/assets/png/logo.png"
               alt="Logo"
-              width={40}
-              height={40}
+              width={100}
+              height={80}
               priority
             />
-            <span
-              className={`${titleFont.className} text-gray-800 font-bold block lg:hidden`}
-            >
-              Incridea&apos;23
-            </span>
           </Link>
 
           <div className="space-x-6 text-gray-900 hidden lg:flex">
             {links.map((link) => (
               <Link
-                className="hover:text-primary-500 transition-colors duration-300"
+                className="text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.5)] transition-colors duration-300"
                 key={link.url}
-                href={link.url}
-              >
+                href={link.url}>
                 <CharacterAnimation
                   text={link.label}
                   textStyle="text-lg font-medium"
@@ -64,18 +56,18 @@ const Navbar: FC<{
               </Link>
             ))}
           </div>
-
-          <AuthButtons
-            className="hidden lg:flex"
-            status={status}
-            user={user!}
-          />
+          {!(router.pathname === "/login") && (
+            <AuthButtons className="hidden lg:flex" />
+          )}
           <div className="flex items-center space-x-4 lg:hidden">
             {isMenuOpen ? (
-              <XIcon className="h-6 w-6 text-gray-900" onClick={toggleMenu} />
+              <XIcon
+                className=" text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.5)] h-6 w-6 "
+                onClick={toggleMenu}
+              />
             ) : (
               <MenuIcon
-                className="h-6 w-6 text-gray-900"
+                className="h-6 w-6 text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.5)]"
                 onClick={toggleMenu}
               />
             )}
@@ -90,18 +82,16 @@ const Navbar: FC<{
           leave="transition-all ease-in-out duration-300"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
-          className="lg:hidden"
-        >
+          className="lg:hidden">
           {links.map((link) => (
             <Link
               key={link.url}
               href={link.url}
-              className="block py-2 px-4 text-sm hover:bg-primary-100"
-            >
+              className="block py-2 px-4 text-sm text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.5)]">
               {link.label}
             </Link>
           ))}
-          <AuthButtons className="mb-2" status={status} user={user!} />
+          {!(router.pathname === "/login") && <AuthButtons className="mb-2" />}
         </Transition>
       </div>
     </nav>
@@ -109,22 +99,19 @@ const Navbar: FC<{
 };
 
 const AuthButtons: FC<{
-  status: AuthStatus;
-  user: User;
   className?: string;
-}> = ({ status, user, className }) => {
+}> = ({ className }) => {
+  const { status, user, error, loading } = useAuth();
   return (
     <div className={`flex space-x-2 px-3 lg:px-0 ${className}`}>
-      {status === 'authenticated' && (
-        <ProfileMenu user={user} status={status} />
-      )}
-      {status === 'unauthenticated' && (
+      {status === "authenticated" && <AuthenticatedButtons user={user} />}
+      {status === "unauthenticated" && (
         <>
-          <Link href="/auth/login">
-            <Button intent={'ghost'}>Login</Button>
+          <Link href={"/login"} as="/login">
+            <Button intent={"primary"}>Login</Button>
           </Link>
-          <Link href="/auth/signup">
-            <Button>Sign up</Button>
+          <Link href={"/login?whichForm=signUp"} as="/login">
+            <Button intent={"ghost"}>Sign Up</Button>
           </Link>
         </>
       )}

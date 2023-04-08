@@ -18,6 +18,7 @@
   @apply bg-gray-300;
 }
 
+/* Markdown Rendering styles */
 .rendered-markdown h1 {
   @apply text-3xl;
   @apply font-bold;
@@ -123,25 +124,29 @@
   @apply py-2;
 }
 
-
 .scroll-hide::-webkit-scrollbar {
   display: none;
 }
 
 .scroll-hide {
   -ms-overflow-style: none;
-  scrollbar-width: none; 
+  scrollbar-width: none;
 }
 
-@keyframes scroll {
-  0% {
-    left: 0;
-  }
-  100% {
-    left: -100%;
-  }
+.gradient-bg {
+  background: linear-gradient(
+    -170deg,
+    #a5b4fc,
+    #818cf8,
+    #22d3ee,
+    #fefce8,
+    #fff,
+    #fff
+  );
 }
 
-.animate {
-  animation: scroll 15s linear infinite;
+/* Workaround for disappearing elements (scope: locomotive scroll) */
+.has-scroll-smooth {
+  position: fixed;
+  inset: 0;
 }

@@ -50,15 +50,13 @@ const Terms:NextPage = ()=>{
             Proof (Any one) (Aadhaar, Driving license, Voter ID, etc.).
           </li>
         </ul>
-
-        <h2 className="text-2xl mt-4">IMPORTANT</h2>
-        <p className="mt-2">
-          Any participant found violating the above rules may be immediately
-          expelled from the campus. His/her registration from all the events may
-          be cancelled and he/she will be penalised appropriately. NMAMIT
-          reserves the right to take appropriate legal actions in such cases.
-        </p>
-
+      <h2 className="text-2xl mt-4">IMPORTANT</h2>
+      <p className="mt-2">
+        Any participant found violating the above rules may be immediately
+        expelled from the campus. His/her registration from all the events may
+        be cancelled and he/she will be penalised appropriately. NMAMIT reserves
+        the right to take appropriate legal actions in such cases.
+      </p>
         <h2 className="text-2xl mt-4">Refund Policy</h2>
         <p className="mt-2">
           Refunds in any particular case can only be initiated upon request.

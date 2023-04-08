@@ -1,8 +1,7 @@
 import { NextPage } from "next";
 import { motion } from "framer-motion";
 import { useRef } from "react";
-
-import GallerySlide from "@/src/components/galleryslide";
+import GallerySlide from '@/src/components/galleryslide';
 
 const Gallery:NextPage = () => {
 

@@ -1,0 +1,12 @@
+mutation PublishEvent($published: Boolean!, $id: ID!) {
+  publishEvent(id: $id, published: $published) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationPublishEventSuccess {
+      __typename
+      data
+    }
+  }
+}

@@ -1,0 +1,26 @@
+mutation CreateTeam($eventId : ID!,$name : String!) {
+  createTeam(eventId:$eventId, name:$name) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationCreateTeamSuccess {
+      __typename
+      data {
+        name
+        id
+        confirmed
+        event {
+          id
+          name
+        }
+         members {
+          user {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+}

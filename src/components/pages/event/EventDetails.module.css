@@ -1,0 +1,66 @@
+.markup {
+  color: #fff;
+}
+
+.markup h1,
+.markup h2,
+.markup h3,
+.markup h4,
+.markup h5,
+.markup h6 {
+  font-weight: bold;
+  font-family: var(--trade-winds-font) !important;
+}
+
+.markup ul,
+.markup ol {
+  list-style-position: inside;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.markup ul {
+  list-style-type: disc;
+}
+.markup ol {
+  list-style-type: decimal;
+}
+.markup ul li,
+.markup ol li {
+  margin-left: 1rem;
+}
+
+.markup blockquote {
+  border-left: 4px solid #ddd;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 1rem;
+}
+
+.markup a {
+  color: #4a90e2;
+  text-decoration: underline;
+}
+
+.markup pre {
+  background-color: #f5f5f5;
+  padding: 1rem;
+  overflow-x: auto;
+  font-family: Consolas, "Courier New", monospace;
+}
+
+.markup code {
+  font-family: Consolas, "Courier New", monospace;
+}
+
+.markup img {
+  max-width: 100%;
+  height: auto;
+}
+
+.markup .public-DraftEditorPlaceholder-root {
+  color: #999;
+}
+
+.markup .public-DraftEditor-content {
+  min-height: 200px;
+}
