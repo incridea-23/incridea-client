@@ -4,6 +4,7 @@ import { EventsQuery } from '@/src/generated/generated';
 import Modal from '@/src/components/modal';
 import { AiOutlineEye } from 'react-icons/ai';
 import { idToPid, idToTeamId } from '@/src/utils/id';
+import ViewTeamModal from './ViewTeamModal';
 
 
 const TeamModal: FC<
@@ -64,9 +65,9 @@ const TeamModal: FC<
                                 {team?.confirmed ? "Confirmed" : "Not Confirmed"}
                             </span>
                             <span className="md:text-lg font-bold w-full md:w-1/4 flex justify-center text-center">
-                                <Button onClick={() => setShowModal(true)} intent="secondary">
-                                <AiOutlineEye />View
-                                </Button>
+                                <ViewTeamModal 
+                                    members={team.members} 
+                                />
                             </span>
                         </div>
                     ))
