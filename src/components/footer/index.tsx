@@ -29,7 +29,7 @@ export function HomePageFooter() {
 
 export function FooterBody() {
   return (
-    <div className={`${titleFont.className} tracking-wider`}>
+    <div className={`${titleFont.className} tracking-wider snap-start`}>
       <div className="-mt-2 flex flex-col gap-5 md:flex-row bg-[#131e28] text-gray-100 p-5 items-center justify-between">
         <div className="md:basis-1/5">
           <Image
@@ -89,5 +89,6 @@ export default function Footer() {
   const router = useRouter();
   if (router.pathname === "/") return null;
   if (router.pathname === "/gallery") return null;
+  if (router.pathname === "/pronites") return null;
   return <FooterBody />;
 }
