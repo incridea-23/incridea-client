@@ -3,15 +3,17 @@ import {FC, useState} from 'react';
 import { EventsQuery } from '@/src/generated/generated';
 import Modal from '@/src/components/modal';
 import { AiOutlineEye } from 'react-icons/ai';
+import { idToPid, idToTeamId } from '@/src/utils/id';
 
 
 const TeamModal: FC<
 {
     Team: EventsQuery['events']['edges'][0];
 }>
-= (Team) => {
+= (Team ) => {
 
     const team = Team?.Team?.node.teams;
+    console.log(Team?.Team?.node.eventType);
     const [showModal, setShowModal] = useState(false);
 
     return <>
@@ -28,7 +30,12 @@ const TeamModal: FC<
         >
             <div className='flex flex-col m-3 justify-center'>
                 <div className='hidden md:flex flex-row justify-center p-2 bg-gray-600 rounded-lg mb-2'>
-                    <span className="flex text-lg font-bold basis-1/4 text-center justify-center">Team ID</span>
+                    {
+                    Team?.Team?.node.eventType === "INDIVIDUAL" || Team?.Team?.node.eventType === "INDIVIDUAL_MULTIPLE_ENTRY" ? 
+                        <span className="flex text-lg font-bold basis-1/4 text-center justify-center">PID</span>
+                        :
+                        <span className="flex text-lg font-bold basis-1/4 text-center justify-center">Team ID</span>
+                    }
                     <span className="flex text-lg font-bold basis-1/4 text-center justify-center">Team Name</span>
                     <span className="flex text-lg font-bold basis-1/4 text-center justify-center">Team Status</span>
                     <span className="flex text-lg font-bold basis-1/4 text-center justify-center">Team Details</span>
@@ -40,9 +47,16 @@ const TeamModal: FC<
                             key={team.id}
                             className="flex md:flex-row flex-col border md:text-lg text-base border-gray-600 rounded-lg mb-2 p-2 md:justify-center justify-start"
                         >
-                            <span className="md:text-lg font-bold w-full md:w-1/4 mb-2 md:mb-0 justify-center text-center">
-                                {team?.id}
-                            </span>
+                            {
+                                Team?.Team?.node.eventType === "INDIVIDUAL" || Team?.Team?.node.eventType === "INDIVIDUAL_MULTIPLE_ENTRY" ?
+                                <span className="md:text-lg font-bold w-full md:w-1/4 mb-2 md:mb-0 justify-center text-center">
+                                    {idToPid(team?.members.map((member) => member?.user?.id)[0])}
+                                </span>
+                                :
+                                <span className="md:text-lg font-bold w-full md:w-1/4 mb-2 md:mb-0 justify-center text-center">
+                                    {idToTeamId(team?.id)}
+                                </span>
+                            } 
                             <span className="md:text-lg font-bold w-full md:w-1/4 mb-2 md:mb-0 justify-center text-center">
                                 {team?.name}
                             </span>
