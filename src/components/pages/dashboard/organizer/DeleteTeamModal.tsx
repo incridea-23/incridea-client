@@ -53,6 +53,7 @@ const DeleteTeamModal = ({ teamId, attended, teamOrParticipant }: Props) => {
           setShowModal(true);
         }}
         disabled={attended || deleteTeamLoading}
+        className='w-6 h-auto md:w-auto'
       >
         <BiTrashAlt />
       </Button>

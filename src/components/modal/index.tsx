@@ -37,7 +37,7 @@ const Modal: FC<ModalProps> = ({
         </Transition.Child>
 
         <div
-          className={`fixed inset-0  p-4 md:p-8 overflow-y-auto ${
+          className={`fixed inset-0 z-10  p-4 md:p-8 overflow-y-auto ${
             size === "small" && "w-80 mx-auto"
           }`}>
           <div className="flex min-h-full items-center justify-center text-center py-5 md:py-7">
