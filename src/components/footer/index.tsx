@@ -28,7 +28,7 @@ export function HomePageFooter() {
   );
 }
 
-function FooterBody() {
+export function FooterBody() {
   return (
     <div className={`${titleFont.className} tracking-wider`}>
       <div className="-mt-2 flex flex-col gap-5 md:flex-row bg-[#131e28] text-gray-100 p-5 items-center justify-between">
@@ -79,7 +79,7 @@ function FooterBody() {
       </div>
       <div className="bg-[#0f1821]">
         <p className="text-center p-5 text-gray-200   text-sm">
-          ©  Incridea 2023 - All rights reserved
+          © Incridea 2023 - All rights reserved
         </p>
       </div>
     </div>
@@ -89,5 +89,6 @@ function FooterBody() {
 export default function Footer() {
   const router = useRouter();
   if (router.pathname === "/") return null;
+  if (router.pathname === "/gallery") return null;
   return <FooterBody />;
 }
