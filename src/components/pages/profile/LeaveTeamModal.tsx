@@ -11,7 +11,7 @@ const LeaveTeamModal: FC<{
 }> = ({ teamId }) => {
   const [showModal, setShowModal] = useState(false);
 
-  const [leaveTeam, { loading: leaveTeamLoading }] = useMutation(
+  const [leaveTeam, { loading }] = useMutation(
     LeaveTeamDocument,
     {
       refetchQueries: ['RegisterdEvents'],
@@ -31,6 +31,7 @@ const LeaveTeamModal: FC<{
       },
     }).then((res) => {
       if (res?.data?.leaveTeam.__typename !== 'MutationLeaveTeamSuccess') {
+        console.log(res.data?.leaveTeam.message);
         return Promise.reject(res.data?.leaveTeam.message);
       }
     });
@@ -65,9 +66,9 @@ const LeaveTeamModal: FC<{
             onClick={() => {
               handleLeave(teamId as string);
             }}
-            disabled={leaveTeamLoading}
+            disabled={loading}
           >
-            {leaveTeamLoading ? (
+            {loading ? (
               <Spinner intent={'white'} size={'small'} />
             ) : (
               'Leave'

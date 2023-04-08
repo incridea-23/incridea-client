@@ -1,61 +1,61 @@
-import EventDetails from "@/src/components/pages/event/EventDetails";
-import EventRegistration from "@/src/components/pages/event/EventRegistration";
+import EventDetails from '@/src/components/pages/event/EventDetails';
+import EventRegistration from '@/src/components/pages/event/EventRegistration';
 import {
   Event,
   EventByIdDocument,
   PublishedEventsSlugDocument,
-} from "@/src/generated/generated";
-import { client } from "@/src/lib/apollo";
-import { titleFont } from "@/src/utils/fonts";
-import { ApolloError } from "@apollo/client";
-import Image from "next/image";
-import Link from "next/link";
-import { ToastBar, Toaster } from "react-hot-toast";
-import { BiDotsVerticalRounded, BiTimeFive } from "react-icons/bi";
-import { BsFillCalendar2WeekFill, BsFillTelephoneFill } from "react-icons/bs";
+} from '@/src/generated/generated';
+import { client } from '@/src/lib/apollo';
+import { titleFont } from '@/src/utils/fonts';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Toaster } from 'react-hot-toast';
+import { BsFillTelephoneFill } from 'react-icons/bs';
 import {
   IoCashOutline,
   IoInformationOutline,
   IoLocationOutline,
   IoPeopleOutline,
   IoPersonOutline,
-} from "react-icons/io5";
-import { MdDriveFileMove, MdOutlineMailOutline } from "react-icons/md";
+} from 'react-icons/io5';
+import { MdOutlineMailOutline } from 'react-icons/md';
+import { BiTimeFive } from 'react-icons/bi';
+import { BsFillCalendar2WeekFill } from 'react-icons/bs';
 
 function event({ event, error }: { event: Event; error: String }) {
   const getEventAttributes = () => {
-    let teamSizeText = "";
+    let teamSizeText = '';
     if (event.minTeamSize === event.maxTeamSize) {
       teamSizeText += event.minTeamSize;
       if (event.minTeamSize === 1) {
-        teamSizeText += " member";
-      } else teamSizeText += " members";
+        teamSizeText += ' member';
+      } else teamSizeText += ' members';
     } else {
       teamSizeText = ` ${event.minTeamSize} - ${event.maxTeamSize}`;
     }
     return [
       {
-        name: "Venue",
+        name: 'Venue',
         text: event.venue,
         Icon: IoLocationOutline,
       },
       {
-        name: "Event Type",
+        name: 'Event Type',
         text: event.eventType,
         Icon: IoPersonOutline,
       },
       {
-        name: "Fees",
+        name: 'Fees',
         text: event.fees,
         Icon: IoCashOutline,
       },
       {
-        name: "Team Size",
+        name: 'Team Size',
         text: teamSizeText,
         Icon: IoPeopleOutline,
       },
       {
-        name: "Maximum Teams",
+        name: 'Maximum Teams',
         text: event.maxTeams,
         Icon: IoInformationOutline,
       },
@@ -78,7 +78,8 @@ function event({ event, error }: { event: Event; error: String }) {
               />
             )}
             <h1
-              className={`${titleFont.className} text-2xl sm:text-4xl px-4 pb-0 sm:p-0 font-bold text-white`}>
+              className={`${titleFont.className} text-2xl sm:text-4xl px-4 pb-0 sm:p-0 font-bold text-white`}
+            >
               {event.name}
             </h1>
             <div className="px-4 pb-4 sm:p-0">
@@ -96,44 +97,45 @@ function event({ event, error }: { event: Event; error: String }) {
                     attr.text && (
                       <div
                         key={attr.name}
-                        className="flex text-semibold px-3 py-2 text-white bg-gray-300/20 shrink-0 text-sm rounded-sm grow gap-1 items-center">
+                        className="flex text-semibold px-3 py-2 text-white bg-gray-300/20 shrink-0 text-sm rounded-sm grow gap-1 items-center"
+                      >
                         {<attr.Icon />}
                         <p>
-                          {attr.name} {" : "}
+                          {attr.name} {' : '}
                         </p>
-                        <p className="leading-4">
-                          {/* <span className="font-semibold">{attr.name}: </span> */}
-                          {attr.text}
-                        </p>
+                        <p className="leading-4">{attr.text}</p>
                       </div>
                     )
                 )}
               </div>
-              <div className="text-sm  ">
+              <div className="text-sm">
                 <div className="grid grid-cols-2 gap-1.5">
                   {event.rounds.map((round) => (
                     <div
                       key={round.roundNo}
-                      className="py-2 text-white  rounded-sm bg-gray-300/20     space-y-2 px-3 items-center">
+                      className="py-2 text-white  rounded-sm bg-gray-300/20     space-y-2 px-3 items-center"
+                    >
                       <div className=" font-semibold ">
                         Round {round.roundNo}
                       </div>
                       <div className="space-y-2">
                         <p className="flex gap-2 items-center">
                           <BsFillCalendar2WeekFill />
-                          {new Date(round.date).toLocaleString("en-IN", {
-                            year: "numeric",
-                            month: "short",
-                            day: "2-digit",
-                          })}
+                          {round.date &&
+                            new Date(round.date).toLocaleDateString('en-IN', {
+                              day: 'numeric',
+                              month: 'long',
+                              year: 'numeric',
+                            })}
                         </p>
                         <p className="flex gap-2 items-center">
                           <BiTimeFive />
-                          {new Date(round.date).toLocaleString("en-IN", {
-                            hour: "numeric",
-                            minute: "numeric",
-                            hour12: true,
-                          })}
+                          {round.date &&
+                            new Date(round.date).toLocaleTimeString('en-IN', {
+                              hour: 'numeric',
+                              minute: 'numeric',
+                              hour12: true,
+                            })}
                         </p>
                       </div>
                     </div>
@@ -155,7 +157,8 @@ function event({ event, error }: { event: Event; error: String }) {
                 {event.organizers.map((organizer) => (
                   <div
                     key={organizer.user.id}
-                    className="text-white w-full p-2.5 rounded-sm bg-gray-300/20 px-3  text-md   ">
+                    className="text-white w-full p-2.5 rounded-sm bg-gray-300/20 px-3  text-md   "
+                  >
                     <h3 className="text-lg font-semibold mb-2">
                       {organizer.user.name}
                     </h3>
@@ -163,16 +166,18 @@ function event({ event, error }: { event: Event; error: String }) {
                       {organizer.user.email && (
                         <Link
                           href={`mailto:${organizer.user.email}`}
-                          className="text-sm inline-flex overflow-x-auto items-center gap-2">
-                          <MdOutlineMailOutline className="text-lg" />{" "}
+                          className="text-sm inline-flex overflow-x-auto items-center gap-2"
+                        >
+                          <MdOutlineMailOutline className="text-lg" />{' '}
                           {organizer.user.email}
                         </Link>
                       )}
                       {organizer.user.phoneNumber && (
                         <Link
                           href={`tel:${organizer.user.phoneNumber}`}
-                          className="text-sm inline-flex items-center gap-2">
-                          <BsFillTelephoneFill className="text-lg" />{" "}
+                          className="text-sm inline-flex items-center gap-2"
+                        >
+                          <BsFillTelephoneFill className="text-lg" />{' '}
                           {organizer.user.phoneNumber}
                         </Link>
                       )}
@@ -189,10 +194,10 @@ function event({ event, error }: { event: Event; error: String }) {
           <div className="text-center">
             <p>Looks like you&apos;ve wandered too deep and gotten lost!</p>
             <p>
-              Click{" "}
-              <Link className="underline" href={"/events"}>
+              Click{' '}
+              <Link className="underline" href={'/events'}>
                 here
-              </Link>{" "}
+              </Link>{' '}
               to head back to the events page
             </p>
           </div>
@@ -213,19 +218,19 @@ export async function getStaticProps({ params }: { params: Params }) {
     const { data: event } = await client.query({
       query: EventByIdDocument,
       variables: {
-        id: params.slug.split("-").pop() as string,
+        id: params.slug.split('-').pop() as string,
       },
     });
     return {
       props: {
         event: event.eventById,
       },
-      revalidate: 1,
+      revalidate: 60,
     };
   } catch (error: any) {
     return {
       props: {
-        error: error?.message || "Could not find event",
+        error: error?.message || 'Could not find event',
         event: null,
       },
     };
@@ -239,7 +244,7 @@ export async function getStaticPaths() {
   });
   const paths = events.publishedEvents.map((event) => ({
     params: {
-      slug: `${event.name.toLocaleLowerCase().split(" ").join("-")}-${
+      slug: `${event.name.toLocaleLowerCase().split(' ').join('-')}-${
         event.id
       }`,
     },
@@ -248,7 +253,7 @@ export async function getStaticPaths() {
   // We'll pre-render only these paths at build time.
   // { fallback: 'blocking' } will server-render pages
   // on-demand if the path doesn't exist.
-  return { paths, fallback: "blocking" };
+  return { paths, fallback: 'blocking' };
 }
 
 type Params = {

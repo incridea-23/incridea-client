@@ -15,14 +15,14 @@ const EventsReel = () => {
         />
       </div>
 
-      <div className="relative">
-        <div className="absolute blur-md top-6">
+      {/* <div className="relative"> */}
+        {/* <div className="absolute blur-md top-6">
           <EventsPeek speed={-5} />
-        </div>
+        </div> */}
         <div>
           <EventsPeek speed={5} />
         </div>
-      </div>
+      {/* </div> */}
 
       <div className="mx-auto px-4 max-w-2xl">
         <p className="text-sm lg:text-lg mt-12 text-center text-white">
