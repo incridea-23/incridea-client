@@ -1,11 +1,12 @@
-import { Cinzel, Cinzel_Decorative } from '@next/font/google';
+import { Poppins, Trade_Winds } from "@next/font/google";
 
-export const titleFont = Cinzel_Decorative({
-  weight: ['400', '700', '900'],
-  subsets: ['latin'],
+export const titleFont = Trade_Winds({
+  weight: ["400"],
+  subsets: ["latin"],
+  variable: "--trade-winds-font",
 });
 
-export const bodyFont = Cinzel({
-  weight: ['400', '700', '900'],
-  subsets: ['latin'],
+export const bodyFont = Poppins({
+  weight: ["400"],
+  subsets: ["latin"],
 });

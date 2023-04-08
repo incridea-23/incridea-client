@@ -1,0 +1,26 @@
+mutation EventPaymentOrder($teamId: ID!) {
+  eventPaymentOrder(teamId: $teamId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationEventPaymentOrderSuccess {
+      __typename
+      data {
+        Team {
+          id
+          leaderId
+          name
+          event {
+            name
+            image
+          }
+        }
+        amount
+        id
+        orderId
+        status
+      }
+    }
+  }
+}

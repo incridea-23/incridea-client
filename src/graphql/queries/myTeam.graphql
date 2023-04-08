@@ -1,0 +1,36 @@
+query MyTeam($eventId: ID!) {
+  myTeam(eventId: $eventId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on QueryMyTeamSuccess {
+      __typename
+      data {
+        attended
+        confirmed
+        id
+        leaderId
+        name
+        event {
+          id
+          name
+          maxTeamSize
+          fees
+          eventType
+        }
+        members {
+          user {
+            email
+            id
+            phoneNumber
+            name
+            college {
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+}

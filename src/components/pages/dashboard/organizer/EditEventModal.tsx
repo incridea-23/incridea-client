@@ -31,6 +31,8 @@ export default function EditEventModal({
   const [minTeamSize, setMinTeamSize] = useState(event.minTeamSize);
   const [venue, setVenue] = useState(event.venue);
   const [fees, setFees] = useState(event.fees);
+  const [banner, setBanner] = useState(event.image);
+  const [uploading, setUploading] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   function handleCloseModal() {
@@ -40,12 +42,40 @@ export default function EditEventModal({
   const [editorState, setEditorState] = useState<any>(
     EditorState.createEmpty()
   );
+
   const [updateEvent, { data, loading, error }] = useMutation(
     UpdateEventDocument,
     {
       refetchQueries: ['EventByOrganizer'],
     }
   );
+
+  const handleUpload = (file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    const url = `https://incridea-test.onrender.com/cloudinary/upload/${event.name}`;
+    setUploading(true);
+    const promise = fetch(url, {
+      method: 'POST',
+      body: formData,
+      mode: 'cors',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        setBanner(res.url);
+        setUploading(false);
+      })
+      .catch((err) => {
+        setUploading(false);
+        console.log(err);
+      });
+    createToast(promise, 'Uploading image...');
+  };
+
   function saveHandler() {
     setShowModal(false);
     let promise = updateEvent({
@@ -193,7 +223,6 @@ export default function EditEventModal({
                   type="number"
                   id="fees"
                   onChange={(e) => setFees(Number(e.target.value) || 0)}
-                  value={fees}
                   className=" border w-full  text-sm rounded-lg   block  p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
                   placeholder="Entry Fees..."
                   defaultValue={event.fees}
@@ -250,6 +279,7 @@ export default function EditEventModal({
                   file:bg-blue-50 file:text-blue-700
                   hover:file:bg-blue-100 border w-full text-sm rounded-lg   block  bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
                   placeholder="Banner..."
+                  onChange={(e) => handleUpload(e.target.files![0])}
                 />
               </div>
               <div className="grow md:basis-1/3 basis-full">
@@ -296,7 +326,7 @@ export default function EditEventModal({
               type="submit"
               intent={'success'}
               onClick={saveHandler}
-              disabled={loading}
+              disabled={loading || uploading}
               className="rounded-lg"
             >
               Save

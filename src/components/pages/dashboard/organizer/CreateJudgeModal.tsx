@@ -6,6 +6,7 @@ import createToast from '@/src/components/toast';
 import { CreateJudgeDocument } from '@/src/generated/generated';
 import { useMutation } from '@apollo/client';
 import { FC, useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 const CreateJudgeModal: FC<{
   eventId: string;

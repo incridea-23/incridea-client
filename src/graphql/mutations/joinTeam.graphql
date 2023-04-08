@@ -1,0 +1,31 @@
+mutation JoinTeam($teamId : ID!) {
+  joinTeam(teamId: $teamId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationJoinTeamSuccess {
+      __typename
+      data {
+        team {
+          id
+          name
+          confirmed
+          members {
+            user {
+              name
+              id
+            }
+          }
+          event {
+            id
+            name
+            maxTeamSize
+            description
+            eventType
+          }
+        }
+      }
+    }
+  }
+}

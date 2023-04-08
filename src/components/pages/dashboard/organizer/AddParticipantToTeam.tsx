@@ -12,6 +12,7 @@ import createToast from '@/src/components/toast';
 import { MdOutlineDeleteOutline, MdOutlineQrCodeScanner } from 'react-icons/md';
 import Button from '@/src/components/button';
 import { QRCodeScanner } from './QRCodeScanner';
+import { idToPid, pidToId } from '@/src/utils/id';
 
 export default function AddParticipantToTeam({
   isOpen,
@@ -70,10 +71,11 @@ export default function AddParticipantToTeam({
   };
   const addHandler = () => {
     if (!userId) return;
+    const id = pidToId(userId);
     let promise = organizerAddParticipantToTeam({
       variables: {
         teamId,
-        userId,
+        userId: id,
       },
     }).then((res) => {
       if (
@@ -169,7 +171,7 @@ export default function AddParticipantToTeam({
                   >
                     <div className="flex items-center space-x-3">
                       <div className="text-lg  text-green-500 font-mono">
-                        {member.user.id}
+                        {idToPid(member.user.id)}
                       </div>
                       <div className="flex flex-col">
                         <p className="text-white font-medium">

@@ -6,6 +6,7 @@ import {
 } from '@/src/generated/generated';
 import Button from '@/src/components/button';
 import { toast } from 'react-hot-toast';
+import { pidToId, teamIdToId } from '@/src/utils/id';
 
 const MarkAttendance: FC<{
   result: string;
@@ -36,7 +37,7 @@ const MarkAttendance: FC<{
     ) {
       promise = markAttendanceSolo({
         variables: {
-          userId: result,
+          userId: pidToId(result),
           eventId: eventId as string,
           attended: true,
         },
@@ -53,7 +54,7 @@ const MarkAttendance: FC<{
     } else if (eventType === 'TEAM' || eventType === 'TEAM_MULTIPLE_ENTRY') {
       promise = markAttendanceTeam({
         variables: {
-          teamId: result,
+          teamId: teamIdToId(result),
           attended: true,
         },
       }).then((res) => {

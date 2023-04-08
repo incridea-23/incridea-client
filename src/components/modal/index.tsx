@@ -11,6 +11,7 @@ type ModalProps = {
   size?: "small" | "medium";
   onClose: () => void;
   showModal: boolean;
+  rounded?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "full";
 };
 
 const Modal: FC<ModalProps> = ({
@@ -19,6 +20,7 @@ const Modal: FC<ModalProps> = ({
   size,
   onClose,
   showModal,
+  rounded = "2xl"
 }) => {
   return (
     <Transition appear show={showModal} as={Fragment}>
@@ -47,7 +49,7 @@ const Modal: FC<ModalProps> = ({
               leave="ease-in duration-200"
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95">
-              <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-gray-700/70 text-gray-100 backdrop-blur-xl text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className={`w-full max-w-2xl transform overflow-hidden rounded-${rounded} bg-gray-700/70 text-gray-100 backdrop-blur-xl text-left align-middle shadow-xl transition-all`}>
                 <Dialog.Title
                   as="div"
                   className={`flex justify-between items-center md:p-6 p-5 ${

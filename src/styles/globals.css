@@ -18,6 +18,7 @@
   @apply bg-gray-300;
 }
 
+/* Markdown Rendering styles */
 .rendered-markdown h1 {
   @apply text-3xl;
   @apply font-bold;
@@ -123,74 +124,29 @@
   @apply py-2;
 }
 
-
 .scroll-hide::-webkit-scrollbar {
   display: none;
 }
 
 .scroll-hide {
   -ms-overflow-style: none;
-  scrollbar-width: none; 
+  scrollbar-width: none;
 }
 
-@keyframes scroll {
-  0% {
-    left: 0;
-  }
-  100% {
-    left: -100%;
-  }
+.gradient-bg {
+  background: linear-gradient(
+    -170deg,
+    #a5b4fc,
+    #818cf8,
+    #22d3ee,
+    #fefce8,
+    #fff,
+    #fff
+  );
 }
 
-.animate {
-  animation: scroll 15s linear infinite;
+/* Workaround for disappearing elements (scope: locomotive scroll) */
+.has-scroll-smooth {
+  position: fixed;
+  inset: 0;
 }
-
-.neonText {
-  /* color: #000000; */
-  text-shadow:
-    0 0 7px #fff,
-    0 0 10px #fff,
-    0 0 21px #fff,
-    0 0 42px #e600ff,
-    0 0 82px #e600ff,
-    0 0 92px #e600ff,
-    0 0 102px #e600ff;
-}
-
-.neonBorder{
-  box-shadow: 0 0 .2rem #fff,
-            0 0 .2rem #fff,
-            0 0 2rem #13fef2,
-            0 0 0.8rem #13fef2,
-            inset 0 0 1.3rem #13fef2; 
-}
-.clip-div{
-  border: 150px solid transparent;
-  border-bottom: 0;
-  border-top: 250px solid #110141;
-  filter:drop-shadow(0 0  0.5rem #fff);
-}
-.img-shadow{
-  filter:drop-shadow(0 0 0.5rem #fff);
-}
-
-.scroll-section-outer {
-  overflow: hidden;
-}
-
-.scroll-section-inner {
-  height: 100vh;
-  width: 400vw;
-  display: flex;
-  flex-direction: row;
-  position: relative;
-}
-
-/* .scroll-section {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */

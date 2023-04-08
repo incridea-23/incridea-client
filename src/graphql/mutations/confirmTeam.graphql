@@ -1,0 +1,11 @@
+mutation ConfirmTeam($teamId: ID!) {
+  confirmTeam(teamId: $teamId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationConfirmTeamSuccess {
+      __typename
+    }
+  }
+}

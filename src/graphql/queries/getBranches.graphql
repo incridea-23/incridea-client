@@ -1,0 +1,10 @@
+query Branches {
+  getBranches {
+    branchReps {
+      branchId
+      userId
+    }
+    id
+    name
+  }
+}

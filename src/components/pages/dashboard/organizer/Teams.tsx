@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import DeleteTeamModal from './DeleteTeamModal';
 import MarkAttendanceButton from './MarkAttendanceButton';
 import ViewTeamModal from './ViewTeamModal';
+import { idToTeamId } from '@/src/utils/id';
 
 function Teams({
   eventType,
@@ -98,7 +99,7 @@ function Teams({
           }
         >
           <h2 className="text-xl font-semibold flex gap-2">
-            <Badge color={'info'}>{team?.node.id}</Badge>
+            <Badge color={'info'}>{idToTeamId(team?.node.id!)}</Badge>
             {team?.node.name}
           </h2>
           <div className="flex flex-col md:flex-row gap-2">
@@ -110,8 +111,8 @@ function Teams({
 
             {/* View Team */}
             <ViewTeamModal
+              teamId={team?.node.id as string}
               teamName={team?.node.name || ''}
-              teamMembers={team?.node.members}
             />
 
             {/* Delete Team or Participant */}
