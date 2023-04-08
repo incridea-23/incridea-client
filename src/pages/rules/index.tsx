@@ -1,10 +1,11 @@
 import { NextPage } from "next";
 import Image from "next/image";
+import { titleFont } from "@/src/utils/fonts";
 
 const Terms:NextPage = ()=>{
     return (
       <div className="min-h-screen w-full overflow-x-hidden overflow-y-auto bg-gradient-to-br from-[#044b8b]  to-[#020024] text-gray-100 p-5 sm:p-10">
-        <h1 className="text-5xl mb-3 text-center">Terms and Conditions</h1>
+        <h1 className={`${titleFont.className} pt-24 text-5xl mb-3 text-center`}>Terms and Conditions</h1>
         <ul className="list-disc ml-6 mt-8">
           <li>
             Incridea is a National level techno-cultural festival for the
