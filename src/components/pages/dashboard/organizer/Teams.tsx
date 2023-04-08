@@ -103,6 +103,7 @@ function Teams({
             {team?.node.name}
           </h2>
           <div className="flex md:flex-row gap-2">
+
             {/* Mark Attendance */}
             <MarkAttendanceButton
               attended={team?.node.attended as boolean}

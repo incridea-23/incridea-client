@@ -150,3 +150,8 @@
   position: fixed;
   inset: 0;
 }
+
+.outline-text{
+  -webkit-text-stroke: 2px white;
+  -webkit-text-fill-color: transparent;
+}

@@ -53,7 +53,7 @@ const CountDown: FC = () => {
         className="flex justify-center"
         textStyle="text-2xl md:text-3xl font-semibold lg:text-5xl z-10"
       />
-      <div className="flex flex-row  justify-center items-start sm:items-center gap-2 sm:gap-5 lg:gap-10 mt-4 drop-shadow-xl relative">
+      <div className="flex flex-row justify-center items-center sm:items-center gap-2 sm:gap-5 lg:gap-10 mt-4 drop-shadow-xl relative">
         <Image
           src={"/assets/png/helm.png"}
           width={400}

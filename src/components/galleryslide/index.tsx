@@ -1,9 +1,11 @@
 import { FC, useState,useEffect } from "react";
 import Image from "next/image";
 import {Swiper, SwiperSlide} from 'swiper/react';
-import { Autoplay,Navigation,Mousewheel } from 'swiper';
+import { Autoplay,Mousewheel } from 'swiper';
 import 'swiper/css';
 import "swiper/css/navigation";
+import { titleFont } from "@/src/utils/fonts";
+import { BsChevronUp,BsChevronDown } from "react-icons/bs";
 
 
 type GalleryProps = {
@@ -30,9 +32,9 @@ const GallerySlide:FC<GalleryProps> = ({title,next,prev}) => {
     return(
         <div id={title} className="snap-start flex flex-col min-h-screen w-full relative">
 
-            <div className="relative mt-32">
+            <div className={`relative mt-32 ${titleFont.className}`}>
                 <h1 className="text-6xl text-center">{title}</h1>
-                <h2 className="text-[150px] text-center absolute w-full -translate-y-32 opacity-25">{title}</h2>
+                <h2 className="text-[150px] outline-text text-center absolute w-full -translate-y-32 opacity-25">{title}</h2>
             </div>
             
 
@@ -42,11 +44,12 @@ const GallerySlide:FC<GalleryProps> = ({title,next,prev}) => {
             <div className='flex max-w-5xl sm:max-w-full h-[700px] absolute left-1/2 top-24 -translate-x-1/2 sm:translate-y-6'>
                     <Swiper
                     mousewheel={true}
+                    autoplay={true}
                     slidesPerView={3}
                     onSlideChange={(cur) => setActive(cur.realIndex)}
                     centeredSlides={true}
-                    speed={800}
-                    modules={[Mousewheel]}
+                    speed={500}
+                    modules={[Mousewheel,Autoplay]}
                     >
                         {imgArr?.map((img,index)=>(
                             <SwiperSlide key={index} >
@@ -64,10 +67,10 @@ const GallerySlide:FC<GalleryProps> = ({title,next,prev}) => {
                         ))}
                     </Swiper>   
             </div> 
-            <div className="flex w-full absolute sm:bottom-32 bottom-10 justify-between px-8 lg:px-20">
-                <a href={`#`+prev}>Previous Page</a>
+            <div className="flex w-full absolute sm:bottom-32 bottom-14 justify-between px-8 lg:px-20 text-5xl sm:text-6xl">
+                <a href={`#`+prev}><BsChevronUp /></a>
                 {next!=='' ? 
-                <a href={`#`+next}>Next Page</a>
+                <a href={`#`+next}><BsChevronDown /></a>
                 :
                 <></>
                 }

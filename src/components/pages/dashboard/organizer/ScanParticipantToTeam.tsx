@@ -32,7 +32,9 @@ const ScanParticipantToTeam: FC<{
               res.data?.organizerAddTeamMember.__typename ===
               'MutationOrganizerAddTeamMemberSuccess'
             ) {
-              toast.success('Added!');
+              toast.success('Added!',{
+                position: 'bottom-center',
+              });
             }
           });
         }}

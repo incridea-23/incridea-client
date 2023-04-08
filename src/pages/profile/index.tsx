@@ -57,10 +57,14 @@ const Profile: NextPage = () => {
           className="absolute pointer-events-none opacity-40 top-0 right-0"
         />
         {/* 1. Profile Info section */}
-        <ProfileInfo user={user} />
+        <div className="">
+          <ProfileInfo user={user} />
+        </div>
 
         {/* 2. Registered Events section & Teams section */}
-        <UserEvents userId={user?.id!} />
+        <div className="px-5">
+          <UserEvents userId={user?.id!} />
+        </div>
       </main>
     </>
   );

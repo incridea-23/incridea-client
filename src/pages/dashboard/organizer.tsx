@@ -31,6 +31,7 @@ const Organizer: NextPage = () => {
         </h1>
         <OrganizerTab organizerId={user.id} />
       </div>
+
     </Dashboard>
   );
 };
