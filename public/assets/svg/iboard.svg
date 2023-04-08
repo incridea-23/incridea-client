@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
    version="1.2"
-   viewBox="0 0 590 980"
+   viewBox="0 0 590 1080"
    width="590"
-   height="980"
+   height="1080"
    id="svg110019"
    sodipodi:docname="iboard.svg"
    inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
@@ -28,7 +28,7 @@
      showgrid="false"
      inkscape:zoom="0.90816327"
      inkscape:cx="295.10112"
-     inkscape:cy="191.04494"
+     inkscape:cy="66.617977"
      inkscape:window-width="1920"
      inkscape:window-height="1051"
      inkscape:window-x="-9"
@@ -50,7 +50,7 @@
 	</style>
   <g
      id="Layer 1"
-     transform="matrix(1.0373188,0,0,1.047337,-9.3577445,-22.108297)">
+     transform="matrix(1.0373188,0,0,1.047337,-9.357289,78.09395)">
     <g
        id="g110016">
       <g
