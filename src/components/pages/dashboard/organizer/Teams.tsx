@@ -92,17 +92,17 @@ function Teams({
     <div>
       {data.teamsByRound.edges.map((team, index) => (
         <div
-          className="bg-gray-600/40 p-3 mb-2 items-center rounded-lg flex justify-between flex-wrap gap-2"
+          className="bg-gray-600/40 p-3 mb-2 items-center rounded-lg flex justify-start text-start md:text-center md:justify-between flex-wrap gap-2 flex-col md:flex-row flex-wrap "
           key={team?.node.id}
           ref={
             index === data.teamsByRound.edges.length - 1 ? lastItemRef : null
           }
         >
-          <h2 className="text-xl font-semibold flex gap-2">
+          <h2 className="text-base md:text-xl font-semibold flex gap-2 flex-col md:flex-row justify-center items-center">
             <Badge color={'info'}>{idToTeamId(team?.node.id!)}</Badge>
             {team?.node.name}
           </h2>
-          <div className="flex flex-col md:flex-row gap-2">
+          <div className="flex md:flex-row gap-2">
             {/* Mark Attendance */}
             <MarkAttendanceButton
               attended={team?.node.attended as boolean}

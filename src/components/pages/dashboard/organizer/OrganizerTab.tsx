@@ -43,7 +43,7 @@ function OrganizerTab({ organizerId }: { organizerId: string }) {
               <div className="p-3 flex items-center justify-between flex-wrap gap-5  backdrop-blur-md rounded-lg   border-gray-600 bg-gray-900/30 ">
                 <div className="flex gap-3">
                   <h2 className="text-2xl font-bold">{event.name}</h2>
-                  <p className="text-green-400 rounded-full px-3 leading-8 border border-green-400">{event.branch.name}</p>
+                  <p className="text-green-400  px-2 flex justify-center items-center leading-8 border border-green-400 h-fit rounded-md">{event.branch.name}</p>
                 </div>
                 <div className="space-x-2 flex overflow-x-scroll md:overflow-hidden p-4 md:p-0">
                   <ViewEventModal event={event} />

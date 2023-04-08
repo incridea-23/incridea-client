@@ -21,6 +21,7 @@ export default function AddTeamModal({ eventId }: { eventId: string }) {
 
   const [teamName, setTeamName] = useState("");
   const createHandler = () => {
+    if(teamName.length !== 0 || teamName!== "" || teamName !== null ) {
     let promise = organizerCreateTeam({
       variables: {
         eventId,
@@ -43,7 +44,11 @@ export default function AddTeamModal({ eventId }: { eventId: string }) {
       }
     });
     createToast(promise, "Creating Team...");
-  };
+  }else{
+    console.log("Team name cannot be empty");
+    createToast(Promise.reject("Team name cannot be empty"), "Team name cannot be empty");
+  }
+};
 
   return (
     <>

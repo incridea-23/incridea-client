@@ -38,6 +38,7 @@ const MarkAttendanceButton = ({ teamId, attended }: Props) => {
       onClick={handleMarkAttendance}
       disabled={AttendanceLoading}
       intent={attended ? 'danger' : 'success'}
+      className='w-6 h-auto md:w-auto'
     >
       {attended ? <ImCross /> : <ImCheckmark />}
     </Button>
