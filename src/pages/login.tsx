@@ -44,7 +44,7 @@ const SignIn: NextPage = () => {
           </div>
         </div>
         <div className="hidden md:flex grow">
-          <img src={"/login-wave.png"} className="rotate-180 h-screen" />
+          <img src={"/login-wave.png"} className="rotate-180 h-screen -m-1" />
           <div
             className={`${titleFont.className} text-center text-white/70 w-[50vw] items-center justify-center flex bg-gradient-to-l to-[#3baee7] from-[#144f6d]`}>
             <p className="text-2xl rotate-90">Conquer the depths of the ocean!</p>
