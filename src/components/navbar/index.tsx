@@ -2,8 +2,7 @@ import { FC, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Button from "../button";
-import { AuthStatus, useAuth } from "@/src/hooks/useAuth";
-import { User } from "@/src/generated/generated";
+import { useAuth } from "@/src/hooks/useAuth";
 import { BiMenuAltRight as MenuIcon } from "react-icons/bi";
 import { AiOutlineClose as XIcon } from "react-icons/ai";
 import { Transition } from "@headlessui/react";
@@ -43,7 +42,7 @@ const Navbar = () => {
             />
           </Link>
 
-          <div className="space-x-6 text-gray-900 hidden lg:flex">
+          <div className="hidden space-x-6 text-gray-900 lg:flex">
             {links.map((link) => (
               <Link
                 className="text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.5)] transition-colors duration-300"
