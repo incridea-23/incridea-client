@@ -38,7 +38,7 @@ function EventRegistration({
       ) : (
         <EventRegistrationButton
           userId={user.id}
-          registered={user.role === 'USER'}
+          registered={user.role !== 'USER'}
           eventId={eventId}
           type={type}
           fees={fees}
@@ -108,7 +108,20 @@ function EventRegistrationButton({
         <Spinner intent={'white'} />
       </div>
     );
-  if (data?.myTeam.__typename === 'QueryMyTeamSuccess' && data.myTeam.data) {
+
+  if (!registered) {
+    return (
+      <div className="w-full h-20 flex justify-center items-center flex-col space-y-2">
+        <p className="text-white">You need to register to join events!</p>
+        <Link href={'/register'}>
+          <Button intent={'primary'}>Register Now</Button>
+        </Link>
+      </div>
+    );
+  } else if (
+    data?.myTeam.__typename === 'QueryMyTeamSuccess' &&
+    data.myTeam.data
+  ) {
     return (
       <TeamCard
         userId={userId}
