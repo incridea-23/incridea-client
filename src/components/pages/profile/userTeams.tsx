@@ -26,7 +26,9 @@ export type Team = {
 const UserTeams: FC<{
   teams: any;
   userId: string;
-}> = ({ teams, userId }) => {
+  name: string;
+  email: string;
+}> = ({ teams, userId, name, email }) => {
   // Todo: Show winning status (if any)
   return (
     <section className="mt-10">
@@ -41,7 +43,12 @@ const UserTeams: FC<{
             key={team.id}
             team={team}
             userId={userId}
-            solo={team.event.eventType === "INDIVIDUAL" || team.event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY"}
+            solo={
+              team.event.eventType === 'INDIVIDUAL' ||
+              team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
+            }
+            name={name}
+            email={email}
           />
         ))}
       </div>

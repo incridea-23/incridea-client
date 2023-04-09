@@ -102,7 +102,7 @@ const TeamCard = ({
           </div>
           {!team.confirmed && (
             <span className="text-xs">
-              almost there! pay {team.event.fees} to confirm your{' '}
+              Almost there! Pay {team.event.fees} to confirm your{' '}
               {team.event.eventType === 'INDIVIDUAL' ||
               team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
                 ? 'entry'
@@ -124,7 +124,7 @@ const TeamCard = ({
                 Pay {team.event.fees} to confirm
               </Button>
             ) : (
-              <ConfirmTeamModal teamId={team.id} isPaid={false} />
+              <ConfirmTeamModal teamId={team.id} />
             ))}
         </div>
       </div>
@@ -199,9 +199,7 @@ const TeamCard = ({
             </div>
           </>
         ) : (
-          <LeaveTeamModal 
-          refetch={'MyTeam'}
-          teamId={team.id} />
+          <LeaveTeamModal refetch={'MyTeam'} teamId={team.id} />
         ))}
 
       {team.confirmed && (

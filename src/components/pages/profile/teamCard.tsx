@@ -8,16 +8,26 @@ import Link from 'next/link';
 import ConfirmTeamModal from './confirmTeam';
 import LeaveTeamModal from './LeaveTeamModal';
 import DeleteTeamModal from './deleteTeam';
+import Button from '../../button';
+import { useState } from 'react';
+import { makeTeamPayment } from '@/src/utils/razorpay';
 
+// For both Team and Solo Teams
 const TeamCard = ({
   team,
   userId,
+  name,
+  email,
   solo,
 }: {
   team: any;
   userId: string;
+  name: string;
+  email: string;
   solo?: boolean;
 }) => {
+  const [sdkLoading, setSdkLoading] = useState(false);
+
   return (
     <motion.div
       key={team.id}
@@ -97,9 +107,24 @@ const TeamCard = ({
         </div>
 
         <div>
-          {!team.confirmed && (team.leaderId == userId || solo) && (
-            <ConfirmTeamModal teamId={team.id} isPaid={team.event.fees !== 0} />
-          )}
+          {!team.confirmed &&
+            team.leaderId === Number(userId) &&
+            (team.event.fees > 0 ? (
+              <Button
+                fullWidth
+                intent="primary"
+                size={'small'}
+                className="mt-2 w-fit"
+                disabled={sdkLoading}
+                onClick={() => {
+                  makeTeamPayment(team.id, name, email, setSdkLoading);
+                }}
+              >
+                Pay & confirm
+              </Button>
+            ) : (
+              <ConfirmTeamModal teamId={team.id} />
+            ))}
 
           {!team.confirmed && team.leaderId != userId && (
             <LeaveTeamModal refetch={'RegisterdEvents'} teamId={team.id} />
