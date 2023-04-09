@@ -1,13 +1,13 @@
-import About from '../components/about';
-import Image from 'next/image';
-import { useRef } from 'react';
-import Hero from '../components/hero';
-import { LocomotiveScrollProvider } from 'react-locomotive-scroll';
-import 'locomotive-scroll/dist/locomotive-scroll.css';
-import EventsReel from '../components/eventsPeek/reel';
-import { HomePageFooter } from '../components/footer';
-import dynamic from 'next/dynamic';
-const CountDown = dynamic(() => import('../components/countdown'), {
+import About from "../components/about";
+import Image from "next/image";
+import { useRef } from "react";
+import Hero from "../components/hero";
+import { LocomotiveScrollProvider } from "react-locomotive-scroll";
+import "locomotive-scroll/dist/locomotive-scroll.css";
+import EventsReel from "../components/eventsPeek/reel";
+import { HomePageFooter } from "../components/footer";
+import dynamic from "next/dynamic";
+const CountDown = dynamic(() => import("../components/countdown"), {
   ssr: false,
 });
 
@@ -26,8 +26,7 @@ const Home = () => {
           },
         }}
         watch={[]}
-        containerRef={containerRef}
-      >
+        containerRef={containerRef}>
         <main data-scroll-container ref={containerRef}>
           {/* 1. Hero Section */}
           <Hero />
@@ -40,14 +39,14 @@ const Home = () => {
                 height={1000}
                 width={1000}
                 alt="flare"
-                className="absolute opacity-40 z-50 top-0 right-0"
+                className="absolute pointer-events-none opacity-40 z-50 top-0 right-0"
               />
               <CountDown />
             </div>
             {/* 3. About Section */}
             <div className=" bg-gradient-to-b   from-[#2d6aa6] -mt-2   to-[#052749]">
               <About />
-            {/* 4. Core Events Section */}
+              {/* 4. Core Events Section */}
               <EventsReel />
             </div>
             {/* 5. Footer Section */}
