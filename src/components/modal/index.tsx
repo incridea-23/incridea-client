@@ -20,11 +20,11 @@ const Modal: FC<ModalProps> = ({
   size,
   onClose,
   showModal,
-  rounded = "2xl"
+  rounded = "2xl",
 }) => {
   return (
     <Transition appear show={showModal} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={onClose}>
+      <Dialog as="div" className="relative z-[900] " onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -49,7 +49,8 @@ const Modal: FC<ModalProps> = ({
               leave="ease-in duration-200"
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95">
-              <Dialog.Panel className={`w-full max-w-2xl transform overflow-hidden rounded-${rounded} bg-gray-700/70 text-gray-100 backdrop-blur-xl text-left align-middle shadow-xl transition-all`}>
+              <Dialog.Panel
+                className={`w-full max-w-2xl transform overflow-hidden rounded-${rounded} bg-gray-700/70 text-gray-100 backdrop-blur-xl text-left align-middle shadow-xl transition-all`}>
                 <Dialog.Title
                   as="div"
                   className={`flex justify-between items-center md:p-6 p-5 ${

@@ -8,10 +8,8 @@ import Button from "../button";
 import Link from "next/link";
 import Image from "next/image";
 import {
-  IoCalendarClearOutline,
   IoCalendarOutline,
   IoCashOutline,
-  IoInformationOutline,
   IoLocationOutline,
   IoPeopleOutline,
   IoPersonOutline,
@@ -85,7 +83,7 @@ const Event = ({
         className="bg-black/20 backdrop-blur-sm flex flex-col cursor-pointer p-4 rounded-sm">
         <div className="relative grow">
           {data.image ? (
-            <img
+            <Image
               src={data.image}
               alt={data.name}
               width={500}

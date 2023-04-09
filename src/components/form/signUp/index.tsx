@@ -30,25 +30,22 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
   const [emailSuccess, setEmailSuccess] = useState(false);
   const [verifyError, setVerifyError] = useState(false);
 
-  const [signUpMutation, { loading, error: mutationError }] = useMutation(SignUpDocument);
-
+  const [signUpMutation, { loading, error: mutationError }] =
+    useMutation(SignUpDocument);
   const [
     emailVerificationMutation,
     { data, loading: emailVerificationLoading, error: emailVerificationError },
   ] = useMutation(EmailVerificationDocument);
-
   const {
     data: collegeData,
     loading: collegesLoading,
     error: collegesError,
   } = useQuery(CollegesDocument);
-
   const sortedColleges = !collegesLoading
     ? [...(collegeData?.colleges || [])].sort((a, b) => {
         return a.name.localeCompare(b.name);
       })
     : [];
-
   const [selectedCollege, setSelectedCollege] = useState<{
     name: string;
     id: string;
@@ -103,7 +100,10 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         return;
       }
     }
-    if (userInfo.phoneNumber.length !== 10 || isNaN(Number(userInfo.phoneNumber))) {
+    if (
+      userInfo.phoneNumber.length !== 10 ||
+      isNaN(Number(userInfo.phoneNumber))
+    ) {
       setError("Please enter a valid 10-digit mobile number");
       return;
     }
@@ -127,7 +127,10 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         if (res.data?.signUp.__typename === "MutationSignUpSuccess") {
           emailVerificationMutation({
             variables: {
-              email: userInfo.email,
+              email:
+                selectedCollege.name === "N.M.A.M. Institute of Technology"
+                  ? `${userInfo.email}@nmamit.in`
+                  : userInfo.email,
             },
           }).then((res) => {
             if (res.data?.sendEmailVerification.__typename === "Error") {
@@ -149,7 +152,9 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
 
   // NOTE: change handler for all fields except college
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
   ) => {
     setError("");
     setUserInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -161,7 +166,9 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
       className={`flex relative justify-center min-h-full flex-col gap-3 ${
         loading && "cursor-not-allowed pointer-events-none"
       }`}>
-      <h2 className="text-3xl text-center font-semibold">Welcome to Incridea! 👋</h2>
+      <h2 className="text-3xl text-center font-semibold">
+        Welcome to Incridea! 👋
+      </h2>
       <h6 className="mb-10 mt-2 md:mt-0 text-center md:font-normal font-semibold">
         We&apos;re excited to have you here! Sign up below{" "}
       </h6>
