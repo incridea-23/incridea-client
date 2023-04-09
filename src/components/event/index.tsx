@@ -16,21 +16,27 @@ import {
 } from "react-icons/io5";
 import { generateEventUrl } from "@/src/utils/url";
 
-const Event = ({
-  data,
-}: {
-  data: PublishedEventsQuery["publishedEvents"][0];
-}) => {
+const Event = ({ data }: { data: PublishedEventsQuery["publishedEvents"][0] }) => {
   const router = useRouter();
 
   const getEventAttributes = () => {
-    let teamSizeText = "";
+    let teamSizeText = "",
+      eventTypeText = "";
     if (data.minTeamSize === data.maxTeamSize) {
-      if (data.minTeamSize !== 1)
-        teamSizeText += `${data.minTeamSize} members per team`;
+      if (data.minTeamSize !== 1) teamSizeText += `${data.minTeamSize} members per team`;
     } else {
       teamSizeText = `${data.minTeamSize} - ${data.maxTeamSize} members per team`;
     }
+
+    if (data.eventType.includes("MULTIPLE")) {
+      eventTypeText =
+        data.eventType.split("_")[0][0] +
+        data.eventType.split("_")[0].slice(1).toLowerCase() +
+        " Event (Multiple Entry)";
+    } else
+      eventTypeText =
+        data.eventType[0] + data.eventType.slice(1).toLowerCase() + " Event";
+
     return [
       {
         name: "Date",
@@ -49,8 +55,7 @@ const Event = ({
       },
       {
         name: "Type",
-        text:
-          data.eventType[0] + data.eventType.slice(1).toLowerCase() + " Event",
+        text: eventTypeText,
         Icon: IoPersonOutline,
       },
       {
@@ -66,9 +71,7 @@ const Event = ({
       <motion.div
         onClick={() => {
           router.push(
-            `event/${data.name.toLocaleLowerCase().split(" ").join("-")}-${
-              data.id
-            }`
+            `event/${data.name.toLocaleLowerCase().split(" ").join("-")}-${data.id}`
           );
         }}
         whileHover={{
@@ -87,8 +90,8 @@ const Event = ({
               src={data.image}
               alt={data.name}
               width={500}
-              height={500}
-              className="w-full object-cover rounded-sm"
+              height={300}
+              className="w-full h-full object-cover rounded-sm"
             />
           ) : (
             <div className="h-full min-h-[200px] bg-gray-700 flex items-center justify-center italic text-gray-400 rounded-sm">
@@ -101,19 +104,20 @@ const Event = ({
           </span>
         </div>
         <div className="flex flex-wrap mt-2 gap-1.5">
-          {getEventAttributes().map(
-            (attr) =>
-              attr.text && (
-                <div
-                  key={attr.name}
-                  className="flex px-3 py-2 text-gray-200 bg-gray-300/20 shrink-0 text-sm rounded-sm grow gap-1 items-center">
-                  {<attr.Icon />}
-                  <p className="leading-4">
-                    {/* <span className="font-semibold">{attr.name}: </span> */}
-                    {attr.text}
-                  </p>
-                </div>
-              )
+          {getEventAttributes().map((attr) =>
+            attr.text ? (
+              <div
+                key={attr.name}
+                className="flex px-3 py-2 text-gray-200 bg-gray-300/20 shrink-0 text-sm rounded-sm grow gap-1 items-center">
+                {<attr.Icon />}
+                <p className="leading-4">
+                  {/* <span className="font-semibold">{attr.name}: </span> */}
+                  {attr.text}
+                </p>
+              </div>
+            ) : (
+              <></>
+            )
           )}
         </div>
         <Button noScaleOnHover className="hover:scale-0 shrink-0 mt-2">

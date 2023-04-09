@@ -84,6 +84,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     setVerifyError(false);
+    setError("");
     if (
       !userInfo.name ||
       !userInfo.email ||
