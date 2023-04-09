@@ -123,7 +123,9 @@ const UserTeams: FC<{
                 )}
 
                 {!team.confirmed && team.leaderId != userId && (
-                  <LeaveTeamModal teamId={team.id} />
+                  <LeaveTeamModal 
+                  refetch={'RegisterdEvents'}
+                  teamId={team.id} />
                 )}
               </div>
             </div>

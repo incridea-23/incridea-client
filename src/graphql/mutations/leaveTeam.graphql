@@ -6,19 +6,6 @@ mutation LeaveTeam($teamId: ID!) {
     }
     ... on MutationLeaveTeamSuccess {
       __typename
-      data {
-        team {
-          id
-          name
-          event {
-            name
-          }
-        }
-        user {
-          id
-          name
-        }
-      }
     }
   }
 }

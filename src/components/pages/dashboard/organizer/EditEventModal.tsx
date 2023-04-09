@@ -51,11 +51,13 @@ export default function EditEventModal({
   );
 
   const handleUpload = (file: File) => {
+    const formData = new FormData();
+    formData.append("image", file)
     const url = `https://incridea-test.onrender.com/cloudinary/upload/${event.name}`;
     setUploading(true);
     const promise = fetch(url, {
       method: 'POST',
-      body: file,
+      body: formData,
       mode: 'cors',
       headers: {
         'Access-Control-Allow-Origin': '*',
@@ -86,6 +88,7 @@ export default function EditEventModal({
         venue,
         fees,
         eventType: eventType as EventType,
+        image: banner,
         description: JSON.stringify(
           convertToRaw(editorState.getCurrentContent())
         ),

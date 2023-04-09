@@ -199,7 +199,9 @@ const TeamCard = ({
             </div>
           </>
         ) : (
-          <LeaveTeamModal teamId={team.id} />
+          <LeaveTeamModal 
+          refetch={'MyTeam'}
+          teamId={team.id} />
         ))}
 
       {team.confirmed && (
