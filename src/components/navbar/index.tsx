@@ -61,8 +61,8 @@ const Navbar = () => {
                 />
                 <span
                   className={`${
-                    activePath?.label === link.label && 'max-w-full'
-                  } block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-white`}
+                    activePath?.label === link.label ? 'max-w-full' : 'max-w-0'
+                  } block group-hover:max-w-full transition-all duration-500 h-0.5 bg-white`}
                 ></span>
               </Link>
             ))}
