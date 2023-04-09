@@ -65,7 +65,6 @@ export default function EditEventModal({
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         setBanner(res.url);
         setUploading(false);
       })

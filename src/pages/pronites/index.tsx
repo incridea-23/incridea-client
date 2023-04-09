@@ -8,6 +8,8 @@ import {
   useHorizontalScroll,
   useHorizontalTouch,
 } from "../../hooks/useHorizontal";
+import CharacterAnimation from "@/src/components/animation/character";
+import TextAnimation from "@/src/components/animation/text";
 
 const Pronite: NextPage = () => {
   const scrollRef = useHorizontalScroll();
@@ -21,17 +23,21 @@ const Pronite: NextPage = () => {
         <div className="fixed z-10 pointer-events-none bottom-0 h-[45rem] w-screen bg-bottom bg-repeat-x bg-[url('/assets/svg/bushes.svg')]" />
         <div
           ref={scrollRef}
-          className="absolute top-0 snap-start snap-x snap-mandatory flex overflow-x-auto h-screen w-screen mx:auto overflow-y-hidden text-gray-100">
+          className="absolute top-0 snap-start snap-x snap-mandatory flex overflow-x-auto h-screen w-screen mx:auto overflow-y-hidden text-gray-100"
+        >
           <div className="snap-start min-w-full h-screen place-items-center w-screen">
-            <motion.div
-              animate={{ y: [20, 0], opacity: [0, 1], repeatCount: 1 }}
-              transition={{ duration: 3 }}
-              className="absolute flex pointer-events-none flex-col w-full py-10 md:py-2 md:px-8 top-1/4 ">
-              <h1 className={`${titleFont.className} drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.5)] text-4xl text-center sm:text-6xl`}>PRONITES</h1>
-              <h2 className={`${titleFont.className} drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.5)] text-2xl text-center sm:text-4xl`}>
-                These are the nights that never die.
-              </h2>
-            </motion.div>
+            <div className="absolute flex pointer-events-none flex-col w-full py-10 md:py-2 md:px-8 top-1/4">
+              <CharacterAnimation
+                text="PRONITES"
+                className={`${titleFont.className} flex justify-center`}
+                textStyle="drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.5)] text-4xl text-center sm:text-6xl"
+              />
+              <TextAnimation
+                text="These are the nights that never die."
+                className={`${titleFont.className} flex justify-center flex-wrap`}
+                textStyle="drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.5)] text-2xl text-center sm:text-4xl"
+              />
+            </div>
           </div>
           <div className="snap-start min-w-full h-screen place-items-center w-screen">
             <Image

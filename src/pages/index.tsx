@@ -1,16 +1,17 @@
-import About from "../components/about";
-import Image from "next/image";
-import { useRef } from "react";
-import Hero from "../components/hero";
-import { LocomotiveScrollProvider } from "react-locomotive-scroll";
-import "locomotive-scroll/dist/locomotive-scroll.css";
-import EventsReel from "../components/eventsPeek/reel";
-import  { HomePageFooter } from "../components/footer";
-import dynamic from "next/dynamic";
-const CountDown = dynamic(() => import("../components/countdown"), {
+import About from '../components/about';
+import Image from 'next/image';
+import { useRef } from 'react';
+import Hero from '../components/hero';
+import { LocomotiveScrollProvider } from 'react-locomotive-scroll';
+import 'locomotive-scroll/dist/locomotive-scroll.css';
+import EventsReel from '../components/eventsPeek/reel';
+import { HomePageFooter } from '../components/footer';
+import dynamic from 'next/dynamic';
+const CountDown = dynamic(() => import('../components/countdown'), {
   ssr: false,
 });
-const Home = ({ setLoading }: { setLoading: (loading: boolean) => void }) => {
+
+const Home = () => {
   const containerRef = useRef(null);
   return (
     <div className="overflow-x-hidden">
@@ -25,13 +26,14 @@ const Home = ({ setLoading }: { setLoading: (loading: boolean) => void }) => {
           },
         }}
         watch={[]}
-        containerRef={containerRef}>
+        containerRef={containerRef}
+      >
         <main data-scroll-container ref={containerRef}>
           {/* 1. Hero Section */}
           <Hero />
 
           <div data-scroll-section className="relative -mt-2  ">
-            <div className="relative pt-[200px] w-full flex justify-center items-center bg-gradient-to-b   from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
+            <div className="relative pt-[200px] w-full flex justify-center items-center bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
               {/* 2. Countdown Section */}
               <Image
                 src="/assets/png/waterflare.png"
@@ -45,7 +47,7 @@ const Home = ({ setLoading }: { setLoading: (loading: boolean) => void }) => {
             {/* 3. About Section */}
             <div className=" bg-gradient-to-b   from-[#2d6aa6] -mt-2   to-[#052749]">
               <About />
-
+            {/* 4. Core Events Section */}
               <EventsReel />
             </div>
             {/* 5. Footer Section */}
