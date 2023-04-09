@@ -70,9 +70,6 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
               placeholder="Email"
             />
             <Button type="submit">Send Reset Link</Button>
-            <Button intent={'ghost'} onClick={() => setWhichForm("signIn")}>
-              <FaAngleLeft /> Go Back
-            </Button>
             {loading && (
               <div className="absolute h-full w-full bg-[#f3e9d1] bg-opacity-60 inset-0 rounded-lg cursor-not-allowed pointer-events-none z-50">
                 <Spinner className="text-[#dd5c6e]" />
@@ -86,6 +83,9 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
             )}
           </>
         )}
+            <Button intent={'ghost'} onClick={() => setWhichForm("signIn")}>
+              <FaAngleLeft /> Go Back
+            </Button>
       </form>
     </>
   );
