@@ -7,6 +7,10 @@ import { bodyFont } from "../utils/fonts";
 import { useState } from "react";
 import Footer from "../components/footer";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
+import { AnimatePresence,motion } from "framer-motion";
+import Image from "next/image";
+
 const Navbar = dynamic(() => import("../components/navbar"), { ssr: false });
 
 export default function App({
@@ -15,6 +19,21 @@ export default function App({
 }: AppProps) {
   const apolloClient = useApollo(pageProps.initialApolloState);
   const [isLoading, setLoading] = useState(true);
+  const router = useRouter();
+  const variants = {
+    initialState : {
+      opacity:0,
+      translateY:"100%",
+    },
+    animateState : {
+      opacity:1,
+      translateY:"0%",
+    },
+    exitState : {
+      opacity:0,
+      translateY:"-100%"
+    }
+  }
 
   return (
     <ApolloProvider client={apolloClient}>
@@ -22,11 +41,32 @@ export default function App({
         title="Incridea"
         description="Official Website of Incridea 2023, National level techno-cultural fest, NMAMIT, Nitte. Innovate. Create. Ideate."
       />
-      <main className={bodyFont.className}>
-        <Navbar />
-        <Component setLoading={setLoading} {...pageProps} />
-        <Footer />
-      </main>
+      <div className="bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6]">
+        <Image src={'/assets/png/logo.png'} alt="loader" width={300} height={300} className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2" />
+        <AnimatePresence mode="wait">
+          <motion.main 
+          key={router.route}
+          initial="intialState"
+          animate="animateState"
+          exit="exitState"
+          transition={{
+            duration:2,
+          }}
+          variants={variants}
+          className={`${bodyFont.className}`}
+          >
+            <motion.div
+            initial={{opacity:0}}
+            animate={{opacity:1}}
+            transition={{duration:2}}
+            >
+              <Navbar />
+              <Component setLoading={setLoading} {...pageProps} />
+              <Footer />
+            </motion.div>
+          </motion.main>
+        </AnimatePresence>
+      </div>
     </ApolloProvider>
   );
 }
