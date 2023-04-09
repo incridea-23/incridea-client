@@ -53,7 +53,9 @@ const TeamCard = ({
           {!team.confirmed && !solo && team.leaderId == userId && (
             <EditTeamModal userId={userId} team={team} />
           )}
-          {!team.confirmed && solo && <DeleteTeamModal teamId={team.id} solo={solo} />}
+          {!team.confirmed && solo && (
+            <DeleteTeamModal teamId={team.id} solo={solo} />
+          )}
         </div>
 
         <Link
@@ -95,7 +97,7 @@ const TeamCard = ({
         </div>
 
         <div>
-          {!team.confirmed && team.leaderId == userId && (
+          {!team.confirmed && (team.leaderId == userId || solo) && (
             <ConfirmTeamModal teamId={team.id} isPaid={team.event.fees !== 0} />
           )}
 

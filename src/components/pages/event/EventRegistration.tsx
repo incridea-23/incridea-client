@@ -38,6 +38,7 @@ function EventRegistration({
       ) : (
         <EventRegistrationButton
           userId={user.id}
+          registered={user.role === 'USER'}
           eventId={eventId}
           type={type}
           fees={fees}
@@ -56,6 +57,7 @@ function EventRegistrationButton({
   type,
   fees,
   userId,
+  registered,
   name,
   email,
 }: {
@@ -63,6 +65,7 @@ function EventRegistrationButton({
   type: Event['eventType'];
   fees: Event['fees'];
   userId: string;
+  registered: boolean;
   name: string;
   email: string;
 }) {
@@ -76,6 +79,7 @@ function EventRegistrationButton({
     useMutation(RegisterSoloEventDocument, {
       refetchQueries: ['MyTeam'],
     });
+
   const handleSoloRegister = async () => {
     let promise = registerSoloEvent({
       variables: {

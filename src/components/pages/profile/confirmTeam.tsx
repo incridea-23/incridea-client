@@ -5,7 +5,6 @@ import createToast from "@/src/components/toast";
 import { ConfirmTeamDocument } from "@/src/generated/generated";
 import { useMutation } from "@apollo/client";
 import React, { FC, useState } from "react";
-import { BiTrashAlt } from "react-icons/bi";
 
 const ConfirmTeamModal: FC<{
   teamId: string;
@@ -45,7 +44,7 @@ const ConfirmTeamModal: FC<{
         size={"small"}
         className="mt-3 w-fit"
         onClick={() => {
-          setShowModal(true);
+          isPaid ? handleConfirm(teamId as string) : setShowModal(true);
         }}
         intent={"primary"}
         fullWidth>
