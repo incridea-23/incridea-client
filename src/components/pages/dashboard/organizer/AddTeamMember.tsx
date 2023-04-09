@@ -57,10 +57,10 @@ const AddTeamMember: FC<{
       ) {
         setUserId('');
       } else {
-        if (res.errors) {
-          throw new Error(res.errors[0].message);
+        if (res.data) {
+          createToast(Promise.reject(promise), res.data.organizerDeleteTeamMember.message);
         } else {
-          throw new Error('Error adding member to team');
+          throw new Error('Error removing member from team');
         }
       }
     });
@@ -81,13 +81,15 @@ const AddTeamMember: FC<{
       ) {
         setUserId('');
       } else {
-        if (res.errors) {
-          throw new Error(res.errors[0].message);
-        } else {
+        if (res.data) {
+          console.log(res.data);
+          createToast(Promise.reject(promise), res.data.organizerAddTeamMember.message);
           throw new Error('Error adding member to team');
         }
       }
-    });
+    }).catch((error) => {
+      throw new Error(`Error: ${error.message}`); 
+    }); 
     createToast(promise, 'Adding Participant...');
   };
 

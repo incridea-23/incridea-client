@@ -70,7 +70,10 @@ const ViewTeamModal: FC<{
 
   return (
     <div>
-      <Button onClick={() => setShowModal(true)}>
+      <Button 
+        onClick={() => setShowModal(true)}
+        className='w-6 h-auto md:w-auto'  
+      >
         <BsFillEyeFill />
       </Button>
       <Modal

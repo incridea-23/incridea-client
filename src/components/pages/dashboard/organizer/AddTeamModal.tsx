@@ -21,29 +21,33 @@ export default function AddTeamModal({ eventId }: { eventId: string }) {
 
   const [teamName, setTeamName] = useState("");
   const createHandler = () => {
-    let promise = organizerCreateTeam({
-      variables: {
-        eventId,
-        name: teamName,
-      },
-    }).then((res) => {
-      if (
-        res.data?.organizerCreateTeam.__typename ===
-        "MutationOrganizerCreateTeamSuccess"
-      ) {
-        setTeamName("");
-        setIsOpen(false);
-        setIsOpenParticipantModal(true);
-      } else {
-        if (res.errors) {
-          throw new Error(res.errors[0].message);
+    if(teamName.length !== 0  ) {
+      let promise = organizerCreateTeam({
+        variables: {
+          eventId,
+          name: teamName,
+        },
+      }).then((res) => {
+        if (res.data?.organizerCreateTeam.__typename === "MutationOrganizerCreateTeamSuccess") {
+          setTeamName("");
+          setIsOpen(false);
+          setIsOpenParticipantModal(true);
         } else {
-          throw new Error("Error creating team");
+          let errorMessage = "Error creating team";
+          if (res.data) {
+            errorMessage = res.data.organizerCreateTeam.message;
+          }
+          createToast(Promise.reject(promise), errorMessage);
+          throw new Error(errorMessage);
         }
-      }
-    });
+      }).catch((error) => {
+        throw new Error(`Error: ${error.message}`);
+      });      
     createToast(promise, "Creating Team...");
-  };
+  }else{
+    createToast(Promise.reject("Team name cannot be empty"), "Team name cannot be empty");
+  }
+};
 
   return (
     <>
