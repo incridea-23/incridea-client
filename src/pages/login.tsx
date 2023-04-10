@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { titleFont } from "../utils/fonts";
 import ResendEmail from "../components/form/login/resendEmailForm";
+import Image from "next/image";
 
 const SignIn: NextPage = () => {
   const {
@@ -27,7 +28,7 @@ const SignIn: NextPage = () => {
             className={`${titleFont.className} text-center w-[50vw] items-center justify-center text-white/70 flex bg-gradient-to-r to-[#3baee7] from-[#144f6d] `}>
             <p className="text-2xl -rotate-90">The adventure ahead awaits!</p>
           </div>
-          <img src={"/login-wave.png"} className="h-screen" />
+          <Image height={1080} width={200} alt="login-wave" src={"/login-wave.png"} className="h-screen" />
         </div>
         <div
           className={`shrink-0 md:w-[50vw] w-screen flex items-center justify-center bg-[#f3e9d1] text-[#6f5925] `}>
@@ -45,7 +46,7 @@ const SignIn: NextPage = () => {
           </div>
         </div>
         <div className="hidden md:flex grow">
-          <img src={"/login-wave.png"} className="rotate-180 h-screen -m-1" />
+          <Image height={1080} width={200} alt="login-wave" src={"/login-wave.png"} className="rotate-180 h-screen" />
           <div
             className={`${titleFont.className} text-center text-white/70 w-[50vw] items-center justify-center flex bg-gradient-to-l to-[#3baee7] from-[#144f6d]`}>
             <p className="text-2xl rotate-90">Conquer the depths of the ocean!</p>

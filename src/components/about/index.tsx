@@ -41,7 +41,7 @@ const About: FC = () => {
               width={300}
               height={300}
               className={
-                "group-hover:scale-110 group-hover:-translate-y-2 transform transition-all duration-500"
+                "group-hover:scale-[1.15] group-hover:-translate-y-4 transform transition-all duration-500"
               }
               alt="Incridea Emblem"
             />
@@ -49,24 +49,22 @@ const About: FC = () => {
               src="/assets/png/ryoko.png"
               width={300}
               height={300}
-              className="absolute w-auto bottom-0 group-hover:scale-105 group-hover:-translate-y-2 transform transition-all duration-500  "
+              className="absolute w-auto bottom-0 group-hover:scale-105 group-hover:-translate-y-2 transform transition-all duration-500"
               alt="Incridea Ryoko"
             />
           </div>
           <hr />
-          <div className={`text-lg flex   items-center ${titleFont.className}`}>
+          <div className={`text-lg flex justify-around mt-2  items-center ${titleFont.className}`}>
             <a
               href="#"
-              className="px-10 flex items-center gap-2 py-3 text-xl font-semibold text-center text-white transition duration-300 rounded-lg ">
+              className="hover:bg-white/10 px-2 py-1 flex items-center gap-2 text-xl font-semibold text-center text-white transition duration-300 rounded-sm">
               <BiDownload /> Rule book
             </a>
             <a
               href="#_"
-              className="relative p-0.5 inline-flex items-center justify-center font-bold overflow-hidden rounded-md">
-              <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-amber-200 to-amber-500"></span>
-              <span className="relative flex gap-3 items-center text-gold-500 text-white">
+              className="hover:bg-white/10 px-2 py-1 flex items-center gap-2 text-xl font-semibold text-center text-white transition duration-300 rounded-sm">
+
                 <BiDownload /> Schedule
-              </span>
             </a>
           </div>
         </div>

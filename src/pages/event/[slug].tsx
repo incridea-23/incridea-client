@@ -128,8 +128,7 @@ function event({ event, error }: { event: Event; error: String }) {
                           {round.date &&
                             new Date(round.date).toLocaleDateString("en-IN", {
                               day: "numeric",
-                              month: "long",
-                              year: "numeric",
+                              month: "short",
                             })}
                         </p>
                         <p className="flex gap-2 items-center">

@@ -14,7 +14,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
   data,
 }) => {
-  const filters = [
+  const branchFilters = [
     "ALL",
     "CORE",
     "CSE",
@@ -27,25 +27,83 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
     "CIVIL",
     "ROBOTICS",
   ];
-  const { status, user } = useAuth();
-  const [currentFilter, setCurrentFilter] = useState<typeof filters[number]>("ALL");
+
+  const dayFilters = ["ALL", "DAY 1", "DAY 2", "DAY 3", "DAY 4"];
+  const typeFilters = ["ALL", "TECHNICAL", "NON_TECHNICAL", "CORE"];
+  const [currentBranchFilter, setCurrentBranchFilter] =
+    useState<typeof branchFilters[number]>("ALL");
+  const [currentDayFilter, setCurrentDayFilter] =
+    useState<typeof dayFilters[number]>("ALL");
+  const [currentTypeFilter, setCurrentTypeFilter] =
+    useState<typeof branchFilters[number]>("ALL");
   const [query, setQuery] = useState("");
 
   const [filteredEvents, setFilteredEvents] = useState(data || []);
 
-  const handleFilter = (filter: typeof filters[number]) => {
+  const handleBranchFilter = (filter: typeof branchFilters[number]) => {
     setQuery("");
-    setCurrentFilter(filter);
+    setCurrentBranchFilter(filter);
     if (filter === "ALL") {
-      setFilteredEvents(data || []);
+      if (currentDayFilter === "ALL" && currentTypeFilter === "ALL")
+        setFilteredEvents(data || []);
+      else {
+        handleDayFilter(currentDayFilter);
+        handleTypeFilter(currentTypeFilter);
+      }
+      // setFilteredEvents(data || []);
     } else {
       setFilteredEvents(data.filter((event) => event.branch.name === filter));
     }
   };
 
+  const handleDayFilter = (filter: typeof dayFilters[number]) => {
+    setQuery("");
+    setCurrentDayFilter(filter);
+    if (filter === "ALL") {
+      if (currentBranchFilter === "ALL" && currentTypeFilter === "ALL")
+        setFilteredEvents(data || []);
+      else {
+        handleBranchFilter(currentBranchFilter);
+        handleTypeFilter(currentTypeFilter);
+      }
+      // setFilteredEvents(data || []);
+    } else {
+      let filteredDay = new Date(
+        filter === "DAY 1"
+          ? "2023-04-26"
+          : filter === "DAY 2"
+          ? "2023-04-27"
+          : filter === "DAY 3"
+          ? "2023-04-28"
+          : "2023-04-29"
+      ).getDate();
+      setFilteredEvents(
+        data.filter((event) =>
+          event.rounds.some((round) => new Date(round.date).getDate() === filteredDay)
+        )
+      );
+    }
+  };
+
+  const handleTypeFilter = (filter: typeof typeFilters[number]) => {
+    setQuery("");
+    setCurrentTypeFilter(filter);
+    if (filter === "ALL") {
+      if (currentBranchFilter === "ALL" && currentDayFilter === "ALL")
+        setFilteredEvents(data || []);
+      else {
+        handleBranchFilter(currentBranchFilter);
+        handleTypeFilter(currentDayFilter);
+      }
+    } else {
+      setFilteredEvents(data.filter((event) => event.eventCategory === filter));
+    }
+  };
+
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
-    setCurrentFilter("ALL");
+    setCurrentBranchFilter("ALL");
+    setCurrentDayFilter("ALL");
     if (e.target.value === "") {
       setFilteredEvents(data || []);
     } else {
@@ -55,6 +113,15 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
         )
       );
     }
+  };
+
+  //TODO: Add reset filter button on mobile
+  const resetFilters = () => {
+    setQuery("");
+    setCurrentBranchFilter("ALL");
+    setCurrentDayFilter("ALL");
+    setCurrentTypeFilter("ALL");
+    setFilteredEvents(data || []);
   };
 
   return (
@@ -70,7 +137,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
         className={`${titleFont.className} font-bold text-5xl tracking-wide text-center pt-32 text-white`}>
         EVENTS
       </h1>
-      <div className="flex items-center gap-2 md:mx-10 mx-4 justify-between lg:flex-col lg:mx-auto mt-4">
+      <div className="flex flex-wrap items-center gap-2 md:mx-10 mx-4 lg:justify-between lg:flex-col lg:mx-auto mt-4">
         <div className="relative lg:w-[800px] w-full">
           <input
             value={query}
@@ -85,34 +152,83 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
           />
         </div>
         <div className="lg:flex lg:w-[800px] justify-between gap-3 mt-4 mx-auto  hidden eventNavigation font-semibold">
-          {filters.map((filter) => (
+          {branchFilters.map((filter) => (
             <span
               key={filter}
               className={`${
-                filter === currentFilter ? "bg-black/20" : "hover:bg-black/10"
+                filter === currentBranchFilter ? "bg-black/20" : "hover:bg-black/10"
               } text-white cursor-pointer rounded-sm px-3 py-1`}
-              onClick={() => handleFilter(filter)}>
+              onClick={() => handleBranchFilter(filter)}>
               {filter}
             </span>
           ))}
         </div>
-        <div className="lg:hidden flex justify-center my-2 py-2 rounded-md">
+        <div className="lg:flex lg:w-[800px] justify-between gap-3 mt-4 mx-auto  hidden eventNavigation font-semibold">
+          {dayFilters.map((filter) => (
+            <span
+              key={filter}
+              className={`${
+                filter === currentDayFilter ? "bg-black/20" : "hover:bg-black/10"
+              } text-white cursor-pointer rounded-sm px-3 py-1`}
+              onClick={() => handleDayFilter(filter)}>
+              {filter}
+            </span>
+          ))}
+        </div>
+        <div className="lg:flex lg:w-[800px] justify-between gap-3 mt-4 mx-auto  hidden eventNavigation font-semibold">
+          {typeFilters.map((filter) => (
+            <span
+              key={filter}
+              className={`${
+                filter === currentTypeFilter ? "bg-black/20" : "hover:bg-black/10"
+              } text-white cursor-pointer rounded-sm px-3 py-1`}
+              onClick={() => handleTypeFilter(filter)}>
+              {filter.replace("_", " ")}
+            </span>
+          ))}
+        </div>
+        <div className="lg:hidden flex justify-center  py-2">
           <Menu as={"div"} className={"relative inline-block"}>
             <Menu.Button
               className={
-                "inline-flex bg-white/90 w-full justify-center rounded-full px-4 py-2 text-sm font-medium text-black"
+                "inline-flex bg-black/30 leading-6 w-full justify-center rounded-sm px-4 py-2 h-[40px] text-sm font-medium text-white"
               }>
-              Filters
+              {currentBranchFilter !== "ALL" ? currentBranchFilter : "Branch"}
             </Menu.Button>
-            <Menu.Items className="overflow-hidden pb-1.5 bg-white absolute z-[1] text-center right-0  top-0 rounded-md shadow-lg">
-              {filters.map((filter) => (
+            <Menu.Items className=" overflow-hidden pb-1.5 mt-1 bg-[#075985] absolute z-[1] text-center rounded-sm shadow-lg">
+              {branchFilters.map((filter) => (
                 <Menu.Item key={filter}>
                   {({ active }) => (
                     <button
                       className={`${
-                        currentFilter === filter ? "bg-red-300" : "bg-white"
-                      } text-black rounded-sm m-1.5 mb-0 w-32 px-3 py-2 text-sm`}
-                      onClick={() => handleFilter(filter)}>
+                        currentBranchFilter === filter ? "bg-black/70" : "bg-black/40"
+                      } text-white rounded-sm m-1.5 mb-0 w-32 px-3 py-2 text-sm`}
+                      onClick={() => handleBranchFilter(filter)}>
+                      {filter}
+                    </button>
+                  )}
+                </Menu.Item>
+              ))}
+            </Menu.Items>
+          </Menu>
+        </div>
+        <div className="lg:hidden flex justify-center  py-2">
+          <Menu as={"div"} className={"relative inline-block"}>
+            <Menu.Button
+              className={
+                "inline-flex bg-black/30 leading-6 w-full justify-center rounded-sm px-4 py-2 h-[40px] text-sm font-medium text-white"
+              }>
+              {currentDayFilter !== "ALL" ? currentDayFilter : "Day"}
+            </Menu.Button>
+            <Menu.Items className="overflow-hidden pb-1.5 mt-1 bg-[#075985]  absolute z-[1] text-center rounded-sm shadow-lg">
+              {dayFilters.map((filter) => (
+                <Menu.Item key={filter}>
+                  {({ active }) => (
+                    <button
+                      className={`${
+                        currentDayFilter === filter ? "bg-black/70" : "bg-black/40"
+                      } text-white rounded-sm m-1.5 mb-0 w-32 px-3 py-2 text-sm`}
+                      onClick={() => handleDayFilter(filter)}>
                       {filter}
                     </button>
                   )}
@@ -122,10 +238,10 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
           </Menu>
         </div>
       </div>
-      {currentFilter !== "ALL" && filteredEvents.length > 0 && (
+      {filteredEvents.length < data.length && filteredEvents.length > 0 && (
         <div className="md:hidden flex mb-3 justify-center">
           <span className="text-gray-200  text-xs">
-            Displaying {filteredEvents.length} {currentFilter} event(s)
+            Displaying {filteredEvents.length} event(s)
           </span>
         </div>
       )}
