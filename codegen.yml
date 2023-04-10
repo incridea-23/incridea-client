@@ -1,4 +1,4 @@
-schema: https://incridea-test.onrender.com/graphql
+schema: https://incridea.onrender.com/graphql
 documents: "./src/**/*.graphql"
 generates:
   ./src/generated/generated.ts:

@@ -53,7 +53,7 @@ export default function EditEventModal({
   const handleUpload = (file: File) => {
     const formData = new FormData();
     formData.append("image", file)
-    const url = `https://incridea-test.onrender.com/cloudinary/upload/${event.name}`;
+    const url = `https://incridea.onrender.com/cloudinary/upload/${event.name}`;
     setUploading(true);
     const promise = fetch(url, {
       method: 'POST',
