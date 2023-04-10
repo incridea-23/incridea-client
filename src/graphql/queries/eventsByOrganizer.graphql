@@ -17,6 +17,7 @@ query EventByOrganizer($organizerId: ID!) {
     eventType
     fees
     id
+    category
     image
     maxTeamSize
     maxTeams

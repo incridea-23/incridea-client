@@ -9,6 +9,7 @@ mutation UpdateEvent(
   $id: ID!
   $eventType: EventType
   $image: String
+  $category: EventCategory
 ) {
   updateEvent(
     data: {
@@ -21,6 +22,7 @@ mutation UpdateEvent(
       venue: $venue
       eventType: $eventType
       image: $image
+      category: $category
     }
     id: $id
   ) {

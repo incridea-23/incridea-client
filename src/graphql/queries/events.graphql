@@ -12,6 +12,7 @@ query Events($first: Int!) {
         maxTeams
         minTeamSize
         published
+        category
         rounds {
           completed
           roundNo

@@ -11,6 +11,7 @@ query RegisterdEvents {
         image
         name
         venue
+        category
         rounds {
           date
           roundNo

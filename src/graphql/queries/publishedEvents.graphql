@@ -18,6 +18,7 @@ query PublishedEvents {
     maxTeamSize
     maxTeams
     minTeamSize
+    category
     eventType
     rounds {
       date

@@ -12,6 +12,7 @@ import Button from "../../../button";
 import Modal from "@/src/components/modal";
 import { AiOutlineEye } from "react-icons/ai";
 import EventDetails from "../../event/EventDetails";
+import { BiCategory } from "react-icons/bi";
 
 export default function ViewEventModal({
   event,
@@ -44,6 +45,11 @@ export default function ViewEventModal({
         name: "Event Type",
         text: event.eventType,
         Icon: IoPersonOutline,
+      },
+      {
+        name: "Category",
+        text: event.category,
+        Icon: BiCategory,
       },
       {
         name: "Fees",

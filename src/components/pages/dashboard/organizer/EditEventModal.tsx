@@ -1,28 +1,29 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import {
   EventByOrganizerQuery,
+  EventCategory,
   UpdateEventDocument,
-} from '@/src/generated/generated';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import dynamic from 'next/dynamic';
-import { EventType } from '@/src/generated/generated';
-import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
-import { useMutation } from '@apollo/client';
-import Modal from '@/src/components/modal';
-import Button from '@/src/components/button';
-import ToggleSwitch from '@/src/components/switch';
-import createToast from '@/src/components/toast';
-import { AiOutlineEdit } from 'react-icons/ai';
+} from "@/src/generated/generated";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import dynamic from "next/dynamic";
+import { EventType } from "@/src/generated/generated";
+import { EditorState, convertFromRaw, convertToRaw } from "draft-js";
+import { useMutation } from "@apollo/client";
+import Modal from "@/src/components/modal";
+import Button from "@/src/components/button";
+import ToggleSwitch from "@/src/components/switch";
+import createToast from "@/src/components/toast";
+import { AiOutlineEdit } from "react-icons/ai";
 const Editor = dynamic(
   () => {
-    return import('react-draft-wysiwyg').then((mod) => mod.Editor);
+    return import("react-draft-wysiwyg").then((mod) => mod.Editor);
   },
   { ssr: false }
 );
 export default function EditEventModal({
   event,
 }: {
-  event: EventByOrganizerQuery['eventByOrganizer'][0];
+  event: EventByOrganizerQuery["eventByOrganizer"][0];
 }) {
   const [maxTeams, setMaxTeams] = useState(event.maxTeams);
   const [name, setName] = useState(event.name);
@@ -34,7 +35,7 @@ export default function EditEventModal({
   const [banner, setBanner] = useState(event.image);
   const [uploading, setUploading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-
+  const [category, setCategory] = useState(event.category);
   function handleCloseModal() {
     setShowModal(false);
   }
@@ -46,21 +47,21 @@ export default function EditEventModal({
   const [updateEvent, { data, loading, error }] = useMutation(
     UpdateEventDocument,
     {
-      refetchQueries: ['EventByOrganizer'],
+      refetchQueries: ["EventByOrganizer"],
     }
   );
 
   const handleUpload = (file: File) => {
     const formData = new FormData();
-    formData.append("image", file)
+    formData.append("image", file);
     const url = `https://incridea.onrender.com/cloudinary/upload/${event.name}`;
     setUploading(true);
     const promise = fetch(url, {
-      method: 'POST',
+      method: "POST",
       body: formData,
-      mode: 'cors',
+      mode: "cors",
       headers: {
-        'Access-Control-Allow-Origin': '*',
+        "Access-Control-Allow-Origin": "*",
       },
     })
       .then((res) => res.json())
@@ -72,7 +73,7 @@ export default function EditEventModal({
         setUploading(false);
         console.log(err);
       });
-    createToast(promise, 'Uploading image...');
+    createToast(promise, "Uploading image...");
   };
 
   function saveHandler() {
@@ -88,16 +89,17 @@ export default function EditEventModal({
         fees,
         eventType: eventType as EventType,
         image: banner,
+        category: category as EventCategory,
         description: JSON.stringify(
           convertToRaw(editorState.getCurrentContent())
         ),
       },
     }).then((res) => {
-      if (res.data?.updateEvent.__typename === 'Error') {
+      if (res.data?.updateEvent.__typename === "Error") {
         throw new Error(res.data.updateEvent.message);
       }
     });
-    createToast(promise, 'Updating event...');
+    createToast(promise, "Updating event...");
   }
 
   useEffect(() => {
@@ -111,7 +113,7 @@ export default function EditEventModal({
       console.log(error);
     }
     // public-DraftStyleDefault-block
-    const style = document.createElement('style');
+    const style = document.createElement("style");
     style.innerHTML = `.public-DraftStyleDefault-block {
       margin: 0;
     }`;
@@ -126,10 +128,9 @@ export default function EditEventModal({
         disabled={event.published}
         className={
           event.published
-            ? 'opacity-50 pointer-events-none cursor-not-allowed'
-            : ''
-        }
-      >
+            ? "opacity-50 pointer-events-none cursor-not-allowed"
+            : ""
+        }>
         <AiOutlineEdit />
         Edit
       </Button>
@@ -137,15 +138,13 @@ export default function EditEventModal({
         title="Edit Event Details"
         size="medium"
         showModal={showModal}
-        onClose={handleCloseModal}
-      >
+        onClose={handleCloseModal}>
         <div className=" p-5 ">
           <div className="mt-2">
             <div className="mb-6">
               <label
                 htmlFor="name"
-                className="block mb-2 text-sm font-medium text-white"
-              >
+                className="block mb-2 text-sm font-medium text-white">
                 Event Name
               </label>
               <input
@@ -161,8 +160,7 @@ export default function EditEventModal({
             <div className="mb-6">
               <label
                 htmlFor="description"
-                className="block mb-2 text-sm font-medium text-white"
-              >
+                className="block mb-2 text-sm font-medium text-white">
                 Event Description
               </label>
               <Editor
@@ -174,11 +172,10 @@ export default function EditEventModal({
               />
             </div>
             <div className="mb-6 flex flex-wrap gap-6 justify-between ">
-              <div className="grow md:basis-1/3 basis-full">
+              <div className="grow md:basis-1/4 basis-full">
                 <label
                   htmlFor="Venue"
-                  className="block mb-2 text-sm font-medium text-white"
-                >
+                  className="block mb-2 text-sm font-medium text-white">
                   Venue
                 </label>
                 <input
@@ -186,12 +183,12 @@ export default function EditEventModal({
                   id="Venue"
                   required
                   onChange={(e) => setVenue(e.target.value)}
-                  value={venue || ''}
+                  value={venue || ""}
                   className=" border w-full   text-sm rounded-lg   block p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
                   placeholder="LC01"
                 />
               </div>
-              <div className="grow md:basis-1/3 basis-full">
+              <div className="grow md:basis-1/4 basis-full">
                 <label className="block mb-2 text-sm font-medium text-white">
                   Event Type
                 </label>
@@ -200,9 +197,25 @@ export default function EditEventModal({
                   placeholder="Event Type"
                   value={eventType}
                   onChange={(e) => setEventType(e.target.value)}
-                  className="w-full  bg-gray-600 border border-gray-600 h-10 px-4 pr-16 rounded-lg text-sm focus:outline-none focus:ring-2 ring-gray-500"
-                >
+                  className="w-full  bg-gray-600 border border-gray-600 h-10 px-4 pr-16 rounded-lg text-sm focus:outline-none focus:ring-2 ring-gray-500">
                   {Object.values(EventType).map((type) => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="grow md:basis-1/4 basis-full">
+                <label className="block mb-2 text-sm font-medium text-white">
+                  Category
+                </label>
+                <select
+                  id="category"
+                  placeholder="Category"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  className="w-full  bg-gray-600 border border-gray-600 h-10 px-4 pr-16 rounded-lg text-sm focus:outline-none focus:ring-2 ring-gray-500">
+                  {Object.values(EventCategory).map((type) => (
                     <option key={type} value={type}>
                       {type}
                     </option>
@@ -215,8 +228,7 @@ export default function EditEventModal({
               <div className="grow md:basis-1/3 basis-full">
                 <label
                   htmlFor="fees"
-                  className="block mb-2 text-sm font-medium text-white"
-                >
+                  className="block mb-2 text-sm font-medium text-white">
                   Entry Fees
                 </label>
                 <input
@@ -324,11 +336,10 @@ export default function EditEventModal({
           <div className="w-full flex justify-end gap-2">
             <Button
               type="submit"
-              intent={'success'}
+              intent={"success"}
               onClick={saveHandler}
               disabled={loading || uploading}
-              className="rounded-lg"
-            >
+              className="rounded-lg">
               Save
             </Button>
           </div>

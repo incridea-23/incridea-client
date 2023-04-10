@@ -1,4 +1,4 @@
-query EventById($id : ID!) {
+query EventById($id: ID!) {
   eventById(id: $id) {
     id
     description
@@ -11,6 +11,7 @@ query EventById($id : ID!) {
     image
     fees
     published
+    category
     organizers {
       user {
         email
