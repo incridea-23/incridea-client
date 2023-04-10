@@ -1,23 +1,21 @@
 import Button from '@/src/components/button';
 import Modal from '@/src/components/modal';
 import Spinner from '@/src/components/spinner';
-import createToast from '@/src/components/toast';
 import { LeaveTeamDocument } from '@/src/generated/generated';
 import { useMutation } from '@apollo/client';
 import React, { FC, useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 const LeaveTeamModal: FC<{
+  refetch: string;
   teamId: string;
-}> = ({ teamId }) => {
+}> = ({ teamId, refetch }) => {
   const [showModal, setShowModal] = useState(false);
 
-  const [leaveTeam, { loading: leaveTeamLoading }] = useMutation(
-    LeaveTeamDocument,
-    {
-      refetchQueries: ['RegisterdEvents'],
-      awaitRefetchQueries: true,
-    }
-  );
+  const [leaveTeam, { loading }] = useMutation(LeaveTeamDocument, {
+    refetchQueries: [refetch],
+    awaitRefetchQueries: true,
+  });
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -25,16 +23,20 @@ const LeaveTeamModal: FC<{
 
   const handleLeave = (teamId: string) => {
     setShowModal(false);
-    let promise = leaveTeam({
+    const loadingToast = toast.loading('Leaving team...');
+    leaveTeam({
       variables: {
         teamId,
       },
     }).then((res) => {
-      if (res?.data?.leaveTeam.__typename !== 'MutationLeaveTeamSuccess') {
-        return Promise.reject(res.data?.leaveTeam.message);
+      if (res.data?.leaveTeam.__typename === 'MutationLeaveTeamSuccess') {
+        toast.success("You've left the team!");
+        toast.dismiss(loadingToast);
+      } else {
+        toast.error(res.data?.leaveTeam.message!);
+        toast.dismiss(loadingToast);
       }
     });
-    createToast(promise, 'Leaving...');
   };
 
   return (
@@ -63,15 +65,11 @@ const LeaveTeamModal: FC<{
           <Button
             size={'small'}
             onClick={() => {
-              handleLeave(teamId as string);
+              handleLeave(teamId);
             }}
-            disabled={leaveTeamLoading}
+            disabled={loading}
           >
-            {leaveTeamLoading ? (
-              <Spinner intent={'white'} size={'small'} />
-            ) : (
-              'Leave'
-            )}
+            {loading ? <Spinner intent={'white'} size={'small'} /> : 'Leave'}
           </Button>
           <Button
             size={'small'}

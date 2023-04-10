@@ -1,5 +1,4 @@
 import { titleFont } from '@/src/utils/fonts';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
@@ -51,7 +50,7 @@ const EventCard: FC<{
           </p>
         </div>
       </div>
-      <button className="w-full p-2 bg-white bg-opacity-40 hover:bg-opacity-70 transition-colors duration-300 rounded-b-sm">
+      <button className="w-full p-2 bg-white bg-opacity-40 hover:bg-opacity-70 transition-colors duration-300 rounded-b-lg">
         View Event
       </button>
     </Link>

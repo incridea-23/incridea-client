@@ -1,14 +1,14 @@
-import { useAuth } from "@/src/hooks/useAuth";
-import { NextPage } from "next";
-import "locomotive-scroll/dist/locomotive-scroll.css";
-import { LocomotiveScrollProvider } from "react-locomotive-scroll";
-import { useRef } from "react";
-import ProfileInfo from "@/src/components/pages/profile/profileInfo";
-import UserEvents from "@/src/components/pages/profile/registeredEvents";
-import { Toaster } from "react-hot-toast";
-import Link from "next/link";
-import Button from "@/src/components/button";
-import Image from "next/image";
+import { useAuth } from '@/src/hooks/useAuth';
+import { NextPage } from 'next';
+import 'locomotive-scroll/dist/locomotive-scroll.css';
+import { LocomotiveScrollProvider } from 'react-locomotive-scroll';
+import { useRef } from 'react';
+import ProfileInfo from '@/src/components/pages/profile/profileInfo';
+import UserEvents from '@/src/components/pages/profile/registeredEvents';
+import { Toaster } from 'react-hot-toast';
+import Link from 'next/link';
+import Button from '@/src/components/button';
+import Image from 'next/image';
 
 const Profile: NextPage = () => {
   const { error, user, loading } = useAuth();
@@ -29,7 +29,7 @@ const Profile: NextPage = () => {
           Hey there! You need to login to view this page.
         </h1>
         <Link href="/login">
-          <Button intent={"primary"}>Login / Register</Button>
+          <Button intent={'primary'}>Login / Register</Button>
         </Link>
       </div>
     );
@@ -48,7 +48,8 @@ const Profile: NextPage = () => {
       <Toaster />
       <main
         ref={containerRef}
-        className="relative bg-gradient-to-b py-20 from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
+        className="relative bg-gradient-to-b py-20 from-[#46aacf]  via-[#075985] to-[#2d6aa6]"
+      >
         <Image
           src="/assets/png/waterflare.png"
           height={1000}
@@ -63,7 +64,7 @@ const Profile: NextPage = () => {
 
         {/* 2. Registered Events section & Teams section */}
         <div className="px-5">
-          <UserEvents userId={user?.id!} />
+          <UserEvents userId={user?.id!} name={user.name} email={user.email} />
         </div>
       </main>
     </>

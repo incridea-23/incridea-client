@@ -1,21 +1,23 @@
-import Button from "@/src/components/button";
-import Modal from "@/src/components/modal";
-import Spinner from "@/src/components/spinner";
-import createToast from "@/src/components/toast";
-import { DeleteTeamDocument } from "@/src/generated/generated";
-import { useMutation } from "@apollo/client";
-import React, { FC, useState } from "react";
-import { BiTrashAlt } from "react-icons/bi";
+import Button from '@/src/components/button';
+import Modal from '@/src/components/modal';
+import Spinner from '@/src/components/spinner';
+import createToast from '@/src/components/toast';
+import { DeleteTeamDocument } from '@/src/generated/generated';
+import { useMutation } from '@apollo/client';
+import React, { FC, useState } from 'react';
+import { BiTrashAlt } from 'react-icons/bi';
+import { FaSignOutAlt } from 'react-icons/fa';
 
 const DeleteTeamModal: FC<{
   teamId: string;
-}> = ({ teamId }) => {
+  solo?: boolean;
+}> = ({ teamId, solo }) => {
   const [showModal, setShowModal] = useState(false);
 
   const [deleteTeam, { loading: deleteTeamLoading }] = useMutation(
     DeleteTeamDocument,
     {
-      refetchQueries: ["RegisterdEvents", "MyTeam"],
+      refetchQueries: ['RegisterdEvents', 'MyTeam'],
       awaitRefetchQueries: true,
     }
   );
@@ -31,48 +33,59 @@ const DeleteTeamModal: FC<{
         teamId: teamId,
       },
     }).then((res) => {
-      if (res?.data?.deleteTeam.__typename !== "MutationDeleteTeamSuccess") {
-        return Promise.reject("Error deleting team");
+      if (res?.data?.deleteTeam.__typename !== 'MutationDeleteTeamSuccess') {
+        return Promise.reject('Error, something went wrong!');
       }
     });
-    createToast(promise, "Deleting");
+    createToast(promise, solo ? 'Unregistering from event' : 'Deleting team');
   };
 
   return (
     <>
-      <div className="flex justify-end p-5">
+      <div className="flex justify-end">
         <Button
           onClick={() => {
             setShowModal(true);
           }}
-          disabled={deleteTeamLoading}>
-          Delete Team
-          <BiTrashAlt />
+          disabled={deleteTeamLoading}
+          size={(solo && 'small') || 'medium'}
+        >
+          {!solo && 'Delete Team'}
+          {solo ? <FaSignOutAlt /> : <BiTrashAlt />}
         </Button>
       </div>
       <Modal
-        title={`Are you sure you want to delete the team?`}
+        title={`${
+          solo
+            ? 'Are you sure you want to unregister from the event?'
+            : 'Are you sure you want to delete the team?'
+        }`}
         showModal={showModal}
         onClose={handleCloseModal}
-        size={"small"}>
+        size={'small'}
+      >
         <div className="text-sm text-center">This action cannot be undone.</div>
         <div className="flex justify-center gap-3 my-5">
           <Button
-            size={"small"}
+            size={'small'}
             onClick={() => {
               handleDelete(teamId as string);
             }}
-            disabled={deleteTeamLoading}>
+            disabled={deleteTeamLoading}
+          >
             {deleteTeamLoading ? (
-              <Spinner intent={"white"} size={"small"} />
+              <Spinner intent={'white'} size={'small'} />
+            ) : solo ? (
+              'Unregister'
             ) : (
-              "Delete"
+              'Delete'
             )}
           </Button>
           <Button
-            size={"small"}
-            intent={"ghost"}
-            onClick={() => handleCloseModal()}>
+            size={'small'}
+            intent={'ghost'}
+            onClick={() => handleCloseModal()}
+          >
             Cancel
           </Button>
         </div>

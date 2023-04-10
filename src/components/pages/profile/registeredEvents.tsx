@@ -10,7 +10,9 @@ import { FC } from 'react';
 
 const UserEvents: FC<{
   userId: string;
-}> = ({ userId }) => {
+  name: string;
+  email: string;
+}> = ({ userId, name, email }) => {
   const { data: events, loading, error } = useQuery(RegisterdEventsDocument);
 
   return (
@@ -28,7 +30,9 @@ const UserEvents: FC<{
           'QueryRegisteredEventsSuccess' &&
         events.registeredEvents.data.length === 0 ? (
         <div className="flex flex-col items-center justify-center gap-5 h-40">
-          <p className="text-white/80 text-lg">Register for an event to see it here</p>
+          <p className="text-white/80 text-lg">
+            Register for an event to see it here
+          </p>
           <Button>
             <Link href="/events" className="text-white">
               Explore Events
@@ -57,6 +61,8 @@ const UserEvents: FC<{
                 teams={events.registeredEvents.data
                   ?.map((event) => event?.teams)
                   .flat()}
+                name={name}
+                email={email}
               />
             )}
           </>

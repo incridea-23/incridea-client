@@ -57,21 +57,21 @@ export function FooterBody() {
         <div className="md:basis-1/5">
           <ul className="flex flex-1 gap-4 justify-center text-2xl items-center ">
             <li className="text-gray-300 hover:text-gray-100">
-              <Link
+              <a
                 target="_blank"
                 href="https://www.instagram.com/incridea/"
                 rel="noreferrer">
                 <BsInstagram />
-              </Link>
+              </a>
             </li>
             <li className="text-gray-300 hover:text-gray-100">
-              <Link
+              <a
                 target="_blank"
                 className="text-3xl"
                 href="https://www.youtube.com/@incrideanmamit"
                 rel="noreferrer">
                 <FaYoutube />
-              </Link>
+              </a>
             </li>
           </ul>
         </div>

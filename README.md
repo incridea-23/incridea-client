@@ -36,7 +36,7 @@ npm run dev
 > Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ### Apollo client workflow
-1. Write a query or mutation under /src/graphql folder. Refer [Playground](https://incridea-test.onrender.com/graphql) for syntax.
+1. Write a query or mutation under /src/graphql folder. Refer [Playground](https://incridea.onrender.com/graphql) for syntax.
     <details>
       <summary>Query Example</summary>
 
