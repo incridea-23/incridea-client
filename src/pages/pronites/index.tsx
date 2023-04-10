@@ -76,7 +76,7 @@ const Pronite: NextPage = () => {
             />
           </div>
           <div className="snap-start min-w-full h-screen place-items-center w-screen">
-            <ProniteFooter className="relative h-screen w-screen -bottom-16 sm:bottom-0"/>
+            <ProniteFooter className="relative h-screen w-screen -bottom-4 sm:bottom-0"/>
           </div>
         </div>
       </div>

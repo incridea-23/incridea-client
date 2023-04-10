@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Button from '../button';
@@ -27,6 +27,17 @@ const Navbar = () => {
   };
 
   const activePath = links.find((link) => link.url === router.pathname);
+
+  const closeMenu = () =>{
+    if(isMenuOpen)
+      setIsMenuOpen(!isMenuOpen);
+  }
+  useEffect(()=>{
+    document.addEventListener('mousedown',closeMenu);
+    return()=>{
+      document.removeEventListener('mousedown',closeMenu);
+    };
+  });
 
   return (
     <nav
@@ -101,6 +112,7 @@ const Navbar = () => {
             <Link
               key={link.url}
               href={link.url}
+              onClick={closeMenu}
               className="block py-2 px-4 text-sm text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.5)]"
             >
               {link.label}
