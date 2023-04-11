@@ -5,10 +5,7 @@ import Event from "@/src/components/event";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { Menu } from "@headlessui/react";
-import {
-  PublishedEventsDocument,
-  PublishedEventsQuery,
-} from "@/src/generated/generated";
+import { PublishedEventsDocument, PublishedEventsQuery } from "@/src/generated/generated";
 import Image from "next/image";
 import { client } from "@/src/lib/apollo";
 import SearchBox from "@/src/components/searchbox";
@@ -31,8 +28,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
     "ROBOTICS",
   ];
   const { status, user } = useAuth();
-  const [currentFilter, setCurrentFilter] =
-    useState<typeof filters[number]>("ALL");
+  const [currentFilter, setCurrentFilter] = useState<typeof filters[number]>("ALL");
   const [query, setQuery] = useState("");
 
   const [filteredEvents, setFilteredEvents] = useState(data || []);
@@ -151,17 +147,26 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
 };
 
 export async function getStaticProps() {
-  const { data: events } = await client.query({
-    query: PublishedEventsDocument,
-    fetchPolicy: "no-cache",
-  });
+  try {
+    const { data: events } = await client.query({
+      query: PublishedEventsDocument,
+      fetchPolicy: "no-cache",
+    });
 
-  return {
-    props: {
-      data: events.publishedEvents,
-    },
-    revalidate: 60,
-  };
+    return {
+      props: {
+        data: events.publishedEvents,
+      },
+      revalidate: 60,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      props: {
+        data: [],
+      },
+      revalidate: 60,
+    };
+  }
 }
-
 export default Events;

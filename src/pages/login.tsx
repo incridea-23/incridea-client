@@ -5,14 +5,15 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { titleFont } from "../utils/fonts";
+import ResendEmail from "../components/form/login/resendEmailForm";
 
 const SignIn: NextPage = () => {
   const {
     query,
-  }: { query: { whichForm?: "signIn" | "resetPassword" | "signUp" } } =
+  }: { query: { whichForm?: "signIn" | "resetPassword" | "signUp" | "resendEmail"} } =
     useRouter();
   const [whichForm, setWhichForm] = useState<
-    "signIn" | "resetPassword" | "signUp"
+    "signIn" | "resetPassword" | "signUp" | "resendEmail"
   >(query.whichForm || "signIn");
 
   return (
@@ -36,9 +37,9 @@ const SignIn: NextPage = () => {
                 <SignInForm setWhichForm={setWhichForm} />
               ) : whichForm === "resetPassword" ? (
                 <ResetPasswordForm setWhichForm={setWhichForm} />
-              ) : (
+              ) : whichForm === "signUp" ? (
                 <SignUpForm setWhichForm={setWhichForm} />
-              )}
+              ) : <ResendEmail setWhichForm={setWhichForm} />}
             </div>
             <img src={"/login-wave.svg"} className="md:hidden block" />
           </div>

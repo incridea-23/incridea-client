@@ -1,12 +1,11 @@
-import { FC, useState,useEffect } from "react";
-import Image from "next/image";
-import {Swiper, SwiperSlide} from 'swiper/react';
-import { Autoplay,Mousewheel } from 'swiper';
+import { FC, useState, useEffect, useMemo } from 'react';
+import Image from 'next/image';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Mousewheel } from 'swiper';
 import 'swiper/css';
-import "swiper/css/navigation";
-import { titleFont } from "@/src/utils/fonts";
-import { BsChevronUp,BsChevronDown } from "react-icons/bs";
-
+import 'swiper/css/navigation';
+import { titleFont } from '@/src/utils/fonts';
+import { BsChevronUp, BsChevronDown } from 'react-icons/bs';
 
 type GalleryProps = {
     title : string
@@ -17,11 +16,8 @@ type GalleryProps = {
 
 const GallerySlide:FC<GalleryProps> = ({title,next,prev,imgArr}) => {
 
-
     const [active,setActive] = useState<number>(0);
     const [activeImg,setActiveImg] = useState<string>('');
-    // const imgSrc:string = 'https://res.cloudinary.com/nexttrek/image/upload/v1679811681/Incridea/'
-    // const imgArr:string[] = ['Incridea4_fonbcr.jpg','Incridea2_siq5io.jpg','Incridea3_wtpqd6.jpg','Incridea1_a9wmv1.jpg','Incridea3_wtpqd6.jpg','Incridea1_a9wmv1.jpg']
     
     useEffect(()=>{
         setActiveImg(imgArr[active])
@@ -60,7 +56,7 @@ const GallerySlide:FC<GalleryProps> = ({title,next,prev,imgArr}) => {
                                             <Image src={'/gallery/'+img} alt="incridea" fill className={`object-cover object-center`}/>
                                         </div>
                                         <div className={`h-full w-full absolute top-0 left-0 ${active===index ? 'bg-transparent' : 'bg-black/50' } transition-all duration-500 ease-in-out justify-center items-center`} >
-                                            <h1 className={`${active===index ? 'block' : 'hidden' } text-xl`} >Dance</h1>
+                                            {/* <h1 className={`${active===index ? 'block' : 'hidden' } text-xl`} >Dance</h1> */}
                                         </div>
                                     </div>
                                 </div>

@@ -8,7 +8,7 @@ export default function Document() {
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="robots" content="index, follow" />
       </Head>
-      <body>
+      <body className='min-h-screen bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]'>
         <Main />
         <NextScript />
       </body>

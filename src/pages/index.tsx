@@ -5,12 +5,13 @@ import Hero from "../components/hero";
 import { LocomotiveScrollProvider } from "react-locomotive-scroll";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import EventsReel from "../components/eventsPeek/reel";
-import  { HomePageFooter } from "../components/footer";
+import { HomePageFooter } from "../components/footer";
 import dynamic from "next/dynamic";
 const CountDown = dynamic(() => import("../components/countdown"), {
   ssr: false,
 });
-const Home = ({ setLoading }: { setLoading: (loading: boolean) => void }) => {
+
+const Home = () => {
   const containerRef = useRef(null);
   return (
     <div className="overflow-x-hidden">
@@ -31,21 +32,21 @@ const Home = ({ setLoading }: { setLoading: (loading: boolean) => void }) => {
           <Hero />
 
           <div data-scroll-section className="relative -mt-2  ">
-            <div className="relative pt-[200px] w-full flex justify-center items-center bg-gradient-to-b   from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
+            <div className="relative pt-[200px] w-full flex justify-center items-center bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
               {/* 2. Countdown Section */}
               <Image
                 src="/assets/png/waterflare.png"
                 height={1000}
                 width={1000}
                 alt="flare"
-                className="absolute opacity-40 z-50 top-0 right-0"
+                className="absolute pointer-events-none opacity-40 z-50 top-0 right-0"
               />
               <CountDown />
             </div>
             {/* 3. About Section */}
             <div className=" bg-gradient-to-b   from-[#2d6aa6] -mt-2   to-[#052749]">
               <About />
-
+              {/* 4. Core Events Section */}
               <EventsReel />
             </div>
             {/* 5. Footer Section */}

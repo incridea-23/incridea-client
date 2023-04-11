@@ -74,9 +74,11 @@ const EditTeamModal: FC<{
               )}
           </div>
         </div>
-        {!team.confirmed && team.leaderId == userId && (
-          <DeleteTeamModal teamId={team.id} />
-        )}
+        <div className="p-5">
+          {!team.confirmed && team.leaderId == userId && (
+            <DeleteTeamModal teamId={team.id} />
+          )}
+        </div>
       </Modal>
     </>
   );

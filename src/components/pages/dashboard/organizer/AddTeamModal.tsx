@@ -19,9 +19,18 @@ export default function AddTeamModal({ eventId }: { eventId: string }) {
     }
   );
 
+  function validateAlphaNumeric(str:string) {
+    const alphanumericRegex = /^[a-zA-Z0-9]+$/;
+    return alphanumericRegex.test(str);
+  }
+
   const [teamName, setTeamName] = useState("");
   const createHandler = () => {
     if(teamName.length !== 0  ) {
+      if(!validateAlphaNumeric(teamName)){
+        createToast(Promise.reject("Team name can only contain alphanumeric characters"), "Team name can only contain alphanumeric characters");
+        return;
+      }
       let promise = organizerCreateTeam({
         variables: {
           eventId,
