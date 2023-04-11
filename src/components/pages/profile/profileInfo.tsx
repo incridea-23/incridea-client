@@ -41,7 +41,7 @@ const ProfileInfo: FC<{
       <div className="flex justify-center items-center lg:space-x-20 lg:flex-row flex-col-reverse mt-10">
         <div className="flex flex-col justify-center space-y-2 lg:space-y-6 lg:mt-0 md:mt-5 mt-2 md:text-lg text-sm">
           <a
-            className={`text-3xl lg:text-5xl font-bold ${titleFont.className}`}
+            className={`text-3xl lg:text-4xl font-bold ${titleFont.className}`}
           >
             {user?.name}
           </a>

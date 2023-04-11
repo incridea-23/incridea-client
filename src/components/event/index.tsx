@@ -40,7 +40,11 @@ const Event = ({ data }: { data: PublishedEventsQuery["publishedEvents"][0] }) =
     return [
       {
         name: "Date",
-        text: data.rounds[0]?.date || "TBD",
+        text: data.rounds[0]?.date? new Date(data.rounds[0]?.date).toLocaleDateString("en-IN", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        }) : "TBD",
         Icon: IoCalendarOutline,
       },
       {
