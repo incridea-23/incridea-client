@@ -12,6 +12,7 @@ import { AnimatePresence,motion } from "framer-motion";
 import Image from "next/image";
 import TextAnimation from "../components/animation/text";
 import { titleFont } from "../utils/fonts";
+import Loader from "../components/Loader";
 
 const Navbar = dynamic(() => import("../components/navbar"), { ssr: false });
 
@@ -20,7 +21,7 @@ export default function App({
   pageProps: { session, ...pageProps },
 }: AppProps) {
   const apolloClient = useApollo(pageProps.initialApolloState);
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const variants = {
     initialState : {
@@ -37,12 +38,19 @@ export default function App({
     }
   }
 
+  useEffect(()=>{
+      setLoading(true);
+      setTimeout(()=>setLoading(false),5000);
+  },[])
+  
+
   return (
     <ApolloProvider client={apolloClient}>
       <HeadComponent
         title="Incridea"
         description="Official Website of Incridea 2023, National level techno-cultural fest, NMAMIT, Nitte. Innovate. Create. Ideate."
       />
+      <AnimatePresence>{isLoading && <Loader/>}</AnimatePresence>
       <div className="bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6]">
         {router.route === '/' ? <></> : 
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white">
