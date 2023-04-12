@@ -1,6 +1,5 @@
 import Navbar from "@/src/components/navbar";
 import { useAuth } from "@/src/hooks/useAuth";
-import { bodyFont, titleFont } from "@/src/utils/fonts";
 import Event from "@/src/components/event";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
@@ -14,7 +13,7 @@ import { BiCaretDown } from "react-icons/bi";
 import { FaAngleDown } from "react-icons/fa";
 import { AnimatePresence, motion } from "framer-motion";
 
-const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
+const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
   data,
 }) => {
   const branchFilters = [
@@ -108,7 +107,8 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
         className="absolute max-h-screen pointer-events-none opacity-50  top-0 right-0"
       />
       <h1
-        className={`${titleFont.className} font-bold text-5xl tracking-wide text-center pt-32 text-white`}>
+        className={`titleFont font-bold text-5xl tracking-wide text-center pt-32 text-white`}
+      >
         EVENTS
       </h1>
       <div className="flex flex-wrap items-center gap-2 px-4 lg:justify-between lg:flex-col lg:mx-auto mt-8">
@@ -284,8 +284,8 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
       )}
       <div className="md:p-10 md:pt-7 pt-1 p-4 flex justify-center ">
         {filteredEvents.length === 0 ? (
-          <div className="flex italic items-center justify-center min-h-[20rem] text-xl w-screen text-center text-gray-200/70">
-            <span>no events found</span>
+          <div className="bodyFont flex italic items-center justify-center min-h-[20rem] text-xl w-screen text-center text-gray-200/70">
+            <span>No events found</span>
           </div>
         ) : (
           <div className="max-w-7xl w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -303,7 +303,7 @@ export async function getStaticProps() {
   try {
     const { data: events } = await client.query({
       query: PublishedEventsDocument,
-      fetchPolicy: "no-cache",
+      fetchPolicy: 'no-cache',
     });
 
     return {

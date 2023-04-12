@@ -151,7 +151,15 @@
   inset: 0;
 }
 
-.outline-text{
+.outline-text {
   -webkit-text-stroke: 2px white;
   -webkit-text-fill-color: transparent;
+}
+
+.titleFont {
+  font-family: 'Trade Winds', cursive;
+}
+
+.bodyFont {
+  font-family: 'Montserrat', sans-serif;
 }

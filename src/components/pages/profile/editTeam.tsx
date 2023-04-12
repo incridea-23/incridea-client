@@ -7,7 +7,7 @@ import DeleteTeamMember from './deleteMember';
 import AddMemberModal from './addMember';
 import { Team } from './userTeams';
 import DeleteTeamModal from './deleteTeam';
-import { titleFont } from '@/src/utils/fonts';
+
 import Badge from '../../badge';
 
 const EditTeamModal: FC<{
@@ -33,9 +33,7 @@ const EditTeamModal: FC<{
       >
         <div className="w-full p-5">
           <div className="text-center">
-            <h1 className={`${titleFont.className} text-2xl mb-5`}>
-              {idToTeamId(team.id)}
-            </h1>
+            <h1 className={`titleFont text-2xl mb-5`}>{idToTeamId(team.id)}</h1>
           </div>
 
           <div className="hidden md:flex bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-t-lg p-1 items-center justify-between font-bold">

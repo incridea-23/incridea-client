@@ -212,7 +212,7 @@ export default function EditEventModal({
                 <select
                   id="category"
                   placeholder="Category"
-                  value={category}
+                  value={category as string}
                   onChange={(e) => setCategory(e.target.value)}
                   className="w-full  bg-gray-600 border border-gray-600 h-10 px-4 pr-16 rounded-lg text-sm focus:outline-none focus:ring-2 ring-gray-500">
                   {Object.values(EventCategory).map((type) => (

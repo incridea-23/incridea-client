@@ -1,4 +1,3 @@
-import { titleFont } from '@/src/utils/fonts';
 import Image from 'next/image';
 import { FC } from 'react';
 
@@ -18,7 +17,7 @@ const AboutCollege: FC = () => {
             <h1
               data-scroll
               data-scroll-speed="2"
-              className={`${titleFont.className} text-4xl p-4 text-center lg:text-7xl text-white`}
+              className={`titleFont text-4xl p-4 text-center lg:text-7xl text-white`}
             >
               About NMAMIT
             </h1>
@@ -27,14 +26,22 @@ const AboutCollege: FC = () => {
       </div>
 
       <div className="flex flex-col lg:flex-row-reverse justify-center items-center gap-10 lg:gap-20 lg:p-10 p-5 basis-1/2">
-        <Image
-          src="/assets/png/nitte.webp"
-          alt="Incridea Logo"
-          width={300}
-          height={300}
-        />
+        <div>
+          <Image
+            src="/assets/png/nitte-logo.png"
+            alt="Nitte Logo"
+            width={300}
+            height={300}
+          />
+          <Image
+            src="/assets/png/nmamit-logo.png"
+            alt="Nmamit Logo"
+            width={300}
+            height={300}
+          />
+        </div>
 
-        <div className="text-white text-lg lg:text-xl text-justify basis-1/2 my-5">
+        <div className="text-white text-lg lg:text-xl text-justify basis-1/2 my-5 bodyFont">
           Never gonna give you up Never gonna let you down Never gonna run
           around and desert you Never gonna make you cry Never gonna say goodbye
           Never gonna tell a lie and hurt you Never gonna give you up Never

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { QRCodeSVG } from 'qrcode.react';
 import { toast } from 'react-hot-toast';
 import EditTeamModal from './editTeam';
-import { titleFont } from '@/src/utils/fonts';
+
 import Link from 'next/link';
 import ConfirmTeamModal from './confirmTeam';
 import LeaveTeamModal from './LeaveTeamModal';
@@ -32,7 +32,7 @@ const TeamCard = ({
     <motion.div
       key={team.id}
       whileHover={{ scale: 1.03 }}
-      className="relative rounded-sm flex flex-col items-start justify-center my-4 bg-white shadow-lg bg-opacity-30 backdrop-blur-2xl max-w-2xl w-[300px] p-5 border-t border-l border-white"
+      className="relative rounded-sm text-gray-100 flex flex-col items-start justify-center my-4 bg-black shadow-lg bg-opacity-30 backdrop-blur-2xl max-w-2xl w-[300px] p-5"
     >
       <span
         onClick={async () => {
@@ -43,21 +43,23 @@ const TeamCard = ({
             position: 'bottom-center',
           });
         }}
-        className="absolute rounded-sm -top-3 -right-3 text-black text-xs bg-white px-2 py-1 cursor-pointer"
+        className="absolute rounded-sm -top-3 -right-3 text-white text-xs bg-[#0B2639] px-2 py-1 cursor-pointer"
       >
         {solo ? idToPid(userId) : idToTeamId(team.id)}
       </span>
 
-      <div className="basis-1/2">
+      <div className="w-full text-center flex flex-col justify-center items-center">
         <QRCodeSVG
+        color='#ffffff'
+        fgColor='#ffffffdd'
           value={solo ? idToPid(userId) : idToTeamId(team.id)}
           size={100}
-          className="mb-5"
+          className="mb-5 mx-auto"
           bgColor="transparent"
         />
 
         <div
-          className={`${titleFont.className} text-3xl font-bold text-center text-gray-900 flex items-center space-x-2`}
+          className={`titleFont text-3xl font-bold text-center text-gray-200 flex items-center space-x-2`}
         >
           <div>{solo ? idToPid(userId) : team.name}</div>
           {!team.confirmed && !solo && team.leaderId == userId && (
@@ -74,7 +76,7 @@ const TeamCard = ({
             .split(' ')
             .join('-')}-${team.event.id}`}
         >
-          <h1 className="text-gray-900 hover:text-gray-300 transition-colors duration-300">
+          <h1 className="text-gray-200 hover:text-gray-300 transition-colors duration-300 bodyFont">
             {team.event.name}
           </h1>
         </Link>
@@ -82,7 +84,7 @@ const TeamCard = ({
 
       <hr className="w-full border-white/40 my-3" />
 
-      <div className="basis-1/2 flex flex-col">
+      <div className="basis-1/2 flex flex-col bodyFont">
         <div className="w-full flex-grow">
           {team?.members?.map((member: any) => (
             <div
@@ -94,7 +96,7 @@ const TeamCard = ({
           ))}
         </div>
 
-        <div className="w-full mt-2">
+        <div className="w-full mt-1">
           {team.confirmed ? (
             <p className="text-xs">
               {solo ? 'You are ' : 'Your team is '} confirmed and ready to dive!
@@ -114,7 +116,7 @@ const TeamCard = ({
                 fullWidth
                 intent="primary"
                 size={'small'}
-                className="mt-2 w-fit"
+                className="mt-3 w-fit"
                 disabled={sdkLoading}
                 onClick={() => {
                   makeTeamPayment(team.id, name, email, setSdkLoading);

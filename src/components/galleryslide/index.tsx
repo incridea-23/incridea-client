@@ -4,31 +4,20 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Mousewheel } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { titleFont } from '@/src/utils/fonts';
+
 import { BsChevronUp, BsChevronDown } from 'react-icons/bs';
+import BlurImage from '../blurImage';
 
 type GalleryProps = {
   title: string;
   next: string;
   prev: string;
+  imgArr: string[];
 };
 
-const GallerySlide: FC<GalleryProps> = ({ title, next, prev }) => {
+const GallerySlide: FC<GalleryProps> = ({ title, next, prev, imgArr }) => {
   const [active, setActive] = useState<number>(0);
   const [activeImg, setActiveImg] = useState<string>('');
-  const imgSrc: string =
-    'https://res.cloudinary.com/nexttrek/image/upload/v1679811681/Incridea/';
-  const imgArr = useMemo(
-    () => [
-      'Incridea4_fonbcr.jpg',
-      'Incridea2_siq5io.jpg',
-      'Incridea3_wtpqd6.jpg',
-      'Incridea1_a9wmv1.jpg',
-      'Incridea3_wtpqd6.jpg',
-      'Incridea1_a9wmv1.jpg',
-    ],
-    []
-  );
 
   useEffect(() => {
     setActiveImg(imgArr[active]);
@@ -39,7 +28,7 @@ const GallerySlide: FC<GalleryProps> = ({ title, next, prev }) => {
       id={title}
       className="snap-start flex flex-col min-h-screen w-full relative"
     >
-      <div className={`relative mt-32 ${titleFont.className}`}>
+      <div className={`relative mt-32 titleFont`}>
         <h1 className="text-6xl text-center">{title}</h1>
         <h2 className="text-[150px] outline-text text-center absolute w-full -translate-y-32 opacity-25">
           {title}
@@ -49,9 +38,10 @@ const GallerySlide: FC<GalleryProps> = ({ title, next, prev }) => {
       <div className="absolute top-2/3 sm:top-1/2 left-1/2 opacity-40 -translate-x-1/2 -translate-y-2/3 sm:-translate-y-1/3 w-[60%] h-[60%] bg-black skew-x-0 sm:skew-x-12 overflow-hidden">
         <Image
           fill
-          src={imgSrc + activeImg}
+          src={'/gallery/' + activeImg}
           alt="incridea"
           className="skew-0 sm:-skew-x-12 scale-110 object-cover object-center"
+          priority
         />
       </div>
       <div className="flex max-w-5xl sm:max-w-full h-[700px] absolute left-1/2 top-24 -translate-x-1/2 sm:translate-y-6">
@@ -83,11 +73,12 @@ const GallerySlide: FC<GalleryProps> = ({ title, next, prev }) => {
                       active === index ? 'rotate-90' : 'rotate-0'
                     }`}
                   >
-                    <Image
-                      src={imgSrc + img}
+                    <BlurImage
+                      src={'/gallery/' + img}
                       alt="incridea"
-                      fill
                       className={`object-cover object-center`}
+                      fill
+                      priority
                     />
                   </div>
                   <div
@@ -95,13 +86,7 @@ const GallerySlide: FC<GalleryProps> = ({ title, next, prev }) => {
                       active === index ? 'bg-transparent' : 'bg-black/50'
                     } transition-all duration-500 ease-in-out justify-center items-center`}
                   >
-                    <h1
-                      className={`${
-                        active === index ? 'block' : 'hidden'
-                      } text-xl`}
-                    >
-                      Dance
-                    </h1>
+                    {/* <h1 className={`${active===index ? 'block' : 'hidden' } text-xl`} >Dance</h1> */}
                   </div>
                 </div>
               </div>
@@ -109,17 +94,19 @@ const GallerySlide: FC<GalleryProps> = ({ title, next, prev }) => {
           ))}
         </Swiper>
       </div>
-      <div className="flex w-full absolute sm:bottom-32 bottom-14 justify-between px-8 lg:px-20 text-5xl sm:text-6xl">
-        <a href={`#` + prev}>
+      <div className="flex w-full absolute sm:bottom-32 bottom-14 justify-between px-8 lg:px-20 text-4xl sm:text-5xl">
+        <a
+          href={`#` + prev}
+          className="bg-white/10 hover:bg-white/20 rounded-full p-2 transition-transform duration-300"
+        >
           <BsChevronUp />
         </a>
-        {next !== '' ? (
-          <a href={`#` + next}>
-            <BsChevronDown />
-          </a>
-        ) : (
-          <></>
-        )}
+        <a
+          href={`#` + next}
+          className="bg-white/10 hover:bg-white/20 rounded-full p-2 transition-transform duration-300"
+        >
+          <BsChevronDown />
+        </a>
       </div>
     </div>
   );

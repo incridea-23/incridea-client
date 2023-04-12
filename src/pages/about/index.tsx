@@ -1,4 +1,3 @@
-import { titleFont } from "@/src/utils/fonts";
 import { NextPage } from "next";
 import Image from "next/image";
 import "locomotive-scroll/dist/locomotive-scroll.css";

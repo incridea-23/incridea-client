@@ -7,7 +7,7 @@ import { BiMenuAltLeft as MenuIcon } from 'react-icons/bi';
 import { AiOutlineClose as XIcon } from 'react-icons/ai';
 import { Transition } from '@headlessui/react';
 import AuthenticatedButtons from './authenticatedButtons';
-import { titleFont } from '@/src/utils/fonts';
+
 import CharacterAnimation from '../animation/character';
 import { useRouter } from 'next/router';
 
@@ -28,20 +28,19 @@ const Navbar = () => {
 
   const activePath = links.find((link) => link.url === router.pathname);
 
-  const closeMenu = () =>{
-    if(isMenuOpen)
-      setIsMenuOpen(!isMenuOpen);
-  }
-  useEffect(()=>{
-    document.addEventListener('mousedown',closeMenu);
-    return()=>{
-      document.removeEventListener('mousedown',closeMenu);
+  const closeMenu = () => {
+    if (isMenuOpen) setIsMenuOpen(!isMenuOpen);
+  };
+  useEffect(() => {
+    document.addEventListener('mousedown', closeMenu);
+    return () => {
+      document.removeEventListener('mousedown', closeMenu);
     };
   });
 
   return (
     <nav
-      className={`fixed ${titleFont.className}  top-0 z-20 bg-white backdrop-filter backdrop-blur-lg bg-opacity-10 border-b border-gray-200/30 w-full`}
+      className={`fixed titleFont  top-0 z-20 bg-white backdrop-filter backdrop-blur-lg bg-opacity-10 border-b border-gray-200/30 w-full`}
     >
       <div className="max-w-5xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">

@@ -2,7 +2,6 @@ import { NextPage } from 'next';
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useRouter } from 'next/router';
-import { titleFont } from '../utils/fonts';
 import Navbar from '../components/navbar';
 import Button from '../components/button';
 import { makePayment } from '../utils/razorpay';
@@ -14,16 +13,14 @@ const Register: NextPage = (props: Props) => {
   const { error, user, loading: userLoading } = useAuth();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  if(userLoading) return <a>Loading....</a>
+  if (userLoading) return <a>Loading....</a>;
   if (!user) router.push('/login');
   if (user?.role !== 'USER') router.push('/');
 
   return (
     <div className="px-4 md:px-6 py-24 min-h-screen text-white bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
       <div className="mx-auto max-w-lg">
-        <h2
-          className={`${titleFont.className} text-white text-center text-4xl md:text-5xl`}
-        >
+        <h2 className={`titleFont text-white text-center text-4xl md:text-5xl`}>
           Register
         </h2>
         <h5 className="text-center mt-5 md:mt-7 text-base md:text-xl max-w-7xl mx-auto">

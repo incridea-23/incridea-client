@@ -1,5 +1,5 @@
 import { RegisterdEventsDocument } from '@/src/generated/generated';
-import { titleFont } from '@/src/utils/fonts';
+
 import { useQuery } from '@apollo/client';
 import Link from 'next/link';
 import Button from '../../button';
@@ -18,7 +18,7 @@ const UserEvents: FC<{
   return (
     <section data-scroll-section>
       <h1
-        className={`${titleFont.className} text-2xl lg:text-4xl font-bold text-center text-white flex justify-center lg:max-w-full md:max-w-full max-w-sm`}
+        className={`titleFont text-2xl lg:text-4xl font-bold text-center text-white flex justify-center lg:max-w-full md:max-w-full max-w-sm`}
       >
         Dive into action with your upcoming adventures!
       </h1>
@@ -47,7 +47,7 @@ const UserEvents: FC<{
           'QueryRegisteredEventsSuccess' &&
         events.registeredEvents.data.length !== 0 && (
           <>
-            <div className="flex gap-5 flex-wrap items-stretch justify-center mt-5">
+            <div className="flex gap-5 flex-wrap items-stretch justify-center mt-10">
               {events?.registeredEvents.__typename ===
                 'QueryRegisteredEventsSuccess' &&
                 events?.registeredEvents.data?.map((event) => (
