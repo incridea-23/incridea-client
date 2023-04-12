@@ -29,23 +29,23 @@ const VerifyEmailComponent: FunctionComponent = () => {
   }, [token, isMutationExecuted]);
 
   return (
-    <div className="flex min-h-screen w-full bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6] items-center justify-center">
-      {loading && <Spinner size="medium" intent={'white'} />}
-      {!token && (
-        <div className="text-white">
-          <MdError className="mx-auto text-7xl my-6 text-red-600" />
+    <div className='flex min-h-screen w-full bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6] items-center justify-center' >
+      {loading && <Spinner/>}
+      {!token && 
+        <div className='flex flex-col text-red-800 min-w-[300px] bg-[#dd5c6e]/90 p-12 rounded-md items-center justify-center' >
+          <MdError className='mx-auto text-7xl my-6 '  />
           <h1>No token provided</h1>
         </div>
-      )}
-      {error && (
-        <div className="text-white">
-          <MdError className="mx-auto text-7xl my-6 text-red-600" />
+      }
+      {error &&
+        <div className='flex flex-col text-red-800 min-w-[300px] bg-[#dd5c6e]/90 p-12 rounded-md items-center justify-center' >
+          <MdError className='mx-auto text-7xl my-6 text-red-600'  />
           <h1>{error}</h1>
         </div>
       )}
       {data?.verifyEmail.__typename === 'MutationVerifyEmailSuccess' && (
-        <div className="text-green-500 max-w-xs text-center">
-          <GiConfirmed className="mx-auto text-7xl my-6" />
+        <div className='text-green-700 text-center bg-green-300 p-12 rounded-md' >
+          <GiConfirmed className='mx-auto text-7xl my-6' />
           <h1>Your email has been verified.</h1>
           <p>You can now login to your account.</p>
           <Link href={'/auth/login'} className="underline">
