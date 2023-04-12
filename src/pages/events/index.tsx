@@ -195,7 +195,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
         </div>
 
         {/* <p className="lg:hidden text-white/90 mr-2">More filters</p> */}
-        <div className="flex overflow-x-auto justify-between gap-3 basis-full">
+        <div className="flex  justify-between gap-3 basis-full">
           <div className="lg:hidden flex basis-1/3 justify-between  py-2">
             <Menu as={"div"} className={"relative grow inline-block"}>
               <Menu.Button
@@ -204,14 +204,14 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
                 }>
                 {currentBranchFilter !== "ALL" ? currentBranchFilter : "Branch"}
               </Menu.Button>
-              <Menu.Items className=" overflow-hidden pb-1.5 mt-1 bg-[#075985] absolute z-[1] text-center rounded-sm shadow-black/80 shadow-2xl">
+              <Menu.Items className=" overflow-hidden pb-1.5 mt-1 bg-[#075985] absolute z-50 text-center rounded-sm shadow-black/80 shadow-2xl">
                 {branchFilters.map((filter) => (
                   <Menu.Item key={filter}>
                     {({ active }) => (
                       <button
                         className={`${
                           currentBranchFilter === filter ? "bg-black/50" : "bg-black/20"
-                        } text-white rounded-sm m-1.5 mb-0 w-32 px-3 py-2 text-sm`}
+                        } text-white rounded-sm m-1.5 mb-0 w-36 px-3 py-2 text-sm`}
                         onClick={() => setCurrentBranchFilter(filter)}>
                         {filter}
                       </button>
@@ -227,9 +227,11 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
                 className={
                   "inline-flex whitespace-nowrap overflow-hidden  bg-black/30 leading-6 w-full justify-center rounded-sm px-4 py-2 h-[40px] text-sm font-medium text-white"
                 }>
-                {currentCategoryFilter !== "ALL" ? currentCategoryFilter.replace("_", " ") : "Category"}
+                {currentCategoryFilter !== "ALL"
+                  ? currentCategoryFilter.replace("_", " ")
+                  : "Category"}
               </Menu.Button>
-              <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-[#075985]  absolute z-[1] text-center rounded-sm shadow-black/80 shadow-2xl">
+              <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-[#075985]  absolute z-50 text-center rounded-sm shadow-black/80 shadow-2xl">
                 {categoryFilters.map((filter) => (
                   <Menu.Item key={filter}>
                     {({ active }) => (
@@ -254,7 +256,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
                 }>
                 {currentDayFilter !== "ALL" ? currentDayFilter : "Day"}
               </Menu.Button>
-              <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-[#075985]  absolute z-[1] text-center rounded-sm shadow-black/80 shadow-2xl">
+              <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-[#075985]  absolute z-50 text-center rounded-sm shadow-black/80 shadow-2xl">
                 {dayFilters.map((filter) => (
                   <Menu.Item key={filter}>
                     {({ active }) => (
