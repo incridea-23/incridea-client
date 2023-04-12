@@ -31,7 +31,7 @@ const ProfileInfo: FC<{
         >
           Welcome Sailor!
         </a>
-        <GiShipWheel className="text-2xl lg:text-4xl animate-spin" />
+        <GiShipWheel className="text-2xl lg:text-4xl duration-1000 animate-spin-slow" />
       </div>
       <TextAnimation
         text="Ready to dive in?"

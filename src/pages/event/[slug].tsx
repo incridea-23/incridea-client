@@ -132,10 +132,9 @@ function event({ event, error }: { event: Event; error: String }) {
                         <p className="flex gap-2 items-center">
                           <BsFillCalendar2WeekFill />
                           {round.date &&
-                            new Date(round.date).toLocaleDateString('en-IN', {
-                              day: 'numeric',
-                              month: 'long',
-                              year: 'numeric',
+                            new Date(round.date).toLocaleDateString("en-IN", {
+                              day: "numeric",
+                              month: "short",
                             })}
                         </p>
                         <p className="flex gap-2 items-center">

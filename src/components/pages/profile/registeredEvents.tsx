@@ -47,7 +47,7 @@ const UserEvents: FC<{
           'QueryRegisteredEventsSuccess' &&
         events.registeredEvents.data.length !== 0 && (
           <>
-            <div className="flex gap-5 flex-wrap items-stretch justify-center mt-5">
+            <div className="flex gap-5 flex-wrap items-stretch justify-center mt-10">
               {events?.registeredEvents.__typename ===
                 'QueryRegisteredEventsSuccess' &&
                 events?.registeredEvents.data?.map((event) => (

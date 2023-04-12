@@ -30,13 +30,13 @@ const UserTeams: FC<{
 }> = ({ teams, userId, name, email }) => {
   // Todo: Show winning status (if any)
   return (
-    <section className="mt-10">
+    <section className="mt-14">
       <h1
         className={`titleFont text-2xl lg:text-4xl font-bold text-center text-white flex justify-center lg:max-w-full md:max-w-full max-w-sm`}
       >
         Set sail with your Squad
       </h1>
-      <div className="flex gap-5 flex-wrap items-stretch justify-center mt-5">
+      <div className="flex gap-5 flex-wrap items-stretch justify-center mt-6">
         {teams?.map((team: Team) => (
           <TeamCard
             key={team.id}

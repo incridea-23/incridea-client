@@ -48,7 +48,7 @@ const About: FC = () => {
               src="/assets/png/ryoko.png"
               width={300}
               height={300}
-              className="absolute w-auto bottom-0 group-hover:scale-105 group-hover:-translate-y-2 transform transition-all duration-500  "
+              className="absolute w-auto bottom-0 group-hover:scale-105 group-hover:-translate-y-2 transform transition-all duration-500"
               alt="Incridea Ryoko"
             />
           </div>
