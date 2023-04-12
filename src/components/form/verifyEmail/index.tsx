@@ -42,7 +42,7 @@ const VerifyEmailComponent: FunctionComponent = () => {
           <MdError className='mx-auto text-7xl my-6 text-red-600'  />
           <h1>{error}</h1>
         </div>
-      )}
+      } 
       {data?.verifyEmail.__typename === 'MutationVerifyEmailSuccess' && (
         <div className='text-green-700 text-center bg-green-300 p-12 rounded-md' >
           <GiConfirmed className='mx-auto text-7xl my-6' />

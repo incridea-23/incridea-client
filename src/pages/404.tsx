@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import diver from '@/public/assets/svg/driver_lost.svg';
 import Image from 'next/image';
 import Button from '../components/button';
 import Link from 'next/link';
@@ -14,8 +13,8 @@ const Page404: NextPage = () => {
             <Image src={ '/assets/png/diver.png' } alt="404" width={400} height={400} />
         </div>
         <div className='flex flex-col justify-center items-center mb-10 -translate-y-10'>
-            <h1 className={`${titleFont.className} text-xl text-white transition-colors duration-300 flex justify-center items-center text-center mx-2`}>{ titleText }</h1>
-            <h1 className={`${titleFont.className} text-lg text-white transition-colors duration-300 flex justify-center items-center text-center mx-2`}>{ bodyText } </h1>
+            <h1 className={`titleFont text-xl text-white transition-colors duration-300 flex justify-center items-center text-center mx-2`}>{ titleText }</h1>
+            <h1 className={`titleFont text-lg text-white transition-colors duration-300 flex justify-center items-center text-center mx-2`}>{ bodyText } </h1>
             <Link href={'/'} as="/">
                 <Button
                     className="mt-4"
