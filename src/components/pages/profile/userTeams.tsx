@@ -1,4 +1,3 @@
-import { titleFont } from '@/src/utils/fonts';
 import { FC } from 'react';
 import TeamCard from './teamCard';
 import { EventType } from '@/src/generated/generated';
@@ -33,7 +32,7 @@ const UserTeams: FC<{
   return (
     <section className="mt-10">
       <h1
-        className={`${titleFont.className} text-2xl lg:text-4xl font-bold text-center text-white flex justify-center lg:max-w-full md:max-w-full max-w-sm`}
+        className={`titleFont text-2xl lg:text-4xl font-bold text-center text-white flex justify-center lg:max-w-full md:max-w-full max-w-sm`}
       >
         Set sail with your Squad
       </h1>

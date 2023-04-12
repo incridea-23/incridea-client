@@ -8,7 +8,7 @@ import Button from '../../button';
 import { makeTeamPayment } from '@/src/utils/razorpay';
 import { idToPid, idToTeamId } from '@/src/utils/id';
 import EditTeamModal from './EditEvent';
-import { titleFont } from '@/src/utils/fonts';
+
 import { QRCodeSVG } from 'qrcode.react';
 import { toast } from 'react-hot-toast';
 import { useState } from 'react';
@@ -21,6 +21,7 @@ import CreateTeamModal from './CreateTeamModal';
 import JoinTeamModal from './JoinTeamModal';
 import { useMutation } from '@apollo/client';
 import createToast from '../../toast';
+import Badge from '../../badge';
 
 const TeamCard = ({
   team,
@@ -86,13 +87,13 @@ const TeamCard = ({
                 team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
               ) ? (
                 <div
-                  className={`${titleFont.className} w-fit text-2xl font-bold  justify-center  text-center space-x-2`}
+                  className={`titleFont w-fit text-2xl font-bold  justify-center  text-center space-x-2`}
                 >
                   {team.name}
                 </div>
               ) : (
                 <div
-                  className={`${titleFont.className} w-fit text-2xl font-bold  justify-center  text-center space-x-2`}
+                  className={`titleFont w-fit text-2xl font-bold  justify-center  text-center space-x-2`}
                 >
                   {idToPid(userId)}
                 </div>
@@ -103,13 +104,13 @@ const TeamCard = ({
                   team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
                 ) && <EditTeamModal team={team} userId={userId} />
               ) : (
-                <div className="flex  items justify-center gap-2 text-green-500 border-2 font-bold border-green-500 text-xs rounded-md p-1">
+                <Badge color={'success'} className="text-xs bodyFont">
                   Registered
-                </div>
+                </Badge>
               )}
             </div>
             {!team.confirmed && (
-              <span className="text-xs">
+              <span className="text-xs bodyFont">
                 Almost there!{' '}
                 {team.event.fees ? `Pay ${team.event.fees} to` : ''} Confirm
                 your{' '}
@@ -141,7 +142,7 @@ const TeamCard = ({
 
         <hr className="w-full border-white/40 my-3" />
 
-        <div className="w-full">
+        <div className="w-full bodyFont">
           {team?.members?.map((member: any) => (
             <div
               className="flex justify-between items-center"
@@ -152,7 +153,7 @@ const TeamCard = ({
           ))}
         </div>
 
-        <div className="w-full mt-2">
+        <div className="w-full mt-2 bodyFont">
           {team.confirmed ? (
             team.event.eventType === 'INDIVIDUAL' ||
             team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY' ? (
@@ -177,14 +178,14 @@ const TeamCard = ({
           (team.leaderId === Number(userId) ? (
             <>
               <hr className="w-full border-white/40 my-3" />
-              <div className="flex w-full flex-col justify-center">
-                <p className="text-xs">
+              <div className="flex w-full flex-col justify-center bodyFont">
+                <p className="text-xs bodyFont">
                   Share this link with your friends to add them to your team!
                 </p>
                 <div className="flex gap-2 items-center justify-evenly mt-2">
                   <input
                     type="url"
-                    className="bg-white bg-opacity-20 rounded-lg overflow-hidden w-full text-sm p-2"
+                    className="bg-white bg-opacity-20 rounded-lg overflow-hidden w-full text-sm p-2 bodyFont"
                     value={url}
                   />
                   <AiOutlineCopy
@@ -194,7 +195,7 @@ const TeamCard = ({
                   />
                 </div>
 
-                <div className="flex items-center py-2">
+                <div className="flex items-center py-2 bodyFont">
                   <div className="flex-grow h-px white/40"></div>
                   <span className="flex-shrink text-sm px-4 italic font-light">
                     or
@@ -204,7 +205,7 @@ const TeamCard = ({
 
                 <Link
                   href={`https://wa.me/?text=${encodeURIComponent(url)}`}
-                  className="flex items-center justify-center gap-2 bg-black/30  hover:bg-black/50 text-green-500 text-bold rounded-md p-2 cursor-pointer text-sm"
+                  className="flex items-center justify-center gap-2 bg-black/30  hover:bg-black/50 text-green-500 text-bold rounded-md p-2 cursor-pointer text-sm bodyFont"
                 >
                   <BsWhatsapp /> Share on WhatsApp
                 </Link>

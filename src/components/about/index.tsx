@@ -1,4 +1,3 @@
-import { titleFont } from '@/src/utils/fonts';
 import { FC } from 'react';
 import TextAnimation from '../animation/text';
 import Image from 'next/image';
@@ -15,10 +14,10 @@ const About: FC = () => {
         <div className="max-w-2xl mt-12">
           <TextAnimation
             text="About Incridea"
-            className={`${titleFont.className}`}
+            className={`titleFont`}
             textStyle="text-xl font-semibold lg:text-3xl"
           />
-          <div className="text-sm lg:text-lg mt-4 space-y-2">
+          <div className="text-sm lg:text-lg mt-4 space-y-2 bodyFont">
             <p>
               Incridea, a four-day National-Level extravaganza will play host to
               over 60 events, spanning the technical, non-technical, and
@@ -54,7 +53,7 @@ const About: FC = () => {
             />
           </div>
           <div
-            className={`mt-2 text-lg flex justify-center space-x-2 items-center ${titleFont.className}`}
+            className={`mt-2 text-lg flex justify-center space-x-2 items-center titleFont`}
           >
             <a
               href="#"

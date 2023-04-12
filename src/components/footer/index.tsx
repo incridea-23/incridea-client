@@ -1,18 +1,17 @@
 // @refresh reset
 
-import { titleFont } from "@/src/utils/fonts";
-import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React from "react";
-import { BsInstagram } from "react-icons/bs";
-import { FaYoutube } from "react-icons/fa";
+import { Alignment, Fit, Layout, useRive } from '@rive-app/react-canvas';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { BsInstagram } from 'react-icons/bs';
+import { FaYoutube } from 'react-icons/fa';
 
 export function HomePageFooter() {
   const { RiveComponent } = useRive({
     src: `assets/rive/footer.riv/`,
-    stateMachines: ["State Machine 1"],
+    stateMachines: ['State Machine 1'],
     autoplay: true,
     layout: new Layout({
       fit: Fit.FitWidth,
@@ -29,7 +28,10 @@ export function HomePageFooter() {
 
 export function FooterBody() {
   return (
-    <div id="footer" className={`snap-start relative ${titleFont.className} tracking-wider z-20`}>
+    <div
+      id="footer"
+      className={`snap-start relative titleFont tracking-wider z-20`}
+    >
       <div className="-mt-2 flex flex-col gap-5 md:flex-row bg-[#131e28] text-gray-100 p-5 items-center justify-between">
         <div className="md:basis-1/5">
           <Image
@@ -60,7 +62,8 @@ export function FooterBody() {
               <a
                 target="_blank"
                 href="https://www.instagram.com/incridea/"
-                rel="noreferrer">
+                rel="noreferrer"
+              >
                 <BsInstagram />
               </a>
             </li>
@@ -69,7 +72,8 @@ export function FooterBody() {
                 target="_blank"
                 className="text-3xl"
                 href="https://www.youtube.com/@incrideanmamit"
-                rel="noreferrer">
+                rel="noreferrer"
+              >
                 <FaYoutube />
               </a>
             </li>
@@ -87,8 +91,8 @@ export function FooterBody() {
 
 export default function Footer() {
   const router = useRouter();
-  if (router.pathname === "/") return null;
-  if (router.pathname === "/gallery") return null;
-  if (router.pathname === "/pronites") return null;
+  if (router.pathname === '/') return null;
+  if (router.pathname === '/gallery') return null;
+  if (router.pathname === '/pronites') return null;
   return <FooterBody />;
 }

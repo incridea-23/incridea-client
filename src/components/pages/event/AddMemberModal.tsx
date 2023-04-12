@@ -49,13 +49,13 @@ const AddMemberModal: FC<{
         size={'small'}
       >
         <div className="p-5 text-center flex flex-col justify-center">
-          <p className="text-xs">
+          <p className="text-xs bodyFont">
             Share this link with your friends to add them to your team!
           </p>
           <div className="flex items-center justify-evenly mt-2">
             <input
               type="url"
-              className="bg-white bg-opacity-20 rounded-lg text-sm p-2"
+              className="bg-white bg-opacity-20 rounded-lg text-sm p-2 bodyFont"
               value={url}
             />
             <AiOutlineCopy
@@ -65,7 +65,7 @@ const AddMemberModal: FC<{
             />
           </div>
 
-          <div className="flex items-center py-2">
+          <div className="flex items-center py-2 bodyFont">
             <div className="flex-grow h-px bg-gray-600"></div>
             <span className="flex-shrink text-sm px-4 italic font-light">
               or
@@ -75,7 +75,7 @@ const AddMemberModal: FC<{
 
           <Link
             href={`https://wa.me/?text=${encodeURIComponent(url)}`}
-            className="flex items-center justify-center gap-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg p-2 cursor-pointer text-sm"
+            className="flex items-center justify-center gap-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg p-2 cursor-pointer text-sm bodyFont"
           >
             <BsWhatsapp /> Share on WhatsApp
           </Link>

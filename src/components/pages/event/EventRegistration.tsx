@@ -110,7 +110,7 @@ function EventRegistrationButton({
   if (!registered) {
     return (
       <div className="w-full h-20 flex justify-center items-center flex-col space-y-2">
-        <p className="text-white">You need to register to join events!</p>
+        <p className="text-white bodyFont">You need to register to join events!</p>
         <Link href={'/register'}>
           <Button intent={'primary'}>Register Now</Button>
         </Link>

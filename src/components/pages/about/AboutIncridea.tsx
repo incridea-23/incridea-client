@@ -1,4 +1,3 @@
-import { titleFont } from '@/src/utils/fonts';
 import Image from 'next/image';
 import { FC } from 'react';
 
@@ -19,7 +18,7 @@ const AboutIncridea: FC = () => {
             <h1
               data-scroll
               data-scroll-speed="2"
-              className={`${titleFont.className} text-4xl lg:text-7xl text-center p-5 text-white`}
+              className={`titleFont text-4xl lg:text-7xl text-center p-5 text-white`}
             >
               About Incridea
             </h1>
@@ -35,7 +34,7 @@ const AboutIncridea: FC = () => {
           height={500}
         />
 
-        <div className="text-white text-lg lg:text-xl text-justify basis-1/2">
+        <div className="text-white text-lg lg:text-xl text-justify basis-1/2 bodyFont">
           Never gonna give you up Never gonna let you down Never gonna run
           around and desert you Never gonna make you cry Never gonna say goodbye
           Never gonna tell a lie and hurt you Never gonna give you up Never
