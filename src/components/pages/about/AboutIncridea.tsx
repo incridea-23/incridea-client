@@ -1,6 +1,6 @@
-import { titleFont } from '@/src/utils/fonts';
-import Image from 'next/image';
-import { FC } from 'react';
+import { titleFont } from "@/src/utils/fonts";
+import Image from "next/image";
+import { FC } from "react";
 
 const AboutIncridea: FC = () => {
   return (
@@ -36,19 +36,20 @@ const AboutIncridea: FC = () => {
         />
 
         <div className="text-white text-lg lg:text-xl text-justify basis-1/2">
-          Never gonna give you up Never gonna let you down Never gonna run
-          around and desert you Never gonna make you cry Never gonna say goodbye
-          Never gonna tell a lie and hurt you Never gonna give you up Never
-          gonna let you down Never gonna run around and desert you Never gonna
-          make you cry Never gonna say goodbye Never gonna tell a lie and hurt
-          you
-          <div className="py-5" />
-          Never gonna give you up Never gonna let you down Never gonna run
-          around and desert you Never gonna make you cry Never gonna say goodbye
-          Never gonna tell a lie and hurt you Never gonna give you up Never
-          gonna let you down Never gonna run around and desert you Never gonna
-          make you cry Never gonna say goodbye Never gonna tell a lie and hurt
-          you
+          Incridea, the annual college festival of NMAM Institute of Technology,
+          Nitte, has rapidly grown into one of the most awaited cultural events
+          in the region within a short span of time. The festival has become a
+          symbol of creativity, innovation, and fun, attracting students from
+          various colleges across the country. With an array of exciting
+          activities, including fashion shows, music and dance competitions,
+          drama competitions, sports competitions, coding competitions,
+          hackathons, robotics competitions, and workshops, Incridea provides a
+          platform for students to showcase their talents and enhance their
+          skills and knowledge. The festival also hosts renowned artists and
+          musicians, adding to the excitement and energy of the event. With its
+          growth and success, Incridea has become a testament to the spirit and
+          dedication of the NMAM Institute of Technology in promoting student
+          talent and providing a memorable experience for all who attend.
         </div>
       </div>
     </>

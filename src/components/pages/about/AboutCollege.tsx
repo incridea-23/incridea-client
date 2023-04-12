@@ -1,6 +1,6 @@
-import { titleFont } from '@/src/utils/fonts';
-import Image from 'next/image';
-import { FC } from 'react';
+import { titleFont } from "@/src/utils/fonts";
+import Image from "next/image";
+import { FC } from "react";
 
 const AboutCollege: FC = () => {
   return (
@@ -35,19 +35,20 @@ const AboutCollege: FC = () => {
         />
 
         <div className="text-white text-lg lg:text-xl text-justify basis-1/2 my-5">
-          Never gonna give you up Never gonna let you down Never gonna run
-          around and desert you Never gonna make you cry Never gonna say goodbye
-          Never gonna tell a lie and hurt you Never gonna give you up Never
-          gonna let you down Never gonna run around and desert you Never gonna
-          make you cry Never gonna say goodbye Never gonna tell a lie and hurt
-          you
+          N.M.A.M Institute of Technology is a prestigious institution that has
+          established itself as a leading engineering, management, and MCA
+          institution. Founded by Justice K S Hegde in 1986, the college has
+          come a long way from its humble beginnings to become a
+          multi-disciplinary university offering diverse programs. With a focus
+          on innovation and excellence, NMAMIT has earned a well-deserved
+          reputation in the region.
           <div className="py-5" />
-          Never gonna give you up Never gonna let you down Never gonna run
-          around and desert you Never gonna make you cry Never gonna say goodbye
-          Never gonna tell a lie and hurt you Never gonna give you up Never
-          gonna let you down Never gonna run around and desert you Never gonna
-          make you cry Never gonna say goodbye Never gonna tell a lie and hurt
-          you
+          The college&apos;s state-of-the-art facilities, experienced faculty,
+          and industry-driven curriculum prepare students to meet the challenges
+          of the real world and become leaders in their respective fields. The
+          college&apos;s emphasis on research and development has resulted in
+          numerous accolades and awards, making it a top-ranked institution in
+          India and globally.
         </div>
       </div>
     </>

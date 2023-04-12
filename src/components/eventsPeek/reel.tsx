@@ -1,8 +1,8 @@
-import { titleFont } from '@/src/utils/fonts';
-import Link from 'next/link';
-import EventsPeek from '.';
-import TextAnimation from '../animation/text';
-import Button from '../button';
+import { titleFont } from "@/src/utils/fonts";
+import Link from "next/link";
+import EventsPeek from ".";
+import TextAnimation from "../animation/text";
+import Button from "../button";
 
 const EventsReel = () => {
   return (
@@ -16,22 +16,23 @@ const EventsReel = () => {
       </div>
 
       {/* <div className="relative"> */}
-        {/* <div className="absolute blur-md top-6">
+      {/* <div className="absolute blur-md top-6">
           <EventsPeek speed={-5} />
         </div> */}
-        <div>
-          <EventsPeek speed={5} />
-        </div>
+      <div>
+        <EventsPeek speed={5} />
+      </div>
       {/* </div> */}
 
-      <div className="mx-auto px-4 max-w-2xl">
+      <div className="mx-auto px-4 max-w-3xl">
         <p className="text-sm lg:text-lg mt-12 text-center text-white">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-          voluptates, quod, quia, voluptate quae voluptatem quibusdam quos
-          accusantium quas natus quidem. Quisquam, quae. Quisquam, quae.
-          Quisquam,
+          Experience a thrilling adventure that will awaken your senses to the
+          core!
+          <br /> With a diverse range of offerings in music, art, sports, and
+          technology, there&apos;s something for everyone. Come dive into the
+          deep ocean of excitement and discover unforgettable experiences.
         </p>
-        <Link className="flex justify-center mt-5" href={'/events'}>
+        <Link className="flex justify-center mt-5" href={"/events"}>
           <Button>View Events</Button>
         </Link>
       </div>

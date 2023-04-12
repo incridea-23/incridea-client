@@ -29,7 +29,10 @@ export function HomePageFooter() {
 
 export function FooterBody() {
   return (
-    <div id="footer" className={`snap-start relative ${titleFont.className} tracking-wider z-20`}>
+    <div
+      id="footer"
+      className={`snap-start relative ${titleFont.className} tracking-wider z-20`}
+    >
       <div className="-mt-2 flex flex-col gap-5 md:flex-row bg-[#131e28] text-gray-100 p-5 items-center justify-between">
         <div className="md:basis-1/5">
           <Image
@@ -50,6 +53,10 @@ export function FooterBody() {
             </li>
             |
             <li className="text-gray-300 hover:text-gray-100">
+              <Link href="/refund">Refund Policy</Link>
+            </li>
+            |
+            <li className="text-gray-300 hover:text-gray-100">
               <Link href="/about">About</Link>
             </li>
           </ul>
@@ -60,7 +67,8 @@ export function FooterBody() {
               <a
                 target="_blank"
                 href="https://www.instagram.com/incridea/"
-                rel="noreferrer">
+                rel="noreferrer"
+              >
                 <BsInstagram />
               </a>
             </li>
@@ -69,7 +77,8 @@ export function FooterBody() {
                 target="_blank"
                 className="text-3xl"
                 href="https://www.youtube.com/@incrideanmamit"
-                rel="noreferrer">
+                rel="noreferrer"
+              >
                 <FaYoutube />
               </a>
             </li>
