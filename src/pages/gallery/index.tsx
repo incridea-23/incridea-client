@@ -6,7 +6,7 @@ import { titleFont } from '@/src/utils/fonts';
 
 const Gallery: NextPage = () => {
   const years = [2019, 2020, 2022];
-  const imageCounts = [13, 23, 19];
+  const imageCounts = [13, 14, 18];
 
   const generateImagePaths = (
     year: number,

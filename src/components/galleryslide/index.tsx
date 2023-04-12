@@ -6,6 +6,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { titleFont } from '@/src/utils/fonts';
 import { BsChevronUp, BsChevronDown } from 'react-icons/bs';
+import BlurImage from '../blurImage';
 
 type GalleryProps = {
   title: string;
@@ -71,11 +72,11 @@ const GallerySlide: FC<GalleryProps> = ({ title, next, prev, imgArr }) => {
                       active === index ? 'rotate-90' : 'rotate-0'
                     }`}
                   >
-                    <Image
+                    <BlurImage
                       src={'/gallery/' + img}
                       alt="incridea"
-                      fill
                       className={`object-cover object-center`}
+                      fill
                     />
                   </div>
                   <div
