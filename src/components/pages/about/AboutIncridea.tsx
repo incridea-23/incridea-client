@@ -7,7 +7,7 @@ const AboutIncridea: FC = () => {
     <>
       <div className="relative h-96 w-full">
         <Image
-          src="https://incridemo.web.app/events/EC/SHARKTANK.jpg"
+          src="/assets/png/incrediaAbout.png"
           alt="Incridea Banner"
           width={500}
           height={500}

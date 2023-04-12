@@ -7,7 +7,7 @@ const AboutCollege: FC = () => {
     <>
       <div className="relative h-96 w-full">
         <Image
-          src="https://incridemo.web.app/events/EC/SHARKTANK.jpg"
+          src="/assets/png/collegeAbout.png"
           alt="Incridea Banner"
           width={500}
           height={500}
@@ -28,10 +28,10 @@ const AboutCollege: FC = () => {
 
       <div className="flex flex-col lg:flex-row-reverse justify-center items-center gap-10 lg:gap-20 lg:p-10 p-5 basis-1/2">
         <Image
-          src="/assets/png/nitte.webp"
+          src="/assets/png/nitteLogoWhite.png"
           alt="Incridea Logo"
-          width={300}
-          height={300}
+          width={600}
+          height={600}
         />
 
         <div className="text-white text-lg lg:text-xl text-justify basis-1/2 my-5">

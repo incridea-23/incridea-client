@@ -70,6 +70,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
         className={`${titleFont.className} font-bold text-5xl tracking-wide text-center pt-32 text-white`}>
         EVENTS
       </h1>
+      <h3 className={`${titleFont.className} font-semibold text-xl tracking-wide text-center py-5 text-white`}>60+ Events: Dive into Limitless Fun and Adventure!</h3>
       <div className="flex items-center gap-2 md:mx-10 mx-4 justify-between lg:flex-col lg:mx-auto mt-4">
         <div className="relative lg:w-[800px] w-full">
           <input
@@ -88,9 +89,8 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
           {filters.map((filter) => (
             <span
               key={filter}
-              className={`${
-                filter === currentFilter ? "bg-black/20" : "hover:bg-black/10"
-              } text-white cursor-pointer rounded-sm px-3 py-1`}
+              className={`${filter === currentFilter ? "bg-black/20" : "hover:bg-black/10"
+                } text-white cursor-pointer rounded-sm px-3 py-1`}
               onClick={() => handleFilter(filter)}>
               {filter}
             </span>
@@ -109,9 +109,8 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
                 <Menu.Item key={filter}>
                   {({ active }) => (
                     <button
-                      className={`${
-                        currentFilter === filter ? "bg-red-300" : "bg-white"
-                      } text-black rounded-sm m-1.5 mb-0 w-32 px-3 py-2 text-sm`}
+                      className={`${currentFilter === filter ? "bg-red-300" : "bg-white"
+                        } text-black rounded-sm m-1.5 mb-0 w-32 px-3 py-2 text-sm`}
                       onClick={() => handleFilter(filter)}>
                       {filter}
                     </button>

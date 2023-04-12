@@ -48,7 +48,7 @@ const Gallery: NextPage = () => {
           transition={{ duration: 3 }}
           className={`${titleFont.className} absolute top-1/2 flex w-full justify-center flex-col`}
         >
-          <h1 className="text-4xl sm:text-6xl text-center">Reflections</h1>
+          <h1 className="text-4xl sm:text-6xl text-center mb-2">Reflections</h1>
           <h2 className="text-2xl sm:text-4xl text-center">
             The changing face of the fest
           </h2>
