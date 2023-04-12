@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Mousewheel } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { titleFont } from '@/src/utils/fonts';
+
 import { BsChevronUp, BsChevronDown } from 'react-icons/bs';
 import BlurImage from '../blurImage';
 
@@ -28,7 +28,7 @@ const GallerySlide: FC<GalleryProps> = ({ title, next, prev, imgArr }) => {
       id={title}
       className="snap-start flex flex-col min-h-screen w-full relative"
     >
-      <div className={`relative mt-32 ${titleFont.className}`}>
+      <div className={`relative mt-32 titleFont`}>
         <h1 className="text-6xl text-center">{title}</h1>
         <h2 className="text-[150px] outline-text text-center absolute w-full -translate-y-32 opacity-25">
           {title}
@@ -41,6 +41,7 @@ const GallerySlide: FC<GalleryProps> = ({ title, next, prev, imgArr }) => {
           src={'/gallery/' + activeImg}
           alt="incridea"
           className="skew-0 sm:-skew-x-12 scale-110 object-cover object-center"
+          priority
         />
       </div>
       <div className="flex max-w-5xl sm:max-w-full h-[700px] absolute left-1/2 top-24 -translate-x-1/2 sm:translate-y-6">
@@ -77,6 +78,7 @@ const GallerySlide: FC<GalleryProps> = ({ title, next, prev, imgArr }) => {
                       alt="incridea"
                       className={`object-cover object-center`}
                       fill
+                      priority
                     />
                   </div>
                   <div

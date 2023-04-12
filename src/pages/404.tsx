@@ -1,13 +1,12 @@
 import { NextPage } from 'next';
-import Image from "next/image";
-import { titleFont } from "@/src/utils/fonts";
+import diver from '@/public/assets/svg/driver_lost.svg';
+import Image from 'next/image';
 import Button from '../components/button';
 import Link from 'next/link';
 
 const Page404: NextPage = () => {
-
-    const titleText : string = "Lost at sea...of 404";
-    const bodyText : string = "Let's steer you back to smoother waters.";
+  const titleText: string = 'Lost at sea...of 404';
+  const bodyText: string = "Let's steer you back to smoother waters.";
 
   return (
     <div className="flex flex-col min-h-[85vh] justify-center items-center bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6]">

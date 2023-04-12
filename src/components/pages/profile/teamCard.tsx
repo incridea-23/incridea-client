@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { QRCodeSVG } from 'qrcode.react';
 import { toast } from 'react-hot-toast';
 import EditTeamModal from './editTeam';
-import { titleFont } from '@/src/utils/fonts';
+
 import Link from 'next/link';
 import ConfirmTeamModal from './confirmTeam';
 import LeaveTeamModal from './LeaveTeamModal';
@@ -57,7 +57,7 @@ const TeamCard = ({
         />
 
         <div
-          className={`${titleFont.className} text-3xl font-bold text-center text-gray-900 flex items-center space-x-2`}
+          className={`titleFont text-3xl font-bold text-center text-gray-900 flex items-center space-x-2`}
         >
           <div>{solo ? idToPid(userId) : team.name}</div>
           {!team.confirmed && !solo && team.leaderId == userId && (
@@ -74,7 +74,7 @@ const TeamCard = ({
             .split(' ')
             .join('-')}-${team.event.id}`}
         >
-          <h1 className="text-gray-900 hover:text-gray-300 transition-colors duration-300">
+          <h1 className="text-gray-900 hover:text-gray-300 transition-colors duration-300 bodyFont">
             {team.event.name}
           </h1>
         </Link>
@@ -82,7 +82,7 @@ const TeamCard = ({
 
       <hr className="w-full border-white/40 my-3" />
 
-      <div className="basis-1/2 flex flex-col">
+      <div className="basis-1/2 flex flex-col bodyFont">
         <div className="w-full flex-grow">
           {team?.members?.map((member: any) => (
             <div

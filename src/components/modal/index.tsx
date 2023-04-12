@@ -57,7 +57,7 @@ const Modal: FC<ModalProps> = ({
                     size === "small" && "md:pb-2"
                   }`}>
                   <h3
-                    className={`text-lg font-medium leading-6 text-white ${
+                    className={`bodyFont text-lg font-medium leading-6 text-white ${
                       size === "small" && "text-center"
                     }`}>
                     {title}

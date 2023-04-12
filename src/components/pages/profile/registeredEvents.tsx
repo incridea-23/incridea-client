@@ -1,5 +1,5 @@
 import { RegisterdEventsDocument } from '@/src/generated/generated';
-import { titleFont } from '@/src/utils/fonts';
+
 import { useQuery } from '@apollo/client';
 import Link from 'next/link';
 import Button from '../../button';
@@ -18,7 +18,7 @@ const UserEvents: FC<{
   return (
     <section data-scroll-section>
       <h1
-        className={`${titleFont.className} text-2xl lg:text-4xl font-bold text-center text-white flex justify-center lg:max-w-full md:max-w-full max-w-sm`}
+        className={`titleFont text-2xl lg:text-4xl font-bold text-center text-white flex justify-center lg:max-w-full md:max-w-full max-w-sm`}
       >
         Dive into action with your upcoming adventures!
       </h1>

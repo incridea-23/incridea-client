@@ -1,4 +1,3 @@
-import { titleFont } from '@/src/utils/fonts';
 import Image from 'next/image';
 import { FC } from 'react';
 
@@ -19,7 +18,7 @@ const AboutTeam: FC = () => {
             <h1
               data-scroll
               data-scroll-speed="2"
-              className={`${titleFont.className} text-4xl lg:text-7xl text-white`}
+              className={`titleFont text-4xl lg:text-7xl text-white`}
             >
               Incridea&apos;s Code Wizards
             </h1>

@@ -1,12 +1,19 @@
-import { titleFont } from '@/src/utils/fonts';
 import { NextPage } from 'next';
 import Image from 'next/image';
 
 const Privacy: NextPage = () => {
   return (
     <div className="relative min-h-screen w-full overflow-x-hidden overflow-y-auto bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6] text-gray-100 p-5 sm:p-10">
-      <Image src="/assets/png/waterflare.png" height={1000} width={1000} alt="flare" className="absolute opacity-40 z-10 top-0 right-0" />
-      <h1 className={`${titleFont.className} text-5xl mb-3 pt-24 text-center`}>Privacy Policy</h1>
+      <Image
+        src="/assets/png/waterflare.png"
+        height={1000}
+        width={1000}
+        alt="flare"
+        className="absolute opacity-40 z-10 top-0 right-0"
+      />
+      <h1 className={`titleFont text-5xl mb-3 pt-24 text-center`}>
+        Privacy Policy
+      </h1>
       <div className="mt-8">
         <p>
           This privacy notice discloses the privacy practices for{' '}

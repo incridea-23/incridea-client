@@ -3,14 +3,12 @@ import '@/src/styles/globals.css';
 import { ApolloProvider } from '@apollo/client';
 import type { AppProps } from 'next/app';
 import HeadComponent from '../components/head';
-import { bodyFont } from '../utils/fonts';
 import { useEffect, useState } from 'react';
 import Footer from '../components/footer';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { titleFont } from '../utils/fonts';
 import Loader from '../components/Loader';
 
 const Navbar = dynamic(() => import('../components/navbar'), { ssr: false });
@@ -58,7 +56,7 @@ export default function App({
               width={300}
               height={300}
             />
-            <h1 className={`${titleFont.className} text-2xl text-center`}>
+            <h1 className={`titleFont text-2xl text-center`}>
               Tides of Change
             </h1>
           </div>
@@ -72,18 +70,18 @@ export default function App({
             exit="exitState"
             transition={{ duration: 1 }}
             variants={variants}
-            className={`${bodyFont.className}`}
           >
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1 }}
+              className="min-h-screen"
             >
               <Component setLoading={setLoading} {...pageProps} />
-              <Footer />
             </motion.div>
           </motion.main>
         </AnimatePresence>
+        <Footer />
       </div>
     </ApolloProvider>
   );

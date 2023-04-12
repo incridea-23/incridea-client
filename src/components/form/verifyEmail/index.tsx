@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-import  {GiConfirmed}  from 'react-icons/gi';
+import { GiConfirmed } from 'react-icons/gi';
 import { MdError } from 'react-icons/md';
 import Spinner from '../../spinner';
 
@@ -42,13 +42,15 @@ const VerifyEmailComponent: FunctionComponent = () => {
           <MdError className='mx-auto text-7xl my-6 text-red-600'  />
           <h1>{error}</h1>
         </div>
-      }
+      )}
       {data?.verifyEmail.__typename === 'MutationVerifyEmailSuccess' && (
         <div className='text-green-700 text-center bg-green-300 p-12 rounded-md' >
           <GiConfirmed className='mx-auto text-7xl my-6' />
           <h1>Your email has been verified.</h1>
           <p>You can now login to your account.</p>
-          <Link href={'/auth/login'} className='underline'>Click here to login</Link>
+          <Link href={'/auth/login'} className="underline">
+            Click here to login
+          </Link>
         </div>
       )}
     </div>

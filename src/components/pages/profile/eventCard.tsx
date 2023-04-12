@@ -1,4 +1,3 @@
-import { titleFont } from '@/src/utils/fonts';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
@@ -31,13 +30,13 @@ const EventCard: FC<{
           </div>
         )}
         <span
-          className={`${titleFont.className} bg-gradient-to-t from-black/30 to-transparent p-2 pl-4 h-1/2 w-full flex items-end bottom-0 absolute drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.7)] text-gray-100 font-bold text-xl`}
+          className={`titleFont bg-gradient-to-t from-black/30 to-transparent p-2 pl-4 h-1/2 w-full flex items-end bottom-0 absolute drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.7)] text-gray-100 font-bold text-xl`}
         >
           {event.name}
         </span>
       </div>
 
-      <div className="flex justify-between w-full p-5">
+      <div className="flex justify-between w-full p-5 bodyFont">
         <p className="flex items-center gap-1 text-lg font-medium text-center text-gray-800">
           <RiNumbersLine />
           {event?.rounds.length} Rounds
@@ -50,7 +49,7 @@ const EventCard: FC<{
           </p>
         </div>
       </div>
-      <button className="w-full p-2 bg-white bg-opacity-40 hover:bg-opacity-70 transition-colors duration-300 rounded-b-lg">
+      <button className="w-full p-2 bg-white bg-opacity-40 hover:bg-opacity-70 transition-colors duration-300 rounded-b-lg bodyFont">
         View Event
       </button>
     </Link>
