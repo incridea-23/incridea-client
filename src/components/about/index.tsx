@@ -57,13 +57,13 @@ const About: FC = () => {
           >
             <a
               href="#"
-              className="px-3 flex items-center gap-2 py-2 text-sm md:text-lg lg:text-xl font-semibold text-center text-white transition duration-300 rounded-bl-xl rounded-tr-xl bg-white/30 hover:bg-white/40"
+              className="px-3 flex items-center gap-2 py-2 text-md md:text-lg lg:text-xl font-semibold text-center text-white transition duration-300 rounded-bl-xl rounded-tr-xl bg-white/30 hover:bg-white/40"
             >
               <BiDownload /> Rule book
             </a>
             <a
               href="#"
-              className="px-3 flex items-center gap-2 py-2 text-sm md:text-lg lg:text-xl font-semibold text-center text-white transition duration-300 rounded-bl-xl rounded-tr-xl bg-white/30 hover:bg-white/40"
+              className="px-3 flex items-center gap-2 py-2 text-md md:text-lg lg:text-xl font-semibold text-center text-white transition duration-300 rounded-bl-xl rounded-tr-xl bg-white/30 hover:bg-white/40"
             >
               <BiDownload /> Schedule
             </a>

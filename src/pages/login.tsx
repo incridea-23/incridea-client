@@ -4,7 +4,6 @@ import SignUpForm from '@/src/components/form/signUp';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { titleFont } from '../utils/fonts';
 import ResendEmail from '../components/form/login/resendEmailForm';
 
 const SignIn: NextPage = () => {

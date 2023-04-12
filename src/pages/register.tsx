@@ -2,7 +2,6 @@ import { NextPage } from 'next';
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useRouter } from 'next/router';
-import { titleFont } from '../utils/fonts';
 import Navbar from '../components/navbar';
 import Button from '../components/button';
 import { makePayment } from '../utils/razorpay';
