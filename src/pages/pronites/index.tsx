@@ -18,10 +18,13 @@ const Pronite: NextPage = () => {
     <>
       <div className="relative h-screen bg-gradient-to-bl   overflow-y-hidden  from-indigo-200 via-sky-500 to-cyan-100">
         {/* Beach bg */}
-        <div className="fixed top-0 bottom-0 h-screen w-full bg-right-bottom bg-repeat-x bg-[url('/assets/svg/beach.svg')]" />
-        
+        {/* <div className="fixed top-0 bottom-0 h-screen w-full bg-right-bottom bg-repeat-x bg-[url('/assets/svg/beach.svg')]" /> */}
+        {/* <div className="fixed bottom-0 h-screen w-full bg-right-bottom bg-no-repeat bg-cover bg-[url('/assets/svg/beachaa.svg')]" /> */}
+        <Image  src="/assets/svg/beach.svg" fill objectFit="cover" objectPosition="right bottom" alt="beach"/>
+
         {/* Bushes bg */}
-        <div className="fixed z-10 pointer-events-none bottom-0 h-[45rem] w-screen bg-bottom bg-repeat-x bg-[url('/assets/svg/bushes.svg')]" />
+        {/* <div className="fixed z-10 pointer-events-none bottom-0 h-[45rem] w-full bg-bottom bg-repeat-x bg-[url('/assets/svg/bushess.svg')]" /> */}
+        <div className="fixed z-10 pointer-events-none bottom-0 h-screen w-screen bg-bottom bg-fit bg-repeat-x bg-[url('/assets/svg/bushes.svg')]" />
         <div
           ref={scrollRef}
           className="absolute top-0 snap-start snap-x snap-mandatory flex overflow-x-auto h-screen w-screen mx:auto overflow-y-hidden text-gray-100"
@@ -77,7 +80,8 @@ const Pronite: NextPage = () => {
             />
           </div>
           <div className="snap-start min-w-full h-screen place-items-center w-screen">
-            <ProniteFooter className="relative h-screen w-screen -bottom-4 sm:bottom-0"/>
+            {/* <ProniteFooter className="relative h-screen w-screen -bottom-16 sm:bottom-0"/> */}
+            <ProniteFooter className="relative h-screen w-screen sm:bottom-0"/>
           </div>
         </div>
       </div>
