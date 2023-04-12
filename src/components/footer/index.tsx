@@ -29,7 +29,7 @@ export function HomePageFooter() {
 
 export function FooterBody() {
   return (
-    <div className={`relative ${titleFont.className} tracking-wider z-20`}>
+    <div id="footer" className={`snap-start relative ${titleFont.className} tracking-wider z-20`}>
       <div className="-mt-2 flex flex-col gap-5 md:flex-row bg-[#131e28] text-gray-100 p-5 items-center justify-between">
         <div className="md:basis-1/5">
           <Image
