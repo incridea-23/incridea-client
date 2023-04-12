@@ -11,9 +11,11 @@ export const useAuth = () => {
     fetchPolicy: "cache-and-network",
   });
   if (loading) {
+    console.log("loading");
     return { status: AuthStatus.LOADING, loading, error };
   }
   if (data?.me.__typename === "QueryMeSuccess") {
+    console.log("authenticated");
     return {
       user: data?.me.data,
       loading,
