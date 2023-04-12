@@ -1,6 +1,6 @@
 import { useAuth } from '@/src/hooks/useAuth';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '../../button';
 import {
   CreateTeamDocument,
@@ -17,6 +17,7 @@ import { teamIdToId } from '@/src/utils/id';
 import { makeTeamPayment } from '@/src/utils/razorpay';
 import Spinner from '../../spinner';
 import TeamCard from './TeamCard';
+import { useRouter } from 'next/router';
 
 function EventRegistration({
   eventId,
@@ -265,6 +266,16 @@ const JoinTeamModal = () => {
     await createToast(promise, 'Joining Team');
   };
   const [teamId, setTeamId] = useState('');
+  const router = useRouter();
+  const {jointeam} = router.query;
+
+  useEffect(() => {
+    if (jointeam) {
+      setTeamId(jointeam as string);
+      setOpen(true);
+    }
+  }, [jointeam]);
+
   return (
     <>
       <Button

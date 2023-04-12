@@ -78,12 +78,13 @@ export default function App({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1 }}
+              className="min-h-screen"
             >
               <Component setLoading={setLoading} {...pageProps} />
-              <Footer />
             </motion.div>
           </motion.main>
         </AnimatePresence>
+        <Footer />
       </div>
     </ApolloProvider>
   );

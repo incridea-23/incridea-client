@@ -116,11 +116,11 @@ function event({ event, error }: { event: Event; error: String }) {
                 )}
               </div>
               <div className="text-sm">
-                <div className="grid grid-cols-2 gap-1.5">
+                <div className="grid grid-cols-1 gap-1.5">
                   {event.rounds.map((round) => (
                     <div
                       key={round.roundNo}
-                      className="py-2 text-white  rounded-sm bg-gray-300/20     space-y-2 px-3 items-center">
+                      className="py-2 text-white rounded-sm bg-gray-300/20 space-y-2 px-3 items-center">
                       <div className=" font-semibold ">Round {round.roundNo}</div>
                       <div className="space-y-2">
                         <p className="flex gap-2 items-center">

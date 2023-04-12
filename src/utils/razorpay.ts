@@ -41,6 +41,9 @@ export const makePayment = async (setSDKLoading?: (arg1: any) => void) => {
       description: "Incridea 2023 Registration",
       image: "/logo.png",
       handler: function (response: any) {
+        client.refetchQueries({
+          include: ["MeQuery"],
+        });
         Router.push("/profile");
       },
       prefill: {

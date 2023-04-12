@@ -1,5 +1,5 @@
 import { BsWhatsapp } from 'react-icons/bs';
-import GoogleCalendar from '../eachEvent/googleCalendar';
+import GoogleCalendar from './googleCalendar';
 import LeaveTeamModal from '../profile/LeaveTeamModal';
 import Link from 'next/link';
 import { AiOutlineCopy } from 'react-icons/ai';
@@ -33,7 +33,7 @@ const TeamCard = ({
   } event at Incridea 2023! Here's the link: https://incridea.in${generateEventUrl(
     team.event.name,
     team.event.id
-  )}?jointeam=${team.id}`;
+  )}?jointeam=${idToTeamId(team.id)}`;
 
   const copyUrl = async () => {
     await navigator.clipboard.writeText(url);
@@ -60,7 +60,7 @@ const TeamCard = ({
               </div>
             )
           ) : (
-            <div className="p-3 text-center w-fit  bg-white/70 ">
+            <div className="p-3 text-center w-fit  bg-white/70">
               <QRCodeSVG
                 value={idToTeamId(team.id)}
                 size={100}
@@ -72,7 +72,7 @@ const TeamCard = ({
           )}
         </div>
         <div>
-          <div className="flex justify-between items-center w-full">
+          <div className="flex justify-between items-center w-full mt-5">
             {!(
               team.event.eventType === 'INDIVIDUAL' ||
               team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
@@ -102,7 +102,8 @@ const TeamCard = ({
           </div>
           {!team.confirmed && (
             <span className="text-xs">
-              Almost there! Pay {team.event.fees} to confirm your{' '}
+              Almost there! {team.event.fees ? `Pay ${team.event.fees} to` : ''}{' '}
+              Confirm your{' '}
               {team.event.eventType === 'INDIVIDUAL' ||
               team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
                 ? 'entry'

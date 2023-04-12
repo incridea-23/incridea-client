@@ -3,7 +3,6 @@ import { titleFont } from "@/src/utils/fonts";
 import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas";
 import { motion } from "framer-motion";
 import React from "react";
-import CharacterAnimation from "../animation/character";
 import TextAnimation from "../animation/text";
 import Image from "next/image";
 
