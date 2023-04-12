@@ -29,7 +29,7 @@ const AboutIncridea: FC = () => {
 
       <div className="flex flex-col lg:flex-row justify-center items-center gap-10 lg:gap-20 lg:p-10 p-5 basis-1/2 my-5">
         <Image
-          src="/assets/png/logo.png"
+          src="/assets/png/logo-black.png"
           alt="Incridea Logo"
           width={500}
           height={500}

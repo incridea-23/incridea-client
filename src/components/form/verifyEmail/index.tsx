@@ -4,8 +4,9 @@ import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-import  {GiConfirmed}  from 'react-icons/gi';
+import { GiConfirmed } from 'react-icons/gi';
 import { MdError } from 'react-icons/md';
+import Spinner from '../../spinner';
 
 const VerifyEmailComponent: FunctionComponent = () => {
   const [error, setError] = useState<string | null>(null);
@@ -28,26 +29,28 @@ const VerifyEmailComponent: FunctionComponent = () => {
   }, [token, isMutationExecuted]);
 
   return (
-    <div className='flex min-h-screen w-full bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6] items-center justify-center' >
-      {loading && <div className='text-white text-2xl' >Loading...</div>}
-      {!token && 
-        <div className='text-white' >
-          <MdError className='mx-auto text-7xl my-6 text-red-600'  />
+    <div className="flex min-h-screen w-full bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6] items-center justify-center">
+      {loading && <Spinner size="medium" intent={'white'} />}
+      {!token && (
+        <div className="text-white">
+          <MdError className="mx-auto text-7xl my-6 text-red-600" />
           <h1>No token provided</h1>
         </div>
-      }
-      {error &&
-        <div className='text-white' >
-          <MdError className='mx-auto text-7xl my-6 text-red-600'  />
+      )}
+      {error && (
+        <div className="text-white">
+          <MdError className="mx-auto text-7xl my-6 text-red-600" />
           <h1>{error}</h1>
         </div>
-      }
+      )}
       {data?.verifyEmail.__typename === 'MutationVerifyEmailSuccess' && (
-        <div className='text-green-500 max-w-xs text-center' >
-          <GiConfirmed className='mx-auto text-7xl my-6' />
+        <div className="text-green-500 max-w-xs text-center">
+          <GiConfirmed className="mx-auto text-7xl my-6" />
           <h1>Your email has been verified.</h1>
           <p>You can now login to your account.</p>
-          <Link href={'/auth/login'} className='underline'>Click here to login</Link>
+          <Link href={'/auth/login'} className="underline">
+            Click here to login
+          </Link>
         </div>
       )}
     </div>

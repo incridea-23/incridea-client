@@ -67,7 +67,7 @@ const TeamCard = ({
                 className="mb-1"
                 bgColor="transparent"
               />
-              <div className="text-black">{idToTeamId(team.id)}</div>
+              <div className="text-black mt-2">{idToTeamId(team.id)}</div>
             </div>
           )}
         </div>

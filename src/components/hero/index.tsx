@@ -63,7 +63,7 @@ const Hero: React.FC = () => {
         />
         <TextAnimation
           text="Tides Of Change"
-          textStyle={`${titleFont.className} drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.5)] text-xl sm:text-2xl font-semibold tracking-widest`}
+          textStyle={`${titleFont.className} drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.5)] text-xl sm:text-3xl font-semibold tracking-widest`}
         />
       </motion.div>
 

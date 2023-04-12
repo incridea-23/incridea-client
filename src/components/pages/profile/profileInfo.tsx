@@ -12,6 +12,7 @@ import { idToPid } from '@/src/utils/id';
 import Button from '../../button';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { GiShipWheel } from 'react-icons/gi';
 
 const ProfileInfo: FC<{
   user: User | null | undefined;
@@ -26,11 +27,11 @@ const ProfileInfo: FC<{
     <section data-scroll-section className="text-white min-h-fit py-10 mb-10">
       <div data-scroll className="flex mb-4 items-center justify-center px-5">
         <a
-          className={`${titleFont.className} text-2xl lg:text-4xl font-bold text-center`}
+          className={`${titleFont.className} text-2xl lg:text-4xl font-bold text-center pr-2`}
         >
-          Welcome {user?.name}!
+          Welcome Sailor!
         </a>
-        <span className="animate-wave text-2xl lg:text-4xl">👋</span>
+        <GiShipWheel className="text-2xl lg:text-4xl animate-spin" />
       </div>
       <TextAnimation
         text="Ready to dive in?"

@@ -1,4 +1,4 @@
-import { Poppins, Trade_Winds } from "@next/font/google";
+import { Montserrat, Trade_Winds } from "@next/font/google";
 
 export const titleFont = Trade_Winds({
   weight: ["400"],
@@ -6,7 +6,7 @@ export const titleFont = Trade_Winds({
   variable: "--trade-winds-font",
 });
 
-export const bodyFont = Poppins({
-  weight: ["400"],
+export const bodyFont = Montserrat({
+  weight: ["300"],
   subsets: ["latin"],
 });

@@ -95,8 +95,8 @@ function event({ event, error }: { event: Event; error: String }) {
               <EventDetails details={event.description as string} />
             </div>
           </div>
-          <div className="basis-1/4 shrink-0 flex flex-col gap-5 items-center rounded-md sm:bg-black/20 backdrop-blur-sm p-0 sm:p-7  ">
-            <div className="space-y-1.5">
+          <div className="basis-1/4 shrink-0 flex flex-col gap-5 items-center rounded-md sm:bg-black/20 backdrop-blur-sm p-0 sm:p-7">
+            <div className="space-y-1.5 max-w-2xl w-[300px]">
               <h2 className={`${titleFont.className} mb-2 text-2xl`}>Details</h2>
               <div className="flex flex-wrap mt-2 gap-1.5  w-full">
                 {getEventAttributes().map((attr) =>

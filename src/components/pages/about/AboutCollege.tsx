@@ -27,12 +27,20 @@ const AboutCollege: FC = () => {
       </div>
 
       <div className="flex flex-col lg:flex-row-reverse justify-center items-center gap-10 lg:gap-20 lg:p-10 p-5 basis-1/2">
-        <Image
-          src="/assets/png/nitte.webp"
-          alt="Incridea Logo"
-          width={300}
-          height={300}
-        />
+        <div>
+          <Image
+            src="/assets/png/nitte-logo.png"
+            alt="Nitte Logo"
+            width={300}
+            height={300}
+          />
+          <Image
+            src="/assets/png/nmamit-logo.png"
+            alt="Nmamit Logo"
+            width={300}
+            height={300}
+          />
+        </div>
 
         <div className="text-white text-lg lg:text-xl text-justify basis-1/2 my-5">
           Never gonna give you up Never gonna let you down Never gonna run
