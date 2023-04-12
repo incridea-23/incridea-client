@@ -101,7 +101,7 @@ const TeamCard = ({
             </p>
           ) : (
             <p className="text-xs">
-              Hey, {solo ? 'You are ' : 'Your team is '} is not confirmed yet.
+              Hey, {solo ? 'You are ' : 'Your team is '} not confirmed yet.
             </p>
           )}
         </div>

@@ -105,7 +105,7 @@ const Event = ({ data }: { data: PublishedEventsQuery["publishedEvents"][0] }) =
             </div>
           )}
           <span
-            className={`${titleFont.className} bg-gradient-to-t from-black/30 to-transparent p-2 pl-4 h-1/2 w-full flex items-end bottom-0 absolute drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.7)] text-gray-100 font-bold text-xl`}>
+            className={`${titleFont.className} bg-gradient-to-t from-black/50 to-transparent p-2 pl-4 h-1/2 w-full flex items-end bottom-0 absolute drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.7)] text-gray-100 font-bold text-xl`}>
             {data.name}
           </span>
         </div>

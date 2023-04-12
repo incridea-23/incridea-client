@@ -10,6 +10,9 @@ import Image from "next/image";
 import { client } from "@/src/lib/apollo";
 import SearchBox from "@/src/components/searchbox";
 import { AiOutlineSearch } from "react-icons/ai";
+import { BiCaretDown } from "react-icons/bi";
+import { FaAngleDown } from "react-icons/fa";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
   data,
@@ -19,13 +22,13 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
     "CORE",
     "CSE",
     "ISE",
-    "AI/ML",
-    "CC",
+    "AIML",
+    "CCE",
     "ECE",
     "EEE",
     "MECH",
     "CIVIL",
-    "ROBOTICS",
+    "BTE",
   ];
 
   const dayFilters = ["ALL", "DAY 1", "DAY 2", "DAY 3", "DAY 4"];
@@ -39,7 +42,9 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
   const [query, setQuery] = useState("");
 
   const [filteredEvents, setFilteredEvents] = useState(data || []);
-  
+
+  const [showMore, setShowMore] = useState(false);
+
   useEffect(() => {
     let tempFilteredEvents = data;
     if (currentBranchFilter !== "ALL")
@@ -106,130 +111,166 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
         className={`${titleFont.className} font-bold text-5xl tracking-wide text-center pt-32 text-white`}>
         EVENTS
       </h1>
-      <div className="flex flex-wrap items-center gap-2 md:mx-10 mx-4 lg:justify-between lg:flex-col lg:mx-auto mt-4">
-        <div className="relative lg:w-[800px] w-full">
-          <input
-            value={query}
-            onChange={handleSearch}
-            className="w-full pr-14 bg-black/30 placeholder:text-gray-200/70 focus:outline-none text-white rounded-sm  pl-3 p-2"
-            placeholder="Search away!"
-            type="text"
-          />
-          <AiOutlineSearch
-            size={"1.4rem"}
-            className="absolute right-3 top-2.5 text-gray-300/70"
-          />
+      <div className="flex flex-wrap items-center gap-2 px-4 lg:justify-between lg:flex-col lg:mx-auto mt-8">
+        <div className="flex flex-col lg:flex-nowrap lg:w-[800px] w-full items-center gap-2">
+          <div className="flex w-full items-center justify-between gap-3">
+            <div className="relative lg:basis-[75%] basis-full w-full lg:w-auto ">
+              <input
+                value={query}
+                onChange={handleSearch}
+                className="w-full pr-14 bg-black/30 placeholder:text-gray-200/70 focus:outline-none text-white rounded-sm  pl-3 p-2"
+                placeholder="Search away!"
+                type="text"
+              />
+              <AiOutlineSearch
+                size={"1.4rem"}
+                className="absolute right-3 top-2.5 text-gray-300/70"
+              />
+            </div>
+            <div className="lg:flex hidden justify-center basis-[12.5%] py-2">
+              <Menu as={"div"} className={"relative w-full inline-block"}>
+                <Menu.Button
+                  className={
+                    "inline-flex bg-black/30 leading-6 w-full justify-center rounded-sm px-4 py-2 h-[40px] text-sm font-medium text-white"
+                  }>
+                  {currentBranchFilter !== "ALL" ? currentBranchFilter : "Branch"}
+                </Menu.Button>
+                <Menu.Items className=" overflow-hidden pb-1.5 mt-1 bg-[#075985] absolute z-10 text-center rounded-sm shadow-black/80 shadow-2xl">
+                  {branchFilters.map((filter) => (
+                    <Menu.Item key={filter}>
+                      {({ active }) => (
+                        <button
+                          className={`${
+                            currentBranchFilter === filter ? "bg-black/50" : "bg-black/20"
+                          } text-white rounded-sm m-1.5 mb-0 w-32 px-3 py-2 text-sm`}
+                          onClick={() => setCurrentBranchFilter(filter)}>
+                          {filter}
+                        </button>
+                      )}
+                    </Menu.Item>
+                  ))}
+                </Menu.Items>
+              </Menu>
+            </div>
+            <div className="lg:flex hidden justify-center basis-[12.5%] py-2">
+              <Menu as={"div"} className={"relative w-full inline-block"}>
+                <Menu.Button
+                  className={
+                    "inline-flex shrink-0 whitespace-nowrap bg-black/30 leading-6 w-full justify-center rounded-sm px-4 py-2 h-[40px] text-sm font-medium text-white"
+                  }>
+                  {currentDayFilter !== "ALL" ? currentDayFilter : "Day"}
+                </Menu.Button>
+                <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-[#075985]  absolute z-[1] text-center rounded-sm shadow-black/80 shadow-2xl">
+                  {dayFilters.map((filter) => (
+                    <Menu.Item key={filter}>
+                      {({ active }) => (
+                        <button
+                          className={`${
+                            currentDayFilter === filter ? "bg-black/50" : "bg-black/20"
+                          } text-white rounded-sm m-1.5 mb-0 w-36 px-3 py-2 text-sm`}
+                          onClick={() => setCurrentDayFilter(filter)}>
+                          {filter}
+                        </button>
+                      )}
+                    </Menu.Item>
+                  ))}
+                </Menu.Items>
+              </Menu>
+            </div>
+          </div>
+          <div className="lg:flex lg:w-[800px] gap-3 mx-auto  hidden  font-semibold">
+            {categoryFilters.map((filter) => (
+              <span
+                key={filter}
+                className={`${
+                  filter === currentCategoryFilter
+                    ? "border-b-4  bg-black/10 "
+                    : "hover:bg-black/10"
+                } text-white cursor-pointer grow border-black/30 text-center rounded-sm px-3 py-1`}
+                onClick={() => setCurrentCategoryFilter(filter)}>
+                {filter.replace("_", " ")}
+              </span>
+            ))}
+          </div>
         </div>
-        <div className="lg:flex lg:w-[800px] justify-between gap-3 mt-4 mx-auto  hidden eventNavigation font-semibold">
-          {branchFilters.map((filter) => (
-            <span
-              key={filter}
-              className={`${
-                filter === currentBranchFilter ? "bg-black/20" : "hover:bg-black/10"
-              } text-white cursor-pointer rounded-sm px-3 py-1`}
-              onClick={() => setCurrentBranchFilter(filter)}>
-              {filter}
-            </span>
-          ))}
-        </div>
-        <div className="lg:flex lg:w-[800px] justify-between gap-3 mt-4 mx-auto  hidden eventNavigation font-semibold">
-          {dayFilters.map((filter) => (
-            <span
-              key={filter}
-              className={`${
-                filter === currentDayFilter ? "bg-black/20" : "hover:bg-black/10"
-              } text-white cursor-pointer rounded-sm px-3 py-1`}
-              onClick={() => setCurrentDayFilter(filter)}>
-              {filter}
-            </span>
-          ))}
-        </div>
-        <div className="lg:flex lg:w-[800px] justify-between gap-3 mt-4 mx-auto  hidden eventNavigation font-semibold">
-          {categoryFilters.map((filter) => (
-            <span
-              key={filter}
-              className={`${
-                filter === currentCategoryFilter ? "bg-black/20" : "hover:bg-black/10"
-              } text-white cursor-pointer rounded-sm px-3 py-1`}
-              onClick={() => setCurrentCategoryFilter(filter)}>
-              {filter.replace("_", " ")}
-            </span>
-          ))}
-        </div>
-        <div className="lg:hidden flex justify-center  py-2">
-          <Menu as={"div"} className={"relative inline-block"}>
-            <Menu.Button
-              className={
-                "inline-flex bg-black/30 leading-6 w-full justify-center rounded-sm px-4 py-2 h-[40px] text-sm font-medium text-white"
-              }>
-              {currentBranchFilter !== "ALL" ? currentBranchFilter : "Branch"}
-            </Menu.Button>
-            <Menu.Items className=" overflow-hidden pb-1.5 mt-1 bg-[#075985] absolute z-[1] text-center rounded-sm shadow-lg">
-              {branchFilters.map((filter) => (
-                <Menu.Item key={filter}>
-                  {({ active }) => (
-                    <button
-                      className={`${
-                        currentBranchFilter === filter ? "bg-black/70" : "bg-black/40"
-                      } text-white rounded-sm m-1.5 mb-0 w-32 px-3 py-2 text-sm`}
-                      onClick={() => setCurrentBranchFilter(filter)}>
-                      {filter}
-                    </button>
-                  )}
-                </Menu.Item>
-              ))}
-            </Menu.Items>
-          </Menu>
-        </div>
-        <div className="lg:hidden flex justify-center  py-2">
-          <Menu as={"div"} className={"relative inline-block"}>
-            <Menu.Button
-              className={
-                "inline-flex bg-black/30 leading-6 w-full justify-center rounded-sm px-4 py-2 h-[40px] text-sm font-medium text-white"
-              }>
-              {currentDayFilter !== "ALL" ? currentDayFilter : "Day"}
-            </Menu.Button>
-            <Menu.Items className="overflow-hidden pb-1.5 mt-1 bg-[#075985]  absolute z-[1] text-center rounded-sm shadow-lg">
-              {dayFilters.map((filter) => (
-                <Menu.Item key={filter}>
-                  {({ active }) => (
-                    <button
-                      className={`${
-                        currentDayFilter === filter ? "bg-black/70" : "bg-black/40"
-                      } text-white rounded-sm m-1.5 mb-0 w-32 px-3 py-2 text-sm`}
-                      onClick={() => setCurrentDayFilter(filter)}>
-                      {filter}
-                    </button>
-                  )}
-                </Menu.Item>
-              ))}
-            </Menu.Items>
-          </Menu>
-        </div>
-        <div className="lg:hidden flex justify-center  py-2">
-          <Menu as={"div"} className={"relative inline-block"}>
-            <Menu.Button
-              className={
-                "inline-flex bg-black/30 leading-6 w-full justify-center rounded-sm px-4 py-2 h-[40px] text-sm font-medium text-white"
-              }>
-              {currentCategoryFilter !== "ALL" ? currentCategoryFilter : "Category"}
-            </Menu.Button>
-            <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-[#075985]  absolute z-[1] text-center rounded-sm shadow-lg">
-              {categoryFilters.map((filter) => (
-                <Menu.Item key={filter}>
-                  {({ active }) => (
-                    <button
-                      className={`${
-                        currentCategoryFilter === filter ? "bg-black/70" : "bg-black/40"
-                      } text-white rounded-sm m-1.5 mb-0 w-36 px-3 py-2 text-sm`}
-                      onClick={() => setCurrentCategoryFilter(filter)}>
-                      {filter.replace('_', ' ')}
-                    </button>
-                  )}
-                </Menu.Item>
-              ))}
-            </Menu.Items>
-          </Menu>
+
+        {/* <p className="lg:hidden text-white/90 mr-2">More filters</p> */}
+        <div className="flex overflow-x-auto justify-between gap-3 basis-full">
+          <div className="lg:hidden flex basis-1/3 justify-between  py-2">
+            <Menu as={"div"} className={"relative grow inline-block"}>
+              <Menu.Button
+                className={
+                  "inline-flex bg-black/30 leading-6 w-full justify-center rounded-sm px-4 py-2 h-[40px] text-sm font-medium text-white"
+                }>
+                {currentBranchFilter !== "ALL" ? currentBranchFilter : "Branch"}
+              </Menu.Button>
+              <Menu.Items className=" overflow-hidden pb-1.5 mt-1 bg-[#075985] absolute z-[1] text-center rounded-sm shadow-black/80 shadow-2xl">
+                {branchFilters.map((filter) => (
+                  <Menu.Item key={filter}>
+                    {({ active }) => (
+                      <button
+                        className={`${
+                          currentBranchFilter === filter ? "bg-black/50" : "bg-black/20"
+                        } text-white rounded-sm m-1.5 mb-0 w-32 px-3 py-2 text-sm`}
+                        onClick={() => setCurrentBranchFilter(filter)}>
+                        {filter}
+                      </button>
+                    )}
+                  </Menu.Item>
+                ))}
+              </Menu.Items>
+            </Menu>
+          </div>
+          <div className="lg:hidden flex justify-center shrink grow-0 basis-1/3 py-2">
+            <Menu as={"div"} className={"relative grow inline-block"}>
+              <Menu.Button
+                className={
+                  "inline-flex whitespace-nowrap overflow-hidden  bg-black/30 leading-6 w-full justify-center rounded-sm px-4 py-2 h-[40px] text-sm font-medium text-white"
+                }>
+                {currentCategoryFilter !== "ALL" ? currentCategoryFilter.replace("_", " ") : "Category"}
+              </Menu.Button>
+              <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-[#075985]  absolute z-[1] text-center rounded-sm shadow-black/80 shadow-2xl">
+                {categoryFilters.map((filter) => (
+                  <Menu.Item key={filter}>
+                    {({ active }) => (
+                      <button
+                        className={`${
+                          currentCategoryFilter === filter ? "bg-black/50" : "bg-black/20"
+                        } text-white rounded-sm m-1.5 mb-0 w-36 px-3 py-2 text-sm`}
+                        onClick={() => setCurrentCategoryFilter(filter)}>
+                        {filter.replace("_", " ")}
+                      </button>
+                    )}
+                  </Menu.Item>
+                ))}
+              </Menu.Items>
+            </Menu>
+          </div>
+          <div className="lg:hidden flex justify-center basis-1/3  py-2">
+            <Menu as={"div"} className={"relative grow inline-block"}>
+              <Menu.Button
+                className={
+                  "inline-flex whitespace-nowrap bg-black/30 leading-6 w-full justify-center rounded-sm px-4 py-2 h-[40px] text-sm font-medium text-white"
+                }>
+                {currentDayFilter !== "ALL" ? currentDayFilter : "Day"}
+              </Menu.Button>
+              <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-[#075985]  absolute z-[1] text-center rounded-sm shadow-black/80 shadow-2xl">
+                {dayFilters.map((filter) => (
+                  <Menu.Item key={filter}>
+                    {({ active }) => (
+                      <button
+                        className={`${
+                          currentDayFilter === filter ? "bg-black/50" : "bg-black/20"
+                        } text-white rounded-sm m-1.5 mb-0 w-36 px-3 py-2 text-sm`}
+                        onClick={() => setCurrentDayFilter(filter)}>
+                        {filter.replace("_", " ")}
+                      </button>
+                    )}
+                  </Menu.Item>
+                ))}
+              </Menu.Items>
+            </Menu>
+          </div>
         </div>
       </div>
       {filteredEvents.length < data.length && filteredEvents.length > 0 && (
@@ -239,7 +280,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
           </span>
         </div>
       )}
-      <div className="md:p-10 md:pt-10 pt-1 p-4 flex justify-center ">
+      <div className="md:p-10 md:pt-7 pt-1 p-4 flex justify-center ">
         {filteredEvents.length === 0 ? (
           <div className="flex italic items-center justify-center min-h-[20rem] text-xl w-screen text-center text-gray-200/70">
             <span>no events found</span>
