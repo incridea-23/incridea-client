@@ -221,6 +221,7 @@ git push origin <branch_name>
 <details>
 <summary>Semantic commits</summary>
   
+    
 ```
 <type>[optional scope]: <description>
 
