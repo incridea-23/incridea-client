@@ -19,11 +19,7 @@ const AboutIncridea: FC = () => {
         <span className="absolute inset-0 w-full h-full bg-gradient-to-b from-transparent to-black z-10"></span>
         </motion.div>        
           <div className="absolute inset-0 w-full h-full flex items-center justify-center">
-            <h1
-              data-scroll
-              data-scroll-speed="2"
-              className={`titleFont text-4xl lg:text-7xl text-center p-5 text-white`}
-            >
+            <h1 className={`titleFont text-4xl lg:text-7xl text-center p-5 text-white`}>
               About Incridea
             </h1>
           </div>

@@ -2,6 +2,7 @@ import { FormEventHandler, FunctionComponent, useState } from 'react';
 import { ResetPasswordDocument } from '@/src/generated/generated';
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
+import Spinner from '../../spinner';
 
 const ResetPassword: FunctionComponent = () => {
   const [error, setError] = useState<string | null>(null);
@@ -44,7 +45,7 @@ const ResetPassword: FunctionComponent = () => {
   return (
     <>
       {loading ? (
-        <div>Loading...</div>
+        <Spinner intent={'white'} />
       ) : data?.resetPassword.__typename === 'MutationResetPasswordSuccess' ? (
         <div className="text-green-500">✅ Password successfully changed</div>
       ) : (
