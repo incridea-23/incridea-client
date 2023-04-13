@@ -18,9 +18,10 @@ const Pronite: NextPage = () => {
     <>
       <div className="relative h-screen bg-gradient-to-bl   overflow-y-hidden  from-indigo-200 via-sky-500 to-cyan-100">
         {/* Beach bg */}
-        <div className="fixed top-0 bottom-0 h-screen w-full bg-right-bottom bg-repeat-x bg-[url('/assets/svg/beach.svg')]" />
+        <Image  src="/assets/svg/beach.svg" fill objectFit="cover" objectPosition="right bottom" alt="beach"/>
+
         {/* Bushes bg */}
-        <div className="fixed z-10 pointer-events-none bottom-0 h-[45rem] w-screen bg-bottom bg-repeat-x bg-[url('/assets/svg/bushes.svg')]" />
+        <div className="fixed z-10 pointer-events-none bottom-0 h-screen w-screen bg-bottom bg-fit bg-repeat-x bg-[url('/assets/svg/bushes.svg')]" />
         <div
           ref={scrollRef}
           className="absolute top-0 snap-start snap-x snap-mandatory flex overflow-x-auto h-screen w-screen mx:auto overflow-y-hidden text-gray-100"
@@ -42,7 +43,7 @@ const Pronite: NextPage = () => {
           <div className="snap-start min-w-full h-screen place-items-center w-screen">
             <Image
               className="relative h-screen w-screen -bottom-10 sm:bottom-0"
-              src="/assets/svg/proBro.svg"
+              src="/assets/svg/proBroA.svg"
               width={100}
               height={1000}
               alt="proBro"
@@ -51,16 +52,16 @@ const Pronite: NextPage = () => {
           <div className="snap-start min-w-full h-screen place-items-center w-screen">
             <Image
               className="relative h-screen w-screen -bottom-10 sm:bottom-0"
-              src="/assets/svg/women.svg"
+              src="/assets/svg/setiaA.svg"
               width={1000}
               height={1000}
-              alt="women"
+              alt="setia"
             />
           </div>
           <div className="snap-start min-w-full h-screen place-items-center w-screen">
             <Image
               className="relative h-screen w-screen -bottom-10 sm:bottom-0"
-              src="/assets/svg/raghav.svg"
+              src="/assets/svg/raghavA.svg"
               width={1000}
               height={1000}
               alt="raghav"
@@ -76,7 +77,7 @@ const Pronite: NextPage = () => {
             />
           </div>
           <div className="snap-start min-w-full h-screen place-items-center w-screen">
-            <ProniteFooter className="relative h-screen w-screen -bottom-4 sm:bottom-0" />
+            <ProniteFooter className="relative h-screen w-screen sm:bottom-0"/>
           </div>
         </div>
       </div>

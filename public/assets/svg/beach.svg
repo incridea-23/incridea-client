@@ -2,12 +2,12 @@
 <svg
    id="Layer_1"
    data-name="Layer 1"
-   viewBox="0 0 1600 1050"
+   viewBox="0 0 1600 780"
    version="1.1"
-   sodipodi:docname="beach.svg"
+   sodipodi:docname="beache.svg"
    inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
    width="1600"
-   height="1050"
+   height="780"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -23,9 +23,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
-     inkscape:zoom="1.2520504"
-     inkscape:cx="368.99473"
-     inkscape:cy="724.01238"
+     inkscape:zoom="0.6260252"
+     inkscape:cx="768.33968"
+     inkscape:cy="550.29734"
      inkscape:window-width="1920"
      inkscape:window-height="1051"
      inkscape:window-x="-9"
@@ -5435,7 +5435,7 @@
   </defs>
   <g
      id="g3414"
-     transform="matrix(0.42761746,0,0,0.44894197,321.83512,-42.988013)">
+     transform="matrix(0.42761746,0,0,0.44894197,321.83512,-312.98818)">
     <path
        id="path3410"
        class="cls-2"
@@ -5449,7 +5449,7 @@
   </g>
   <g
      id="g3518"
-     transform="matrix(0.53353821,0,0,0.73957479,2.2590361,-430.2038)">
+     transform="matrix(0.5351362,0,0,0.73957479,-2.5331033,-700.20411)">
     <path
        id="path3416"
        class="cls-4"
@@ -5572,7 +5572,7 @@
   <g
      id="g20654"
      style="display:inline"
-     transform="matrix(0.72370247,-0.23119177,0.249608,0.67030726,1224.4905,421.32034)">
+     transform="matrix(0.7237016,-0.23119177,0.2496077,0.67030726,1224.4907,151.32081)">
     <g
        id="g18412"
        style="display:inline">
@@ -12321,7 +12321,7 @@
   <g
      id="g23286"
      style="display:inline"
-     transform="matrix(1.161487,0.47650942,-0.64110131,0.94829812,-170.64193,-55.715055)">
+     transform="matrix(1.161487,0.47650942,-0.64110131,0.94829812,-170.64193,-325.71529)">
     <g
        id="g21266"
        style="display:inline">
