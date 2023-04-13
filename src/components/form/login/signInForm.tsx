@@ -1,29 +1,33 @@
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/router";
-import { FormEventHandler, FunctionComponent, useState } from "react";
-import { BiErrorCircle } from "react-icons/bi";
-import Button from "../../button";
-import Spinner from "../../spinner";
-import Link from "next/link";
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import { FormEventHandler, FunctionComponent, useState } from 'react';
+import { BiErrorCircle } from 'react-icons/bi';
+import Button from '../../button';
+import Spinner from '../../spinner';
+import Link from 'next/link';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
 type SignInFormProps = {
-  setWhichForm: (whichForm: "signIn" | "resetPassword" | "signUp" | "resendEmail") => void;
+  setWhichForm: (
+    whichForm: 'signIn' | 'resetPassword' | 'signUp' | 'resendEmail'
+  ) => void;
 };
 
 const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
-  const [userInfo, setUserInfo] = useState({ email: "", password: "" });
-  const [error, setError] = useState<string>("");
+  const [userInfo, setUserInfo] = useState({ email: '', password: '' });
+  const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [verifyError, setVerifyError] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const router = useRouter();
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     // add some client side validations like empty fields, password length, etc.
     e.preventDefault();
-    setError("");
+    setError('');
     setLoading(true);
-    const res = await signIn("credentials", {
+    const res = await signIn('credentials', {
       email: userInfo.email,
       password: userInfo.password,
       redirect: false,
@@ -34,19 +38,19 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
 
     if (res?.error) {
       setLoading(false);
-      if (res.error.includes("verify")) setVerifyError(true);
+      if (res.error.includes('verify')) setVerifyError(true);
       setError(res.error);
     }
 
     if (res?.ok) {
-      setError("");
-      setUserInfo({ email: "", password: "" });
-      router.push("/profile");
+      setError('');
+      setUserInfo({ email: '', password: '' });
+      router.push('/profile');
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setError("");
+    setError('');
     setUserInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -54,9 +58,10 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
     <>
       <form
         className={`flex relative justify-center flex-col gap-3 min-h-full  ${
-          loading && "cursor-not-allowed pointer-events-none"
+          loading && 'cursor-not-allowed pointer-events-none'
         }`}
-        onSubmit={handleSubmit}>
+        onSubmit={handleSubmit}
+      >
         <h2 className="text-3xl text-center font-semibold">Welcome back!</h2>
         <h6 className="mb-10 text-center font-semibold md:font-normal">
           Sign in using your email and password
@@ -71,20 +76,31 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
           placeholder="Email"
           required
         />
-        <input
-          value={userInfo.password}
-          id="password"
-          onChange={handleChange}
-          className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none"
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-        />
+        <div className="relative">
+          <input
+            value={userInfo.password}
+            id="password"
+            onChange={handleChange}
+            className="py-2 px-1 w-full border-b text-sm md:text-base bg-transparent transition-all border-gray-400 placeholder:text-gray-500 text-black md:focus:border-[#dd5c6e] outline-none"
+            type={showPassword ? 'text' : 'password'}
+            name="password"
+            placeholder="Password"
+            required
+          />
+          <button
+            type="button"
+            className="absolute top-0 mt-2 right-0 hover:bg-orange-500 hover:bg-opacity-10 rounded-sm w-fit p-2"
+            onClick={() => setShowPassword((prev) => !prev)}
+          >
+            {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+          </button>
+        </div>
+
         <button
-          onClick={() => setWhichForm("resetPassword")}
+          onClick={() => setWhichForm('resetPassword')}
           type="button"
-          className="text-sm w-fit -md:mt-1 mb-2 hover:underline text-[#6f5925]   text-start">
+          className="text-sm w-fit -md:mt-1 mb-2 hover:underline text-[#6f5925]   text-start"
+        >
           Forgot your password?
         </button>
         <Button intent={`primary`} type="submit">
@@ -103,8 +119,9 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
               {verifyError && (
                 <button
                   type="button"
-                  onClick={() => setWhichForm("resendEmail")}
-                  className="inline-block transition-colors text-start hover:text-red-700 text-red-500 font-normal text-sm underline">
+                  onClick={() => setWhichForm('resendEmail')}
+                  className="inline-block transition-colors text-start hover:text-red-700 text-red-500 font-normal text-sm underline"
+                >
                   Click here to resend verification email
                 </button>
               )}
@@ -117,10 +134,11 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
             New here?
           </h4>
           <Button
-            onClick={() => setWhichForm("signUp")}
+            onClick={() => setWhichForm('signUp')}
             type="button"
-            intent={"ghost"}
-            className="mt-5">
+            intent={'ghost'}
+            className="mt-5"
+          >
             Sign up instead
           </Button>
         </div>
