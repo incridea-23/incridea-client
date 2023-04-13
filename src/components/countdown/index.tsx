@@ -43,11 +43,7 @@ const CountDown: FC = () => {
   ];
 
   return (
-    <section
-      data-scroll
-      data-scroll-speed="5"
-      className={`text-white text-center titleFont mb-20 lg:mb-40`}
-    >
+    <section className={`text-white text-center titleFont mb-20 lg:mb-40`}>
       <TextAnimation
         text="The wait is almost over!"
         className="flex justify-center"

@@ -7,8 +7,8 @@ import Spinner from '../../spinner';
 const ResetPassword: FunctionComponent = () => {
   const [error, setError] = useState<string | null>(null);
   const [password, setPassword] = useState({
-    newPassword: '',
-    confirmPassword: '',
+    newPassword: "",
+    confirmPassword: "",
   });
 
   const token = useRouter().query.token as string | undefined;
@@ -21,12 +21,12 @@ const ResetPassword: FunctionComponent = () => {
     e.preventDefault();
 
     if (password.newPassword !== password.confirmPassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       return;
     }
 
     if (!token) {
-      setError('Invalid token');
+      setError("Invalid token");
       return;
     }
 
@@ -36,7 +36,7 @@ const ResetPassword: FunctionComponent = () => {
         token: token as string,
       },
     }).then((res) => {
-      if (res.data?.resetPassword.__typename === 'Error') {
+      if (res.data?.resetPassword.__typename === "Error") {
         setError(res.data.resetPassword.message);
       }
     });
@@ -50,9 +50,14 @@ const ResetPassword: FunctionComponent = () => {
         <div className="text-green-500">✅ Password successfully changed</div>
       ) : (
         <form
-          className="flex flex-col gap-3 border border-black p-5 rounded-xl"
+          className={`flex relative justify-center flex-col gap-4 min-h-full  ${
+            loading && "cursor-not-allowed pointer-events-none"
+          }`}
           onSubmit={handleSubmit}
         >
+          <h2 className="text-3xl text-center font-semibold mb-[1em]">
+            Enter New Password
+          </h2>
           <input
             value={password.newPassword}
             onChange={({ target }) =>
@@ -60,6 +65,7 @@ const ResetPassword: FunctionComponent = () => {
             }
             type="password"
             placeholder="Enter New Password"
+            className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none"
           />
           <input
             value={password.confirmPassword}
@@ -68,13 +74,12 @@ const ResetPassword: FunctionComponent = () => {
             }
             type="password"
             placeholder="Confirm New Password"
+            className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none mb-3"
           />
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
-          >
+          <Button intent={`primary`} type="submit">
             Reset Password
-          </button>
+          </Button>
+
           {(error || MutationError) && (
             <div className="text-red-500">
               {error || MutationError?.message}

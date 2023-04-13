@@ -89,7 +89,7 @@ function event({ event, error }: { event: Event; error: String }) {
               />
             )}
             <h1
-              className={`titleFont text-2xl sm:text-4xl px-4 pb-0 sm:p-0 font-bold text-white`}
+              className={`titleFont capitalize text-2xl sm:text-4xl px-4 pb-0 sm:p-0 font-bold text-white`}
             >
               {event.name}
             </h1>
@@ -98,7 +98,7 @@ function event({ event, error }: { event: Event; error: String }) {
             </div>
           </div>
           <div className="basis-1/4 shrink-0 flex flex-col gap-5 items-center rounded-md sm:bg-black/20 backdrop-blur-sm p-0 sm:p-7">
-            <div className="space-y-1.5 max-w-2xl w-[300px]">
+            <div className="space-y-1.5 max-w-2xl sm:w-[300px]">
               <h2 className={`titleFont mb-2 text-2xl`}>Details</h2>
               <div className="flex flex-wrap mt-2 gap-1.5  w-full bodyFont">
                 {getEventAttributes().map((attr) =>

@@ -163,3 +163,7 @@
 .bodyFont {
   font-family: 'Montserrat', sans-serif;
 }
+
+.event-description {
+  font-family: 'Montserrat', sans-serif !important;
+}

@@ -33,7 +33,7 @@ const Pronite: NextPage = () => {
                 textStyle="drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.5)] text-4xl text-center sm:text-6xl"
               />
               <TextAnimation
-                text="These are the nights that never die."
+                text="Ride the waves into a starlit night."
                 className={`titleFont flex justify-center flex-wrap`}
                 textStyle="drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.5)] text-2xl text-center sm:text-4xl"
               />

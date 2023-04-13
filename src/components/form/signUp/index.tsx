@@ -10,7 +10,8 @@ import { BiErrorCircle } from "react-icons/bi";
 import { BsChevronExpand } from "react-icons/bs";
 import Button from "../../button";
 import Spinner from "../../spinner";
-import { AiOutlineInfo } from "react-icons/ai";
+import { AiOutlineInfo, AiOutlineInfoCircle } from "react-icons/ai";
+import Link from "next/link";
 
 type SignUpFormProps = {
   setWhichForm: (
@@ -25,13 +26,13 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
     password: "",
     phoneNumber: "",
     college: "",
+    accepted: false,
   });
   const [error, setError] = useState("");
   const [emailSuccess, setEmailSuccess] = useState(false);
   const [verifyError, setVerifyError] = useState(false);
 
-  const [signUpMutation, { loading, error: mutationError }] =
-    useMutation(SignUpDocument);
+  const [signUpMutation, { loading, error: mutationError }] = useMutation(SignUpDocument);
   const [
     emailVerificationMutation,
     { data, loading: emailVerificationLoading, error: emailVerificationError },
@@ -41,11 +42,25 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
     loading: collegesLoading,
     error: collegesError,
   } = useQuery(CollegesDocument);
-  const sortedColleges = !collegesLoading
-    ? [...(collegeData?.colleges || [])].sort((a, b) => {
-        return a.name.localeCompare(b.name);
+
+  const sortColleges = () => {
+    const nmamit = collegeData?.colleges.find(
+      (college) => college.name === "N.M.A.M. Institute of Technology"
+    );
+    const other = collegeData?.colleges.find((college) => college.name === "Other");
+    const sortedColleges = [...(collegeData?.colleges || [])]
+      .filter((college) => {
+        return (
+          college.name !== "N.M.A.M. Institute of Technology" && college.name !== "Other"
+        );
       })
-    : [];
+      .sort((a, b) => {
+        return a.name.localeCompare(b.name);
+      });
+    return [nmamit, ...sortedColleges, other];
+  };
+
+  const sortedColleges = sortColleges();
   const [selectedCollege, setSelectedCollege] = useState<{
     name: string;
     id: string;
@@ -60,9 +75,9 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
     query === ""
       ? sortedColleges
       : sortedColleges?.filter((college) => {
-          return college.name
+          return college?.name
             .toLowerCase()
-            .replace(/\s+/g, "")
+            .replace(/[.,\s]/g, "")
             .includes(query.toLowerCase().replace(/\s+/g, ""));
         });
 
@@ -101,10 +116,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         return;
       }
     }
-    if (
-      userInfo.phoneNumber.length !== 10 ||
-      isNaN(Number(userInfo.phoneNumber))
-    ) {
+    if (userInfo.phoneNumber.length !== 10 || isNaN(Number(userInfo.phoneNumber))) {
       setError("Please enter a valid 10-digit mobile number");
       return;
     }
@@ -153,9 +165,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
 
   // NOTE: change handler for all fields except college
   const handleChange = (
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
   ) => {
     setError("");
     setUserInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -167,12 +177,36 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
       className={`flex relative justify-center min-h-full flex-col gap-3 ${
         loading && "cursor-not-allowed pointer-events-none"
       }`}>
-      <h2 className="text-3xl text-center font-semibold">
-        Welcome to Incridea! 👋
-      </h2>
-      <h6 className="mb-10 mt-2 md:mt-0 text-center md:font-normal font-semibold">
+      <h2 className="text-3xl text-center font-semibold">Welcome to Incridea! 👋</h2>
+      <h6 className="mt-2 md:mt-0 text-center md:font-normal font-semibold">
         We&apos;re excited to have you here! Sign up below{" "}
       </h6>
+
+      {selectedCollege.name === "Other" && (
+        <div className="bg-blue-100 p-2 flex items-center gap-3 px-4 rounded-md font-semibold text-blue-500">
+          <AiOutlineInfoCircle className="shrink-0" />
+          <div>
+            <a className="inline-block transition-colors text-start text-blue-500 font-normal text-sm">
+              This option is exclusively for invited participants and does not provide
+              access to pronites. If your college is not in the list below and you are not
+              invited, please{" "}
+              <Link
+                href="/contact"
+                className="underline hover:text-blue-700 cursor-pointer">
+                contact us.
+              </Link>{" "}
+              Please refer to Participant Categories in the{" "}
+              <Link
+                href="/guidelines"
+                className="underline hover:text-blue-700 cursor-pointer">
+                Guidelines
+              </Link>{" "}
+              page for details.
+            </a>
+          </div>
+        </div>
+      )}
+
       {!emailSuccess && (
         <>
           <input
@@ -181,7 +215,9 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
             name="name"
             type="text"
             required
-            className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none"
+            className={`${
+              selectedCollege.name === "Other" ? "mt-2" : "mt-10"
+            } py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none`}
             placeholder="Name"
           />
 
@@ -220,8 +256,12 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                     </div>
                   ) : filteredColleges?.length === 0 && query !== "" ? (
                     <div className="relative font-semibold md:text-base text-xs select-none py-2 px-4 text-gray-600">
-                      College not found. Please contact admin.
-                      {/* TODO: Make this a hyperlink for contacting admin */}
+                      College not found. Please{" "}
+                      <Link
+                        href="contact"
+                        className="underline hover:text-gray-700 cursor-pointer">
+                        contact admin.
+                      </Link>
                     </div>
                   ) : (
                     filteredColleges?.map((college) => (
@@ -231,9 +271,9 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                             active ? "bg-[#dd5c6e] text-white" : "text-gray-900"
                           }`
                         }
-                        key={college.id}
+                        key={college?.id}
                         value={college}>
-                        {college.name}
+                        {college?.name}
                       </Combobox.Option>
                     ))
                   )}
@@ -277,6 +317,36 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
             placeholder="Mobile"
             className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none"
           />
+
+          <div className="flex">
+            <input
+              required
+              type="checkbox"
+              className="mr-2"
+              checked={userInfo.accepted}
+              id="termsCheckbox"
+              onChange={() =>
+                setUserInfo((prev) => ({ ...prev, accepted: !prev.accepted }))
+              }
+            />
+            <label htmlFor="termsCheckbox">
+              <span className="text-xs lg:text-sm md:text-base text-gray-500">
+                I agree to all the{" "}
+                <Link
+                  href="/rules"
+                  className="underline hover:text-gray-700 cursor-pointer">
+                  T&C
+                </Link>{" "}
+                and{" "}
+                <Link
+                  href="/guidelines"
+                  className="underline hover:text-gray-700 cursor-pointer">
+                  Guidelines
+                </Link>{" "}
+              </span>
+            </label>
+          </div>
+
           <Button className="mt-3">Sign Up</Button>
         </>
       )}

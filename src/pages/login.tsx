@@ -49,7 +49,7 @@ const SignIn: NextPage = () => {
                 <ResendEmail setWhichForm={setWhichForm} />
               )}
             </div>
-            <img src={'/login-wave.svg'} className="md:hidden block" />
+            <Image src={'/login-wave.svg'} alt="Wave" width={500} height={200} className="md:hidden block w-full h-auto" />
           </div>
         </div>
         <div className="hidden md:flex grow">
