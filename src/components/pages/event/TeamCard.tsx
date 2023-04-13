@@ -215,14 +215,14 @@ const TeamCard = ({
             <LeaveTeamModal refetch={'MyTeam'} teamId={team.id} />
           ))}
 
-        {team.confirmed && (
+        {/* {team.confirmed && (
           <>
             <hr className="w-full border-white/40 my-3" />
             <div className="w-full space-y-3">
               <GoogleCalendar />
             </div>
           </>
-        )}
+        )} */}
       </div>
       {(team.event.eventType === 'TEAM_MULTIPLE_ENTRY' ||
         team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY') && (

@@ -3,6 +3,7 @@ import { ResetPasswordDocument } from '@/src/generated/generated';
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import Spinner from '../../spinner';
+import Button from '../../button';
 
 const ResetPassword: FunctionComponent = () => {
   const [error, setError] = useState<string | null>(null);
