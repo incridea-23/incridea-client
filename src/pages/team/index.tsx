@@ -89,7 +89,7 @@ const TeamMembers = [
   {
     name: 'Keerthan N S',
     role: 'Frontend Developer',
-    image: '/team/keerthan.jpg',
+    image: '/team/keerthan.jpeg',
     github: 'keerthan2002',
     linkedin: 'keerthan-n-s-220142208',
     instagram: 'keerthan_ns',
