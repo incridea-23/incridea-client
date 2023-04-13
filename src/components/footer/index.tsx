@@ -1,18 +1,17 @@
 // @refresh reset
 
-import { titleFont } from "@/src/utils/fonts";
-import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React from "react";
-import { BsInstagram } from "react-icons/bs";
-import { FaYoutube } from "react-icons/fa";
+import { Alignment, Fit, Layout, useRive } from '@rive-app/react-canvas';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { BsFillSuitHeartFill, BsInstagram } from 'react-icons/bs';
+import { FaYoutube } from 'react-icons/fa';
 
 export function HomePageFooter() {
   const { RiveComponent } = useRive({
     src: `assets/rive/footer.riv/`,
-    stateMachines: ["State Machine 1"],
+    stateMachines: ['State Machine 1'],
     autoplay: true,
     layout: new Layout({
       fit: Fit.FitWidth,
@@ -31,7 +30,7 @@ export function FooterBody() {
   return (
     <div
       id="footer"
-      className={`snap-start relative ${titleFont.className} tracking-wider z-20`}
+      className={`snap-start relative titleFont tracking-wider z-20`}
     >
       <div className="-mt-2 flex flex-col gap-5 md:flex-row bg-[#131e28] text-gray-100 p-5 items-center justify-between">
         <div className="md:basis-1/5">
@@ -87,7 +86,10 @@ export function FooterBody() {
       </div>
       <div className="bg-[#0f1821]">
         <p className="text-center p-5 text-gray-200 text-sm">
-          © Incridea 2023 - All rights reserved
+          <Link className='flex justify-center items-center hover:underline hover:text-gray-300' href="/team">
+            Made with <BsFillSuitHeartFill className='mx-2' />  by Technical Team
+          </Link>
+          © Incridea 2023
         </p>
       </div>
     </div>
@@ -96,8 +98,8 @@ export function FooterBody() {
 
 export default function Footer() {
   const router = useRouter();
-  if (router.pathname === "/") return null;
-  if (router.pathname === "/gallery") return null;
-  if (router.pathname === "/pronites") return null;
+  if (router.pathname === '/') return null;
+  if (router.pathname === '/gallery') return null;
+  if (router.pathname === '/pronites') return null;
   return <FooterBody />;
 }

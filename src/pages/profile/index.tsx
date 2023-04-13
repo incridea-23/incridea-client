@@ -1,7 +1,6 @@
 import { useAuth } from '@/src/hooks/useAuth';
 import { NextPage } from 'next';
 import 'locomotive-scroll/dist/locomotive-scroll.css';
-import { LocomotiveScrollProvider } from 'react-locomotive-scroll';
 import { useRef } from 'react';
 import ProfileInfo from '@/src/components/pages/profile/profileInfo';
 import UserEvents from '@/src/components/pages/profile/registeredEvents';

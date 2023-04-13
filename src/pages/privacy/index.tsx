@@ -1,6 +1,5 @@
-import { titleFont } from "@/src/utils/fonts";
-import { NextPage } from "next";
-import Image from "next/image";
+import { NextPage } from 'next';
+import Image from 'next/image';
 
 const Privacy: NextPage = () => {
   return (
@@ -12,10 +11,12 @@ const Privacy: NextPage = () => {
         alt="flare"
         className="absolute opacity-40 z-10 top-0 right-0"
       />
-      <h1 className={`${titleFont.className} text-5xl mb-3 pt-24 text-center`}>
+
+      <h1 className={`titleFont text-5xl mb-3 pt-24 text-center`}>
         Incridea 2023 Privacy Policy
       </h1>
       <div className="mt-10">
+
         <p>
           At Incridea, we take your privacy seriously and are committed to
           protecting your personal information. This privacy policy explains how

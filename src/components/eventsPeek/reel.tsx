@@ -1,8 +1,8 @@
-import { titleFont } from "@/src/utils/fonts";
-import Link from "next/link";
-import EventsPeek from ".";
-import TextAnimation from "../animation/text";
-import Button from "../button";
+
+import Link from 'next/link';
+import EventsPeek from '.';
+import TextAnimation from '../animation/text';
+import Button from '../button';
 
 const EventsReel = () => {
   return (
@@ -10,7 +10,7 @@ const EventsReel = () => {
       <div className="mb-5 flex justify-center">
         <TextAnimation
           text="Events"
-          className={`${titleFont.className}`}
+          className={`titleFont`}
           textStyle="text-2xl font-semibold lg:text-4xl text-white"
         />
       </div>
@@ -23,6 +23,7 @@ const EventsReel = () => {
         <EventsPeek speed={5} />
       </div>
       {/* </div> */}
+
 
       <div className="mx-auto px-4 max-w-3xl">
         <p className="text-sm lg:text-lg mt-12 text-center text-white">
