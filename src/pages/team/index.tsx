@@ -1,6 +1,5 @@
 import TeamCard from '@/src/components/pages/about/TeamCard';
 import { NextPage } from 'next';
-import { TeamMembers } from './team';
 
 const Team: NextPage = () => {
   return (
@@ -29,3 +28,87 @@ const Team: NextPage = () => {
 };
 
 export default Team;
+
+const TeamMembers = [
+  {
+    name: 'Swasthik Shetty',
+    role: 'Technical Head | Full Stack Developer',
+    image: '',
+    github: '',
+    linkedin: '',
+    instagram: '',
+    quote: '',
+  },
+  {
+    name: 'Nagaraj Pandith',
+    role: 'Frontend Lead | Developer',
+    image: '',
+    github: '',
+    linkedin: '',
+    instagram: '',
+    quote: '',
+  },
+  {
+    name: 'Prayag Sharma',
+    role: 'Technical Head | Management',
+    image: '',
+    github: '',
+    linkedin: '',
+    instagram: '',
+    quote: '',
+  },
+  {
+    name: 'Numan Naeem',
+    role: 'UI Lead | Developer',
+    image: '',
+    github: '',
+    linkedin: '',
+    instagram: '',
+    quote: '',
+  },
+  {
+    name: 'Satvik Nayak',
+    role: 'Frontend Developer',
+    image: '',
+    github: '',
+    linkedin: '',
+    instagram: '',
+    quote: '',
+  },
+  {
+    name: 'Aaron Nazareth',
+    role: 'Backend Developer',
+    image: '',
+    github: '',
+    linkedin: '',
+    instagram: '',
+    quote: '',
+  },
+  {
+    name: 'Keerthan N S',
+    role: 'Frontend Developer',
+    image: '',
+    github: '',
+    linkedin: '',
+    instagram: '',
+    quote: '',
+  },
+  {
+    name: 'Padmashree Shetty',
+    role: 'Backend Developer',
+    image: '',
+    github: '',
+    linkedin: '',
+    instagram: '',
+    quote: '',
+  },
+  {
+    name: 'Kumar Ankush',
+    role: 'Frontend Developer',
+    image: '',
+    github: '',
+    linkedin: '',
+    instagram: '',
+    quote: '',
+  },
+];
