@@ -1,5 +1,5 @@
 import { User } from '@/src/generated/generated';
-import { titleFont } from '@/src/utils/fonts';
+
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,6 +12,7 @@ import { idToPid } from '@/src/utils/id';
 import Button from '../../button';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { GiShipWheel } from 'react-icons/gi';
 
 const ProfileInfo: FC<{
   user: User | null | undefined;
@@ -26,30 +27,28 @@ const ProfileInfo: FC<{
     <section data-scroll-section className="text-white min-h-fit py-10 mb-10">
       <div data-scroll className="flex mb-4 items-center justify-center px-5">
         <a
-          className={`${titleFont.className} text-2xl lg:text-4xl font-bold text-center`}
+          className={`titleFont text-2xl lg:text-4xl font-bold text-center pr-2`}
         >
-          Welcome {user?.name}!
+          Welcome Sailor!
         </a>
-        <span className="animate-wave text-2xl lg:text-4xl">👋</span>
+        <GiShipWheel className="text-2xl lg:text-4xl duration-1000 animate-spin-slow" />
       </div>
       <TextAnimation
         text="Ready to dive in?"
-        textStyle="text-lg lg:text-2xl"
+        textStyle="text-lg lg:text-2xl bodyFont"
         className="flex items-center justify-center"
       />
 
       <div className="flex justify-center items-center lg:space-x-20 lg:flex-row flex-col-reverse mt-10">
         <div className="flex flex-col justify-center space-y-2 lg:space-y-6 lg:mt-0 md:mt-5 mt-2 md:text-lg text-sm">
-          <a
-            className={`text-3xl lg:text-4xl font-bold ${titleFont.className}`}
-          >
+          <a className={`text-3xl lg:text-4xl font-bold titleFont`}>
             {user?.name}
           </a>
-          <a className="text-xl lg:text-2xl flex items-center gap-5">
+          <a className="text-xl lg:text-2xl flex items-center gap-5 bodyFont">
             {user?.college?.name || '-'}
           </a>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 bodyFont">
             <span className="font-bold text-xl">Contact details</span>
             <div className="flex gap-2 items-center">
               <MdOutlineEmail />
@@ -109,9 +108,7 @@ const ProfileInfo: FC<{
                 bgColor="#9BBAB5"
               />
 
-              <a
-                className={`${titleFont.className} text-[#4d5e57] text-xl p-2 mt-2`}
-              >
+              <a className={`titleFont text-[#4d5e57] text-xl p-2 mt-2`}>
                 {idToPid(user?.id!)}
               </a>
             </motion.div>

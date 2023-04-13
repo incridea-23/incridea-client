@@ -1,12 +1,11 @@
 // @refresh reset
 
-import { titleFont } from "@/src/utils/fonts";
 import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { BsInstagram } from "react-icons/bs";
+import { BsFillSuitHeartFill, BsInstagram } from "react-icons/bs";
 import { FaYoutube } from "react-icons/fa";
 
 export function HomePageFooter() {
@@ -29,7 +28,10 @@ export function HomePageFooter() {
 
 export function FooterBody() {
   return (
-    <div id="footer" className={`snap-start relative ${titleFont.className} tracking-wider z-20`}>
+    <div
+      id="footer"
+      className={`snap-start relative titleFont tracking-wider z-20`}
+    >
       <div className="-mt-2 flex flex-col gap-5 md:flex-row bg-[#131e28] text-gray-100 p-5 items-center justify-between">
         <div className="md:basis-1/5">
           <Image
@@ -50,6 +52,14 @@ export function FooterBody() {
             </li>
             |
             <li className="text-gray-300 hover:text-gray-100">
+              <Link href="/guidelines">Guidelines</Link>
+            </li>
+            |
+            <li className="text-gray-300 hover:text-gray-100">
+              <Link href="/refund">Refund Policy</Link>
+            </li>
+            |
+            <li className="text-gray-300 hover:text-gray-100">
               <Link href="/about">About</Link>
             </li>
           </ul>
@@ -60,7 +70,8 @@ export function FooterBody() {
               <a
                 target="_blank"
                 href="https://www.instagram.com/incridea/"
-                rel="noreferrer">
+                rel="noreferrer"
+              >
                 <BsInstagram />
               </a>
             </li>
@@ -69,7 +80,8 @@ export function FooterBody() {
                 target="_blank"
                 className="text-3xl"
                 href="https://www.youtube.com/@incrideanmamit"
-                rel="noreferrer">
+                rel="noreferrer"
+              >
                 <FaYoutube />
               </a>
             </li>
@@ -78,7 +90,13 @@ export function FooterBody() {
       </div>
       <div className="bg-[#0f1821]">
         <p className="text-center p-5 text-gray-200 text-sm">
-          © Incridea 2023 - All rights reserved
+          <Link
+            className="flex justify-center items-center hover:underline hover:text-gray-300"
+            href="/team"
+          >
+            Made with <BsFillSuitHeartFill className="mx-2" /> by Technical Team
+          </Link>
+          © Incridea 2023
         </p>
       </div>
     </div>

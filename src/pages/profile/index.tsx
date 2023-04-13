@@ -1,7 +1,6 @@
 import { useAuth } from '@/src/hooks/useAuth';
 import { NextPage } from 'next';
 import 'locomotive-scroll/dist/locomotive-scroll.css';
-import { LocomotiveScrollProvider } from 'react-locomotive-scroll';
 import { useRef } from 'react';
 import ProfileInfo from '@/src/components/pages/profile/profileInfo';
 import UserEvents from '@/src/components/pages/profile/registeredEvents';
@@ -9,6 +8,7 @@ import { Toaster } from 'react-hot-toast';
 import Link from 'next/link';
 import Button from '@/src/components/button';
 import Image from 'next/image';
+import Loader from '@/src/components/Loader';
 
 const Profile: NextPage = () => {
   const { error, user, loading } = useAuth();
@@ -16,19 +16,20 @@ const Profile: NextPage = () => {
 
   if (loading)
     return (
-      <div className="flex items-center justify-center h-screen bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
-        <h1 className="text-2xl font-bold text-white">Loading...</h1>
-      </div>
+      <Loader/>
     ); // Todo: Loading page here
 
   if (!user)
     return (
-      <div className="flex flex-col text-center space-y-3 items-center justify-center h-screen bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
+      <div className="flex flex-col text-center space-y-3 items-center justify-center h-screen bg-gradient-to-bl from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
         {/* Todo: Any graphic to fill space */}
-        <h1 className="lg:text-2xl text-lg font-bold text-white">
+        <div className="flex z-10 justify-center items-center h-96 mt-8">
+            <Image src={ '/assets/png/diver.png' } alt="404" width={400} height={400} />
+        </div>
+        <h1 className="bodyFont lg:text-2xl text-lg font-bold text-white -translate-y-10">
           Hey there! You need to login to view this page.
         </h1>
-        <Link href="/login">
+        <Link href="/login" className='-translate-y-10'>
           <Button intent={'primary'}>Login / Register</Button>
         </Link>
       </div>

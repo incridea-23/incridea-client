@@ -1,6 +1,5 @@
 import Navbar from "@/src/components/navbar";
 import { useAuth } from "@/src/hooks/useAuth";
-import { bodyFont, titleFont } from "@/src/utils/fonts";
 import Event from "@/src/components/event";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
@@ -10,42 +9,72 @@ import Image from "next/image";
 import { client } from "@/src/lib/apollo";
 import SearchBox from "@/src/components/searchbox";
 import { AiOutlineSearch } from "react-icons/ai";
+import { BiCaretDown } from "react-icons/bi";
+import { FaAngleDown } from "react-icons/fa";
+import { AnimatePresence, motion } from "framer-motion";
 
-const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
+const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
   data,
 }) => {
-  const filters = [
+  const branchFilters = [
     "ALL",
     "CORE",
     "CSE",
     "ISE",
-    "AI/ML",
-    "CC",
+    "AIML",
+    "CCE",
     "ECE",
     "EEE",
     "MECH",
     "CIVIL",
-    "ROBOTICS",
+    "BTE",
   ];
-  const { status, user } = useAuth();
-  const [currentFilter, setCurrentFilter] = useState<typeof filters[number]>("ALL");
+
+  const dayFilters = ["ALL", "DAY 1", "DAY 2", "DAY 3", "DAY 4"];
+  const categoryFilters = ["ALL", "TECHNICAL", "NON_TECHNICAL", "CORE"];
+  const [currentBranchFilter, setCurrentBranchFilter] =
+    useState<typeof branchFilters[number]>("ALL");
+  const [currentDayFilter, setCurrentDayFilter] =
+    useState<typeof dayFilters[number]>("ALL");
+  const [currentCategoryFilter, setCurrentCategoryFilter] =
+    useState<typeof branchFilters[number]>("ALL");
   const [query, setQuery] = useState("");
 
   const [filteredEvents, setFilteredEvents] = useState(data || []);
 
-  const handleFilter = (filter: typeof filters[number]) => {
-    setQuery("");
-    setCurrentFilter(filter);
-    if (filter === "ALL") {
-      setFilteredEvents(data || []);
-    } else {
-      setFilteredEvents(data.filter((event) => event.branch.name === filter));
+  useEffect(() => {
+    let tempFilteredEvents = data;
+    if (currentBranchFilter !== "ALL")
+      tempFilteredEvents = tempFilteredEvents.filter(
+        (event) => event.branch.name === currentBranchFilter
+      );
+    if (currentDayFilter !== "ALL") {
+      let filteredDay = new Date(
+        currentDayFilter === "DAY 1"
+          ? "2023-04-26"
+          : currentDayFilter === "DAY 2"
+          ? "2023-04-27"
+          : currentDayFilter === "DAY 3"
+          ? "2023-04-28"
+          : "2023-04-29"
+      ).getDate();
+      tempFilteredEvents = tempFilteredEvents.filter((event) =>
+        event.rounds.some((round) => new Date(round.date).getDate() === filteredDay)
+      );
     }
-  };
+    if (currentCategoryFilter !== "ALL") {
+      tempFilteredEvents = tempFilteredEvents.filter(
+        (event) => event.category === currentCategoryFilter
+      );
+    }
+    setFilteredEvents(tempFilteredEvents);
+  }, [currentBranchFilter, currentDayFilter, currentCategoryFilter, data]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
-    setCurrentFilter("ALL");
+    setCurrentBranchFilter("ALL");
+    setCurrentDayFilter("ALL");
+    setCurrentCategoryFilter("ALL");
     if (e.target.value === "") {
       setFilteredEvents(data || []);
     } else {
@@ -55,6 +84,15 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
         )
       );
     }
+  };
+
+  //TODO: Add reset filter button on mobile
+  const resetFilters = () => {
+    setQuery("");
+    setCurrentBranchFilter("ALL");
+    setCurrentDayFilter("ALL");
+    setCurrentCategoryFilter("ALL");
+    setFilteredEvents(data || []);
   };
 
   return (
@@ -67,72 +105,186 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
         className="absolute max-h-screen pointer-events-none opacity-50  top-0 right-0"
       />
       <h1
-        className={`${titleFont.className} font-bold text-5xl tracking-wide text-center pt-32 text-white`}>
+        className={`titleFont font-bold text-5xl tracking-wide text-center pt-32 text-white`}
+      >
         EVENTS
       </h1>
-      <div className="flex items-center gap-2 md:mx-10 mx-4 justify-between lg:flex-col lg:mx-auto mt-4">
-        <div className="relative lg:w-[800px] w-full">
-          <input
-            value={query}
-            onChange={handleSearch}
-            className="w-full pr-14 bg-black/30 placeholder:text-gray-200/70 focus:outline-none text-white rounded-sm  pl-3 p-2"
-            placeholder="Search away!"
-            type="text"
-          />
-          <AiOutlineSearch
-            size={"1.4rem"}
-            className="absolute right-3 top-2.5 text-gray-300/70"
-          />
+      <h3 className={`titleFont font-semibold text-xl tracking-wide text-center py-5 text-white`}>60+ Events: Dive into Limitless Fun and Adventure!</h3>
+      <div className="flex flex-wrap items-center gap-2 px-4 lg:justify-between lg:flex-col lg:mx-auto mt-8">
+        <div className="flex flex-col lg:flex-nowrap lg:w-[800px] w-full items-center gap-2">
+          <div className="flex w-full items-center justify-between gap-3">
+            <div className="relative lg:basis-[75%] basis-full w-full lg:w-auto ">
+              <input
+                value={query}
+                onChange={handleSearch}
+                className="w-full pr-14 bg-black/30 placeholder:text-gray-200/70 focus:outline-none text-white rounded-sm  pl-3 p-2"
+                placeholder="Search away!"
+                type="text"
+              />
+              <AiOutlineSearch
+                size={"1.4rem"}
+                className="absolute right-3 top-2.5 text-gray-300/70"
+              />
+            </div>
+            <div className="lg:flex hidden justify-center basis-[12.5%] py-2">
+              <Menu as={"div"} className={"relative w-full inline-block"}>
+                <Menu.Button
+                  className={
+                    "inline-flex bg-black/30 leading-6 w-full justify-center rounded-sm px-4 py-2 h-[40px] text-sm font-medium text-white"
+                  }>
+                  {currentBranchFilter !== "ALL" ? currentBranchFilter : "Branch"}
+                </Menu.Button>
+                <Menu.Items className=" overflow-hidden pb-1.5 mt-1 bg-[#075985] absolute z-10 text-center rounded-sm shadow-black/80 shadow-2xl">
+                  {branchFilters.map((filter) => (
+                    <Menu.Item key={filter}>
+                      {({ active }) => (
+                        <button
+                          className={`${
+                            currentBranchFilter === filter ? "bg-black/50" : "bg-black/20"
+                          } text-white rounded-sm m-1.5 mb-0 w-32 px-3 py-2 text-sm`}
+                          onClick={() => setCurrentBranchFilter(filter)}>
+                          {filter}
+                        </button>
+                      )}
+                    </Menu.Item>
+                  ))}
+                </Menu.Items>
+              </Menu>
+            </div>
+            <div className="lg:flex hidden justify-center basis-[12.5%] py-2">
+              <Menu as={"div"} className={"relative w-full inline-block"}>
+                <Menu.Button
+                  className={
+                    "inline-flex shrink-0 whitespace-nowrap bg-black/30 leading-6 w-full justify-center rounded-sm px-4 py-2 h-[40px] text-sm font-medium text-white"
+                  }>
+                  {currentDayFilter !== "ALL" ? currentDayFilter : "Day"}
+                </Menu.Button>
+                <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-[#075985]  absolute z-[1] text-center rounded-sm shadow-black/80 shadow-2xl">
+                  {dayFilters.map((filter) => (
+                    <Menu.Item key={filter}>
+                      {({ active }) => (
+                        <button
+                          className={`${
+                            currentDayFilter === filter ? "bg-black/50" : "bg-black/20"
+                          } text-white rounded-sm m-1.5 mb-0 w-36 px-3 py-2 text-sm`}
+                          onClick={() => setCurrentDayFilter(filter)}>
+                          {filter}
+                        </button>
+                      )}
+                    </Menu.Item>
+                  ))}
+                </Menu.Items>
+              </Menu>
+            </div>
+          </div>
+          <div className="lg:flex lg:w-[800px] gap-3 mx-auto  hidden  font-semibold">
+            {categoryFilters.map((filter) => (
+              <span
+                key={filter}
+                className={`${
+                  filter === currentCategoryFilter
+                    ? "border-b-4  bg-black/10 "
+                    : "hover:bg-black/10"
+                } text-white cursor-pointer grow border-black/30 text-center rounded-sm px-3 py-1`}
+                onClick={() => setCurrentCategoryFilter(filter)}>
+                {filter.replace("_", " ")}
+              </span>
+            ))}
+          </div>
         </div>
-        <div className="lg:flex lg:w-[800px] justify-between gap-3 mt-4 mx-auto  hidden eventNavigation font-semibold">
-          {filters.map((filter) => (
-            <span
-              key={filter}
-              className={`${
-                filter === currentFilter ? "bg-black/20" : "hover:bg-black/10"
-              } text-white cursor-pointer rounded-sm px-3 py-1`}
-              onClick={() => handleFilter(filter)}>
-              {filter}
-            </span>
-          ))}
-        </div>
-        <div className="lg:hidden flex justify-center my-2 py-2 rounded-md">
-          <Menu as={"div"} className={"relative inline-block"}>
-            <Menu.Button
-              className={
-                "inline-flex bg-white/90 w-full justify-center rounded-full px-4 py-2 text-sm font-medium text-black"
-              }>
-              Filters
-            </Menu.Button>
-            <Menu.Items className="overflow-hidden pb-1.5 bg-white absolute z-[1] text-center right-0  top-0 rounded-md shadow-lg">
-              {filters.map((filter) => (
-                <Menu.Item key={filter}>
-                  {({ active }) => (
-                    <button
-                      className={`${
-                        currentFilter === filter ? "bg-red-300" : "bg-white"
-                      } text-black rounded-sm m-1.5 mb-0 w-32 px-3 py-2 text-sm`}
-                      onClick={() => handleFilter(filter)}>
-                      {filter}
-                    </button>
-                  )}
-                </Menu.Item>
-              ))}
-            </Menu.Items>
-          </Menu>
+
+        {/* <p className="lg:hidden text-white/90 mr-2">More filters</p> */}
+        <div className="flex  justify-between gap-3 basis-full">
+          <div className="lg:hidden flex basis-1/3 justify-between  py-2">
+            <Menu as={"div"} className={"relative grow inline-block"}>
+              <Menu.Button
+                className={
+                  "inline-flex bg-black/30 leading-6 w-full justify-center rounded-sm px-4 py-2 h-[40px] text-sm font-medium text-white"
+                }>
+                {currentBranchFilter !== "ALL" ? currentBranchFilter : "Branch"}
+              </Menu.Button>
+              <Menu.Items className=" overflow-hidden pb-1.5 mt-1 bg-[#075985] absolute z-50 text-center rounded-sm shadow-black/80 shadow-2xl">
+                {branchFilters.map((filter) => (
+                  <Menu.Item key={filter}>
+                    {({ active }) => (
+                      <button
+                        className={`${
+                          currentBranchFilter === filter ? "bg-black/50" : "bg-black/20"
+                        } text-white rounded-sm m-1.5 mb-0 w-36 px-3 py-2 text-sm`}
+                        onClick={() => setCurrentBranchFilter(filter)}>
+                        {filter}
+                      </button>
+                    )}
+                  </Menu.Item>
+                ))}
+              </Menu.Items>
+            </Menu>
+          </div>
+          <div className="lg:hidden flex justify-center shrink grow-0 basis-1/3 py-2">
+            <Menu as={"div"} className={"relative grow inline-block"}>
+              <Menu.Button
+                className={
+                  "inline-flex whitespace-nowrap overflow-hidden  bg-black/30 leading-6 w-full justify-center rounded-sm px-4 py-2 h-[40px] text-sm font-medium text-white"
+                }>
+                {currentCategoryFilter !== "ALL"
+                  ? currentCategoryFilter.replace("_", " ")
+                  : "Category"}
+              </Menu.Button>
+              <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-[#075985]  absolute z-50 text-center rounded-sm shadow-black/80 shadow-2xl">
+                {categoryFilters.map((filter) => (
+                  <Menu.Item key={filter}>
+                    {({ active }) => (
+                      <button
+                        className={`${
+                          currentCategoryFilter === filter ? "bg-black/50" : "bg-black/20"
+                        } text-white rounded-sm m-1.5 mb-0 w-36 px-3 py-2 text-sm`}
+                        onClick={() => setCurrentCategoryFilter(filter)}>
+                        {filter.replace("_", " ")}
+                      </button>
+                    )}
+                  </Menu.Item>
+                ))}
+              </Menu.Items>
+            </Menu>
+          </div>
+          <div className="lg:hidden flex justify-center basis-1/3  py-2">
+            <Menu as={"div"} className={"relative grow inline-block"}>
+              <Menu.Button
+                className={
+                  "inline-flex whitespace-nowrap bg-black/30 leading-6 w-full justify-center rounded-sm px-4 py-2 h-[40px] text-sm font-medium text-white"
+                }>
+                {currentDayFilter !== "ALL" ? currentDayFilter : "Day"}
+              </Menu.Button>
+              <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-[#075985]  absolute z-50 text-center rounded-sm shadow-black/80 shadow-2xl">
+                {dayFilters.map((filter) => (
+                  <Menu.Item key={filter}>
+                    {({ active }) => (
+                      <button
+                        className={`${
+                          currentDayFilter === filter ? "bg-black/50" : "bg-black/20"
+                        } text-white rounded-sm m-1.5 mb-0 w-36 px-3 py-2 text-sm`}
+                        onClick={() => setCurrentDayFilter(filter)}>
+                        {filter.replace("_", " ")}
+                      </button>
+                    )}
+                  </Menu.Item>
+                ))}
+              </Menu.Items>
+            </Menu>
+          </div>
         </div>
       </div>
-      {currentFilter !== "ALL" && filteredEvents.length > 0 && (
+      {filteredEvents.length < data.length && filteredEvents.length > 0 && (
         <div className="md:hidden flex mb-3 justify-center">
           <span className="text-gray-200  text-xs">
-            Displaying {filteredEvents.length} {currentFilter} event(s)
+            Displaying {filteredEvents.length} event(s)
           </span>
         </div>
       )}
-      <div className="md:p-10 md:pt-10 pt-1 p-4 flex justify-center ">
+      <div className="md:p-10 md:pt-7 pt-1 p-4 flex justify-center ">
         {filteredEvents.length === 0 ? (
-          <div className="flex italic items-center justify-center min-h-[20rem] text-xl w-screen text-center text-gray-200/70">
-            <span>no events found</span>
+          <div className="bodyFont flex italic items-center justify-center min-h-[20rem] text-xl w-screen text-center text-gray-200/70">
+            <span>No events found</span>
           </div>
         ) : (
           <div className="max-w-7xl w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -150,7 +302,7 @@ export async function getStaticProps() {
   try {
     const { data: events } = await client.query({
       query: PublishedEventsDocument,
-      fetchPolicy: "no-cache",
+      fetchPolicy: 'no-cache',
     });
 
     return {

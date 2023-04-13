@@ -2,11 +2,11 @@ import { NextPage } from 'next';
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useRouter } from 'next/router';
-import { titleFont } from '../utils/fonts';
 import Navbar from '../components/navbar';
 import Button from '../components/button';
 import { makePayment } from '../utils/razorpay';
 import Spinner from '../components/spinner';
+import Link from 'next/link';
 
 type Props = {};
 
@@ -14,16 +14,14 @@ const Register: NextPage = (props: Props) => {
   const { error, user, loading: userLoading } = useAuth();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  if(userLoading) return <a>Loading....</a>
-  if (!user) router.push('/login');
-  if (user?.role !== 'USER') router.push('/');
+  if (userLoading) return <a>Loading....</a>;
+  // if (!user) router.push('/login');
+  // if (user?.role !== 'USER') router.push('/');
 
   return (
-    <div className="px-4 md:px-6 py-24 min-h-screen text-white bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
-      <div className="mx-auto max-w-lg">
-        <h2
-          className={`${titleFont.className} text-white text-center text-4xl md:text-5xl`}
-        >
+    <div className="px-4 md:px-6 pt-32 min-h-screen text-white bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
+      <div className="mx-auto max-w-4xl">
+        <h2 className={`titleFont text-white text-center text-4xl md:text-5xl`}>
           Register
         </h2>
         <h5 className="text-center mt-5 md:mt-7 text-base md:text-xl max-w-7xl mx-auto">
@@ -34,11 +32,42 @@ const Register: NextPage = (props: Props) => {
           <h2 className="font-semibold md:text-2xl text-base">
             Terms and Conditions
           </h2>
-          <ol className="mt-4 md:text-xl list-disc list-inside">
-            <li>List</li>
-            <li>Of</li>
-            <li>Rules</li>
+          <p className="mt-2">
+            Four different categories of participants are permitted to
+            participate:
+          </p>
+          <ol className="mt-2 list-decimal pl-4">
+            <li>
+              {' '}
+              NMAM Institute of Technology students who pay ₹200 will have
+              access to all events and pronites
+            </li>
+            <li>
+              {' '}
+              Engineering college students, other than NMAMIT, who pay ₹300 will
+              have access to all events and pronites.
+            </li>
+            <li>
+              Non-engineering college and Nitte sister college students who pay
+              ₹300 will have access only to Core Events and pronites.
+            </li>
+            <li>
+              {' '}
+              Invite-only participants who pay ₹150 will have access to the one
+              core event they were invited to. If the invite-only participant is
+              a college student and wants to attend pronite, they will have to
+              register as given in point 3.
+            </li>
           </ol>
+          <div className='mt-2'>
+            <Link
+              className="hover:text-gray-300 underline"
+              href={'/guidelines'}
+            >
+              Read More
+            </Link>{' '}
+            about the guidelines and regulations
+          </div>
           <Button
             disabled={loading}
             onClick={() => makePayment(setLoading)}

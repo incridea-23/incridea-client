@@ -7,6 +7,7 @@ import { IoCashOutline, IoCreateOutline, IoInformationOutline, IoLocationOutline
 import draftToHtml from 'draftjs-to-html';
 import EditEventModal from './EditEvent';
 import TeamModal from './TeamModal';
+import styles from "../../../pages/event/EventDetails.module.css";
 
 const VieweventModal: FC<{
   Event: EventsQuery['events']['edges'][0];
@@ -127,7 +128,7 @@ const VieweventModal: FC<{
             <hr className="opacity-30 -mx-3 mb-3" />
             {event?.description ? (
               //TODO: fix styling of rendered HTML
-              <div dangerouslySetInnerHTML={{ __html: markup }}></div>
+              <div className={`${styles.markup} w-full event-description`} dangerouslySetInnerHTML={{ __html: markup }}></div>
             ) : (
               <p
                 className="text-gray-400 italic
