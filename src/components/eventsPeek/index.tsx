@@ -38,18 +38,6 @@ const EventsPeek: FC<{
             </div>
           );
         })}
-        {/* {images.map((i) => {
-          return (
-            <div className="flex justify-center items-start gap-5" key={i}>
-              <Image
-                src={"/assets/Core_Event_Posters/" + i}
-                alt="Gallery Image"
-                width={500}
-                height={300}
-              />
-            </div>
-          );
-        })} */}
       </div>
     </section>
   );
