@@ -7,14 +7,14 @@ const EventsPeek: FC<{
   const images = [
     "Battle_of_Bands_WEB.jpg",
     "Copy of NAVARASA_WithoutContact.png",
-    "COUTURE_WEB.jpg",
     "Desafio.jpg",
-    "Hogathon.jpg",
-    "Knuckle Down.jpg",
     "Stomp That.png",
+    "VibeV3.jpg",
+    "COUTURE_WEB.jpg",
+    "Knuckle Down.jpg",
     "TULU_POSTER_WEB.jpg",
     "usaravalli@3x.jpg",
-    "VibeV3.jpg",
+    "Hogathon.jpg",
   ]; // TODO: Replace with actual images (top 3)
 
   return (
@@ -23,7 +23,7 @@ const EventsPeek: FC<{
         data-scroll
         data-scroll-speed={speed}
         data-scroll-direction="horizontal"
-        className="w-[500%] lg:w-[200%] flex gap-2 py-2 items-center backdrop-filter"
+        className="w-[500%] md:w-[350%] lg:w-[250%] flex gap-2 py-2 items-center backdrop-filter"
       >
         {images.map((i) => {
           return (
