@@ -52,6 +52,10 @@ export function FooterBody() {
             </li>
             |
             <li className="text-gray-300 hover:text-gray-100">
+              <Link href="/refund">Refund Policy</Link>
+            </li>
+            |
+            <li className="text-gray-300 hover:text-gray-100">
               <Link href="/about">About</Link>
             </li>
           </ul>

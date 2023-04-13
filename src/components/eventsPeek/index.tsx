@@ -1,17 +1,24 @@
-import Image from 'next/image';
-import React, { FC } from 'react';
+import Image from "next/image";
+import React, { FC } from "react";
 
 const EventsPeek: FC<{
   speed: number;
 }> = ({ speed }) => {
   const images = [
-    'v1678613776/1.jpg',
-    'v1678613775/2.jpg',
-    'v1678613774/3.jpg',
+    "Battle_of_Bands_WEB.jpg",
+    "Copy of NAVARASA_WithoutContact.png",
+    "COUTURE_WEB.jpg",
+    "Desafio.jpg",
+    "Hogathon.jpg",
+    "Knuckle Down.jpg",
+    "Stomp That.png",
+    "TULU_POSTER_WEB.jpg",
+    "usaravalli@3x.jpg",
+    "VibeV3.jpg",
   ]; // TODO: Replace with actual images (top 3)
 
   return (
-    <section style={{ transform: 'translateX(-60%)' }}>
+    <section style={{ transform: "translateX(-60%)" }}>
       <div
         data-scroll
         data-scroll-speed={speed}
@@ -22,7 +29,7 @@ const EventsPeek: FC<{
           return (
             <div className="flex justify-center items-start gap-5" key={i}>
               <Image
-                src={'https://res.cloudinary.com/dpfpk49oa/image/upload/' + i}
+                src={"/assets/Core_Event_Posters/" + i}
                 alt="Gallery Image"
                 width={500}
                 height={300}
@@ -35,7 +42,7 @@ const EventsPeek: FC<{
           return (
             <div className="flex justify-center items-start gap-5" key={i}>
               <Image
-                src={'https://res.cloudinary.com/dpfpk49oa/image/upload/' + i}
+                src={"/assets/Core_Event_Posters/" + i}
                 alt="Gallery Image"
                 width={500}
                 height={300}

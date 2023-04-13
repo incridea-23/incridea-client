@@ -1,6 +1,8 @@
+
 import Image from 'next/image';
 import { FC } from 'react';
 import { motion,useScroll,useTransform } from 'framer-motion';
+
 
 const AboutCollege: FC = () => {
   let { scrollYProgress } = useScroll();
@@ -11,7 +13,7 @@ const AboutCollege: FC = () => {
       className="relative h-96 w-full overflow-hidden">
         <motion.div style={{y}}className='relative h-full w-full overflow-hidden' >
         <Image
-          src="https://incridemo.web.app/events/EC/SHARKTANK.jpg"
+          src="/assets/png/collegeAbout.png"
           alt="Incridea Banner"
           width={500}
           height={500}
@@ -29,35 +31,27 @@ const AboutCollege: FC = () => {
       </div>
 
       <div className="flex flex-col lg:flex-row-reverse justify-center items-center gap-10 lg:gap-20 lg:p-10 p-5 basis-1/2">
-        <div>
-          <Image
-            src="/assets/png/nitte-logo.png"
-            alt="Nitte Logo"
-            width={300}
-            height={300}
-          />
-          <Image
-            src="/assets/png/nmamit-logo.png"
-            alt="Nmamit Logo"
-            width={300}
-            height={300}
-          />
-        </div>
-
-        <div className="text-white text-lg lg:text-xl text-justify basis-1/2 my-5 bodyFont">
-          Never gonna give you up Never gonna let you down Never gonna run
-          around and desert you Never gonna make you cry Never gonna say goodbye
-          Never gonna tell a lie and hurt you Never gonna give you up Never
-          gonna let you down Never gonna run around and desert you Never gonna
-          make you cry Never gonna say goodbye Never gonna tell a lie and hurt
-          you
+        <Image
+          src="/assets/png/nitteLogoWhite.png"
+          alt="Incridea Logo"
+          width={600}
+          height={600}
+        />
+        <div className="text-white text-lg lg:text-xl text-justify basis-1/2 my-5">
+          N.M.A.M Institute of Technology is a prestigious institution that has
+          established itself as a leading engineering, management, and MCA
+          institution. Founded by Justice K S Hegde in 1986, the college has
+          come a long way from its humble beginnings to become a
+          multi-disciplinary university offering diverse programs. With a focus
+          on innovation and excellence, NMAMIT has earned a well-deserved
+          reputation in the region.
           <div className="py-5" />
-          Never gonna give you up Never gonna let you down Never gonna run
-          around and desert you Never gonna make you cry Never gonna say goodbye
-          Never gonna tell a lie and hurt you Never gonna give you up Never
-          gonna let you down Never gonna run around and desert you Never gonna
-          make you cry Never gonna say goodbye Never gonna tell a lie and hurt
-          you
+          The college&apos;s state-of-the-art facilities, experienced faculty,
+          and industry-driven curriculum prepare students to meet the challenges
+          of the real world and become leaders in their respective fields. The
+          college&apos;s emphasis on research and development has resulted in
+          numerous accolades and awards, making it a top-ranked institution in
+          India and globally.
         </div>
       </div>
     </>

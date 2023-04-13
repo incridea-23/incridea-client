@@ -111,6 +111,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
       >
         EVENTS
       </h1>
+      <h3 className={`titleFont font-semibold text-xl tracking-wide text-center py-5 text-white`}>60+ Events: Dive into Limitless Fun and Adventure!</h3>
       <div className="flex flex-wrap items-center gap-2 px-4 lg:justify-between lg:flex-col lg:mx-auto mt-8">
         <div className="flex flex-col lg:flex-nowrap lg:w-[800px] w-full items-center gap-2">
           <div className="flex w-full items-center justify-between gap-3">
