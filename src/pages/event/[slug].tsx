@@ -89,7 +89,7 @@ function event({ event, error }: { event: Event; error: String }) {
               />
             )}
             <h1
-              className={`titleFont text-2xl sm:text-4xl px-4 pb-0 sm:p-0 font-bold text-white`}
+              className={`titleFont capitalize text-2xl sm:text-4xl px-4 pb-0 sm:p-0 font-bold text-white`}
             >
               {event.name}
             </h1>
