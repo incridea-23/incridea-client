@@ -8,7 +8,7 @@ const EventsPeek: FC<{
     "Battle_of_Bands_WEB.jpg",
     "Copy of NAVARASA_WithoutContact.png",
     "Desafio.jpg",
-    "Stomp That.png",
+    "Stomp That.jpg",
     "VibeV3.jpg",
     "COUTURE_WEB.jpg",
     "Knuckle Down.jpg",
