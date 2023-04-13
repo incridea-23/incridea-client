@@ -107,7 +107,7 @@ const TeamMembers = [
   {
     name: 'Padmashree Shetty',
     role: 'Backend Developer',
-    image: '/team/padmashree.jpg',
+    image: '/team/padmashree.png',
     github: 'padmashreeshetty123',
     linkedin: 'padmashree-shetty-1298b2228',
     instagram: 'padmashree_shetty1',
