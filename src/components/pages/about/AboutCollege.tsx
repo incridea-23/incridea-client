@@ -1,11 +1,16 @@
 import { titleFont } from '@/src/utils/fonts';
 import Image from 'next/image';
 import { FC } from 'react';
+import { motion,useScroll,useTransform } from 'framer-motion';
 
 const AboutCollege: FC = () => {
+  let { scrollYProgress } = useScroll();
+  let y = useTransform(scrollYProgress,[0,1],["50%","0%"])
   return (
     <>
-      <div className="relative h-96 w-full">
+      <motion.div 
+      style={{y}}
+      className="relative h-96 w-full">
         <Image
           src="https://incridemo.web.app/events/EC/SHARKTANK.jpg"
           alt="Incridea Banner"
@@ -24,7 +29,7 @@ const AboutCollege: FC = () => {
             </h1>
           </div>
         </span>
-      </div>
+      </motion.div>
 
       <div className="flex flex-col lg:flex-row-reverse justify-center items-center gap-10 lg:gap-20 lg:p-10 p-5 basis-1/2">
         <Image
