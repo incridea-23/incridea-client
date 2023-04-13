@@ -7,7 +7,7 @@ function EventDetails({ details }: { details: string }) {
 
   return (
     <section
-      className={`${styles.markup} w-full `}
+      className={`${styles.markup} w-full event-description`}
       dangerouslySetInnerHTML={{ __html: markup }}></section>
   );
 }

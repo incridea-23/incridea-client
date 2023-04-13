@@ -128,7 +128,7 @@ const VieweventModal: FC<{
             <hr className="opacity-30 -mx-3 mb-3" />
             {event?.description ? (
               //TODO: fix styling of rendered HTML
-              <div className={`${styles.markup} w-full `} dangerouslySetInnerHTML={{ __html: markup }}></div>
+              <div className={`${styles.markup} w-full event-description`} dangerouslySetInnerHTML={{ __html: markup }}></div>
             ) : (
               <p
                 className="text-gray-400 italic
