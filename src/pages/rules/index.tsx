@@ -1,12 +1,17 @@
-import { NextPage } from "next";
-import Image from "next/image";
-import { titleFont } from "@/src/utils/fonts";
+import { NextPage } from 'next';
+import Image from 'next/image';
 
 const Terms: NextPage = () => {
   return (
     <div className="w-full overflow-x-hidden overflow-y-auto bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6] text-gray-100 p-5 sm:p-10">
-      <Image src="/assets/png/waterflare.png" height={1000} width={1000} alt="flare" className="absolute opacity-40 z-10 top-0 right-0" />
-      <h1 className={`${titleFont.className} pt-24 text-5xl mb-3 text-center`}>
+      <Image
+        src="/assets/png/waterflare.png"
+        height={1000}
+        width={1000}
+        alt="flare"
+        className="absolute opacity-40 z-10 top-0 right-0"
+      />
+      <h1 className={`titleFont pt-24 text-5xl mb-3 text-center`}>
         Terms and Conditions
       </h1>
       <ul className="list-disc ml-6 mt-8">
@@ -70,18 +75,16 @@ const Terms: NextPage = () => {
         <li>name +91 phone no</li>
         <li>name +91 phone no</li>
       </ul>
-      <div
-        className={`flex w-full -translate-x-10 translate-y-8 opacity-75`}
-      >
+      <div className={`flex w-full -translate-x-10 translate-y-8 opacity-75`}>
         <Image
-          src={"/assets/png/atlantis.png"}
+          src={'/assets/png/atlantis.png'}
           width={750}
           height={50}
           className="object-center"
           alt="atlantis"
         />
         <Image
-          src={"/assets/png/atlantis.png"}
+          src={'/assets/png/atlantis.png'}
           width={750}
           height={50}
           className="object-center"

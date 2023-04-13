@@ -1,10 +1,9 @@
-import { titleFont } from '@/src/utils/fonts';
 import { cva, VariantProps } from 'class-variance-authority';
 import { HTMLMotionProps, motion, MotionProps } from 'framer-motion';
 import React, { ReactNode } from 'react';
 
 const buttonStyles = cva(
-  `flex gap-2 items-center justify-center rounded transition-colors duration-300 ${titleFont.className}`,
+  `flex gap-2 items-center justify-center rounded transition-colors duration-300 titleFont`,
   {
     variants: {
       intent: {
@@ -82,7 +81,7 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <motion.button
-      whileHover={noScaleOnHover ? {scale: 1} : { scale: 1.05 }}
+      whileHover={noScaleOnHover ? { scale: 1 } : { scale: 1.05 }}
       whileTap={{ scale: 0.9 }}
       className={`${className} ${buttonStyles({
         intent,

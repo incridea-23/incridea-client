@@ -2,7 +2,6 @@ import { NextPage } from 'next';
 import { motion } from 'framer-motion';
 import GallerySlide from '@/src/components/galleryslide';
 import { FooterBody } from '@/src/components/footer';
-import { titleFont } from '@/src/utils/fonts';
 
 const Gallery: NextPage = () => {
   const years = [2019, 2020, 2022];
@@ -46,7 +45,7 @@ const Gallery: NextPage = () => {
         <motion.div
           animate={{ y: [20, 0], opacity: [0, 1], repeatCount: 1 }}
           transition={{ duration: 3 }}
-          className={`${titleFont.className} absolute top-1/2 flex w-full justify-center flex-col`}
+          className={`titleFont absolute top-1/2 flex w-full justify-center flex-col`}
         >
           <h1 className="text-4xl sm:text-6xl text-center">
             The Wall of Incridea

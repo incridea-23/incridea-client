@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { EventByOrganizerQuery } from "@/src/generated/generated";
+import { useState } from 'react';
+import { EventByOrganizerQuery } from '@/src/generated/generated';
 import {
   IoCashOutline,
   IoCreateOutline,
@@ -7,17 +7,18 @@ import {
   IoLocationOutline,
   IoPeopleOutline,
   IoPersonOutline,
-} from "react-icons/io5";
-import Button from "../../../button";
-import Modal from "@/src/components/modal";
-import { AiOutlineEye } from "react-icons/ai";
-import EventDetails from "../../event/EventDetails";
-import { BiCategory } from "react-icons/bi";
+} from 'react-icons/io5';
+import Button from '../../../button';
+import Modal from '@/src/components/modal';
+import { AiOutlineEye } from 'react-icons/ai';
+import EventDetails from '../../event/EventDetails';
+import { BiCategory } from 'react-icons/bi';
+import Link from 'next/link';
 
 export default function ViewEventModal({
   event,
 }: {
-  event: EventByOrganizerQuery["eventByOrganizer"][0];
+  event: EventByOrganizerQuery['eventByOrganizer'][0];
 }) {
   const [showModal, setShowModal] = useState(false);
 
@@ -26,43 +27,43 @@ export default function ViewEventModal({
   }
 
   const getEventAttributes = () => {
-    let teamSizeText = "";
+    let teamSizeText = '';
     if (event.minTeamSize === event.maxTeamSize) {
       teamSizeText += event.minTeamSize;
       if (event.minTeamSize === 1) {
-        teamSizeText += " member";
-      } else teamSizeText += " members";
+        teamSizeText += ' member';
+      } else teamSizeText += ' members';
     } else {
       teamSizeText = `${event.minTeamSize} - ${event.maxTeamSize} members`;
     }
     return [
       {
-        name: "Venue",
+        name: 'Venue',
         text: event.venue,
         Icon: IoLocationOutline,
       },
       {
-        name: "Event Type",
+        name: 'Event Type',
         text: event.eventType,
         Icon: IoPersonOutline,
       },
       {
-        name: "Category",
+        name: 'Category',
         text: event.category,
         Icon: BiCategory,
       },
       {
-        name: "Fees",
+        name: 'Fees',
         text: event.fees,
         Icon: IoCashOutline,
       },
       {
-        name: "Team Size",
+        name: 'Team Size',
         text: teamSizeText,
         Icon: IoPeopleOutline,
       },
       {
-        name: "Maximum Teams",
+        name: 'Maximum Teams',
         text: event.maxTeams,
         Icon: IoInformationOutline,
       },
@@ -79,15 +80,17 @@ export default function ViewEventModal({
         title="Event Details"
         showModal={showModal}
         size="medium"
-        onClose={handleCloseModal}>
+        onClose={handleCloseModal}
+      >
         <div className="md:p-6 p-5">
           <div
             className={`${
-              event.image ? "h-64" : "h-40  bg-gray-800/25"
+              event.image ? 'h-64' : 'h-40  bg-gray-800/25'
             } overflow-hidden relative mb-3 items-end flex rounded-lg bg-cover bg-center w-full`}
             style={{
-              backgroundImage: event.image ? `url(${event.image})` : "none",
-            }}>
+              backgroundImage: event.image ? `url(${event.image})` : 'none',
+            }}
+          >
             {!event.image && (
               <span className="absolute top-1/3 translate-x-1/2 text-white/25 text-2xl italic right-1/2">
                 no image added
@@ -96,6 +99,10 @@ export default function ViewEventModal({
             <span className="p-5 w-full pt-10 font-bold text-3xl bg-gradient-to-b from-transparent to-black/70">
               {event.name}
             </span>
+
+            <Link href={`/event/preview/${event.id}`} className="p-5">
+              <Button intent={'secondary'}>Preview</Button>
+            </Link>
           </div>
 
           <div className="flex flex-wrap gap-2.5">
@@ -103,7 +110,8 @@ export default function ViewEventModal({
               attr.text ? (
                 <div
                   key={attr.name}
-                  className="flex px-3 py-2 bg-gray-600 shrink-0 rounded-lg grow gap-2 items-center">
+                  className="flex px-3 py-2 bg-gray-600 shrink-0 rounded-lg grow gap-2 items-center"
+                >
                   {<attr.Icon />}
                   <p>
                     <span className="font-semibold">{attr.name}: </span>
@@ -126,7 +134,8 @@ export default function ViewEventModal({
             ) : (
               <p
                 className="text-gray-400 italic
-                      ">
+                      "
+              >
                 no description added
               </p>
             )}
@@ -137,8 +146,9 @@ export default function ViewEventModal({
           <Button
             className="rounded-lg"
             type="button"
-            intent={"danger"}
-            onClick={handleCloseModal}>
+            intent={'danger'}
+            onClick={handleCloseModal}
+          >
             Close
           </Button>
         </div>

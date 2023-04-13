@@ -58,7 +58,7 @@ const ConfirmTeamModal: FC<{
         onClose={handleCloseModal}
         size={'small'}
       >
-        <div className="text-sm text-center p-5">
+        <div className="text-sm text-center p-5 bodyFont">
           You won&apos;t be able to make changes to your team after confirming.
         </div>
         <div className="flex justify-center gap-3 my-5">
