@@ -3,7 +3,8 @@ import Image from "next/image";
 
 const Terms: NextPage = () => {
   return (
-    <div className="w-full overflow-x-hidden overflow-y-auto bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6] text-gray-100 p-5 sm:p-10">
+    <div className="overflow-x-hidden overflow-y-auto bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6] text-gray-100 p-5 sm:p-10">
+      <div className="w-full max-w-7xl mx-auto">
       <Image
         src="/assets/png/waterflare.png"
         height={1000}
@@ -473,6 +474,7 @@ const Terms: NextPage = () => {
           className="object-center"
           alt="atlantis"
         />
+      </div>
       </div>
     </div>
   );

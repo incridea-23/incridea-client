@@ -16,7 +16,7 @@ const UserEvents: FC<{
   const { data: events, loading, error } = useQuery(RegisterdEventsDocument);
 
   return (
-    <section data-scroll-section>
+    <section>
       <h1
         className={`titleFont text-2xl lg:text-4xl font-bold text-center text-white flex justify-center lg:max-w-full md:max-w-full max-w-sm`}
       >

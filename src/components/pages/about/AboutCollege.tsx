@@ -1,10 +1,10 @@
-import Image from "next/image";
-import { FC } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import Image from 'next/image';
+import { FC } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 const AboutCollege: FC = () => {
   let { scrollYProgress } = useScroll();
-  let y = useTransform(scrollYProgress, [0, 1], ["0%", "-100%"]);
+  let y = useTransform(scrollYProgress, [0, 1], ['0%', '-100%']);
   return (
     <>
       <div className="relative h-96 w-full overflow-hidden">
@@ -21,8 +21,6 @@ const AboutCollege: FC = () => {
         </motion.div>
         <div className="absolute inset-0 w-full h-full flex items-center justify-center">
           <h1
-            data-scroll
-            data-scroll-speed="2"
             className={`titleFont text-4xl lg:text-7xl text-center p-5 text-white`}
           >
             About NMAMIT

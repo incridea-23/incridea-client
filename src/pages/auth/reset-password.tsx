@@ -1,5 +1,6 @@
 import ResetPassword from "../../components/form/resetPassword";
 import { NextPage } from "next";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -28,7 +29,7 @@ const Reset: NextPage = () => {
           >
             <p className="text-2xl -rotate-90">The adventure ahead awaits!</p>
           </div>
-          <img src={"/login-wave.png"} className="h-screen" />
+          <Image height={1080} width={200} alt="login-wave" src={"/login-wave.png"} className="h-screen" />
         </div>
         <div
           className={`shrink-0 md:w-[50vw] w-screen flex items-center justify-center bg-[#f3e9d1] text-[#6f5925] `}
@@ -37,11 +38,11 @@ const Reset: NextPage = () => {
             <div className="p-6 md:py-10 grow">
               <ResetPassword />
             </div>
-            <img src={"/login-wave.svg"} className="md:hidden block" />
+            <Image src={'/login-wave.svg'} alt="Wave" width={500} height={200} className="md:hidden block w-full h-auto" />
           </div>
         </div>
         <div className="hidden md:flex grow">
-          <img src={"/login-wave.png"} className="rotate-180 h-screen -m-1" />
+        <Image height={1080} width={200} alt="login-wave" src={"/login-wave.png"} className="rotate-180 h-screen" />
           <div
             className={`titleFont text-center text-white/70 w-[50vw] items-center justify-center flex bg-gradient-to-l to-[#3baee7] from-[#144f6d]`}
           >
