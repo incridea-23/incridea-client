@@ -42,8 +42,6 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
 
   const [filteredEvents, setFilteredEvents] = useState(data || []);
 
-  const [showMore, setShowMore] = useState(false);
-
   useEffect(() => {
     let tempFilteredEvents = data;
     if (currentBranchFilter !== "ALL")
@@ -80,8 +78,8 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
     if (e.target.value === "") {
       setFilteredEvents(data || []);
     } else {
-      setFilteredEvents((prev) =>
-        prev.filter((event) =>
+      setFilteredEvents(
+        data.filter((event) =>
           event.name.toLowerCase().includes(e.target.value.toLowerCase())
         )
       );
