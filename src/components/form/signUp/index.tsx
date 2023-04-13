@@ -26,6 +26,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
     password: '',
     phoneNumber: '',
     college: '',
+    accepted: false,
   });
   const [error, setError] = useState('');
   const [emailSuccess, setEmailSuccess] = useState(false);
@@ -181,14 +182,23 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
           <AiOutlineInfoCircle className="shrink-0" />
           <div>
             <a className="inline-block transition-colors text-start text-blue-500 font-normal text-sm">
-              You can only participate in Single core event. If you&apos;re from
-              Engineering colleges and your college is not listed, please{' '}
+              This option is exclusively for invited participants and does not
+              provide access to pronites. If your college is not in the list
+              below and you are not invited, please{' '}
               <Link
-                href="contact"
+                href="/contact"
                 className="underline hover:text-blue-700 cursor-pointer"
               >
                 contact us.
-              </Link>
+              </Link>{' '}
+              Please refer to Participant Categories in the{' '}
+              <Link
+                href="/guidelines"
+                className="underline hover:text-blue-700 cursor-pointer"
+              >
+                Guidelines
+              </Link>{' '}
+              page for details.
             </a>
           </div>
         </div>
@@ -202,7 +212,9 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
             name="name"
             type="text"
             required
-            className={`${selectedCollege.name === 'Other' ? 'mt-2' : 'mt-10'} py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none`}
+            className={`${
+              selectedCollege.name === 'Other' ? 'mt-2' : 'mt-10'
+            } py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none`}
             placeholder="Name"
           />
 
@@ -243,7 +255,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                     </div>
                   ) : filteredColleges?.length === 0 && query !== '' ? (
                     <div className="relative font-semibold md:text-base text-xs select-none py-2 px-4 text-gray-600">
-                      College not found. Please {' '}
+                      College not found. Please{' '}
                       <Link
                         href="contact"
                         className="underline hover:text-gray-700 cursor-pointer"
@@ -307,6 +319,37 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
             placeholder="Mobile"
             className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none"
           />
+
+          <div className="flex">
+            <input
+              required
+              type="checkbox"
+              className="mr-2"
+              checked={userInfo.accepted}
+              onChange={() =>
+                setUserInfo((prev) => ({ ...prev, accepted: !prev.accepted }))
+              }
+            />
+            <label>
+              <span className="text-xs lg:text-sm md:text-base text-gray-500">
+                I agree to all the{' '}
+                <Link
+                  href="/rules"
+                  className="underline hover:text-gray-700 cursor-pointer"
+                >
+                  T&C
+                </Link>{' '}
+                and{' '}
+                <Link
+                  href="/guidelines"
+                  className="underline hover:text-gray-700 cursor-pointer"
+                >
+                  Guidelines
+                </Link>{' '}
+              </span>
+            </label>
+          </div>
+
           <Button className="mt-3">Sign Up</Button>
         </>
       )}
