@@ -6561,7 +6561,7 @@ const SVGComponent = (props: SVGProps<SVGSVGElement>) => (
             y={-40.802052}
           />
           {/* privacy policy */}
-          <a href="#" target="_blank" rel="noreferrer">
+          <a href="/privacy" target="_blank" rel="noreferrer">
             <text
               xmlSpace="preserve"
               style={{
@@ -6594,7 +6594,7 @@ const SVGComponent = (props: SVGProps<SVGSVGElement>) => (
             </text>
           </a>
           {/* terms condition */}
-          <a href="#" target="_blank" rel="noreferrer">
+          <a href="/rules" target="_blank" rel="noreferrer">
             <text
               xmlSpace="preserve"
               style={{
@@ -6631,7 +6631,7 @@ const SVGComponent = (props: SVGProps<SVGSVGElement>) => (
             </text>
           </a>
           {/* about */}
-          <a href="#" target="_blank" rel="noreferrer">
+          <a href="/about" target="_blank" rel="noreferrer">
             <text
               xmlSpace="preserve"
               style={{
