@@ -62,8 +62,22 @@ const Refund: NextPage = () => {
         <p className="mt-2">
           If you have any questions or concerns about our refund policy or
           payment process, please do not hesitate to contact our team. You can
-          reach us at [insert contact information here or page link], and we
-          will be happy to assist you.
+          reach us at{" "}
+          <a
+            href="mailto:incridea@nmamit.in"
+            className="cursor-pointer text-semibold underline"
+          >
+            incridea@nmamit.in
+          </a>{" "}
+          or contact
+          <span className="inline-block mr-1">
+            +91 9620788383 (Technical committte)
+          </span>
+          or
+          <span className="inline-block ml-1">
+            +91 7348896751 (Finance committte)
+          </span>
+          , and we will be happy to assist you.
         </p>
       </div>
       <div
