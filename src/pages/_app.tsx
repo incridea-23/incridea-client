@@ -56,7 +56,7 @@ export default function App({
               width={300}
               height={300}
             />
-            <h1 className={`titleFont text-2xl text-center`}>
+            <h1 className={`titleFont text-xl md:text-3xl text-center`}>
               Tides of Change
             </h1>
           </div>

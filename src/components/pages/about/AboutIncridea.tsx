@@ -1,10 +1,14 @@
 import Image from 'next/image';
 import { FC } from 'react';
+import { motion,useScroll,useTransform } from 'framer-motion';
 
 const AboutIncridea: FC = () => {
+  let { scrollYProgress } = useScroll();
+  let y = useTransform(scrollYProgress,[0,1],["0%","-100%"])
   return (
     <>
-      <div className="relative h-96 w-full">
+      <div className="relative h-96 w-full overflow-hidden">
+        <motion.div style={{y}} className='relative w-full h-full'>
         <Image
           src="https://incridemo.web.app/events/EC/SHARKTANK.jpg"
           alt="Incridea Banner"
@@ -12,8 +16,8 @@ const AboutIncridea: FC = () => {
           height={500}
           className="absolute inset-0 w-full h-full object-cover"
         />
-
-        <span className="absolute inset-0 w-full h-full bg-gradient-to-b from-transparent to-black z-10">
+        <span className="absolute inset-0 w-full h-full bg-gradient-to-b from-transparent to-black z-10"></span>
+        </motion.div>        
           <div className="absolute inset-0 w-full h-full flex items-center justify-center">
             <h1
               data-scroll
@@ -23,7 +27,6 @@ const AboutIncridea: FC = () => {
               About Incridea
             </h1>
           </div>
-        </span>
       </div>
 
       <div className="flex flex-col lg:flex-row justify-center items-center gap-10 lg:gap-20 lg:p-10 p-5 basis-1/2 my-5">

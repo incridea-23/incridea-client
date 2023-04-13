@@ -8,7 +8,7 @@ const Page404: NextPage = () => {
   const bodyText: string = "Let's steer you back to smoother waters.";
 
   return (
-    <div className="flex flex-col min-h-[85vh] justify-center items-center bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6]">
+    <div className="flex flex-col min-h-screen justify-center items-center bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6]">
         <div className="flex z-10 justify-center items-center h-96 mt-8">
             <Image src={ '/assets/png/diver.png' } alt="404" width={400} height={400} />
         </div>
