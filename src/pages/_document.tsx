@@ -17,6 +17,7 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap"
           rel="stylesheet"
         />
+        <meta name="theme-color" content="#46aacf"/>
       </Head>
       <body className="min-h-screen bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
         <Main />

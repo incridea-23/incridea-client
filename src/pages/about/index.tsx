@@ -1,11 +1,8 @@
 import { NextPage } from "next";
-import Image from "next/image";
 import "locomotive-scroll/dist/locomotive-scroll.css";
-import { LocomotiveScrollProvider } from "react-locomotive-scroll";
 import { useRef } from "react";
 import AboutIncridea from "@/src/components/pages/about/AboutIncridea";
 import AboutCollege from "@/src/components/pages/about/AboutCollege";
-import AboutTeam from "@/src/components/pages/about/AboutTeam";
 
 const About: NextPage = () => {
   const containerRef = useRef(null);
