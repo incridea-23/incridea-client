@@ -93,7 +93,7 @@ const TeamMembers = [
     github: 'keerthan2002',
     linkedin: 'keerthan-n-s-220142208',
     instagram: 'keerthan_ns',
-    quote: '',
+    quote: 'Why fall in love when you can fall asleep?',
   },
   {
     name: 'Kumar Ankush',
