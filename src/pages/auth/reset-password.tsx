@@ -2,7 +2,6 @@ import ResetPassword from "../../components/form/resetPassword";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { titleFont } from "../../utils/fonts";
 
 const Reset: NextPage = () => {
   const {
@@ -25,7 +24,7 @@ const Reset: NextPage = () => {
       >
         <div className="hidden md:flex h-full grow">
           <div
-            className={`${titleFont.className} text-center w-[50vw] items-center justify-center text-white/70 flex bg-gradient-to-r to-[#3baee7] from-[#144f6d] `}
+            className={`titleFont text-center w-[50vw] items-center justify-center text-white/70 flex bg-gradient-to-r to-[#3baee7] from-[#144f6d] `}
           >
             <p className="text-2xl -rotate-90">The adventure ahead awaits!</p>
           </div>
@@ -44,7 +43,7 @@ const Reset: NextPage = () => {
         <div className="hidden md:flex grow">
           <img src={"/login-wave.png"} className="rotate-180 h-screen -m-1" />
           <div
-            className={`${titleFont.className} text-center text-white/70 w-[50vw] items-center justify-center flex bg-gradient-to-l to-[#3baee7] from-[#144f6d]`}
+            className={`titleFont text-center text-white/70 w-[50vw] items-center justify-center flex bg-gradient-to-l to-[#3baee7] from-[#144f6d]`}
           >
             <p className="text-2xl rotate-90">
               Conquer the depths of the ocean!
