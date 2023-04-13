@@ -26,7 +26,10 @@ const AddBranchRepButton: FC<{
             },
         }).then((res) => {
             if (res.data?.addBranchRep.__typename !== 'MutationAddBranchRepSuccess') {
-            return Promise.reject('Error could not add branch rep');
+                if(res.data?.addBranchRep.message !== undefined){
+                    createToast(Promise.reject(res.data?.addBranchRep.message), res.data?.addBranchRep.message);
+                }
+                return Promise.reject('Error could not add branch rep');
             }
         });
         createToast(promise, 'Adding BranchRep...');

@@ -1,10 +1,18 @@
 query Branches {
   getBranches {
+    id
+    name
     branchReps {
       branchId
       userId
+      user {
+        email
+        id
+        isVerified
+        name
+        phoneNumber
+        role
+      }
     }
-    id
-    name
   }
 }
