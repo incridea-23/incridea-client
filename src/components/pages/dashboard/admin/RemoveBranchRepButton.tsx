@@ -31,6 +31,8 @@ const RemoveBranchRepButton: FC<{
         setShowModal(false);
         let promise = removeBranchRep().then((res) => {
             if (res.data?.removeBranchRep.__typename !== 'MutationRemoveBranchRepSuccess') {
+                if(res.data?.removeBranchRep.message !== undefined)
+                createToast(Promise.reject(res.data?.removeBranchRep.message), res.data?.removeBranchRep.message);
                 return Promise.reject('Error could not remove branch rep');
             }
         });
@@ -40,7 +42,7 @@ const RemoveBranchRepButton: FC<{
     return (<>
         <Button 
             intent="danger"
-            size="medium"
+            size="large"
             className="flex gap-1 items-center disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={() => setShowModal(true)}
         >
