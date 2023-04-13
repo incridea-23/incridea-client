@@ -1,43 +1,44 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
 import { FC } from 'react';
-import { AiFillGithub, AiFillLinkedin } from 'react-icons/ai';
+import { AiFillGithub, AiFillInstagram, AiFillLinkedin } from 'react-icons/ai';
 
 const TeamCard: FC<{
   name: string;
   role: string;
   linkedin: string;
+  instagram: string;
   github: string;
   quote: string;
-}> = ({ name, role, linkedin, github, quote }) => {
+}> = ({ name, role, linkedin, github, quote, instagram }) => {
   return (
     <motion.div
       whileHover={{ scale: 1.03 }}
-      className="bg-white bg-opacity-30 rounded-md p-5 text-center max-w-sm"
+      className="bg-black/20 bg-opacity-30 rounded-md p-5 text-center w-full max-w-sm"
     >
-      <div className="flex justify-center">
-        <Image
-          src="https://incridemo.web.app/events/EC/SHARKTANK.jpg"
-          alt="Incridea Banner"
-          width={250}
-          height={250}
-          className="rounded-md"
-        />
-      </div>
+      <Image
+        src="https://incridemo.web.app/events/EC/SHARKTANK.jpg"
+        alt="Incridea Banner"
+        width={250}
+        height={250}
+        className="rounded-md w-full h-auto"
+      />
 
-      <div className="flex flex-col mt-2">
-        <h1 className="text-white font-bold text-2xl">{name}</h1>
+      <div className="flex flex-col mt-5">
+        <h1 className="text-white font-bold text-2xl titleFont">{name}</h1>
         <p className="text-gray-200 text-md">{role}</p>
       </div>
 
       <div className="flex gap-2 mt-2 justify-center">
-        <Link href={linkedin}>
+        <a href={linkedin}>
           <AiFillLinkedin size={30} fill="#fff" className="cursor-pointer" />
-        </Link>
-        <Link href={github}>
+        </a>
+        <a href={github}>
           <AiFillGithub size={30} fill="#fff" className="cursor-pointer" />
-        </Link>
+        </a>
+        <a href={instagram}>
+          <AiFillInstagram size={30} fill="#fff" className="cursor-pointer" />
+        </a>
       </div>
 
       <hr className="border-white/40 my-5" />

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { BsInstagram } from 'react-icons/bs';
+import { BsFillSuitHeartFill, BsInstagram } from 'react-icons/bs';
 import { FaYoutube } from 'react-icons/fa';
 
 export function HomePageFooter() {
@@ -82,7 +82,10 @@ export function FooterBody() {
       </div>
       <div className="bg-[#0f1821]">
         <p className="text-center p-5 text-gray-200 text-sm">
-          © Incridea 2023 - All rights reserved
+          <Link className='flex justify-center items-center hover:underline hover:text-gray-300' href="/team">
+            Made with <BsFillSuitHeartFill className='mx-2' />  by Technical Team
+          </Link>
+          © Incridea 2023
         </p>
       </div>
     </div>
