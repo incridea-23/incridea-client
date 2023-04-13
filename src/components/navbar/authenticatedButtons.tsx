@@ -2,6 +2,8 @@ import { FC } from 'react';
 import { User } from '@/src/generated/generated';
 import Link from 'next/link';
 import Button from '../button';
+import { FaSignOutAlt } from 'react-icons/fa';
+import { signOut } from 'next-auth/react';
 
 const AuthenticatedButtons: FC<{
   user: User | undefined | null;
@@ -9,9 +11,19 @@ const AuthenticatedButtons: FC<{
   return (
     <>
       {user?.role === 'USER' ? (
+        <div className='flex space-x-2'>
         <Link href="/register">
           <Button>Register</Button>
         </Link>
+        <Button
+        onClick={() => signOut()}
+        className="w-fit"
+        intent={'ghost'}
+      >
+        <FaSignOutAlt className="inline-block mr-1" />
+        Sign Out
+      </Button>
+        </div>
       ) : (
         <Link href="/profile">
           <Button>Profile</Button>

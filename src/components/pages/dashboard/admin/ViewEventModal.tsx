@@ -8,6 +8,7 @@ import draftToHtml from 'draftjs-to-html';
 import EditEventModal from './EditEvent';
 import TeamModal from './TeamModal';
 import styles from "../../../pages/event/EventDetails.module.css";
+import Link from 'next/link';
 
 const VieweventModal: FC<{
   Event: EventsQuery['events']['edges'][0];
@@ -91,6 +92,9 @@ const VieweventModal: FC<{
             <span className="p-5 w-full pt-10 font-bold text-3xl bg-gradient-to-b from-transparent to-black/70">
               {event?.name}
             </span>
+            <Link href={`/event/preview/${event?.id}`} className="p-5">
+              <Button intent={'secondary'}>Preview</Button>
+            </Link>
           </div>
           <div className="mb-3 flex flex-row gap-2">
             {Event &&
@@ -131,8 +135,7 @@ const VieweventModal: FC<{
               <div className={`${styles.markup} w-full event-description`} dangerouslySetInnerHTML={{ __html: markup }}></div>
             ) : (
               <p
-                className="text-gray-400 italic
-                      "
+                className="text-gray-400 italic"
               >
                 no description added
               </p>
