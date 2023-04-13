@@ -34,16 +34,16 @@ const TeamMembers = [
   {
     name: 'Swasthik Shetty',
     role: 'Technical Head | Full Stack Developer',
-    image: '/team/swasthik.jpg',
+    image: '/team/swasthik.jpeg',
     github: 'swasthikshetty10',
     linkedin: 'swasthikshetty10',
     instagram: 'https://youtu.be/_3wkyerSBpw',
-    quote: `I'm Gay`,
+    quote: ``,
   },
   {
     name: 'Nagaraj Pandith',
     role: 'Frontend Lead | Developer',
-    image: '/team/swasthik.jpg',
+    image: '/team/nagaraj.jpg',
     github: 'nagarajpandith',
     linkedin: 'nagaraj-pandith',
     instagram: 'nagarajpandithh',
@@ -53,7 +53,7 @@ const TeamMembers = [
   {
     name: 'Prayag Sharma',
     role: 'Technical Head | Management',
-    image: '/team/swasthik.jpg',
+    image: '/team/prayag.jpg',
     github: 'prg2308',
     linkedin: 'prg2308',
     instagram: 'prg2308',
@@ -62,11 +62,11 @@ const TeamMembers = [
   {
     name: 'Numan Naeem',
     role: 'UI Lead | Developer',
-    image: '/team/swasthik.jpg',
+    image: '/team/numan.jpg',
     github: 'numannaeem',
     linkedin: 'numxn',
     instagram: 'num4n_',
-    quote: '',
+    quote: 'Naatil evdeya?',
   },
   {
     name: 'Satvik Nayak',
@@ -80,7 +80,7 @@ const TeamMembers = [
   {
     name: 'Aaron Nazareth',
     role: 'Backend Developer',
-    image: '/team/swasthik.jpg',
+    image: '/team/aaron.jpg',
     github: 'jevil25',
     linkedin: 'aaron-nazareth-6580311b6',
     instagram: 'aaron_naz25',
@@ -89,7 +89,7 @@ const TeamMembers = [
   {
     name: 'Keerthan N S',
     role: 'Frontend Developer',
-    image: '/team/swasthik.jpg',
+    image: '/team/keerthan.jpg',
     github: 'keerthan2002',
     linkedin: 'keerthan-n-s-220142208',
     instagram: 'keerthan_ns',
@@ -107,7 +107,7 @@ const TeamMembers = [
   {
     name: 'Padmashree Shetty',
     role: 'Backend Developer',
-    image: '/team/swasthik.jpg',
+    image: '/team/padmashree.jpg',
     github: 'padmashreeshetty123',
     linkedin: 'padmashree-shetty-1298b2228',
     instagram: 'padmashree_shetty1',

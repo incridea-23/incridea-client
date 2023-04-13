@@ -20,7 +20,7 @@ const TeamCard: FC<{
       <div className="h-72">
         <Image
           src={image}
-          alt="Incridea Banner"
+          alt={name}
           width={250}
           height={250}
           className="rounded-md w-full h-full object-cover"
