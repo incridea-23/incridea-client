@@ -115,17 +115,29 @@ useEffect(() => {
                   <h1 className="">No Branch Representatives added</h1>
                 </div>
               )}
-              <div className="md:max-h-80 max-h-64 overflow-y-auto pt-1">
+              <div className="overflow-y-auto rounded-lg bg-gray-700 p-3">
                 {branchReps.map((branchRep) => (
                   <div
                     key={branchRep.userId}
-                    className="flex mb-3 justify-between items-center gap-5"
+                    className="flex mb-3 justify-between items-center gap-5  border border-gray-500 rounded-lg p-2 py-1"
                   >
-                    <h1>{branchRep.userId}</h1>
-                    <RemoveBranchRepButton
-                      branchId={branchId as string}
-                      userId={branchRep.userId as string}
-                    />
+                    <div>
+                      <h1 className="text-base">
+                        {branchRep.user.id}
+                      </h1>
+                      <h1 className="text-base">
+                        {branchRep.user.name}
+                      </h1>
+                      <h1 className="md:text-sm text-xs font-thin">
+                        {branchRep.user.email}
+                      </h1>
+                    </div>
+                    <div className="flex justify-center items-center">
+                      <RemoveBranchRepButton
+                        branchId={branchId as string}
+                        userId={branchRep.userId as string}
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
