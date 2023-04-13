@@ -8,27 +8,21 @@ const AboutIncridea: FC = () => {
   return (
     <>
       <div className="relative h-96 w-full overflow-hidden">
-        <motion.div
-          style={{ y }}
-          className="relative h-full w-full overflow-hidden"
-        >
-          <Image
-            src="/assets/png/incrediaAbout.png"
-            alt="Incridea Banner"
-            width={500}
-            height={500}
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-          <span className="absolute inset-0 w-full h-full bg-gradient-to-b from-transparent to-black z-10"></span>
-        </motion.div>
-
-        <div className="absolute inset-0 w-full h-full flex items-center justify-center">
-          <h1
-            className={`titleFont text-4xl p-4 text-center lg:text-7xl text-white`}
-          >
-            About Incridea
-          </h1>
-        </div>
+        <motion.div style={{y}} className='relative w-full h-full'>
+        <Image
+          src="https://incridemo.web.app/events/EC/SHARKTANK.jpg"
+          alt="Incridea Banner"
+          width={500}
+          height={500}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <span className="absolute inset-0 w-full h-full bg-gradient-to-b from-transparent to-black z-10"></span>
+        </motion.div>        
+          <div className="absolute inset-0 w-full h-full flex items-center justify-center">
+            <h1 className={`titleFont text-4xl lg:text-7xl text-center p-5 text-white`}>
+              About Incridea
+            </h1>
+          </div>
       </div>
 
       <div className="flex flex-col lg:flex-row-reverse justify-center items-center gap-10 lg:gap-20 lg:p-10 p-5 basis-1/2">
