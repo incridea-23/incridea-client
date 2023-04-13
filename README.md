@@ -9,7 +9,7 @@
 - [**Next JS**](https://nextjs.org/docs/getting-started)
 - [**Typescript**](https://www.typescriptlang.org/docs/)
 - [**TailwindCSS**](https://tailwindcss.com/docs/installation)
-- [**Radix**](https://www.radix-ui.com/docs/primitives/overview/getting-started)
+- [**Headless UI**](https://headlessui.com/)
 - [**Apollo Client**](https://www.apollographql.com/docs/react/)
 - [**Framer Motion**](https://www.framer.com/motion/)
 
