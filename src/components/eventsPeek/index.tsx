@@ -34,11 +34,11 @@ const EventsPeek: FC<{
                 width={500}
                 height={300}
               />
-              <div className="absolute top-0 left-0 w-full h-full bg-blue-300 bg-opacity-10"></div>
+              <div className="absolute top-0 left-0 w-full h-full bg-blue-300 bg-opacity-[3%]"></div>
             </div>
           );
         })}
-        {images.map((i) => {
+        {/* {images.map((i) => {
           return (
             <div className="flex justify-center items-start gap-5" key={i}>
               <Image
@@ -49,7 +49,7 @@ const EventsPeek: FC<{
               />
             </div>
           );
-        })}
+        })} */}
       </div>
     </section>
   );
