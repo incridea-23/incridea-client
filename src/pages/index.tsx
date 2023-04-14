@@ -1,6 +1,5 @@
 import About from "../components/about";
 import Image from "next/image";
-import { useRef } from "react";
 import Hero from "../components/hero";
 import EventsReel from "../components/eventsPeek/reel";
 import { HomePageFooter } from "../components/footer";
@@ -12,7 +11,6 @@ const CountDown = dynamic(() => import("../components/countdown"), {
 });
 
 const Home = () => {
-  const containerRef = useRef(null);
   let { scrollYProgress } = useScroll();
   let reelX = useTransform(scrollYProgress, [0, 1], ['25%', '-80%']);
   return (

@@ -1,41 +1,45 @@
-import React, { useRef, useState, useCallback, useLayoutEffect } from "react"
-import ResizeObserver from "resize-observer-polyfill"
-import {
-  useScroll,
-  useTransform,
-  useSpring,
-  motion
-} from "framer-motion"
+import React, {
+  useRef,
+  useState,
+  useCallback,
+  useLayoutEffect,
+  useEffect,
+} from 'react';
+import ResizeObserver from 'resize-observer-polyfill';
+import { useScroll, useTransform, useSpring, motion } from 'framer-motion';
 
-const SmoothScroll = ({ children }) => {
+const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
   // scroll container
-  const scrollRef = useRef(null)
+  const scrollRef = useRef(null);
 
   // page scrollable height based on content length
-  const [pageHeight, setPageHeight] = useState(0)
+  const [pageHeight, setPageHeight] = useState(0);
 
   // update scrollable height when browser is resizing
-  const resizePageHeight = useCallback(entries => {
+  const resizePageHeight = useCallback((entries: ResizeObserverEntry[]) => {
     for (let entry of entries) {
-      setPageHeight(entry.contentRect.height)
+      setPageHeight(entry.contentRect.height);
     }
-  }, [])
+  }, []);
+
+  const canUseDOM = typeof window !== 'undefined';
+  const useIsomorphicLayoutEffect = canUseDOM ? useLayoutEffect : useEffect;
 
   // observe when browser is resizing
-  useLayoutEffect(() => {
-    const resizeObserver = new ResizeObserver(entries =>
+  useIsomorphicLayoutEffect(() => {
+    const resizeObserver = new ResizeObserver((entries) =>
       resizePageHeight(entries)
-    )
-    scrollRef && resizeObserver.observe(scrollRef.current)
-    return () => resizeObserver.disconnect()
-  }, [scrollRef, resizePageHeight])
+    );
+    scrollRef && resizeObserver.observe(scrollRef.current!);
+    return () => resizeObserver.disconnect();
+  }, [scrollRef, resizePageHeight]);
 
-  const { scrollY } = useScroll() // measures how many pixels user has scrolled vertically
+  const { scrollY } = useScroll(); // measures how many pixels user has scrolled vertically
   // as scrollY changes between 0px and the scrollable height, create a negative scroll value...
   // ... based on current scroll position to translateY the document in a natural way
-  const transform = useTransform(scrollY, [0, pageHeight], [0, -pageHeight])
-  const physics = { damping: 15, mass: 0.27, stiffness: 55 } // easing of smooth scroll
-  const spring = useSpring(transform, physics) // apply easing to the negative scroll value
+  const transform = useTransform(scrollY, [0, pageHeight], [0, -pageHeight]);
+  const physics = { damping: 15, mass: 0.27, stiffness: 55 }; // easing of smooth scroll
+  const spring = useSpring(transform, physics); // apply easing to the negative scroll value
 
   return (
     <>
@@ -51,7 +55,7 @@ const SmoothScroll = ({ children }) => {
       {/* ... using the browser's native scroll bar */}
       {/* <div style={{ height: pageHeight }} /> */}
     </>
-  )
-}
+  );
+};
 
-export default SmoothScroll
+export default SmoothScroll;
