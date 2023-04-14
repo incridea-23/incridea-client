@@ -4,7 +4,6 @@ import { FormEventHandler, FunctionComponent, useState } from 'react';
 import { BiErrorCircle } from 'react-icons/bi';
 import Button from '../../button';
 import Spinner from '../../spinner';
-import Link from 'next/link';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
 type SignInFormProps = {

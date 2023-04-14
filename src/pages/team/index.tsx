@@ -34,7 +34,7 @@ const TeamMembers = [
   {
     name: 'Swasthik Shetty',
     role: 'Technical Head | Full Stack Developer',
-    image: '/team/swasthik.jpeg',
+    image: '/team/swasthik.jpg',
     github: 'swasthikshetty10',
     linkedin: 'swasthikshetty10',
     instagram: 'https://youtu.be/_3wkyerSBpw',

@@ -10,7 +10,6 @@ const AboutCollege: FC = () => {
       <div className="relative h-96 w-full overflow-hidden">
         <motion.div style={{ y }} className="relative w-full h-full">
           <Image
-            // src="/assets/png/incrediaAbout.png"
             src="/assets/png/collegeAbout.png"
             alt="college Banner"
             width={500}
@@ -35,7 +34,7 @@ const AboutCollege: FC = () => {
           width={600}
           height={600}
         />
-        <div className="text-white text-lg lg:text-xl text-justify basis-1/2 my-5">
+        <div className="bodyFont text-white text-lg lg:text-xl text-justify basis-1/2 my-5">
           Nitte Mahalinga Adyantaya Memorial Institute of Technology, NMAMIT, is
           a prestigious institution that has established itself as a leading
           engineering, and MCA institution. Founded by Justice K S Hegde in

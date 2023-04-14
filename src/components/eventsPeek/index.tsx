@@ -15,7 +15,7 @@ const EventsPeek: FC<{
     "TULU_POSTER_WEB.jpg",
     "usaravalli@3x.jpg",
     "Hogathon.jpg",
-  ]; // TODO: Replace with actual images (top 3)
+  ];
 
   return (
     <section style={{ transform: "translateX(-60%)" }}>

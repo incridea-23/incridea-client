@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import { motion } from 'framer-motion';
 import React from 'react';
 import Image from 'next/image';
 import ProniteFooter from '../../components/proniteFooter';
