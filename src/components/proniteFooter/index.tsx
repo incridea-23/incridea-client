@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import * as React from 'react';
 import { SVGProps } from 'react';
 
@@ -1051,7 +1052,7 @@ const SVGComponent = (props: SVGProps<SVGSVGElement>) => (
               />
             </g>
             {/* about */}
-            <a href="#" target="_blank" rel="noreferrer">
+            <Link href="/about">
               <g
                 id="g141672-1-0-5"
                 style={{ display: 'inline' }}
@@ -1993,9 +1994,9 @@ const SVGComponent = (props: SVGProps<SVGSVGElement>) => (
                   />
                 </g>
               </g>
-            </a>
+            </Link>
             {/* rights */}
-            <a href="#" target="_blank" rel="noreferrer">
+            <a href="#">
               <g
                 id="g141672-1-0"
                 style={{ display: 'inline' }}
@@ -2939,7 +2940,7 @@ const SVGComponent = (props: SVGProps<SVGSVGElement>) => (
               </g>
             </a>
             {/* incredia logo */}
-            <a href="#" target="_blank" rel="noreferrer">
+            <Link href="/">
               <g
                 id="g141672-10"
                 style={{ display: 'inline' }}
@@ -3881,9 +3882,9 @@ const SVGComponent = (props: SVGProps<SVGSVGElement>) => (
                   />
                 </g>
               </g>
-            </a>
+            </Link>
             {/* terms condition */}
-            <a href="#" target="_blank" rel="noreferrer">
+            <Link href="/rules">
               <g
                 id="g141672"
                 style={{ display: 'inline' }}
@@ -4664,9 +4665,9 @@ const SVGComponent = (props: SVGProps<SVGSVGElement>) => (
                   />
                 </g>
               </g>
-            </a>
+            </Link>
             {/* privacy policy */}
-            <a href="#" target="_blank" rel="noreferrer">
+            <Link href="/privacy">
               <g
                 id="g141672-1"
                 style={{ display: 'inline' }}
@@ -5608,7 +5609,7 @@ const SVGComponent = (props: SVGProps<SVGSVGElement>) => (
                   />
                 </g>
               </g>
-            </a>
+            </Link>
             <g
               id="g141672-3"
               style={{ display: 'inline' }}
@@ -6561,7 +6562,7 @@ const SVGComponent = (props: SVGProps<SVGSVGElement>) => (
             y={-40.802052}
           />
           {/* privacy policy */}
-          <a href="/privacy" target="_blank" rel="noreferrer">
+          <Link href="/privacy">
             <text
               xmlSpace="preserve"
               style={{
@@ -6592,9 +6593,9 @@ const SVGComponent = (props: SVGProps<SVGSVGElement>) => (
                 {'Privacy policy'}
               </tspan>
             </text>
-          </a>
+          </Link>
           {/* terms condition */}
-          <a href="/rules" target="_blank" rel="noreferrer">
+          <Link href="/rules">
             <text
               xmlSpace="preserve"
               style={{
@@ -6629,9 +6630,9 @@ const SVGComponent = (props: SVGProps<SVGSVGElement>) => (
                 {'Terms & conditions'}
               </tspan>
             </text>
-          </a>
+          </Link>
           {/* about */}
-          <a href="/about" target="_blank" rel="noreferrer">
+          <Link href="/about">
             <text
               xmlSpace="preserve"
               style={{
@@ -6668,7 +6669,7 @@ const SVGComponent = (props: SVGProps<SVGSVGElement>) => (
                 {'About'}
               </tspan>
             </text>
-          </a>
+          </Link>
           <text
             xmlSpace="preserve"
             style={{
