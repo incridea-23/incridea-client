@@ -121,9 +121,9 @@ const Event = ({
             attr.text ? (
               <div
                 key={attr.name}
-                className="flex px-3 py-2 text-gray-200 bg-gray-300/20 shrink-0 text-sm rounded-sm grow gap-1 items-center"
+                className="flex px-3 py-2 text-gray-200 bg-gray-300/20 shrink-0 text-sm rounded-sm grow gap-1 items-center max-w-full"
               >
-                {<attr.Icon />}
+                {<attr.Icon className='w-5' />}
                 <p className="leading-4">
                   {/* <span className="font-semibold">{attr.name}: </span> */}
                   {attr.text}
