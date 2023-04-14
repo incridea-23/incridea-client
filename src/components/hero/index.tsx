@@ -1,12 +1,16 @@
 // @refresh reset
 
 import { Alignment, Fit, Layout, useRive } from '@rive-app/react-canvas';
-import { motion } from 'framer-motion';
+import { MotionValue,useTransform, motion } from 'framer-motion';
 import React from 'react';
 import TextAnimation from '../animation/text';
 import Image from 'next/image';
 
-const Hero: React.FC = () => {
+const Hero: React.FC<{parallax:MotionValue<number>}> = ({parallax}) => {
+
+  let y1 = useTransform(parallax, [0, 1], ['10%', '100%']);
+  let y2 = useTransform(parallax, [0, 1], ['0%', '120%']);
+
   const { RiveComponent: LandingBg } = useRive({
     src: `assets/rive/landing-scene-bg-1.riv/`,
     stateMachines: ['state-machine'],
@@ -28,14 +32,11 @@ const Hero: React.FC = () => {
 
   return (
     <section
-      data-scroll-section
       className="relative bg-gradient-to-bl -z-10  from-indigo-200 via-sky-500 to-cyan-100"
     >
       {/* 1. Sun Rays */}
       <Image
         className="hidden md:block absolute  top-0 right-0 z-50 "
-        data-scroll
-        data-scroll-speed="2"
         src="/assets/png/lensflare.webp"
         width={1000}
         height={1000}
@@ -44,17 +45,15 @@ const Hero: React.FC = () => {
       />
       {/* 2. Background Animation */}
       <motion.div
-        data-scroll
-        data-scroll-speed="-8"
-        className="absolute -z-10  top-0 left-0   "
+        style={{translateY:y1}}
+        className="absolute -z-10 top-0 left-0   "
       >
-        <LandingBg className="h-[70vh] w-screen  md:h-screen " />
+        <LandingBg className="h-[70vh] w-screen  md:h-screen" />
       </motion.div>
 
       {/* 3. Hero Title */}
       <motion.div
-        data-scroll
-        data-scroll-speed="-6"
+        style={{translateY:y2}}
         className="absolute  top-0 right-0 -z-10 backdrop-blur-[1px] text-white flex flex-col justify-center items-center w-screen min-h-screen"
       >
         <Image
@@ -71,7 +70,7 @@ const Hero: React.FC = () => {
       </motion.div>
 
       {/* 4. Foreground Animation */}
-      <LandingWave className=" h-[75vh] w-screen  md:h-screen z-0" />
+      <LandingWave className=" h-[75vh] w-screen  md:h-screen z-0" />      
     </section>
   );
 };

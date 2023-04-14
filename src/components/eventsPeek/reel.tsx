@@ -6,7 +6,7 @@ import Button from '../button';
 import { MotionValue } from 'framer-motion';
 import { FC } from 'react';
 
-const EventsReel:FC<{translateX:MotionValue<string>}> = ({translateX}) => {
+const EventsReel:FC<{reelX:MotionValue<string>}> = ({reelX}) => {
   return (
     <section>
       <div className="mb-5 flex justify-center">
@@ -17,7 +17,7 @@ const EventsReel:FC<{translateX:MotionValue<string>}> = ({translateX}) => {
         />
       </div>
       
-      <EventsPeek speed={5} y={translateX} />
+      <EventsPeek reelX={reelX} />
 
       <div className="mx-auto px-4 max-w-3xl">
         <p className="text-sm lg:text-lg mt-12 text-center text-white bodyFont">

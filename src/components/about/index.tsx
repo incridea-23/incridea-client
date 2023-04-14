@@ -2,12 +2,13 @@ import { FC } from 'react';
 import TextAnimation from '../animation/text';
 import Image from 'next/image';
 import { BiDownload } from 'react-icons/bi';
+import { MotionValue,motion,useTransform } from 'framer-motion';
 
-const About: FC = () => {
+const About: FC<{parallax:MotionValue<number>}> = ({parallax}) => {
+  let y = useTransform(parallax, [0, 1], ['40%', '-60%']);
   return (
-    <section
-      data-scroll
-      data-scroll-speed="5"
+    <motion.section
+      style={{y}}
       className="group text-white mx-auto max-w-screen-xl px-4 py-8 sm:py-12 sm:px-6 lg:py-16 lg:px-8 mb-36 lg:mb-72"
     >
       <div className="grid  grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
@@ -70,7 +71,7 @@ const About: FC = () => {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
