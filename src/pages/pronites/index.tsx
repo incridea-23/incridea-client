@@ -42,15 +42,6 @@ const Pronite: NextPage = () => {
           <div className="snap-start min-w-full h-screen place-items-center w-screen">
             <Image
               className="relative h-screen w-screen -bottom-10 sm:bottom-0"
-              src="/assets/svg/proBroA.svg"
-              width={100}
-              height={1000}
-              alt="proBro"
-            />
-          </div>
-          <div className="snap-start min-w-full h-screen place-items-center w-screen">
-            <Image
-              className="relative h-screen w-screen -bottom-10 sm:bottom-0"
               src="/assets/svg/setiaA.svg"
               width={1000}
               height={1000}
@@ -64,6 +55,15 @@ const Pronite: NextPage = () => {
               width={1000}
               height={1000}
               alt="raghav"
+            />
+          </div>
+          <div className="snap-start min-w-full h-screen place-items-center w-screen">
+            <Image
+              className="relative h-screen w-screen -bottom-10 sm:bottom-0"
+              src="/assets/svg/proBroA.svg"
+              width={100}
+              height={1000}
+              alt="proBro"
             />
           </div>
           <div className="snap-start min-w-full h-screen place-items-center w-screen">
