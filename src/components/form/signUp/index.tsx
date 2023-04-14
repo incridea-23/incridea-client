@@ -279,7 +279,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                     <div className="relative font-semibold md:text-base text-xs select-none py-2 px-4 text-gray-600">
                       College not found. Please{' '}
                       <Link
-                        href="contact"
+                        href="/contact"
                         className="underline hover:text-gray-700 cursor-pointer"
                       >
                         contact admin.
