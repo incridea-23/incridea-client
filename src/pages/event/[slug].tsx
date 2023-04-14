@@ -158,7 +158,7 @@ function event({ event, error }: { event: Event; error: String }) {
               type={event.eventType}
             />
 
-            <div className="w-full mt-auto">
+            <div className="w-full">
               <h2 className={`titleFont mb-2 text-2xl`}>Organizers</h2>
               <div className="space-y-1.5 w-full bodyFont">
                 {event.organizers.map((organizer) => (

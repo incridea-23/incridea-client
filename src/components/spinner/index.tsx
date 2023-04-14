@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { BiLoaderAlt } from 'react-icons/bi'
 import { cva, VariantProps } from 'class-variance-authority'
 

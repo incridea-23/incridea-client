@@ -10,7 +10,7 @@ const AboutIncridea: FC = () => {
       <div className="relative h-96 w-full overflow-hidden">
         <motion.div style={{y}} className='relative w-full h-full'>
         <Image
-          src="https://incridemo.web.app/events/EC/SHARKTANK.jpg"
+          src="/assets/png/incrediaAbout.png"
           alt="Incridea Banner"
           width={500}
           height={500}
@@ -33,7 +33,7 @@ const AboutIncridea: FC = () => {
           height={500}
         />
 
-        <div className="text-white text-lg lg:text-xl text-justify basis-1/2 space-y-[1em]">
+        <div className="bodyFont text-white text-lg lg:text-xl text-justify basis-1/2 space-y-[1em]">
           <p>
             Incridea, the annual college festival of NMAM Institute of
             Technology, Nitte, has rapidly grown into one of the most awaited

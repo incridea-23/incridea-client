@@ -17,7 +17,7 @@ const EventsReel = () => {
       <EventsPeek speed={5} />
 
       <div className="mx-auto px-4 max-w-3xl">
-        <p className="text-sm lg:text-lg mt-12 text-center text-white">
+        <p className="text-sm lg:text-lg mt-12 text-center text-white bodyFont">
           Experience a thrilling adventure that will awaken your senses to the
           core!
           <br /> With a diverse range of offerings in music, art, sports, and

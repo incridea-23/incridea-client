@@ -13,7 +13,6 @@ import Spinner from '../../spinner';
 import {
   AiFillEye,
   AiFillEyeInvisible,
-  AiOutlineInfo,
   AiOutlineInfoCircle,
 } from 'react-icons/ai';
 import Link from 'next/link';

@@ -15,7 +15,7 @@ const Refund: NextPage = () => {
         <h1 className={`titleFont text-5xl mb-3 pt-24 text-center`}>
           Refund Policy
         </h1>
-        <div className="mt-[3em]">
+        <div className="mt-[3em] bodyFont">
           <h2 className="text-2xl mt-4">Introduction</h2>
           <p className="mt-2">
             We offer a seamless registration process using Razorpay, a secure
