@@ -3,7 +3,10 @@ import EventsPeek from '.';
 import TextAnimation from '../animation/text';
 import Button from '../button';
 
-const EventsReel = () => {
+import { MotionValue } from 'framer-motion';
+import { FC } from 'react';
+
+const EventsReel:FC<{translateX:MotionValue<string>}> = ({translateX}) => {
   return (
     <section>
       <div className="mb-5 flex justify-center">
@@ -14,7 +17,7 @@ const EventsReel = () => {
         />
       </div>
       
-      <EventsPeek speed={5} />
+      <EventsPeek speed={5} y={translateX} />
 
       <div className="mx-auto px-4 max-w-3xl">
         <p className="text-sm lg:text-lg mt-12 text-center text-white bodyFont">
