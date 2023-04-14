@@ -64,7 +64,7 @@ const Guidelines: NextPage = () => {
               ineligible to participate in the event.
             </li>
           </ul>
-          <h2 className="text-2xl my-6">Event Scoring:</h2>
+         {/* <h2 className="text-2xl my-6">Event Scoring:</h2>
           <p className="mt-2">
             Every event included in Incridea counts towards the overall
             championship, with the following weightage:
@@ -77,7 +77,7 @@ const Guidelines: NextPage = () => {
           <p className="mt-2">
             The championship will be awarded based on the sum of all points
             scored by a college.
-          </p>
+          </p> */}
           <h2 className="text-2xl my-6">Rules and Regulations:</h2>
           <ul className="mt-2 list-disc pl-4">
             <li>
