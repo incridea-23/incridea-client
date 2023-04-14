@@ -48,7 +48,7 @@ const TeamMembers = [
     linkedin: 'nagaraj-pandith',
     instagram: 'nagarajpandithh',
     quote:
-      'Never Gonna Give you up, Never gonna let you down. Never gonna run around and desert you.',
+      'Never Gonna Give you up, Never gonna let you down. Na na na na... bruh',
   },
   {
     name: 'Prayag Sharma',
@@ -107,10 +107,10 @@ const TeamMembers = [
   {
     name: 'Padmashree Shetty',
     role: 'Backend Developer',
-    image: '/team/padmashree.png',
+    image: '/team/padmashree.jpg',
     github: 'padmashreeshetty123',
     linkedin: 'padmashree-shetty-1298b2228',
     instagram: 'padmashree_shetty1',
-    quote: '',
+    quote: `I can make your data sing, but don't ask me to create a pretty chart for it. #backenddeveloper`,
   },
 ];
