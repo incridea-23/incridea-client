@@ -38,7 +38,7 @@ const TeamMembers = [
     github: 'swasthikshetty10',
     linkedin: 'swasthikshetty10',
     instagram: 'https://youtu.be/_3wkyerSBpw',
-    quote: ``,
+    quote: 'I use arch btw',
   },
   {
     name: 'Nagaraj Pandith',
