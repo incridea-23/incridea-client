@@ -29,7 +29,7 @@ const Hero: React.FC = () => {
   return (
     <section
       data-scroll-section
-      style={{willChange: 'transform, opacity'}}
+      style={{willChange: 'transform'}}
       className="relative bg-gradient-to-bl -z-10  from-indigo-200 via-sky-500 to-cyan-100"
     >
       {/* 1. Sun Rays */}

@@ -14,7 +14,7 @@ const CountDown = dynamic(() => import("../components/countdown"), {
 const Home = () => {
   const containerRef = useRef(null);
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-x-hidden" style={{willChange: 'transform'}}>
       <LocomotiveScrollProvider
         options={{
           smooth: true,

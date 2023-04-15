@@ -43,7 +43,7 @@ const CountDown: FC = () => {
   ];
 
   return (
-    <section className={`text-white text-center titleFont mb-20 lg:mb-40`}>
+    <section className={`text-white text-center titleFont mb-20 lg:mb-40`} style={{willChange: 'transform'}}>
       <TextAnimation
         text="The wait is almost over!"
         className="flex justify-center"
