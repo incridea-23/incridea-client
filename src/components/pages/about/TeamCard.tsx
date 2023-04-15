@@ -6,37 +6,56 @@ import { AiFillGithub, AiFillInstagram, AiFillLinkedin } from 'react-icons/ai';
 const TeamCard: FC<{
   name: string;
   role: string;
+  image: string;
   linkedin: string;
   instagram: string;
   github: string;
   quote: string;
-}> = ({ name, role, linkedin, github, quote, instagram }) => {
+}> = ({ name, role, linkedin, github, quote, instagram, image }) => {
   return (
     <motion.div
       whileHover={{ scale: 1.03 }}
       className="bg-black/20 bg-opacity-30 rounded-md p-5 text-center w-full max-w-sm"
     >
-      <Image
-        src="https://incridemo.web.app/events/EC/SHARKTANK.jpg"
-        alt="Incridea Banner"
-        width={250}
-        height={250}
-        className="rounded-md w-full h-auto"
-      />
+      <div className="h-72">
+        <Image
+          src={image}
+          alt={name}
+          width={250}
+          height={250}
+          className="rounded-md w-full h-full object-cover"
+        />
+      </div>
 
       <div className="flex flex-col mt-5">
         <h1 className="text-white font-bold text-2xl titleFont">{name}</h1>
-        <p className="text-gray-200 text-md">{role}</p>
+        <p className="text-gray-200 text-md bodyFont">{role}</p>
       </div>
 
       <div className="flex gap-2 mt-2 justify-center">
-        <a href={linkedin}>
+        <a
+          href={'https://www.linkedin.com/in/' + linkedin}
+          target="_blank"
+          rel="noreferrer"
+        >
           <AiFillLinkedin size={30} fill="#fff" className="cursor-pointer" />
         </a>
-        <a href={github}>
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href={'https://github.com/' + github}
+        >
           <AiFillGithub size={30} fill="#fff" className="cursor-pointer" />
         </a>
-        <a href={instagram}>
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href={
+            instagram.startsWith('https://youtu.be/')
+              ? instagram
+              : 'https://www.instagram.com/' + instagram
+          }
+        >
           <AiFillInstagram size={30} fill="#fff" className="cursor-pointer" />
         </a>
       </div>
@@ -56,7 +75,7 @@ const TeamCard: FC<{
             fill="currentColor"
           />
         </svg>
-        <div className="italic font-bold text-white">{quote}</div>
+        <div className="italic font-bold text-white bodyFont">{quote}</div>
 
         <div className="flex justify-end">
           <svg

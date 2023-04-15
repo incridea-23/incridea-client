@@ -4,12 +4,14 @@ import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import Spinner from '../../spinner';
 import Button from '../../button';
+import { BiCheckCircle, BiErrorCircle } from 'react-icons/bi';
+import Link from 'next/link';
 
 const ResetPassword: FunctionComponent = () => {
   const [error, setError] = useState<string | null>(null);
   const [password, setPassword] = useState({
-    newPassword: "",
-    confirmPassword: "",
+    newPassword: '',
+    confirmPassword: '',
   });
 
   const token = useRouter().query.token as string | undefined;
@@ -21,13 +23,18 @@ const ResetPassword: FunctionComponent = () => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
+    if (password.newPassword.length < 8) {
+      setError('Password must be at least 8 characters');
+      return;
+    }
+
     if (password.newPassword !== password.confirmPassword) {
-      setError("Passwords do not match");
+      setError('Passwords do not match');
       return;
     }
 
     if (!token) {
-      setError("Invalid token");
+      setError('Invalid token');
       return;
     }
 
@@ -37,7 +44,7 @@ const ResetPassword: FunctionComponent = () => {
         token: token as string,
       },
     }).then((res) => {
-      if (res.data?.resetPassword.__typename === "Error") {
+      if (res.data?.resetPassword.__typename === 'Error') {
         setError(res.data.resetPassword.message);
       }
     });
@@ -45,14 +52,26 @@ const ResetPassword: FunctionComponent = () => {
 
   return (
     <>
-      {loading ? (
-        <Spinner intent={'white'} />
-      ) : data?.resetPassword.__typename === 'MutationResetPasswordSuccess' ? (
-        <div className="text-green-500">✅ Password successfully changed</div>
+      {data?.resetPassword.__typename === 'MutationResetPasswordSuccess' ? (
+        <div className="flex relative justify-center flex-col gap-4 min-h-full">
+          <div className="flex flex-col gap-2 text-center items-center text-green-500 bg-green-100 font-semibold p-4 pb-2 rounded-md">
+            <BiCheckCircle size={'2rem'} />
+            <div className="bg-green-100 flex flex-col text-center mb-5 items-center gap-3 rounded-md font-semibold">
+              Password was reset successfully.
+              <br />
+              <div>
+                Please{' '}
+                <Link href="/login" className="underline hover:text-green-600">
+                  login.
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
       ) : (
         <form
           className={`flex relative justify-center flex-col gap-4 min-h-full  ${
-            loading && "cursor-not-allowed pointer-events-none"
+            loading && 'cursor-not-allowed pointer-events-none'
           }`}
           onSubmit={handleSubmit}
         >
@@ -81,9 +100,16 @@ const ResetPassword: FunctionComponent = () => {
             Reset Password
           </Button>
 
+          {loading && (
+            <div className="absolute h-full w-full bg-[#f3e9d1] bg-opacity-60 inset-0 rounded-lg cursor-not-allowed pointer-events-none z-50">
+              <Spinner className="text-[#dd5c6e]" />
+            </div>
+          )}
+
           {(error || MutationError) && (
-            <div className="text-red-500">
-              {error || MutationError?.message}
+            <div className="bg-red-100 p-2 flex items-center gap-3 px-4 rounded-md font-semibold text-red-500">
+              <BiErrorCircle className="shrink-0" />
+              <div>{error || MutationError?.message}</div>
             </div>
           )}
         </form>

@@ -1,29 +1,40 @@
 query EventsByBranchRep($branchRepId: ID!) {
   eventsByBranchRep(branchRepId: $branchRepId) {
+    rounds {
+      completed
+      roundNo
+      eventId
+      date
+      judges {
+        user {
+          email
+          name
+          id
+        }
+      }
+    }
+    description
+    eventType
+    fees
+    id
+    category
+    image
+    maxTeamSize
+    maxTeams
+    minTeamSize
+    name
+    organizers {
+      user {
+        email
+        name
+        id
+      }
+    }
     branch {
       id
       name
     }
-    description
-    eventType
-    id
-    fees
-    image
-    name
-    venue
     published
-    category
-    organizers {
-      user {
-        name
-        id
-        email
-      }
-    }
-    rounds {
-      completed
-      date
-      roundNo
-    }
+    venue
   }
 }

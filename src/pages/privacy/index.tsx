@@ -16,7 +16,7 @@ const Privacy: NextPage = () => {
       <h1 className={`titleFont text-5xl mb-3 pt-24 text-center`}>
         Incridea 2023 Privacy Policy
       </h1>
-      <div className="mt-10">
+      <div className="bodyFont mt-10">
 
         <p>
           At Incridea, we take your privacy seriously and are committed to
@@ -172,8 +172,8 @@ const Privacy: NextPage = () => {
         </p>
         <p className="text-lg mt-4 font-semibold">
           For inquiries or clarifications on our privacy policy or personal data
-          handling, you may reach us at <strong>incridea@nmamit.in</strong> or{" "}
-          <strong>+91 9448815186</strong>.
+          handling, you may reach us at <a href="mailto:incridea@nmamit.in" className='hover:underline'>incridea@nmamit.in</a> or{" "}
+          <a href="tel:9448815186" className='hover:underline'>+91 9448815186</a>.
         </p>
       </div>
       <div className={`flex w-full -translate-x-10 translate-y-10 opacity-75`}>

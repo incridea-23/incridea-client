@@ -1,5 +1,5 @@
 import { BsWhatsapp } from 'react-icons/bs';
-import GoogleCalendar from './googleCalendar';
+// import GoogleCalendar from './googleCalendar';
 import LeaveTeamModal from '../profile/LeaveTeamModal';
 import Link from 'next/link';
 import { AiOutlineCopy } from 'react-icons/ai';

@@ -4,6 +4,21 @@ import Image from 'next/image';
 import { BiDownload } from 'react-icons/bi';
 
 const About: FC = () => {
+  const handleDownload = (path: string, name: string) => {
+    // fallback to window.open if the browser doesn't support the download attribute
+    const fileUrl = path;
+    const fileName = name;
+
+    const link = document.createElement('a');
+    link.href = fileUrl;
+    link.download = fileName;
+
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+  };
+
   return (
     <section
       data-scroll
@@ -56,14 +71,16 @@ const About: FC = () => {
             className={`mt-2 text-lg flex justify-center space-x-2 items-center titleFont`}
           >
             <a
-              href="#"
-              className="px-3 flex items-center gap-2 py-2 text-md md:text-lg lg:text-xl font-semibold text-center text-white transition duration-300 rounded-bl-xl rounded-tr-xl bg-white/30 hover:bg-white/40"
+              onClick={() =>
+                handleDownload('/assets/pdf/rulebook.pdf', 'Rulebook.pdf')
+              }
+              className="cursor-pointer px-3 flex items-center gap-2 py-2 text-md md:text-lg lg:text-xl font-semibold text-center text-white transition duration-300 rounded-bl-xl rounded-tr-xl bg-white/30 hover:bg-white/40"
             >
               <BiDownload /> Rule book
             </a>
             <a
-              href="#"
-              className="px-3 flex items-center gap-2 py-2 text-md md:text-lg lg:text-xl font-semibold text-center text-white transition duration-300 rounded-bl-xl rounded-tr-xl bg-white/30 hover:bg-white/40"
+              // onClick={() => handleDownload('/assets/pdf/schedule.pdf', 'schedule.pdf')}
+              className="cursor-pointer px-3 flex items-center gap-2 py-2 text-md md:text-lg lg:text-xl font-semibold text-center text-white transition duration-300 rounded-bl-xl rounded-tr-xl bg-white/30 hover:bg-white/40"
             >
               <BiDownload /> Schedule
             </a>

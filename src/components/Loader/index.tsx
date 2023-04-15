@@ -21,9 +21,9 @@ const Loader:FC = () => {
               repeat: Infinity,
               repeatType: "mirror",
             }}
-            className="flex text-white"> 
-                <h1 className={`my-auto bodyFont text-xl md:text-3xl`} >Loading your experience</h1> 
-                <GiShipWheel className="lg:ml-6 ml-3 my-auto text-2xl lg:text-4xl duration-1000 animate-spin-slow" />  
+            className="flex text-white/70"> 
+                <h1 className={`my-auto text-xl md:text-3xl bodyFont`} >Loading your experience</h1> 
+                {/* <GiShipWheel className="lg:ml-6 ml-3 my-auto text-2xl lg:text-4xl duration-1000 animate-spin-slow" />   */}
             </motion.div>
         </motion.div>
     )

@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import GallerySlide from '@/src/components/galleryslide';
 import { FooterBody } from '@/src/components/footer';
 
-
 const Gallery: NextPage = () => {
   const years = [2019, 2020, 2022];
   const imageCounts = [13, 14, 18];
@@ -15,7 +14,11 @@ const Gallery: NextPage = () => {
   ) => {
     const imagePaths = [];
     for (let i = 1; i <= count; i++) {
-      imagePaths.push(`${year}/${i}.${extension}`);
+      if (year === years[2] && i > 9) {
+        imagePaths.push(`${year}/${i}.JPG`);
+      } else {
+        imagePaths.push(`${year}/${i}.${extension}`);
+      }
     }
     return imagePaths;
   };
@@ -23,10 +26,10 @@ const Gallery: NextPage = () => {
   const img2019: string[] = generateImagePaths(
     years[0],
     imageCounts[0],
-    "jpeg"
+    'jpeg'
   );
-  const img2020: string[] = generateImagePaths(years[1], imageCounts[1], "jpg");
-  const img2022: string[] = generateImagePaths(years[2], imageCounts[2], "jpg");
+  const img2020: string[] = generateImagePaths(years[1], imageCounts[1], 'jpg');
+  const img2022: string[] = generateImagePaths(years[2], imageCounts[2], 'jpg');
 
   return (
     <div className="flex flex-col h-screen w-full overflow-x-hidden overflow-y-auto text-gray-100 bg-gradient-to-b from-[#2d6aa6] to-[#052749] snap-y snap-mandatory relative">
@@ -56,27 +59,27 @@ const Gallery: NextPage = () => {
         <motion.div
           animate={{ y: [30, 0], opacity: [0, 1], repeatCount: 1 }}
           transition={{ duration: 3 }}
-          style={{ x: "-50%" }}
+          style={{ x: '-50%' }}
           className="h-1 w-40 hidden sm:flex bg-gray-100 absolute bottom-8 left-1/2"
         ></motion.div>
       </div>
 
       <GallerySlide
-        title={"2022"}
-        next={"2020"}
-        prev={"head"}
+        title={'2022'}
+        next={'2020'}
+        prev={'head'}
         imgArr={img2022}
       />
       <GallerySlide
-        title={"2020"}
-        next={"2019"}
-        prev={"2022"}
+        title={'2020'}
+        next={'2019'}
+        prev={'2022'}
         imgArr={img2020}
       />
       <GallerySlide
-        title={"2019"}
-        next={"footer"}
-        prev={"2020"}
+        title={'2019'}
+        next={'footer'}
+        prev={'2020'}
         imgArr={img2019}
       />
 

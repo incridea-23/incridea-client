@@ -2,7 +2,7 @@ import {  useState } from 'react';
 import {
   OrganizerRegisterSoloDocument,
 } from '@/src/generated/generated';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import Modal from '@/src/components/modal';
 import createToast from '@/src/components/toast';
 import Button from '@/src/components/button';

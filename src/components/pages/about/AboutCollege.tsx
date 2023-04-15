@@ -10,7 +10,6 @@ const AboutCollege: FC = () => {
       <div className="relative h-96 w-full overflow-hidden">
         <motion.div style={{ y }} className="relative w-full h-full">
           <Image
-            // src="/assets/png/incrediaAbout.png"
             src="/assets/png/collegeAbout.png"
             alt="college Banner"
             width={500}
@@ -34,18 +33,6 @@ const AboutCollege: FC = () => {
           height={600}
         />
         <div className="text-white text-lg lg:text-xl text-justify basis-1/2 my-5">
-          {/* Nitte Mahalinga Adyantaya Memorial Institute of Technology, NMAMIT, is
-          a prestigious institution that has established itself as a leading
-          engineering, and MCA institution. Founded by Justice K S Hegde in
-          1986, the college has come a long way from its humble beginnings to
-          become what it is today. With a focus on innovation and excellence,
-          NMAMIT has earned a well-deserved reputation in the region.
-          The college&apos;s state-of-the-art facilities, experienced faculty,
-          and industry-driven curriculum prepare students to meet the challenges
-          of the real world and become leaders in their respective fields. The
-          college&apos;s emphasis on research and development has resulted in
-          numerous accolades and awards, making it a top-ranked institution in
-        India and globally. */}
           Nitte Mahalinga Adyantaya Memorial Institute of Technology(NMAMIT), Nitte,
           established in 1986 and recognized by the All India Council for Technical
           Education, New Delhi, has been a constituent college of Nitte (Deemed to be

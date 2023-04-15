@@ -36,7 +36,9 @@ const EditEvent: FC<
     const [minTeamSize, setMinTeamSize] = useState(event?.minTeamSize);
     const [venue, setVenue] = useState(event?.venue);
     const [fees, setFees] = useState(event?.fees);
+    const [banner, setBanner] = useState(event?.image);
     const [showModal, setShowModal] = useState(false);
+    const [uploading, setUploading] = useState(false);
   
     function handleCloseModal() {
       setShowModal(false);
@@ -60,6 +62,7 @@ const EditEvent: FC<
           name,
           maxTeamSize,
           minTeamSize,
+          image: banner,
           venue,
           fees,
           eventType: eventType as EventType,
@@ -93,6 +96,32 @@ const EditEvent: FC<
   
       document.head.appendChild(style);
     }, [event]);
+
+    const handleUpload = (file: File) => {
+      const formData = new FormData();
+      formData.append("image", file);
+      const url = `https://incridea.onrender.com/cloudinary/upload/${event?.name}`;
+      setUploading(true);
+      const promise = fetch(url, {
+        method: "POST",
+        body: formData,
+        mode: "cors",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          setBanner(res.url);
+          setUploading(false);
+        })
+        .catch((err) => {
+          setUploading(false);
+          console.log(err);
+        });
+      createToast(promise, "Uploading image...");
+    };
+
     return (
       <>
         <Button
@@ -255,6 +284,7 @@ const EditEvent: FC<
                     file:bg-blue-50 file:text-blue-700
                     hover:file:bg-blue-100 border w-full text-sm rounded-lg   block  bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
                     placeholder="Banner..."
+                    onChange={(e) => handleUpload(e.target.files![0])}
                   />
                 </div>
                 <div className="grow md:basis-1/3 basis-full">
@@ -301,7 +331,7 @@ const EditEvent: FC<
                 type="submit"
                 intent={'success'}
                 onClick={saveHandler}
-                disabled={loading}
+                disabled={loading || uploading}
                 className="rounded-lg"
               >
                 Save
