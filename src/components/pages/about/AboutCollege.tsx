@@ -1,10 +1,10 @@
-import Image from 'next/image';
-import { FC } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import Image from "next/image";
+import { FC } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const AboutCollege: FC = () => {
   let { scrollYProgress } = useScroll();
-  let y = useTransform(scrollYProgress, [0, 1], ['0%', '-100%']);
+  let y = useTransform(scrollYProgress, [0, 1], ["0%", "-100%"]);
   return (
     <>
       <div className="relative h-96 w-full overflow-hidden">
@@ -20,9 +20,7 @@ const AboutCollege: FC = () => {
           <span className="absolute inset-0 w-full h-full bg-gradient-to-b from-transparent to-black z-10"></span>
         </motion.div>
         <div className="absolute inset-0 w-full h-full flex items-center justify-center">
-          <h1
-            className={`titleFont text-4xl lg:text-7xl text-center p-5 text-white`}
-          >
+          <h1 className={`titleFont text-4xl lg:text-7xl text-center p-5 text-white`}>
             About NMAMIT
           </h1>
         </div>
@@ -36,19 +34,31 @@ const AboutCollege: FC = () => {
           height={600}
         />
         <div className="text-white text-lg lg:text-xl text-justify basis-1/2 my-5">
-          Nitte Mahalinga Adyantaya Memorial Institute of Technology, NMAMIT, is
+          {/* Nitte Mahalinga Adyantaya Memorial Institute of Technology, NMAMIT, is
           a prestigious institution that has established itself as a leading
           engineering, and MCA institution. Founded by Justice K S Hegde in
           1986, the college has come a long way from its humble beginnings to
           become what it is today. With a focus on innovation and excellence,
           NMAMIT has earned a well-deserved reputation in the region.
-          <div className="py-3" />
           The college&apos;s state-of-the-art facilities, experienced faculty,
           and industry-driven curriculum prepare students to meet the challenges
           of the real world and become leaders in their respective fields. The
           college&apos;s emphasis on research and development has resulted in
           numerous accolades and awards, making it a top-ranked institution in
-          India and globally.
+        India and globally. */}
+          Nitte Mahalinga Adyantaya Memorial Institute of Technology(NMAMIT), Nitte,
+          established in 1986 and recognized by the All India Council for Technical
+          Education, New Delhi, has been a constituent college of Nitte (Deemed to be
+          University), Mangaluru, since June 2022.
+          <div className="py-3" />
+          Ranked 175 in the National Institutional Ranking Framework (NIRF) 2022 by MHRD,
+          GoI among the engineering colleges in India, the College has been placed under
+          the &apos;Platinum&apos; category for having high industry linkages by the AICTE-CII
+          Survey of Industry-Linked Technical Institutes 2020. NMAMIT, the off-campus
+          centre of Nitte DU located at Nitte Village, has active collaborations with
+          several international universities and organizations for faculty and student
+          exchanges, research, internships, and placements. (For details, visit{' '}
+          <a className="hover:underline" href="https://.nmamit.nitte.edu.in">www.nmamit.nitte.edu.in</a>)
         </div>
       </div>
     </>
