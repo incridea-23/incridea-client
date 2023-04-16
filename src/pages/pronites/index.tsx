@@ -20,7 +20,7 @@ const Pronite: NextPage = () => {
         <Image  src="/assets/svg/beach.svg" fill objectFit="cover" objectPosition="right bottom" alt="beach"/>
 
         {/* Bushes bg */}
-        <div className="fixed z-10 pointer-events-none bottom-0 h-screen w-screen bg-bottom bg-fit bg-repeat-x bg-[url('/assets/svg/bushes.svg')]" />
+        <div className="fixed z-10 pointer-events-none bottom-0 h-screen w-screen bg-bottom bg-fit bg-repeat-x bg-[url('/assets/svg/bushes1.svg')]" />
         <div
           ref={scrollRef}
           className="absolute top-0 snap-start snap-x snap-mandatory flex overflow-x-auto h-screen w-screen mx:auto overflow-y-hidden text-gray-100"
