@@ -8,7 +8,7 @@ module.exports = {
     extend: {
       animation: {
         'spin-slow': 'spin 2s linear infinite',
-        'scroll': 'scroll 25s linear infinite',
+        'scroll': 'scroll 35s linear infinite',
       },
       keyframes: {
         scroll: {

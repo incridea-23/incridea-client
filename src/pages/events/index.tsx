@@ -109,7 +109,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
       >
         EVENTS
       </h1>
-      <h3 className={`titleFont font-semibold text-xl tracking-wide text-center py-5 text-white`}>60+ Events: Dive into Limitless Fun and Adventure!</h3>
+      <h3 className={`titleFont font-semibold text-xl tracking-wide text-center py-5 px-2 text-white`}>60+ Events: Dive into Limitless Fun and Adventure!</h3>
       <div className="flex flex-wrap items-center gap-2 px-4 lg:justify-between lg:flex-col lg:mx-auto mt-8">
         <div className="flex flex-col lg:flex-nowrap lg:w-[800px] w-full items-center gap-2">
           <div className="flex w-full items-center justify-between gap-3">
@@ -134,7 +134,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
                   }>
                   {currentBranchFilter !== "ALL" ? currentBranchFilter : "Branch"}
                 </Menu.Button>
-                <Menu.Items className=" overflow-hidden pb-1.5 mt-1 bg-[#075985] absolute z-10 text-center rounded-sm shadow-black/80 shadow-2xl">
+                <Menu.Items className=" overflow-hidden pb-1.5 mt-1 bg-[#286D8C] absolute z-10 text-center rounded-sm shadow-black/80 shadow-2xl">
                   {branchFilters.map((filter) => (
                     <Menu.Item key={filter}>
                       {({ active }) => (
@@ -159,7 +159,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
                   }>
                   {currentDayFilter !== "ALL" ? currentDayFilter : "Day"}
                 </Menu.Button>
-                <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-[#075985]  absolute z-[1] text-center rounded-sm shadow-black/80 shadow-2xl">
+                <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-[#286D8C]  absolute z-[1] text-center rounded-sm shadow-black/80 shadow-2xl">
                   {dayFilters.map((filter) => (
                     <Menu.Item key={filter}>
                       {({ active }) => (
@@ -193,7 +193,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
           </div>
         </div>
 
-        {/* <p className="lg:hidden text-white/90 mr-2">More filters</p> */}
+        {/* Mobile Filters */}
         <div className="flex  justify-between gap-3 basis-full">
           <div className="lg:hidden flex basis-1/3 justify-between  py-2">
             <Menu as={"div"} className={"relative grow inline-block"}>
@@ -203,7 +203,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
                 }>
                 {currentBranchFilter !== "ALL" ? currentBranchFilter : "Branch"}
               </Menu.Button>
-              <Menu.Items className=" overflow-hidden pb-1.5 mt-1 bg-[#075985] absolute z-50 text-center rounded-sm shadow-black/80 shadow-2xl">
+              <Menu.Items className="overflow-hidden pb-1.5 mt-1 bg-[#2e768a] absolute z-50 text-center rounded-sm shadow-black/80 shadow-2xl">
                 {branchFilters.map((filter) => (
                   <Menu.Item key={filter}>
                     {({ active }) => (
@@ -230,7 +230,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
                   ? currentCategoryFilter.replace("_", " ")
                   : "Category"}
               </Menu.Button>
-              <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-[#075985]  absolute z-50 text-center rounded-sm shadow-black/80 shadow-2xl">
+              <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-[#2e768a]  absolute z-50 text-center rounded-sm shadow-black/80 shadow-2xl">
                 {categoryFilters.map((filter) => (
                   <Menu.Item key={filter}>
                     {({ active }) => (
@@ -255,7 +255,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
                 }>
                 {currentDayFilter !== "ALL" ? currentDayFilter : "Day"}
               </Menu.Button>
-              <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-[#075985]  absolute z-50 text-center rounded-sm shadow-black/80 shadow-2xl">
+              <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-[#2e768a]  absolute z-50 text-center rounded-sm shadow-black/80 shadow-2xl">
                 {dayFilters.map((filter) => (
                   <Menu.Item key={filter}>
                     {({ active }) => (

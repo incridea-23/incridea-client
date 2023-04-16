@@ -23,7 +23,7 @@ export default function App({
   const variants = {
     initialState: {
       opacity: 0,
-      translateY: '100%',
+      translateY: '50%',
     },
     animateState: {
       opacity: 1,
@@ -31,13 +31,13 @@ export default function App({
     },
     exitState: {
       opacity: 0,
-      translateY: '-100%',
+      translateY: '-50%',
     },
   };
 
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => setLoading(false), 5000);
+    setTimeout(() => setLoading(false), 4000);
   }, []);
 
   return (
