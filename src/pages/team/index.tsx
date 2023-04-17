@@ -68,7 +68,7 @@ const TeamMembers = [
     github: 'numannaeem',
     linkedin: 'numxn',
     instagram: 'num4n_',
-    quote: 'Naatil evdeya?',
+    quote: 'Naatil evideya?',
   },
   {
     name: 'Satvik Nayak',

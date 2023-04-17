@@ -1,11 +1,11 @@
 import Image from "next/image";
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 const EventsPeek: FC<{
   speed: number;
 }> = ({ speed }) => {
   const images = [
-    "Battle_of_Bands_WEB.jpg", 
+    "Battle_of_Bands_WEB.jpg",
     "Copy of NAVARASA_WithoutContact.png",
     "Desafio.jpg",
     "Stomp That.jpg",
@@ -28,6 +28,32 @@ const EventsPeek: FC<{
   ]; // TODO: Replace with actual images (top 3)
 
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
+  const reelRef = React.useRef<HTMLUListElement>(null);
+
+  const [translateVal, setTranslateVal] = useState(0);
+  useEffect(() => {
+    if (isMobile) {
+      let id: number,
+        prevScrollY = 0;
+      let repeatOften = () => {
+        reelRef.current!.style.transform = `translateX(-${
+          ((window.scrollY + prevScrollY) / 2) % (250 * 10)
+        }px)`;
+        id = requestAnimationFrame(repeatOften);
+      };
+      const handleScroll = () => {
+        // setTranslateVal((window.scrollY - 1000) % (250*10))
+        id = requestAnimationFrame(repeatOften);
+        prevScrollY = window.scrollY;
+      };
+      window.addEventListener("scroll", handleScroll);
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+        cancelAnimationFrame(id);
+      };
+    }
+  }, [isMobile, reelRef, translateVal]);
 
   return !isMobile ? (
     <section style={{ transform: "translateX(-60%)", willChange: "transform" }}>
@@ -52,25 +78,62 @@ const EventsPeek: FC<{
       </div>
     </section>
   ) : (
-    <div className="w-full">
-      <div className=" m-auto overflow-hidden relative w-auto">
-        <ul className="flex w-[calc(250px*20)] animate-scroll">
-          {images.map((i) => {
-            return (
-              <li className="w-[250px] py-2 px-1" key={i}>
-                <Image
-                  src={"/assets/Core_Event_Posters/" + i}
-                  alt="Gallery Image"
-                  width={500}
-                  height={300}
-                />
-                <div className="absolute top-0 left-0 w-full h-full bg-blue-300 bg-opacity-[1%]"></div>
-              </li>
-            );
-          })}
-        </ul>
+    <>
+      <div className="w-full relative">
+        <div className="py-2 m-auto rotate-[15deg] overflow-hidden relative top-28 right-20 w-[200%]">
+          <ul
+            className="flex w-[calc(250px*20)] animate-scroll-reverse"
+            ref={reelRef}
+            style={{
+              transition: "all",
+              willChange: "translate, transform",
+              transitionDelay: "10ms",
+              transitionTimingFunction: "ease-in-out",
+            }}>
+            {images.map((i) => {
+              return (
+                <li className="w-[250px] py-2 px-1" key={i}>
+                  <Image
+                    src={"/assets/Core_Event_Posters/" + i}
+                    alt="Gallery Image"
+                    width={500}
+                    height={300}
+                  />
+                  <div className="absolute top-0 left-0 w-full h-full bg-blue-300 bg-opacity-[1%]"></div>
+                </li>
+              );
+            })}
+          </ul>
+        <div className="absolute h-full w-[200%] py-10 inset-0 backdrop-blur-sm"></div>
+        </div>
+
+        <div className="py-2 m-auto -rotate-[15deg] overflow-hidden relative -top-36 right-20 w-[200%]">
+          <ul
+            className="flex w-[calc(250px*20)] animate-scroll"
+            ref={reelRef}
+            style={{
+              transition: "all",
+              willChange: "translate, transform",
+              transitionDelay: "10ms",
+              transitionTimingFunction: "ease-in-out",
+            }}>
+            {images.map((i) => {
+              return (
+                <li className="w-[250px] py-2 px-1" key={i}>
+                  <Image
+                    src={"/assets/Core_Event_Posters/" + i}
+                    alt="Gallery Image"
+                    width={500}
+                    height={300}
+                  />
+                  <div className="absolute top-0 left-0 w-full h-full bg-blue-300 bg-opacity-[1%]"></div>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

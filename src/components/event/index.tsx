@@ -44,7 +44,7 @@ const Event = ({
     return [
       {
         name: "Date",
-        text: data.rounds[0]?.date ? new Date(data.rounds[0]?.date).toLocaleString('en-UK', {
+        text: data.rounds[0]?.date ? new Date(data.rounds[0]?.date).toLocaleString('en-IN', {
           day: 'numeric',
           month: 'short',
           hour: 'numeric',
