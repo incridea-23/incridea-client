@@ -24,7 +24,7 @@ const EventsReel = () => {
           technology, there&apos;s something for everyone. Come dive into the
           deep ocean of excitement and discover unforgettable experiences.
         </p>
-        <Link className="flex justify-center mt-5" href={'/events'}>
+        <Link className="flex justify-center w-fit mx-auto mt-5" href={'/events'}>
           <Button>View Events</Button>
         </Link>
       </div>

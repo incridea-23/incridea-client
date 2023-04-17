@@ -17,16 +17,16 @@ const Pronite: NextPage = () => {
     <>
       <div className="relative h-screen bg-gradient-to-bl   overflow-y-hidden  from-indigo-200 via-sky-500 to-cyan-100">
         {/* Beach bg */}
-        <Image  src="/assets/svg/beach.svg" fill objectFit="cover" objectPosition="right bottom" alt="beach"/>
+        <Image  src="/assets/svg/beach.svg" className='object-contain object-right-bottom' fill alt="beach"/>
 
         {/* Bushes bg */}
         <div className="fixed z-10 pointer-events-none bottom-0 h-screen w-screen bg-bottom bg-fit bg-repeat-x bg-[url('/assets/svg/bushes.svg')]" />
         <div
           ref={scrollRef}
-          className="absolute top-0 snap-start snap-x snap-mandatory flex overflow-x-auto h-screen w-screen mx:auto overflow-y-hidden text-gray-100"
+          className="absolute top-0 snap-start snap-x snap-mandatory flex overflow-x-auto h-screen w-screen min-w-screen mx:auto overflow-y-hidden text-gray-100"
         >
           <div className="snap-start min-w-full h-screen place-items-center w-screen">
-            <div className="absolute flex pointer-events-none flex-col w-full py-10 md:py-2 md:px-8 top-1/4">
+            <div className="absolute flex pointer-events-none flex-col w-full py-10 md:py-2 md:px-8 top-[35%]">
               <CharacterAnimation
                 text="PRONITES"
                 className={`titleFont flex justify-center`}

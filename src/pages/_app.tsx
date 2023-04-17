@@ -22,16 +22,16 @@ export default function App({
   const router = useRouter();
   const variants = {
     initialState: {
-      opacity: 0,
-      translateY: '50%',
+      // opacity: 0,
+      translateY: '-100%',
     },
     animateState: {
-      opacity: 1,
+      // opacity: 1,
       translateY: '0%',
     },
     exitState: {
-      opacity: 0,
-      translateY: '-50%',
+      // opacity: 0,
+      translateY: '100%',
     },
   };
 
@@ -48,7 +48,7 @@ export default function App({
       />
       <AnimatePresence>{isLoading && <Loader />}</AnimatePresence>
       <div className="bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6]">
-        {router.route !== '/' && (
+        {(
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white">
             <Image
               src={'/assets/png/logo.png'}
@@ -68,13 +68,13 @@ export default function App({
             initial="intialState"
             animate="animateState"
             exit="exitState"
-            transition={{ duration: 1 }}
+            transition={{ duration: 0.8 }}
             variants={variants}
           >
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1 }}
+              transition={{ duration: 0.8 }}
               className="min-h-screen"
             >
               <Component setLoading={setLoading} {...pageProps} />

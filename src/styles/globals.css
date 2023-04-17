@@ -164,6 +164,6 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-.event-description {
+.event-description * {
   font-family: 'Montserrat', sans-serif !important;
 }
