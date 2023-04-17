@@ -84,11 +84,11 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
     query === ''
       ? sortedColleges
       : sortedColleges?.filter((college) => {
-          return college?.name
-            .toLowerCase()
-            .replace(/[.,\s]/g, '')
-            .includes(query.toLowerCase().replace(/\s+/g, ''));
-        });
+        return college?.name
+          .toLowerCase()
+          .replace(/[.,\s]/g, '')
+          .includes(query.toLowerCase().replace(/\s+/g, ''));
+      });
 
   const resendEmail = () => {
     setEmailSuccess(false);
@@ -188,9 +188,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className={`flex relative justify-center min-h-full flex-col gap-3 ${
-        loading && 'cursor-not-allowed pointer-events-none'
-      }`}
+      className={`flex relative justify-center min-h-full flex-col gap-3 ${loading && 'cursor-not-allowed pointer-events-none'
+        }`}
     >
       <h2 className="text-3xl text-center font-semibold">
         Welcome to Incridea! 👋
@@ -204,23 +203,23 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
           <AiOutlineInfoCircle className="shrink-0" />
           <div>
             <a className="inline-block transition-colors text-start text-blue-500 font-normal text-sm">
-              This option is exclusively for invited participants and does not
-              provide access to pronites. If your college is not in the list
-              below and you are not invited, please{' '}
+              This option is exclusively for Alumni of NMAMIT (with access to pronites)
+              and for for invited participants (without access to pronites). If your college is not in the list
+              below and you are not invited, or not an alumni, please{' '}
               <Link
                 href="/contact"
                 className="underline hover:text-blue-700 cursor-pointer"
               >
                 contact us.
               </Link>{' '}
-              Please refer to Participant Categories in the{' '}
+              Refer to the{' '}
               <Link
                 href="/guidelines"
                 className="underline hover:text-blue-700 cursor-pointer"
               >
                 Guidelines
               </Link>{' '}
-              page for details.
+              page for more details.
             </a>
           </div>
         </div>
@@ -234,9 +233,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
             name="name"
             type="text"
             required
-            className={`${
-              selectedCollege.name === 'Other' ? 'mt-2' : 'mt-10'
-            } py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none`}
+            className={`${selectedCollege.name === 'Other' ? 'mt-2' : 'mt-10'
+              } py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none`}
             placeholder="Name"
           />
 
@@ -289,8 +287,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                     filteredColleges?.map((college) => (
                       <Combobox.Option
                         className={({ active }) =>
-                          `relative select-none py-2 text-xs md:text-base cursor-pointer px-4 ${
-                            active ? 'bg-[#dd5c6e] text-white' : 'text-gray-900'
+                          `relative select-none py-2 text-xs md:text-base cursor-pointer px-4 ${active ? 'bg-[#dd5c6e] text-white' : 'text-gray-900'
                           }`
                         }
                         key={college?.id}
@@ -311,10 +308,9 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
               onChange={handleChange}
               name="email"
               required
-              className={`${
-                selectedCollege.name == 'N.M.A.M. Institute of Technology' &&
+              className={`${selectedCollege.name == 'N.M.A.M. Institute of Technology' &&
                 'pr-28'
-              } w-full py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none`}
+                } w-full py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none`}
               placeholder="Email"
             />
             {selectedCollege.name === 'N.M.A.M. Institute of Technology' && (
