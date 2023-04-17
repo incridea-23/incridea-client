@@ -204,7 +204,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
           <div>
             <a className="inline-block transition-colors text-start text-blue-500 font-normal text-sm">
               This option is exclusively for Alumni of NMAMIT (with access to pronites)
-              and for for invited participants (without access to pronites). If your college is not in the list
+              and for invited participants (without access to pronites). If your college is not in the list
               below and you are not invited, or not an alumni, please{' '}
               <Link
                 href="/contact"
