@@ -20,7 +20,6 @@ const Event = ({
 }: {
   data: PublishedEventsQuery['publishedEvents'][0];
 }) => {
-  const router = useRouter();
 
   const getEventAttributes = () => {
     let teamSizeText = '',
@@ -41,6 +40,7 @@ const Event = ({
       eventTypeText =
         data.eventType[0] + data.eventType.slice(1).toLowerCase() + ' Event';
 
+    eventTypeText= eventTypeText.replaceAll("Individual", "Solo")
     return [
       {
         name: "Date",

@@ -13,6 +13,7 @@ const SignIn: NextPage = () => {
   }: {
     query: {
       whichForm?: 'signIn' | 'resetPassword' | 'signUp' | 'resendEmail';
+      redirectUrl?: string;
     };
   } = useRouter();
   const [whichForm, setWhichForm] = useState<
@@ -37,10 +38,10 @@ const SignIn: NextPage = () => {
         <div
           className={`shrink-0 md:w-[50vw] w-screen flex md:h-screen md:overflow-y-auto items-center justify-center bg-[#f3e9d1] text-[#6f5925] `}
         >
-          <div className="md:max-w-md flex py-10 flex-col h-full min-h-screen">
+          <div className="md:max-w-md flex md:py-10 flex-col h-full min-h-screen">
             <div className="p-6 md:py-10 grow">
               {whichForm === 'signIn' ? (
-                <SignInForm setWhichForm={setWhichForm} />
+                <SignInForm redirectUrl={query.redirectUrl} setWhichForm={setWhichForm} />
               ) : whichForm === 'resetPassword' ? (
                 <ResetPasswordForm setWhichForm={setWhichForm} />
               ) : whichForm === 'signUp' ? (

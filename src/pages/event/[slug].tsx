@@ -27,12 +27,10 @@ function event({ event, error }: { event: Event; error: String }) {
     let teamSizeText = '',
       eventTypeText = '';
     if (event.minTeamSize === event.maxTeamSize) {
-      teamSizeText += event.minTeamSize;
-      if (event.minTeamSize === 1) {
-        teamSizeText += ' member';
-      } else teamSizeText += ' members';
+      if (event.minTeamSize !== 1) 
+        teamSizeText += `${event.minTeamSize} members per team`;
     } else {
-      teamSizeText = ` ${event.minTeamSize} - ${event.maxTeamSize}`;
+      teamSizeText = ` ${event.minTeamSize} - ${event.maxTeamSize} members per team`;
     }
 
     if (event.eventType.includes('MULTIPLE')) {
@@ -40,9 +38,11 @@ function event({ event, error }: { event: Event; error: String }) {
         event.eventType.split('_')[0][0] +
         event.eventType.split('_')[0].slice(1).toLowerCase() +
         ' Event (Multiple Entry)';
-    } else
+    } else 
       eventTypeText =
         event.eventType[0] + event.eventType.slice(1).toLowerCase() + ' Event';
+
+      eventTypeText= eventTypeText.replaceAll("Individual", "Solo")
 
     return [
       {
@@ -66,7 +66,7 @@ function event({ event, error }: { event: Event; error: String }) {
         Icon: IoPeopleOutline,
       },
       {
-        name: 'Maximum Teams',
+        name: eventTypeText ? 'Maximum Participants' : 'Maximum Teams', //eventTypeText would be empty for solo events
         text: event.maxTeams,
         Icon: IoInformationOutline,
       },
@@ -109,7 +109,7 @@ function event({ event, error }: { event: Event; error: String }) {
                     >
                       {<attr.Icon />}
                       <p>
-                        {attr.name} {' : '}
+                        {attr.name} {': '}
                       </p>
                       <p className="leading-4">{attr.text}</p>
                     </div>
