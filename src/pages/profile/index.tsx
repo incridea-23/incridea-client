@@ -46,7 +46,6 @@ const Profile: NextPage = () => {
 
   return (
     <>
-      <Toaster />
       <main
         ref={containerRef}
         className="relative bg-gradient-to-b py-20 from-[#46aacf]  via-[#075985] to-[#2d6aa6]"

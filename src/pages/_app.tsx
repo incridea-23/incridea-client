@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import Loader from '../components/Loader';
+import { Toaster } from 'react-hot-toast';
 
 const Navbar = dynamic(() => import('../components/navbar'), { ssr: false });
 
@@ -46,6 +47,7 @@ export default function App({
         title="Incridea"
         description="Official Website of Incridea 2023, National level techno-cultural fest, NMAMIT, Nitte. Innovate. Create. Ideate."
       />
+      <Toaster />
       <AnimatePresence>{isLoading && <Loader />}</AnimatePresence>
       <div className="bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6]">
         {(

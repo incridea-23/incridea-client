@@ -1,4 +1,5 @@
 import TeamCard from '@/src/components/pages/about/TeamCard';
+import { baseImageUrl } from '@/src/utils/url';
 import { NextPage } from 'next';
 
 const Team: NextPage = () => {
@@ -36,7 +37,7 @@ const TeamMembers = [
   {
     name: 'Swasthik Shetty',
     role: 'Technical Head | Full Stack Developer',
-    image: '/team/swasthik.jpg',
+    image: `${baseImageUrl}/team/swasthik.jpg`,
     github: 'swasthikshetty10',
     linkedin: 'swasthikshetty10',
     instagram: 'https://youtu.be/_3wkyerSBpw',
@@ -45,7 +46,7 @@ const TeamMembers = [
   {
     name: 'Nagaraj Pandith',
     role: 'Frontend Lead | Developer',
-    image: '/team/nagaraj.jpg',
+    image: `${baseImageUrl}/team/nagaraj.jpg`,
     github: 'nagarajpandith',
     linkedin: 'nagaraj-pandith',
     instagram: 'nagarajpandithh',
@@ -55,7 +56,7 @@ const TeamMembers = [
   {
     name: 'Prayag Sharma',
     role: 'Technical Head | Management',
-    image: '/team/prayag.jpg',
+    image: `${baseImageUrl}/team/prayag.jpg`,
     github: 'prg2308',
     linkedin: 'prg2308',
     instagram: 'prg2308',
@@ -64,7 +65,7 @@ const TeamMembers = [
   {
     name: 'Numan Naeem',
     role: 'UI Lead | Developer',
-    image: '/team/numan.jpg',
+    image: `${baseImageUrl}/team/numan.jpg`,
     github: 'numannaeem',
     linkedin: 'numxn',
     instagram: 'num4n_',
@@ -73,7 +74,7 @@ const TeamMembers = [
   {
     name: 'Satvik Nayak',
     role: 'Frontend Developer',
-    image: '/team/satvik.jpg',
+    image: `${baseImageUrl}/team/satvik.jpg`,
     github: 'satviknayak',
     linkedin: 'satviksnayak',
     instagram: '_static.n',
@@ -82,7 +83,7 @@ const TeamMembers = [
   {
     name: 'Aaron Nazareth',
     role: 'Backend Developer',
-    image: '/team/aaron.jpg',
+    image: `${baseImageUrl}/team/aaron.jpg`,
     github: 'jevil25',
     linkedin: 'aaron-nazareth-6580311b6',
     instagram: 'aaron_naz25',
@@ -91,7 +92,7 @@ const TeamMembers = [
   {
     name: 'Keerthan N S',
     role: 'Frontend Developer',
-    image: '/team/keerthan.jpeg',
+    image: `${baseImageUrl}/team/keerthan.jpeg`,
     github: 'keerthan2002',
     linkedin: 'keerthan-n-s-220142208',
     instagram: 'keerthan_ns',
@@ -100,7 +101,7 @@ const TeamMembers = [
   {
     name: 'Kumar Ankush',
     role: 'Frontend Developer',
-    image: '/team/ankush.jpg',
+    image: `${baseImageUrl}/team/ankush.jpg`,
     github: 'geekyAnkush',
     linkedin: 'kumar-ankush-57596118b',
     instagram: 'urbanlegend_ankush',
@@ -109,7 +110,7 @@ const TeamMembers = [
   {
     name: 'Padmashree Shetty',
     role: 'Backend Developer',
-    image: '/team/padmashree.jpg',
+    image: `${baseImageUrl}/team/padmashree.jpg`,
     github: 'padmashreeshetty123',
     linkedin: 'padmashree-shetty-1298b2228',
     instagram: 'padmashree_shetty1',

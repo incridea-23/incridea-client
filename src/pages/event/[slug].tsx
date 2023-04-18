@@ -75,7 +75,6 @@ function event({ event, error }: { event: Event; error: String }) {
 
   return (
     <div className="bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6]">
-      <Toaster />
       {event ? (
         <section className="flex lg:flex-row flex-col gap-5 py-20 px-5 max-w-7xl mx-auto text-white">
           <div className="basis-3/4 grow-0 space-y-4 sm:space-y-10 bg-black/20 backdrop-blur-sm p-0 sm:p-7 rounded-md">
@@ -98,14 +97,14 @@ function event({ event, error }: { event: Event; error: String }) {
             </div>
           </div>
           <div className="basis-1/4 shrink-0 flex flex-col gap-5 items-center rounded-md sm:bg-black/20 backdrop-blur-sm p-0 sm:p-7">
-            <div className="space-y-1.5 max-w-2xl sm:w-[300px]">
+            <div className="space-y-1.5 order-2 max-w-2xl sm:w-[300px]">
               <h2 className={`titleFont mb-2 text-2xl`}>Details</h2>
               <div className="flex flex-wrap mt-2 gap-1.5  w-full bodyFont">
                 {getEventAttributes().map((attr) =>
                   attr.text ? (
                     <div
                       key={attr.name}
-                      className="max-w-[100%] flex flex-wrap break-words text-semibold px-3 py-2 text-white bg-gray-300/20 shrink-0 text-sm rounded-sm grow gap-1 items-center"
+                      className="max-w-[100%] flex flex-wrap break-words text-semibold px-3 py-2 text-white bg-black/20 shrink-0 text-sm rounded-sm grow gap-1 items-center"
                     >
                       {<attr.Icon />}
                       <p>
@@ -123,7 +122,7 @@ function event({ event, error }: { event: Event; error: String }) {
                   {event.rounds.map((round) => (
                     <div
                       key={round.roundNo}
-                      className="py-2 text-white rounded-sm bg-gray-300/20 space-y-2 px-3 items-center bodyFont"
+                      className="py-2 text-white rounded-sm bg-black/20 space-y-2 px-3 items-center bodyFont"
                     >
                       <div className=" font-semibold ">
                         Round {round.roundNo}
@@ -152,19 +151,21 @@ function event({ event, error }: { event: Event; error: String }) {
                 </div>
               </div>
             </div>
+            <div className='w-full order-1'>
             <EventRegistration
               fees={event.fees}
               eventId={event.id}
               type={event.eventType}
             />
+            </div>
 
-            <div className="w-full">
+            <div className="w-full order-3">
               <h2 className={`titleFont mb-2 text-2xl`}>Organizers</h2>
               <div className="space-y-1.5 w-full bodyFont">
                 {event.organizers.map((organizer) => (
                   <div
                     key={organizer.user.id}
-                    className="text-white w-full p-2.5 rounded-sm bg-gray-300/20 px-3  text-md   "
+                    className="text-white w-full p-2.5 rounded-sm bg-black/20 px-3  text-md   "
                   >
                     <h3 className="text-lg font-semibold mb-2">
                       {organizer.user.name}

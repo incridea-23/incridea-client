@@ -1,3 +1,4 @@
+import { baseImageUrl } from "@/src/utils/url";
 import Image from "next/image";
 import React, { FC, useEffect, useState } from "react";
 
@@ -40,7 +41,7 @@ const EventsPeek: FC<{
           return (
             <div className="flex justify-center items-start gap-5" key={i}>
               <Image
-                src={"/assets/Core_Event_Posters/" + i}
+                src={baseImageUrl + "/assets/Core_Event_Posters/" + i}
                 alt="Gallery Image"
                 width={500}
                 height={300}
@@ -63,11 +64,11 @@ const EventsPeek: FC<{
               transitionDelay: "10ms",
               transitionTimingFunction: "ease-in-out",
             }}>
-            {images.map((i) => {
+            {images.map((i, idx) => {
               return (
-                <li className="w-[250px] py-2 px-1" key={i}>
+                <li className="w-[250px] py-2 px-1" key={idx}>
                   <Image
-                    src={"/assets/Core_Event_Posters/" + i}
+                    src={baseImageUrl + "/assets/Core_Event_Posters/" + i}
                     alt="Gallery Image"
                     width={500}
                     height={300}

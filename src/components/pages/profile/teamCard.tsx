@@ -85,7 +85,7 @@ const TeamCard = ({
       <hr className="w-full border-white/40 my-3" />
 
       <div className="basis-1/2 flex flex-col bodyFont">
-        <div className="w-full flex-grow">
+        {<div className="w-full flex-grow">
           {team?.members?.map((member: any) => (
             <div
               className="flex justify-between items-center"
@@ -94,7 +94,7 @@ const TeamCard = ({
               <h1>{member.user.name}</h1>
             </div>
           ))}
-        </div>
+        </div>}
 
         <div className="w-full mt-1">
           {team.confirmed ? (
