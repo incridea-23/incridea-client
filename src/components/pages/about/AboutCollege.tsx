@@ -32,7 +32,7 @@ const AboutCollege: FC = () => {
           width={600}
           height={600}
         />
-        <div className="text-white text-lg lg:text-xl text-justify basis-1/2 my-5">
+        <div className="bodyFont text-white text-lg lg:text-xl text-justify basis-1/2 my-5">
           Nitte Mahalinga Adyantaya Memorial Institute of Technology(NMAMIT), Nitte,
           established in 1986 and recognized by the All India Council for Technical
           Education, New Delhi, has been a constituent college of Nitte (Deemed to be

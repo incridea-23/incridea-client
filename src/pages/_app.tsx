@@ -22,16 +22,16 @@ export default function App({
   const router = useRouter();
   const variants = {
     initialState: {
-      // opacity: 0,
-      translateY: '-100%',
+      opacity: 0,
+      translateY: '100px',
     },
     animateState: {
-      // opacity: 1,
+      opacity: 1,
       translateY: '0%',
     },
     exitState: {
-      // opacity: 0,
-      translateY: '100%',
+      opacity: 0,
+      translateY: '-100px',
     },
   };
 

@@ -30,8 +30,8 @@ function EventRegistration({
   return (
     <>
       {!user ? (
-        <Link href={'/login'}>
-          <Button intent={'primary'}>Login to Register</Button>
+        <Link href={'/login'} className='w-full'>
+          <Button fullWidth intent={'primary'}>Login to Register</Button>
         </Link>
       ) : (
         <EventRegistrationButton

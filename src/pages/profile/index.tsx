@@ -26,10 +26,10 @@ const Profile: NextPage = () => {
         <div className="flex z-10 justify-center items-center h-96 mt-8">
             <Image src={ '/assets/png/diver.png' } alt="404" width={400} height={400} />
         </div>
-        <h1 className="bodyFont lg:text-2xl text-lg font-bold text-white -translate-y-10">
-          Hey there! You need to login to view this page.
+        <h1 className="bodyFont lg:text-xl text-lg text-white -translate-y-10">
+          Hey there! You need to login to view your profile page.
         </h1>
-        <Link href="/login" className='-translate-y-10'>
+        <Link href="/login" className='-translate-y-5'>
           <Button intent={'primary'}>Login / Register</Button>
         </Link>
       </div>

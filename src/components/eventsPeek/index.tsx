@@ -29,32 +29,6 @@ const EventsPeek: FC<{
 
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
-  const reelRef = React.useRef<HTMLUListElement>(null);
-
-  const [translateVal, setTranslateVal] = useState(0);
-  useEffect(() => {
-    if (isMobile) {
-      let id: number,
-        prevScrollY = 0;
-      let repeatOften = () => {
-        reelRef.current!.style.transform = `translateX(-${
-          ((window.scrollY + prevScrollY) / 2) % (250 * 10)
-        }px)`;
-        id = requestAnimationFrame(repeatOften);
-      };
-      const handleScroll = () => {
-        // setTranslateVal((window.scrollY - 1000) % (250*10))
-        id = requestAnimationFrame(repeatOften);
-        prevScrollY = window.scrollY;
-      };
-      window.addEventListener("scroll", handleScroll);
-      return () => {
-        window.removeEventListener("scroll", handleScroll);
-        cancelAnimationFrame(id);
-      };
-    }
-  }, [isMobile, reelRef, translateVal]);
-
   return !isMobile ? (
     <section style={{ transform: "translateX(-60%)", willChange: "transform" }}>
       <div
@@ -83,7 +57,6 @@ const EventsPeek: FC<{
         <div className="py-2 m-auto rotate-[15deg] overflow-hidden relative top-28 right-20 w-[200%]">
           <ul
             className="flex w-[calc(250px*20)] animate-scroll-reverse"
-            ref={reelRef}
             style={{
               transition: "all",
               willChange: "translate, transform",
@@ -110,7 +83,6 @@ const EventsPeek: FC<{
         <div className="py-2 m-auto -rotate-[15deg] overflow-hidden relative -top-36 right-20 w-[200%]">
           <ul
             className="flex w-[calc(250px*20)] animate-scroll"
-            ref={reelRef}
             style={{
               transition: "all",
               willChange: "translate, transform",
