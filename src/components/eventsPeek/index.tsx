@@ -7,24 +7,24 @@ const EventsPeek: FC<{
 }> = ({ speed }) => {
   const images = [
     "Battle_of_Bands_WEB.jpg",
-    "Copy of NAVARASA_WithoutContact.png",
+    "Copy_of_NAVARASA_WithoutContact.png",
     "Desafio.jpg",
-    "Stomp That.jpg",
+    "Stomp_That.jpg",
     "VibeV3.jpg",
     "COUTURE_WEB.jpg",
-    "Knuckle Down.jpg",
+    "Knuckle_Down.jpg",
     "TULU_POSTER_WEB.jpg",
-    "usaravalli@3x.jpg",
+    "usaravalli_3x.jpg",
     "Hogathon.jpg",
     "Battle_of_Bands_WEB.jpg",
-    "Copy of NAVARASA_WithoutContact.png",
+    "Copy_of_NAVARASA_WithoutContact.png",
     "Desafio.jpg",
-    "Stomp That.png",
+    "Stomp_That.jpg",
     "VibeV3.jpg",
     "COUTURE_WEB.jpg",
-    "Knuckle Down.jpg",
+    "Knuckle_Down.jpg",
     "TULU_POSTER_WEB.jpg",
-    "usaravalli@3x.jpg",
+    "usaravalli_3x.jpg",
     "Hogathon.jpg",
   ]; // TODO: Replace with actual images (top 3)
 
@@ -69,7 +69,7 @@ const EventsPeek: FC<{
                 <li className="w-[250px] py-2 px-1" key={idx}>
                   <Image
                     src={baseImageUrl + "/assets/Core_Event_Posters/" + i}
-                    alt="Gallery Image"
+                    alt={i.slice(0, i.indexOf("."))}
                     width={500}
                     height={300}
                   />
@@ -94,8 +94,8 @@ const EventsPeek: FC<{
               return (
                 <li className="w-[250px] py-2 px-1" key={i}>
                   <Image
-                    src={"/assets/Core_Event_Posters/" + i}
-                    alt="Gallery Image"
+                    src={baseImageUrl + "/assets/Core_Event_Posters/" + i}
+                    alt={i.slice(0, i.indexOf("."))}
                     width={500}
                     height={300}
                   />
