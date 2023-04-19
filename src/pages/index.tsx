@@ -1,32 +1,35 @@
-import About from "../components/about";
-import Image from "next/image";
-import { useRef } from "react";
-import Hero from "../components/hero";
-import { LocomotiveScrollProvider } from "react-locomotive-scroll";
-import "locomotive-scroll/dist/locomotive-scroll.css";
-import EventsReel from "../components/eventsPeek/reel";
-import { HomePageFooter } from "../components/footer";
-import dynamic from "next/dynamic";
-const CountDown = dynamic(() => import("../components/countdown"), {
+import About from '../components/about';
+import Image from 'next/image';
+import { useRef } from 'react';
+import Hero from '../components/hero';
+import { LocomotiveScrollProvider } from 'react-locomotive-scroll';
+import 'locomotive-scroll/dist/locomotive-scroll.css';
+import EventsReel from '../components/eventsPeek/reel';
+import { HomePageFooter } from '../components/footer';
+import dynamic from 'next/dynamic';
+const CountDown = dynamic(() => import('../components/countdown'), {
   ssr: false,
 });
 
 const Home = () => {
   const containerRef = useRef(null);
+  const isMobile = typeof window === 'undefined' ? false : window.innerWidth < 768;
+
   return (
-    <div className="overflow-x-hidden" style={{willChange: 'transform'}}>
+    <div className="overflow-x-hidden" style={{ willChange: 'transform' }}>
       <LocomotiveScrollProvider
         options={{
           smooth: true,
           smartphone: {
-            smooth: false,
+            smooth: !isMobile,
           },
           tablet: {
             smooth: true,
           },
         }}
         watch={[]}
-        containerRef={containerRef}>
+        containerRef={containerRef}
+      >
         <main data-scroll-container ref={containerRef}>
           {/* 1. Hero Section */}
           <Hero />
@@ -40,6 +43,7 @@ const Home = () => {
                 width={1000}
                 alt="flare"
                 className="absolute pointer-events-none opacity-40 z-50 top-0 right-0"
+                priority
               />
               <CountDown />
             </div>

@@ -11,6 +11,7 @@ const Terms: NextPage = () => {
           width={1000}
           alt="flare"
           className="absolute opacity-40 z-10 top-0 right-0"
+          priority
         />
         <h1 className={`titleFont pt-24 text-5xl mb-3 text-center`}>
           Terms and Conditions

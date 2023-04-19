@@ -61,6 +61,7 @@ const Hero: React.FC = () => {
         <Image
           className="w-full max-w-lg px-10 h-fit"
           src="/assets/png/logo.png"
+          priority
           width={500}
           height={500}
           alt="INCRIDEA"

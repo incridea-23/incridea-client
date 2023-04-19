@@ -57,6 +57,7 @@ export default function App({
               alt="loader"
               width={300}
               height={300}
+              priority
             />
             <h1 className={`titleFont text-xl md:text-3xl text-center`}>
               Tides of Change
