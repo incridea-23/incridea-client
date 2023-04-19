@@ -28,7 +28,7 @@ const EventsPeek: FC<{
     "Hogathon.jpg",
   ];
 
-  const isMobile = typeof window === "undefined" ? false : window.innerWidth < 768;
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
   return !isMobile ? (
     <section style={{ transform: "translateX(-60%)", willChange: "transform" }}>

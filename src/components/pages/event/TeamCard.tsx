@@ -184,7 +184,10 @@ const TeamCard = ({
           </>
         }
 
-        {!team.confirmed &&
+        {!(
+          team.event.eventType === 'INDIVIDUAL' ||
+          team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
+        )&& !team.confirmed &&
           (team.leaderId === Number(userId) ? (
             <>
               <hr className="w-full border-white/20 my-3" />

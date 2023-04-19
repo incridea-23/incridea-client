@@ -13,7 +13,7 @@ const CountDown = dynamic(() => import('../components/countdown'), {
 
 const Home = () => {
   const containerRef = useRef(null);
-  const isMobile = typeof window === 'undefined' ? false : window.innerWidth < 768;
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
   return (
     <div className="overflow-x-hidden" style={{ willChange: 'transform' }}>
