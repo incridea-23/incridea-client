@@ -17,7 +17,7 @@ const Pronite: NextPage = () => {
     <>
       <div className="relative h-screen bg-gradient-to-bl   overflow-y-hidden  from-indigo-200 via-sky-500 to-cyan-100">
         {/* Beach bg */}
-        <Image  src="/assets/svg/beach.svg" className='object-cover object-right-bottom' fill alt="beach"/>
+        <Image src="/assets/svg/beach.svg" className='object-cover object-right-bottom' fill alt="beach" />
 
         {/* Bushes bg */}
         <div className="fixed z-10 pointer-events-none bottom-0 h-screen w-screen bg-bottom bg-fit bg-repeat-x bg-[url('/assets/svg/bushes1.svg')]" />
@@ -33,7 +33,7 @@ const Pronite: NextPage = () => {
                 textStyle="drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.5)] text-4xl text-center sm:text-6xl"
               />
               <TextAnimation
-                text="Ride the waves into a starlit night."
+                text="Ride the waves into a starlit night"
                 className={`titleFont flex justify-center flex-wrap`}
                 textStyle="drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.5)] text-2xl text-center sm:text-4xl"
               />
@@ -76,7 +76,7 @@ const Pronite: NextPage = () => {
             />
           </div>
           <div className="snap-start min-w-full h-screen place-items-center w-screen">
-            <ProniteFooter className="relative h-screen w-screen sm:bottom-0"/>
+            <ProniteFooter className="relative h-screen w-screen sm:bottom-0" />
           </div>
         </div>
       </div>

@@ -31,6 +31,7 @@ const AboutCollege: FC = () => {
           alt="Incridea Logo"
           width={600}
           height={600}
+          className="h-auto w-auto"
         />
         <div className="bodyFont text-white text-lg lg:text-xl text-justify basis-1/2 my-5">
           Nitte Mahalinga Adyantaya Memorial Institute of Technology(NMAMIT), Nitte,

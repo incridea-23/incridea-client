@@ -275,31 +275,30 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
             </div>
           </Combobox>
           {selectedCollege.name === 'Other' && (
-        <div className="bg-blue-100 p-2 flex items-center gap-3 px-4 rounded-md font-semibold text-blue-500">
-          <AiOutlineInfoCircle className="shrink-0" />
-          <div>
-            <a className="inline-block transition-colors text-start text-blue-500 font-normal text-sm">
-              This option is exclusively for Alumni of NMAMIT (with access to pronites)
-              and for invited participants (without access to pronites). If your college is not in the list
-              above and you are not invited, or not an alumni, please{' '}
-              <Link
-                href="/contact"
-                className="underline hover:text-blue-700 cursor-pointer"
-              >
-                contact us
-              </Link> 
-              . Refer to the{' '}
-              <Link
-                href="/guidelines"
-                className="underline hover:text-blue-700 cursor-pointer"
-              >
-                Guidelines
-              </Link>{' '}
-              page for more details.
-            </a>
-          </div>
-        </div>
-      )}
+            <div className="bg-blue-100 p-2 flex items-center gap-3 px-4 rounded-md font-semibold text-blue-500">
+              <AiOutlineInfoCircle className="shrink-0" />
+              <div>
+                <a className="inline-block transition-colors text-start text-blue-500 font-normal text-sm">
+                  This option is exclusively for invited participants without access to pronites. If your college is not in the list
+                  above and you are not invited, please{' '}
+                  <Link
+                    href="/contact"
+                    className="underline hover:text-blue-700 cursor-pointer"
+                  >
+                    contact us
+                  </Link>
+                  . Refer to the {' '}
+                  <Link
+                    href="/guidelines"
+                    className="underline hover:text-blue-700 cursor-pointer"
+                  >
+                    Guidelines
+                  </Link>{' '}
+                  page for more details.
+                </a>
+              </div>
+            </div>
+          )}
 
           <div className="relative">
             <input

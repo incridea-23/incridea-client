@@ -40,6 +40,7 @@ export function FooterBody() {
             width={150}
             height={100}
             alt="Incridea Logo"
+            className="h-auto w-auto"
           />
         </div>
         <div className="md:basis-3/5">

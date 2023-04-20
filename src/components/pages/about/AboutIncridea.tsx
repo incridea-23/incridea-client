@@ -31,6 +31,7 @@ const AboutIncridea: FC = () => {
           alt="Incridea Logo"
           width={500}
           height={500}
+          className="h-auto w-auto"
         />
 
         <div className="bodyFont text-white text-lg lg:text-xl text-justify basis-1/2 space-y-[1em]">

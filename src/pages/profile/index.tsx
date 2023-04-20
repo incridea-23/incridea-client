@@ -56,6 +56,7 @@ const Profile: NextPage = () => {
           width={1000}
           alt="flare"
           className="absolute pointer-events-none opacity-40 top-0 right-0"
+          priority
         />
         {/* 1. Profile Info section */}
         <div className="">

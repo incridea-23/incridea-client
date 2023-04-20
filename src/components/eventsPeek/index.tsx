@@ -1,6 +1,6 @@
 import { baseImageUrl } from "@/src/utils/url";
 import Image from "next/image";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 
 const EventsPeek: FC<{
   speed: number;
@@ -26,7 +26,7 @@ const EventsPeek: FC<{
     "TULU_POSTER_WEB.jpg",
     "usaravalli_3x.jpg",
     "Hogathon.jpg",
-  ]; // TODO: Replace with actual images (top 3)
+  ];
 
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
@@ -37,9 +37,9 @@ const EventsPeek: FC<{
         data-scroll-speed={speed}
         data-scroll-direction="horizontal"
         className="w-[500%] md:w-[350%] lg:w-[250%] flex gap-2 py-2 items-center backdrop-filter">
-        {images.slice(0, 10).map((i) => {
+        {images.slice(0, 10).map((i, idx) => {
           return (
-            <div className="flex justify-center items-start gap-5" key={i}>
+            <div className="flex justify-center items-start gap-5" key={idx}>
               <Image
                 src={baseImageUrl + "/assets/Core_Event_Posters/" + i}
                 alt="Gallery Image"
@@ -90,9 +90,9 @@ const EventsPeek: FC<{
               transitionDelay: "10ms",
               transitionTimingFunction: "ease-in-out",
             }}>
-            {images.map((i) => {
+            {images.map((i, idx) => {
               return (
-                <li className="w-[250px] py-2 px-1" key={i}>
+                <li className="w-[250px] py-2 px-1" key={idx}>
                   <Image
                     src={baseImageUrl + "/assets/Core_Event_Posters/" + i}
                     alt={i.slice(0, i.indexOf("."))}
