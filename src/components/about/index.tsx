@@ -79,7 +79,7 @@ const About: FC = () => {
               <BiDownload /> Rule book
             </a>
             <a
-              // onClick={() => handleDownload('/assets/pdf/schedule.pdf', 'schedule.pdf')}
+              onClick={() => handleDownload('https://drive.google.com/file/d/1mglh-NsLE_AOjY969olQNppZcQyr5p4F/view?usp=sharing', 'schedule.pdf')}
               className="cursor-pointer px-3 flex items-center gap-2 py-2 text-md md:text-lg lg:text-xl font-semibold text-center text-white transition duration-300 rounded-bl-xl rounded-tr-xl bg-white/30 hover:bg-white/40"
             >
               <BiDownload /> Schedule
