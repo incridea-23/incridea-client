@@ -48,7 +48,7 @@ const VerifyEmailComponent: FunctionComponent = () => {
           <GiConfirmed className='mx-auto text-7xl my-6' />
           <h1>Your email has been verified.</h1>
           <p>You can now login to your account.</p>
-          <Link href={'/auth/login'} className="underline">
+          <Link href={'/login'} className="underline">
             Click here to login
           </Link>
         </div>

@@ -22,7 +22,7 @@ const Judge: NextPage = (props: Props) => {
       </div>
     );
   if (!user) {
-    router.push("/auth/login");
+    router.push("/login");
     return <div>Redirecting...</div>;
   }
 

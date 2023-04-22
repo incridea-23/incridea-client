@@ -1,0 +1,11 @@
+mutation DeleteCriteria($criteriaId: ID!, $eventId: ID!, $roundNo: Int!) {
+  deleteCriteria(criteriaId: $criteriaId, eventId: $eventId, roundNo: $roundNo) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationDeleteCriteriaSuccess {
+      __typename
+    }
+  }
+}

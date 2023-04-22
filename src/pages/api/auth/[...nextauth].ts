@@ -93,7 +93,7 @@ export default NextAuth({
     }),
   ],
   pages: {
-    signIn: "/auth/login",
+    signIn: "/login",
   },
   callbacks: {
     async redirect({ url, baseUrl }) {
