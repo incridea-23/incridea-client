@@ -36,6 +36,17 @@ export type College = {
   name: Scalars['String'];
 };
 
+export type Comments = {
+  __typename?: 'Comments';
+  comment: Scalars['String'];
+  eventId: Scalars['ID'];
+  judge: Judge;
+  round: Round;
+  roundNo: Scalars['Int'];
+  team: Team;
+  teamId: Scalars['ID'];
+};
+
 export type CreateCriteriaInput = {
   eventId: Scalars['ID'];
   name?: InputMaybe<Scalars['String']>;
@@ -135,6 +146,7 @@ export type Mutation = {
   addBranch: MutationAddBranchResult;
   addBranchRep: MutationAddBranchRepResult;
   addOrganizer: MutationAddOrganizerResult;
+  addScore: Scores;
   confirmTeam: MutationConfirmTeamResult;
   createCollege: MutationCreateCollegeResult;
   createCriteria: MutationCreateCriteriaResult;
@@ -159,6 +171,7 @@ export type Mutation = {
   organizerMarkAttendance: MutationOrganizerMarkAttendanceResult;
   organizerMarkAttendanceSolo: MutationOrganizerMarkAttendanceSoloResult;
   organizerRegisterSolo: MutationOrganizerRegisterSoloResult;
+  promoteToNextRound: MutationPromoteToNextRoundResult;
   publishEvent: MutationPublishEventResult;
   /** Refreshes the access token */
   refreshToken: MutationRefreshTokenResult;
@@ -190,6 +203,13 @@ export type MutationAddBranchRepArgs = {
 export type MutationAddOrganizerArgs = {
   eventId: Scalars['ID'];
   userId: Scalars['ID'];
+};
+
+
+export type MutationAddScoreArgs = {
+  criteriaId: Scalars['Int'];
+  score: Scalars['String'];
+  teamId: Scalars['Int'];
 };
 
 
@@ -328,6 +348,13 @@ export type MutationOrganizerMarkAttendanceSoloArgs = {
 export type MutationOrganizerRegisterSoloArgs = {
   eventId: Scalars['ID'];
   userId: Scalars['ID'];
+};
+
+
+export type MutationPromoteToNextRoundArgs = {
+  roundNo: Scalars['ID'];
+  selected?: Scalars['Boolean'];
+  teamId: Scalars['ID'];
 };
 
 
@@ -590,6 +617,13 @@ export type MutationOrganizerRegisterSoloSuccess = {
   data: Team;
 };
 
+export type MutationPromoteToNextRoundResult = Error | MutationPromoteToNextRoundSuccess;
+
+export type MutationPromoteToNextRoundSuccess = {
+  __typename?: 'MutationPromoteToNextRoundSuccess';
+  data: Team;
+};
+
 export type MutationPublishEventResult = Error | MutationPublishEventSuccess;
 
 export type MutationPublishEventSuccess = {
@@ -718,10 +752,13 @@ export type Query = {
   eventsByBranchRep: Array<Event>;
   getBranch: Branch;
   getBranches: Array<Branch>;
+  getComment: QueryGetCommentResult;
+  getScore: QueryGetScoreResult;
   me: QueryMeResult;
   myTeam: QueryMyTeamResult;
   publishedEvents: Array<Event>;
   registeredEvents: QueryRegisteredEventsResult;
+  roundByJudge: QueryRoundByJudgeResult;
   rounds: Array<Round>;
   roundsByEvent: Array<Round>;
   teamDetails: QueryTeamDetailsResult;
@@ -758,6 +795,20 @@ export type QueryEventsByBranchRepArgs = {
 
 export type QueryGetBranchArgs = {
   id: Scalars['ID'];
+};
+
+
+export type QueryGetCommentArgs = {
+  eventId: Scalars['ID'];
+  roundNo: Scalars['Int'];
+  teamId: Scalars['ID'];
+};
+
+
+export type QueryGetScoreArgs = {
+  criteriaId: Scalars['ID'];
+  roundNo: Scalars['Int'];
+  teamId: Scalars['ID'];
 };
 
 
@@ -818,6 +869,20 @@ export type QueryEventsConnectionEdge = {
   node: Event;
 };
 
+export type QueryGetCommentResult = Error | QueryGetCommentSuccess;
+
+export type QueryGetCommentSuccess = {
+  __typename?: 'QueryGetCommentSuccess';
+  data: Comments;
+};
+
+export type QueryGetScoreResult = Error | QueryGetScoreSuccess;
+
+export type QueryGetScoreSuccess = {
+  __typename?: 'QueryGetScoreSuccess';
+  data: Scores;
+};
+
 export type QueryMeResult = Error | QueryMeSuccess;
 
 export type QueryMeSuccess = {
@@ -837,6 +902,13 @@ export type QueryRegisteredEventsResult = Error | QueryRegisteredEventsSuccess;
 export type QueryRegisteredEventsSuccess = {
   __typename?: 'QueryRegisteredEventsSuccess';
   data: Array<Event>;
+};
+
+export type QueryRoundByJudgeResult = Error | QueryRoundByJudgeSuccess;
+
+export type QueryRoundByJudgeSuccess = {
+  __typename?: 'QueryRoundByJudgeSuccess';
+  data: Round;
 };
 
 export type QueryTeamDetailsResult = Error | QueryTeamDetailsSuccess;
@@ -887,6 +959,16 @@ export type Round = {
   judges: Array<Judge>;
   roundNo: Scalars['Int'];
   teams: Array<Team>;
+};
+
+export type Scores = {
+  __typename?: 'Scores';
+  criteria: Criteria;
+  criteriaId: Scalars['ID'];
+  judge: Judge;
+  score: Scalars['String'];
+  team: Team;
+  teamId: Scalars['ID'];
 };
 
 export type Team = {
@@ -1325,6 +1407,11 @@ export type RegisterdEventsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type RegisterdEventsQuery = { __typename?: 'Query', registeredEvents: { __typename: 'Error', message: string } | { __typename: 'QueryRegisteredEventsSuccess', data: Array<{ __typename?: 'Event', id: string, image?: string | null, name: string, venue?: string | null, category?: string | null, rounds: Array<{ __typename?: 'Round', date?: any | null, roundNo: number }>, teams: Array<{ __typename?: 'Team', id: string, leaderId?: number | null, confirmed: boolean, name: string, members: Array<{ __typename?: 'TeamMember', user: { __typename?: 'User', id: string, name: string } }>, event: { __typename?: 'Event', name: string, id: string, maxTeamSize: number, fees: number, eventType: string } }> }> } };
 
+export type RoundByJudgeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type RoundByJudgeQuery = { __typename?: 'Query', roundByJudge: { __typename: 'Error', message: string } | { __typename: 'QueryRoundByJudgeSuccess', data: { __typename?: 'Round', eventId: string, roundNo: number, event: { __typename?: 'Event', eventType: string } } } };
+
 export type RoundsByEventQueryVariables = Exact<{
   eventId: Scalars['ID'];
 }>;
@@ -1411,6 +1498,7 @@ export const MyTeamDocument = {"kind":"Document","definitions":[{"kind":"Operati
 export const PublishedEventsSlugDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"PublishedEventsSlug"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"publishedEvents"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<PublishedEventsSlugQuery, PublishedEventsSlugQueryVariables>;
 export const PublishedEventsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"PublishedEvents"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"publishedEvents"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"venue"}},{"kind":"Field","name":{"kind":"Name","value":"branch"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fees"}},{"kind":"Field","name":{"kind":"Name","value":"maxTeamSize"}},{"kind":"Field","name":{"kind":"Name","value":"maxTeams"}},{"kind":"Field","name":{"kind":"Name","value":"minTeamSize"}},{"kind":"Field","name":{"kind":"Name","value":"category"}},{"kind":"Field","name":{"kind":"Name","value":"eventType"}},{"kind":"Field","name":{"kind":"Name","value":"rounds"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"roundNo"}},{"kind":"Field","name":{"kind":"Name","value":"completed"}}]}}]}}]}}]} as unknown as DocumentNode<PublishedEventsQuery, PublishedEventsQueryVariables>;
 export const RegisterdEventsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"RegisterdEvents"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"registeredEvents"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Error"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"QueryRegisteredEventsSuccess"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"venue"}},{"kind":"Field","name":{"kind":"Name","value":"category"}},{"kind":"Field","name":{"kind":"Name","value":"rounds"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"roundNo"}}]}},{"kind":"Field","name":{"kind":"Name","value":"teams"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"leaderId"}},{"kind":"Field","name":{"kind":"Name","value":"confirmed"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"members"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"event"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"maxTeamSize"}},{"kind":"Field","name":{"kind":"Name","value":"fees"}},{"kind":"Field","name":{"kind":"Name","value":"eventType"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<RegisterdEventsQuery, RegisterdEventsQueryVariables>;
+export const RoundByJudgeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"RoundByJudge"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"roundByJudge"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Error"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"QueryRoundByJudgeSuccess"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventId"}},{"kind":"Field","name":{"kind":"Name","value":"roundNo"}},{"kind":"Field","name":{"kind":"Name","value":"event"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventType"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<RoundByJudgeQuery, RoundByJudgeQueryVariables>;
 export const RoundsByEventDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"RoundsByEvent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"eventId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"roundsByEvent"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"eventId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"eventId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"completed"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"eventId"}},{"kind":"Field","name":{"kind":"Name","value":"roundNo"}}]}}]}}]} as unknown as DocumentNode<RoundsByEventQuery, RoundsByEventQueryVariables>;
 export const SearchUsersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SearchUsers"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"contains"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"users"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"contains"},"value":{"kind":"Variable","name":{"kind":"Name","value":"contains"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cursor"}},{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"role"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]}}]}}]} as unknown as DocumentNode<SearchUsersQuery, SearchUsersQueryVariables>;
 export const TeamDetailsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TeamDetails"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"teamDetails"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"QueryTeamDetailsSuccess"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attended"}},{"kind":"Field","name":{"kind":"Name","value":"confirmed"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"members"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isVerified"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"role"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Error"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]}}]} as unknown as DocumentNode<TeamDetailsQuery, TeamDetailsQueryVariables>;

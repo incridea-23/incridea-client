@@ -10,6 +10,7 @@ import {
 import { useMutation } from '@apollo/client';
 import { FC, useState } from 'react';
 
+// Used both for Organizer and Judge
 const CreateCriteriaModal: FC<{
   eventId: string;
   roundNo: number;

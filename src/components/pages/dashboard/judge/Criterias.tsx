@@ -47,7 +47,7 @@ const Criterias = (props: Props) => {
         {criterias.map((criteria, index) => (
           <div
             key={index}
-            className="flex grow gap-3 p-4 rounded-md bg-white/20 flex-col w-fit items-center justify-between mb-2">
+            className="flex grow gap-3 p-4 rounded-md bg-white/10 flex-col w-fit items-center justify-between mb-2">
             <div className="flex gap-1.5 items-center">
               <p className="text-white/90 font-semibold">{criteria.name}</p>
               <Button
@@ -61,7 +61,7 @@ const Criterias = (props: Props) => {
             </div>
             <div className="flex items-center text-lg gap-2">
               <button
-                className="w-6 h-6 leading-5 bg-white/20 rounded-full"
+                className="w-6 h-6 leading-5 bg-white/10 rounded-full"
                 onClick={() => {
                   const newCriterias = [...criterias];
                   newCriterias[index].score -= 1;
@@ -85,11 +85,11 @@ const Criterias = (props: Props) => {
                   }
                 }}
                 className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none
-					 				w-16 bg-white/20 min-h-[24px] rounded-lg text-center text-white/90 focus:ring-2 ring-white/50 outline-none"
+					 				w-16 bg-white/10 min-h-[24px] rounded-lg text-center text-white/90 focus:ring-2 ring-white/50 outline-none"
                 //first few classes to hide default input type=number buttons
               />
               <button
-                className="w-6 h-6 leading-5 bg-white/20 rounded-full"
+                className="w-6 h-6 leading-5 bg-white/10 rounded-full"
                 onClick={() => {
                   const newCriterias = [...criterias];
                   newCriterias[index].score += 1;
@@ -104,7 +104,7 @@ const Criterias = (props: Props) => {
       <div className="p-3 pt-0">
         <textarea
           rows={4}
-          className="mb-3 px-3 py-2 w-full bg-white/20 placeholder:text-white/60 rounded-md"
+          className="mb-3 px-3 py-2 w-full bg-white/10 placeholder:text-white/60 rounded-md resize-none"
           placeholder="Additional remarks (optional)"
         />
       </div>

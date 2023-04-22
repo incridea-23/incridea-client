@@ -23,7 +23,7 @@ function Teams({
     variables: {
       roundNo,
       eventId,
-      first: 10,
+      first: 20,
       contains,
     },
   });
