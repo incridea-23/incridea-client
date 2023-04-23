@@ -9,7 +9,13 @@ query RoundByJudge {
       data {
         eventId
         roundNo
+        criteria {
+          id
+          name
+          type
+        }
         event {
+          name
           eventType
         }
       }

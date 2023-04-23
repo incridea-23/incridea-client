@@ -43,31 +43,51 @@ const Judge: NextPage = (props: Props) => {
   return (
     <Dashboard>
       <Toaster />
-      <div className="relative top-14 md:top-0 p-2">
+      <div className="relative top-14 md:top-0 p-2 flex justify-between items-center">
         <h1 className="text-3xl mb-3">
           Hello <span className="font-semibold">{user?.name}</span>!
+        </h1>
+        <h1 className="text-3xl mb-3">
+          {data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess' && (
+            <span>
+              Round {data.roundByJudge.data.roundNo} of{' '}
+              {data.roundByJudge.data.event.name}
+            </span>
+          )}
         </h1>
       </div>
       <div className="flex h-[80vh] gap-3">
         {/* Team List */}
-        <div className="basis-2/5 shrink-0 grow-0 bg-white/20 rounded-lg ">
+        <div className="basis-2/5 shrink-0 grow-0 bg-black/20 rounded-lg ">
           {EventLoading ? (
             <Spinner />
           ) : (
             <>
               {data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess' && (
                 <TeamList
-                eventId={data.roundByJudge.data.eventId}
-                roundNo={data.roundByJudge.data.roundNo}
-                eventType={data.roundByJudge.data.event.eventType}
+                  eventId={data.roundByJudge.data.eventId}
+                  roundNo={data.roundByJudge.data.roundNo}
+                  eventType={data.roundByJudge.data.event.eventType}
                 />
               )}
             </>
           )}
         </div>
         {/* Criteria/Score */}
-        <div className="basis-3/5 shrink-0 grow-0 bg-white/20 rounded-lg ">
-          <Criterias />
+        <div className="basis-3/5 shrink-0 grow-0 bg-black/20 rounded-lg ">
+          {EventLoading ? (
+            <Spinner />
+          ) : (
+            <>
+              {data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess' && (
+                <Criterias
+                  eventId={data?.roundByJudge.data.eventId}
+                  roundNo={data?.roundByJudge.data.roundNo}
+                  criterias={data.roundByJudge.data.criteria}
+                />
+              )}
+            </>
+          )}
         </div>
       </div>
     </Dashboard>

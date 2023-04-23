@@ -34,7 +34,7 @@ const CreateCriteriaModal: FC<{
         eventId,
         roundNo,
       },
-      refetchQueries: ['EventByOrganizer'],
+      refetchQueries: ['RoundByJudge'],
       awaitRefetchQueries: true,
     }).then((res) => {
       if (
@@ -52,7 +52,7 @@ const CreateCriteriaModal: FC<{
   };
 
   return (
-    <div className='mt-5'>
+    <div>
       <Button
         onClick={() => {
           setShowModal(true);

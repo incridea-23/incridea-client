@@ -210,7 +210,7 @@ const RoundsSidebar: FC<{
               </div>
             ))}
 
-            <CreateCriteriaModal eventId={eventId} roundNo={selectedRound} />
+              <CreateCriteriaModal eventId={eventId} roundNo={selectedRound} />
           </div>
         </Tab.List>
       </Tab.Group>
