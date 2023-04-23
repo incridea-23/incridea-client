@@ -32,10 +32,7 @@ const Criterias = ({
           </div>
         )}
         {criterias?.map((criteria, index) => (
-          <div
-            key={index}
-            className="flex grow gap-3 p-4 rounded-md bg-white/10 flex-col w-fit items-center justify-between mb-2"
-          >
+          <div key={index}>
             <CriteriaBox
               teamId={selectedTeam!}
               criteria={criteria}

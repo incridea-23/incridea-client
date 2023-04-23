@@ -4,6 +4,7 @@ import {
   AddCommentDocument,
   GetCommentDocument,
 } from '@/src/generated/generated';
+import { idToTeamId } from '@/src/utils/id';
 import { useMutation, useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 
@@ -42,7 +43,8 @@ const Remarks = ({
   }, [data?.getComment]);
 
   return (
-    <div className="p-3 pt-0 relative">
+    <div className="p-3 pt-0 relative mt-2">
+      <h1 className="text-white/90 font-bold my-2 text-start">Additional Remarks for {idToTeamId(teamId)}</h1>
       <textarea
         rows={4}
         className="mb-3 px-3 py-2 w-full bg-white/10 placeholder:text-white/60 rounded-md resize-none"

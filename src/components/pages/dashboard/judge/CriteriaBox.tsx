@@ -1,12 +1,9 @@
 import Button from '@/src/components/button';
 import createToast from '@/src/components/toast';
-import {
-  Criteria,
-  DeleteCriteriaDocument,
-  GetScoreDocument,
-} from '@/src/generated/generated';
-import { useMutation, useQuery } from '@apollo/client';
+import { Criteria, DeleteCriteriaDocument } from '@/src/generated/generated';
+import { useMutation } from '@apollo/client';
 import { BiTrashAlt } from 'react-icons/bi';
+import Score from './Score';
 
 const CriteriaBox = ({
   criteria,
@@ -19,15 +16,6 @@ const CriteriaBox = ({
   roundNo: number;
   teamId: string;
 }) => {
-  const { data, loading, error } = useQuery(GetScoreDocument, {
-    variables: {
-      criteriaId: criteria.id,
-      teamId: teamId,
-      roundNo,
-    },
-    skip: !roundNo || !teamId || !criteria.id,
-  });
-
   const [deleteCriteria, { loading: deleteCriteriaLoading }] = useMutation(
     DeleteCriteriaDocument,
     {
@@ -48,7 +36,7 @@ const CriteriaBox = ({
   };
 
   return (
-    <>
+    <div className="flex grow gap-3 p-5 rounded-md bg-white/10 flex-col items-center justify-between mt-2 w-[250px]">
       <div className="flex gap-1.5 items-center">
         <p className="text-white/90 font-semibold mr-2">{criteria.name}</p>
         <Button
@@ -62,27 +50,8 @@ const CriteriaBox = ({
           <BiTrashAlt size={'1rem'} />
         </Button>
       </div>
-      <div className="flex items-center text-lg gap-2">
-        <button className="w-6 h-6 leading-5 bg-white/10 rounded-full hover:bg-white/20 transition-colors duration-300">
-          -
-        </button>
-        <input
-          disabled={loading}
-          value={
-            data?.getScore.__typename === 'QueryGetScoreSuccess'
-              ? data.getScore.data.score
-              : 0
-          }
-          type="number"
-          className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none
-					 				w-16 bg-white/10 min-h-[24px] rounded-lg text-center text-white/90 focus:ring-2 ring-white/50 outline-none"
-          //first few classes to hide default input type=number buttons
-        />
-        <button className="w-6 h-6 leading-5 bg-white/10 rounded-full hover:bg-white/20 transition-colors duration-300">
-          +
-        </button>
-      </div>
-    </>
+      <Score teamId={teamId} criteriaId={criteria.id} roundNo={roundNo} />
+    </div>
   );
 };
 
