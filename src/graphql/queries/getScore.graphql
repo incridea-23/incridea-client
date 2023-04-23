@@ -1,0 +1,14 @@
+query GetScore($criteriaId: ID!, $roundNo: Int!, $teamId: ID!) {
+  getScore(criteriaId: $criteriaId, roundNo: $roundNo, teamId: $teamId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on QueryGetScoreSuccess {
+      __typename
+      data {
+        score
+      }
+    }
+  }
+}

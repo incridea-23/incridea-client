@@ -7,7 +7,7 @@ import { useAuth } from '@/src/hooks/useAuth';
 import { useQuery } from '@apollo/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 
 type Props = {};
@@ -15,6 +15,7 @@ type Props = {};
 const Judge: NextPage = (props: Props) => {
   const router = useRouter();
   const { user, loading, error } = useAuth();
+  const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
   const {
     data,
     loading: EventLoading,
@@ -65,6 +66,8 @@ const Judge: NextPage = (props: Props) => {
             <>
               {data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess' && (
                 <TeamList
+                  selectedTeam={selectedTeam}
+                  setSelectedTeam={setSelectedTeam}
                   eventId={data.roundByJudge.data.eventId}
                   roundNo={data.roundByJudge.data.roundNo}
                   eventType={data.roundByJudge.data.event.eventType}
@@ -81,6 +84,8 @@ const Judge: NextPage = (props: Props) => {
             <>
               {data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess' && (
                 <Criterias
+                  selectedTeam={selectedTeam}
+                  setSelectedTeam={setSelectedTeam}
                   eventId={data?.roundByJudge.data.eventId}
                   roundNo={data?.roundByJudge.data.roundNo}
                   criterias={data.roundByJudge.data.criteria}

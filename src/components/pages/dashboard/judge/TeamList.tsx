@@ -1,7 +1,11 @@
 import Spinner from '@/src/components/spinner';
-import { EventType, TeamsByRoundDocument } from '@/src/generated/generated';
+import {
+  EventType,
+  PromoteToNextRoundDocument,
+  TeamsByRoundDocument,
+} from '@/src/generated/generated';
 import { idToTeamId } from '@/src/utils/id';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 
@@ -9,9 +13,17 @@ type Props = {
   eventId: string;
   roundNo: number;
   eventType: string;
+  selectedTeam: string | null;
+  setSelectedTeam: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
-const TeamList = ({ eventId, roundNo, eventType }: Props) => {
+const TeamList = ({
+  eventId,
+  roundNo,
+  eventType,
+  selectedTeam,
+  setSelectedTeam,
+}: Props) => {
   const [query, setQuery] = React.useState('');
 
   const { data, loading, error, fetchMore } = useQuery(TeamsByRoundDocument, {
@@ -21,6 +33,25 @@ const TeamList = ({ eventId, roundNo, eventType }: Props) => {
       first: 20,
       contains: query,
     },
+  });
+
+  // as soon as data is available, select the first team
+  useEffect(() => {
+    if (
+      data?.teamsByRound?.__typename === 'QueryTeamsByRoundConnection' &&
+      data.teamsByRound.edges.length > 0
+    ) {
+      setSelectedTeam(data.teamsByRound.edges[0]?.node.id!);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
+  const [
+    promote,
+    { data: promoteData, loading: promoteLoading, error: promoteError },
+  ] = useMutation(PromoteToNextRoundDocument, {
+    refetchQueries: ['TeamsByRound'],
+    awaitRefetchQueries: true,
   });
 
   const { endCursor, hasNextPage } = data?.teamsByRound.pageInfo || {};
@@ -109,20 +140,45 @@ const TeamList = ({ eventId, roundNo, eventType }: Props) => {
             ref={
               index === data.teamsByRound.edges.length - 1 ? lastItemRef : null
             }
-            className="flex items-center p-2 px-5 bg-white/10 rounded-lg hover:bg-white/20"
+            onClick={() => {
+              setSelectedTeam(team?.node.id!);
+            }}
+            className={`flex items-center p-2 px-5 bg-white/10 rounded-lg ${
+              selectedTeam === team?.node.id
+                ? 'bg-white/50'
+                : 'hover:bg-white/20'
+            }`}
           >
             <div className="flex flex-row gap-5">
-              <div className="text-white/80">{team?.node.name}</div>
-              <div className="text-white/60">{idToTeamId(team?.node.id!)}</div>
+              <div
+                className={`${
+                  selectedTeam === team?.node.id
+                    ? 'text-black/80'
+                    : 'text-white/80'
+                }`}
+              >
+                {team?.node.name}
+              </div>
+              <div
+                className={`${
+                  selectedTeam === team?.node.id
+                    ? 'text-black/60'
+                    : 'text-white/60'
+                }`}
+              >
+                {idToTeamId(team?.node.id!)}
+              </div>
             </div>
           </div>
         ))}
         {isFetching && <Spinner />}
-        {!(data?.teamsByRound.edges.length === 0) &&!hasNextPage && !loading && (
-          <p className="my-3 mt-5 text-gray-400/70 italic text-center">
-            no more teams/users to show
-          </p>
-        )}
+        {!(data?.teamsByRound.edges.length === 0) &&
+          !hasNextPage &&
+          !loading && (
+            <p className="my-3 mt-5 text-gray-400/70 italic text-center">
+              no more teams/users to show
+            </p>
+          )}
       </div>
     </div>
   );
