@@ -2,11 +2,12 @@ import Button from '@/src/components/button';
 import Spinner from '@/src/components/spinner';
 import {
   EventType,
+  JudgeGetTeamsByRoundDocument,
   PromoteToNextRoundDocument,
   TeamsByRoundDocument,
 } from '@/src/generated/generated';
 import { idToTeamId } from '@/src/utils/id';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery, useSubscription } from '@apollo/client';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 
@@ -27,25 +28,25 @@ const TeamList = ({
 }: Props) => {
   const [query, setQuery] = React.useState('');
 
-  const { data, loading, error, fetchMore } = useQuery(TeamsByRoundDocument, {
-    variables: {
-      roundNo,
-      eventId,
-      first: 20,
-      contains: query,
-    },
-  });
+  const { data, loading, error } = useSubscription(
+    JudgeGetTeamsByRoundDocument,
+    {
+      variables: {
+        roundId: roundNo,
+        eventId: Number(eventId),
+      },
+    }
+  );
 
   // as soon as data is available, select the first team
   useEffect(() => {
-    if (
-      data?.teamsByRound?.__typename === 'QueryTeamsByRoundConnection' &&
-      data.teamsByRound.edges.length > 0
-    ) {
-      setSelectedTeam(data.teamsByRound.edges[0]?.node.id!);
+    if (data?.judgeGetTeamsByRound && data.judgeGetTeamsByRound.length > 0) {
+      setSelectedTeam(data?.judgeGetTeamsByRound.map((t) => t.id)[0]!);
+    } else{
+      console.log(error)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [data?.judgeGetTeamsByRound]);
 
   const [
     promote,
@@ -54,55 +55,6 @@ const TeamList = ({
     refetchQueries: ['TeamsByRound'],
     awaitRefetchQueries: true,
   });
-
-  const { endCursor, hasNextPage } = data?.teamsByRound.pageInfo || {};
-  const lastItemRef = useRef<HTMLDivElement>(null);
-  const [isFetching, setIsFetching] = useState(false);
-  const handleObserver = useCallback(
-    (entries: IntersectionObserverEntry[]) => {
-      const target = entries[0];
-      if (target.isIntersecting && hasNextPage) {
-        setIsFetching(true);
-        fetchMore({
-          variables: { after: endCursor },
-          updateQuery: (prevResult, { fetchMoreResult }) => {
-            fetchMoreResult.teamsByRound.edges = [
-              ...prevResult.teamsByRound.edges,
-              ...fetchMoreResult.teamsByRound.edges,
-            ];
-            setIsFetching(false);
-            return fetchMoreResult;
-          },
-        });
-      }
-    },
-    [endCursor, hasNextPage, fetchMore]
-  );
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(handleObserver, { threshold: 1 });
-    if (lastItemRef.current) {
-      observer.observe(lastItemRef.current);
-    }
-    let currentRef = lastItemRef.current;
-    const updateObserver = () => {
-      if (currentRef !== lastItemRef.current) {
-        if (currentRef) {
-          observer.unobserve(currentRef);
-        }
-
-        if (lastItemRef.current) {
-          observer.observe(lastItemRef.current);
-          currentRef = lastItemRef.current;
-        }
-      }
-    };
-    const timeoutId = setInterval(updateObserver, 1000);
-    return () => {
-      clearInterval(timeoutId);
-      observer.disconnect();
-    };
-  }, [handleObserver, lastItemRef]);
 
   const teamOrParticipant =
     eventType === 'INDIVIDUAL' || eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
@@ -125,28 +77,27 @@ const TeamList = ({
             className="absolute right-3 top-2.5 text-white/60"
           />
         </div>
-        <Button intent={'success'} noScaleOnHover>Select</Button>
+        <Button intent={'success'} noScaleOnHover>
+          Select
+        </Button>
       </div>
 
       <div className="flex px-3 pb-3 flex-col gap-2 mt-3">
         {loading && <Spinner />}
         {(!loading && !data) ||
-          (data?.teamsByRound.edges.length === 0 && (
+          (data?.judgeGetTeamsByRound.length === 0 && (
             <p className="my-3 mt-5 text-gray-400/70 italic text-center">
               No {teamOrParticipant}s found.
             </p>
           ))}
-        {data?.teamsByRound.edges.map((team, index) => (
+        {data?.judgeGetTeamsByRound.map((team, index) => (
           <div
-            key={team?.node.id}
-            ref={
-              index === data.teamsByRound.edges.length - 1 ? lastItemRef : null
-            }
+            key={team?.id}
             onClick={() => {
-              setSelectedTeam(team?.node.id!);
+              setSelectedTeam(team?.id!);
             }}
             className={`flex items-center p-2 px-5 bg-white/10 rounded-lg ${
-              selectedTeam === team?.node.id
+              selectedTeam === team?.id
                 ? 'bg-white/50'
                 : 'hover:bg-white/20 transition-colors duration-300'
             }`}
@@ -154,33 +105,21 @@ const TeamList = ({
             <div className="flex flex-row gap-5">
               <div
                 className={`${
-                  selectedTeam === team?.node.id
-                    ? 'text-black/80'
-                    : 'text-white/80'
+                  selectedTeam === team?.id ? 'text-black/80' : 'text-white/80'
                 }`}
               >
-                {team?.node.name}
+                {team?.name}
               </div>
               <div
                 className={`${
-                  selectedTeam === team?.node.id
-                    ? 'text-black/60'
-                    : 'text-white/60'
+                  selectedTeam === team?.id ? 'text-black/60' : 'text-white/60'
                 }`}
               >
-                {idToTeamId(team?.node.id!)}
+                {idToTeamId(team?.id!)}
               </div>
             </div>
           </div>
         ))}
-        {isFetching && <Spinner />}
-        {!(data?.teamsByRound.edges.length === 0) &&
-          !hasNextPage &&
-          !loading && (
-            <p className="my-3 mt-5 text-gray-400/70 italic text-center">
-              no more teams/users to show
-            </p>
-          )}
       </div>
     </div>
   );
