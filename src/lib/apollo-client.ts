@@ -1,33 +1,32 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client';
-// import { setContext } from '@apollo/client/link/context';
-import { getSession } from 'next-auth/react';
-import { YogaLink } from '@graphql-yoga/apollo-link';
-
-// const authLink = setContext(async (_, { headers }) => {
-//   const session = await getSession();
-//   const token = session?.accessToken;
-
-//   return {
-//     headers: {
-//       authorization: token ? `Bearer ${token}` : '',
-//       ...headers,
-//     },
-//   };
-// });
+import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import { getSession } from "next-auth/react";
+import { YogaLink } from "@graphql-yoga/apollo-link";
 
 const getHeaders = async () => {
   const session = await getSession();
   const token = session?.accessToken;
 
   return {
-    Authorization: token ? `Bearer ${token}` : '',
+    authorization: token ? `Bearer ${token}` : "",
   };
 };
 
 const link = new YogaLink({
-  endpoint: process.env.BACKEND_URL || 'https://incridea.onrender.com/graphql',
-  headers: {
-    Authorization: 'Bearer hard-coded-token',
+  endpoint:
+    process.env.BACKEND_URL || "https://incridea-test.onrender.com/graphql",
+
+  fetch: async (uri, options) => {
+    const headers = await getHeaders();
+    options = {
+      ...options,
+
+      headers: {
+        ...headers,
+        "Content-Type": "application/json",
+      },
+    };
+    return fetch(uri, options);
   },
 });
 
