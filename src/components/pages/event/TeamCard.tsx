@@ -61,9 +61,7 @@ const TeamCard = ({
             team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY' ? (
               <h1 className="">You&apos;re registered and ready to dive!</h1>
             ) : (
-              <h1 className="">
-                Your team is registered and ready to dive!
-              </h1>
+              <h1 className="">Your team is registered and ready to dive!</h1>
             )
           ) : team.event.eventType === 'INDIVIDUAL' ||
             team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY' ? (
@@ -71,9 +69,7 @@ const TeamCard = ({
               Heads up! Your registration is not confirmed yet.
             </h1>
           ) : (
-            <h1 className="">
-              Heads up! Your team is not confirmed yet.
-            </h1>
+            <h1 className="">Heads up! Your team is not confirmed yet.</h1>
           )}
         </div>
         <div className="w-full">
@@ -87,7 +83,7 @@ const TeamCard = ({
                     size={100}
                     className="mb-1"
                     bgColor="transparent"
-                    fgColor='#ffffff'
+                    fgColor="#ffffff"
                     // filter='drop-shadow(0px 0px 4px #111111bb)'
                   />
                 </div>
@@ -98,10 +94,12 @@ const TeamCard = ({
                   value={idToTeamId(team.id)}
                   size={100}
                   className="mb-1"
-                  fgColor='#ffffff'
+                  fgColor="#ffffff"
                   bgColor="transparent"
                 />
-                <div className="text-white font-semibold bodyFont mt-2">{idToTeamId(team.id)}</div>
+                <div className="text-white font-semibold bodyFont mt-2">
+                  {idToTeamId(team.id)}
+                </div>
               </div>
             )}
           </div>
@@ -129,20 +127,26 @@ const TeamCard = ({
                   team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
                 ) && <EditTeamModal team={team} userId={userId} />
               ) : (
-                <Badge color={'success'} className="inline-flex font-semibold items-center gap-1 text-xs absolute top-0 bg-green-300 text-green-700 -translate-y-1/2 right-1/2 translate-x-1/2 bodyFont">
-                  <BiCheckDouble /> Registered 
+                <Badge
+                  color={'success'}
+                  className="inline-flex font-semibold items-center gap-1 text-xs absolute top-0 bg-green-300 text-green-700 -translate-y-1/2 right-1/2 translate-x-1/2 bodyFont"
+                >
+                  <BiCheckDouble /> Registered
                 </Badge>
               )}
             </div>
             {!team.confirmed && (
               <span className="text-xs bodyFont">
                 Almost there!{' '}
-                {team.event.fees ? `Pay ${team.event.fees} to confirm` : 'Confirm '}
+                {team.event.fees
+                  ? `Pay ${team.event.fees} to confirm`
+                  : 'Confirm '}
                 your{' '}
                 {team.event.eventType === 'INDIVIDUAL' ||
                 team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
                   ? 'entry'
-                  : 'team'} by clicking the button below.
+                  : 'team'}{' '}
+                by clicking the button below.
               </span>
             )}
             {!team.confirmed &&
@@ -154,13 +158,26 @@ const TeamCard = ({
                   className="mt-2"
                   disabled={sdkLoading}
                   onClick={() => {
-                    makeTeamPayment(team.id, name, email, setSdkLoading);
+                    team.members.length >= team.event.minTeamSize
+                      ? makeTeamPayment(team.id, name, email, setSdkLoading)
+                      : toast.error(
+                          `You need ${
+                            team.event.minTeamSize - team.members.length
+                          } more members to confirm your team.`,
+                          {
+                            position: 'bottom-center',
+                          }
+                        );
                   }}
                 >
                   Pay {team.event.fees} to confirm
                 </Button>
               ) : (
-                <ConfirmTeamModal teamId={team.id} />
+                <ConfirmTeamModal
+                  teamId={team.id}
+                  canConfirm={team.members.length >= team.event.minTeamSize}
+                  needMore={team.event.minTeamSize - team.members.length}
+                />
               ))}
           </div>
         </div>
@@ -168,26 +185,27 @@ const TeamCard = ({
         {!(
           team.event.eventType === 'INDIVIDUAL' ||
           team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
-        ) && <>
-          {/* <hr className="w-full border-white/40 mt-3 mb-2" /> */}
-          <p className='text-xs mb-1 mt-5 bodyFont font-semibold'>Team Members:</p>
-          <div className="w-full bodyFont">
-            {team?.members?.map((member: any) => (
-              <div
-                className="text-sm"
-                key={member.user.id}
-              >
-                <h1>{member.user.name}</h1>
-              </div>
-            ))}
-          </div>
+        ) && (
+          <>
+            {/* <hr className="w-full border-white/40 mt-3 mb-2" /> */}
+            <p className="text-xs mb-1 mt-5 bodyFont font-semibold">
+              Team Members:
+            </p>
+            <div className="w-full bodyFont">
+              {team?.members?.map((member: any) => (
+                <div className="text-sm" key={member.user.id}>
+                  <h1>{member.user.name}</h1>
+                </div>
+              ))}
+            </div>
           </>
-        }
+        )}
 
         {!(
           team.event.eventType === 'INDIVIDUAL' ||
           team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
-        )&& !team.confirmed &&
+        ) &&
+          !team.confirmed &&
           (team.leaderId === Number(userId) ? (
             <>
               <hr className="w-full border-white/20 my-3" />

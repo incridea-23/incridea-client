@@ -50,8 +50,8 @@ const TeamCard = ({
 
       <div className="w-full text-center flex flex-col justify-center items-center">
         <QRCodeSVG
-        color='#ffffff'
-        fgColor='#ffffffdd'
+          color="#ffffff"
+          fgColor="#ffffffdd"
           value={solo ? idToPid(userId) : idToTeamId(team.id)}
           size={100}
           className="mb-5 mx-auto"
@@ -85,16 +85,18 @@ const TeamCard = ({
       <hr className="w-full border-white/40 my-3" />
 
       <div className="basis-1/2 flex flex-col bodyFont">
-        {<div className="w-full flex-grow">
-          {team?.members?.map((member: any) => (
-            <div
-              className="flex justify-between items-center"
-              key={member.user.id}
-            >
-              <h1>{member.user.name}</h1>
-            </div>
-          ))}
-        </div>}
+        {
+          <div className="w-full flex-grow">
+            {team?.members?.map((member: any) => (
+              <div
+                className="flex justify-between items-center"
+                key={member.user.id}
+              >
+                <h1>{member.user.name}</h1>
+              </div>
+            ))}
+          </div>
+        }
 
         <div className="w-full mt-1">
           {team.confirmed ? (
@@ -119,13 +121,30 @@ const TeamCard = ({
                 className="mt-3 w-fit"
                 disabled={sdkLoading}
                 onClick={() => {
-                  makeTeamPayment(team.id, name, email, setSdkLoading);
+                  solo
+                    ? makeTeamPayment(team.id, name, email, setSdkLoading)
+                    : team.members.length >= team.event.minTeamSize
+                    ? makeTeamPayment(team.id, name, email, setSdkLoading)
+                    : toast.error(
+                        `You need ${
+                          team.event.minTeamSize - team.members.length
+                        } more members to confirm your team.`,
+                        {
+                          position: 'bottom-center',
+                        }
+                      );
                 }}
               >
                 Pay & confirm
               </Button>
             ) : (
-              <ConfirmTeamModal teamId={team.id} />
+              <ConfirmTeamModal
+                teamId={team.id}
+                canConfirm={team.members.length >= team.event.minTeamSize}
+                needMore={
+                  team.event.minTeamSize - team.members.length
+                }
+              />
             ))}
 
           {!team.confirmed && team.leaderId != userId && (
