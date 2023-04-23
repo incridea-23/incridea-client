@@ -1,3 +1,4 @@
+import Button from '@/src/components/button';
 import Spinner from '@/src/components/spinner';
 import {
   EventType,
@@ -43,7 +44,7 @@ const TeamList = ({
     ) {
       setSelectedTeam(data.teamsByRound.edges[0]?.node.id!);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   const [
@@ -110,8 +111,8 @@ const TeamList = ({
 
   return (
     <div className="h-full overflow-y-auto">
-      <div className="p-3 shadow-sm mb-1 rounded-t-lg top-0 sticky bg-[#35436F]">
-        <div className=" relative">
+      <div className="p-3 shadow-sm mb-1 rounded-t-lg top-0 sticky bg-[#35436F] flex justify-between">
+        <div className="relative w-full mr-5">
           <input
             type={'text'}
             placeholder="Search by name or PID"
@@ -124,6 +125,7 @@ const TeamList = ({
             className="absolute right-3 top-2.5 text-white/60"
           />
         </div>
+        <Button intent={'success'} noScaleOnHover>Select</Button>
       </div>
 
       <div className="flex px-3 pb-3 flex-col gap-2 mt-3">
@@ -146,7 +148,7 @@ const TeamList = ({
             className={`flex items-center p-2 px-5 bg-white/10 rounded-lg ${
               selectedTeam === team?.node.id
                 ? 'bg-white/50'
-                : 'hover:bg-white/20'
+                : 'hover:bg-white/20 transition-colors duration-300'
             }`}
           >
             <div className="flex flex-row gap-5">

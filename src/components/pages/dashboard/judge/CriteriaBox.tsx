@@ -63,7 +63,7 @@ const CriteriaBox = ({
         </Button>
       </div>
       <div className="flex items-center text-lg gap-2">
-        <button className="w-6 h-6 leading-5 bg-white/10 rounded-full">
+        <button className="w-6 h-6 leading-5 bg-white/10 rounded-full hover:bg-white/20 transition-colors duration-300">
           -
         </button>
         <input
@@ -78,7 +78,7 @@ const CriteriaBox = ({
 					 				w-16 bg-white/10 min-h-[24px] rounded-lg text-center text-white/90 focus:ring-2 ring-white/50 outline-none"
           //first few classes to hide default input type=number buttons
         />
-        <button className="w-6 h-6 leading-5 bg-white/10 rounded-full">
+        <button className="w-6 h-6 leading-5 bg-white/10 rounded-full hover:bg-white/20 transition-colors duration-300">
           +
         </button>
       </div>
