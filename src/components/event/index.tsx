@@ -132,8 +132,8 @@ const Event = ({
               )
             )}
           </div>
-          <Button noScaleOnHover className="hover:scale-0 shrink-0 mt-2">
-            <Link href={generateEventUrl(data.name, data.id)}>Register</Link>
+          <Button disabled={data.name.toLowerCase() === 'lazzerena'} noScaleOnHover className="hover:scale-0 shrink-0 mt-2">
+            <Link href={generateEventUrl(data.name, data.id)}>{data.name.toLowerCase() === 'lazzerena' ? 'Temporarily Closed'  : 'Register'}</Link>
           </Button>
         </motion.div>
     </AnimatePresence>

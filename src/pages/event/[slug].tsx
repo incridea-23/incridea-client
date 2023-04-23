@@ -152,11 +152,13 @@ function event({ event, error }: { event: Event; error: String }) {
               </div>
             </div>
             <div className='w-full order-1'>
-            <EventRegistration
-              fees={event.fees}
-              eventId={event.id}
-              type={event.eventType}
-            />
+              {event.name.toLowerCase() !== 'lazzerena' ? <EventRegistration
+                fees={event.fees}
+                eventId={event.id}
+                type={event.eventType}
+              /> : <div className='bg-black/20 px-3 p-2.5 font-semibold italic text-white/60 rounded-sm '>
+                  Lazzerena registrations are temporarily closed.
+                </div>}
             </div>
 
             <div className="w-full order-3">
