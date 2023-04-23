@@ -1,69 +1,39 @@
-import {
-  ApolloClient,
-  createHttpLink,
-  InMemoryCache,
-  split,
-} from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+// import { setContext } from '@apollo/client/link/context';
 import { getSession } from 'next-auth/react';
-import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
-import { getMainDefinition } from '@apollo/client/utilities';
-import { createClient } from 'graphql-ws';
-import { WebSocket } from 'isomorphic-ws';
+import { YogaLink } from '@graphql-yoga/apollo-link';
 
-// WebsocketLink for subscriptions
-const wsLink = new GraphQLWsLink(
-  createClient({
-    url: process.env.BACKEND_URL || 'wss://incridea.onrender.com/graphql',
-    webSocketImpl: typeof window === 'undefined' ? WebSocket : undefined,
-    connectionParams: async () => {
-      const session = await getSession();
-      const token = session?.accessToken;
+// const authLink = setContext(async (_, { headers }) => {
+//   const session = await getSession();
+//   const token = session?.accessToken;
 
-      return {
-        authorization: token ? `Bearer ${token}` : '',
-      };
-    },
-  })
-);
+//   return {
+//     headers: {
+//       authorization: token ? `Bearer ${token}` : '',
+//       ...headers,
+//     },
+//   };
+// });
 
-// HttpLink for queries and mutations
-const httpLink = createHttpLink({
-  uri: process.env.BACKEND_URL || 'https://incridea.onrender.com/graphql',
-});
-
-// AuthLink for adding the JWT token to the headers
-const authLink = setContext(async (_, { headers }) => {
+const getHeaders = async () => {
   const session = await getSession();
   const token = session?.accessToken;
 
   return {
-    headers: {
-      authorization: token ? `Bearer ${token}` : '',
-      ...headers,
-    },
+    Authorization: token ? `Bearer ${token}` : '',
   };
-});
+};
 
-// SplitLink - decide whether to use the WebsocketLink or the HttpLink
-const splitLink =
-  typeof window === 'undefined'
-    ? httpLink
-    : split(
-        ({ query }) => {
-          const definition = getMainDefinition(query);
-          return (
-            definition.kind === 'OperationDefinition' &&
-            definition.operation === 'subscription'
-          );
-        },
-        wsLink,
-        authLink.concat(httpLink)
-      );
+const link = new YogaLink({
+  endpoint: process.env.BACKEND_URL || 'https://incridea.onrender.com/graphql',
+  headers: {
+    Authorization: 'Bearer hard-coded-token',
+  },
+});
 
 function createApolloClient() {
   return new ApolloClient({
-    link: splitLink,
+    link: link,
     cache: new InMemoryCache(),
   });
 }

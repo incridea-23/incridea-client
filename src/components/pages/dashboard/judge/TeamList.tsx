@@ -1,14 +1,12 @@
 import Button from '@/src/components/button';
 import Spinner from '@/src/components/spinner';
 import {
-  EventType,
   JudgeGetTeamsByRoundDocument,
   PromoteToNextRoundDocument,
-  TeamsByRoundDocument,
 } from '@/src/generated/generated';
 import { idToTeamId } from '@/src/utils/id';
-import { useMutation, useQuery, useSubscription } from '@apollo/client';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useMutation, useSubscription } from '@apollo/client';
+import React, { useEffect } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 
 type Props = {
@@ -42,8 +40,6 @@ const TeamList = ({
   useEffect(() => {
     if (data?.judgeGetTeamsByRound && data.judgeGetTeamsByRound.length > 0) {
       setSelectedTeam(data?.judgeGetTeamsByRound.map((t) => t.id)[0]!);
-    } else{
-      console.log(error)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.judgeGetTeamsByRound]);

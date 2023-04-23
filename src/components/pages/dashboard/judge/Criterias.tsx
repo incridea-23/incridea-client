@@ -9,7 +9,6 @@ type Props = {
   roundNo: number;
   criterias: Criteria[] | null | undefined;
   selectedTeam: string | null;
-  setSelectedTeam: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
 const Criterias = ({
@@ -17,7 +16,6 @@ const Criterias = ({
   roundNo,
   criterias,
   selectedTeam,
-  setSelectedTeam,
 }: Props) => {
   return (
     <div className="h-full overflow-y-auto">
