@@ -1,40 +1,37 @@
 import Button from '@/src/components/button';
 import Spinner from '@/src/components/spinner';
+import createToast from '@/src/components/toast';
 import {
-  JudgeGetTeamsByRoundDocument,
+  JudgeGetTeamsByRoundSubscription,
   PromoteToNextRoundDocument,
 } from '@/src/generated/generated';
 import { idToTeamId } from '@/src/utils/id';
-import { useMutation, useSubscription } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import React, { useEffect } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 
 type Props = {
-  eventId: string;
+  data: JudgeGetTeamsByRoundSubscription | undefined;
+  loading: boolean;
   roundNo: number;
   eventType: string;
   selectedTeam: string | null;
   setSelectedTeam: React.Dispatch<React.SetStateAction<string | null>>;
+  selectionMode: boolean;
+  setSelectionMode: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const TeamList = ({
-  eventId,
+  data,
+  loading,
   roundNo,
   eventType,
   selectedTeam,
   setSelectedTeam,
+  selectionMode,
+  setSelectionMode,
 }: Props) => {
   const [query, setQuery] = React.useState('');
-
-  const { data, loading, error } = useSubscription(
-    JudgeGetTeamsByRoundDocument,
-    {
-      variables: {
-        roundId: roundNo,
-        eventId: Number(eventId),
-      },
-    }
-  );
 
   // as soon as data is available, select the first team
   useEffect(() => {
@@ -44,18 +41,25 @@ const TeamList = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.judgeGetTeamsByRound]);
 
-  const [
-    promote,
-    { data: promoteData, loading: promoteLoading, error: promoteError },
-  ] = useMutation(PromoteToNextRoundDocument, {
-    refetchQueries: ['TeamsByRound'],
-    awaitRefetchQueries: true,
-  });
+  const [promote, { loading: promoteLoading }] = useMutation(
+    PromoteToNextRoundDocument
+  );
 
   const teamOrParticipant =
     eventType === 'INDIVIDUAL' || eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
       ? 'Participant'
       : 'Team';
+
+  const handlePromote = (teamId: string) => {
+    const promise = promote({
+      variables: {
+        teamId,
+        roundNo: roundNo.toString(),
+        selected: true,
+      },
+    });
+    createToast(promise, 'Promoting team to next round...');
+  };
 
   return (
     <div className="h-full overflow-y-auto">
@@ -73,8 +77,14 @@ const TeamList = ({
             className="absolute right-3 top-2.5 text-white/60"
           />
         </div>
-        <Button intent={'success'} noScaleOnHover>
-          Select
+        <Button
+          onClick={() => {
+            setSelectionMode(!selectionMode);
+          }}
+          intent={'success'}
+          noScaleOnHover
+        >
+          {selectionMode ? 'Done' : 'Select'}
         </Button>
       </div>
 
@@ -86,36 +96,50 @@ const TeamList = ({
               No {teamOrParticipant}s found.
             </p>
           ))}
-        {data?.judgeGetTeamsByRound.map((team, index) => (
-          <div
-            key={team?.id}
-            onClick={() => {
-              setSelectedTeam(team?.id!);
-            }}
-            className={`flex items-center p-2 px-5 bg-white/10 rounded-lg ${
-              selectedTeam === team?.id
-                ? 'bg-white/50'
-                : 'hover:bg-white/20 transition-colors duration-300'
-            }`}
-          >
-            <div className="flex flex-row gap-5">
-              <div
-                className={`${
-                  selectedTeam === team?.id ? 'text-black/80' : 'text-white/80'
-                }`}
-              >
-                {team?.name}
-              </div>
-              <div
-                className={`${
-                  selectedTeam === team?.id ? 'text-black/60' : 'text-white/60'
-                }`}
-              >
-                {idToTeamId(team?.id!)}
+        {data?.judgeGetTeamsByRound
+          .filter((team) => team.roundNo === roundNo)
+          .map((team) => (
+            <div
+              key={team?.id}
+              onClick={() => {
+                setSelectedTeam(team?.id!);
+              }}
+              className={`flex items-center p-2 px-5 bg-white/10 rounded-lg ${
+                selectedTeam === team?.id
+                  ? 'bg-white/50'
+                  : 'hover:bg-white/20 transition-colors duration-300'
+              }`}
+            >
+              <div className="flex flex-row gap-5 w-full">
+                <div
+                  className={`basis-1/3 ${
+                    selectedTeam === team?.id
+                      ? 'text-black/80'
+                      : 'text-white/80'
+                  }`}
+                >
+                  {team?.name}
+                </div>
+                <div
+                  className={`basis-1/3 ${
+                    selectedTeam === team?.id
+                      ? 'text-black/60'
+                      : 'text-white/60'
+                  }`}
+                >
+                  {idToTeamId(team?.id!)}
+                </div>
+                {selectionMode && (
+                  <input
+                    disabled={promoteLoading}
+                    type="checkbox"
+                    className="h-5 w-5 text-white/80 basis-1/3"
+                    onChange={() => handlePromote(team?.id!)}
+                  />
+                )}
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );

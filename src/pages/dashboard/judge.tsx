@@ -1,10 +1,14 @@
 import Dashboard from '@/src/components/layout/dashboard';
 import Criterias from '@/src/components/pages/dashboard/judge/Criterias';
+import SelectedTeamList from '@/src/components/pages/dashboard/judge/SelectedTeamList';
 import TeamList from '@/src/components/pages/dashboard/judge/TeamList';
 import Spinner from '@/src/components/spinner';
-import { RoundByJudgeDocument } from '@/src/generated/generated';
+import {
+  JudgeGetTeamsByRoundDocument,
+  RoundByJudgeDocument,
+} from '@/src/generated/generated';
 import { useAuth } from '@/src/hooks/useAuth';
-import { useQuery } from '@apollo/client';
+import { useQuery, useSubscription } from '@apollo/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
@@ -24,6 +28,29 @@ const Judge: NextPage = (props: Props) => {
   } = useQuery(RoundByJudgeDocument, {
     skip: !user || loading,
   });
+
+  const roundNo =
+    data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess'
+      ? data.roundByJudge.data.roundNo
+      : null;
+  const eventId =
+    data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess'
+      ? data.roundByJudge.data.eventId
+      : null;
+
+  const { data: TeamsData, loading: TeamsLoading } = useSubscription(
+    JudgeGetTeamsByRoundDocument,
+    {
+      variables: {
+        roundId: roundNo!,
+        eventId: Number(eventId!),
+      },
+      skip:
+        !user ||
+        loading ||
+        !(data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess'),
+    }
+  );
 
   if (loading)
     return (
@@ -66,9 +93,12 @@ const Judge: NextPage = (props: Props) => {
             <>
               {data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess' && (
                 <TeamList
+                  data={TeamsData}
+                  loading={TeamsLoading}
+                  selectionMode={selectionMode}
+                  setSelectionMode={setSelectionMode}
                   selectedTeam={selectedTeam}
                   setSelectedTeam={setSelectedTeam}
-                  eventId={data.roundByJudge.data.eventId}
                   roundNo={data.roundByJudge.data.roundNo}
                   eventType={data.roundByJudge.data.event.eventType}
                 />
@@ -81,13 +111,29 @@ const Judge: NextPage = (props: Props) => {
             <Spinner />
           ) : (
             <>
-              {data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess' && (
-                <Criterias
-                  selectedTeam={selectedTeam}
-                  eventId={data?.roundByJudge.data.eventId}
-                  roundNo={data?.roundByJudge.data.roundNo}
-                  criterias={data.roundByJudge.data.criteria}
-                />
+              {selectionMode ? (
+                <>
+                  {data?.roundByJudge.__typename ===
+                    'QueryRoundByJudgeSuccess' &&
+                    TeamsData && (
+                      <SelectedTeamList
+                        teams={TeamsData}
+                        roundNo={data.roundByJudge.data.roundNo}
+                      />
+                    )}
+                </>
+              ) : (
+                <>
+                  {data?.roundByJudge.__typename ===
+                    'QueryRoundByJudgeSuccess' && (
+                    <Criterias
+                      selectedTeam={selectedTeam}
+                      eventId={data?.roundByJudge.data.eventId}
+                      roundNo={data?.roundByJudge.data.roundNo}
+                      criterias={data.roundByJudge.data.criteria}
+                    />
+                  )}
+                </>
               )}
             </>
           )}

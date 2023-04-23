@@ -25,9 +25,10 @@ const getHeaders = async () => {
 };
 
 const link = new YogaLink({
-  endpoint: process.env.BACKEND_URL || 'https://incridea.onrender.com/graphql',
+  endpoint: process.env.BACKEND_URL || 'http://localhost:4000/graphql',
   headers: {
-    Authorization: 'Bearer hard-coded-token',
+    Authorization:
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMxLCJpYXQiOjE2ODIyNTM1NTIsImV4cCI6MTY4MjI2MDc1Mn0.iF8BCayveK7_uUoKtOkfdg1d_R9AOKX1r3elyjtNfQo',
   },
 });
 
