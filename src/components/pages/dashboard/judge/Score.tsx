@@ -1,7 +1,9 @@
+import Spinner from '@/src/components/spinner';
 import createToast from '@/src/components/toast';
 import { AddScoreDocument, GetScoreDocument } from '@/src/generated/generated';
 import { useMutation, useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 const Score = ({
   teamId,
@@ -28,7 +30,7 @@ const Score = ({
     if (data?.getScore?.__typename === 'QueryGetScoreSuccess') {
       setScore(data.getScore.data.score);
     } else {
-        setScore('0');
+      setScore('0');
     }
   }, [data?.getScore]);
 
@@ -55,23 +57,49 @@ const Score = ({
         // if input is empty, set score to 0
         score: score ? score : '0',
       },
+    }).then((res) => {
+      if (res.data?.addScore.__typename === 'Error') {
+        toast.error(res.data.addScore.message);
+      }
     });
     createToast(promise, 'Updating score...');
   };
 
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout | null = null;
+    if (loading) return;
+
+    // Clear previous timeout
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    // Set a new timeout
+    timeoutId = setTimeout(() => {
+      handleUpdateScore();
+    }, 2000);
+
+    // Cleanup function to clear the timeout
+    return () => {
+      clearTimeout(timeoutId!);
+    };
+  }, [score]);
+
   return (
     <div className="flex items-center text-lg gap-2">
-      <input
-        disabled={loading || updateScoreLoading}
-        value={score}
-        onChange={(e) => setScore(e.target.value)}
-        // update score when input loses focus [better alternative to extra submit button and unnecessary mutations in onChange]
-        onBlur={() => handleUpdateScore()}
-        type="number"
-        className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none
+      {loading ? (
+        <Spinner />
+      ) : (
+        <input
+          disabled={loading || updateScoreLoading}
+          value={score}
+          onChange={(e) => setScore(e.target.value)}
+          type="number"
+          className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none
 					 				w-16 bg-white/10 min-h-[24px] rounded-lg text-center text-white/90 focus:ring-2 ring-white/50 outline-none"
-        //first few classes to hide default input type=number buttons
-      />
+          //first few classes to hide default input type=number buttons
+        />
+      )}
     </div>
   );
 };

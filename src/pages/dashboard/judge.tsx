@@ -52,6 +52,8 @@ const Judge: NextPage = (props: Props) => {
     }
   );
 
+  console.log(selectedTeam, !(selectedTeam));
+
   if (loading)
     return (
       <div className="h-screen w-screen flex justify-center">
@@ -122,7 +124,7 @@ const Judge: NextPage = (props: Props) => {
                       />
                     )}
                 </>
-              ) : (
+              ) : selectedTeam ? (
                 <>
                   {data?.roundByJudge.__typename ===
                     'QueryRoundByJudgeSuccess' && (
@@ -134,6 +136,12 @@ const Judge: NextPage = (props: Props) => {
                     />
                   )}
                 </>
+              ) : (
+                <div className="flex justify-center items-center h-full">
+                  <h1 className="text-2xl font-semibold">
+                    Select a team to start judging.
+                  </h1>
+                </div>
               )}
             </>
           )}

@@ -32,15 +32,6 @@ const TeamList = ({
   setSelectionMode,
 }: Props) => {
   const [query, setQuery] = React.useState('');
-
-  // as soon as data is available, select the first team
-  useEffect(() => {
-    if (data?.judgeGetTeamsByRound && data.judgeGetTeamsByRound.length > 0) {
-      setSelectedTeam(data?.judgeGetTeamsByRound.map((t) => t.id)[0]!);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data?.judgeGetTeamsByRound]);
-
   const [promote, { loading: promoteLoading }] = useMutation(
     PromoteToNextRoundDocument
   );
