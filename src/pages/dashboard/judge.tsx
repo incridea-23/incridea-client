@@ -6,6 +6,7 @@ import Spinner from '@/src/components/spinner';
 import {
   JudgeGetTeamsByRoundDocument,
   RoundByJudgeDocument,
+  WinnersByEventDocument,
 } from '@/src/generated/generated';
 import { useAuth } from '@/src/hooks/useAuth';
 import { useQuery, useSubscription } from '@apollo/client';
@@ -49,6 +50,22 @@ const Judge: NextPage = (props: Props) => {
         !user ||
         loading ||
         !(data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess'),
+    }
+  );
+
+  const { data: winners, loading: winnersLoading } = useQuery(
+    WinnersByEventDocument,
+    {
+      variables: {
+        eventId: eventId!,
+      },
+      skip:
+        !eventId ||
+        !(
+          data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess' &&
+          data?.roundByJudge.data.roundNo ===
+            data.roundByJudge.data.event.rounds.length
+        ),
     }
   );
 
@@ -102,6 +119,11 @@ const Judge: NextPage = (props: Props) => {
                   roundNo={data.roundByJudge.data.roundNo}
                   eventType={data.roundByJudge.data.event.eventType}
                   eventId={data.roundByJudge.data.eventId}
+                  finalRound={
+                    data.roundByJudge.data.roundNo ===
+                    data.roundByJudge.data.event.rounds.length
+                  }
+                  winners={winners}
                 />
               )}
             </>
@@ -120,6 +142,12 @@ const Judge: NextPage = (props: Props) => {
                       <SelectedTeamList
                         teams={TeamsData}
                         roundNo={data.roundByJudge.data.roundNo}
+                        finalRound={
+                          data.roundByJudge.data.roundNo ===
+                          data.roundByJudge.data.event.rounds.length
+                        }
+                        winners={winners}
+                        winnersLoading={winnersLoading}
                       />
                     )}
                 </>
