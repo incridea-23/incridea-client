@@ -171,34 +171,34 @@ const JudgeTable = ({
       <Tab.Panels>
         {judges.map((judge) => (
           <Tab.Panel key={judge.judgeName}>
-            <div className="flex justify-evenly gap-5 text-3xl font-semibold">
-              <div className="">Team Name</div>
-              {judge.criteria.map((criteria) => (
-                <div key={criteria.criteriaId} className="">
+             <div className="hidden md:flex mt-3 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-t-lg p-1 items-center justify-between gap-2.5 text-xl font-bold h-16">
+                <div className="basis-1/3 py-2.5 text-center pl-2">Team Name</div>
+                {judge.criteria.map((criteria) => (
+                <div key={criteria.criteriaId} className="basis-1/3 py-2.5 text-center pl-2">
                   {criteria.criteriaName}
                 </div>
-              ))}
-              <div className="">Judge Total</div>
-              <div className="">Judge Total</div>
-            </div>
+                ))}
+                <div className="basis-1/3 py-2.5 text-center pl-2">Judge Total</div>
+                <div className="basis-1/3 py-2.5 text-center pr-2">Grand Total</div>
+              </div>
             {teams.map((team) => (
               <div
                 key={team.teamId}
-                className="flex justify-evenly gap-5 text-3xl font-semibold">
-                <div className="">{team.teamName}</div>
+                className="bg-white/10 md:rounded-none rounded-lg md:p-4  p-3 flex flex-col md:flex-row md:items-center items-start md:justify-evenly w-full md:text-center mb-3 md:my-0">
+                <div className="basis-1/3 py-0.5 text-center text-lg">{team.teamName}</div>
                 {team.judges
                   .find((j) => j.judgeId === judge.judgeId)
                   ?.criteria.map((criteria) => (
-                    <div key={criteria.criteriaId} className="">
+                    <div key={criteria.criteriaId} className="basis-1/3  py-0.5 text-center text-lg">
                       {criteria.score}
                     </div>
                   ))}
-                <div className="">
+                <div className="basis-1/3  py-0.5 text-center text-lg">
                   {team.judges
                     .find((j) => j.judgeId === judge.judgeId)
                     ?.criteria.reduce((acc, curr) => acc + curr.score, 0)}
                 </div>
-                <div className="">{team.teamScore}</div>
+                <div className="basis-1/3 py-0.5 text-center text-lg">{team.teamScore}</div>
               </div>
             ))}
           </Tab.Panel>
