@@ -18,6 +18,9 @@ query TeamDetails($id: ID!) {
           }
         }
         name
+        event {
+          eventType
+        }
       }
     }
     ... on Error {
