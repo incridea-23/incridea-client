@@ -412,7 +412,7 @@ const EventCard = ({
   );
 };
 
-const StatusBadge = ({ status }: { status: string }) => {
+export const StatusBadge = ({ status }: { status: string }) => {
   if (status === "COMPLETED")
     return (
       <div className="border-2 h-fit rounded-full text-green-400 border-green-400 px-2 py-1">
