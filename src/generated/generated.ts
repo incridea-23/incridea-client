@@ -30,6 +30,14 @@ export type BranchRep = {
   userId: Scalars['ID'];
 };
 
+export type Card = {
+  __typename?: 'Card';
+  clue: Scalars['String'];
+  day: Scalars['String'];
+  id: Scalars['ID'];
+  submissions: Array<Submission>;
+};
+
 export type College = {
   __typename?: 'College';
   id: Scalars['ID'];
@@ -61,10 +69,23 @@ export type Criteria = {
   type: Scalars['String'];
 };
 
+export type CriteriaJuryView = {
+  __typename?: 'CriteriaJuryView';
+  criteriaId: Scalars['Int'];
+  score: Scalars['Float'];
+};
+
 export enum CriteriaType {
   Number = 'NUMBER',
   Text = 'TEXT',
   Time = 'TIME'
+}
+
+export enum DayType {
+  Day1 = 'Day1',
+  Day2 = 'Day2',
+  Day3 = 'Day3',
+  Day4 = 'Day4'
 }
 
 export type Error = {
@@ -142,6 +163,13 @@ export type Judge = {
   user: User;
 };
 
+export type JudgeJuryView = {
+  __typename?: 'JudgeJuryView';
+  criteria: Array<CriteriaJuryView>;
+  judgeId: Scalars['Int'];
+  judgeName: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addBranch: MutationAddBranchResult;
@@ -149,19 +177,26 @@ export type Mutation = {
   addComment: MutationAddCommentResult;
   addOrganizer: MutationAddOrganizerResult;
   addScore: MutationAddScoreResult;
+  changeSelectStatus: MutationChangeSelectStatusResult;
+  completeRound: MutationCompleteRoundResult;
   confirmTeam: MutationConfirmTeamResult;
+  createCard: MutationCreateCardResult;
   createCollege: MutationCreateCollegeResult;
   createCriteria: MutationCreateCriteriaResult;
   createEvent: MutationCreateEventResult;
   createJudge: MutationCreateJudgeResult;
   createPaymentOrder: MutationCreatePaymentOrderResult;
   createRound: MutationCreateRoundResult;
+  createSubmission: MutationCreateSubmissionResult;
   createTeam: MutationCreateTeamResult;
+  createWinner: MutationCreateWinnerResult;
+  deleteCard: MutationDeleteCardResult;
   deleteCriteria: MutationDeleteCriteriaResult;
   deleteEvent: MutationDeleteEventResult;
   deleteJudge: MutationDeleteJudgeResult;
   deleteRound: MutationDeleteRoundResult;
   deleteTeam: MutationDeleteTeamResult;
+  deleteWinner: MutationDeleteWinnerResult;
   eventPaymentOrder: MutationEventPaymentOrderResult;
   joinTeam: MutationJoinTeamResult;
   leaveTeam: MutationLeaveTeamResult;
@@ -186,6 +221,7 @@ export type Mutation = {
   sendEmailVerification: MutationSendEmailVerificationResult;
   sendPasswordResetEmail: MutationSendPasswordResetEmailResult;
   signUp: MutationSignUpResult;
+  updateCard: MutationUpdateCardResult;
   updateEvent: MutationUpdateEventResult;
   verifyEmail: MutationVerifyEmailResult;
 };
@@ -223,8 +259,26 @@ export type MutationAddScoreArgs = {
 };
 
 
+export type MutationChangeSelectStatusArgs = {
+  eventId: Scalars['ID'];
+  roundNo: Scalars['Int'];
+};
+
+
+export type MutationCompleteRoundArgs = {
+  eventId: Scalars['ID'];
+  roundNo: Scalars['Int'];
+};
+
+
 export type MutationConfirmTeamArgs = {
   teamId: Scalars['ID'];
+};
+
+
+export type MutationCreateCardArgs = {
+  clue: Scalars['String'];
+  day: DayType;
 };
 
 
@@ -264,9 +318,27 @@ export type MutationCreateRoundArgs = {
 };
 
 
+export type MutationCreateSubmissionArgs = {
+  cardId: Scalars['Int'];
+  image: Scalars['String'];
+};
+
+
 export type MutationCreateTeamArgs = {
   eventId: Scalars['ID'];
   name: Scalars['String'];
+};
+
+
+export type MutationCreateWinnerArgs = {
+  eventId: Scalars['ID'];
+  teamId: Scalars['ID'];
+  type: WinnerType;
+};
+
+
+export type MutationDeleteCardArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -296,6 +368,11 @@ export type MutationDeleteRoundArgs = {
 
 export type MutationDeleteTeamArgs = {
   teamId: Scalars['ID'];
+};
+
+
+export type MutationDeleteWinnerArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -428,6 +505,13 @@ export type MutationSignUpArgs = {
 };
 
 
+export type MutationUpdateCardArgs = {
+  clue: Scalars['String'];
+  day: DayType;
+  id: Scalars['ID'];
+};
+
+
 export type MutationUpdateEventArgs = {
   data: EventUpdateInput;
   id: Scalars['ID'];
@@ -473,11 +557,32 @@ export type MutationAddScoreSuccess = {
   data: Scores;
 };
 
+export type MutationChangeSelectStatusResult = Error | MutationChangeSelectStatusSuccess;
+
+export type MutationChangeSelectStatusSuccess = {
+  __typename?: 'MutationChangeSelectStatusSuccess';
+  data: Round;
+};
+
+export type MutationCompleteRoundResult = Error | MutationCompleteRoundSuccess;
+
+export type MutationCompleteRoundSuccess = {
+  __typename?: 'MutationCompleteRoundSuccess';
+  data: Round;
+};
+
 export type MutationConfirmTeamResult = Error | MutationConfirmTeamSuccess;
 
 export type MutationConfirmTeamSuccess = {
   __typename?: 'MutationConfirmTeamSuccess';
   data: Team;
+};
+
+export type MutationCreateCardResult = Error | MutationCreateCardSuccess;
+
+export type MutationCreateCardSuccess = {
+  __typename?: 'MutationCreateCardSuccess';
+  data: Card;
 };
 
 export type MutationCreateCollegeResult = Error | MutationCreateCollegeSuccess;
@@ -522,11 +627,32 @@ export type MutationCreateRoundSuccess = {
   data: Round;
 };
 
+export type MutationCreateSubmissionResult = Error | MutationCreateSubmissionSuccess;
+
+export type MutationCreateSubmissionSuccess = {
+  __typename?: 'MutationCreateSubmissionSuccess';
+  data: Submission;
+};
+
 export type MutationCreateTeamResult = Error | MutationCreateTeamSuccess;
 
 export type MutationCreateTeamSuccess = {
   __typename?: 'MutationCreateTeamSuccess';
   data: Team;
+};
+
+export type MutationCreateWinnerResult = Error | MutationCreateWinnerSuccess;
+
+export type MutationCreateWinnerSuccess = {
+  __typename?: 'MutationCreateWinnerSuccess';
+  data: Winners;
+};
+
+export type MutationDeleteCardResult = Error | MutationDeleteCardSuccess;
+
+export type MutationDeleteCardSuccess = {
+  __typename?: 'MutationDeleteCardSuccess';
+  data: Card;
 };
 
 export type MutationDeleteCriteriaResult = Error | MutationDeleteCriteriaSuccess;
@@ -562,6 +688,13 @@ export type MutationDeleteTeamResult = Error | MutationDeleteTeamSuccess;
 export type MutationDeleteTeamSuccess = {
   __typename?: 'MutationDeleteTeamSuccess';
   data: Team;
+};
+
+export type MutationDeleteWinnerResult = Error | MutationDeleteWinnerSuccess;
+
+export type MutationDeleteWinnerSuccess = {
+  __typename?: 'MutationDeleteWinnerSuccess';
+  data: Winners;
 };
 
 export type MutationEventPaymentOrderResult = Error | MutationEventPaymentOrderSuccess;
@@ -725,6 +858,13 @@ export type MutationSignUpSuccess = {
   data: User;
 };
 
+export type MutationUpdateCardResult = Error | MutationUpdateCardSuccess;
+
+export type MutationUpdateCardSuccess = {
+  __typename?: 'MutationUpdateCardSuccess';
+  data: Card;
+};
+
 export type MutationUpdateEventResult = Error | MutationUpdateEventSuccess;
 
 export type MutationUpdateEventSuccess = {
@@ -774,10 +914,15 @@ export type Query = {
   eventByOrganizer: Array<Event>;
   events: QueryEventsConnection;
   eventsByBranchRep: Array<Event>;
+  getAllSubmissions: QueryGetAllSubmissionsResult;
   getBranch: Branch;
   getBranches: Array<Branch>;
+  getCards: QueryGetCardsResult;
   getComment: QueryGetCommentResult;
+  getRoundStatus: QueryGetRoundStatusResult;
   getScore: QueryGetScoreResult;
+  getScoreSheetJuryView: QueryGetScoreSheetJuryViewResult;
+  getTotalScores: QueryGetTotalScoresResult;
   judgeGetTeamsByRound: Array<Team>;
   me: QueryMeResult;
   myTeam: QueryMyTeamResult;
@@ -786,11 +931,13 @@ export type Query = {
   roundByJudge: QueryRoundByJudgeResult;
   rounds: Array<Round>;
   roundsByEvent: Array<Round>;
+  submissionsByUser: QuerySubmissionsByUserResult;
   teamDetails: QueryTeamDetailsResult;
   teamsByRound: QueryTeamsByRoundConnection;
   totalRegistrations: Scalars['Int'];
   userById: QueryUserByIdResult;
   users: QueryUsersConnection;
+  winner: Array<Winners>;
   winnersByEvent: QueryWinnersByEventResult;
 };
 
@@ -819,6 +966,11 @@ export type QueryEventsByBranchRepArgs = {
 };
 
 
+export type QueryGetAllSubmissionsArgs = {
+  day: DayType;
+};
+
+
 export type QueryGetBranchArgs = {
   id: Scalars['ID'];
 };
@@ -831,10 +983,28 @@ export type QueryGetCommentArgs = {
 };
 
 
+export type QueryGetRoundStatusArgs = {
+  eventId: Scalars['ID'];
+  roundNo: Scalars['Int'];
+};
+
+
 export type QueryGetScoreArgs = {
   criteriaId: Scalars['ID'];
   roundNo: Scalars['Int'];
   teamId: Scalars['ID'];
+};
+
+
+export type QueryGetScoreSheetJuryViewArgs = {
+  eventId: Scalars['ID'];
+  roundNo: Scalars['Int'];
+};
+
+
+export type QueryGetTotalScoresArgs = {
+  eventId: Scalars['ID'];
+  roundNo: Scalars['Int'];
 };
 
 
@@ -851,6 +1021,11 @@ export type QueryMyTeamArgs = {
 
 export type QueryRoundsByEventArgs = {
   eventId: Scalars['ID'];
+};
+
+
+export type QuerySubmissionsByUserArgs = {
+  day: DayType;
 };
 
 
@@ -890,6 +1065,11 @@ export type QueryUsersArgs = {
 };
 
 
+export type QueryWinnerArgs = {
+  eventId: Scalars['ID'];
+};
+
+
 export type QueryWinnersByEventArgs = {
   eventId: Scalars['ID'];
 };
@@ -906,6 +1086,20 @@ export type QueryEventsConnectionEdge = {
   node: Event;
 };
 
+export type QueryGetAllSubmissionsResult = Error | QueryGetAllSubmissionsSuccess;
+
+export type QueryGetAllSubmissionsSuccess = {
+  __typename?: 'QueryGetAllSubmissionsSuccess';
+  data: Array<Submission>;
+};
+
+export type QueryGetCardsResult = Error | QueryGetCardsSuccess;
+
+export type QueryGetCardsSuccess = {
+  __typename?: 'QueryGetCardsSuccess';
+  data: Array<Card>;
+};
+
 export type QueryGetCommentResult = Error | QueryGetCommentSuccess;
 
 export type QueryGetCommentSuccess = {
@@ -913,11 +1107,32 @@ export type QueryGetCommentSuccess = {
   data: Comments;
 };
 
+export type QueryGetRoundStatusResult = Error | QueryGetRoundStatusSuccess;
+
+export type QueryGetRoundStatusSuccess = {
+  __typename?: 'QueryGetRoundStatusSuccess';
+  data: Round;
+};
+
 export type QueryGetScoreResult = Error | QueryGetScoreSuccess;
+
+export type QueryGetScoreSheetJuryViewResult = Error | QueryGetScoreSheetJuryViewSuccess;
+
+export type QueryGetScoreSheetJuryViewSuccess = {
+  __typename?: 'QueryGetScoreSheetJuryViewSuccess';
+  data: Array<ScoreSheetJuryView>;
+};
 
 export type QueryGetScoreSuccess = {
   __typename?: 'QueryGetScoreSuccess';
   data: Scores;
+};
+
+export type QueryGetTotalScoresResult = Error | QueryGetTotalScoresSuccess;
+
+export type QueryGetTotalScoresSuccess = {
+  __typename?: 'QueryGetTotalScoresSuccess';
+  data: Array<TotalScores>;
 };
 
 export type QueryMeResult = Error | QueryMeSuccess;
@@ -946,6 +1161,13 @@ export type QueryRoundByJudgeResult = Error | QueryRoundByJudgeSuccess;
 export type QueryRoundByJudgeSuccess = {
   __typename?: 'QueryRoundByJudgeSuccess';
   data: Round;
+};
+
+export type QuerySubmissionsByUserResult = Error | QuerySubmissionsByUserSuccess;
+
+export type QuerySubmissionsByUserSuccess = {
+  __typename?: 'QuerySubmissionsByUserSuccess';
+  data: Array<Submission>;
 };
 
 export type QueryTeamDetailsResult = Error | QueryTeamDetailsSuccess;
@@ -1002,6 +1224,15 @@ export type Round = {
   eventId: Scalars['ID'];
   judges: Array<Judge>;
   roundNo: Scalars['Int'];
+  selectStatus: Scalars['Boolean'];
+};
+
+export type ScoreSheetJuryView = {
+  __typename?: 'ScoreSheetJuryView';
+  judges: Array<JudgeJuryView>;
+  teamId: Scalars['Int'];
+  teamName: Scalars['String'];
+  teamScore: Scalars['Float'];
 };
 
 export type Scores = {
@@ -1014,15 +1245,38 @@ export type Scores = {
   teamId: Scalars['ID'];
 };
 
+export type Submission = {
+  __typename?: 'Submission';
+  card: Card;
+  cardId: Scalars['ID'];
+  image: Scalars['String'];
+  user: User;
+  userId: Scalars['ID'];
+};
+
 export type Subscription = {
   __typename?: 'Subscription';
+  getRoundStatus: SubscriptionGetRoundStatusResult;
   judgeGetTeamsByRound: Array<Team>;
+};
+
+
+export type SubscriptionGetRoundStatusArgs = {
+  eventId: Scalars['ID'];
+  roundNo: Scalars['Int'];
 };
 
 
 export type SubscriptionJudgeGetTeamsByRoundArgs = {
   eventId: Scalars['Int'];
   roundId: Scalars['Int'];
+};
+
+export type SubscriptionGetRoundStatusResult = Error | SubscriptionGetRoundStatusSuccess;
+
+export type SubscriptionGetRoundStatusSuccess = {
+  __typename?: 'SubscriptionGetRoundStatusSuccess';
+  data: Round;
 };
 
 export type Team = {
@@ -1041,6 +1295,13 @@ export type TeamMember = {
   __typename?: 'TeamMember';
   team: Team;
   user: User;
+};
+
+export type TotalScores = {
+  __typename?: 'TotalScores';
+  judgeScore: Scalars['Float'];
+  teamId: Scalars['Int'];
+  totalScore: Scalars['Float'];
 };
 
 export type User = {
@@ -1073,6 +1334,12 @@ export type UserLoginPayload = {
   accessToken: Scalars['String'];
   refreshToken: Scalars['String'];
 };
+
+export enum WinnerType {
+  RunnerUp = 'RUNNER_UP',
+  SecondRunnerUp = 'SECOND_RUNNER_UP',
+  Winner = 'WINNER'
+}
 
 export type Winners = {
   __typename?: 'Winners';
