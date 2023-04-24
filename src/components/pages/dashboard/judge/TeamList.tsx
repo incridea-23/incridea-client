@@ -10,9 +10,11 @@ import {
 } from '@/src/generated/generated';
 import { idToTeamId } from '@/src/utils/id';
 import { useMutation, useQuery, useSubscription } from '@apollo/client';
+import { Listbox } from '@headlessui/react';
 import React, { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { AiOutlineSearch } from 'react-icons/ai';
+import { IoCheckmarkCircleOutline } from 'react-icons/io5';
 
 type Props = {
   data: JudgeGetTeamsByRoundSubscription | undefined;
@@ -39,6 +41,9 @@ const TeamList = ({
 }: Props) => {
   const [query, setQuery] = React.useState('');
   const [sortOrder, setSortOrder] = React.useState<'asc' | 'desc'>('asc');
+  const [sortField, setSortField] = React.useState<
+    'Total Score' | 'Your Score'
+  >('Total Score');
   const [promote, { loading: promoteLoading }] = useMutation(
     PromoteToNextRoundDocument
   );
@@ -101,6 +106,8 @@ const TeamList = ({
     createToast(promise, 'Promoting team to next round...');
   };
 
+  const sorter = sortField === 'Total Score' ? 'totalScore' : 'judgeScore';
+
   const getTotalScore = (
     team: JudgeGetTeamsByRoundSubscription['judgeGetTeamsByRound'][0]
   ) => {
@@ -108,7 +115,7 @@ const TeamList = ({
       scores?.getTotalScores.__typename === 'QueryGetTotalScoresSuccess'
         ? scores?.getTotalScores.data.find(
             (score) => score.teamId === Number(team.id)
-          )?.totalScore
+          )?.[sorter]
         : null;
     return score;
   };
@@ -146,11 +153,23 @@ const TeamList = ({
         <Button
           size={'small'}
           intent={'dark'}
-          className="mr-5"
+          className="mr-2"
           onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
         >
           {sortOrder === 'asc' ? '▲' : '▼'}
         </Button>
+
+        <select
+          value={sortField}
+          onChange={(e) =>
+            setSortField(e.target.value as 'Total Score' | 'Your Score')
+          }
+          className="bg-white/20 text-white/60 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 ring-white/40 mr-2"
+        >
+          <option value="Total Score">Total Score</option>
+          <option value="Your Score">Your Score</option>
+        </select>
+
         <Button
           onClick={() => {
             changeStatus({
@@ -176,14 +195,14 @@ const TeamList = ({
       <div className="flex px-3 pb-3 flex-col gap-2 mt-3">
         <div className={`flex items-center p-2 px-5 bg-white/10 rounded-lg`}>
           <div className="flex flex-row gap-5 w-full">
-            <div className={`basis-1/5 text-white/80`}>Name</div>
-            <div className={`basis-1/5 text-white/80`}>ID</div>
-            <div className={`basis-1/5 text-white/80`}>Score</div>
-            <div className={`basis-1/5 text-white/80`}>Total</div>
+            <div className={`basis-4/12 text-white/80`}>Name</div>
+            <div className={`basis-4/12 text-white/80`}>ID</div>
+            <div className={`basis-1/12 text-white/80`}>Score</div>
+            <div className={`basis-1/12 text-white/80`}>Total</div>
             {selectionMode ? (
-              <div className={`basis-1/5 text-white/80`}>Promote</div>
+              <div className={`basis-2/12 text-white/80`}>Promote</div>
             ) : (
-              <div className={`basis-1/5`}></div>
+              <div className={`basis-2/12`}></div>
             )}
           </div>
         </div>
@@ -217,7 +236,7 @@ const TeamList = ({
             >
               <div className="flex flex-row gap-5 w-full">
                 <div
-                  className={`basis-1/5 ${
+                  className={`basis-4/12 ${
                     selectedTeam === team?.id
                       ? 'text-black/80'
                       : 'text-white/80'
@@ -227,7 +246,7 @@ const TeamList = ({
                 </div>
 
                 <div
-                  className={`basis-1/5 ${
+                  className={`basis-4/12 ${
                     selectedTeam === team?.id
                       ? 'text-black/60'
                       : 'text-white/60'
@@ -237,7 +256,7 @@ const TeamList = ({
                 </div>
 
                 <div
-                  className={`basis-1/5 ${
+                  className={`basis-1/12 ${
                     selectedTeam === team?.id
                       ? 'text-black/60'
                       : 'text-white/60'
@@ -252,7 +271,7 @@ const TeamList = ({
                 </div>
 
                 <div
-                  className={`basis-1/5 ${
+                  className={`basis-1/12 ${
                     selectedTeam === team?.id
                       ? 'text-black/60'
                       : 'text-white/60'
@@ -270,11 +289,11 @@ const TeamList = ({
                   <input
                     disabled={promoteLoading}
                     type="checkbox"
-                    className="h-5 w-5 text-white/80 basis-1/5"
+                    className="h-5 w-5 text-white/80 basis-2/12"
                     onChange={() => handlePromote(team?.id!)}
                   />
                 ) : (
-                  <div className={`basis-1/5`}></div>
+                  <div className={`basis-2/12`}></div>
                 )}
               </div>
             </div>
