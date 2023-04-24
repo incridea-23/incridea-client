@@ -26,6 +26,8 @@ const SelectedTeamList = ({
         roundNo: roundNo.toString(),
         selected: false,
       },
+      refetchQueries: ['GetTotalScores'],
+      awaitRefetchQueries: true,
     });
     createToast(promise, 'Removing team...');
   };
@@ -35,8 +37,10 @@ const SelectedTeamList = ({
       <div className="px-4 shadow-sm py-3 mb-2 rounded-t-lg bg-[#35436F] sticky top-0">
         <h1 className="text-2xl font-semibold">Selected Teams</h1>
       </div>
-      {!(teams.judgeGetTeamsByRound.filter((team) => team.roundNo > roundNo)
-        .length === 0) && (
+      {!(
+        teams.judgeGetTeamsByRound.filter((team) => team.roundNo > roundNo)
+          .length === 0
+      ) && (
         <p>
           <span className="ml-5 text-white/60">
             These teams are selected to Round {roundNo + 1}
@@ -44,6 +48,13 @@ const SelectedTeamList = ({
         </p>
       )}
       <div className="flex px-3 pb-3 flex-col gap-2 mt-3">
+        <div className={`flex items-center p-2 px-5 bg-white/10 rounded-lg`}>
+          <div className="flex flex-row gap-5 w-full">
+            <div className={`basis-1/3 text-white/80`}>Team Name</div>
+            <div className={`basis-1/3 text-white/80`}>Team ID</div>
+            <div className={`basis-1/3 text-white/80`}>Remove</div>
+          </div>
+        </div>
         {teams.judgeGetTeamsByRound.filter((team) => team.roundNo > roundNo)
           .length === 0 && (
           <p className="my-3 mt-5 text-gray-400/70 italic text-center">
@@ -62,13 +73,15 @@ const SelectedTeamList = ({
                 <div className="text-white/60 basis-1/3">
                   {idToTeamId(team?.id!)}
                 </div>
-                <Button
-                  onClick={() => {
-                    handlePromote(team?.id!);
-                  }}
-                >
-                  <AiOutlineClose />
-                </Button>
+                <div className='basis-1/3'>
+                  <Button
+                    onClick={() => {
+                      handlePromote(team?.id!);
+                    }}
+                  >
+                    <AiOutlineClose />
+                  </Button>
+                </div>
               </div>
             </div>
           ))}

@@ -1,0 +1,25 @@
+query WinnersByEvent($eventId: ID!) {
+  winner(eventId: $eventId) {
+    type
+    team {
+      attended
+      confirmed
+      id
+      leaderId
+      name
+      roundNo
+      members {
+        user {
+          createdAt
+          email
+          id
+          role
+          phoneNumber
+          name
+          isVerified
+        }
+      }
+    }
+    id
+  }
+}

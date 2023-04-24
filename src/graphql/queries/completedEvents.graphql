@@ -1,0 +1,41 @@
+query CompletedEvents {
+  completedEvents {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on QueryCompletedEventsSuccess {
+      __typename
+      data {
+        id
+        name
+        winner {
+          team {
+            members {
+              user {
+                name
+                phoneNumber
+                role
+                isVerified
+                id
+                email
+                createdAt
+              }
+            }
+            id
+            leaderId
+            name
+          }
+          type
+        }
+        rounds {
+          completed
+          date
+          eventId
+          roundNo
+          selectStatus
+        }
+      }
+    }
+  }
+}
