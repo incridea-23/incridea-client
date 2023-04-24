@@ -35,11 +35,14 @@ const SelectedTeamList = ({
       <div className="px-4 shadow-sm py-3 mb-2 rounded-t-lg bg-[#35436F] sticky top-0">
         <h1 className="text-2xl font-semibold">Selected Teams</h1>
       </div>
-      <p>
-        <span className="ml-5 text-white/60">
-          These teams are selected to Round {roundNo + 1}
-        </span>
-      </p>
+      {!(teams.judgeGetTeamsByRound.filter((team) => team.roundNo > roundNo)
+        .length === 0) && (
+        <p>
+          <span className="ml-5 text-white/60">
+            These teams are selected to Round {roundNo + 1}
+          </span>
+        </p>
+      )}
       <div className="flex px-3 pb-3 flex-col gap-2 mt-3">
         {teams.judgeGetTeamsByRound.filter((team) => team.roundNo > roundNo)
           .length === 0 && (

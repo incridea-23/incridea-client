@@ -9,10 +9,12 @@ const Score = ({
   teamId,
   criteriaId,
   roundNo,
+  // onUpdateScore,
 }: {
   teamId: string;
   criteriaId: string;
   roundNo: number;
+  // onUpdateScore: (newScore: number) => void;
 }) => {
   const { data, loading, error } = useQuery(GetScoreDocument, {
     variables: {
@@ -29,9 +31,12 @@ const Score = ({
   useEffect(() => {
     if (data?.getScore?.__typename === 'QueryGetScoreSuccess') {
       setScore(data.getScore.data.score);
+      // onUpdateScore(Number(data.getScore.data.score));
     } else {
       setScore('0');
+      // onUpdateScore(0);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.getScore]);
 
   const [updateScore, { loading: updateScoreLoading }] = useMutation(
@@ -60,6 +65,8 @@ const Score = ({
     }).then((res) => {
       if (res.data?.addScore.__typename === 'Error') {
         toast.error(res.data.addScore.message);
+      } else {
+        // onUpdateScore(Number(score));
       }
     });
     createToast(promise, 'Updating score...');
@@ -83,6 +90,7 @@ const Score = ({
     return () => {
       clearTimeout(timeoutId!);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [score]);
 
   return (

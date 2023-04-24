@@ -57,6 +57,7 @@ const CreateCriteriaModal: FC<{
         onClick={() => {
           setShowModal(true);
         }}
+        noScaleOnHover
       >
         Create Criteria
       </Button>

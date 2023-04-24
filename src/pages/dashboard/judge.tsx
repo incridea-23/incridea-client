@@ -52,8 +52,6 @@ const Judge: NextPage = (props: Props) => {
     }
   );
 
-  console.log(selectedTeam, !(selectedTeam));
-
   if (loading)
     return (
       <div className="h-screen w-screen flex justify-center">
