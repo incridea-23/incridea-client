@@ -42,7 +42,7 @@ const Score = ({
   const [updateScore, { loading: updateScoreLoading }] = useMutation(
     AddScoreDocument,
     {
-      refetchQueries: ['GetScore'],
+      refetchQueries: ['GetScore','GetTotalScores'],
       awaitRefetchQueries: true,
     }
   );

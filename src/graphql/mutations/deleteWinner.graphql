@@ -1,0 +1,11 @@
+mutation DeleteWinner($id: ID!) {
+  deleteWinner(id: $id) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationDeleteWinnerSuccess {
+      __typename
+    }
+  }
+}
