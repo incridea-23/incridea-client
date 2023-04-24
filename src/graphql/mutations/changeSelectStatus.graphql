@@ -1,0 +1,14 @@
+mutation ChangeSelectStatus($eventId: ID!, $roundNo: Int!) {
+  changeSelectStatus(eventId: $eventId, roundNo: $roundNo) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationChangeSelectStatusSuccess {
+      __typename
+      data {
+        selectStatus
+      }
+    }
+  }
+}

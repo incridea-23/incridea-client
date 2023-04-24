@@ -1,0 +1,16 @@
+query GetTotalScores($eventId: ID!, $roundNo: Int!) {
+  getTotalScores(eventId: $eventId, roundNo: $roundNo) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on QueryGetTotalScoresSuccess {
+      __typename
+      data {
+        judgeScore
+        teamId
+        totalScore
+      }
+    }
+  }
+}

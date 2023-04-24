@@ -2,18 +2,23 @@ import Button from '@/src/components/button';
 import Spinner from '@/src/components/spinner';
 import createToast from '@/src/components/toast';
 import {
+  ChangeSelectStatusDocument,
+  GetRoundStatusDocument,
+  GetTotalScoresDocument,
   JudgeGetTeamsByRoundSubscription,
   PromoteToNextRoundDocument,
 } from '@/src/generated/generated';
 import { idToTeamId } from '@/src/utils/id';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery, useSubscription } from '@apollo/client';
 import React, { useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import { AiOutlineSearch } from 'react-icons/ai';
 
 type Props = {
   data: JudgeGetTeamsByRoundSubscription | undefined;
   loading: boolean;
   roundNo: number;
+  eventId: string;
   eventType: string;
   selectedTeam: string | null;
   setSelectedTeam: React.Dispatch<React.SetStateAction<string | null>>;
@@ -25,6 +30,7 @@ const TeamList = ({
   data,
   loading,
   roundNo,
+  eventId,
   eventType,
   selectedTeam,
   setSelectedTeam,
@@ -32,9 +38,52 @@ const TeamList = ({
   setSelectionMode,
 }: Props) => {
   const [query, setQuery] = React.useState('');
+  const [sortOrder, setSortOrder] = React.useState<'asc' | 'desc'>('asc');
   const [promote, { loading: promoteLoading }] = useMutation(
     PromoteToNextRoundDocument
   );
+
+  const [changeStatus, { loading: changeLoading }] = useMutation(
+    ChangeSelectStatusDocument
+  );
+
+  const { data: roundStatus, loading: roundStatusLoading } = useSubscription(
+    GetRoundStatusDocument,
+    {
+      variables: {
+        roundNo: roundNo,
+        eventId: eventId,
+      },
+    }
+  );
+
+  const { data: scores, loading: scoresLoading } = useQuery(
+    GetTotalScoresDocument,
+    {
+      variables: {
+        eventId: eventId!,
+        roundNo: roundNo!,
+      },
+      skip: !eventId || !roundNo,
+    }
+  );
+
+  useEffect(() => {
+    if (
+      roundStatus?.getRoundStatus.__typename ===
+      'SubscriptionGetRoundStatusSuccess'
+    ) {
+      if (roundStatus.getRoundStatus.data.selectStatus) {
+        console.log('selecting');
+        setSelectionMode(true);
+      }
+    }
+
+    return () => {
+      setSelectionMode(false);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [roundStatus]);
 
   const teamOrParticipant =
     eventType === 'INDIVIDUAL' || eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
@@ -51,6 +100,32 @@ const TeamList = ({
     });
     createToast(promise, 'Promoting team to next round...');
   };
+
+  const getTotalScore = (
+    team: JudgeGetTeamsByRoundSubscription['judgeGetTeamsByRound'][0]
+  ) => {
+    const score =
+      scores?.getTotalScores.__typename === 'QueryGetTotalScoresSuccess'
+        ? scores?.getTotalScores.data.find(
+            (score) => score.teamId === Number(team.id)
+          )?.totalScore
+        : null;
+    return score;
+  };
+
+  const sortedTeams = [...(data?.judgeGetTeamsByRound ?? [])].sort(
+    (team1, team2) => {
+      const score1 = getTotalScore(team1) ?? 0;
+      const score2 = getTotalScore(team2) ?? 0;
+      if (sortOrder === 'asc') {
+        return score1 - score2;
+      } else if (sortOrder === 'desc') {
+        return score2 - score1;
+      } else {
+        return 0;
+      }
+    }
+  );
 
   return (
     <div className="h-full overflow-y-auto">
@@ -69,9 +144,28 @@ const TeamList = ({
           />
         </div>
         <Button
+          size={'small'}
+          intent={'dark'}
+          className="mr-5"
+          onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+        >
+          {sortOrder === 'asc' ? '▲' : '▼'}
+        </Button>
+        <Button
           onClick={() => {
+            changeStatus({
+              variables: {
+                eventId,
+                roundNo,
+              },
+            }).then((data) => {
+              if (data.data?.changeSelectStatus.__typename === 'Error') {
+                toast.error(data.data.changeSelectStatus.message);
+              }
+            });
             setSelectionMode(!selectionMode);
           }}
+          disabled={changeLoading}
           intent={'success'}
           noScaleOnHover
         >
@@ -80,15 +174,35 @@ const TeamList = ({
       </div>
 
       <div className="flex px-3 pb-3 flex-col gap-2 mt-3">
+        <div className={`flex items-center p-2 px-5 bg-white/10 rounded-lg`}>
+          <div className="flex flex-row gap-5 w-full">
+            <div className={`basis-1/5 text-white/80`}>Name</div>
+            <div className={`basis-1/5 text-white/80`}>ID</div>
+            <div className={`basis-1/5 text-white/80`}>Score</div>
+            <div className={`basis-1/5 text-white/80`}>Total</div>
+            {selectionMode ? (
+              <div className={`basis-1/5 text-white/80`}>Promote</div>
+            ) : (
+              <div className={`basis-1/5`}></div>
+            )}
+          </div>
+        </div>
         {loading && <Spinner />}
         {(!loading && !data) ||
-          (data?.judgeGetTeamsByRound.length === 0 && (
+          (sortedTeams.length === 0 && (
             <p className="my-3 mt-5 text-gray-400/70 italic text-center">
               No {teamOrParticipant}s found.
             </p>
           ))}
-        {data?.judgeGetTeamsByRound
-          .filter((team) => team.roundNo === roundNo)
+        {sortedTeams
+          .filter(
+            (team) =>
+              team.roundNo === roundNo &&
+              (idToTeamId(team.id)
+                .toLowerCase()
+                .includes(query.toLowerCase()) ||
+                team.name.toLowerCase().includes(query.toLowerCase()))
+          )
           .map((team) => (
             <div
               key={team?.id}
@@ -103,7 +217,7 @@ const TeamList = ({
             >
               <div className="flex flex-row gap-5 w-full">
                 <div
-                  className={`basis-1/3 ${
+                  className={`basis-1/5 ${
                     selectedTeam === team?.id
                       ? 'text-black/80'
                       : 'text-white/80'
@@ -111,8 +225,9 @@ const TeamList = ({
                 >
                   {team?.name}
                 </div>
+
                 <div
-                  className={`basis-1/3 ${
+                  className={`basis-1/5 ${
                     selectedTeam === team?.id
                       ? 'text-black/60'
                       : 'text-white/60'
@@ -120,13 +235,46 @@ const TeamList = ({
                 >
                   {idToTeamId(team?.id!)}
                 </div>
-                {selectionMode && (
+
+                <div
+                  className={`basis-1/5 ${
+                    selectedTeam === team?.id
+                      ? 'text-black/60'
+                      : 'text-white/60'
+                  }`}
+                >
+                  {scoresLoading && <Spinner />}
+                  {scores?.getTotalScores.__typename ===
+                    'QueryGetTotalScoresSuccess' &&
+                    scores?.getTotalScores.data.find(
+                      (score) => score.teamId === Number(team?.id)
+                    )?.judgeScore}
+                </div>
+
+                <div
+                  className={`basis-1/5 ${
+                    selectedTeam === team?.id
+                      ? 'text-black/60'
+                      : 'text-white/60'
+                  }`}
+                >
+                  {scoresLoading && <Spinner />}
+                  {scores?.getTotalScores.__typename ===
+                    'QueryGetTotalScoresSuccess' &&
+                    scores?.getTotalScores.data.find(
+                      (score) => score.teamId === Number(team?.id)
+                    )?.totalScore}
+                </div>
+
+                {selectionMode ? (
                   <input
                     disabled={promoteLoading}
                     type="checkbox"
-                    className="h-5 w-5 text-white/80 basis-1/3"
+                    className="h-5 w-5 text-white/80 basis-1/5"
                     onChange={() => handlePromote(team?.id!)}
                   />
+                ) : (
+                  <div className={`basis-1/5`}></div>
                 )}
               </div>
             </div>

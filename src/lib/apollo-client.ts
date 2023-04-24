@@ -1,5 +1,4 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
 import { getSession } from "next-auth/react";
 import { YogaLink } from "@graphql-yoga/apollo-link";
 
@@ -14,7 +13,7 @@ const getHeaders = async () => {
 
 const link = new YogaLink({
   endpoint:
-    process.env.BACKEND_URL || "https://incridea-test.onrender.com/graphql",
+    process.env.BACKEND_URL || "http://localhost:4000/graphql",
 
   fetch: async (uri, options) => {
     const headers = await getHeaders();

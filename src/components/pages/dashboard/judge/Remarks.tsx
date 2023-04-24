@@ -1,4 +1,3 @@
-import Button from '@/src/components/button';
 import createToast from '@/src/components/toast';
 import {
   AddCommentDocument,
@@ -17,7 +16,7 @@ const Remarks = ({
   roundNo: number;
   teamId: string;
 }) => {
-  const { data, loading, error } = useQuery(GetCommentDocument, {
+  const { data, loading } = useQuery(GetCommentDocument, {
     variables: {
       eventId,
       roundNo,
@@ -42,9 +41,56 @@ const Remarks = ({
     }
   }, [data?.getComment]);
 
+  const handleUpdate = () => {
+    if (data?.getComment.__typename === 'QueryGetCommentSuccess') {
+      if (data.getComment.data.comment === remarks) {
+        return;
+      }
+    }
+    if (remarks) {
+      const promise = addRemark({
+        variables: {
+          eventId: Number(eventId),
+          roundNo,
+          teamId: Number(teamId),
+          comment: remarks,
+        },
+      });
+      createToast(promise, 'Adding remarks...');
+      if (
+        addRemarkData?.addComment.__typename === 'MutationAddCommentSuccess'
+      ) {
+        setRemarks('');
+      }
+    }
+  };
+
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout | null = null;
+    if (loading) return;
+
+    // Clear previous timeout
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    // Set a new timeout
+    timeoutId = setTimeout(() => {
+      handleUpdate();
+    }, 2000);
+
+    // Cleanup function to clear the timeout
+    return () => {
+      clearTimeout(timeoutId!);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [remarks]);
+
   return (
     <div className="p-3 pt-0 relative mt-2">
-      <h1 className="text-white/90 font-bold my-2 text-start">Additional Remarks for {idToTeamId(teamId)}</h1>
+      <h1 className="text-white/90 font-bold my-2 text-start">
+        Additional Remarks for {idToTeamId(teamId)}
+      </h1>
       <textarea
         rows={4}
         className="mb-3 px-3 py-2 w-full bg-white/10 placeholder:text-white/60 rounded-md resize-none"
@@ -53,32 +99,6 @@ const Remarks = ({
         value={remarks}
         onChange={(e) => setRemarks(e.target.value)}
       />
-      <Button
-        onClick={() => {
-          if (remarks) {
-            const promise = addRemark({
-              variables: {
-                eventId: Number(eventId),
-                roundNo,
-                teamId: Number(teamId),
-                comment: remarks,
-              },
-            });
-            createToast(promise, 'Adding remarks...');
-            if (
-              addRemarkData?.addComment.__typename ===
-              'MutationAddCommentSuccess'
-            ) {
-              setRemarks('');
-            }
-          }
-        }}
-        disabled={loading || addRemarkLoading}
-        intent={'success'}
-        className="absolute bottom-10 right-5"
-      >
-        Add
-      </Button>
     </div>
   );
 };

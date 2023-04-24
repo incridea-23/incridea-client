@@ -1,8 +1,8 @@
-import React from 'react';
 import CreateCriteriaModal from './CreateCriteriaModal';
-import { Criteria, DeleteCriteriaDocument } from '@/src/generated/generated';
+import { Criteria } from '@/src/generated/generated';
 import CriteriaBox from './CriteriaBox';
 import Remarks from './Remarks';
+import DeleteCriteriaModal from './DeleteCriteriaModal';
 
 type Props = {
   eventId: string;
@@ -11,18 +11,29 @@ type Props = {
   selectedTeam: string | null;
 };
 
-const Criterias = ({
-  eventId,
-  roundNo,
-  criterias,
-  selectedTeam,
-}: Props) => {
+const Criterias = ({ eventId, roundNo, criterias, selectedTeam }: Props) => {
+  // const [totalScore, setTotalScore] = useState(0);
+
+  // const handleScoreUpdate = (newScore: number) => {
+  //   setTotalScore(totalScore + newScore);
+  // };
+
   return (
     <div className="h-full overflow-y-auto">
       <div className="px-4 shadow-sm flex items-end justify-between py-3 mb-2 rounded-t-lg bg-[#35436F] sticky top-0">
         <h1 className="text-2xl font-semibold">Criterias</h1>
-        <CreateCriteriaModal eventId={eventId} roundNo={roundNo} />
+        <div className="flex gap-2">
+          <CreateCriteriaModal eventId={eventId} roundNo={roundNo} />
+          <DeleteCriteriaModal
+            eventId={eventId}
+            roundNo={roundNo}
+            criterias={criterias}
+          />
+        </div>
       </div>
+
+      {/* <span className="ml-5 text-white text-xl">Total Score: {totalScore}</span> */}
+
       <div className="px-3 pb-3 flex flex-wrap justify-start gap-4 text-white">
         {criterias?.length === 0 && (
           <div className="text-white/60 text-center w-full py-5">
@@ -32,10 +43,11 @@ const Criterias = ({
         {criterias?.map((criteria, index) => (
           <div key={index}>
             <CriteriaBox
+              key={index}
               teamId={selectedTeam!}
               criteria={criteria}
-              eventId={eventId}
               roundNo={roundNo}
+              // onUpdateScore={handleScoreUpdate}
             />
           </div>
         ))}

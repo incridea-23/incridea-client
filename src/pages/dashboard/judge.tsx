@@ -18,7 +18,7 @@ type Props = {};
 
 const Judge: NextPage = (props: Props) => {
   const router = useRouter();
-  const { user, loading, error } = useAuth();
+  const { user, loading } = useAuth();
   const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
   const [selectionMode, setSelectionMode] = useState<boolean>(false);
   const {
@@ -51,8 +51,6 @@ const Judge: NextPage = (props: Props) => {
         !(data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess'),
     }
   );
-
-  console.log(selectedTeam, !(selectedTeam));
 
   if (loading)
     return (
@@ -88,7 +86,7 @@ const Judge: NextPage = (props: Props) => {
         </h1>
       </div>
       <div className="flex h-[80vh] gap-3">
-        <div className="basis-2/5 shrink-0 grow-0 bg-black/20 rounded-lg ">
+        <div className="basis-1/2 shrink-0 grow-0 bg-black/20 rounded-lg ">
           {EventLoading ? (
             <Spinner />
           ) : (
@@ -103,12 +101,13 @@ const Judge: NextPage = (props: Props) => {
                   setSelectedTeam={setSelectedTeam}
                   roundNo={data.roundByJudge.data.roundNo}
                   eventType={data.roundByJudge.data.event.eventType}
+                  eventId={data.roundByJudge.data.eventId}
                 />
               )}
             </>
           )}
         </div>
-        <div className="basis-3/5 shrink-0 grow-0 bg-black/20 rounded-lg ">
+        <div className="basis-1/2 shrink-0 grow-0 bg-black/20 rounded-lg ">
           {EventLoading ? (
             <Spinner />
           ) : (
