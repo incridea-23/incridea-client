@@ -8,6 +8,9 @@ query TeamDetails($id: ID!) {
         id
         members {
           user {
+            college {
+              name
+            }
             createdAt
             email
             id

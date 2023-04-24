@@ -2,6 +2,7 @@ import { FC } from "react";
 import Spinner from "@/src/components/spinner";
 import { useQuery } from "@apollo/client";
 import { CompletedEventsDocument } from "@/src/generated/generated";
+import ViewTeamModal from "./ViewTeamModal";
 
 const ValedictoryTab: FC = () => {
     const {
@@ -75,7 +76,7 @@ const ValedictoryTab: FC = () => {
           return eventDetails;
         });
         
-        console.log("Filtered Events:", eventDetailsArray);
+        console.log(eventData)
 
     return <>
         <div className="mt-5 flex gap-1 md:gap-0.5 flex-col justify-center basis-2/3">
@@ -102,17 +103,30 @@ const ValedictoryTab: FC = () => {
                         <h1 className="basis-1/4 flex justify-start py-0.5 text-start text-lg">{event?.eventName}</h1>
                         <h1 className="basis-1/4 py-0.5 text-lg flex md:text-center md:justify-center md:pl-5 mt-2 md:mt-0">
                             {event.winner?.map((eventData,i)=>(
-                                eventData.type === "WINNER" ? eventData.team.name : ""
+                                eventData.type === "WINNER" ? <ViewTeamModal 
+                                                                teamId={eventData.team.id}
+                                                                modalTitle={event.eventName}
+                                                                modalResult={eventData.type}
+                                                                /> 
+                                : ""
                             ))}
                         </h1>
                         <h1 className="basis-1/4 py-0.5 text-lg flex md:text-center md:justify-center md:pl-5 mt-2 md:mt-0">
                             {event.winner?.map((eventData,i)=>(
-                                eventData.type === "RUNNER_UP" ? eventData.team.name : ""
+                                eventData.type === "RUNNER_UP" ? <ViewTeamModal 
+                                                                teamId={eventData.team.id}
+                                                                modalTitle={event.eventName}
+                                                                modalResult={eventData.type} 
+                                /> : ""
                             ))}
                         </h1>
                         <h1 className="basis-1/4 py-0.5 text-lg flex md:text-center md:justify-center md:pl-5 mt-2 md:mt-0">
                             {event.winner?.map((eventData,i)=>(
-                                eventData.type === "SECOND_RUNNER_UP" ? eventData.team.name : ""
+                                eventData.type === "SECOND_RUNNER_UP" ? <ViewTeamModal 
+                                                                teamId={eventData.team.id}
+                                                                modalTitle={event.eventName}
+                                                                modalResult={eventData.type}
+                                                                /> : ""
                             ))}
                         </h1>
                     </div>
