@@ -126,8 +126,8 @@ function Jury() {
   return (
     <Dashboard>
       <Toaster />
-      <div className="relative top-14 md:top-0 p-2 flex justify-between items-center">
-        <h1 className="text-3xl mb-3">
+      <div className="relative top-14 md:top-0 flex justify-between items-center mb-3">
+        <h1 className="text-3xl -translate-y-12 lg:translate-y-0 px-5">
           Hello <span className="font-semibold">{user?.name}</span>!
         </h1>
       </div>
@@ -326,7 +326,7 @@ function Jury() {
           <span>No events found</span>
         </div>
       ) : (
-        <div className="grid  grid-cols-1 mx-auto gap-10 md:grid-cols-2 max-w-7xl xl:grid-cols-3">
+        <div className="grid  grid-cols-1 mx-auto gap-10 md:grid-cols-2 max-w-7xl xl:grid-cols-3 px-5">
           {filteredEvents?.map((Event) => (
             <EventCard key={Event.id} event={Event} />
           ))}
@@ -365,10 +365,10 @@ const EventCard = ({
       href={`/dashboard/jury/event/${event.name
         .toLowerCase()
         .replaceAll(" ", "-")}-${event.id}`}
-      key={event.id}
-      className="bg-black/20 backdrop-blur-sm flex flex-col cursor-pointer rounded-sm  max-w-xl w-full p-5 hover:scale-[1.03] transition-transform duration-300"
+      key={event.id + event.name}
+      className="bg-black/20 backdrop-blur-sm flex flex-col cursor-pointer rounded-sm  max-w-xl w-full p-8 hover:scale-[1.03] transition-transform duration-300"
     >
-      <div className="">
+      <div>
         <div className="flex justify-between px-2 mb-2">
           <div className="flex flex-col">
             <h1>{event.name}</h1>
@@ -394,11 +394,11 @@ const EventCard = ({
           </div>
           <StatusBadge status={getRoundStatus()} />
         </div>
-        <div className="grid grid-cols-2 gap-1 p-2">
-          {event.rounds.map((round) => {
+        <div className="grid grid-cols-2 gap-1">
+          {event.rounds.map((round, idx) => {
             return (
               <div
-                key={event.id}
+                key={idx}
                 className="bg-black/40 rounded-md grid grid-rows-2 p-2 text-sm"
               >
                 <span>Round :{" " + round?.roundNo}</span>
