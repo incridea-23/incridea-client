@@ -17,6 +17,9 @@ query RoundByJudge {
         event {
           name
           eventType
+          rounds {
+            roundNo
+          }
         }
       }
     }

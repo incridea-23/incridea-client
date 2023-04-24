@@ -3,18 +3,19 @@ import Spinner from '@/src/components/spinner';
 import createToast from '@/src/components/toast';
 import {
   ChangeSelectStatusDocument,
+  CreateWinnerDocument,
   GetRoundStatusDocument,
   GetTotalScoresDocument,
   JudgeGetTeamsByRoundSubscription,
   PromoteToNextRoundDocument,
+  WinnerType,
+  WinnersByEventQuery,
 } from '@/src/generated/generated';
 import { idToTeamId } from '@/src/utils/id';
 import { useMutation, useQuery, useSubscription } from '@apollo/client';
-import { Listbox } from '@headlessui/react';
 import React, { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { IoCheckmarkCircleOutline } from 'react-icons/io5';
 
 type Props = {
   data: JudgeGetTeamsByRoundSubscription | undefined;
@@ -26,6 +27,8 @@ type Props = {
   setSelectedTeam: React.Dispatch<React.SetStateAction<string | null>>;
   selectionMode: boolean;
   setSelectionMode: React.Dispatch<React.SetStateAction<boolean>>;
+  finalRound: boolean;
+  winners: WinnersByEventQuery | undefined;
 };
 
 const TeamList = ({
@@ -38,18 +41,30 @@ const TeamList = ({
   setSelectedTeam,
   selectionMode,
   setSelectionMode,
+  finalRound,
+  winners,
 }: Props) => {
   const [query, setQuery] = React.useState('');
   const [sortOrder, setSortOrder] = React.useState<'asc' | 'desc'>('asc');
   const [sortField, setSortField] = React.useState<
     'Total Score' | 'Your Score'
   >('Total Score');
+  const [winnerType, setWinnerType] = React.useState<WinnerType[0]>('WINNER');
+
   const [promote, { loading: promoteLoading }] = useMutation(
     PromoteToNextRoundDocument
   );
 
   const [changeStatus, { loading: changeLoading }] = useMutation(
     ChangeSelectStatusDocument
+  );
+
+  const [selectWinner, { loading: winnerLoading }] = useMutation(
+    CreateWinnerDocument,
+    {
+      refetchQueries: ['WinnersByEvent'],
+      awaitRefetchQueries: true,
+    }
   );
 
   const { data: roundStatus, loading: roundStatusLoading } = useSubscription(
@@ -120,19 +135,39 @@ const TeamList = ({
     return score;
   };
 
-  const sortedTeams = [...(data?.judgeGetTeamsByRound ?? [])].sort(
-    (team1, team2) => {
-      const score1 = getTotalScore(team1) ?? 0;
-      const score2 = getTotalScore(team2) ?? 0;
-      if (sortOrder === 'asc') {
-        return score1 - score2;
-      } else if (sortOrder === 'desc') {
-        return score2 - score1;
+  const filteredTeams = [...(data?.judgeGetTeamsByRound ?? [])].filter(
+    (team) => {
+      if (
+        finalRound &&
+        winners?.winnersByEvent.__typename === 'QueryWinnersByEventSuccess'
+      ) {
+        const isWinner =
+          winners?.winnersByEvent.__typename === 'QueryWinnersByEventSuccess' &&
+          winners?.winnersByEvent.data.find((winner) => winner.team.id === team.id);
+        return !isWinner;
       } else {
-        return 0;
+        return true;
       }
     }
   );
+
+  console.log(filteredTeams.map((team) => team.id));
+  console.log(
+    winners?.winnersByEvent.__typename === 'QueryWinnersByEventSuccess' &&
+      winners?.winnersByEvent.data.map((winner) => winner.id)
+  );
+
+  const sortedTeams = [...(filteredTeams ?? [])].sort((team1, team2) => {
+    const score1 = getTotalScore(team1) ?? 0;
+    const score2 = getTotalScore(team2) ?? 0;
+    if (sortOrder === 'asc') {
+      return score1 - score2;
+    } else if (sortOrder === 'desc') {
+      return score2 - score1;
+    } else {
+      return 0;
+    }
+  });
 
   return (
     <div className="h-full overflow-y-auto">
@@ -179,20 +214,38 @@ const TeamList = ({
               },
             }).then((data) => {
               if (data.data?.changeSelectStatus.__typename === 'Error') {
-                toast.error(data.data.changeSelectStatus.message);
+                toast.error(data.data.changeSelectStatus.message, {
+                  position: 'bottom-center',
+                });
               }
             });
             setSelectionMode(!selectionMode);
           }}
           disabled={changeLoading}
           intent={'success'}
+          className="w-40"
           noScaleOnHover
         >
-          {selectionMode ? 'Done' : 'Select'}
+          {selectionMode ? 'Go Back' : 'Select'}
         </Button>
       </div>
 
       <div className="flex px-3 pb-3 flex-col gap-2 mt-3">
+        {selectionMode && finalRound && (
+          <div className="flex flex-row-reverse justify-between my-3">
+            {Object.values(WinnerType).map((type) => (
+              <Button
+                key={type}
+                onClick={() => setWinnerType(type)}
+                intent={type === winnerType ? 'primary' : 'ghost'}
+                className="mr-2"
+                noScaleOnHover
+              >
+                {type}
+              </Button>
+            ))}
+          </div>
+        )}
         <div className={`flex items-center p-2 px-5 bg-white/10 rounded-lg`}>
           <div className="flex flex-row gap-5 w-full">
             <div className={`basis-4/12 text-white/80`}>Name</div>
@@ -200,7 +253,9 @@ const TeamList = ({
             <div className={`basis-1/12 text-white/80`}>Score</div>
             <div className={`basis-1/12 text-white/80`}>Total</div>
             {selectionMode ? (
-              <div className={`basis-2/12 text-white/80`}>Promote</div>
+              <div className={`basis-2/12 text-white/80`}>
+                {finalRound ? winnerType.replaceAll('_', ' ') : 'Promote'}
+              </div>
             ) : (
               <div className={`basis-2/12`}></div>
             )}
@@ -228,7 +283,7 @@ const TeamList = ({
               onClick={() => {
                 setSelectedTeam(team?.id!);
               }}
-              className={`flex items-center p-2 px-5 bg-white/10 rounded-lg ${
+              className={`flex items-center p-2 px-5 bg-white/10 rounded-lg cursor-pointer ${
                 selectedTeam === team?.id
                   ? 'bg-white/50'
                   : 'hover:bg-white/20 transition-colors duration-300'
@@ -285,16 +340,40 @@ const TeamList = ({
                     )?.totalScore}
                 </div>
 
-                {selectionMode ? (
-                  <input
-                    disabled={promoteLoading}
-                    type="checkbox"
-                    className="h-5 w-5 text-white/80 basis-2/12"
-                    onChange={() => handlePromote(team?.id!)}
-                  />
-                ) : (
-                  <div className={`basis-2/12`}></div>
-                )}
+                <div className={`basis-2/12`}>
+                  {selectionMode && !finalRound && (
+                    <input
+                      disabled={promoteLoading}
+                      type="checkbox"
+                      className="h-5 w-5 text-white/80"
+                      onChange={() => handlePromote(team?.id!)}
+                    />
+                  )}
+                  {selectionMode && finalRound && (
+                    <Button
+                      disabled={winnerLoading}
+                      size={'small'}
+                      onClick={() => {
+                        let promise = selectWinner({
+                          variables: {
+                            eventId,
+                            teamId: team?.id!,
+                            type: winnerType as WinnerType,
+                          },
+                        }).then((data) => {
+                          if (data.data?.createWinner.__typename === 'Error') {
+                            toast.error('Error occured!!', {
+                              position: 'bottom-center',
+                            });
+                          }
+                        });
+                        createToast(promise, `Selecting ${winnerType}...`);
+                      }}
+                    >
+                      +
+                    </Button>
+                  )}
+                </div>
               </div>
             </div>
           ))}
