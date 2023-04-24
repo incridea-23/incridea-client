@@ -88,7 +88,14 @@ const TeamList = ({
             </p>
           ))}
         {data?.judgeGetTeamsByRound
-          .filter((team) => team.roundNo === roundNo)
+          .filter(
+            (team) =>
+              team.roundNo === roundNo &&
+              (idToTeamId(team.id)
+                .toLowerCase()
+                .includes(query.toLowerCase()) ||
+                team.name.toLowerCase().includes(query.toLowerCase()))
+          )
           .map((team) => (
             <div
               key={team?.id}
