@@ -13,6 +13,7 @@ import Events from "../../events";
 import Link from "next/link";
 import { Menu } from "@headlessui/react";
 import { AiOutlineSearch } from "react-icons/ai";
+import { IoPeopleOutline } from "react-icons/io5";
 
 function Jury() {
   const { user, loading, error } = useAuth();
@@ -368,7 +369,18 @@ const EventCard = ({
       className="bg-black/20 backdrop-blur-sm flex flex-col cursor-pointer rounded-sm  max-w-xl w-full p-5 hover:scale-[1.03] transition-transform duration-300"
     >
       <div className="">
-        <h1>{event.name}</h1>
+        <div className="flex justify-between px-2 mb-2">
+          <div className="flex flex-col">
+            <h1>{event.name}</h1>
+            <span className="flex text-sm items-center">
+              <IoPeopleOutline className="mr-2 text-base" />
+              {event.maxTeamSize !== 1
+                ? `${event.minTeamSize} - ${event.maxTeamSize} members`
+                : `${event.minTeamSize} member`}
+            </span>
+          </div>
+          <h2>Venue:{" " + event.venue}</h2>
+        </div>
         <div className="py-2 flex justify-between">
           <div className="p-2 bg-black/40 rounded-md">
             <div className="flex items-center justify-center">
@@ -381,6 +393,19 @@ const EventCard = ({
             </div>
           </div>
           <StatusBadge status={getRoundStatus()} />
+        </div>
+        <div className="grid grid-cols-2 gap-1 p-2">
+          {event.rounds.map((round) => {
+            return (
+              <div
+                key={event.id}
+                className="bg-black/40 rounded-md grid grid-rows-2 p-2 text-sm"
+              >
+                <span>Round :{" " + round?.roundNo}</span>
+                <span>Date: {" " + round?.date?.substring(0, 10)}</span>
+              </div>
+            );
+          })}
         </div>
       </div>
     </Link>
@@ -408,3 +433,143 @@ const StatusBadge = ({ status }: { status: string }) => {
     );
   return null;
 };
+[
+  {
+    __typename: "Event",
+    id: "6",
+    name: "Battle of Bands",
+    image: null,
+    venue: null,
+    branch: {
+      __typename: "Branch",
+      name: "CSE",
+      id: "1",
+    },
+    fees: 300,
+    maxTeamSize: 1,
+    maxTeams: 60,
+    minTeamSize: 1,
+    category: "TECHNICAL",
+    eventType: "INDIVIDUAL",
+    rounds: [
+      {
+        __typename: "Round",
+        date: null,
+        roundNo: 1,
+        completed: false,
+      },
+      {
+        __typename: "Round",
+        date: null,
+        roundNo: 2,
+        completed: false,
+      },
+    ],
+  },
+  {
+    __typename: "Event",
+    id: "7",
+    name: "Capture The Flag",
+    image: "https://incridemo.web.app/events/CS/CTF.jpg",
+    venue: "NMAMIT",
+    branch: {
+      __typename: "Branch",
+      name: "CSE",
+      id: "1",
+    },
+    fees: 399,
+    maxTeamSize: 10,
+    maxTeams: 100,
+    minTeamSize: 2,
+    category: "TECHNICAL",
+    eventType: "TEAM",
+    rounds: [
+      {
+        __typename: "Round",
+        date: null,
+        roundNo: 1,
+        completed: false,
+      },
+      {
+        __typename: "Round",
+        date: null,
+        roundNo: 2,
+        completed: false,
+      },
+      {
+        __typename: "Round",
+        date: null,
+        roundNo: 3,
+        completed: false,
+      },
+      {
+        __typename: "Round",
+        date: null,
+        roundNo: 4,
+        completed: false,
+      },
+      {
+        __typename: "Round",
+        date: "2023-04-26T09:00:00.000Z",
+        roundNo: 5,
+        completed: false,
+      },
+      {
+        __typename: "Round",
+        date: "2023-04-26T09:00:00.000Z",
+        roundNo: 6,
+        completed: false,
+      },
+    ],
+  },
+  {
+    __typename: "Event",
+    id: "70",
+    name: "Riffoff",
+    image: null,
+    venue: "NC05",
+    branch: {
+      __typename: "Branch",
+      name: "CSE",
+      id: "1",
+    },
+    fees: 100,
+    maxTeamSize: 1,
+    maxTeams: null,
+    minTeamSize: 1,
+    category: "TECHNICAL",
+    eventType: "INDIVIDUAL",
+    rounds: [
+      {
+        __typename: "Round",
+        date: null,
+        roundNo: 1,
+        completed: false,
+      },
+      {
+        __typename: "Round",
+        date: null,
+        roundNo: 2,
+        completed: false,
+      },
+      {
+        __typename: "Round",
+        date: null,
+        roundNo: 3,
+        completed: false,
+      },
+      {
+        __typename: "Round",
+        date: "2023-04-27T03:30:00.000Z",
+        roundNo: 4,
+        completed: false,
+      },
+      {
+        __typename: "Round",
+        date: "2023-04-27T03:30:00.000Z",
+        roundNo: 5,
+        completed: false,
+      },
+    ],
+  },
+];
