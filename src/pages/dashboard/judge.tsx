@@ -101,6 +101,7 @@ const Judge: NextPage = (props: Props) => {
                   setSelectedTeam={setSelectedTeam}
                   roundNo={data.roundByJudge.data.roundNo}
                   eventType={data.roundByJudge.data.event.eventType}
+                  eventId={data.roundByJudge.data.eventId}
                 />
               )}
             </>

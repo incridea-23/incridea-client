@@ -30,6 +30,14 @@ export type BranchRep = {
   userId: Scalars['ID'];
 };
 
+export type Card = {
+  __typename?: 'Card';
+  clue: Scalars['String'];
+  day: Scalars['String'];
+  id: Scalars['ID'];
+  submissions: Array<Submission>;
+};
+
 export type College = {
   __typename?: 'College';
   id: Scalars['ID'];
@@ -61,10 +69,23 @@ export type Criteria = {
   type: Scalars['String'];
 };
 
+export type CriteriaJuryView = {
+  __typename?: 'CriteriaJuryView';
+  criteriaId: Scalars['Int'];
+  score: Scalars['Float'];
+};
+
 export enum CriteriaType {
   Number = 'NUMBER',
   Text = 'TEXT',
   Time = 'TIME'
+}
+
+export enum DayType {
+  Day1 = 'Day1',
+  Day2 = 'Day2',
+  Day3 = 'Day3',
+  Day4 = 'Day4'
 }
 
 export type Error = {
@@ -142,6 +163,13 @@ export type Judge = {
   user: User;
 };
 
+export type JudgeJuryView = {
+  __typename?: 'JudgeJuryView';
+  criteria: Array<CriteriaJuryView>;
+  judgeId: Scalars['Int'];
+  judgeName: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addBranch: MutationAddBranchResult;
@@ -149,19 +177,26 @@ export type Mutation = {
   addComment: MutationAddCommentResult;
   addOrganizer: MutationAddOrganizerResult;
   addScore: MutationAddScoreResult;
+  changeSelectStatus: MutationChangeSelectStatusResult;
+  completeRound: Round;
   confirmTeam: MutationConfirmTeamResult;
+  createCard: MutationCreateCardResult;
   createCollege: MutationCreateCollegeResult;
   createCriteria: MutationCreateCriteriaResult;
   createEvent: MutationCreateEventResult;
   createJudge: MutationCreateJudgeResult;
   createPaymentOrder: MutationCreatePaymentOrderResult;
   createRound: MutationCreateRoundResult;
+  createSubmission: MutationCreateSubmissionResult;
   createTeam: MutationCreateTeamResult;
+  createWinner: MutationCreateWinnerResult;
+  deleteCard: MutationDeleteCardResult;
   deleteCriteria: MutationDeleteCriteriaResult;
   deleteEvent: MutationDeleteEventResult;
   deleteJudge: MutationDeleteJudgeResult;
   deleteRound: MutationDeleteRoundResult;
   deleteTeam: MutationDeleteTeamResult;
+  deleteWinner: MutationDeleteWinnerResult;
   eventPaymentOrder: MutationEventPaymentOrderResult;
   joinTeam: MutationJoinTeamResult;
   leaveTeam: MutationLeaveTeamResult;
@@ -186,6 +221,7 @@ export type Mutation = {
   sendEmailVerification: MutationSendEmailVerificationResult;
   sendPasswordResetEmail: MutationSendPasswordResetEmailResult;
   signUp: MutationSignUpResult;
+  updateCard: MutationUpdateCardResult;
   updateEvent: MutationUpdateEventResult;
   verifyEmail: MutationVerifyEmailResult;
 };
@@ -223,8 +259,26 @@ export type MutationAddScoreArgs = {
 };
 
 
+export type MutationChangeSelectStatusArgs = {
+  eventId: Scalars['ID'];
+  roundNo: Scalars['Int'];
+};
+
+
+export type MutationCompleteRoundArgs = {
+  eventId: Scalars['ID'];
+  roundNo: Scalars['Int'];
+};
+
+
 export type MutationConfirmTeamArgs = {
   teamId: Scalars['ID'];
+};
+
+
+export type MutationCreateCardArgs = {
+  clue: Scalars['String'];
+  day: DayType;
 };
 
 
@@ -264,9 +318,27 @@ export type MutationCreateRoundArgs = {
 };
 
 
+export type MutationCreateSubmissionArgs = {
+  cardId: Scalars['Int'];
+  image: Scalars['String'];
+};
+
+
 export type MutationCreateTeamArgs = {
   eventId: Scalars['ID'];
   name: Scalars['String'];
+};
+
+
+export type MutationCreateWinnerArgs = {
+  eventId: Scalars['ID'];
+  teamId: Scalars['ID'];
+  type: WinnerType;
+};
+
+
+export type MutationDeleteCardArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -296,6 +368,11 @@ export type MutationDeleteRoundArgs = {
 
 export type MutationDeleteTeamArgs = {
   teamId: Scalars['ID'];
+};
+
+
+export type MutationDeleteWinnerArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -428,6 +505,13 @@ export type MutationSignUpArgs = {
 };
 
 
+export type MutationUpdateCardArgs = {
+  clue: Scalars['String'];
+  day: DayType;
+  id: Scalars['ID'];
+};
+
+
 export type MutationUpdateEventArgs = {
   data: EventUpdateInput;
   id: Scalars['ID'];
@@ -473,11 +557,25 @@ export type MutationAddScoreSuccess = {
   data: Scores;
 };
 
+export type MutationChangeSelectStatusResult = Error | MutationChangeSelectStatusSuccess;
+
+export type MutationChangeSelectStatusSuccess = {
+  __typename?: 'MutationChangeSelectStatusSuccess';
+  data: Round;
+};
+
 export type MutationConfirmTeamResult = Error | MutationConfirmTeamSuccess;
 
 export type MutationConfirmTeamSuccess = {
   __typename?: 'MutationConfirmTeamSuccess';
   data: Team;
+};
+
+export type MutationCreateCardResult = Error | MutationCreateCardSuccess;
+
+export type MutationCreateCardSuccess = {
+  __typename?: 'MutationCreateCardSuccess';
+  data: Card;
 };
 
 export type MutationCreateCollegeResult = Error | MutationCreateCollegeSuccess;
@@ -522,11 +620,32 @@ export type MutationCreateRoundSuccess = {
   data: Round;
 };
 
+export type MutationCreateSubmissionResult = Error | MutationCreateSubmissionSuccess;
+
+export type MutationCreateSubmissionSuccess = {
+  __typename?: 'MutationCreateSubmissionSuccess';
+  data: Submission;
+};
+
 export type MutationCreateTeamResult = Error | MutationCreateTeamSuccess;
 
 export type MutationCreateTeamSuccess = {
   __typename?: 'MutationCreateTeamSuccess';
   data: Team;
+};
+
+export type MutationCreateWinnerResult = Error | MutationCreateWinnerSuccess;
+
+export type MutationCreateWinnerSuccess = {
+  __typename?: 'MutationCreateWinnerSuccess';
+  data: Winners;
+};
+
+export type MutationDeleteCardResult = Error | MutationDeleteCardSuccess;
+
+export type MutationDeleteCardSuccess = {
+  __typename?: 'MutationDeleteCardSuccess';
+  data: Card;
 };
 
 export type MutationDeleteCriteriaResult = Error | MutationDeleteCriteriaSuccess;
@@ -562,6 +681,13 @@ export type MutationDeleteTeamResult = Error | MutationDeleteTeamSuccess;
 export type MutationDeleteTeamSuccess = {
   __typename?: 'MutationDeleteTeamSuccess';
   data: Team;
+};
+
+export type MutationDeleteWinnerResult = Error | MutationDeleteWinnerSuccess;
+
+export type MutationDeleteWinnerSuccess = {
+  __typename?: 'MutationDeleteWinnerSuccess';
+  data: Winners;
 };
 
 export type MutationEventPaymentOrderResult = Error | MutationEventPaymentOrderSuccess;
@@ -725,6 +851,13 @@ export type MutationSignUpSuccess = {
   data: User;
 };
 
+export type MutationUpdateCardResult = Error | MutationUpdateCardSuccess;
+
+export type MutationUpdateCardSuccess = {
+  __typename?: 'MutationUpdateCardSuccess';
+  data: Card;
+};
+
 export type MutationUpdateEventResult = Error | MutationUpdateEventSuccess;
 
 export type MutationUpdateEventSuccess = {
@@ -774,10 +907,14 @@ export type Query = {
   eventByOrganizer: Array<Event>;
   events: QueryEventsConnection;
   eventsByBranchRep: Array<Event>;
+  getAllSubmissions: QueryGetAllSubmissionsResult;
   getBranch: Branch;
   getBranches: Array<Branch>;
   getComment: QueryGetCommentResult;
+  getRoundStatus: QueryGetRoundStatusResult;
   getScore: QueryGetScoreResult;
+  getScoreSheetJuryView: QueryGetScoreSheetJuryViewResult;
+  getTotalScores: QueryGetTotalScoresResult;
   judgeGetTeamsByRound: Array<Team>;
   me: QueryMeResult;
   myTeam: QueryMyTeamResult;
@@ -791,6 +928,7 @@ export type Query = {
   totalRegistrations: Scalars['Int'];
   userById: QueryUserByIdResult;
   users: QueryUsersConnection;
+  winner: Array<Winners>;
   winnersByEvent: QueryWinnersByEventResult;
 };
 
@@ -831,10 +969,28 @@ export type QueryGetCommentArgs = {
 };
 
 
+export type QueryGetRoundStatusArgs = {
+  eventId: Scalars['ID'];
+  roundNo: Scalars['Int'];
+};
+
+
 export type QueryGetScoreArgs = {
   criteriaId: Scalars['ID'];
   roundNo: Scalars['Int'];
   teamId: Scalars['ID'];
+};
+
+
+export type QueryGetScoreSheetJuryViewArgs = {
+  eventId: Scalars['ID'];
+  roundNo: Scalars['Int'];
+};
+
+
+export type QueryGetTotalScoresArgs = {
+  eventId: Scalars['ID'];
+  roundNo: Scalars['Int'];
 };
 
 
@@ -890,6 +1046,11 @@ export type QueryUsersArgs = {
 };
 
 
+export type QueryWinnerArgs = {
+  eventId: Scalars['ID'];
+};
+
+
 export type QueryWinnersByEventArgs = {
   eventId: Scalars['ID'];
 };
@@ -906,6 +1067,13 @@ export type QueryEventsConnectionEdge = {
   node: Event;
 };
 
+export type QueryGetAllSubmissionsResult = Error | QueryGetAllSubmissionsSuccess;
+
+export type QueryGetAllSubmissionsSuccess = {
+  __typename?: 'QueryGetAllSubmissionsSuccess';
+  data: Array<Submission>;
+};
+
 export type QueryGetCommentResult = Error | QueryGetCommentSuccess;
 
 export type QueryGetCommentSuccess = {
@@ -913,11 +1081,32 @@ export type QueryGetCommentSuccess = {
   data: Comments;
 };
 
+export type QueryGetRoundStatusResult = Error | QueryGetRoundStatusSuccess;
+
+export type QueryGetRoundStatusSuccess = {
+  __typename?: 'QueryGetRoundStatusSuccess';
+  data: Round;
+};
+
 export type QueryGetScoreResult = Error | QueryGetScoreSuccess;
+
+export type QueryGetScoreSheetJuryViewResult = Error | QueryGetScoreSheetJuryViewSuccess;
+
+export type QueryGetScoreSheetJuryViewSuccess = {
+  __typename?: 'QueryGetScoreSheetJuryViewSuccess';
+  data: Array<ScoreSheetJuryView>;
+};
 
 export type QueryGetScoreSuccess = {
   __typename?: 'QueryGetScoreSuccess';
   data: Scores;
+};
+
+export type QueryGetTotalScoresResult = Error | QueryGetTotalScoresSuccess;
+
+export type QueryGetTotalScoresSuccess = {
+  __typename?: 'QueryGetTotalScoresSuccess';
+  data: Array<TotalScores>;
 };
 
 export type QueryMeResult = Error | QueryMeSuccess;
@@ -1002,6 +1191,15 @@ export type Round = {
   eventId: Scalars['ID'];
   judges: Array<Judge>;
   roundNo: Scalars['Int'];
+  selectStatus: Scalars['Boolean'];
+};
+
+export type ScoreSheetJuryView = {
+  __typename?: 'ScoreSheetJuryView';
+  judges: Array<JudgeJuryView>;
+  teamId: Scalars['Int'];
+  teamName: Scalars['String'];
+  teamScore: Scalars['Float'];
 };
 
 export type Scores = {
@@ -1014,15 +1212,38 @@ export type Scores = {
   teamId: Scalars['ID'];
 };
 
+export type Submission = {
+  __typename?: 'Submission';
+  card: Card;
+  cardId: Scalars['ID'];
+  image: Scalars['String'];
+  user: User;
+  userId: Scalars['ID'];
+};
+
 export type Subscription = {
   __typename?: 'Subscription';
+  getRoundStatus: SubscriptionGetRoundStatusResult;
   judgeGetTeamsByRound: Array<Team>;
+};
+
+
+export type SubscriptionGetRoundStatusArgs = {
+  eventId: Scalars['ID'];
+  roundNo: Scalars['Int'];
 };
 
 
 export type SubscriptionJudgeGetTeamsByRoundArgs = {
   eventId: Scalars['Int'];
   roundId: Scalars['Int'];
+};
+
+export type SubscriptionGetRoundStatusResult = Error | SubscriptionGetRoundStatusSuccess;
+
+export type SubscriptionGetRoundStatusSuccess = {
+  __typename?: 'SubscriptionGetRoundStatusSuccess';
+  data: Round;
 };
 
 export type Team = {
@@ -1041,6 +1262,13 @@ export type TeamMember = {
   __typename?: 'TeamMember';
   team: Team;
   user: User;
+};
+
+export type TotalScores = {
+  __typename?: 'TotalScores';
+  judgeScore: Scalars['Float'];
+  teamId: Scalars['Int'];
+  totalScore: Scalars['Float'];
 };
 
 export type User = {
@@ -1073,6 +1301,11 @@ export type UserLoginPayload = {
   accessToken: Scalars['String'];
   refreshToken: Scalars['String'];
 };
+
+export enum WinnerType {
+  RunnerUp = 'RUNNER_UP',
+  Winner = 'WINNER'
+}
 
 export type Winners = {
   __typename?: 'Winners';
@@ -1139,6 +1372,14 @@ export type AddScoreMutationVariables = Exact<{
 
 
 export type AddScoreMutation = { __typename?: 'Mutation', addScore: { __typename: 'Error', message: string } | { __typename: 'MutationAddScoreSuccess' } };
+
+export type ChangeSelectStatusMutationVariables = Exact<{
+  eventId: Scalars['ID'];
+  roundNo: Scalars['Int'];
+}>;
+
+
+export type ChangeSelectStatusMutation = { __typename?: 'Mutation', changeSelectStatus: { __typename: 'Error', message: string } | { __typename: 'MutationChangeSelectStatusSuccess', data: { __typename?: 'Round', selectStatus: boolean } } };
 
 export type ConfirmTeamMutationVariables = Exact<{
   teamId: Scalars['ID'];
@@ -1554,6 +1795,14 @@ export type TeamsByRoundQueryVariables = Exact<{
 
 export type TeamsByRoundQuery = { __typename?: 'Query', teamsByRound: { __typename?: 'QueryTeamsByRoundConnection', edges: Array<{ __typename?: 'QueryTeamsByRoundConnectionEdge', node: { __typename?: 'Team', attended: boolean, id: string, name: string, members: Array<{ __typename?: 'TeamMember', user: { __typename?: 'User', id: string, name: string, phoneNumber?: string | null, email: string } }> } } | null>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } };
 
+export type GetRoundStatusSubscriptionVariables = Exact<{
+  eventId: Scalars['ID'];
+  roundNo: Scalars['Int'];
+}>;
+
+
+export type GetRoundStatusSubscription = { __typename?: 'Subscription', getRoundStatus: { __typename: 'Error', message: string } | { __typename: 'SubscriptionGetRoundStatusSuccess', data: { __typename?: 'Round', selectStatus: boolean } } };
+
 export type JudgeGetTeamsByRoundSubscriptionVariables = Exact<{
   eventId: Scalars['Int'];
   roundId: Scalars['Int'];
@@ -1570,6 +1819,7 @@ export const AddBranchRepDocument = {"kind":"Document","definitions":[{"kind":"O
 export const AddCommentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddComment"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"comment"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"eventId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"roundNo"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"teamId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addComment"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"comment"},"value":{"kind":"Variable","name":{"kind":"Name","value":"comment"}}},{"kind":"Argument","name":{"kind":"Name","value":"eventId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"eventId"}}},{"kind":"Argument","name":{"kind":"Name","value":"roundNo"},"value":{"kind":"Variable","name":{"kind":"Name","value":"roundNo"}}},{"kind":"Argument","name":{"kind":"Name","value":"teamId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"teamId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Error"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MutationAddCommentSuccess"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}}]}}]}}]}}]} as unknown as DocumentNode<AddCommentMutation, AddCommentMutationVariables>;
 export const AddOrganizerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddOrganizer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"eventId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addOrganizer"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"eventId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"eventId"}}},{"kind":"Argument","name":{"kind":"Name","value":"userId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Error"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MutationAddOrganizerSuccess"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}}]}}]}}]}}]} as unknown as DocumentNode<AddOrganizerMutation, AddOrganizerMutationVariables>;
 export const AddScoreDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddScore"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"criteriaId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"score"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"teamId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addScore"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"criteriaId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"criteriaId"}}},{"kind":"Argument","name":{"kind":"Name","value":"score"},"value":{"kind":"Variable","name":{"kind":"Name","value":"score"}}},{"kind":"Argument","name":{"kind":"Name","value":"teamId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"teamId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Error"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MutationAddScoreSuccess"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}}]}}]}}]}}]} as unknown as DocumentNode<AddScoreMutation, AddScoreMutationVariables>;
+export const ChangeSelectStatusDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ChangeSelectStatus"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"eventId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"roundNo"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"changeSelectStatus"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"eventId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"eventId"}}},{"kind":"Argument","name":{"kind":"Name","value":"roundNo"},"value":{"kind":"Variable","name":{"kind":"Name","value":"roundNo"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Error"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MutationChangeSelectStatusSuccess"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"selectStatus"}}]}}]}}]}}]}}]} as unknown as DocumentNode<ChangeSelectStatusMutation, ChangeSelectStatusMutationVariables>;
 export const ConfirmTeamDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ConfirmTeam"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"teamId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"confirmTeam"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"teamId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"teamId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Error"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MutationConfirmTeamSuccess"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}}]}}]}}]}}]} as unknown as DocumentNode<ConfirmTeamMutation, ConfirmTeamMutationVariables>;
 export const CreateCollegeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateCollege"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"details"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createCollege"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"Argument","name":{"kind":"Name","value":"details"},"value":{"kind":"Variable","name":{"kind":"Name","value":"details"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Error"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MutationCreateCollegeSuccess"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CreateCollegeMutation, CreateCollegeMutationVariables>;
 export const CreateCriteriaDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateCriteria"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"eventId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"roundNo"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"type"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CriteriaType"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createCriteria"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eventId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"eventId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"roundNo"},"value":{"kind":"Variable","name":{"kind":"Name","value":"roundNo"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"type"},"value":{"kind":"Variable","name":{"kind":"Name","value":"type"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Error"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MutationCreateCriteriaSuccess"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}}]}}]}}]}}]} as unknown as DocumentNode<CreateCriteriaMutation, CreateCriteriaMutationVariables>;
@@ -1624,4 +1874,5 @@ export const RoundsByEventDocument = {"kind":"Document","definitions":[{"kind":"
 export const SearchUsersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SearchUsers"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"contains"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"users"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"contains"},"value":{"kind":"Variable","name":{"kind":"Name","value":"contains"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cursor"}},{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"role"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]}}]}}]} as unknown as DocumentNode<SearchUsersQuery, SearchUsersQueryVariables>;
 export const TeamDetailsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TeamDetails"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"teamDetails"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"QueryTeamDetailsSuccess"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attended"}},{"kind":"Field","name":{"kind":"Name","value":"confirmed"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"members"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isVerified"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"role"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Error"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]}}]} as unknown as DocumentNode<TeamDetailsQuery, TeamDetailsQueryVariables>;
 export const TeamsByRoundDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TeamsByRound"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"eventId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"roundNo"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"contains"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"teamsByRound"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"eventId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"eventId"}}},{"kind":"Argument","name":{"kind":"Name","value":"roundNo"},"value":{"kind":"Variable","name":{"kind":"Name","value":"roundNo"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"contains"},"value":{"kind":"Variable","name":{"kind":"Name","value":"contains"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attended"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"members"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phoneNumber"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}}]}}]}}]}}]} as unknown as DocumentNode<TeamsByRoundQuery, TeamsByRoundQueryVariables>;
+export const GetRoundStatusDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"subscription","name":{"kind":"Name","value":"GetRoundStatus"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"eventId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"roundNo"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getRoundStatus"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"eventId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"eventId"}}},{"kind":"Argument","name":{"kind":"Name","value":"roundNo"},"value":{"kind":"Variable","name":{"kind":"Name","value":"roundNo"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Error"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SubscriptionGetRoundStatusSuccess"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"selectStatus"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetRoundStatusSubscription, GetRoundStatusSubscriptionVariables>;
 export const JudgeGetTeamsByRoundDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"subscription","name":{"kind":"Name","value":"JudgeGetTeamsByRound"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"eventId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"roundId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"judgeGetTeamsByRound"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"eventId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"eventId"}}},{"kind":"Argument","name":{"kind":"Name","value":"roundId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"roundId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"roundNo"}}]}}]}}]} as unknown as DocumentNode<JudgeGetTeamsByRoundSubscription, JudgeGetTeamsByRoundSubscriptionVariables>;

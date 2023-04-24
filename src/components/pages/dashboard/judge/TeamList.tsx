@@ -2,18 +2,22 @@ import Button from '@/src/components/button';
 import Spinner from '@/src/components/spinner';
 import createToast from '@/src/components/toast';
 import {
+  ChangeSelectStatusDocument,
+  GetRoundStatusDocument,
   JudgeGetTeamsByRoundSubscription,
   PromoteToNextRoundDocument,
 } from '@/src/generated/generated';
 import { idToTeamId } from '@/src/utils/id';
-import { useMutation } from '@apollo/client';
+import { useMutation, useSubscription } from '@apollo/client';
 import React, { useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import { AiOutlineSearch } from 'react-icons/ai';
 
 type Props = {
   data: JudgeGetTeamsByRoundSubscription | undefined;
   loading: boolean;
   roundNo: number;
+  eventId: string;
   eventType: string;
   selectedTeam: string | null;
   setSelectedTeam: React.Dispatch<React.SetStateAction<string | null>>;
@@ -25,6 +29,7 @@ const TeamList = ({
   data,
   loading,
   roundNo,
+  eventId,
   eventType,
   selectedTeam,
   setSelectedTeam,
@@ -35,6 +40,37 @@ const TeamList = ({
   const [promote, { loading: promoteLoading }] = useMutation(
     PromoteToNextRoundDocument
   );
+
+  const [changeStatus, { loading: changeLoading }] = useMutation(
+    ChangeSelectStatusDocument
+  );
+
+  const { data: roundStatus, loading: roundStatusLoading } = useSubscription(
+    GetRoundStatusDocument,
+    {
+      variables: {
+        roundNo: roundNo,
+        eventId: eventId,
+      },
+    }
+  );
+
+  useEffect(() => {
+    if (
+      roundStatus?.getRoundStatus.__typename ===
+      'SubscriptionGetRoundStatusSuccess'
+    ) {
+      if (roundStatus.getRoundStatus.data.selectStatus) {
+        console.log('selecting');
+        setSelectionMode(true);
+      }
+    }
+
+    return () => {
+      setSelectionMode(false);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [roundStatus]);
 
   const teamOrParticipant =
     eventType === 'INDIVIDUAL' || eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
@@ -70,8 +106,19 @@ const TeamList = ({
         </div>
         <Button
           onClick={() => {
+            changeStatus({
+              variables: {
+                eventId,
+                roundNo,
+              },
+            }).then((data) => {
+              if (data.data?.changeSelectStatus.__typename === 'Error') {
+                toast.error(data.data.changeSelectStatus.message);
+              }
+            });
             setSelectionMode(!selectionMode);
           }}
+          disabled={changeLoading}
           intent={'success'}
           noScaleOnHover
         >

@@ -1,5 +1,4 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
 import { getSession } from "next-auth/react";
 import { YogaLink } from "@graphql-yoga/apollo-link";
 
