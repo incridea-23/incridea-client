@@ -1,12 +1,12 @@
-import { Criteria } from '@/src/generated/generated';
-import Score from './Score';
+import { Criteria } from "@/src/generated/generated";
+import Score from "./Score";
 
 const CriteriaBox = ({
   criteria,
   roundNo,
   teamId,
-  // onUpdateScore,
-}: {
+}: // onUpdateScore,
+{
   criteria: Criteria;
   roundNo: number;
   teamId: string;
@@ -22,6 +22,7 @@ const CriteriaBox = ({
         teamId={teamId}
         criteriaId={criteria.id}
         roundNo={roundNo}
+        type={criteria.type as string}
         // onUpdateScore={onUpdateScore}
       />
     </div>
