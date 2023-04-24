@@ -9,8 +9,8 @@ const Score = ({
   teamId,
   criteriaId,
   roundNo,
-  // onUpdateScore,
-}: {
+}: // onUpdateScore,
+{
   teamId: string;
   criteriaId: string;
   roundNo: number;
@@ -42,7 +42,7 @@ const Score = ({
   const [updateScore, { loading: updateScoreLoading }] = useMutation(
     AddScoreDocument,
     {
-      refetchQueries: ['GetScore','GetTotalScores'],
+      refetchQueries: ['GetScore', 'GetTotalScores'],
       awaitRefetchQueries: true,
     }
   );
@@ -64,7 +64,9 @@ const Score = ({
       },
     }).then((res) => {
       if (res.data?.addScore.__typename === 'Error') {
-        toast.error(res.data.addScore.message);
+        toast.error(res.data.addScore.message, {
+          position: 'bottom-center',
+        });
       } else {
         // onUpdateScore(Number(score));
       }
