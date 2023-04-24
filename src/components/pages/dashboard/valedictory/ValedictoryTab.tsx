@@ -107,6 +107,7 @@ const ValedictoryTab: FC = () => {
                                                                 teamId={eventData.team.id}
                                                                 modalTitle={event.eventName}
                                                                 modalResult={eventData.type}
+                                                                teamName={eventData.team.name}
                                                                 /> 
                                 : ""
                             ))}
@@ -116,8 +117,10 @@ const ValedictoryTab: FC = () => {
                                 eventData.type === "RUNNER_UP" ? <ViewTeamModal 
                                                                 teamId={eventData.team.id}
                                                                 modalTitle={event.eventName}
-                                                                modalResult={eventData.type} 
-                                /> : ""
+                                                                modalResult={eventData.type}
+                                                                teamName={eventData.team.name} 
+                                                                /> 
+                                : ""
                             ))}
                         </h1>
                         <h1 className="basis-1/4 py-0.5 text-lg flex md:text-center md:justify-center md:pl-5 mt-2 md:mt-0">
@@ -126,7 +129,9 @@ const ValedictoryTab: FC = () => {
                                                                 teamId={eventData.team.id}
                                                                 modalTitle={event.eventName}
                                                                 modalResult={eventData.type}
-                                                                /> : ""
+                                                                teamName={eventData.team.name}
+                                                                /> 
+                                : ""
                             ))}
                         </h1>
                     </div>
