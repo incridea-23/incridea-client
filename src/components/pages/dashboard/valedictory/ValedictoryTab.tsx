@@ -2,8 +2,6 @@ import { FC } from "react";
 import Spinner from "@/src/components/spinner";
 import { useQuery } from "@apollo/client";
 import { CompletedEventsDocument } from "@/src/generated/generated";
-import RoundsDone from "./RoundsDone";
-import EventDetails from "../../event/EventDetails";
 
 const ValedictoryTab: FC = () => {
     const {
