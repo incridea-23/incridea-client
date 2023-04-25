@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Spinner from "@/src/components/spinner";
 import { useAuth } from "@/src/hooks/useAuth";
 import { useRouter } from "next/router";
@@ -13,6 +14,8 @@ import {
 } from "@/src/generated/generated";
 import { StatusBadge } from "..";
 import { NextPage, NextPageContext } from "next";
+import { useEffect, useState } from "react";
+import { CSVLink } from "react-csv";
 
 const Jury: NextPage<{ slug: string }> = (props) => {
   const { user, loading, error } = useAuth();
@@ -174,6 +177,34 @@ const JudgeTable = ({
   judges: QueryGetScoreSheetJuryViewSuccess["data"][0]["judges"];
   teams: QueryGetScoreSheetJuryViewSuccess["data"];
 }) => {
+  const [csvData, setCsvData] = useState([]);
+  const [judgeName, setJudgeName] = useState(null);
+  const process = (judgeId: any) => {
+    const judgesData: any = [];
+    const teamData: any = [];
+    let data = [];
+    teams.map((team) => {
+      let judges: any = team.judges;
+      teamData.push(team?.teamName);
+      let temp = judges?.filter((judge: any) => judge?.judgeId === judgeId);
+      judgesData.push(temp);
+    });
+    data.push({ JudgeName: judgesData[0][0]?.judgeName });
+
+    teamData.map((team: any, index: any) => {
+      let obj = {};
+      let sum = 0;
+      obj["teamNames"] = team;
+      judgesData[index][0]?.criteria?.map((data: any) => {
+        obj[data.criteriaName] = data.score;
+        sum += data.score;
+      });
+      obj["judgeTotal"] = sum;
+      data.push(obj);
+    });
+    return data;
+  };
+
   return (
     <Tab.Group>
       <Tab.List className="w-full items-center gap-5 p-2 flex bg-gray-800/60 text-white rounded-sm">
@@ -185,6 +216,10 @@ const JudgeTable = ({
           >
             {({ selected }) => (
               <button
+                onClick={() => {
+                  setCsvData(process(judge?.judgeId));
+                  setJudgeName(judge?.judgeName);
+                }}
                 className={`font-semibold hover:bg-gray-700/90 shadow-md py-2 px-4 ${
                   selected ? "bg-gray-700" : "bg-gray-600"
                 }`}
@@ -194,6 +229,13 @@ const JudgeTable = ({
             )}
           </Tab>
         ))}
+        {judgeName && (
+          <button className="bg-green-500 p-2 rounded-sm ml-auto mr-5">
+            <CSVLink data={csvData}>
+              Download Score sheet by {judgeName}
+            </CSVLink>
+          </button>
+        )}
       </Tab.List>
       <Tab.Panels>
         {judges.map((judge) => (
