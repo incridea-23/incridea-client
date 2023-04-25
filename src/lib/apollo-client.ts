@@ -63,27 +63,6 @@ const authLink = setContext(async (_, { headers }) => {
       ...headers,
     },
   };
-<<<<<<< HEAD
-};
-
-const link = new YogaLink({
-  endpoint:
-    process.env.BACKEND_URL || "https://incridea-test.onrender.com/graphql",
-
-  fetch: async (uri, options) => {
-    const headers = await getHeaders();
-    options = {
-      ...options,
-
-      headers: {
-        ...headers,
-        "Content-Type": "application/json",
-      },
-    };
-    return fetch(uri, options);
-  },
-=======
->>>>>>> 33ee9dd4f6f2a07f0c252a5c7508e4c5ebca13a0
 });
 
 const uri = "https://incridea-test.onrender.com/graphql";
