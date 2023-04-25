@@ -44,9 +44,6 @@ const ValedictoryTab: FC = () => {
         // Get yesterday's date and time
         const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
         yesterday.setHours(15, 0, 0, 0); // Set time to 3 PM
-        console.log(roundDate);
-        console.log(yesterday);
-        console.log(now);
         // Check if the round date is on or before today 3 PM and after yesterday 3 PM
         if (roundDate <= now && roundDate >= yesterday) {
           return true; // Include the event in filteredEvents
@@ -54,8 +51,6 @@ const ValedictoryTab: FC = () => {
       }
       return false; // Exclude the event from filteredEvents
     });
-
-    console.log(filteredEvents);
 
     // Store event details and eventsData in an array
     const eventDetailsArray = filteredEvents.map((event) => {
@@ -77,8 +72,6 @@ const ValedictoryTab: FC = () => {
       };
       return eventDetails;
     });
-
-    console.log(eventData);
 
     return (
       <>
