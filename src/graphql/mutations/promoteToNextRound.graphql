@@ -1,0 +1,11 @@
+mutation PromoteToNextRound($roundNo: ID!, $teamId: ID!, $selected: Boolean!) {
+  promoteToNextRound(roundNo: $roundNo, teamId: $teamId, selected: $selected) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationPromoteToNextRoundSuccess {
+      __typename
+    }
+  }
+}

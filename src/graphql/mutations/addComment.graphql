@@ -1,0 +1,11 @@
+mutation AddComment($comment: String!, $eventId: Int!, $roundNo: Int!, $teamId: Int!) {
+  addComment(comment: $comment, eventId: $eventId, roundNo: $roundNo, teamId: $teamId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationAddCommentSuccess {
+      __typename
+    }
+  }
+}

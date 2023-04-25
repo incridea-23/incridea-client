@@ -1,0 +1,11 @@
+mutation AddScore($criteriaId: Int!, $score: String!, $teamId: Int!) {
+  addScore(criteriaId: $criteriaId, score: $score, teamId: $teamId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationAddScoreSuccess {
+      __typename
+    }
+  }
+}

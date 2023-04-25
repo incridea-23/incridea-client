@@ -1,12 +1,4 @@
 import { NextPage } from 'next';
-import React, { useState } from 'react';
-import { useAuth } from '../hooks/useAuth';
-import { useRouter } from 'next/router';
-import Button from '../components/button';
-import { makePayment } from '../utils/razorpay';
-import Spinner from '../components/spinner';
-import Link from 'next/link';
-import Loader from '../components/Loader';
 import { MdCall, MdMail } from 'react-icons/md';
 
 const Contact: NextPage = () => {
