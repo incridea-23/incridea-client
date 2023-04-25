@@ -208,14 +208,14 @@ const SelectedTeamList = ({
               </div>
             </div>
           ))}
-        {finalRound && (
-          <ConfirmRoundModal
-            winners={winners}
-            roundNo={roundNo}
-            winnersLoading={winnersLoading}
-            eventId={eventId}
-          />
-        )}
+        <ConfirmRoundModal
+          winners={winners}
+          roundNo={roundNo}
+          winnersLoading={winnersLoading}
+          eventId={eventId}
+          finalRound={finalRound}
+          selectedTeams={teams}
+        />
       </div>
     </div>
   );
