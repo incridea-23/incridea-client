@@ -17,6 +17,7 @@ const Score = ({
   roundNo: number;
   type: string;
 }) => {
+  const [score, setScore] = useState<string>("0");
   const { data, loading, error } = useQuery(GetScoreDocument, {
     variables: {
       criteriaId: criteriaId,
@@ -26,19 +27,27 @@ const Score = ({
     skip: !roundNo || !teamId || !criteriaId,
   });
 
-  const [score, setScore] = useState<string>("0");
   // as soon as data is loaded, set score
+
   useEffect(() => {
+    console.log(data);
     if (data?.getScore?.__typename === "QueryGetScoreSuccess") {
       setScore(data.getScore.data.score);
+    } else {
+      setScore("0");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data?.getScore]);
+  }, [data]);
 
   const [updateScore, { loading: updateScoreLoading, error: updateError }] =
     useMutation(AddScoreDocument, {
       refetchQueries: ["GetScore", "GetTotalScores"],
       awaitRefetchQueries: true,
+      variables: {
+        criteriaId: Number(criteriaId),
+        teamId: Number(teamId),
+        score: score ? score : "0",
+      },
     });
   console.log(error, updateError);
   const handleUpdateScore = () => {
@@ -49,14 +58,7 @@ const Score = ({
     ) {
       return;
     }
-    let promise = updateScore({
-      variables: {
-        criteriaId: Number(criteriaId),
-        teamId: Number(teamId),
-        // if input is empty, set score to 0
-        score: score ? score : "0",
-      },
-    }).then((res) => {
+    let promise = updateScore().then((res) => {
       if (res.data?.addScore.__typename === "Error") {
         toast.error(res.data.addScore.message, {
           position: "bottom-center",
