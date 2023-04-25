@@ -81,14 +81,30 @@ const RoundTabs = ({
     return "ONGOING";
   };
   return (
-    <Tab.Group>
-      <Tab.List className="w-full items-end gap-5 p-2 flex bg-black/20">
+    <Tab.Group
+      as={"div"}
+      className="sm:rounded-xl mt-5 overflow-hidden border-0 border-gray-900/40"
+    >
+      <Tab.List className="w-full overflow-x-auto flex  backdrop-blur-md bg-gray-600/60 ">
         {rounds.map((round) => (
           <Tab
             key={`${round.roundNo}-${eventId}`}
-            className="flex w-fit items-center gap-2 p-2 bg-black/40">
-            Round {round.roundNo}{" "}
-            <StatusBadge status={getRoundStatus(round, rounds.length)} />{" "}
+            className="focus:outline-none"
+          >
+            {({ selected }) => (
+              <button
+                className={` sm:px-5 transition-colors whitespace-nowrap sm:py-4 sm:text-lg text-base p-3 font-semibold ${
+                  selected
+                    ? "bg-gray-900 shadow-lg shadow-black text-white"
+                    : "bg-transparent hover:bg-gray-800/60 text-white"
+                }`}
+              >
+                <span>Round {round.roundNo} </span>
+                <StatusBadge
+                  status={getRoundStatus(round, rounds.length)}
+                />{" "}
+              </button>
+            )}
           </Tab>
         ))}
       </Tab.List>
@@ -136,6 +152,7 @@ const RoundTable = ({
       }
     }
    */
+
   if (roundLoading) return <Spinner />;
   if (!round) return <div>Something went wrong</div>;
   if (roundError || round.getScoreSheetJuryView["__typename"] === "Error")
@@ -159,12 +176,22 @@ const JudgeTable = ({
 }) => {
   return (
     <Tab.Group>
-      <Tab.List className="w-full items-end gap-5 p-2 flex bg-black/20">
+      <Tab.List className="w-full items-center gap-5 p-2 flex bg-gray-800/60 text-white rounded-sm">
+        <span className="font-semibold ml-3">Judges : </span>
         {judges.map((judge) => (
           <Tab
             key={judge.judgeId}
-            className="flex w-fit items-center gap-2 p-2 bg-black/40">
-            {judge.judgeName}
+            className="flex w-fit items-center gap-2 p-2 outline-none"
+          >
+            {({ selected }) => (
+              <button
+                className={`font-semibold hover:bg-gray-700/90 shadow-md py-2 px-4 ${
+                  selected ? "bg-gray-700" : "bg-gray-600"
+                }`}
+              >
+                {judge.judgeName}
+              </button>
+            )}
           </Tab>
         ))}
       </Tab.List>

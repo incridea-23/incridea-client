@@ -1,8 +1,8 @@
-import CreateCriteriaModal from './CreateCriteriaModal';
-import { Criteria } from '@/src/generated/generated';
-import CriteriaBox from './CriteriaBox';
-import Remarks from './Remarks';
-import DeleteCriteriaModal from './DeleteCriteriaModal';
+import CreateCriteriaModal from "./CreateCriteriaModal";
+import { Criteria } from "@/src/generated/generated";
+import CriteriaBox from "./CriteriaBox";
+import Remarks from "./Remarks";
+import DeleteCriteriaModal from "./DeleteCriteriaModal";
 
 type Props = {
   eventId: string;
