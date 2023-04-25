@@ -52,19 +52,13 @@ const ProfileInfo: FC<{
             <span className="font-bold text-xl">Contact details</span>
             <div className="flex gap-2 items-center">
               <MdOutlineEmail />
-              <Link href={`mailto:${user?.email}`} className="hover:underline">
-                {user?.email}
-              </Link>
+
+              {user?.email}
             </div>
             {user?.phoneNumber && (
               <div className="flex gap-2 items-center">
                 <MdPhone />
-                <Link
-                  href={`tel:${user?.phoneNumber}`}
-                  className="hover:underline"
-                >
-                  {user?.phoneNumber}
-                </Link>
+                {user?.phoneNumber}
               </div>
             )}
             <Button

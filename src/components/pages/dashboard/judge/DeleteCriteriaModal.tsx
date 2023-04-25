@@ -48,7 +48,7 @@ const DeleteCriteriaModal = ({
         }}
         noScaleOnHover
       >
-        Delete {' '} <span className='hidden md:block'>Criteria</span>
+        Delete <span className="hidden md:block">Criteria</span>
       </Button>
       <Modal
         title={`Delete Criterias`}
@@ -56,7 +56,10 @@ const DeleteCriteriaModal = ({
         onClose={handleCloseModal}
         size="medium"
       >
-        <div className='p-5 flex flex-wrap gap-5'>
+        <div className="p-5 flex flex-wrap gap-5">
+          {criterias?.length === 0 && (
+            <p className="text-white/60">No criterias to delete</p>
+          )}
           {criterias?.map((criteria, index) => (
             <div
               key={index}

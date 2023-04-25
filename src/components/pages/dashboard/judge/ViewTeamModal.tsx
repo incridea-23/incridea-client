@@ -28,17 +28,18 @@ const ViewTeamModal = ({
         <AiFillEye className="text-white/60" />
       </Button>
       <Modal
-        title={`Team ${teamName} Details`}
+        title={`${teamName} Details`}
         showModal={showModal}
         onClose={handleCloseModal}
         size="small"
       >
-        <div className="flex flex-col gap-2 p-5">
+        <div className="flex flex-wrap gap-2 py-3 px-5 justify-center">
           {members.map((member) => {
             return (
               <div
                 key={member.user.id}
-                className="flex items-center justify-between"
+                className="flex items-center justify-between bg-gray-600 rounded-lg w-fit p-3 flex-1"
+                style={{ minWidth: '200px' }}
               >
                 <div className="flex items-center">
                   <p className="ml-2 text-sm font-medium">
