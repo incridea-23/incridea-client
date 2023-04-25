@@ -1,17 +1,17 @@
-import Button from '@/src/components/button';
-import Spinner from '@/src/components/spinner';
-import createToast from '@/src/components/toast';
+import Button from "@/src/components/button";
+import Spinner from "@/src/components/spinner";
+import createToast from "@/src/components/toast";
 import {
   DeleteWinnerDocument,
   JudgeGetTeamsByRoundSubscription,
   PromoteToNextRoundDocument,
   WinnersByEventQuery,
-} from '@/src/generated/generated';
-import { idToPid, idToTeamId } from '@/src/utils/id';
-import { useMutation } from '@apollo/client';
-import { toast } from 'react-hot-toast';
-import { AiOutlineClose } from 'react-icons/ai';
-import ConfirmRoundModal from './ConfirmRoundModal';
+} from "@/src/generated/generated";
+import { idToPid, idToTeamId } from "@/src/utils/id";
+import { useMutation } from "@apollo/client";
+import { toast } from "react-hot-toast";
+import { AiOutlineClose } from "react-icons/ai";
+import ConfirmRoundModal from "./ConfirmRoundModal";
 
 const SelectedTeamList = ({
   teams,
@@ -37,7 +37,7 @@ const SelectedTeamList = ({
   const [deleteWinner, { loading: deleteLoading }] = useMutation(
     DeleteWinnerDocument,
     {
-      refetchQueries: ['WinnersByEvent'],
+      refetchQueries: ["WinnersByEvent"],
       awaitRefetchQueries: true,
     }
   );
@@ -49,16 +49,16 @@ const SelectedTeamList = ({
         roundNo: roundNo.toString(),
         selected: false,
       },
-      refetchQueries: ['GetTotalScores'],
+      refetchQueries: ["GetTotalScores"],
       awaitRefetchQueries: true,
     });
-    createToast(promise, 'Removing team...');
+    createToast(promise, "Removing team...");
   };
 
   const teamOrParticipant =
-    eventType === 'INDIVIDUAL' || eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
-      ? 'Participant'
-      : 'Team';
+    eventType === "INDIVIDUAL" || eventType === "INDIVIDUAL_MULTIPLE_ENTRY"
+      ? "Participant"
+      : "Team";
 
   return (
     <div className="h-full overflow-y-auto">
@@ -90,32 +90,28 @@ const SelectedTeamList = ({
           <div className="flex flex-row gap-5 w-full">
             <div
               className={`${
-                finalRound ? 'basis-1/4' : 'basis-1/3'
-              } text-white/80`}
-            >
+                finalRound ? "basis-1/4" : "basis-1/3"
+              } text-white/80`}>
               Team Name
             </div>
             <div
               className={`${
-                finalRound ? 'basis-1/4' : 'basis-1/3'
-              } text-white/80`}
-            >
-              {teamOrParticipant === 'Participant' ? 'PID' : 'Team ID'}
+                finalRound ? "basis-1/4" : "basis-1/3"
+              } text-white/80`}>
+              {teamOrParticipant === "Participant" ? "PID" : "Team ID"}
             </div>
             {finalRound && (
               <div
                 className={`${
-                  finalRound ? 'basis-1/4' : 'basis-1/3'
-                } text-white/80`}
-              >
+                  finalRound ? "basis-1/4" : "basis-1/3"
+                } text-white/80`}>
                 Position
               </div>
             )}
             <div
               className={`${
-                finalRound ? 'basis-1/4' : 'basis-1/3'
-              } text-white/80`}
-            >
+                finalRound ? "basis-1/4" : "basis-1/3"
+              } text-white/80`}>
               Remove
             </div>
           </div>
@@ -135,12 +131,11 @@ const SelectedTeamList = ({
             .map((team, index) => (
               <div
                 key={index}
-                className="flex items-center p-2 px-5 bg-white/10 rounded-lg hover:bg-white/20 transition-colors duration-300"
-              >
+                className="flex items-center p-2 px-5 bg-white/10 rounded-lg hover:bg-white/20 transition-colors duration-300">
                 <div className="flex flex-row gap-5 w-full">
                   <div className="text-white/80 basis-1/3">{team?.name}</div>
                   <div className="text-white/60 basis-1/3">
-                    {teamOrParticipant === 'Participant'
+                    {teamOrParticipant === "Participant"
                       ? idToPid(team?.leaderId?.toString()!)
                       : idToTeamId(team?.id!)}
                   </div>
@@ -149,8 +144,7 @@ const SelectedTeamList = ({
                       onClick={() => {
                         handlePromote(team?.id!);
                       }}
-                      disabled={promoteLoading}
-                    >
+                      disabled={promoteLoading}>
                       <AiOutlineClose />
                     </Button>
                   </div>
@@ -161,31 +155,30 @@ const SelectedTeamList = ({
         {finalRound && winnersLoading && <Spinner />}
         {finalRound &&
           !winnersLoading &&
-          winners?.winnersByEvent.__typename === 'QueryWinnersByEventSuccess' &&
+          winners?.winnersByEvent.__typename === "QueryWinnersByEventSuccess" &&
           winners.winnersByEvent.data.length === 0 && (
             <p className="my-3 mt-5 text-gray-400/70 italic text-center">
               No winners are selected.
             </p>
           )}
         {finalRound &&
-          winners?.winnersByEvent.__typename === 'QueryWinnersByEventSuccess' &&
+          winners?.winnersByEvent.__typename === "QueryWinnersByEventSuccess" &&
           winners?.winnersByEvent.data.map((winner, index) => (
             <div
               key={index}
-              className="flex items-center p-2 px-5 bg-white/10 rounded-lg hover:bg-white/20 transition-colors duration-300"
-            >
+              className="flex items-center p-2 px-5 bg-white/10 rounded-lg hover:bg-white/20 transition-colors duration-300">
               <div className="flex flex-row gap-5 w-full">
                 <div className="text-white/80 basis-1/4">
                   {winner?.team.name}
                 </div>
                 <div className="text-white/60 basis-1/4">
-                  {teamOrParticipant === 'Participant'
+                  {teamOrParticipant === "Participant"
                     ? idToPid(winner?.team.leaderId?.toString()!)
                     : idToTeamId(winner?.team.id!)}
                 </div>
                 <div className="text-white/60 basis-1/4">
                   {winner.type
-                    .replace(/_/g, ' ')
+                    .replace(/_/g, " ")
                     .replace(
                       /\b\w+/g,
                       (match) =>
@@ -200,19 +193,18 @@ const SelectedTeamList = ({
                         variables: {
                           id: winner?.id,
                         },
-                        refetchQueries: ['GetTotalScores'],
+                        refetchQueries: ["GetTotalScores"],
                         awaitRefetchQueries: true,
                       }).then((data) => {
-                        if (data.data?.deleteWinner.__typename === 'Error') {
+                        if (data.data?.deleteWinner.__typename === "Error") {
                           toast.error(data.data?.deleteWinner.message, {
-                            position: 'bottom-center',
+                            position: "bottom-center",
                           });
                         }
                       });
-                      createToast(promise, 'Removing winner...');
+                      createToast(promise, "Removing winner...");
                     }}
-                    disabled={deleteLoading}
-                  >
+                    disabled={deleteLoading}>
                     <AiOutlineClose />
                   </Button>
                 </div>
@@ -226,7 +218,7 @@ const SelectedTeamList = ({
           eventId={eventId}
           finalRound={finalRound}
           selectedTeams={teams}
-          solo={teamOrParticipant === 'Participant'}
+          solo={teamOrParticipant === "Participant"}
         />
       </div>
     </div>
