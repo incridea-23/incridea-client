@@ -88,7 +88,7 @@ const RoundTabs = ({
       as={"div"}
       className="sm:rounded-xl mt-5 overflow-hidden border-0 border-gray-900/40"
     >
-      <Tab.List className="w-full overflow-x-auto flex  backdrop-blur-md bg-gray-600/60 ">
+      <Tab.List className="w-full overflow-x-auto flex  backdrop-blur-md bg-gray-400/20 ">
         {rounds.map((round) => (
           <Tab
             key={`${round.roundNo}-${eventId}`}
@@ -207,8 +207,8 @@ const JudgeTable = ({
 
   return (
     <Tab.Group>
-      <Tab.List className="w-full items-center gap-5 p-2 flex bg-gray-800/60 text-white rounded-sm">
-        <span className="font-semibold ml-3">Judges : </span>
+      <Tab.List className="w-full items-center gap-5 p-2 flex bg-gray-300/20 text-white">
+        <span className="font-semibold text-xl ml-3">Judges </span>
         {judges.map((judge) => (
           <Tab
             key={judge.judgeId}
@@ -240,35 +240,49 @@ const JudgeTable = ({
       <Tab.Panels>
         {judges.map((judge) => (
           <Tab.Panel key={judge.judgeName}>
-            <div className="flex justify-evenly gap-5 text-3xl font-semibold">
-              <div className="">Team Name</div>
+            <div className="hidden md:flex bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding  p-1 items-center justify-between gap-2.5 text-xl font-bold h-16">
+              <div className="basis-1/3 py-2.5 text-center pl-2">Team Name</div>
               {judge.criteria.map((criteria) => (
-                <div key={criteria.criteriaId} className="">
+                <div
+                  key={criteria.criteriaId}
+                  className="basis-1/3 py-2.5 text-center pl-2"
+                >
                   {criteria.criteriaName}
                 </div>
               ))}
-              <div className="">Judge Total</div>
-              <div className="">Judge Total</div>
+              <div className="basis-1/3 py-2.5 text-center pl-2">
+                Judge Total
+              </div>
+              <div className="basis-1/3 py-2.5 text-center pr-2">
+                Grand Total
+              </div>
             </div>
             {teams.map((team) => (
               <div
                 key={team.teamId}
-                className="flex justify-evenly gap-5 text-3xl font-semibold"
+                className="bg-white/10 md:rounded-none rounded-lg md:p-4  p-3 flex flex-col md:flex-row md:items-center items-start md:justify-evenly w-full md:text-center mb-3 md:my-0"
               >
-                <div className="">{team.teamName}</div>
+                <div className="basis-1/3 py-0.5 text-center text-lg">
+                  {team.teamName}
+                </div>
                 {team.judges
                   .find((j) => j.judgeId === judge.judgeId)
                   ?.criteria.map((criteria) => (
-                    <div key={criteria.criteriaId} className="">
+                    <div
+                      key={criteria.criteriaId}
+                      className="basis-1/3  py-0.5 text-center text-lg"
+                    >
                       {criteria.score}
                     </div>
                   ))}
-                <div className="">
+                <div className="basis-1/3  py-0.5 text-center text-lg">
                   {team.judges
                     .find((j) => j.judgeId === judge.judgeId)
                     ?.criteria.reduce((acc, curr) => acc + curr.score, 0)}
                 </div>
-                <div className="">{team.teamScore}</div>
+                <div className="basis-1/3 py-0.5 text-center text-lg">
+                  {team.teamScore}
+                </div>
               </div>
             ))}
           </Tab.Panel>

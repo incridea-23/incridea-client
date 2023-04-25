@@ -19,6 +19,7 @@ query RoundByJudge {
           eventType
           rounds {
             roundNo
+            completed
           }
         }
       }

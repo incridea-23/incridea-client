@@ -5,13 +5,13 @@ import {
   DeleteWinnerDocument,
   JudgeGetTeamsByRoundSubscription,
   PromoteToNextRoundDocument,
-  WinnersByEventDocument,
   WinnersByEventQuery,
 } from '@/src/generated/generated';
-import { idToTeamId } from '@/src/utils/id';
-import { useMutation, useQuery } from '@apollo/client';
+import { idToPid, idToTeamId } from '@/src/utils/id';
+import { useMutation } from '@apollo/client';
 import { toast } from 'react-hot-toast';
 import { AiOutlineClose } from 'react-icons/ai';
+import ConfirmRoundModal from './ConfirmRoundModal';
 
 const SelectedTeamList = ({
   teams,
@@ -19,12 +19,16 @@ const SelectedTeamList = ({
   finalRound,
   winners,
   winnersLoading,
+  eventId,
+  eventType,
 }: {
   teams: JudgeGetTeamsByRoundSubscription;
   roundNo: number;
   finalRound: boolean;
   winners: WinnersByEventQuery | undefined;
   winnersLoading: boolean;
+  eventId: string;
+  eventType: string;
 }) => {
   const [promote, { loading: promoteLoading }] = useMutation(
     PromoteToNextRoundDocument
@@ -50,6 +54,11 @@ const SelectedTeamList = ({
     });
     createToast(promise, 'Removing team...');
   };
+
+  const teamOrParticipant =
+    eventType === 'INDIVIDUAL' || eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
+      ? 'Participant'
+      : 'Team';
 
   return (
     <div className="h-full overflow-y-auto">
@@ -91,7 +100,7 @@ const SelectedTeamList = ({
                 finalRound ? 'basis-1/4' : 'basis-1/3'
               } text-white/80`}
             >
-              Team ID
+              {teamOrParticipant === 'Participant' ? 'PID' : 'Team ID'}
             </div>
             {finalRound && (
               <div
@@ -131,13 +140,16 @@ const SelectedTeamList = ({
                 <div className="flex flex-row gap-5 w-full">
                   <div className="text-white/80 basis-1/3">{team?.name}</div>
                   <div className="text-white/60 basis-1/3">
-                    {idToTeamId(team?.id!)}
+                    {teamOrParticipant === 'Participant'
+                      ? idToPid(team?.leaderId?.toString()!)
+                      : idToTeamId(team?.id!)}
                   </div>
                   <div className="basis-1/3">
                     <Button
                       onClick={() => {
                         handlePromote(team?.id!);
                       }}
+                      disabled={promoteLoading}
                     >
                       <AiOutlineClose />
                     </Button>
@@ -167,9 +179,20 @@ const SelectedTeamList = ({
                   {winner?.team.name}
                 </div>
                 <div className="text-white/60 basis-1/4">
-                  {idToTeamId(winner?.team.id!)}
+                  {teamOrParticipant === 'Participant'
+                    ? idToPid(winner?.team.leaderId?.toString()!)
+                    : idToTeamId(winner?.team.id!)}
                 </div>
-                <div className="text-white/60 basis-1/4">{winner.type}</div>
+                <div className="text-white/60 basis-1/4">
+                  {winner.type
+                    .replace(/_/g, ' ')
+                    .replace(
+                      /\b\w+/g,
+                      (match) =>
+                        match.charAt(0).toUpperCase() +
+                        match.slice(1).toLowerCase()
+                    )}
+                </div>
                 <div className="basis-1/4">
                   <Button
                     onClick={() => {
@@ -196,6 +219,14 @@ const SelectedTeamList = ({
               </div>
             </div>
           ))}
+        <ConfirmRoundModal
+          winners={winners}
+          roundNo={roundNo}
+          winnersLoading={winnersLoading}
+          eventId={eventId}
+          finalRound={finalRound}
+          selectedTeams={teams}
+        />
       </div>
     </div>
   );
