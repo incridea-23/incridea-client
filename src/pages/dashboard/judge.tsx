@@ -98,11 +98,11 @@ const Judge: NextPage = (props: Props) => {
       <div
         className={isCompleted ? 'pointer-events-none opacity-30 relative' : ''}
       >
-        <div className="relative top-14 md:top-0 p-2 flex justify-between items-center">
-          <h1 className="text-3xl mb-3">
+        <div className="relative px-4 sm:px-10 py-4 flex flex-wrap justify-between items-center">
+          <h1 className="text-2xl sm:text-3xl mb-3">
             Hello <span className="font-semibold">{user?.name}</span>!
           </h1>
-          <h1 className="text-3xl mb-3">
+          <h1 className="text-2xl sm:text-3xl mb-3">
             {data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess' && (
               <span>
                 Round {data.roundByJudge.data.roundNo} of{' '}
@@ -118,8 +118,8 @@ const Judge: NextPage = (props: Props) => {
             </h1>
           </div>
         )}
-        <div className="flex h-[80vh] gap-3">
-          <div className="basis-1/2 shrink-0 grow-0 bg-black/20 rounded-lg ">
+        <div className="flex flex-wrap w-full justify-center sm:flex-nowrap min-h-[80vh] gap-3 px-8 sm:px-0 mb-10">
+          <div className="w-full sm:w-auto sm:basis-1/2 shrink-0 grow-0 bg-black/20 rounded-lg ">
             {EventLoading ? (
               <Spinner />
             ) : (
@@ -146,7 +146,7 @@ const Judge: NextPage = (props: Props) => {
               </>
             )}
           </div>
-          <div className="basis-1/2 shrink-0 grow-0 bg-black/20 rounded-lg ">
+          <div className="w-full sm:w-auto sm:basis-1/2 shrink-0 grow-0 bg-black/20 rounded-lg ">
             {EventLoading ? (
               <Spinner />
             ) : (

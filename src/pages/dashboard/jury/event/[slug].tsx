@@ -85,7 +85,7 @@ const RoundTabs = ({
       as={"div"}
       className="sm:rounded-xl mt-5 overflow-hidden border-0 border-gray-900/40"
     >
-      <Tab.List className="w-full overflow-x-auto flex  backdrop-blur-md bg-gray-600/60 ">
+      <Tab.List className="w-full overflow-x-auto flex  backdrop-blur-md bg-gray-400/20 ">
         {rounds.map((round) => (
           <Tab
             key={`${round.roundNo}-${eventId}`}
@@ -176,8 +176,8 @@ const JudgeTable = ({
 }) => {
   return (
     <Tab.Group>
-      <Tab.List className="w-full items-center gap-5 p-2 flex bg-gray-800/60 text-white rounded-sm">
-        <span className="font-semibold ml-3">Judges : </span>
+      <Tab.List className="w-full items-center gap-5 p-2 flex bg-gray-300/20 text-white">
+        <span className="font-semibold text-xl ml-3">Judges </span>
         {judges.map((judge) => (
           <Tab
             key={judge.judgeId}
@@ -185,8 +185,8 @@ const JudgeTable = ({
           >
             {({ selected }) => (
               <button
-                className={`font-semibold hover:bg-gray-700/90 shadow-md py-2 px-4 ${
-                  selected ? "bg-gray-700" : "bg-gray-600"
+                className={`font-semibold py-2 px-4 transition-all duration-100 ease-in ${
+                  selected ? "bg-gray-900 shadow-md shadow-black" : "bg-transparent hover:bg-gray-700/90"
                 }`}
               >
                 {judge.judgeName}
@@ -198,7 +198,7 @@ const JudgeTable = ({
       <Tab.Panels>
         {judges.map((judge) => (
           <Tab.Panel key={judge.judgeName}>
-             <div className="hidden md:flex mt-3 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-t-lg p-1 items-center justify-between gap-2.5 text-xl font-bold h-16">
+             <div className="hidden md:flex bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding  p-1 items-center justify-between gap-2.5 text-xl font-bold h-16">
                 <div className="basis-1/3 py-2.5 text-center pl-2">Team Name</div>
                 {judge.criteria.map((criteria) => (
                 <div key={criteria.criteriaId} className="basis-1/3 py-2.5 text-center pl-2">

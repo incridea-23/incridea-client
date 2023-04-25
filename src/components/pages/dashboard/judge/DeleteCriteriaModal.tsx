@@ -48,7 +48,7 @@ const DeleteCriteriaModal = ({
         }}
         noScaleOnHover
       >
-        Delete Criterias
+        Delete {' '} <span className='hidden md:block'>Criteria</span>
       </Button>
       <Modal
         title={`Delete Criterias`}

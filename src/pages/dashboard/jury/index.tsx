@@ -366,7 +366,7 @@ const EventCard = ({
         .toLowerCase()
         .replaceAll(" ", "-")}-${event.id}`}
       key={event.id + event.name}
-      className="bg-black/20 backdrop-blur-sm flex flex-col cursor-pointer rounded-sm  max-w-xl w-full p-8 hover:scale-[1.03] transition-transform duration-300"
+      className="bg-black/20 backdrop-blur-sm flex flex-col cursor-pointer rounded-md  max-w-xl w-full p-8 hover:scale-[1.03] transition-transform duration-300"
     >
       <div>
         <div className="flex justify-between px-2 mb-2">
@@ -382,7 +382,7 @@ const EventCard = ({
           <h2>Venue:{" " + event.venue}</h2>
         </div>
         <div className="py-2 flex justify-between">
-          <div className="p-2 bg-black/40 rounded-md">
+          <div className="p-2 bg-white/20 rounded-md">
             <div className="flex items-center justify-center">
               <span className="text-md pr-2">Rounds</span>
               <span className="text-xl font-semibold">
@@ -399,7 +399,7 @@ const EventCard = ({
             return (
               <div
                 key={idx}
-                className="bg-black/40 rounded-md grid grid-rows-2 p-2 text-sm"
+                className="bg-white/20 rounded-sm grid grid-rows-2 p-2 text-sm"
               >
                 <span>Round :{" " + round?.roundNo}</span>
                 <span>Date: {" " + round?.date?.substring(0, 10)}</span>
@@ -415,19 +415,19 @@ const EventCard = ({
 export const StatusBadge = ({ status }: { status: string }) => {
   if (status === "COMPLETED")
     return (
-      <div className="border-2 h-fit rounded-full text-green-400 border-green-400 px-2 py-1">
+      <div className="border-2 h-fit rounded-full text-green-400 border-green-400 px-2 py-1 text-xs">
         Completed
       </div>
     );
   if (status === "ONGOING")
     return (
-      <div className="border-2 h-fit rounded-full text-yellow-400 border-yellow-400 px-2 py-1">
+      <div className="border-2 h-fit rounded-full text-yellow-400 border-yellow-400 px-2 py-1 text-xs">
         OnGoing
       </div>
     );
   if (status === "YET_TO_START")
     return (
-      <div className="border-2 h-fit rounded-full text-red-500 border-red-500 px-2 py-1">
+      <div className="border-2 h-fit rounded-full text-red-500 border-red-500 px-2 py-1 text-xs">
         yet to start
       </div>
     );
