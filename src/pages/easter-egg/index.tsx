@@ -7,8 +7,10 @@ import {
   GetCardsDocument,
   MySubmissionsDocument,
 } from "@/src/generated/generated";
+import { useAuth } from "@/src/hooks/useAuth";
 import { useMutation, useQuery } from "@apollo/client";
 import { NextPage } from "next";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { FaCheck } from "react-icons/fa";
@@ -19,6 +21,8 @@ const EasterEgg: NextPage = (props: Props) => {
   const [imageFiles, setImageFiles] = useState<(File | null)[] | []>([]);
   const [saved, setSaved] = useState(false);
   const [saving, setSaving] = useState(false);
+
+  const { status, loading: authLoading } = useAuth();
 
   const getDay = () => {
     const date = new Date();
@@ -39,7 +43,7 @@ const EasterEgg: NextPage = (props: Props) => {
     },
   });
 
-  console.log(cardsError)
+  console.log(cardsError);
 
   const {
     data: submissions,
@@ -102,6 +106,29 @@ const EasterEgg: NextPage = (props: Props) => {
     }
     setSaving(false);
   };
+  if (authLoading)
+    return (
+      <div className="bg-gradient-to-b pt-28 from-[#41acc9]  via-[#075985] to-[#2d6aa6] min-h-screen relative">
+        <div className="text-center text-xl mt-10 text-white/90">
+          <Spinner intent={"white"} size={"large"} />
+        </div>
+      </div>
+    );
+  if (status !== "authenticated")
+    return (
+      <div className="bg-gradient-to-b pt-28 from-[#41acc9]  via-[#075985] to-[#2d6aa6] min-h-screen relative">
+        <div className="text-center flex flex-col justify-center items-center gap-3 text-xl mt-10 text-white/90">
+          <span className="text-3xl font-semibold">Uh-oh! </span>
+          <span>
+            You need to{" "}
+            <Link className="underline" href={"/login"}>
+              login
+            </Link>{" "}
+            to view easter eggs
+          </span>
+        </div>
+      </div>
+    );
 
   return (
     <div className="bg-gradient-to-b  from-[#41acc9]  via-[#075985] to-[#2d6aa6] min-h-screen relative">
@@ -109,6 +136,9 @@ const EasterEgg: NextPage = (props: Props) => {
       <div className="pt-28 pb-12 md:px-12 px-6 flex justify-center items-center flex-col">
         <h2 className="titleFont text-center text-white text-4xl mb-8">
           Upload your images!
+        </h2>
+        <h2 className="bodyFont text-center text-white text-xl mb-8">
+          Find clues across the campus and upload them here
         </h2>
         {cardsLoading ? (
           <Spinner />
@@ -162,7 +192,9 @@ const EasterEgg: NextPage = (props: Props) => {
             </Button>
           </>
         ) : (
-          <span className="text-white/70">Could not fetch cards, please try again later</span>
+          <span className="text-white/60">
+            Could not fetch clues, please try again later
+          </span>
         )}
       </div>
     </div>
