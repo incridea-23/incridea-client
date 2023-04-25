@@ -2,6 +2,7 @@ import { FC } from "react";
 import { useQuery } from "@apollo/client";
 import { TeamDetailsDocument } from "@/src/generated/generated";
 import Spinner from "@/src/components/spinner";
+import { idToPid } from "@/src/utils/id";
 
 const TeamModal: FC<{
   teamId: string;
@@ -31,7 +32,7 @@ const TeamModal: FC<{
                 key={member.user.id}
                 className="flex md:flex-row flex-col border md:text-lg text-base border-gray-600 rounded-lg mb-2 p-2 md:justify-center justify-start">
                 <span className="md:text-base font-bold w-full md:w-1/5 mb-2 md:mb-0 justify-center text-center">
-                  {member.user.id}
+                  {idToPid(member.user.id)}
                 </span>
                 <span className="md:text-base font-bold w-full md:w-1/5 mb-2 md:mb-0 justify-center text-center">
                   {member.user.name}
@@ -49,7 +50,8 @@ const TeamModal: FC<{
                 </span>
               </div>
             ))
-          : ""}
+          : "No members found"}
+          {teamDeatils?.teamDetails.__typename === "QueryTeamDetailsSuccess" && teamDeatils.teamDetails.data.members?.length === 0 && <div className="text-center">No members found</div>}
       </div>
     </div>
   );
