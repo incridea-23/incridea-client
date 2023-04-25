@@ -229,12 +229,16 @@ const JudgeTable = ({
             )}
           </Tab>
         ))}
-        {judgeName && (
+        {judgeName ? (
           <button className="bg-green-500 p-2 rounded-sm ml-auto mr-5">
             <CSVLink data={csvData}>
               Download Score sheet by {judgeName}
             </CSVLink>
           </button>
+        ) : (
+          <p className="ml-auto mr-5 font-semibold bg-gray-800 shadow-md p-3">
+            Click a judge for download option
+          </p>
         )}
       </Tab.List>
       <Tab.Panels>
