@@ -57,7 +57,10 @@ const TeamList = ({
   );
 
   const [changeStatus, { loading: changeLoading }] = useMutation(
-    ChangeSelectStatusDocument
+    ChangeSelectStatusDocument,{
+      refetchQueries: ['GetTotalScores'],
+      awaitRefetchQueries: true,
+    }
   );
 
   const [selectWinner, { loading: winnerLoading }] = useMutation(
@@ -250,8 +253,16 @@ const TeamList = ({
           <div className="flex flex-row gap-5 w-full">
             <div className={`basis-4/12 text-white/80`}>Name</div>
             <div className={`basis-4/12 text-white/80`}>ID</div>
-            <div className={`basis-1/12 text-white/80`}>Score</div>
-            <div className={`basis-1/12 text-white/80`}>Total</div>
+            <div
+              className={`${
+                selectionMode ? 'basis-1/12' : 'basis-4/12'
+              } text-white/80`}
+            >
+              Score
+            </div>
+            {selectionMode && (
+              <div className={`basis-1/12 text-white/80`}>Total</div>
+            )}
             {selectionMode ? (
               <div className={`basis-2/12 text-white/80`}>
                 {finalRound ? 'Select' : 'Promote'}
@@ -315,7 +326,7 @@ const TeamList = ({
                 </div>
 
                 <div
-                  className={`basis-1/12 ${
+                  className={`${selectionMode ? 'basis-1/12' : 'basis-4/12'} ${
                     selectedTeam === team?.id
                       ? 'text-black/60'
                       : 'text-white/60'
@@ -329,20 +340,22 @@ const TeamList = ({
                     )?.judgeScore}
                 </div>
 
-                <div
-                  className={`basis-1/12 ${
-                    selectedTeam === team?.id
-                      ? 'text-black/60'
-                      : 'text-white/60'
-                  }`}
-                >
-                  {scoresLoading && <Spinner />}
-                  {scores?.getTotalScores.__typename ===
-                    'QueryGetTotalScoresSuccess' &&
-                    scores?.getTotalScores.data.find(
-                      (score) => score.teamId === Number(team?.id)
-                    )?.totalScore}
-                </div>
+                {selectionMode && (
+                  <div
+                    className={`basis-1/12 ${
+                      selectedTeam === team?.id
+                        ? 'text-black/60'
+                        : 'text-white/60'
+                    }`}
+                  >
+                    {scoresLoading && <Spinner />}
+                    {scores?.getTotalScores.__typename ===
+                      'QueryGetTotalScoresSuccess' &&
+                      scores?.getTotalScores.data.find(
+                        (score) => score.teamId === Number(team?.id)
+                      )?.totalScore}
+                  </div>
+                )}
 
                 <div
                   className={`basis-2/12 ${

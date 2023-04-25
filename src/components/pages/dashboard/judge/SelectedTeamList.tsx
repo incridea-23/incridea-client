@@ -226,6 +226,7 @@ const SelectedTeamList = ({
           eventId={eventId}
           finalRound={finalRound}
           selectedTeams={teams}
+          solo={teamOrParticipant === 'Participant'}
         />
       </div>
     </div>
