@@ -15,7 +15,8 @@ import { idToPid, idToTeamId } from '@/src/utils/id';
 import { useMutation, useQuery, useSubscription } from '@apollo/client';
 import React, { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import { AiOutlineSearch } from 'react-icons/ai';
+import { AiFillEye, AiOutlineSearch } from 'react-icons/ai';
+import ViewTeamModal from './ViewTeamModal';
 
 type Props = {
   data: JudgeGetTeamsByRoundSubscription | undefined;
@@ -94,7 +95,6 @@ const TeamList = ({
       'SubscriptionGetRoundStatusSuccess'
     ) {
       if (roundStatus.getRoundStatus.data.selectStatus) {
-        console.log('selecting');
         setSelectionMode(true);
       }
     }
@@ -151,12 +151,6 @@ const TeamList = ({
         return true;
       }
     }
-  );
-
-  console.log(filteredTeams.map((team) => team.id));
-  console.log(
-    winners?.winnersByEvent.__typename === 'QueryWinnersByEventSuccess' &&
-      winners?.winnersByEvent.data.map((winner) => winner.id)
   );
 
   const sortedTeams = [...(filteredTeams ?? [])].sort((team1, team2) => {
@@ -263,7 +257,9 @@ const TeamList = ({
                 {finalRound ? 'Select' : 'Promote'}
               </div>
             ) : (
-              <div className={`basis-2/12`}></div>
+              <div className={`basis-2/12 flex justify-end items-end`}>
+                {teamOrParticipant === 'Team' && 'View'}
+              </div>
             )}
           </div>
         </div>
@@ -348,13 +344,23 @@ const TeamList = ({
                     )?.totalScore}
                 </div>
 
-                <div className={`basis-2/12`}>
+                <div
+                  className={`basis-2/12 ${
+                    !selectionMode ? 'flex justify-end items-end' : ''
+                  }`}
+                >
                   {selectionMode && !finalRound && (
                     <input
                       disabled={promoteLoading}
                       type="checkbox"
                       className="h-5 w-5 text-white/80"
                       onChange={() => handlePromote(team?.id!)}
+                    />
+                  )}
+                  {!selectionMode && teamOrParticipant === 'Team' && (
+                    <ViewTeamModal
+                      teamName={team.name}
+                      members={team.members}
                     />
                   )}
                   {selectionMode && finalRound && (

@@ -77,7 +77,7 @@ const Remarks = ({
     // Set a new timeout
     timeoutId = setTimeout(() => {
       handleUpdate();
-    }, 2000);
+    }, 500);
 
     // Cleanup function to clear the timeout
     return () => {
@@ -95,7 +95,6 @@ const Remarks = ({
         rows={4}
         className="mb-3 px-3 py-2 w-full bg-white/10 placeholder:text-white/60 rounded-md resize-none"
         placeholder={loading ? 'Loading...' : 'Additional remarks (optional)'}
-        disabled={loading || addRemarkLoading}
         value={remarks}
         onChange={(e) => setRemarks(e.target.value)}
       />

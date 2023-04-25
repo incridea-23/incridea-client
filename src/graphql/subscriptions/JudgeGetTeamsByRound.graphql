@@ -4,5 +4,10 @@ subscription JudgeGetTeamsByRound($eventId: Int!, $roundId: Int!) {
     name
     roundNo
     leaderId
+    members {
+      user {
+        id
+      }
+    }
   }
 }

@@ -1,9 +1,9 @@
-import Spinner from "@/src/components/spinner";
-import createToast from "@/src/components/toast";
-import { AddScoreDocument, GetScoreDocument } from "@/src/generated/generated";
-import { useMutation, useQuery } from "@apollo/client";
-import { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
+import Spinner from '@/src/components/spinner';
+import createToast from '@/src/components/toast';
+import { AddScoreDocument, GetScoreDocument } from '@/src/generated/generated';
+import { useMutation, useQuery } from '@apollo/client';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 const Score = ({
   teamId,
@@ -27,15 +27,14 @@ const Score = ({
     skip: !roundNo || !teamId || !criteriaId,
   });
 
-  const [score, setScore] = useState<string>("0");
-  console.log("score", score);
+  const [score, setScore] = useState<string>('0');
   // as soon as data is loaded, set score
   useEffect(() => {
-    if (data?.getScore?.__typename === "QueryGetScoreSuccess") {
+    if (data?.getScore?.__typename === 'QueryGetScoreSuccess') {
       setScore(data.getScore.data.score);
       // onUpdateScore(Number(data.getScore.data.score));
     } else {
-      setScore("0");
+      setScore('0');
       // onUpdateScore(0);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -44,7 +43,7 @@ const Score = ({
   const [updateScore, { loading: updateScoreLoading }] = useMutation(
     AddScoreDocument,
     {
-      refetchQueries: ["GetScore", "GetTotalScores"],
+      refetchQueries: ['GetScore', 'GetTotalScores'],
       awaitRefetchQueries: true,
     }
   );
@@ -52,7 +51,7 @@ const Score = ({
   const handleUpdateScore = () => {
     // check if score is really changed before updating
     if (
-      data?.getScore.__typename === "QueryGetScoreSuccess" &&
+      data?.getScore.__typename === 'QueryGetScoreSuccess' &&
       data.getScore.data.score === score
     ) {
       return;
@@ -62,18 +61,18 @@ const Score = ({
         criteriaId: Number(criteriaId),
         teamId: Number(teamId),
         // if input is empty, set score to 0
-        score: score ? score : "0",
+        score: score ? score : '0',
       },
     }).then((res) => {
-      if (res.data?.addScore.__typename === "Error") {
+      if (res.data?.addScore.__typename === 'Error') {
         toast.error(res.data.addScore.message, {
-          position: "bottom-center",
+          position: 'bottom-center',
         });
       } else {
         // onUpdateScore(Number(score));
       }
     });
-    createToast(promise, "Updating score...");
+    createToast(promise, 'Updating score...');
   };
 
   useEffect(() => {
@@ -88,7 +87,7 @@ const Score = ({
     // Set a new timeout
     timeoutId = setTimeout(() => {
       handleUpdateScore();
-    }, 2000);
+    }, 500);
 
     // Cleanup function to clear the timeout
     return () => {
@@ -101,7 +100,7 @@ const Score = ({
     <div className="flex items-center text-lg gap-2">
       {loading ? (
         <Spinner />
-      ) : type === "TIME" ? (
+      ) : type === 'TIME' ? (
         <TimeInput
           disabled={loading || updateScoreLoading}
           value={formatTime(Number(score))}
@@ -109,7 +108,8 @@ const Score = ({
         />
       ) : (
         <input
-          disabled={loading || updateScoreLoading}
+          max={type==="NUMBER"? 10 : undefined}
+          min={type==="NUMBER"? 0 : undefined}
           value={score}
           onChange={(e) => setScore(e.target.value)}
           type={type.toLowerCase()}
@@ -145,9 +145,8 @@ function TimeInput({ value, onChange, disabled }: Props) {
   return (
     <input
       type="text"
-      value={Number(inputValue) === 0 ? "" : inputValue}
+      value={Number(inputValue) === 0 ? '' : inputValue}
       onChange={handleInputChange}
-      disabled={disabled}
       placeholder="MM:SS:MS."
       className="bg-black/20 w-28 p-2 rounded-lg text-center text-white/90 focus:ring-2 ring-white/50 outline-none"
     />
@@ -155,7 +154,7 @@ function TimeInput({ value, onChange, disabled }: Props) {
 }
 
 function parseTime(timeString: string): number {
-  const timeParts = timeString.split(":").map(Number);
+  const timeParts = timeString.split(':').map(Number);
   let totalMilliseconds = 0;
   if (timeParts.length === 1) {
     totalMilliseconds = timeParts[0];
@@ -179,15 +178,15 @@ function formatTime(milliseconds: number): string {
   const minutes = Math.floor((milliseconds % 3600000) / 60000);
   const seconds = Math.floor((milliseconds % 60000) / 1000);
   const millisecondsLeft = milliseconds % 1000;
-  let timeString = "";
+  let timeString = '';
   if (hours > 0) {
     timeString += `${hours}:`;
   }
   if (hours > 0 || minutes > 0) {
-    timeString += `${minutes.toString().padStart(2, "0")}:`;
+    timeString += `${minutes.toString().padStart(2, '0')}:`;
   }
-  timeString += `${seconds.toString().padStart(2, "0")}.${millisecondsLeft
+  timeString += `${seconds.toString().padStart(2, '0')}.${millisecondsLeft
     .toString()
-    .padStart(3, "0")}`;
+    .padStart(3, '0')}`;
   return timeString;
 }

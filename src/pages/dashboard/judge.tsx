@@ -25,7 +25,6 @@ const Judge: NextPage = (props: Props) => {
   const {
     data,
     loading: EventLoading,
-    error: EventError,
   } = useQuery(RoundByJudgeDocument, {
     skip: !user || loading,
   });
@@ -69,6 +68,13 @@ const Judge: NextPage = (props: Props) => {
     }
   );
 
+  const isCompleted =
+    (data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess' &&
+      data.roundByJudge.data.event.rounds.find(
+        (round) => roundNo === round.roundNo
+      )?.completed) ||
+    false;
+
   if (loading)
     return (
       <div className="h-screen w-screen flex justify-center">
@@ -89,90 +95,103 @@ const Judge: NextPage = (props: Props) => {
   return (
     <Dashboard>
       <Toaster />
-      <div className="relative top-14 md:top-0 p-2 flex justify-between items-center">
-        <h1 className="text-3xl mb-3">
-          Hello <span className="font-semibold">{user?.name}</span>!
-        </h1>
-        <h1 className="text-3xl mb-3">
-          {data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess' && (
-            <span>
-              Round {data.roundByJudge.data.roundNo} of{' '}
-              {data.roundByJudge.data.event.name}
-            </span>
-          )}
-        </h1>
-      </div>
-      <div className="flex h-[80vh] gap-3">
-        <div className="basis-1/2 shrink-0 grow-0 bg-black/20 rounded-lg ">
-          {EventLoading ? (
-            <Spinner />
-          ) : (
-            <>
-              {data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess' && (
-                <TeamList
-                  data={TeamsData}
-                  loading={TeamsLoading}
-                  selectionMode={selectionMode}
-                  setSelectionMode={setSelectionMode}
-                  selectedTeam={selectedTeam}
-                  setSelectedTeam={setSelectedTeam}
-                  roundNo={data.roundByJudge.data.roundNo}
-                  eventType={data.roundByJudge.data.event.eventType}
-                  eventId={data.roundByJudge.data.eventId}
-                  finalRound={
-                    data.roundByJudge.data.roundNo ===
-                    data.roundByJudge.data.event.rounds.length
-                  }
-                  winners={winners}
-                />
-              )}
-            </>
-          )}
+      <div
+        className={isCompleted ? 'pointer-events-none opacity-30 relative' : ''}
+      >
+        <div className="relative top-14 md:top-0 p-2 flex justify-between items-center">
+          <h1 className="text-3xl mb-3">
+            Hello <span className="font-semibold">{user?.name}</span>!
+          </h1>
+          <h1 className="text-3xl mb-3">
+            {data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess' && (
+              <span>
+                Round {data.roundByJudge.data.roundNo} of{' '}
+                {data.roundByJudge.data.event.name}
+              </span>
+            )}
+          </h1>
         </div>
-        <div className="basis-1/2 shrink-0 grow-0 bg-black/20 rounded-lg ">
-          {EventLoading ? (
-            <Spinner />
-          ) : (
-            <>
-              {selectionMode ? (
-                <>
-                  {data?.roundByJudge.__typename ===
-                    'QueryRoundByJudgeSuccess' &&
-                    TeamsData && (
-                      <SelectedTeamList
-                      eventId={data.roundByJudge.data.eventId}
-                        teams={TeamsData}
-                        roundNo={data.roundByJudge.data.roundNo}
-                        finalRound={
-                          data.roundByJudge.data.roundNo ===
-                          data.roundByJudge.data.event.rounds.length
-                        }
-                        winners={winners}
-                        winnersLoading={winnersLoading}
+        {isCompleted && (
+          <div className="absolute top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center">
+            <h1 className="text-3xl font-semibold text-white">
+              Thank you for judging this event!
+            </h1>
+          </div>
+        )}
+        <div className="flex h-[80vh] gap-3">
+          <div className="basis-1/2 shrink-0 grow-0 bg-black/20 rounded-lg ">
+            {EventLoading ? (
+              <Spinner />
+            ) : (
+              <>
+                {data?.roundByJudge.__typename ===
+                  'QueryRoundByJudgeSuccess' && (
+                  <TeamList
+                    data={TeamsData}
+                    loading={TeamsLoading}
+                    selectionMode={selectionMode}
+                    setSelectionMode={setSelectionMode}
+                    selectedTeam={selectedTeam}
+                    setSelectedTeam={setSelectedTeam}
+                    roundNo={data.roundByJudge.data.roundNo}
+                    eventType={data.roundByJudge.data.event.eventType}
+                    eventId={data.roundByJudge.data.eventId}
+                    finalRound={
+                      data.roundByJudge.data.roundNo ===
+                      data.roundByJudge.data.event.rounds.length
+                    }
+                    winners={winners}
+                  />
+                )}
+              </>
+            )}
+          </div>
+          <div className="basis-1/2 shrink-0 grow-0 bg-black/20 rounded-lg ">
+            {EventLoading ? (
+              <Spinner />
+            ) : (
+              <>
+                {selectionMode ? (
+                  <>
+                    {data?.roundByJudge.__typename ===
+                      'QueryRoundByJudgeSuccess' &&
+                      TeamsData && (
+                        <SelectedTeamList
+                          eventId={data.roundByJudge.data.eventId}
+                          teams={TeamsData}
+                          roundNo={data.roundByJudge.data.roundNo}
+                          finalRound={
+                            data.roundByJudge.data.roundNo ===
+                            data.roundByJudge.data.event.rounds.length
+                          }
+                          winners={winners}
+                          winnersLoading={winnersLoading}
+                          eventType={data.roundByJudge.data.event.eventType}
+                        />
+                      )}
+                  </>
+                ) : selectedTeam ? (
+                  <>
+                    {data?.roundByJudge.__typename ===
+                      'QueryRoundByJudgeSuccess' && (
+                      <Criterias
+                        selectedTeam={selectedTeam}
+                        eventId={data?.roundByJudge.data.eventId}
+                        roundNo={data?.roundByJudge.data.roundNo}
+                        criterias={data.roundByJudge.data.criteria}
                       />
                     )}
-                </>
-              ) : selectedTeam ? (
-                <>
-                  {data?.roundByJudge.__typename ===
-                    'QueryRoundByJudgeSuccess' && (
-                    <Criterias
-                      selectedTeam={selectedTeam}
-                      eventId={data?.roundByJudge.data.eventId}
-                      roundNo={data?.roundByJudge.data.roundNo}
-                      criterias={data.roundByJudge.data.criteria}
-                    />
-                  )}
-                </>
-              ) : (
-                <div className="flex justify-center items-center h-full">
-                  <h1 className="text-2xl font-semibold">
-                    Choose a team to start judging.
-                  </h1>
-                </div>
-              )}
-            </>
-          )}
+                  </>
+                ) : (
+                  <div className="flex justify-center items-center h-full">
+                    <h1 className="text-2xl font-semibold">
+                      Choose a team to start judging.
+                    </h1>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
         </div>
       </div>
     </Dashboard>
