@@ -71,7 +71,7 @@ const ConfirmRoundModal = ({
         intent={'success'}
         className="w-fit"
       >
-        Confirm Winners
+        Confirm {finalRound ? 'Winners' : 'Teams'}
       </Button>
       <Modal
         title={`Confirm Winners?`}
@@ -104,11 +104,11 @@ const ConfirmRoundModal = ({
 
           {selectedTeams.judgeGetTeamsByRound.filter(
             (team) => team.roundNo > roundNo
-          ).length === 0 &&
+          ).length !== 0 &&
             selectedTeams.judgeGetTeamsByRound.map((team) => {
               return (
                 <div
-                  className="flex flex-col justify-start items-center"
+                  className="flex flex-row gap-2 justify-start items-center"
                   key={team.id}
                 >
                   <h1 className="text-xl font-semibold">{team.name}</h1>
