@@ -1,0 +1,11 @@
+mutation CompleteRound($eventId: ID!, $roundNo: Int!) {
+  completeRound(eventId: $eventId, roundNo: $roundNo) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationCompleteRoundSuccess {
+      __typename
+    }
+  }
+}

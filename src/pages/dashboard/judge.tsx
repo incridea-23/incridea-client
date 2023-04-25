@@ -140,6 +140,7 @@ const Judge: NextPage = (props: Props) => {
                     'QueryRoundByJudgeSuccess' &&
                     TeamsData && (
                       <SelectedTeamList
+                      eventId={data.roundByJudge.data.eventId}
                         teams={TeamsData}
                         roundNo={data.roundByJudge.data.roundNo}
                         finalRound={
@@ -166,7 +167,7 @@ const Judge: NextPage = (props: Props) => {
               ) : (
                 <div className="flex justify-center items-center h-full">
                   <h1 className="text-2xl font-semibold">
-                    Select a team to start judging.
+                    Choose a team to start judging.
                   </h1>
                 </div>
               )}

@@ -5,13 +5,13 @@ import {
   DeleteWinnerDocument,
   JudgeGetTeamsByRoundSubscription,
   PromoteToNextRoundDocument,
-  WinnersByEventDocument,
   WinnersByEventQuery,
 } from '@/src/generated/generated';
 import { idToTeamId } from '@/src/utils/id';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { toast } from 'react-hot-toast';
 import { AiOutlineClose } from 'react-icons/ai';
+import ConfirmRoundModal from './ConfirmRoundModal';
 
 const SelectedTeamList = ({
   teams,
@@ -19,12 +19,14 @@ const SelectedTeamList = ({
   finalRound,
   winners,
   winnersLoading,
+  eventId,
 }: {
   teams: JudgeGetTeamsByRoundSubscription;
   roundNo: number;
   finalRound: boolean;
   winners: WinnersByEventQuery | undefined;
   winnersLoading: boolean;
+  eventId: string;
 }) => {
   const [promote, { loading: promoteLoading }] = useMutation(
     PromoteToNextRoundDocument
@@ -138,6 +140,7 @@ const SelectedTeamList = ({
                       onClick={() => {
                         handlePromote(team?.id!);
                       }}
+                      disabled={promoteLoading}
                     >
                       <AiOutlineClose />
                     </Button>
@@ -169,7 +172,16 @@ const SelectedTeamList = ({
                 <div className="text-white/60 basis-1/4">
                   {idToTeamId(winner?.team.id!)}
                 </div>
-                <div className="text-white/60 basis-1/4">{winner.type}</div>
+                <div className="text-white/60 basis-1/4">
+                  {winner.type
+                    .replace(/_/g, ' ')
+                    .replace(
+                      /\b\w+/g,
+                      (match) =>
+                        match.charAt(0).toUpperCase() +
+                        match.slice(1).toLowerCase()
+                    )}
+                </div>
                 <div className="basis-1/4">
                   <Button
                     onClick={() => {
@@ -196,6 +208,14 @@ const SelectedTeamList = ({
               </div>
             </div>
           ))}
+        {finalRound && (
+          <ConfirmRoundModal
+            winners={winners}
+            roundNo={roundNo}
+            winnersLoading={winnersLoading}
+            eventId={eventId}
+          />
+        )}
       </div>
     </div>
   );
