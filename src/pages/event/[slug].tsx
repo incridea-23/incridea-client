@@ -29,6 +29,8 @@ function event({ event, error }: { event: Event; error: String }) {
     if (event.minTeamSize === event.maxTeamSize) {
       if (event.minTeamSize !== 1) 
         teamSizeText += `${event.minTeamSize} members per team`;
+      if (event.minTeamSize === 0)
+        teamSizeText = "";
     } else {
       teamSizeText = ` ${event.minTeamSize} - ${event.maxTeamSize} members per team`;
     }
@@ -157,7 +159,7 @@ function event({ event, error }: { event: Event; error: String }) {
                 eventId={event.id}
                 type={event.eventType}
               /> : <div className='bg-black/20 px-3 p-2.5 font-semibold italic text-white/60 rounded-sm '>
-                  Lazzerena registrations are temporarily closed.
+                  On-spot registrations only
                 </div>}
             </div>
 

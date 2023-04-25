@@ -19,7 +19,7 @@ const BranchRep: NextPage = () => {
 
   // 1. Redirect to login if user is not logged in
   if (!user) {
-    router.push('/auth/login');
+    router.push('/login');
     return <div>Redirecting...</div>;
   }
 
