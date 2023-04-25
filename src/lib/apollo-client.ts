@@ -68,8 +68,7 @@ const authLink = setContext(async (_, { headers }) => {
 const uri = "http://localhost:4000/graphql";
 const sseLink = new SSELink({ uri, withCredentials: true });
 const httpLink = new HttpLink({ uri });
-const authSSELink = ApolloLink.from([authLink, sseLink]);
-const authHttpLink = ApolloLink.from([authLink, httpLink]);
+
 const link = split(
   ({ query, operationName }) => {
     const definition = getOperationAST(query, operationName);
@@ -79,8 +78,8 @@ const link = split(
       definition.operation === "subscription"
     );
   },
-  authSSELink,
-  authHttpLink
+  sseLink,
+  authLink.concat(httpLink)
 );
 
 export default function createApolloClient() {
