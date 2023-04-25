@@ -11,11 +11,12 @@ import {
   WinnerType,
   WinnersByEventQuery,
 } from '@/src/generated/generated';
-import { idToTeamId } from '@/src/utils/id';
+import { idToPid, idToTeamId } from '@/src/utils/id';
 import { useMutation, useQuery, useSubscription } from '@apollo/client';
 import React, { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import { AiOutlineSearch } from 'react-icons/ai';
+import { AiFillEye, AiOutlineSearch } from 'react-icons/ai';
+import ViewTeamModal from './ViewTeamModal';
 
 type Props = {
   data: JudgeGetTeamsByRoundSubscription | undefined;
@@ -94,7 +95,6 @@ const TeamList = ({
       'SubscriptionGetRoundStatusSuccess'
     ) {
       if (roundStatus.getRoundStatus.data.selectStatus) {
-        console.log('selecting');
         setSelectionMode(true);
       }
     }
@@ -143,18 +143,14 @@ const TeamList = ({
       ) {
         const isWinner =
           winners?.winnersByEvent.__typename === 'QueryWinnersByEventSuccess' &&
-          winners?.winnersByEvent.data.find((winner) => winner.team.id === team.id);
+          winners?.winnersByEvent.data.find(
+            (winner) => winner.team.id === team.id
+          );
         return !isWinner;
       } else {
         return true;
       }
     }
-  );
-
-  console.log(filteredTeams.map((team) => team.id));
-  console.log(
-    winners?.winnersByEvent.__typename === 'QueryWinnersByEventSuccess' &&
-      winners?.winnersByEvent.data.map((winner) => winner.id)
   );
 
   const sortedTeams = [...(filteredTeams ?? [])].sort((team1, team2) => {
@@ -185,25 +181,29 @@ const TeamList = ({
             className="absolute right-3 top-2.5 text-white/60"
           />
         </div>
-        <Button
-          size={'small'}
-          intent={'dark'}
-          className="mr-2"
-          onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-        >
-          {sortOrder === 'asc' ? '▲' : '▼'}
-        </Button>
+        {selectionMode && (
+          <>
+            <Button
+              size={'small'}
+              intent={'dark'}
+              className="mr-2"
+              onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+            >
+              {sortOrder === 'asc' ? '▲' : '▼'}
+            </Button>
 
-        <select
-          value={sortField}
-          onChange={(e) =>
-            setSortField(e.target.value as 'Total Score' | 'Your Score')
-          }
-          className="bg-white/20 text-white/60 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 ring-white/40 mr-2"
-        >
-          <option value="Total Score">Total Score</option>
-          <option value="Your Score">Your Score</option>
-        </select>
+            <select
+              value={sortField}
+              onChange={(e) =>
+                setSortField(e.target.value as 'Total Score' | 'Your Score')
+              }
+              className="bg-white/20 text-white/60 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 ring-white/40 mr-2"
+            >
+              <option value="Total Score">Total Score</option>
+              <option value="Your Score">Your Score</option>
+            </select>
+          </>
+        )}
 
         <Button
           onClick={() => {
@@ -241,7 +241,7 @@ const TeamList = ({
                 className="mr-2"
                 noScaleOnHover
               >
-                {type}
+                {type.replaceAll('_', ' ')}
               </Button>
             ))}
           </div>
@@ -254,10 +254,12 @@ const TeamList = ({
             <div className={`basis-1/12 text-white/80`}>Total</div>
             {selectionMode ? (
               <div className={`basis-2/12 text-white/80`}>
-                {finalRound ? winnerType.replaceAll('_', ' ') : 'Promote'}
+                {finalRound ? 'Select' : 'Promote'}
               </div>
             ) : (
-              <div className={`basis-2/12`}></div>
+              <div className={`basis-2/12 flex justify-end items-end`}>
+                {teamOrParticipant === 'Team' && 'View'}
+              </div>
             )}
           </div>
         </div>
@@ -307,7 +309,9 @@ const TeamList = ({
                       : 'text-white/60'
                   }`}
                 >
-                  {idToTeamId(team?.id!)}
+                  {teamOrParticipant === 'Team'
+                    ? idToTeamId(team?.id!)
+                    : idToPid(team.leaderId?.toString()!)}
                 </div>
 
                 <div
@@ -340,13 +344,23 @@ const TeamList = ({
                     )?.totalScore}
                 </div>
 
-                <div className={`basis-2/12`}>
+                <div
+                  className={`basis-2/12 ${
+                    !selectionMode ? 'flex justify-end items-end' : ''
+                  }`}
+                >
                   {selectionMode && !finalRound && (
                     <input
                       disabled={promoteLoading}
                       type="checkbox"
                       className="h-5 w-5 text-white/80"
                       onChange={() => handlePromote(team?.id!)}
+                    />
+                  )}
+                  {!selectionMode && teamOrParticipant === 'Team' && (
+                    <ViewTeamModal
+                      teamName={team.name}
+                      members={team.members}
                     />
                   )}
                   {selectionMode && finalRound && (

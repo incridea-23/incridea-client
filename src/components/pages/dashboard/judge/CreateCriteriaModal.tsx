@@ -59,7 +59,7 @@ const CreateCriteriaModal: FC<{
         }}
         noScaleOnHover
       >
-        Create Criteria
+        Create {' '} <span className='hidden md:block'>Criteria</span>
       </Button>
       <Modal
         title={`Create Criteria`}

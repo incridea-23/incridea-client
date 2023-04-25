@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Spinner from "@/src/components/spinner";
 import { useAuth } from "@/src/hooks/useAuth";
 import { useRouter } from "next/router";
@@ -13,6 +14,8 @@ import {
 } from "@/src/generated/generated";
 import { StatusBadge } from "..";
 import { NextPage, NextPageContext } from "next";
+import { useEffect, useState } from "react";
+import { CSVLink } from "react-csv";
 
 const Jury: NextPage<{ slug: string }> = (props) => {
   const { user, loading, error } = useAuth();
@@ -85,7 +88,7 @@ const RoundTabs = ({
       as={"div"}
       className="sm:rounded-xl mt-5 overflow-hidden border-0 border-gray-900/40"
     >
-      <Tab.List className="w-full overflow-x-auto flex  backdrop-blur-md bg-gray-600/60 ">
+      <Tab.List className="w-full overflow-x-auto flex  backdrop-blur-md bg-gray-400/20 ">
         {rounds.map((round) => (
           <Tab
             key={`${round.roundNo}-${eventId}`}
@@ -174,10 +177,38 @@ const JudgeTable = ({
   judges: QueryGetScoreSheetJuryViewSuccess["data"][0]["judges"];
   teams: QueryGetScoreSheetJuryViewSuccess["data"];
 }) => {
+  const [csvData, setCsvData] = useState([]);
+  const [judgeName, setJudgeName] = useState(null);
+  const process = (judgeId: any) => {
+    const judgesData: any = [];
+    const teamData: any = [];
+    let data = [];
+    teams.map((team) => {
+      let judges: any = team.judges;
+      teamData.push(team?.teamName);
+      let temp = judges?.filter((judge: any) => judge?.judgeId === judgeId);
+      judgesData.push(temp);
+    });
+    data.push({ JudgeName: judgesData[0][0]?.judgeName });
+
+    teamData.map((team: any, index: any) => {
+      let obj = {};
+      let sum = 0;
+      obj["teamNames"] = team;
+      judgesData[index][0]?.criteria?.map((data: any) => {
+        obj[data.criteriaName] = data.score;
+        sum += data.score;
+      });
+      obj["judgeTotal"] = sum;
+      data.push(obj);
+    });
+    return data;
+  };
+
   return (
     <Tab.Group>
-      <Tab.List className="w-full items-center gap-5 p-2 flex bg-gray-800/60 text-white rounded-sm">
-        <span className="font-semibold ml-3">Judges : </span>
+      <Tab.List className="w-full items-center gap-5 p-2 flex bg-gray-300/20 text-white">
+        <span className="font-semibold text-xl ml-3">Judges </span>
         {judges.map((judge) => (
           <Tab
             key={judge.judgeId}
@@ -185,6 +216,10 @@ const JudgeTable = ({
           >
             {({ selected }) => (
               <button
+                onClick={() => {
+                  setCsvData(process(judge?.judgeId));
+                  setJudgeName(judge?.judgeName);
+                }}
                 className={`font-semibold hover:bg-gray-700/90 shadow-md py-2 px-4 ${
                   selected ? "bg-gray-700" : "bg-gray-600"
                 }`}
@@ -194,39 +229,60 @@ const JudgeTable = ({
             )}
           </Tab>
         ))}
+        {judgeName && (
+          <button className="bg-green-500 p-2 rounded-sm ml-auto mr-5">
+            <CSVLink data={csvData}>
+              Download Score sheet by {judgeName}
+            </CSVLink>
+          </button>
+        )}
       </Tab.List>
       <Tab.Panels>
         {judges.map((judge) => (
           <Tab.Panel key={judge.judgeName}>
-            <div className="flex justify-evenly gap-5 text-3xl font-semibold">
-              <div className="">Team Name</div>
+            <div className="hidden md:flex bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding  p-1 items-center justify-between gap-2.5 text-xl font-bold h-16">
+              <div className="basis-1/3 py-2.5 text-center pl-2">Team Name</div>
               {judge.criteria.map((criteria) => (
-                <div key={criteria.criteriaId} className="">
+                <div
+                  key={criteria.criteriaId}
+                  className="basis-1/3 py-2.5 text-center pl-2"
+                >
                   {criteria.criteriaName}
                 </div>
               ))}
-              <div className="">Judge Total</div>
-              <div className="">Judge Total</div>
+              <div className="basis-1/3 py-2.5 text-center pl-2">
+                Judge Total
+              </div>
+              <div className="basis-1/3 py-2.5 text-center pr-2">
+                Grand Total
+              </div>
             </div>
             {teams.map((team) => (
               <div
                 key={team.teamId}
-                className="flex justify-evenly gap-5 text-3xl font-semibold"
+                className="bg-white/10 md:rounded-none rounded-lg md:p-4  p-3 flex flex-col md:flex-row md:items-center items-start md:justify-evenly w-full md:text-center mb-3 md:my-0"
               >
-                <div className="">{team.teamName}</div>
+                <div className="basis-1/3 py-0.5 text-center text-lg">
+                  {team.teamName}
+                </div>
                 {team.judges
                   .find((j) => j.judgeId === judge.judgeId)
                   ?.criteria.map((criteria) => (
-                    <div key={criteria.criteriaId} className="">
+                    <div
+                      key={criteria.criteriaId}
+                      className="basis-1/3  py-0.5 text-center text-lg"
+                    >
                       {criteria.score}
                     </div>
                   ))}
-                <div className="">
+                <div className="basis-1/3  py-0.5 text-center text-lg">
                   {team.judges
                     .find((j) => j.judgeId === judge.judgeId)
                     ?.criteria.reduce((acc, curr) => acc + curr.score, 0)}
                 </div>
-                <div className="">{team.teamScore}</div>
+                <div className="basis-1/3 py-0.5 text-center text-lg">
+                  {team.teamScore}
+                </div>
               </div>
             ))}
           </Tab.Panel>
