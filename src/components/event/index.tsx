@@ -27,6 +27,8 @@ const Event = ({
     if (data.minTeamSize === data.maxTeamSize) {
       if (data.minTeamSize !== 1)
         teamSizeText += `${data.minTeamSize} members per team`;
+      if (data.minTeamSize === 0)
+        teamSizeText = "";
     } else {
       teamSizeText = `${data.minTeamSize} - ${data.maxTeamSize} members per team`;
     }
@@ -132,8 +134,8 @@ const Event = ({
               )
             )}
           </div>
-          <Button noScaleOnHover className="hover:scale-0 shrink-0 mt-2">
-            <Link href={generateEventUrl(data.name, data.id)}>Register</Link>
+          <Button disabled={data.name.toLowerCase() === 'lazzerena'} noScaleOnHover className="hover:scale-0 shrink-0 mt-2">
+            <Link href={generateEventUrl(data.name, data.id)}>{data.name.toLowerCase() === 'lazzerena' ? 'On Spot Registrations Only'  : 'Register'}</Link>
           </Button>
         </motion.div>
     </AnimatePresence>

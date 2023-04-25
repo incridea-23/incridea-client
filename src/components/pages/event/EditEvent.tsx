@@ -40,15 +40,17 @@ const EditTeamModal: FC<{
             <h1 className={`titleFont text-2xl mb-5`}>{idToTeamId(team.id)}</h1>
           </div>
 
-          <div className="hidden md:flex bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-t-lg p-1 items-center justify-between font-bold bodyFont">
-            <h1 className="py-1 w-full text-center">Name</h1>
+          <div className="hidden md:flex bg-white/20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-t-lg p-1 items-center justify-between font-bold bodyFont">
+            <h1 className="py-1 w-full text-center">Member</h1>
             <h1 className="py-1 w-full text-center">Role</h1>
             <h1 className="py-1 w-full text-center">Remove</h1>
           </div>
 
-          {team?.members?.map((member: any) => (
+          {team?.members?.map((member: any, index) => (
             <div
-              className="flex gap-2 items-center my-2 justify-between bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-2 rounded-sm bodyFont"
+              className={`flex gap-2 items-center mt-0.5 justify-between bg-white/20 backdrop-filter backdrop-blur-lg p-2 rounded-sm bodyFont ${
+                index === team.members.length - 1 ? 'rounded-b-lg' : ''
+                }`}
               key={member.user.id}
             >
               <h1 className="w-full text-center">{member.user.name}</h1>{' '}

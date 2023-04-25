@@ -16,6 +16,7 @@ query MyTeam($eventId: ID!) {
           id
           name
           maxTeamSize
+          minTeamSize
           fees
           eventType
         }

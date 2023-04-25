@@ -1,31 +1,32 @@
+import { baseImageUrl } from "@/src/utils/url";
 import Image from "next/image";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 
 const EventsPeek: FC<{
   speed: number;
 }> = ({ speed }) => {
   const images = [
     "Battle_of_Bands_WEB.jpg",
-    "Copy of NAVARASA_WithoutContact.png",
+    "Copy_of_NAVARASA_WithoutContact.png",
     "Desafio.jpg",
-    "Stomp That.jpg",
+    "Stomp_That.jpg",
     "VibeV3.jpg",
     "COUTURE_WEB.jpg",
-    "Knuckle Down.jpg",
+    "Knuckle_Down.jpg",
     "TULU_POSTER_WEB.jpg",
-    "usaravalli@3x.jpg",
+    "usaravalli_3x.jpg",
     "Hogathon.jpg",
     "Battle_of_Bands_WEB.jpg",
-    "Copy of NAVARASA_WithoutContact.png",
+    "Copy_of_NAVARASA_WithoutContact.png",
     "Desafio.jpg",
-    "Stomp That.png",
+    "Stomp_That.jpg",
     "VibeV3.jpg",
     "COUTURE_WEB.jpg",
-    "Knuckle Down.jpg",
+    "Knuckle_Down.jpg",
     "TULU_POSTER_WEB.jpg",
-    "usaravalli@3x.jpg",
+    "usaravalli_3x.jpg",
     "Hogathon.jpg",
-  ]; // TODO: Replace with actual images (top 3)
+  ];
 
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
@@ -36,11 +37,11 @@ const EventsPeek: FC<{
         data-scroll-speed={speed}
         data-scroll-direction="horizontal"
         className="w-[500%] md:w-[350%] lg:w-[250%] flex gap-2 py-2 items-center backdrop-filter">
-        {images.slice(0, 10).map((i) => {
+        {images.slice(0, 10).map((i, idx) => {
           return (
-            <div className="flex justify-center items-start gap-5" key={i}>
+            <div className="flex justify-center items-start gap-5" key={idx}>
               <Image
-                src={"/assets/Core_Event_Posters/" + i}
+                src={baseImageUrl + "/assets/Core_Event_Posters/" + i}
                 alt="Gallery Image"
                 width={500}
                 height={300}
@@ -63,12 +64,12 @@ const EventsPeek: FC<{
               transitionDelay: "10ms",
               transitionTimingFunction: "ease-in-out",
             }}>
-            {images.map((i) => {
+            {images.map((i, idx) => {
               return (
-                <li className="w-[250px] py-2 px-1" key={i}>
+                <li className="w-[250px] py-2 px-1" key={idx}>
                   <Image
-                    src={"/assets/Core_Event_Posters/" + i}
-                    alt="Gallery Image"
+                    src={baseImageUrl + "/assets/Core_Event_Posters/" + i}
+                    alt={i.slice(0, i.indexOf("."))}
                     width={500}
                     height={300}
                   />
@@ -89,12 +90,12 @@ const EventsPeek: FC<{
               transitionDelay: "10ms",
               transitionTimingFunction: "ease-in-out",
             }}>
-            {images.map((i) => {
+            {images.map((i, idx) => {
               return (
-                <li className="w-[250px] py-2 px-1" key={i}>
+                <li className="w-[250px] py-2 px-1" key={idx}>
                   <Image
-                    src={"/assets/Core_Event_Posters/" + i}
-                    alt="Gallery Image"
+                    src={baseImageUrl + "/assets/Core_Event_Posters/" + i}
+                    alt={i.slice(0, i.indexOf("."))}
                     width={500}
                     height={300}
                   />

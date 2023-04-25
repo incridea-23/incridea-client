@@ -7,6 +7,7 @@ import 'swiper/css/navigation';
 
 import { BsChevronUp, BsChevronDown } from 'react-icons/bs';
 import BlurImage from '../blurImage';
+import { baseImageUrl } from '@/src/utils/url';
 
 type GalleryProps = {
   title: string;
@@ -38,7 +39,7 @@ const GallerySlide: FC<GalleryProps> = ({ title, next, prev, imgArr }) => {
       <div className="absolute top-2/3 sm:top-1/2 left-1/2 opacity-40 -translate-x-1/2 -translate-y-2/3 sm:-translate-y-1/3 w-[60%] h-[60%] bg-black skew-x-0 sm:skew-x-12 overflow-hidden">
         <Image
           fill
-          src={'/gallery/' + activeImg}
+          src={baseImageUrl + '/gallery/' + activeImg}
           alt="incridea"
           className="skew-0 sm:-skew-x-12 scale-110 object-cover object-center"
           priority
@@ -74,7 +75,7 @@ const GallerySlide: FC<GalleryProps> = ({ title, next, prev, imgArr }) => {
                     }`}
                   >
                     <BlurImage
-                      src={'/gallery/' + img}
+                      src={baseImageUrl + '/gallery/' + img}
                       alt="incridea"
                       className={`object-cover object-center`}
                       fill

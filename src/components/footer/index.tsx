@@ -40,16 +40,17 @@ export function FooterBody() {
             width={150}
             height={100}
             alt="Incridea Logo"
+            className="h-auto w-auto"
           />
         </div>
         <div className="md:basis-3/5">
           <ul className="flex flex-wrap whitespace-nowrap flex-row flex-1 gap-2 md:gap-5 justify-center text-sm sm:text-sm items-center ">
             <li className=" text-gray-300 hover:text-gray-100">
-              <Link href="/privacy">Privacy policy</Link>
+              <Link href="/privacy">Privacy Policy</Link>
             </li>
             |
             <li className="text-gray-300 hover:text-gray-100">
-              <Link href="/rules">Terms & condition</Link>
+              <Link href="/rules">Terms & Conditions</Link>
             </li>
             |
             <li className="text-gray-300 hover:text-gray-100">

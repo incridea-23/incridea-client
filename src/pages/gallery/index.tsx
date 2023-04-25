@@ -44,7 +44,7 @@ const Gallery: NextPage = () => {
           muted
           className="object-cover object-center w-full h-full opacity-50 scale-[1.1]"
         >
-          <source src="gallery.mp4" type="video/mp4"></source>
+          <source src="https://res.cloudinary.com/drzra1b9g/video/upload/v1681721288/gallery.mp4" type="video/mp4"></source>
         </video>
         <motion.div
           animate={{ y: [20, 0], opacity: [0, 1], repeatCount: 1 }}

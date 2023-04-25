@@ -116,6 +116,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
         width={1000}
         alt="flare"
         className="absolute max-h-screen pointer-events-none opacity-50  top-0 right-0"
+        priority
       />
       <h1
         className={`titleFont font-bold text-5xl tracking-wide text-center pt-32 text-white`}
