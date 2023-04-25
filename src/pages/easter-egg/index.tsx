@@ -23,7 +23,7 @@ const EasterEgg: NextPage = (props: Props) => {
   const getDay = () => {
     const date = new Date();
     const day = date.getDate();
-    if (day === 25) return "Day1";
+    if (day === 26) return "Day1";
     if (day === 27) return "Day2";
     if (day === 28) return "Day3";
     if (day === 29) return "Day4";
@@ -38,6 +38,8 @@ const EasterEgg: NextPage = (props: Props) => {
       day: getDay() as DayType,
     },
   });
+
+  console.log(cardsError)
 
   const {
     data: submissions,
@@ -160,7 +162,7 @@ const EasterEgg: NextPage = (props: Props) => {
             </Button>
           </>
         ) : (
-          <>Could not fetch cards, please try again later</>
+          <span className="text-white/70">Could not fetch cards, please try again later</span>
         )}
       </div>
     </div>

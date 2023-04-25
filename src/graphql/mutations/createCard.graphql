@@ -1,0 +1,10 @@
+mutation CreateCard($clue: String!, $day: DayType!) {
+  createCard(clue: $clue, day: $day) {
+    ... on Error {
+      __typename
+    }
+    ... on MutationCreateCardSuccess {
+      __typename
+    }
+  }
+}
