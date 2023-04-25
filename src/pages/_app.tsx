@@ -38,7 +38,7 @@ export default function App({
 
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => setLoading(false), 2500);
+    setTimeout(() => setLoading(false), 0);
   }, []);
 
   return (

@@ -5,11 +5,12 @@ import TextInput from '../input'
 type Props = {
   value: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  className?: string
 }
 
-const SearchBox = ({ value, onChange }: Props) => {
+const SearchBox = ({className, value, onChange }: Props) => {
   return (
-    <div className='relative'>
+    <div className={className + ' relative'}>
       <TextInput
         type={'text'}
         value={value}

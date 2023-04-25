@@ -1,0 +1,10 @@
+mutation CreateSubmission($cardId: Int!, $image: String!) {
+  createSubmission(cardId: $cardId, image: $image) {
+    ... on MutationCreateSubmissionSuccess {
+      __typename
+    }
+    ... on Error {
+      __typename
+    }
+  }
+}
