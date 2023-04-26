@@ -68,11 +68,10 @@ const AddTeamMember: FC<{
   };
   const addHandler = () => {
     if (!userId) return;
-    const id = pidToId(userId);
     let promise = organizerAddParticipantToTeam({
       variables: {
         teamId,
-        userId: id,
+        userId: userId.startsWith('INC23-') ? pidToId(userId) : userId,
       },
     }).then((res) => {
       if (

@@ -66,7 +66,7 @@ export default function AddTeamModal({ eventId }: { eventId: string }) {
         size={"large"}
         className="w-full md:w-fit whitespace-nowrap rounded-lg"
         onClick={() => setIsOpen(true)}>
-        Add Team
+        <span className="text-white">Add Team</span>
       </Button>
       <Modal
         showModal={isOpen}

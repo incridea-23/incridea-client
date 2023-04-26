@@ -155,7 +155,7 @@ const ViewTeamModal: FC<{
                         }}
                         className="w-full"
                       >
-                        <BiTrashAlt className="text-base" />
+                        <BiTrashAlt className="text-white" />
                       </Button>
                     </div>
                   </div>
