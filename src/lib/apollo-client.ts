@@ -66,7 +66,7 @@ const authLink = setContext(async (_, { headers }) => {
 });
 
 const uri = "https://incridea.onrender.com/graphql";
-const sseLink = new SSELink({ uri, withCredentials: true });
+const sseLink = new SSELink({ uri });
 const httpLink = new HttpLink({ uri });
 
 const link = split(
