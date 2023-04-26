@@ -43,7 +43,7 @@ const AddEventModal: FC<{
 
   return (
     <div className="flex items-center justify-center">
-      <Button fullWidth intent={'info'} size={'large'} onClick={() => setShowModal(true)}>
+      <Button fullWidth intent={'ghost'} size={'large'} onClick={() => setShowModal(true)}>
         <IoAdd />  Add Event
       </Button>
         <Modal title="Add Event" size="medium" onClose={handleCloseModal} showModal={showModal}>

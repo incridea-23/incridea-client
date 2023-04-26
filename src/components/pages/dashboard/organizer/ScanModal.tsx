@@ -16,7 +16,7 @@ const ScanModal: FC<{
   return (
     <>
       <Button
-        intent={'info'}
+        intent={'ghost'}
         outline
         size={'large'}
         className="w-full md:w-fit whitespace-nowrap rounded-lg"

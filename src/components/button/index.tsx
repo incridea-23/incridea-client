@@ -10,9 +10,9 @@ const buttonStyles = cva(
         primary:
           'bg-gradient-to-br from-[#e95c71] via-[#dd5c6e] to-[#bb384c]  text-white ',
         secondary: 'bg-gray-700 text-gray-200 hover:bg-gray-600',
-        danger: 'bg-red-500 text-white hover:bg-red-600',
+        danger: 'text-white hover:bg-red-600',
         success: 'bg-green-500 text-white hover:bg-green-600',
-        info: 'bg-teal-500 text-white hover:bg-teal-600',
+        info: 'text-white hover:bg-teal-600',
         dark: 'bg-gray-900/60 text-white hover:bg-opacity-30',
         ghost: 'bg-transparent border-[#e95c71] border text-[#f3556a] ',
       },
