@@ -14,7 +14,7 @@ import {
 } from "@/src/generated/generated";
 import { StatusBadge } from "..";
 import { NextPage, NextPageContext } from "next";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CSVLink } from "react-csv";
 
 const Jury: NextPage<{ slug: string }> = (props) => {
