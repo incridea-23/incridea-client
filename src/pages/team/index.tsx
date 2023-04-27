@@ -65,7 +65,7 @@ const TeamMembers = [
   {
     name: 'Numan Naeem',
     role: 'UI Lead | Developer',
-    image: `${baseImageUrl}/team/numan.jpg`,
+    image: `${baseImageUrl}/team/numan.jpeg`,
     github: 'numannaeem',
     linkedin: 'numxn',
     instagram: 'num4n_',

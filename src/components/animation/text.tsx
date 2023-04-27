@@ -5,7 +5,8 @@ const TextAnimation: FC<{
   text: string;
   className?: string;
   textStyle?: string;
-}> = ({ text, className, textStyle }) => {
+  marginRight?: string;
+}> = ({ text, className, textStyle, marginRight }) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true })
   const words = text.split(' ');
@@ -51,7 +52,7 @@ const TextAnimation: FC<{
       {words.map((word, index) => (
         <motion.span
           variants={child}
-          style={{ marginRight: '15px' }}
+          style={{ marginRight: marginRight || '5px' }}
           key={index}
           className={textStyle}
         >

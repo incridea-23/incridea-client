@@ -50,20 +50,22 @@ const CountDown: FC = () => {
   // )
     return (
       <section
-        className={`text-white text-center titleFont mb-10 lg:mb-20`}
+        className={`text-white text-center titleFont  mb-28`}
         style={{ willChange: 'transform' }}
       >
         <TextAnimation
           text="The wait is over!"
+          marginRight='15px'
           className="flex justify-center"
           textStyle="text-3xl md:text-3xl font-semibold lg:text-6xl md:mt-10 z-10"
         />
         <TextAnimation
           text="Incridea is live!"
+          marginRight='15px'
           className="flex justify-center"
           textStyle="text-2xl md:text-3xl font-semibold lg:text-4xl md:mt-10 mt-4 z-10"
         />
-        <div className="flex flex-row justify-center items-center sm:items-center gap-2 sm:gap-5 lg:gap-10 -mt-4 drop-shadow-xl relative">
+        <div className="flex flex-row justify-center items-center sm:items-center gap-2 sm:gap-5 lg:gap-10 md:-mt-20 -mt-10 drop-shadow-xl relative">
           <Image
             src={'/assets/png/helm.png'}
             width={400}
