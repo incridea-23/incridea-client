@@ -43,8 +43,7 @@ const EasterEgg: NextPage = (props: Props) => {
     },
   });
 
-  console.log(cardsError);
-
+  
   const {
     data: submissions,
     loading: submissionsLoading,
@@ -54,6 +53,7 @@ const EasterEgg: NextPage = (props: Props) => {
       day: getDay() as DayType,
     },
   });
+  console.log(submissions);
 
   const [submissionMutation, { data, loading, error }] = useMutation(
     CreateSubmissionDocument
@@ -65,47 +65,6 @@ const EasterEgg: NextPage = (props: Props) => {
     }
   }, [cards]);
 
-  const onSave = async () => {
-    const url = `https://incridea.onrender.com/easter-egg/upload`;
-    setSaving(true);
-    setSaved(false);
-    for (let i = 0; i < imageFiles.length; i++) {
-      const file = imageFiles[i];
-      if (file) {
-        const formData = new FormData();
-        formData.append("image", file);
-        await fetch(url, {
-          method: "POST",
-          body: formData,
-          mode: "cors",
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-          },
-        })
-          .then((res) => res.json())
-          .then(async (data) => {
-            if (cards?.getCards.__typename === "QueryGetCardsSuccess")
-              await submissionMutation({
-                variables: {
-                  cardId: Number(cards?.getCards.data[i].id),
-                  image: data.url,
-                },
-              }).then((res) => {
-                if (
-                  res.data?.createSubmission.__typename !==
-                  "MutationCreateSubmissionSuccess"
-                ) {
-                  throw new Error("Error uploading submission for card " + (i + 1));
-                } else setSaved(true);
-              });
-          })
-          .catch((err) => {
-            alert(err);
-          });
-      }
-    }
-    setSaving(false);
-  };
   if (authLoading)
     return (
       <div className="bg-gradient-to-b pt-28 from-[#41acc9]  via-[#075985] to-[#2d6aa6] min-h-screen relative">
@@ -137,8 +96,11 @@ const EasterEgg: NextPage = (props: Props) => {
         <h2 className="titleFont text-center text-white text-4xl mb-8">
           Upload your images!
         </h2>
-        <h2 className="bodyFont text-center text-white text-xl mb-8">
+        <h2 className="bodyFont text-center text-white text-xl mb-3">
           Find clues across the campus and upload them here
+        </h2>
+        <h2 className="bodyFont font-semibold text-center text-white text-xl mb-8">
+          Note: Your submissions are autosaved after uploading 
         </h2>
         {cardsLoading ? (
           <Spinner />
@@ -155,6 +117,7 @@ const EasterEgg: NextPage = (props: Props) => {
                   <h2 className="mb-3 bodyFont md:px-6  px-4 ">{card.clue}</h2>
                   <div className="md:px-6 md:pb-4 flex flex-col grow">
                     <ImageUpload
+                    cardId={card.id}
                       loading={submissionsLoading}
                       existingImage={
                         submissions?.submissionsByUser.__typename ===
@@ -177,7 +140,7 @@ const EasterEgg: NextPage = (props: Props) => {
                 </div>
               ))}
             </div>
-            <Button disabled={saving} className="mt-10" onClick={onSave}>
+            {/* <Button disabled={saving} className="mt-10" onClick={onSave}>
               {saving ? (
                 <>
                   Saving <Spinner intent={"white"} size={"small"} />
@@ -189,7 +152,7 @@ const EasterEgg: NextPage = (props: Props) => {
               ) : (
                 "Save"
               )}
-            </Button>
+            </Button> */}
           </>
         ) : (
           <span className="text-white/60">

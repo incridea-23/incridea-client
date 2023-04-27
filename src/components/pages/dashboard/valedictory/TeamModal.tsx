@@ -27,7 +27,7 @@ const TeamModal: FC<{
       <div className="md:h-64 md:max-h-72 h-96 overflow-y-auto">
         {teamDeatilsLoading && <Spinner />}
         {teamDeatils?.teamDetails.__typename === "QueryTeamDetailsSuccess"
-          ? teamDeatils.teamDetails.data.members?.map((member: any) => (
+          ? teamDeatils.teamDetails.data.members?.map((member) => (
               <div
                 key={member.user.id}
                 className="flex md:flex-row flex-col border md:text-lg text-base border-gray-600 rounded-lg mb-2 p-2 md:justify-center justify-start">
@@ -46,7 +46,7 @@ const TeamModal: FC<{
                   {member.user.phoneNumber}
                 </span>
                 <span className="md:text-base font-bold w-full md:w-1/5 mb-2 md:mb-0 justify-center text-center">
-                  {member.user.college.name}
+                  {member.user.college?.name}
                 </span>
               </div>
             ))
