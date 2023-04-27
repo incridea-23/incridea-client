@@ -6,9 +6,10 @@ type Props = {
   value: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   className?: string
+  placeholder?: string
 }
 
-const SearchBox = ({className, value, onChange }: Props) => {
+const SearchBox = ({className, value, onChange, placeholder }: Props) => {
   return (
     <div className={className + ' relative'}>
       <TextInput
@@ -16,7 +17,7 @@ const SearchBox = ({className, value, onChange }: Props) => {
         value={value}
         onChange={onChange}
         additionalclasses='p-2 pr-10 w-full'
-        placeholder='Search by name or PID'
+        placeholder={placeholder || 'Search by name or PID'}
       />
       <AiOutlineSearch
         size={'1.4rem'}

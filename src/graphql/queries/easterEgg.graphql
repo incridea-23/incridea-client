@@ -7,6 +7,10 @@ query MySubmissions($day: DayType!) {
         image
       }
     }
+    ... on Error {
+      __typename
+      message
+    }
   }
 }
 
