@@ -5,11 +5,12 @@ import Spinner from '@/src/components/spinner';
 import createToast from '@/src/components/toast';
 import {
   CompleteRoundDocument,
+  GetTotalScoresDocument,
   JudgeGetTeamsByRoundSubscription,
   WinnersByEventQuery,
 } from '@/src/generated/generated';
 import { idToPid, idToTeamId } from '@/src/utils/id';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { useState } from 'react';
 
 const ConfirmRoundModal = ({
@@ -59,6 +60,17 @@ const ConfirmRoundModal = ({
     createToast(promise, 'Confirming winners...');
   };
 
+  const { data: scores, loading: scoresLoading } = useQuery(
+    GetTotalScoresDocument,
+    {
+      variables: {
+        eventId: eventId!,
+        roundNo: roundNo!,
+      },
+      skip: !eventId || !roundNo,
+    }
+  );
+
   const disabled =
     winners?.winnersByEvent.__typename === 'QueryWinnersByEventSuccess' &&
     winners?.winnersByEvent.data.some((winner) => winner.type === 'WINNER') &&
@@ -97,6 +109,42 @@ const ConfirmRoundModal = ({
             <br />
             Note that this action cannot be undone.
           </p>
+
+          {!finalRound && (
+            <div className="hidden md:flex flex-row justify-evenly p-2 bg-gray-600 rounded-lg mb-2 w-full mt-2">
+              <span
+                className={`text-lg font-bold ${
+                  solo ? 'basis-1/3' : 'basis-1/4'
+                } text-center`}
+              >
+                Sl. No.
+              </span>
+              <span
+                className={`text-lg font-bold ${
+                  solo ? 'basis-1/3' : 'basis-1/4'
+                } text-center`}
+              >
+                {solo ? 'PID' : 'Team ID'}
+              </span>
+              {!solo && (
+                <span
+                  className={`text-lg font-bold ${
+                    solo ? 'basis-1/3' : 'basis-1/4'
+                  } text-center`}
+                >
+                  Team Name
+                </span>
+              )}
+              <span
+                className={`text-lg font-bold ${
+                  solo ? 'basis-1/3' : 'basis-1/4'
+                } text-center`}
+              >
+                Total Score
+              </span>
+            </div>
+          )}
+
           {/* Non final round - Confirming participant selection for next round */}
           {!finalRound &&
             selectedTeams.judgeGetTeamsByRound.filter(
@@ -108,25 +156,54 @@ const ConfirmRoundModal = ({
             )}
 
           {!finalRound && (
-            <div className="flex flex-wrap gap-5 my-4">
+            <div className="flex flex-wrap gap-2 my-4 w-full">
               {selectedTeams.judgeGetTeamsByRound
                 .filter((team) => team.roundNo > roundNo)
-                .map((team) => {
+                .map((team, index) => {
                   return (
                     <div
-                      className="flex flex-col gap-2 justify-start items-center p-3 bg-gray-600 rounded-lg w-fit flex-1"
+                      className="flex gap-2 justify-center text-center items-center p-3 bg-gray-600 rounded-lg w-full"
                       key={team.id}
-                      style={{
-                        minWidth: '200px',
-                      }}
                     >
+                      <div
+                        className={`${
+                          solo ? 'basis-1/3' : 'basis-1/4'
+                        } text-lg text-white/60`}
+                      >
+                        <Badge className="text-xs">{index + 1}</Badge>
+                      </div>
+
                       {!solo && (
-                        <h1 className="text-xl font-semibold">{team.name}</h1>
+                        <h1
+                          className={`${
+                            solo ? 'basis-1/3' : 'basis-1/4'
+                          } text-lg text-white/60`}
+                        >
+                          {team.name}
+                        </h1>
                       )}
-                      <p className="text-lg text-white/60">
+
+                      <p
+                        className={`${
+                          solo ? 'basis-1/3' : 'basis-1/4'
+                        } text-lg text-white/60`}
+                      >
                         {solo
                           ? idToPid(team.leaderId?.toString()!)
                           : idToTeamId(team.id)}
+                      </p>
+
+                      <p
+                        className={`${
+                          solo ? 'basis-1/3' : 'basis-1/4'
+                        } text-lg text-white/60`}
+                      >
+                        {scoresLoading && <Spinner intent={'white'} />}
+                        {scores?.getTotalScores.__typename ===
+                          'QueryGetTotalScoresSuccess' &&
+                          scores?.getTotalScores.data.find(
+                            (score) => score.teamId === Number(team.id)
+                          )?.totalScore}
                       </p>
                     </div>
                   );
@@ -157,29 +234,48 @@ const ConfirmRoundModal = ({
           {/* Final round - Confirming winners */}
           {finalRound && winnersLoading && <Spinner />}
           {finalRound && (
-            <div className="flex flex-wrap gap-5 my-2">
+            <div className="hidden md:flex flex-row justify-evenly p-2 bg-gray-600 rounded-lg mb-2 w-full mt-2">
+              <span className={`text-lg font-bold  text-center`}>Sl. No.</span>
+              <span className={`text-lg font-bold  text-center`}>
+                {solo ? 'PID' : 'Team ID'}
+              </span>
+              <span className={`text-lg font-bold  text-center`}>Position</span>
+              <span className={`text-lg font-bold  text-center`}>
+                Total Score
+              </span>
+            </div>
+          )}
+          {finalRound && (
+            <div className="flex flex-wrap gap-5 my-2 w-full">
               {winners?.winnersByEvent.__typename ===
                 'QueryWinnersByEventSuccess' &&
-                winners.winnersByEvent.data.map((winner) => {
+                winners.winnersByEvent.data.map((winner, index) => {
                   return (
                     <div
-                      className="flex flex-col gap-2 justify-start items-center p-3 bg-gray-600 rounded-lg w-fit my-2 flex-1"
+                      className="flex gap-2 justify-center items-center p-3 bg-gray-600 rounded-lg w-full my-2 text-center"
                       key={winner.id}
-                      style={{
-                        minWidth: '200px',
-                      }}
                     >
-                      <h1 className="text-xl font-semibold">
-                        {winner.team.name}
-                      </h1>
-                      <p className="text-lg text-white/60">
+                      <div className="text-lg text-white/60 basis-1/4">
+                        <Badge className="text-xs">{index + 1}</Badge>
+                      </div>
+                      <p className="text-lg text-white/60 basis-1/4">
                         {solo
                           ? idToPid(winner.team.leaderId?.toString()!)
                           : idToTeamId(winner.team.id)}
                       </p>
-                      <Badge className="text-xs">
-                        {winner.type.replaceAll('_', ' ')}
-                      </Badge>
+                      <div className="basis-1/4">
+                        <Badge className="text-xs">
+                          {winner.type.replaceAll('_', ' ')}
+                        </Badge>
+                      </div>
+                      <p className="text-lg text-white/60 basis-1/4">
+                        {scoresLoading && <Spinner intent={'white'} />}
+                        {scores?.getTotalScores.__typename ===
+                          'QueryGetTotalScoresSuccess' &&
+                          scores.getTotalScores.data.find(
+                            (score) => score.teamId === Number(winner.team.id)
+                          )?.totalScore}
+                      </p>
                     </div>
                   );
                 })}
@@ -197,7 +293,11 @@ const ConfirmRoundModal = ({
                 intent={'success'}
                 noScaleOnHover
               >
-                {completeLoading ? <Spinner intent={'white'} /> : 'Confirm Winners'}
+                {completeLoading ? (
+                  <Spinner intent={'white'} />
+                ) : (
+                  'Confirm Winners'
+                )}
               </Button>
             )}
         </div>
