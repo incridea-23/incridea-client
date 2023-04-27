@@ -1,16 +1,18 @@
-import { useZxing } from 'react-zxing';
-import { useState } from 'react';
-import MarkAttendance from './ScanMarkAttendance';
-import AddParticipantToEvent from './AddParticipantToEvent';
-import ScanParticipantToTeam from './ScanParticipantToTeam';
-import Badge from '@/src/components/badge';
+import { useZxing } from "react-zxing";
+import { useState } from "react";
+import MarkAttendance from "./ScanMarkAttendance";
+import AddParticipantToEvent from "./AddParticipantToEvent";
+import ScanParticipantToTeam from "./ScanParticipantToTeam";
+import Badge from "@/src/components/badge";
+import Pronite from "@/src/components/pronite";
 
 export const QRCodeScanner: React.FC<{
-  intent: 'attendance' | 'addToTeam' | 'addToEvent';
+  intent: "attendance" | "addToTeam" | "addToEvent" | "pronite";
   eventId?: string;
   teamId?: string;
   eventType?: string;
-}> = ({ intent, eventId, teamId, eventType }) => {
+  pId?: string;
+}> = ({ intent, eventId, teamId, eventType, pId }) => {
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -36,29 +38,30 @@ export const QRCodeScanner: React.FC<{
       <div className="mt-4">
         {result && (
           <div className="flex flex-col items-center">
-            <Badge color={'info'}>Scanned ID: {result}</Badge>
+            <Badge color={"info"}>Scanned ID: {result}</Badge>
             <div className="mt-2">
-              {intent === 'attendance' && (
+              {intent === "attendance" && (
                 <MarkAttendance
                   eventId={eventId}
-                  eventType={eventType || ''}
+                  eventType={eventType || ""}
                   result={result}
                 />
               )}
-              {intent === 'addToEvent' && (
+              {intent === "addToEvent" && (
                 <AddParticipantToEvent
-                  eventId={eventId || ''}
+                  eventId={eventId || ""}
                   userId={result}
                 />
               )}
-              {intent === 'addToTeam' && (
-                <ScanParticipantToTeam teamId={teamId || ''} userId={result} />
+              {intent === "addToTeam" && (
+                <ScanParticipantToTeam teamId={teamId || ""} userId={result} />
               )}
+              {intent === "pronite" && <Pronite pId={result} />}
             </div>
           </div>
         )}
         {error && !result && (
-          <Badge color={'danger'}>No QR Code in sight</Badge>
+          <Badge color={"danger"}>No QR Code in sight</Badge>
         )}
       </div>
     </div>
