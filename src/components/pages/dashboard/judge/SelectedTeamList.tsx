@@ -37,7 +37,7 @@ const SelectedTeamList = ({
   const [deleteWinner, { loading: deleteLoading }] = useMutation(
     DeleteWinnerDocument,
     {
-      refetchQueries: ["WinnersByEvent"],
+      refetchQueries: ["WinnersByEvent", "RoundByJUdge"],
       awaitRefetchQueries: true,
     }
   );
@@ -193,7 +193,7 @@ const SelectedTeamList = ({
                         variables: {
                           id: winner?.id,
                         },
-                        refetchQueries: ["GetTotalScores"],
+                        refetchQueries: ["GetTotalScores", "WinnersByEvent"],
                         awaitRefetchQueries: true,
                       }).then((data) => {
                         if (data.data?.deleteWinner.__typename === "Error") {
