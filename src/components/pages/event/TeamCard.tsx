@@ -139,7 +139,7 @@ const TeamCard = ({
               <span className="text-xs bodyFont">
                 Almost there!{' '}
                 {team.event.fees
-                  ? `Pay ${team.event.fees} to confirm`
+                  ? `Pay ${team.event.fees} to confirm `
                   : 'Confirm '}
                 your{' '}
                 {team.event.eventType === 'INDIVIDUAL' ||

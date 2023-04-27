@@ -69,6 +69,7 @@ const ValedictoryTab: FC = () => {
         roundDate: maxRound.date,
         completed: maxRound.completed,
         selectStatus: maxRound.selectStatus,
+        eventType: event.eventType
       };
       return eventDetails;
     });
@@ -111,6 +112,7 @@ const ValedictoryTab: FC = () => {
                             modalTitle={event.eventName}
                             modalResult={eventData.type}
                             teamName={eventData.team.name}
+                            eventType={event.eventType}
                           />
                         ) : (
                           ""
@@ -126,6 +128,7 @@ const ValedictoryTab: FC = () => {
                             modalTitle={event.eventName}
                             modalResult={eventData.type}
                             teamName={eventData.team.name}
+                            eventType={event.eventType}
                           />
                         ) : (
                           ""
@@ -141,6 +144,7 @@ const ValedictoryTab: FC = () => {
                             modalTitle={event.eventName}
                             modalResult={eventData.type}
                             teamName={eventData.team.name}
+                            eventType={event.eventType}
                           />
                         ) : (
                           ""

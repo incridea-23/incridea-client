@@ -9,6 +9,7 @@ query CompletedEvents {
       data {
         id
         name
+        eventType
         winner {
           team {
             members {
