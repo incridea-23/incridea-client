@@ -75,6 +75,7 @@ const ValedictoryTab: FC = () => {
             tempp.pid = idToPid(data.user.id);
             tempp.teamId = temp.teamId;
             tempp.teamName = temp.teamName;
+            tempp.eventName = temp.eventName;
             setCsvData((prev) => [...prev, tempp]);
           });
         });
