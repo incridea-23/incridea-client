@@ -11,7 +11,7 @@ import {
 import ViewTeamModal from "./ViewTeamModal";
 import SearchBox from "@/src/components/searchbox";
 import { CSVLink } from "react-csv";
-import { idToPid } from "@/src/utils/id";
+import { idToPid, idToTeamId } from "@/src/utils/id";
 
 const ValedictoryTab: FC = () => {
   const {
@@ -64,7 +64,7 @@ const ValedictoryTab: FC = () => {
         const temp = {};
         temp.eventName = event.name;
         event.winner.map((eventData) => {
-          temp.teamId = eventData.team.id;
+          temp.teamId = idToTeamId(eventData.team.id);
           temp.teamName = eventData.team.name;
           eventData.team.members.map((data) => {
             temp.name = data.user.name;
