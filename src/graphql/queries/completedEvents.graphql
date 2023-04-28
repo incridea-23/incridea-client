@@ -21,6 +21,9 @@ query CompletedEvents {
                 id
                 email
                 createdAt
+                college {
+                  name
+                }
               }
             }
             id
