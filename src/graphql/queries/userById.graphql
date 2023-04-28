@@ -1,0 +1,20 @@
+query UserById($id: ID!) {
+  userById(id: $id) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on QueryUserByIdSuccess {
+      __typename
+      data {
+        college {
+          name
+        }
+        email
+        id
+        name
+        phoneNumber
+      }
+    }
+  }
+}
