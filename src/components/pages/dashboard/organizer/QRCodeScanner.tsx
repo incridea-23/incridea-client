@@ -1,13 +1,13 @@
-import { useZxing } from "react-zxing";
-import { useState } from "react";
-import MarkAttendance from "./ScanMarkAttendance";
-import AddParticipantToEvent from "./AddParticipantToEvent";
-import ScanParticipantToTeam from "./ScanParticipantToTeam";
-import Badge from "@/src/components/badge";
-import Pronite from "@/src/components/pronite";
+import { useZxing } from 'react-zxing';
+import { useState } from 'react';
+import MarkAttendance from './ScanMarkAttendance';
+import AddParticipantToEvent from './AddParticipantToEvent';
+import ScanParticipantToTeam from './ScanParticipantToTeam';
+import Badge from '@/src/components/badge';
+import Pronite from '@/src/components/pronite';
 
 export const QRCodeScanner: React.FC<{
-  intent: "attendance" | "addToTeam" | "addToEvent" | "pronite";
+  intent: 'attendance' | 'addToTeam' | 'addToEvent' | 'pronite';
   eventId?: string;
   teamId?: string;
   eventType?: string;
@@ -25,6 +25,31 @@ export const QRCodeScanner: React.FC<{
     },
   });
 
+  const stopCamera = () => {
+    const stream = ref.current?.srcObject as MediaStream;
+    const tracks = stream?.getTracks();
+    tracks?.forEach((track) => {
+      track.stop();
+    });
+  };
+
+  const startCamera = () => {
+    // start the camera again
+    navigator.mediaDevices
+      .getUserMedia({ video: { facingMode: 'environment' } })
+      .then((stream) => {
+        const video = ref.current;
+        if (video) {
+          video.srcObject = stream;
+        }
+      });
+  };
+
+  const clearScanResults = () => {
+    setResult(null);
+    setError(null);
+  };
+
   return (
     <div className="flex flex-col items-center relative">
       <video className="w-full rounded-lg border border-gray-400" ref={ref} />
@@ -38,30 +63,37 @@ export const QRCodeScanner: React.FC<{
       <div className="mt-4">
         {result && (
           <div className="flex flex-col items-center">
-            <Badge color={"info"}>Scanned ID: {result}</Badge>
+            <Badge color={'info'}>Scanned ID: {result}</Badge>
             <div className="mt-2">
-              {intent === "attendance" && (
+              {intent === 'attendance' && (
                 <MarkAttendance
                   eventId={eventId}
-                  eventType={eventType || ""}
+                  eventType={eventType || ''}
                   result={result}
                 />
               )}
-              {intent === "addToEvent" && (
+              {intent === 'addToEvent' && (
                 <AddParticipantToEvent
-                  eventId={eventId || ""}
+                  eventId={eventId || ''}
                   userId={result}
                 />
               )}
-              {intent === "addToTeam" && (
-                <ScanParticipantToTeam teamId={teamId || ""} userId={result} />
+              {intent === 'addToTeam' && (
+                <ScanParticipantToTeam teamId={teamId || ''} userId={result} />
               )}
-              {intent === "pronite" && <Pronite pId={result} />}
+              {intent === 'pronite' && (
+                <Pronite
+                  pId={result}
+                  stopCamera={stopCamera}
+                  startCamera={startCamera}
+                  clearScanResults={clearScanResults}
+                />
+              )}
             </div>
           </div>
         )}
         {error && !result && (
-          <Badge color={"danger"}>No QR Code in sight</Badge>
+          <Badge color={'danger'}>No QR Code in sight</Badge>
         )}
       </div>
     </div>

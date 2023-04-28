@@ -6,9 +6,20 @@ import { pidToId } from '@/src/utils/id';
 import { useMutation, useQuery } from '@apollo/client';
 import Button from '../button';
 import Spinner from '../spinner';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-function Pronite({ pId }: { pId: string }) {
+function Pronite({
+  pId,
+  stopCamera,
+  startCamera,
+  clearScanResults
+}: {
+  pId: string;
+  stopCamera: () => void;
+  startCamera: () => void;
+  clearScanResults: () => void;
+}) {
+  const [cameraOn, setCameraOn] = useState(true);
   const [registerPronite, { data, loading, error }] = useMutation(
     RegisterProniteDocument,
     {
@@ -18,26 +29,48 @@ function Pronite({ pId }: { pId: string }) {
     }
   );
 
-  const {
-    data: userData,
-    loading: userLoading,
-    error: userError,
-  } = useQuery(UserByIdDocument, {
+  const { data: userData, loading: userLoading } = useQuery(UserByIdDocument, {
     variables: {
       id: pidToId(pId),
     },
   });
 
+  useEffect(() => {
+    if (
+      data?.registerPronite.__typename === 'MutationRegisterProniteSuccess' ||
+      data?.registerPronite.__typename === 'Error'
+    ) {
+      stopCamera();
+      setCameraOn(false);
+    }
+  }, [data, stopCamera]);
+
   return (
     <>
       <div className="max-w-sm mt-1 mb-3">
-        <Button
-          intent={'success'}
-          className="bg-blue-500 mx-auto hover:bg-blue-700 text-white font-bold py-2.5 px-7 rounded"
-          onClick={() => registerPronite()}
-        >
-          Register
-        </Button>
+        {!cameraOn ? (
+          <Button
+            onClick={() => {
+              startCamera();
+              clearScanResults();
+              setCameraOn(true);
+            }}
+            intent={'success'}
+            className="bg-blue-500 mx-auto hover:bg-blue-700 text-white font-bold py-2.5 px-7 rounded"
+          >
+            Scan Again
+          </Button>
+        ) : (
+          <Button
+            intent={'success'}
+            className="bg-blue-500 mx-auto hover:bg-blue-700 text-white font-bold py-2.5 px-7 rounded"
+            onClick={() => {
+              registerPronite();
+            }}
+          >
+            Register
+          </Button>
+        )}
       </div>
       {loading ? (
         <>
@@ -67,24 +100,25 @@ function Pronite({ pId }: { pId: string }) {
           {data?.registerPronite.message && (
             <div>
               <p className="p-3 py-2">{data.registerPronite.message}</p>
-              {userData?.userById.__typename === 'QueryUserByIdSuccess' && (
-                <div className="p-3 bg-white/10 rounded-md bodyFont">
-                  <div className="text-lg leading-snug mb-1">
-                    <span className="font-bold text-green-500">{pId}</span>
+              {userData?.userById.__typename === 'QueryUserByIdSuccess' &&
+                !data.registerPronite.message.includes('authorized') && (
+                  <div className="p-3 bg-white/10 rounded-md bodyFont">
+                    <div className="text-lg leading-snug mb-1">
+                      <span className="font-bold text-green-500">{pId}</span>
+                    </div>
+                    <div className="text-white">
+                      <div className="text-lg leading-snug">
+                        {userData.userById.data.name}
+                      </div>
+                      <div className="text-sm leading-snug">
+                        {userData.userById.data.college?.name}
+                      </div>
+                      <div className="text-sm leading-snug">
+                        {userData.userById.data.phoneNumber}
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-white">
-                    <div className="text-lg leading-snug">
-                      {userData.userById.data.name}
-                    </div>
-                    <div className="text-sm leading-snug">
-                      {userData.userById.data.college?.name}
-                    </div>
-                    <div className="text-sm leading-snug">
-                      {userData.userById.data.phoneNumber}
-                    </div>
-                  </div>
-                </div>
-              )}
+                )}
             </div>
           )}
         </div>
