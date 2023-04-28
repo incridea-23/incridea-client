@@ -67,13 +67,16 @@ const ValedictoryTab: FC = () => {
           temp.teamId = idToTeamId(eventData.team.id);
           temp.teamName = eventData.team.name;
           eventData.team.members.map((data) => {
-            temp.name = data.user.name;
-            temp.phoneno = data.user.phoneNumber;
-            temp.college = data.user.college?.name;
-            temp.email = data.user.email;
-            temp.pid = idToPid(data.user.id);
+            const tempp = {};
+            tempp.name = data.user.name;
+            tempp.phoneno = data.user.phoneNumber;
+            tempp.college = data.user.college?.name;
+            tempp.email = data.user.email;
+            tempp.pid = idToPid(data.user.id);
+            tempp.teamId = temp.teamId;
+            tempp.teamName = temp.teamName;
+            setCsvData((prev) => [...prev, tempp]);
           });
-          setCsvData((prev) => [...prev, temp]);
         });
       });
     };
