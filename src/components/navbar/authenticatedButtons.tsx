@@ -13,7 +13,7 @@ const AuthenticatedButtons: FC<{
       {user?.role === 'USER' ? (
         <div className='flex space-x-2'>
         {/* <Link href="/register"> */}
-          <Button>Register</Button>
+          <Button>Closed</Button>
         {/* </Link> */}
         <Button
         onClick={() => signOut()}
