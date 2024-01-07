@@ -1,18 +1,18 @@
-import { useApollo } from '@/src/lib/apollo';
-import '@/src/styles/globals.css';
-import { ApolloProvider } from '@apollo/client';
-import type { AppProps } from 'next/app';
-import HeadComponent from '../components/head';
-import { useEffect, useState } from 'react';
-import Footer from '../components/footer';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-import { AnimatePresence, motion } from 'framer-motion';
-import Image from 'next/image';
-import Loader from '../components/Loader';
-import { Toaster } from 'react-hot-toast';
+import { useApollo } from "@/src/lib/apollo";
+import "@/src/styles/globals.css";
+import { ApolloProvider } from "@apollo/client";
+import type { AppProps } from "next/app";
+import HeadComponent from "../components/head";
+import { useEffect, useState } from "react";
+import Footer from "../components/footer";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
+import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
+import Loader from "../components/Loader";
+import { Toaster } from "react-hot-toast";
 
-const Navbar = dynamic(() => import('../components/navbar'), { ssr: false });
+const Navbar = dynamic(() => import("../components/navbar"), { ssr: false });
 
 export default function App({
   Component,
@@ -24,15 +24,15 @@ export default function App({
   const variants = {
     initialState: {
       opacity: 0,
-      translateY: '100px',
+      translateY: "100px",
     },
     animateState: {
       opacity: 1,
-      translateY: '0%',
+      translateY: "0%",
     },
     exitState: {
       opacity: 0,
-      translateY: '-100px',
+      translateY: "-100px",
     },
   };
 
@@ -40,6 +40,7 @@ export default function App({
     setLoading(true);
     setTimeout(() => setLoading(false), 0);
   }, []);
+  if (router.pathname === "/theme") return <Component {...pageProps} />;
 
   return (
     <ApolloProvider client={apolloClient}>
@@ -50,10 +51,10 @@ export default function App({
       <Toaster />
       <AnimatePresence>{isLoading && <Loader />}</AnimatePresence>
       <div className="bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6]">
-        {(
+        {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white">
             <Image
-              src={'/assets/png/logo.png'}
+              src={"/assets/png/logo.png"}
               alt="loader"
               width={300}
               height={300}
@@ -63,7 +64,7 @@ export default function App({
               Tides of Change
             </h1>
           </div>
-        )}
+        }
         {!isLoading && <Navbar />}
         <AnimatePresence mode="wait">
           <motion.main
@@ -72,14 +73,12 @@ export default function App({
             animate="animateState"
             exit="exitState"
             transition={{ duration: 0.8 }}
-            variants={variants}
-          >
+            variants={variants}>
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8 }}
-              className="min-h-screen"
-            >
+              className="min-h-screen">
               <Component setLoading={setLoading} {...pageProps} />
             </motion.div>
           </motion.main>

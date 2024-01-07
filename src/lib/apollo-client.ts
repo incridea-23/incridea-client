@@ -53,6 +53,7 @@ class SSELink extends ApolloLink {
     });
   }
 }
+
 const authLink = setContext(async (_, { headers }) => {
   const session = await getSession();
   const token = session?.accessToken;
