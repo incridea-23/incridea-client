@@ -11,7 +11,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Loader from "../components/Loader";
 import { Toaster } from "react-hot-toast";
-
+import { Analytics } from "@vercel/analytics/react";
 const Navbar = dynamic(() => import("../components/navbar"), { ssr: false });
 
 export default function App({
@@ -85,6 +85,7 @@ export default function App({
         </AnimatePresence>
         <Footer />
       </div>
+      <Analytics />
     </ApolloProvider>
   );
 }
