@@ -54,7 +54,7 @@ function Theme() {
           Incridea Theme
         </h1>
         <p
-          className="text-black text-2xl font-semibold "
+          className="text-black  text-2xl font-semibold "
           style={{
             WebkitTextStroke: "0.5px #FFF",
           }}>
@@ -67,7 +67,7 @@ function Theme() {
             className="italic underline">
             instagram
           </a>{" "}
-          for more updates
+          page for more updates
         </p>
       </div>
     </div>
