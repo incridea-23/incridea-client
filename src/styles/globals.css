@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -157,13 +159,17 @@
 }
 
 .titleFont {
-  font-family: 'Trade Winds', cursive;
+  font-family: "Trade Winds", cursive;
 }
 
 .bodyFont {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .event-description * {
-  font-family: 'Montserrat', sans-serif !important;
+  font-family: "Montserrat", sans-serif !important;
+}
+
+.pressStart {
+  font-family: "Press Start 2P", system-ui;
 }

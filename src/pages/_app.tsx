@@ -45,7 +45,126 @@ export default function App({
 
   if (router.pathname === "/theme") return <Component {...pageProps} />;
   return (
-    <div className="w-screen bg-black h-screen text-white">Coming soon..</div>
+    <>
+      <div className="min-h-screen bg-gradient-to-b from-[rgb(0,1,45)] to-[#1c0066]">
+        <div className="absolute top-0 flex justify-between w-full sm:p-8 p-4">
+          <img src="/assets/png/logo.png" className="md:w-32 w-24" />
+          <img src="/assets/png/nitteLogoWhite.png" className="md:w-64 w-48" />
+        </div>
+        <div className="flex justify-center items-center min-h-screen">
+          <h1 className="xl:text-[9rem] lg:text-[8rem] z-20 md:text-[7rem] sm:text-[6rem] text-[3rem] leading-none pressStart text-center text-transparent">
+            <span className="bg-gradient-to-b from-[#43f6fc] via-[#1e0573] to-[#f105f7] bg-clip-text">
+              Coming
+            </span>
+            <br />
+            <span className="bg-gradient-to-b from-[#43f6fc] via-[#1e0573] to-[#f105f7] bg-clip-text border-white ">
+              Soon
+            </span>
+          </h1>
+
+          <div className="lg:flex absolute hidden flex-col 2xl:right-[12%] xl:right-[6%] lg:right-0 gap-16 z-10">
+            <div>
+              <img
+                src="/assets/comingSoon/dots.svg"
+                alt="dots"
+                className=" md:w-[30rem] w-[10rem] absolute opacity-20"
+              />
+              <img
+                src="/assets/comingSoon/joystick.svg"
+                alt=""
+                className="w-48"
+              />
+            </div>
+            <img
+              src="/assets/comingSoon/controller.svg"
+              alt=""
+              className="w-64 rotate-[50deg]"
+            />
+          </div>
+
+          <div className="lg:flex absolute hidden flex-col 2xl:left-[12%] xl:left-[6%] lg:left-0 gap-16 z-10">
+            <img
+              src="/assets/comingSoon/star.svg"
+              alt=""
+              className="w-20 translate-x-20"
+            />
+            <img src="/assets/comingSoon/ring.svg" alt="" className="w-24" />
+            <img
+              src="/assets/comingSoon/yBlock1.svg"
+              alt=""
+              className="w-28 translate-x-20"
+            />
+          </div>
+
+          <div className="lg:hidden flex absolute top-1/4 gap-6">
+            <img
+              src="/assets/comingSoon/star.svg"
+              alt=""
+              className="w-16 translate-y-16"
+            />
+            <img src="/assets/comingSoon/ring.svg" alt="" className="w-16" />
+            <img
+              src="/assets/comingSoon/yBlock1.svg"
+              alt=""
+              className="w-16 translate-y-12"
+            />
+          </div>
+
+          <div className="lg:hidden absolute flex flex-col bottom-16 z-10">
+            <div>
+              <img
+                src="/assets/comingSoon/joystick.svg"
+                alt=""
+                className="w-28 translate-x-24"
+              />
+            </div>
+            <img
+              src="/assets/comingSoon/controller.svg"
+              alt=""
+              className="w-28 rotate-[50deg] -translate-x-24 -translate-y-12"
+            />
+          </div>
+        </div>
+
+        <div className=" absolute bottom-32 lg:flex hidden left-[40%] gap-16 z-10">
+          <img
+            src="/assets/comingSoon/star.svg"
+            alt=""
+            className="w-20 -translate-y-10"
+          />
+          <img
+            src="/assets/comingSoon/ring.svg"
+            alt=""
+            className="w-24 translate-y-10"
+          />
+          <img
+            src="/assets/comingSoon/yBlock1.svg"
+            alt=""
+            className="w-28 -translate-y-10"
+          />
+        </div>
+
+        <div className="z-0 absolute bottom-0 flex justify-between w-full">
+          <img
+            src={"assets/comingSoon/bottomLeft.svg"}
+            alt="bottomLeft"
+            className="w-[40%]"
+          />
+          <img
+            src="/assets/comingSoon/dots.svg"
+            alt="dots"
+            className=" lg:w-[30rem] w-[10rem] absolute bottom-16 left-[10%] opacity-20"
+          />
+
+          <img
+            src={"assets/comingSoon/bottomRight.svg"}
+            alt="bottomRight"
+            className="w-[40%]"
+          />
+        </div>
+      </div>
+    </>
+    // <div className="w-screen bg-black h-screen text-white">Coming soon..</div>
     // <ApolloProvider client={apolloClient}>
     //   <HeadComponent
     //     title="Incridea"
@@ -76,12 +195,14 @@ export default function App({
     //         animate="animateState"
     //         exit="exitState"
     //         transition={{ duration: 0.8 }}
-    //         variants={variants}>
+    //         variants={variants}
+    //       >
     //         <motion.div
     //           initial={{ opacity: 0 }}
     //           animate={{ opacity: 1 }}
     //           transition={{ duration: 0.8 }}
-    //           className="min-h-screen">
+    //           className="min-h-screen"
+    //         >
     //           <Component setLoading={setLoading} {...pageProps} />
     //         </motion.div>
     //       </motion.main>
