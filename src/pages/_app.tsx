@@ -46,10 +46,10 @@ export default function App({
   if (router.pathname === "/theme") return <Component {...pageProps} />;
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-b from-[rgb(0,1,45)] to-[#1c0066]">
+      <div className="min-h-screen bg-gradient-to-b from-[rgb(0,1,45)] to-[#1c0066] overflow-hidden">
         <div className="absolute top-0 flex justify-between w-full sm:p-8 p-4">
           <img src="/assets/png/logo.png" className="md:w-32 w-24" />
-          <img src="/assets/png/nitteLogoWhite.png" className="md:w-64 w-48" />
+          {/* <img src="/assets/png/nitteLogoWhite.png" className="md:w-72 w-48" /> */}
         </div>
         <div className="flex justify-center items-center min-h-screen">
           <h1 className="xl:text-[9rem] lg:text-[8rem] z-20 md:text-[7rem] sm:text-[6rem] text-[3rem] leading-none pressStart text-center text-transparent">
@@ -69,77 +69,163 @@ export default function App({
                 alt="dots"
                 className=" md:w-[30rem] w-[10rem] absolute opacity-20"
               />
-              <img
+              <motion.img
                 src="/assets/comingSoon/joystick.svg"
-                alt=""
-                className="w-48"
+                initial={{ x: 0, y: 0 }}
+                animate={{ y: 20 }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 2,
+                  repeatType: "reverse",
+                  ease: "easeInOut",
+                }}
+                alt="joystick"
+                className="w-44"
               />
             </div>
-            <img
-              src="/assets/comingSoon/controller.svg"
-              alt=""
-              className="w-64 rotate-[50deg]"
-            />
           </div>
 
-          <div className="lg:flex absolute hidden flex-col 2xl:left-[12%] xl:left-[6%] lg:left-0 gap-16 z-10">
-            <img
+          <div className="lg:flex absolute hidden flex-col 2xl:left-[12%] xl:left-[6%] lg:left-0 gap-20 z-10">
+            <motion.img
+              initial={{ opacity: 0.5 }}
+              animate={{ opacity: 1.5 }}
+              transition={{
+                repeat: Infinity,
+                repeatType: "reverse",
+                duration: 1,
+              }}
               src="/assets/comingSoon/star.svg"
-              alt=""
-              className="w-20 translate-x-20"
+              alt="star"
+              className="w-20 translate-x-20 rotate-45"
             />
-            <img src="/assets/comingSoon/ring.svg" alt="" className="w-24" />
-            <img
+            {/* <img src="/assets/comingSoon/ring.svg" alt="" className="w-24" /> */}
+            <motion.img
+              initial={{ rotate: 0 }}
+              animate={{ rotate: -10 }}
+              transition={{
+                repeat: Infinity,
+                duration: 1.5,
+                repeatType: "reverse",
+                ease: "easeInOut",
+              }}
+              src="/assets/comingSoon/controller.svg"
+              alt="controller"
+              className="w-56 "
+            />
+            <motion.img
+              drag
+              dragConstraints={{
+                top: 100,
+                left: 0,
+                right: 100,
+                bottom: 50,
+              }}
               src="/assets/comingSoon/yBlock1.svg"
-              alt=""
+              alt="block1"
               className="w-28 translate-x-20"
             />
           </div>
 
           <div className="lg:hidden flex absolute top-1/4 gap-6">
-            <img
+            <motion.img
+              initial={{ opacity: 0.5 }}
+              animate={{ opacity: 1.5 }}
+              transition={{
+                repeat: Infinity,
+                repeatType: "reverse",
+                duration: 1,
+              }}
               src="/assets/comingSoon/star.svg"
-              alt=""
-              className="w-16 translate-y-16"
+              alt="star"
+              className="w-16 translate-y-16 "
             />
-            <img src="/assets/comingSoon/ring.svg" alt="" className="w-16" />
-            <img
-              src="/assets/comingSoon/yBlock1.svg"
-              alt=""
+            <a
+              href="https://youtu.be/GdmrDe-VIlo?si=NMsqcKajgdB5e9xf"
+              target="_blank"
+            >
+              <img
+                src="/assets/comingSoon/ring.svg"
+                alt="ring"
+                className="w-16"
+              />
+            </a>
+            <motion.img
+              drag
+              dragConstraints={{
+                top: 100,
+                left: 100,
+                right: 0,
+                bottom: 50,
+              }}
+              src="/assets/comingSoon/yBlock2.svg"
+              alt="block2"
               className="w-16 translate-y-12"
             />
           </div>
 
           <div className="lg:hidden absolute flex flex-col bottom-16 z-10">
-            <div>
-              <img
-                src="/assets/comingSoon/joystick.svg"
-                alt=""
-                className="w-28 translate-x-24"
-              />
-            </div>
-            <img
+            <motion.img
+              src="/assets/comingSoon/joystick.svg"
+              alt="joystick"
+              initial={{ x: 0, y: 0 }}
+              animate={{ y: 20 }}
+              transition={{
+                repeat: Infinity,
+                duration: 2,
+                repeatType: "reverse",
+                ease: "easeInOut",
+              }}
+              className="w-28 ml-24"
+            />
+            <motion.img
+              initial={{ rotate: 0 }}
+              animate={{ rotate: -10 }}
+              transition={{
+                repeat: Infinity,
+                duration: 1.5,
+                repeatType: "reverse",
+                ease: "easeInOut",
+              }}
               src="/assets/comingSoon/controller.svg"
-              alt=""
-              className="w-28 rotate-[50deg] -translate-x-24 -translate-y-12"
+              alt="controller"
+              className="w-28 rotate-[50deg] -translate-y-12"
             />
           </div>
         </div>
 
         <div className=" absolute bottom-32 lg:flex hidden left-[40%] gap-16 z-10">
-          <img
+          <motion.img
+            initial={{ opacity: 0.5 }}
+            animate={{ opacity: 1.5 }}
+            transition={{
+              repeat: Infinity,
+              repeatType: "reverse",
+              duration: 1,
+            }}
             src="/assets/comingSoon/star.svg"
-            alt=""
-            className="w-20 -translate-y-10"
+            alt="star"
+            className="w-20 -translate-y-10 "
           />
-          <img
-            src="/assets/comingSoon/ring.svg"
-            alt=""
-            className="w-24 translate-y-10"
-          />
-          <img
-            src="/assets/comingSoon/yBlock1.svg"
-            alt=""
+          <a
+            href="https://youtu.be/GdmrDe-VIlo?si=NMsqcKajgdB5e9xf"
+            target="_blank"
+          >
+            <img
+              src="/assets/comingSoon/ring.svg"
+              alt="ring"
+              className="w-24 translate-y-10"
+            />
+          </a>
+          <motion.img
+            drag
+            dragConstraints={{
+              top: 100,
+              left: 0,
+              right: 100,
+              bottom: 50,
+            }}
+            src="/assets/comingSoon/yBlock2.svg"
+            alt="block1"
             className="w-28 -translate-y-10"
           />
         </div>
