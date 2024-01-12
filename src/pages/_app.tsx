@@ -1,19 +1,19 @@
-import { useApollo } from "@/src/lib/apollo";
-import "@/src/styles/globals.css";
-import { ApolloProvider } from "@apollo/client";
-import type { AppProps } from "next/app";
-import HeadComponent from "../components/head";
-import { useEffect, useState } from "react";
-import Footer from "../components/footer";
-import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
-import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
-import Loader from "../components/Loader";
-import { Toaster } from "react-hot-toast";
-import { Analytics } from "@vercel/analytics/react";
-import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas";
-const Navbar = dynamic(() => import("../components/navbar"), { ssr: false });
+import { useApollo } from '@/src/lib/apollo';
+import '@/src/styles/globals.css';
+import { ApolloProvider } from '@apollo/client';
+import type { AppProps } from 'next/app';
+import HeadComponent from '../components/head';
+import { useEffect, useState } from 'react';
+import Footer from '../components/footer';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
+import Loader from '../components/Loader';
+import { Toaster } from 'react-hot-toast';
+import { Analytics } from '@vercel/analytics/react';
+import { Alignment, Fit, Layout, useRive } from '@rive-app/react-canvas';
+const Navbar = dynamic(() => import('../components/navbar'), { ssr: false });
 
 export default function App({
   Component,
@@ -26,15 +26,15 @@ export default function App({
   const variants = {
     initialState: {
       opacity: 0,
-      translateY: "100px",
+      translateY: '100px',
     },
     animateState: {
       opacity: 1,
-      translateY: "0%",
+      translateY: '0%',
     },
     exitState: {
       opacity: 0,
-      translateY: "-100px",
+      translateY: '-100px',
     },
   };
 
@@ -43,7 +43,7 @@ export default function App({
   //   setTimeout(() => setLoading(false), 0);
   // }, []);
 
-  if (router.pathname === "/theme") return <Component {...pageProps} />;
+  if (router.pathname === '/theme') return <Component {...pageProps} />;
   return (
     <>
       <div className="h-screen bg-gradient-to-b from-[rgb(0,1,45)] to-[#1c0066] overflow-y-hidden">
@@ -99,8 +99,8 @@ export default function App({
                 transition={{
                   repeat: Infinity,
                   duration: 2,
-                  repeatType: "reverse",
-                  ease: "easeInOut",
+                  repeatType: 'reverse',
+                  ease: 'easeInOut',
                 }}
               >
                 <Image
@@ -120,7 +120,7 @@ export default function App({
               animate={{ opacity: 1.5 }}
               transition={{
                 repeat: Infinity,
-                repeatType: "reverse",
+                repeatType: 'reverse',
                 duration: 1,
               }}
             >
@@ -140,8 +140,8 @@ export default function App({
               transition={{
                 repeat: Infinity,
                 duration: 1.5,
-                repeatType: "reverse",
-                ease: "easeInOut",
+                repeatType: 'reverse',
+                ease: 'easeInOut',
               }}
             >
               <Image
@@ -178,7 +178,7 @@ export default function App({
               animate={{ opacity: 1.5 }}
               transition={{
                 repeat: Infinity,
-                repeatType: "reverse",
+                repeatType: 'reverse',
                 duration: 1,
               }}
             >
@@ -213,7 +213,7 @@ export default function App({
               }}
             >
               <Image
-                src="/assets/comingSoon/yBlock2.svg"
+                src="/assets/comingSoon/yblock2.svg"
                 alt="block2"
                 className="w-16 translate-y-12"
                 width={100}
@@ -229,8 +229,8 @@ export default function App({
               transition={{
                 repeat: Infinity,
                 duration: 2,
-                repeatType: "reverse",
-                ease: "easeInOut",
+                repeatType: 'reverse',
+                ease: 'easeInOut',
               }}
             >
               <Image
@@ -248,8 +248,8 @@ export default function App({
               transition={{
                 repeat: Infinity,
                 duration: 1.5,
-                repeatType: "reverse",
-                ease: "easeInOut",
+                repeatType: 'reverse',
+                ease: 'easeInOut',
               }}
             >
               <Image
@@ -269,7 +269,7 @@ export default function App({
             animate={{ opacity: 1.5 }}
             transition={{
               repeat: Infinity,
-              repeatType: "reverse",
+              repeatType: 'reverse',
               duration: 1,
             }}
           >
@@ -305,7 +305,7 @@ export default function App({
             }}
           >
             <Image
-              src="/assets/comingSoon/yBlock2.svg"
+              src="/assets/comingSoon/yblock2.svg"
               alt="block1"
               className="w-28 -translate-y-10"
               width={100}
@@ -318,7 +318,7 @@ export default function App({
           <Image
             height="100"
             width="100"
-            src={"assets/comingSoon/bottomLeft.svg"}
+            src={'assets/comingSoon/bottomLeft.svg'}
             alt="bottomLeft"
             className="w-[40%]"
           />
@@ -333,7 +333,7 @@ export default function App({
           <Image
             height="500"
             width="500"
-            src={"assets/comingSoon/bottomRight.svg"}
+            src={'assets/comingSoon/bottomRight.svg'}
             alt="bottomRight"
             className="w-[40%]"
           />
