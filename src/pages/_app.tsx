@@ -46,8 +46,12 @@ export default function App({
   if (router.pathname === '/theme') return <Component {...pageProps} />;
   return (
     <>
+      <HeadComponent
+        title="Incridea"
+        description="Official Website of Incridea 2023, National level techno-cultural fest, NMAMIT, Nitte. Innovate. Create. Ideate."
+      />
       <div className="h-screen bg-gradient-to-b from-[rgb(0,1,45)] to-[#1c0066] overflow-y-hidden">
-        <div className="absolute top-0 flex justify-between w-full sm:p-8 p-4">
+        <div className="absolute top-0 flex justify-between items-center w-full sm:p-8 p-4">
           <motion.a href="/" initial={{ scale: 1 }} whileTap={{ scale: 0.9 }}>
             <Image
               height={100}
@@ -206,11 +210,14 @@ export default function App({
             <motion.div
               drag
               dragConstraints={{
-                top: 100,
-                left: 100,
-                right: 0,
+                top: -100,
+                right: 20,
                 bottom: 50,
+                left: -100,
               }}
+              dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
+              dragElastic={0.5}
+              whileTap={{ cursor: 'grabbing' }}
             >
               <Image
                 src="/assets/comingSoon/yblock2.svg"
@@ -263,7 +270,7 @@ export default function App({
           </div>
         </div>
 
-        <div className=" absolute bottom-32 lg:flex hidden left-[40%] gap-16 z-10">
+        <div className="absolute bottom-32 lg:flex hidden left-[40%] gap-16 z-10">
           <motion.div
             initial={{ opacity: 0.5 }}
             animate={{ opacity: 1.5 }}
