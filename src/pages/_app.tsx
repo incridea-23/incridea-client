@@ -236,7 +236,7 @@ export default function App({
               right: 100,
               bottom: 50,
             }}
-            src="/assets/comingSoon/yBlock2.svg"
+            src="/assets/comingSoon/yblock2.svg"
             alt="block1"
             className="w-28 -translate-y-10"
           />
