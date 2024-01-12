@@ -19,7 +19,7 @@ export default function Document() {
         />
         <meta name="theme-color" content="#46aacf" />
       </Head>
-      <body className="min-h-screen bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
+      <body className="min-h-screen">
         <Main />
         <NextScript />
       </body>
