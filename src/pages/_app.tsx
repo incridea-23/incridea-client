@@ -48,7 +48,13 @@ export default function App({
     <>
       <div className="min-h-screen bg-gradient-to-b from-[rgb(0,1,45)] to-[#1c0066] overflow-hidden">
         <div className="absolute top-0 flex justify-between w-full sm:p-8 p-4">
-          <img src="/assets/png/logo.png" className="md:w-32 w-24" />
+          <Image
+            height={100}
+            width={100}
+            alt="nitteLogo"
+            src="/assets/png/logo.png"
+            className="md:w-32 w-24"
+          />
           {/* <img src="/assets/png/nitteLogoWhite.png" className="md:w-72 w-48" /> */}
         </div>
         <div className="flex justify-center items-center min-h-screen">
@@ -64,7 +70,9 @@ export default function App({
 
           <div className="lg:flex absolute hidden flex-col 2xl:right-[12%] xl:right-[6%] lg:right-0 gap-16 z-10">
             <div>
-              <img
+              <Image
+                height={100}
+                width={300}
                 src="/assets/comingSoon/dots.svg"
                 alt="dots"
                 className=" md:w-[30rem] w-[10rem] absolute opacity-20"
@@ -142,8 +150,10 @@ export default function App({
             <a
               href="https://youtu.be/GdmrDe-VIlo?si=NMsqcKajgdB5e9xf"
               target="_blank"
-            >
-              <img
+              rel="noreferrer">
+              <Image
+                height={100}
+                width={100}
                 src="/assets/comingSoon/ring.svg"
                 alt="ring"
                 className="w-16"
@@ -209,8 +219,10 @@ export default function App({
           <a
             href="https://youtu.be/GdmrDe-VIlo?si=NMsqcKajgdB5e9xf"
             target="_blank"
-          >
-            <img
+            rel="noreferrer">
+            <Image
+              height={100}
+              width={100}
               src="/assets/comingSoon/ring.svg"
               alt="ring"
               className="w-24 translate-y-10"
@@ -231,18 +243,24 @@ export default function App({
         </div>
 
         <div className="z-0 absolute bottom-0 flex justify-between w-full">
-          <img
+          <Image
+            height="100"
+            width="100"
             src={"assets/comingSoon/bottomLeft.svg"}
             alt="bottomLeft"
             className="w-[40%]"
           />
-          <img
+          <Image
+            height="100"
+            width="100"
             src="/assets/comingSoon/dots.svg"
             alt="dots"
             className=" lg:w-[30rem] w-[10rem] absolute bottom-16 left-[10%] opacity-20"
           />
 
-          <img
+          <Image
+            height="500"
+            width="500"
             src={"assets/comingSoon/bottomRight.svg"}
             alt="bottomRight"
             className="w-[40%]"
