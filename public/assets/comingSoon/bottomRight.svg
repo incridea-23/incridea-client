@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 539.57 390.61">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#Degradado_sin_nombre_74-2);
+      }
+
+      .cls-1, .cls-2 {
+        stroke-width: 0px;
+      }
+
+      .cls-3 {
+        fill: none;
+        mix-blend-mode: overlay;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-4 {
+        isolation: isolate;
+      }
+
+      .cls-2 {
+        fill: url(#Degradado_sin_nombre_74);
+      }
+    </style>
+    <linearGradient id="Degradado_sin_nombre_74" data-name="Degradado sin nombre 74" x1="423.33" y1="432.6" x2="199.68" y2="86.96" gradientUnits="userSpaceOnUse">
+      <stop offset=".04" stop-color="#1c096e"/>
+      <stop offset=".24" stop-color="#2b007f"/>
+      <stop offset=".37" stop-color="#2e0081"/>
+      <stop offset=".49" stop-color="#390189"/>
+      <stop offset=".61" stop-color="#4b0296"/>
+      <stop offset=".72" stop-color="#6404a9"/>
+      <stop offset=".82" stop-color="#8406c2"/>
+      <stop offset=".92" stop-color="#ac09df"/>
+      <stop offset="1" stop-color="#ce0cf9"/>
+    </linearGradient>
+    <linearGradient id="Degradado_sin_nombre_74-2" data-name="Degradado sin nombre 74" x1="444.64" y1="426.41" x2="272.12" y2="159.79" xlink:href="#Degradado_sin_nombre_74"/>
+  </defs>
+  <g class="cls-4">
+    <g id="Layer_2" data-name="Layer 2">
+      <g id="OBJECTS">
+        <g>
+          <path class="cls-2" d="M0,390.61s30.36-155.11,210.18-137.12C390.01,271.47,280.26,0,539.57,0v390.61H0Z"/>
+          <path class="cls-3" d="M63.91,375.32s25.89-127.19,179.23-112.44c153.34,14.75,59.75-207.86,280.88-207.86v320.3H63.91Z"/>
+          <path class="cls-1" d="M109.78,390.61s24.18-118.81,167.42-105.03c143.24,13.78,55.81-194.16,262.37-194.16v299.19H109.78Z"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
