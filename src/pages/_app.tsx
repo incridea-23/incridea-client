@@ -38,57 +38,56 @@ export default function App({
     },
   };
 
-  // useEffect(() => {
-  //   setLoading(true);
-  //   setTimeout(() => setLoading(false), 0);
-  // }, []);
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => setLoading(false), 0);
+  }, []);
 
   if (router.pathname === "/theme") return <Component {...pageProps} />;
   return (
-    <div className="w-screen bg-black h-screen text-white">Coming soon..</div>
-    // <ApolloProvider client={apolloClient}>
-    //   <HeadComponent
-    //     title="Incridea"
-    //     description="Official Website of Incridea 2023, National level techno-cultural fest, NMAMIT, Nitte. Innovate. Create. Ideate."
-    //   />
-    //   <Toaster />
-    //   <AnimatePresence>{isLoading && <Loader />}</AnimatePresence>
-    //   <div className="bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6]">
-    //     {
-    //       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white">
-    //         <Image
-    //           src={"/assets/png/logo.png"}
-    //           alt="loader"
-    //           width={300}
-    //           height={300}
-    //           priority
-    //         />
-    //         <h1 className={`titleFont text-xl md:text-3xl text-center`}>
-    //           Tides of Change
-    //         </h1>
-    //       </div>
-    //     }
-    //     {!isLoading && <Navbar />}
-    //     <AnimatePresence mode="wait">
-    //       <motion.main
-    //         key={router.route}
-    //         initial="intialState"
-    //         animate="animateState"
-    //         exit="exitState"
-    //         transition={{ duration: 0.8 }}
-    //         variants={variants}>
-    //         <motion.div
-    //           initial={{ opacity: 0 }}
-    //           animate={{ opacity: 1 }}
-    //           transition={{ duration: 0.8 }}
-    //           className="min-h-screen">
-    //           <Component setLoading={setLoading} {...pageProps} />
-    //         </motion.div>
-    //       </motion.main>
-    //     </AnimatePresence>
-    //     <Footer />
-    //   </div>
-    //   <Analytics />
-    // </ApolloProvider>
+    <ApolloProvider client={apolloClient}>
+      <HeadComponent
+        title="Incridea"
+        description="Official Website of Incridea 2023, National level techno-cultural fest, NMAMIT, Nitte. Innovate. Create. Ideate."
+      />
+      <Toaster />
+      <AnimatePresence>{isLoading && <Loader />}</AnimatePresence>
+      <div className="bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6]">
+        {
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white">
+            <Image
+              src={"/assets/png/logo.png"}
+              alt="loader"
+              width={300}
+              height={300}
+              priority
+            />
+            <h1 className={`titleFont text-xl md:text-3xl text-center`}>
+              Tides of Change
+            </h1>
+          </div>
+        }
+        {!isLoading && <Navbar />}
+        <AnimatePresence mode="wait">
+          <motion.main
+            key={router.route}
+            initial="intialState"
+            animate="animateState"
+            exit="exitState"
+            transition={{ duration: 0.8 }}
+            variants={variants}>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8 }}
+              className="min-h-screen">
+              <Component setLoading={setLoading} {...pageProps} />
+            </motion.div>
+          </motion.main>
+        </AnimatePresence>
+        <Footer />
+      </div>
+      <Analytics />
+    </ApolloProvider>
   );
 }
