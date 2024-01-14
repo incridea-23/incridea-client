@@ -189,3 +189,35 @@
 .fly-up-down {
   animation: fly-up-down 1.5s ease-in-out infinite;
 }
+
+/* font sizes */
+.title {
+  @apply text-xl md:text-2xl lg:text-3xl;
+  @apply font-bold;
+}
+
+.heading {
+  @apply text-lg md:text-xl lg:text-2xl;
+  @apply font-bold;
+}
+
+.subheading {
+  @apply text-base md:text-lg lg:text-xl;
+  /* @apply font-bold; */
+}
+
+.body {
+  @apply text-sm md:text-base lg:text-lg;
+}
+
+.caption {
+  @apply text-xs md:text-sm lg:text-base;
+  @apply tracking-wider;
+}
+
+/* layout */
+.page-container {
+  @apply max-w-screen-2xl;
+  @apply mx-auto;
+  @apply p-4 md:p-12;
+}
