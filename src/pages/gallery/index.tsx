@@ -1,7 +1,7 @@
-import { NextPage } from 'next';
-import { motion } from 'framer-motion';
-import GallerySlide from '@/src/components/galleryslide';
-import { FooterBody } from '@/src/components/footer';
+import { FooterBody } from "@/src/components/footer";
+import GallerySlide from "@/src/components/galleryslide";
+import { motion } from "framer-motion";
+import { NextPage } from "next";
 
 const Gallery: NextPage = () => {
   const years = [2019, 2020, 2022];
@@ -26,66 +26,88 @@ const Gallery: NextPage = () => {
   const img2019: string[] = generateImagePaths(
     years[0],
     imageCounts[0],
-    'jpeg'
+    "jpeg"
   );
-  const img2020: string[] = generateImagePaths(years[1], imageCounts[1], 'jpg');
-  const img2022: string[] = generateImagePaths(years[2], imageCounts[2], 'jpg');
+  const img2020: string[] = generateImagePaths(years[1], imageCounts[1], "jpg");
+  const img2022: string[] = generateImagePaths(years[2], imageCounts[2], "jpg");
 
   return (
-    <div className="flex flex-col h-screen w-full overflow-x-hidden overflow-y-auto text-gray-100 bg-gradient-to-b from-[#2d6aa6] to-[#052749] snap-y snap-mandatory relative">
-      {/* Header Part */}
-      <div
-        id="head"
-        className="snap-start min-h-screen w-full relative flex overflow-hidden bg-black/60"
-      >
-        <video
-          autoPlay
-          loop
-          muted
-          className="object-cover object-center w-full h-full opacity-50 scale-[1.1]"
-        >
-          <source src="https://res.cloudinary.com/drzra1b9g/video/upload/v1681721288/gallery.mp4" type="video/mp4"></source>
-        </video>
-        <motion.div
-          animate={{ y: [20, 0], opacity: [0, 1], repeatCount: 1 }}
-          transition={{ duration: 3 }}
-          className={`titleFont absolute top-1/2 flex w-full justify-center flex-col`}
-        >
-          <h1 className="text-4xl sm:text-6xl text-center mb-2">Reflections</h1>
-          <h2 className="text-2xl sm:text-4xl text-center">
-            The changing face of the fest
-          </h2>
-        </motion.div>
-        <motion.div
-          animate={{ y: [30, 0], opacity: [0, 1], repeatCount: 1 }}
-          transition={{ duration: 3 }}
-          style={{ x: '-50%' }}
-          className="h-1 w-40 hidden sm:flex bg-gray-100 absolute bottom-8 left-1/2"
-        ></motion.div>
+    <section className="flex flex-col w-full h-screen bg-purple-700 relative">
+      <div className="min-h-screen text-5xl text-gray-200">
+        <div className="absolute top-1/2 left-1/2 -translate-x-[50%]">
+          <p>Header Section</p>
+          <p className="text-3xl mt-2 text-gray-400 text-center">
+            Real nice Quotes
+          </p>
+        </div>
+        <div className="absolute bottom-8 w-3/4 bg-white left-1/2 -translate-x-[50%] h-[2px]"></div>
       </div>
-
-      <GallerySlide
-        title={'2022'}
-        next={'2020'}
-        prev={'head'}
-        imgArr={img2022}
-      />
-      <GallerySlide
-        title={'2020'}
-        next={'2019'}
-        prev={'2022'}
-        imgArr={img2020}
-      />
-      <GallerySlide
-        title={'2019'}
-        next={'footer'}
-        prev={'2020'}
-        imgArr={img2019}
-      />
-
-      <FooterBody />
-    </div>
+      {/* Pc Section */}
+      <div className="min-h-screen overflow-y-auto bg-purple-700">
+        {/* Slide Section */}
+        <div className="text-black text-5xl">{/* Title {Incridea year} */}</div>
+        <div>{/* GBA with images */}</div>
+        <div>{/* Next/Previous Sections Buttons */}</div>
+        <div>{/* ProgressBar with Dice */}</div>
+      </div>
+    </section>
   );
+
+  // return (
+  //   <div className="flex flex-col h-screen w-full overflow-x-hidden overflow-y-auto text-gray-100 bg-gradient-to-b from-[#2d6aa6] to-[#052749] snap-y snap-mandatory relative">
+  //     {/* Header Part */}
+  //     <div
+  //       id="head"
+  //       className="snap-start min-h-screen w-full relative flex overflow-hidden bg-black/60"
+  //     >
+  //       <video
+  //         autoPlay
+  //         loop
+  //         muted
+  //         className="object-cover object-center w-full h-full opacity-50 scale-[1.1]"
+  //       >
+  //         <source src="https://res.cloudinary.com/drzra1b9g/video/upload/v1681721288/gallery.mp4" type="video/mp4"></source>
+  //       </video>
+  //       <motion.div
+  //         animate={{ y: [20, 0], opacity: [0, 1], repeatCount: 1 }}
+  //         transition={{ duration: 3 }}
+  //         className={`titleFont absolute top-1/2 flex w-full justify-center flex-col`}
+  //       >
+  //         <h1 className="text-4xl sm:text-6xl text-center mb-2">Reflections</h1>
+  //         <h2 className="text-2xl sm:text-4xl text-center">
+  //           The changing face of the fest
+  //         </h2>
+  //       </motion.div>
+  //       <motion.div
+  //         animate={{ y: [30, 0], opacity: [0, 1], repeatCount: 1 }}
+  //         transition={{ duration: 3 }}
+  //         style={{ x: '-50%' }}
+  //         className="h-1 w-40 hidden sm:flex bg-gray-100 absolute bottom-8 left-1/2"
+  //       ></motion.div>
+  //     </div>
+
+  //     <GallerySlide
+  //       title={'2022'}
+  //       next={'2020'}
+  //       prev={'head'}
+  //       imgArr={img2022}
+  //     />
+  //     <GallerySlide
+  //       title={'2020'}
+  //       next={'2019'}
+  //       prev={'2022'}
+  //       imgArr={img2020}
+  //     />
+  //     <GallerySlide
+  //       title={'2019'}
+  //       next={'footer'}
+  //       prev={'2020'}
+  //       imgArr={img2019}
+  //     />
+
+  //     <FooterBody />
+  //   </div>
+  // );
 };
 
 export default Gallery;
