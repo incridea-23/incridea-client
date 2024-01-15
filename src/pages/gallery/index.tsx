@@ -2,6 +2,7 @@ import { FooterBody } from "@/src/components/footer";
 import GallerySlide from "@/src/components/galleryslide";
 import { motion } from "framer-motion";
 import { NextPage } from "next";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 const Gallery: NextPage = () => {
   const years = [2019, 2020, 2022];
@@ -46,7 +47,15 @@ const Gallery: NextPage = () => {
       <div className="min-h-screen overflow-y-auto bg-purple-700">
         {/* Slide Section */}
         <div className="text-black text-5xl">{/* Title {Incridea year} */}</div>
-        <div>{/* GBA with images */}</div>
+        <div>
+          <GallerySlide
+            title={"2022"}
+            next={"2020"}
+            prev={"head"}
+            imgArr={img2022}
+          />
+          {/* GBA with images */}
+        </div>
         <div>{/* Next/Previous Sections Buttons */}</div>
         <div>{/* ProgressBar with Dice */}</div>
       </div>
