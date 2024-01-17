@@ -1,9 +1,8 @@
 import Image from "next/image";
-import { FC, useEffect, useMemo, useState } from "react";
-import { Autoplay, Mousewheel, Navigation } from "swiper";
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Autoplay, Mousewheel, Navigation, Swiper as SwiperType } from "swiper";
 import "swiper/css";
-import "swiper/css/navigation";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 
 import { baseImageUrl } from "@/src/utils/url";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
@@ -19,64 +18,90 @@ type GalleryProps = {
 const GallerySlide: FC<GalleryProps> = ({ title, next, prev, imgArr }) => {
   const [active, setActive] = useState<number>(0);
   const [activeImg, setActiveImg] = useState<string>("");
-
+  const swiperRef = useRef<SwiperType>();
   useEffect(() => {
     setActiveImg(imgArr[active]);
   }, [active, imgArr]);
 
   return (
-    <Swiper
-      navigation={true}
-      mousewheel={true}
-      modules={[Navigation, Autoplay, Mousewheel]}
-      autoplay={true}
-      className="w-[30%] h-full"
-    >
-      <SwiperSlide className="flex justify-center items-center bg-white text-center">
-        <div className="relative w-full h-64 flex justify-center items-center">
-          <Image
-            fill
-            src={"/assets/png/diver.png"}
-            alt="incridea"
-            className="object-fill object-center"
-            priority
-          />
-        </div>
-      </SwiperSlide>
-      <SwiperSlide className="flex justify-center items-center bg-white text-center">
-        <div className="relative w-full h-64 flex justify-center items-center">
-          <Image
-            fill
-            src={"/assets/png/diver.png"}
-            alt="incridea"
-            className="object-fill object-center"
-            priority
-          />
-        </div>
-      </SwiperSlide>
-      <SwiperSlide className="flex justify-center items-center bg-white text-center">
-        <div className="relative w-full h-64 flex justify-center items-center">
-          <Image
-            fill
-            src={"/assets/png/diver.png"}
-            alt="incridea"
-            className="object-fill object-center"
-            priority
-          />
-        </div>
-      </SwiperSlide>
-      <SwiperSlide className="flex justify-center items-center bg-white text-center">
-        <div className="relative w-full h-64 flex justify-center items-center">
-          <Image
-            fill
-            src={"/assets/png/diver.png"}
-            alt="incridea"
-            className="object-fill object-center"
-            priority
-          />
-        </div>
-      </SwiperSlide>
-    </Swiper>
+    <div className="relative rounded-b-3xl flex justify-center items-center sm:w-[480px] sm:h-[700px] w-[305px] h-[445px] mx-auto shadow-2xl drop-shadow-2xl">
+      <Image
+        fill
+        src={"/assets/svg/gba_no_buttons.svg"}
+        alt="incridea"
+        className="object-cover object-center"
+        priority
+      />
+
+      <div className="absolute w-full sm:h-[40%] h-[40%] right-0 sm:top-[78px] top-[50px]">
+        <Swiper
+          onBeforeInit={(swiper) => {
+            swiperRef.current = swiper;
+          }}
+          mousewheel={true}
+          modules={[Navigation, Autoplay, Mousewheel]}
+          autoplay={true}
+          className="sm:w-[380px] w-[230px] h-full border-8 border-[#63aeef] relative"
+        >
+          <SwiperSlide className="flex justify-center items-center bg-white text-center">
+            <div className="relative w-full sm:h-60 h-full flex justify-center items-center">
+              <Image
+                fill
+                src={"/assets/png/diver.png"}
+                alt="incridea"
+                className="object-cover object-center"
+                priority
+              />
+            </div>
+          </SwiperSlide>
+
+          <SwiperSlide className="flex justify-center items-center bg-white text-center">
+            <div className="relative w-full sm:h-60 h-full flex justify-center items-center">
+              <Image
+                fill
+                src={"/assets/png/diver.png"}
+                alt="incridea"
+                className="object-cover object-center"
+                priority
+              />
+            </div>
+          </SwiperSlide>
+
+          <SwiperSlide className="flex justify-center items-center bg-white text-center">
+            <div className="relative w-full sm:h-60 h-full flex justify-center items-center">
+              <Image
+                fill
+                src={"/assets/png/diver.png"}
+                alt="incridea"
+                className="object-cover object-center"
+                priority
+              />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className="flex justify-center items-center bg-white text-center">
+            <div className="relative w-full sm:h-60 h-full flex justify-center items-center">
+              <Image
+                fill
+                src={"/assets/png/diver.png"}
+                alt="incridea"
+                className="object-cover object-center"
+                priority
+              />
+            </div>
+          </SwiperSlide>
+        </Swiper>
+        <button
+          onClick={() => swiperRef.current?.slidePrev()}
+          className={`active:bg-gray-800 absolute sm:top-[390px] top-[240px] left-[25px] sm:left-[48px] sm:w-[2.8rem] w-[2.2rem] h-8 rounded-lg duration-300 transition-all ease-in-out 
+            border-yellow-300 border-2 animate- 
+          `}
+        ></button>
+        <button
+          onClick={() => swiperRef.current?.slideNext()}
+          className="active:bg-gray-800 absolute sm:top-[390px] top-[240px] left-[80px] w-[2.2rem] sm:left-[130px] sm:w-[2.8rem] h-8 rounded-lg duration-300 transition-all ease-in-out border-yellow-300 border-2 animate-"
+        ></button>
+      </div>
+    </div>
   );
 
   // return (

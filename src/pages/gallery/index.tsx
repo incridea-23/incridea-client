@@ -33,18 +33,18 @@ const Gallery: NextPage = () => {
   const img2022: string[] = generateImagePaths(years[2], imageCounts[2], "jpg");
 
   return (
-    <section className="flex flex-col w-full h-screen bg-purple-700 relative">
+    <section className="flex flex-col w-full h-screen bg-purple-400 relative">
       <div className="min-h-screen text-5xl text-gray-200">
         <div className="absolute top-1/2 left-1/2 -translate-x-[50%]">
           <p>Header Section</p>
-          <p className="text-3xl mt-2 text-gray-400 text-center">
+          <p className="text-3xl mt-2 text-center">
             Real nice Quotes
           </p>
         </div>
         <div className="absolute bottom-8 w-3/4 bg-white left-1/2 -translate-x-[50%] h-[2px]"></div>
       </div>
       {/* Pc Section */}
-      <div className="min-h-screen overflow-y-auto bg-purple-700">
+      <div className="min-h-screen overflow-y-auto bg-purple-400">
         {/* Slide Section */}
         <div className="text-black text-5xl">{/* Title {Incridea year} */}</div>
         <div>
