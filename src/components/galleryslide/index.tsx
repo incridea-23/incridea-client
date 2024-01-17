@@ -16,6 +16,7 @@ type GalleryProps = {
 };
 
 const GallerySlide: FC<GalleryProps> = ({ title, next, prev, imgArr }) => {
+  const isSmallScreen = window.innerWidth < 768;
   const [active, setActive] = useState<number>(0);
   const [activeImg, setActiveImg] = useState<string>("");
   const swiperRef = useRef<SwiperType>();
@@ -39,8 +40,12 @@ const GallerySlide: FC<GalleryProps> = ({ title, next, prev, imgArr }) => {
   //   let imgpath = 
   // }
 
-  return (    
-    <div className="relative h-screen flex justify-center items-center">
+  return (
+    <>
+    {isSmallScreen ?(
+
+):(
+    <div className="relative h-screen flex justify-center items-center  ">
       {/*Gameboy advance asset*/}
       <Image 
         src={"/assets/svg/gba_gameboy.svg"}
@@ -121,6 +126,7 @@ const GallerySlide: FC<GalleryProps> = ({ title, next, prev, imgArr }) => {
           className="z-50  active:bg-gray-800 absolute top-[197px] left-[992px] w-[5.5rem] h-[5.5rem] rounded-full duration-300 transition-all ease-in-out animate-"
         ></button>
     </div>
+    )}
   );
 
   // return (
