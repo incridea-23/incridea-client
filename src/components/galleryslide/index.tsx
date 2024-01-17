@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useMediaQuery } from "react-responsive"; // Imported the react-responsive module to use media query
 import { Autoplay, Mousewheel, Navigation, Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
@@ -16,10 +17,15 @@ type GalleryProps = {
 };
 
 const GallerySlide: FC<GalleryProps> = ({ title, next, prev, imgArr }) => {
-  const isSmallScreen = window.innerWidth < 768;
   const [active, setActive] = useState<number>(0);
   const [activeImg, setActiveImg] = useState<string>("");
   const swiperRef = useRef<SwiperType>();
+  const isMobile = useMediaQuery({ //Setting maxwidth for mobile
+    query: "(max-width: 786px)"
+  });
+  const isDesktop = useMediaQuery({ // setting minwidth for desktop
+    query: "(min-width: 786px)"
+  });
   useEffect(() => {
     setActiveImg(imgArr[active]);
   }, [active, imgArr]);
@@ -42,91 +48,169 @@ const GallerySlide: FC<GalleryProps> = ({ title, next, prev, imgArr }) => {
 
   return (
     <>
-    {isSmallScreen ?(
+      {isMobile ? ( //if mobile then display this code
+        <div className="relative rounded-b-3xl flex justify-center items-center sm:w-[480px] sm:h-[700px] w-[305px] h-[445px] mx-auto shadow-2xl drop-shadow-2xl">
+          <Image
+            fill
+            src={"/assets/svg/gba_no_buttons.svg"}
+            alt="incridea"
+            className="object-cover object-center"
+            priority
+          />
 
-):(
-    <div className="relative h-screen flex justify-center items-center  ">
-      {/*Gameboy advance asset*/}
-      <Image 
-        src={"/assets/svg/gba_gameboy.svg"}
-        alt="gba_gameboy"
-        className="absolute top-32 z-10"
-        width={800}
-        height={800}
-      />
+          <div className="absolute w-full sm:h-[40%] h-[40%] right-0 sm:top-[78px] top-[50px]">
+            <Swiper
+              onBeforeInit={(swiper) => {
+                swiperRef.current = swiper;
+              }}
+              mousewheel={true}
+              modules={[Navigation, Autoplay, Mousewheel]}
+              autoplay={true}
+              className="sm:w-[380px] w-[230px] h-full border-8 border-[#63aeef] relative"
+            >
+              <SwiperSlide className="flex justify-center items-center bg-white text-center">
+                <div className="relative w-full sm:h-60 h-full flex justify-center items-center">
+                  <Image
+                    fill
+                    src={"/assets/png/diver.png"}
+                    alt="incridea"
+                    className="object-cover object-center"
+                    priority
+                  />
+                </div>
+              </SwiperSlide>
 
-      {/*The sliding images*/}
-      <div className="relative h-[27%] -left-[10px] -top-[38px]">
-        <Swiper
-          onBeforeInit={(swiper) => {
-            swiperRef.current = swiper;
-          }}
-          mousewheel={true}
-          modules={[Navigation, Autoplay, Mousewheel]}
-          autoplay={true}
-          className="w-[425px] h-full"
-        >
-          
-          {/*Dummy images for now*/}
-          <SwiperSlide className="flex justify-center items-center bg-white text-center">
-            <div className="relative w-full sm:h-60 h-full flex justify-center items-center">
-              <Image
-                fill
-                src={"/assets/png/diver.png"}
-                alt="incridea"
-                className="object-cover object-center"
-                priority
-              />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className="flex justify-center items-center bg-white text-center">
-            <div className="relative w-full sm:h-60 h-full flex justify-center items-center">
-              <Image
-                fill
-                src={"/assets/png/diver.png"}
-                alt="incridea"
-                className="object-cover object-center"
-                priority
-              />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className="flex justify-center items-center bg-white text-center">
-            <div className="relative w-full sm:h-60 h-full flex justify-center items-center">
-              <Image
-                fill
-                src={"/assets/png/diver.png"}
-                alt="incridea"
-                className="object-cover object-center"
-                priority
-              />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className="flex justify-center items-center bg-white text-center">
-            <div className="relative w-full sm:h-60 h-full flex justify-center items-center">
-              <Image
-                fill
-                src={"/assets/png/diver.png"}
-                alt="incridea"
-                className="object-cover object-center"
-                priority
-              />
-            </div>
-          </SwiperSlide>
+              <SwiperSlide className="flex justify-center items-center bg-white text-center">
+                <div className="relative w-full sm:h-60 h-full flex justify-center items-center">
+                  <Image
+                    fill
+                    src={"/assets/png/diver.png"}
+                    alt="incridea"
+                    className="object-cover object-center"
+                    priority
+                  />
+                </div>
+              </SwiperSlide>
 
-        </Swiper>
-      </div>
+              <SwiperSlide className="flex justify-center items-center bg-white text-center">
+                <div className="relative w-full sm:h-60 h-full flex justify-center items-center">
+                  <Image
+                    fill
+                    src={"/assets/png/diver.png"}
+                    alt="incridea"
+                    className="object-cover object-center"
+                    priority
+                  />
+                </div>
+              </SwiperSlide>
+              <SwiperSlide className="flex justify-center items-center bg-white text-center">
+                <div className="relative w-full sm:h-60 h-full flex justify-center items-center">
+                  <Image
+                    fill
+                    src={"/assets/png/diver.png"}
+                    alt="incridea"
+                    className="object-cover object-center"
+                    priority
+                  />
+                </div>
+              </SwiperSlide>
+            </Swiper>
+            <button
+              onClick={() => swiperRef.current?.slidePrev()}
+              className={`active:bg-gray-800 absolute sm:top-[390px] top-[240px] left-[25px] sm:left-[48px] sm:w-[2.8rem] w-[2.2rem] h-8 rounded-lg duration-300 transition-all ease-in-out 
+            border-yellow-300 border-2 animate- 
+          `}
+            ></button>
+            <button
+              onClick={() => swiperRef.current?.slideNext()}
+              className="active:bg-gray-800 absolute sm:top-[390px] top-[240px] left-[80px] w-[2.2rem] sm:left-[130px] sm:w-[2.8rem] h-8 rounded-lg duration-300 transition-all ease-in-out border-yellow-300 border-2 animate-"
+            ></button>
+          </div>
+        </div>
+      ) : ( // if not mobile then display this code
+        <div className="relative h-screen flex justify-center items-center  ">
+          {/*Gameboy advance asset*/}
+          <Image
+            src={"/assets/svg/gba_gameboy.svg"}
+            alt="gba_gameboy"
+            className="absolute top-32 z-10"
+            width={800}
+            height={800}
+          />
 
-      {/*Buttons that make the gba button clickable*/}
-      <button
-          onClick={() => swiperRef.current?.slidePrev()}
-          className={`z-50  active:bg-gray-800 absolute top-[197px] left-[382px] w-[5.5rem] h-[5.5rem] rounded-full duration-300 transition-all ease-in-out animate-`}
-        ></button>
-        <button
-          onClick={() => swiperRef.current?.slideNext()}
-          className="z-50  active:bg-gray-800 absolute top-[197px] left-[992px] w-[5.5rem] h-[5.5rem] rounded-full duration-300 transition-all ease-in-out animate-"
-        ></button>
-    </div>
-    )}
+          {/*The sliding images*/}
+          <div className="relative h-[27%] -left-[10px] -top-[38px]">
+            <Swiper
+              onBeforeInit={(swiper) => {
+                swiperRef.current = swiper;
+              }}
+              mousewheel={true}
+              modules={[Navigation, Autoplay, Mousewheel]}
+              autoplay={true}
+              className="w-[425px] h-full"
+            >
+
+              {/*Dummy images for now*/}
+              <SwiperSlide className="flex justify-center items-center bg-white text-center">
+                <div className="relative w-full sm:h-60 h-full flex justify-center items-center">
+                  <Image
+                    fill
+                    src={"/assets/png/diver.png"}
+                    alt="incridea"
+                    className="object-cover object-center"
+                    priority
+                  />
+                </div>
+              </SwiperSlide>
+              <SwiperSlide className="flex justify-center items-center bg-white text-center">
+                <div className="relative w-full sm:h-60 h-full flex justify-center items-center">
+                  <Image
+                    fill
+                    src={"/assets/png/diver.png"}
+                    alt="incridea"
+                    className="object-cover object-center"
+                    priority
+                  />
+                </div>
+              </SwiperSlide>
+              <SwiperSlide className="flex justify-center items-center bg-white text-center">
+                <div className="relative w-full sm:h-60 h-full flex justify-center items-center">
+                  <Image
+                    fill
+                    src={"/assets/png/diver.png"}
+                    alt="incridea"
+                    className="object-cover object-center"
+                    priority
+                  />
+                </div>
+              </SwiperSlide>
+              <SwiperSlide className="flex justify-center items-center bg-white text-center">
+                <div className="relative w-full sm:h-60 h-full flex justify-center items-center">
+                  <Image
+                    fill
+                    src={"/assets/png/diver.png"}
+                    alt="incridea"
+                    className="object-cover object-center"
+                    priority
+                  />
+                </div>
+              </SwiperSlide>
+
+            </Swiper>
+          </div>
+
+          {/*Buttons that make the gba button clickable*/}
+          <button
+            onClick={() => swiperRef.current?.slidePrev()}
+            className={`z-50  active:bg-gray-800 absolute top-[197px] left-[382px] w-[5.5rem] h-[5.5rem] rounded-full duration-300 transition-all ease-in-out animate-`}
+          ></button>
+          <button
+            onClick={() => swiperRef.current?.slideNext()}
+            className="z-50  active:bg-gray-800 absolute top-[197px] left-[992px] w-[5.5rem] h-[5.5rem] rounded-full duration-300 transition-all ease-in-out animate-"
+          ></button>
+        </div>
+      )}
+    </>
   );
 
   // return (
