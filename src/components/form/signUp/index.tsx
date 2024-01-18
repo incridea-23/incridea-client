@@ -203,9 +203,9 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
             <h2 className="text-3xl text-center font-semibold">
                 Welcome player
             </h2>
-            <h6 className="mt-2 md:mt-0 text-center md:font-normal font-semibold">
+            {/* <h6 className="mt-2 md:mt-0 text-center md:font-normal font-semibold">
                 We&apos;re excited to have you here! Sign up below{" "}
-            </h6>
+            </h6> */}
 
             {!emailSuccess && (
                 <>
@@ -442,7 +442,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                     </div>
                 </div>
             )}
-            <div className="flex flex-col md:mt-2 mt-5 relative text-center">
+            <div className="flex flex-col md:mt-2 mt-3 relative text-center">
                 <hr className="my-3  border-[#6f5925]" />
                 <h4 className="absolute top-0.5 translate-x-1/2 w-max mx-auto bg-[#f3e9d1] rounded-full text-[#6f5925] right-1/2 md:px-2 px-3 text-sm">
                     Already have an account?
