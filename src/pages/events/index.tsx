@@ -3,6 +3,7 @@ import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { PublishedEventsDocument, PublishedEventsQuery } from "@/src/generated/generated";
 import { client } from "@/src/lib/apollo";
+import { data } from "./data";
 
 const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
   data,
@@ -118,11 +119,11 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
 
 export async function getStaticProps() {
   try {
-    const { data: events } = await client.query({
-      query: PublishedEventsDocument,
-      fetchPolicy: 'no-cache',
-    });
-
+    // const { data: events } = await client.query({
+    //   query: PublishedEventsDocument,
+    //   fetchPolicy: 'no-cache',
+    // });
+    const events = data; 
     return {
       props: {
         data: events.publishedEvents,
