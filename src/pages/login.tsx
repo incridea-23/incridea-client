@@ -27,8 +27,9 @@ const SignIn: NextPage = () => {
 
     return (
         // TODO: font usage
+        // 101 vh as there was some footer in viewport
         <div
-            className={`${customFont.className} min-h-screen min-w-screen pt-16 bg-pink-700 flex flex-col justify-between`}>
+            className={`${customFont.className} min-h-[101vh] min-w-screen pt-16 bg-pink-700 flex flex-col justify-between`}>
             <LoginPortal isTop={true} />
             <div className="w-screen py-3 bg-blue-600 absolute hidden">
                 {/* card starts here */}
