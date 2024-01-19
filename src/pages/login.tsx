@@ -28,30 +28,24 @@ const SignIn: NextPage = () => {
     return (
         // TODO: font usage
         <div
-            className={`${customFont.className} min-h-screen min-w-screen pt-16 bg-pink-700`}>
+            className={`${customFont.className} min-h-screen min-w-screen pt-16 bg-pink-700 flex flex-col justify-between`}>
             <LoginPortal isTop={true} />
-            <div className="flex justify-center items-center w-full py-3 bg-blue-600">
+            <div className="w-screen py-3 bg-blue-600 absolute hidden">
                 {/* card starts here */}
                 <div
-                    className={`w-11/12 flex items-center justify-center bg-[#f3e9d1] text-[#6f5925] rounded-3xl`}>
-                    <div className="flex flex-col h-full">
-                        <div className="p-5 grow">
-                            {whichForm === "signIn" ? (
-                                <SignInForm
-                                    redirectUrl={query.redirectUrl}
-                                    setWhichForm={setWhichForm}
-                                />
-                            ) : whichForm === "resetPassword" ? (
-                                <ResetPasswordForm
-                                    setWhichForm={setWhichForm}
-                                />
-                            ) : whichForm === "signUp" ? (
-                                <SignUpForm setWhichForm={setWhichForm} />
-                            ) : (
-                                <ResendEmail setWhichForm={setWhichForm} />
-                            )}
-                        </div>
-                    </div>
+                    className={`bg-[#f3e9d1] text-[#6f5925] px-4 py-6 w-72 rounded-3xl`}>
+                    {whichForm === "signIn" ? (
+                        <SignInForm
+                            redirectUrl={query.redirectUrl}
+                            setWhichForm={setWhichForm}
+                        />
+                    ) : whichForm === "resetPassword" ? (
+                        <ResetPasswordForm setWhichForm={setWhichForm} />
+                    ) : whichForm === "signUp" ? (
+                        <SignUpForm setWhichForm={setWhichForm} />
+                    ) : (
+                        <ResendEmail setWhichForm={setWhichForm} />
+                    )}
                 </div>
             </div>
             <LoginPortal isTop={false} />
