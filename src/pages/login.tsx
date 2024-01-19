@@ -30,7 +30,7 @@ const SignIn: NextPage = () => {
             className={`${customFont.className} min-h-screen min-w-screen pt-16 bg-pink-700`}>
             <div className="flex justify-center items-start flex-col">
                 <div className="flex justify-center items-center w-full">
-                    <div className="h-12 w-80 md:w-75vw bg-red-300 flex justify-center items-center rounded-[50%]">
+                    <div className="h-12 w-80 md:w-[75vh] bg-red-300 flex justify-center items-center rounded-[50%]">
                         the portal placeholder
                     </div>
                 </div>
