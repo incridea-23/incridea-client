@@ -7,7 +7,7 @@ import { useState } from "react";
 import ResendEmail from "../components/form/login/resendEmailForm";
 import Image from "next/image";
 
-// TODO: remove this font as it is for dev time
+// TODO: remove this font as it is for dev purpose
 import { Roboto_Mono } from "@next/font/google";
 const customFont = Roboto_Mono({ weight: "400", subsets: ["latin"] });
 
@@ -30,13 +30,13 @@ const SignIn: NextPage = () => {
             className={`${customFont.className} min-h-screen min-w-screen pt-16 bg-pink-700`}>
             <div className="flex justify-center items-start flex-col">
                 <div className="flex justify-center items-center w-full">
-                    <div className="h-12 w-80 bg-red-300 flex justify-center items-center rounded-[50%]">
+                    <div className="h-12 w-11/12 md:w-3/4 bg-red-300 flex justify-center items-center rounded-[50%]">
                         the portal placeholder
                     </div>
                 </div>
                 <div className="flex justify-center items-center w-full pt-3">
                     <div
-                        className={`w-72 h-[600px] flex items-center justify-center bg-[#f3e9d1] text-[#6f5925] `}>
+                        className={`w-11/12 h-[600px] flex items-center justify-center bg-[#f3e9d1] text-[#6f5925] rounded-3xl`}>
                         <div className="flex flex-col h-full min-h-screen">
                             <div className="p-5 grow">
                                 {whichForm === "signIn" ? (

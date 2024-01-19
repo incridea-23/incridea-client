@@ -200,12 +200,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
             className={`flex relative justify-center min-h-full flex-col gap-3 ${
                 loading && "cursor-not-allowed pointer-events-none"
             }`}>
-            <h2 className="text-3xl text-center font-semibold">
-                Welcome player
-            </h2>
-            {/* <h6 className="mt-2 md:mt-0 text-center md:font-normal font-semibold">
-                We&apos;re excited to have you here! Sign up below{" "}
-            </h6> */}
+            <p className="text-2xl text-center font-semibold">Welcome player</p>
 
             {!emailSuccess && (
                 <>
@@ -264,6 +259,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                                         </div>
                                     ) : filteredColleges?.length === 0 &&
                                       query !== "" ? (
+                                        //FIXME no need to touch
                                         <div className="relative font-semibold md:text-base text-xs select-none py-2 px-4 text-gray-600">
                                             College not found. Please{" "}
                                             <Link
@@ -273,6 +269,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                                             </Link>
                                         </div>
                                     ) : (
+                                        //FIXME
+
                                         filteredColleges?.map((college) => (
                                             <Combobox.Option
                                                 className={({ active }) =>
@@ -292,6 +290,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                             </Transition>
                         </div>
                     </Combobox>
+
                     {selectedCollege.name === "Other" && (
                         <div className="bg-blue-100 p-2 flex items-center gap-3 px-4 rounded-md font-semibold text-blue-500">
                             <AiOutlineInfoCircle className="shrink-0" />
@@ -404,6 +403,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                     <Button className="mt-3">Sign Up</Button>
                 </>
             )}
+
             {(error || mutationError || emailVerificationError) && (
                 <div className="bg-red-100 p-2 flex items-center gap-3 px-4 rounded-md font-semibold text-red-500">
                     <BiErrorCircle className="shrink-0" />
@@ -420,6 +420,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                     </div>
                 </div>
             )}
+
             {emailSuccess && (
                 <div className="bg-green-100 p-4 flex flex-col text-center  items-center gap-3 rounded-md font-semibold text-green-500">
                     <div>
@@ -442,6 +443,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                     </div>
                 </div>
             )}
+
             <div className="flex flex-col md:mt-2 mt-3 relative text-center">
                 <hr className="my-3  border-[#6f5925]" />
                 <h4 className="absolute top-0.5 translate-x-1/2 w-max mx-auto bg-[#f3e9d1] rounded-full text-[#6f5925] right-1/2 md:px-2 px-3 text-sm">
@@ -455,6 +457,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                     Sign in instead
                 </Button>
             </div>
+
             {(loading || emailVerificationLoading) && (
                 <div className="absolute h-full text-[#dd5c6e] gap-5 w-full flex flex-col items-center justify-center bg-[#f3e9d1] bg-opacity-70 inset-0 rounded-lg cursor-not-allowed pointer-events-none z-30">
                     <Spinner className="h-fit my-0 text-[#dd5c6e]" />
