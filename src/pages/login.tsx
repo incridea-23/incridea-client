@@ -31,6 +31,7 @@ const SignIn: NextPage = () => {
             className={`${customFont.className} min-h-screen min-w-screen pt-16 bg-pink-700`}>
             <LoginPortal isTop={true} />
             <div className="flex justify-center items-center w-full py-3 bg-blue-600">
+                {/* card starts here */}
                 <div
                     className={`w-11/12 flex items-center justify-center bg-[#f3e9d1] text-[#6f5925] rounded-3xl`}>
                     <div className="flex flex-col h-full">

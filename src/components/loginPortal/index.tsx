@@ -7,7 +7,7 @@ interface ILPProps {
 const LoginPortal: React.FC<ILPProps> = ({ isTop }: ILPProps) => {
     return (
         <div className="flex justify-center items-center w-full h-[58px]">
-            {/*Portal is rotated 90deg */}
+            {/*Portal is rotated +/- 90deg*/}
             <div
                 className={`bg-gray-600 h-80 w-5 rounded-[50%] ${
                     isTop ? "rotate-90" : "-rotate-90"
