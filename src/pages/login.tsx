@@ -1,6 +1,7 @@
 import ResetPasswordForm from "@/src/components/form/login/resetPasswordForm";
 import SignInForm from "@/src/components/form/login/signInForm";
 import SignUpForm from "@/src/components/form/signUp";
+import LoginPortal from "@/src/components/loginPortal";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -28,36 +29,31 @@ const SignIn: NextPage = () => {
         // TODO: font usage
         <div
             className={`${customFont.className} min-h-screen min-w-screen pt-16 bg-pink-700`}>
-            <div className="flex justify-center items-start flex-col">
-                <div className="flex justify-center items-center w-full">
-                    <div className="h-12 w-11/12 md:w-3/4 bg-red-300 flex justify-center items-center rounded-[50%]">
-                        the portal placeholder
-                    </div>
-                </div>
-                <div className="flex justify-center items-center w-full pt-3">
-                    <div
-                        className={`w-11/12 h-[600px] flex items-center justify-center bg-[#f3e9d1] text-[#6f5925] rounded-3xl`}>
-                        <div className="flex flex-col h-full min-h-screen">
-                            <div className="p-5 grow">
-                                {whichForm === "signIn" ? (
-                                    <SignInForm
-                                        redirectUrl={query.redirectUrl}
-                                        setWhichForm={setWhichForm}
-                                    />
-                                ) : whichForm === "resetPassword" ? (
-                                    <ResetPasswordForm
-                                        setWhichForm={setWhichForm}
-                                    />
-                                ) : whichForm === "signUp" ? (
-                                    <SignUpForm setWhichForm={setWhichForm} />
-                                ) : (
-                                    <ResendEmail setWhichForm={setWhichForm} />
-                                )}
-                            </div>
+            <LoginPortal isTop={true} />
+            <div className="flex justify-center items-center w-full py-3 bg-blue-600">
+                <div
+                    className={`w-11/12 flex items-center justify-center bg-[#f3e9d1] text-[#6f5925] rounded-3xl`}>
+                    <div className="flex flex-col h-full">
+                        <div className="p-5 grow">
+                            {whichForm === "signIn" ? (
+                                <SignInForm
+                                    redirectUrl={query.redirectUrl}
+                                    setWhichForm={setWhichForm}
+                                />
+                            ) : whichForm === "resetPassword" ? (
+                                <ResetPasswordForm
+                                    setWhichForm={setWhichForm}
+                                />
+                            ) : whichForm === "signUp" ? (
+                                <SignUpForm setWhichForm={setWhichForm} />
+                            ) : (
+                                <ResendEmail setWhichForm={setWhichForm} />
+                            )}
                         </div>
                     </div>
                 </div>
             </div>
+            <LoginPortal isTop={false} />
         </div>
     );
 };
