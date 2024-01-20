@@ -16,14 +16,19 @@ import {
     AiOutlineInfoCircle,
 } from "react-icons/ai";
 import Link from "next/link";
+import { SwitchCardFunction } from "@/src/pages/login";
 
 type SignUpFormProps = {
     setWhichForm: (
         whichForm: "signIn" | "resetPassword" | "signUp" | "resendEmail"
     ) => void;
+    switchCard: SwitchCardFunction;
 };
 
-const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
+const SignUpForm: FunctionComponent<SignUpFormProps> = ({
+    setWhichForm,
+    switchCard,
+}) => {
     const [userInfo, setUserInfo] = useState({
         name: "",
         email: "",
@@ -431,7 +436,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                         Please check your inbox.
                         <hr className="border-green-300 mx-3 my-2" />
                         <div className="text-sm font-normal">
-                            <p>Didn&apos;t recieve the email?</p>
+                            <p>Didn&apos;t receive the email?</p>
                             <p>Make sure to check your spam folder.</p>
                             <button
                                 type="button"
@@ -451,7 +456,10 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                 </h4>
                 <Button
                     intent={"ghost"}
-                    onClick={() => setWhichForm("signIn")}
+                    onClick={() => {
+                        switchCard();
+                        setWhichForm("signIn");
+                    }}
                     type="button"
                     className="mt-5">
                     Sign in instead
