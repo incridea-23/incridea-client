@@ -10,7 +10,7 @@
     "codegen": "graphql-codegen"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.7",
+    "@apollo/client": "^3.8.10",
     "@graphql-yoga/apollo-link": "^1.8.1",
     "@headlessui/react": "^1.7.12",
     "@next/font": "13.1.6",

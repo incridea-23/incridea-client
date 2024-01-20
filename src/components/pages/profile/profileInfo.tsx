@@ -5,14 +5,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { QRCodeSVG } from 'qrcode.react';
 import { FC, useEffect } from 'react';
-import { FaSignOutAlt } from 'react-icons/fa';
+import { FaSignOutAlt, FaDice } from 'react-icons/fa';
 import { MdOutlineEmail, MdPhone } from 'react-icons/md';
 import TextAnimation from '../../animation/text';
 import { idToPid } from '@/src/utils/id';
 import Button from '../../button';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { GiShipWheel } from 'react-icons/gi';
+// import { GiShipWheel } from 'react-icons/gi';
 
 const ProfileInfo: FC<{
   user: User | null | undefined;
@@ -24,17 +24,17 @@ const ProfileInfo: FC<{
   }
 
   return (
-    <section data-scroll-section className="text-white min-h-fit py-10 mb-10">
-      <div data-scroll className="flex mb-4 items-center justify-center px-5">
+    <section className="text-white ">
+      <div className="flex mb-4 items-center justify-center px-5">
         <a
           className={`titleFont text-2xl lg:text-4xl font-bold text-center pr-2`}
         >
-          Welcome Sailor!
+          Welcome Gamer!
         </a>
-        <GiShipWheel className="text-2xl lg:text-4xl duration-1000 animate-spin-slow" />
+        <FaDice className="text-3xl lg:text-6xl animate-bounce-and-spin" />
       </div>
       <TextAnimation
-        text="Ready to dive in?"
+        text="Ready to begin?"
         textStyle="text-lg lg:text-2xl bodyFont"
         className="flex items-center justify-center"
       />

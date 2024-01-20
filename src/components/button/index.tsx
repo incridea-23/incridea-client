@@ -8,13 +8,13 @@ const buttonStyles = cva(
     variants: {
       intent: {
         primary:
-          'bg-gradient-to-br from-[#e95c71] via-[#dd5c6e] to-[#bb384c]  text-white ',
+          'bg-gradient-to-br from-[#eed894] via-[#f98456] to-[#eed894]  text-white ',
         secondary: 'bg-gray-700 text-gray-200 hover:bg-gray-600',
         danger: 'bg-red-500 text-white hover:bg-red-600',
         success: 'bg-green-500 text-white hover:bg-green-600',
         info: 'bg-teal-500 text-white hover:bg-teal-600',
         dark: 'bg-gray-900/60 text-white hover:bg-opacity-30',
-        ghost: 'bg-transparent border-[#e95c71] border text-[#f3556a] ',
+        ghost: 'bg-transparent border-[#eed894] border text-[#eed894] ',
       },
       size: {
         small: ['text-sm', 'py-1', 'px-2'],
