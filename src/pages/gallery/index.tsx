@@ -2,11 +2,16 @@ import { FooterBody } from "@/src/components/footer";
 import GallerySlide from "@/src/components/galleryslide";
 import { motion } from "framer-motion";
 import { NextPage } from "next";
+import { useState } from "react";
+import { Autoplay, Navigation } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const Gallery: NextPage = () => {
-  const years = [2019, 2020, 2022];
-  const imageCounts = [13, 14, 18];
+  const [activeYear, setActiveYear] = useState<number>(0);
+  const years = [2019, 2020, 2022, 2023];
+  const imageCounts = [13, 14, 18, 20];
 
   const generateImagePaths = (
     year: number,
@@ -31,15 +36,14 @@ const Gallery: NextPage = () => {
   );
   const img2020: string[] = generateImagePaths(years[1], imageCounts[1], "jpg");
   const img2022: string[] = generateImagePaths(years[2], imageCounts[2], "jpg");
+  const img2023: string[] = generateImagePaths(years[3], imageCounts[3], "jpg");
 
   return (
     <section className="flex flex-col w-full h-screen bg-purple-400 relative">
       <div className="min-h-screen text-5xl text-gray-200">
         <div className="absolute top-1/2 left-1/2 -translate-x-[50%]">
           <p>Header Section</p>
-          <p className="text-3xl mt-2 text-center">
-            Real nice Quotes
-          </p>
+          <p className="text-3xl mt-2 text-center">Real nice Quotes</p>
         </div>
         <div className="absolute bottom-8 w-3/4 bg-white left-1/2 -translate-x-[50%] h-[2px]"></div>
       </div>
@@ -47,15 +51,55 @@ const Gallery: NextPage = () => {
       <div className="min-h-screen overflow-y-auto bg-purple-400">
         {/* Slide Section */}
         <div className="text-black text-5xl">{/* Title {Incridea year} */}</div>
-        <div>
-          <GallerySlide
-            title={"2022"}
-            next={"2020"}
-            prev={"head"}
-            imgArr={img2022}
-          />
-          {/* GBA with images */}
-        </div>
+        <Swiper
+          autoplay={true}
+          modules={[Navigation, Autoplay]}
+          speed={900}
+          className="sm:w-[800px] h-full border-8 border-[#63aeef] relative flex"
+        >
+          {years.map((year, index) => {
+            return (
+              <SwiperSlide
+                className="flex justify-center items-center text-center"
+                key={index}
+              >
+                <motion.div className="relative w-full h-full flex justify-center items-center" >
+                  <GallerySlide
+                    title={"2022"}
+                    imgArr={img2022}
+                    emulator="gba"
+                  />
+                </motion.div>
+              </SwiperSlide>
+            );
+          })}
+          {/* <SwiperSlide className="flex justify-center items-center text-center">
+            <div className="relative w-full h-full flex justify-center items-center">
+              <GallerySlide title={"2022"} imgArr={img2022} emulator="pc" />
+            </div>
+          </SwiperSlide> */}
+        </Swiper>
+        {/*
+        <GallerySlide
+          title={"2022"}
+          next={"2020"}
+          prev={"head"}
+          imgArr={img2022}
+        />
+
+            <GallerySlide
+              title={"2022"}
+              next={"2020"}
+              prev={"head"}
+              imgArr={img2022}
+            />
+
+            <GallerySlide
+              title={"2022"}
+              next={"2020"}
+              prev={"head"}
+              imgArr={img2022}
+            /> */}
         <div>{/* Next/Previous Sections Buttons */}</div>
         <div>{/* ProgressBar with Dice */}</div>
       </div>
