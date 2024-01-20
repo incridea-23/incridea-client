@@ -25,8 +25,6 @@ type CardPosition = {
     };
 };
 
-type SwitchCardFunction = () => void;
-
 const SignIn: NextPage = () => {
     const {
         query,
@@ -52,7 +50,7 @@ const SignIn: NextPage = () => {
         },
     });
 
-    const switchCard: SwitchCardFunction = () => {
+    const switchCard: () => void = () => {
         setCardPosition((prev) => ({
             first: {
                 top: prev.first.top === "50%" ? "150%" : "50%",
@@ -91,14 +89,21 @@ const SignIn: NextPage = () => {
                     style={cardPosition.first}>
                     <div
                         className={`bg-[#f3e9d1] text-[#6f5925] px-4 py-6 w-72 rounded-3xl`}>
-                        {whichForm === "resetPassword" ? (
-                            <ResetPasswordForm setWhichForm={setWhichForm} />
-                        ) : (
+                        {whichForm === "signIn" ? (
                             <SignInForm
                                 redirectUrl={query.redirectUrl}
                                 setWhichForm={setWhichForm}
                                 switchCard={switchCard}
                             />
+                        ) : whichForm === "resetPassword" ? (
+                            <ResetPasswordForm setWhichForm={setWhichForm} />
+                        ) : whichForm === "signUp" ? (
+                            <SignUpForm
+                                setWhichForm={setWhichForm}
+                                switchCard={switchCard}
+                            />
+                        ) : (
+                            <ResendEmail setWhichForm={setWhichForm} />
                         )}
                     </div>
                 </div>
@@ -107,13 +112,21 @@ const SignIn: NextPage = () => {
                     style={cardPosition.second}>
                     <div
                         className={`bg-[#f3e9d1] text-[#6f5925] px-4 py-6 w-72 rounded-3xl`}>
-                        {whichForm === "resendEmail" ? (
-                            <ResendEmail setWhichForm={setWhichForm} />
-                        ) : (
+                        {whichForm === "signIn" ? (
+                            <SignInForm
+                                redirectUrl={query.redirectUrl}
+                                setWhichForm={setWhichForm}
+                                switchCard={switchCard}
+                            />
+                        ) : whichForm === "resetPassword" ? (
+                            <ResetPasswordForm setWhichForm={setWhichForm} />
+                        ) : whichForm === "signUp" ? (
                             <SignUpForm
                                 setWhichForm={setWhichForm}
                                 switchCard={switchCard}
                             />
+                        ) : (
+                            <ResendEmail setWhichForm={setWhichForm} />
                         )}
                     </div>
                 </div>
@@ -124,4 +137,3 @@ const SignIn: NextPage = () => {
 };
 
 export default SignIn;
-export type { SwitchCardFunction };

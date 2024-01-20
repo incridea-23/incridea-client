@@ -16,13 +16,12 @@ import {
     AiOutlineInfoCircle,
 } from "react-icons/ai";
 import Link from "next/link";
-import { SwitchCardFunction } from "@/src/pages/login";
 
 type SignUpFormProps = {
     setWhichForm: (
         whichForm: "signIn" | "resetPassword" | "signUp" | "resendEmail"
     ) => void;
-    switchCard: SwitchCardFunction;
+    switchCard: () => void;
 };
 
 const SignUpForm: FunctionComponent<SignUpFormProps> = ({

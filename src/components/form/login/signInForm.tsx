@@ -5,14 +5,13 @@ import { BiErrorCircle } from "react-icons/bi";
 import Button from "../../button";
 import Spinner from "../../spinner";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { SwitchCardFunction } from "@/src/pages/login";
 
 type SignInFormProps = {
     setWhichForm: (
         whichForm: "signIn" | "resetPassword" | "signUp" | "resendEmail"
     ) => void;
     redirectUrl?: string;
-    switchCard: SwitchCardFunction;
+    switchCard: () => void;
 };
 
 const SignInForm: FunctionComponent<SignInFormProps> = ({
