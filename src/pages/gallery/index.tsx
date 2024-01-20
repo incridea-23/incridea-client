@@ -11,7 +11,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 const Gallery: NextPage = () => {
   const [activeYear, setActiveYear] = useState<number>(0);
   const years = [2019, 2020, 2022, 2023];
-  const imageCounts = [13, 14, 18, 20];
+  const imageCounts = [13, 2, 18, 20];
 
   const generateImagePaths = (
     year: number,
@@ -40,39 +40,43 @@ const Gallery: NextPage = () => {
 
   return (
     <section className="flex flex-col w-full h-screen bg-purple-400 relative">
-      <div className="min-h-screen text-5xl text-gray-200">
+      {/* <div className="min-h-screen text-5xl text-gray-200">
         <div className="absolute top-1/2 left-1/2 -translate-x-[50%]">
           <p>Header Section</p>
           <p className="text-3xl mt-2 text-center">Real nice Quotes</p>
         </div>
         <div className="absolute bottom-8 w-3/4 bg-white left-1/2 -translate-x-[50%] h-[2px]"></div>
-      </div>
+      </div> */}
       {/* Pc Section */}
       <div className="min-h-screen overflow-y-auto bg-purple-400">
         {/* Slide Section */}
         <div className="text-black text-5xl">{/* Title {Incridea year} */}</div>
         <Swiper
-          autoplay={true}
+          autoplay={false}
           modules={[Navigation, Autoplay]}
           speed={900}
-          className="sm:w-[800px] h-full border-8 border-[#63aeef] relative flex"
+          className="sm:w-full h-full border-8 border-[#63aeef] relative flex"
         >
-          {years.map((year, index) => {
-            return (
-              <SwiperSlide
-                className="flex justify-center items-center text-center"
-                key={index}
-              >
-                <motion.div className="relative w-full h-full flex justify-center items-center" >
-                  <GallerySlide
-                    title={"2022"}
-                    imgArr={img2022}
-                    emulator="gba"
-                  />
-                </motion.div>
-              </SwiperSlide>
-            );
-          })}
+          <SwiperSlide className="flex justify-center items-center text-center">
+            <div className="relative w-full h-full flex justify-center items-center">
+              <GallerySlide title={"2022"} imgArr={img2019} emulator="gba" />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className="flex justify-center items-center text-center">
+            <div className="relative w-full h-full flex justify-center items-center">
+              <GallerySlide title={"2022"} imgArr={img2020} emulator="gba" />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className="flex justify-center items-center text-center">
+            <div className="relative w-full h-full flex justify-center items-center">
+              <GallerySlide title={"2022"} imgArr={img2022} emulator="gba" />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className="flex justify-center items-center text-center">
+            <div className="relative w-full h-full flex justify-center items-center">
+              <GallerySlide title={"2022"} imgArr={img2023} emulator="gba" />
+            </div>
+          </SwiperSlide>
           {/* <SwiperSlide className="flex justify-center items-center text-center">
             <div className="relative w-full h-full flex justify-center items-center">
               <GallerySlide title={"2022"} imgArr={img2022} emulator="pc" />
