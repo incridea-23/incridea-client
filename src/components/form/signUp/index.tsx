@@ -21,13 +21,9 @@ type SignUpFormProps = {
     setWhichForm: (
         whichForm: "signIn" | "resetPassword" | "signUp" | "resendEmail"
     ) => void;
-    switchCard: () => void;
 };
 
-const SignUpForm: FunctionComponent<SignUpFormProps> = ({
-    setWhichForm,
-    switchCard,
-}) => {
+const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
     const [userInfo, setUserInfo] = useState({
         name: "",
         email: "",
@@ -457,7 +453,6 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({
                 <Button
                     intent={"ghost"}
                     onClick={() => {
-                        switchCard();
                         setWhichForm("signIn");
                     }}
                     type="button"

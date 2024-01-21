@@ -11,13 +11,11 @@ type SignInFormProps = {
         whichForm: "signIn" | "resetPassword" | "signUp" | "resendEmail"
     ) => void;
     redirectUrl?: string;
-    switchCard: () => void;
 };
 
 const SignInForm: FunctionComponent<SignInFormProps> = ({
     setWhichForm,
     redirectUrl,
-    switchCard,
 }) => {
     const [userInfo, setUserInfo] = useState({ email: "", password: "" });
     const [error, setError] = useState<string>("");
@@ -141,7 +139,6 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
                     </h4> */}
                 <Button
                     onClick={() => {
-                        switchCard();
                         setWhichForm("signUp");
                     }}
                     type="button"
