@@ -15,9 +15,9 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
   const swiperRef = useRef<SwiperType>();
   return (
     <motion.div
-      className="relative sm:mt-20 rounded-[500px] flex justify-center items-center w-[305px] h-[445px] sm:w-[60vw] sm:h-[60vh] mx-auto sm:shadow-none"
+      className="relative rounded-[500px] flex justify-center items-center w-[305px] h-[445px] md:w-[65vw] md:h-[33vw] mx-auto md:shadow-none"
       initial={{
-        boxShadow: "0px 10px 49px 10px rgba(0,0,0,0.25)",
+        boxShadow: "0px 0px 49px 10px rgba(0,0,0,0.25)",
         translateY: -19,
       }}
       animate={{
@@ -34,18 +34,18 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
         fill
         src={"/assets/svg/gba_no_buttons.svg"}
         alt="incridea"
-        className="sm:hidden object-cover object-center"
+        className="md:hidden object-cover object-center"
         priority
       />
       <Image
         fill
         src={"/assets/svg/gameboy_no_edge.svg"}
         alt="incridea"
-        className="hidden md:block object-fill"
+        className="hidden md:block"
         priority
       />
 
-      <div className="absolute w-full h-[40%] right-0 sm:top-[15vh] sm:h-[30vh] sm:w-[55vw] sm:right-[2.55vw] top-[50px] z-10">
+      <div className="absolute w-full h-[40%] right-0 md:top-[7.5vw] md:h-[15.55vw] md:w-[34.3vw] md:right-[16.13vw] top-[50px] z-10">
         <Swiper
           onBeforeInit={(swiper) => {
             swiperRef.current = swiper;
@@ -53,7 +53,7 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
           mousewheel={true}
           modules={[Navigation, Autoplay, Mousewheel]}
           autoplay={true}
-          className="sm:w-[33.5vw] sm:z-50 w-[230px] h-full border-8 border-[#63aeef] sm:border-none relative"
+          className="md:w-[36vw] md:h-[16.7vw] md:top-[0.65vw] md:z-50 w-[230px] h-full border-8 border-[#63aeef] md:border-none relative"
         >
           {imgArr.map((img, index) => {
             return (
@@ -95,11 +95,11 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
 
         <button
           onClick={() => swiperRef.current?.slidePrev()}
-          className={`active:bg-gray-800 sm:opacity-40 absolute top-[240px] left-[26px] sm:-top-[21px] sm:-left-[32px] w-[2.2rem] h-8 sm:h-[105px] sm:w-[105px] rounded-lg sm:rounded-full duration-300 transition-all ease-in-out bg-black border-yellow-300 border-2 sm:border-none animate-`}
+          className={`active:bg-gray-800 md:opacity-40 absolute top-[240px] left-[26px] md:-top-[0.9vw] md:-left-[11.1vw] w-[2.2rem] h-8 md:h-[7.3vw] md:w-[7.3vw] rounded-lg md:rounded-full duration-300 transition-all ease-in-out border-yellow-300 border-2 md:border-none animate-`}
         ></button>
         <button
           onClick={() => swiperRef.current?.slideNext()}
-          className="active:bg-gray-800 sm:opacity-40 absolute top-[240px] left-[80px] sm:-top-[21px] bg-black sm:left-[728px] w-[2.2rem] h-8 sm:h-[105px] sm:w-[105px] rounded-lg sm:rounded-full duration-300 transition-all ease-in-out border-yellow-300 border-2 sm:border-none animate-"
+          className="active:bg-gray-800 sm:opacity-40 absolute top-[240px] left-[80px] md:-top-[0.9vw] md:left-[39.75vw] w-[2.2rem] h-8 md:h-[7.3vw] md:w-[7.3vw] rounded-lg md:rounded-full duration-300 transition-all ease-in-out border-yellow-300 border-2 md:border-none animate-"
         ></button>
       </div>
     </motion.div>
