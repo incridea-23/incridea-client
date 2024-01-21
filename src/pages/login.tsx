@@ -13,17 +13,23 @@ const customFont = Roboto_Mono({ weight: "400", subsets: ["latin"] });
 
 const CARD_SWITCH_DURATION = 1000,
     CSD_IN_STRING = `${CARD_SWITCH_DURATION}ms`;
-const cardTopLimit = "-150%",
-    cardBottomLimit = "250%";
 
-type CardPosition = {
+const cardTopLimit = "-150%",
+    cardTopRotateX = "25deg",
+    cardNaturalRotateX = "0deg",
+    cardBottomLimit = "250%",
+    cardBottomRotateX = "335deg";
+
+type cardStyle = {
     first: {
         top: string;
         transitionDuration: string;
+        transform: string;
     };
     second: {
         top: string;
         transitionDuration: string;
+        transform: string;
     };
 };
 
@@ -41,44 +47,72 @@ const SignIn: NextPage = () => {
         "signIn" | "resetPassword" | "signUp" | "resendEmail"
     >(query.whichForm || "signIn");
 
-    const [cardPosition, setCardPosition] = useState<CardPosition>({
+    const [cardStyle, setCardStyle] = useState<cardStyle>({
         first: {
             top: "50%",
             transitionDuration: CSD_IN_STRING,
+            transform: `translate(-50%, -50%) rotateX(${cardNaturalRotateX})`,
         },
         second: {
             top: cardTopLimit,
             transitionDuration: CSD_IN_STRING,
+            transform: `translate(-50%, -50%) rotateX(${cardTopRotateX})`,
         },
     });
 
     const switchCard: () => void = () => {
-        setCardPosition((prev) => ({
+        setCardStyle((prev) => ({
+            ...prev,
             first: {
+                ...prev.first,
                 top: prev.first.top === "50%" ? cardBottomLimit : "50%",
                 transitionDuration: CSD_IN_STRING,
+                transform: `translate(-50%, -50%) rotateX(${
+                    prev.first.top === "50%"
+                        ? cardBottomRotateX
+                        : cardNaturalRotateX
+                })`,
             },
             second: {
+                ...prev.second,
                 top: prev.second.top === "50%" ? cardBottomLimit : "50%",
                 transitionDuration: CSD_IN_STRING,
+                transform: `translate(-50%, -50%) rotateX(${
+                    prev.second.top === "50%"
+                        ? cardBottomRotateX
+                        : cardNaturalRotateX
+                })`,
             },
         }));
 
         setTimeout(() => {
-            setCardPosition((prev) => ({
+            setCardStyle((prev) => ({
+                ...prev,
                 first: {
+                    ...prev.first,
                     top:
                         prev.first.top === cardBottomLimit
                             ? cardTopLimit
                             : prev.first.top,
                     transitionDuration: "0s",
+                    transform: `translate(-50%, -50%) rotateX(${
+                        prev.first.top === cardBottomLimit
+                            ? cardTopRotateX
+                            : cardNaturalRotateX
+                    })`,
                 },
                 second: {
+                    ...prev.second,
                     top:
                         prev.second.top === cardBottomLimit
                             ? cardTopLimit
                             : prev.second.top,
                     transitionDuration: "0s",
+                    transform: `translate(-50%, -50%) rotateX(${
+                        prev.second.top === cardBottomLimit
+                            ? cardTopRotateX
+                            : cardNaturalRotateX
+                    })`,
                 },
             }));
         }, CARD_SWITCH_DURATION);
@@ -105,11 +139,11 @@ const SignIn: NextPage = () => {
         <>
             <div className="h-16"></div>
             <div
-                className={`${customFont.className} min-h-[92vh] min-w-screen bg-pink-700 flex flex-col justify-between relative overflow-hidden`}>
+                className={`${customFont.className} min-h-[92vh] min-w-screen bg-gray-600 flex flex-col justify-between relative overflow-hidden [transform-style:preserve-3d] [perspective:500px]`}>
                 <LoginPortal isTop={true} />
                 <div
-                    className="py-3 absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 transition-[top] duration-1000 ease-in-out z-[1]"
-                    style={cardPosition.first}>
+                    className="py-3 absolute top-2/4 left-2/4 origin-center transition-all duration-1000 ease-[cubic-bezier(0.85, 0, 0.15, 1)] z-[1]"
+                    style={cardStyle.first}>
                     <div
                         className={`bg-[#f3e9d1] text-[#6f5925] px-4 py-6 w-72 rounded-3xl`}>
                         {whichForm === "signIn" ? (
@@ -133,8 +167,8 @@ const SignIn: NextPage = () => {
                     </div>
                 </div>
                 <div
-                    className="py-3 absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 transition-[top] duration-1000 ease-in-out z-[1]"
-                    style={cardPosition.second}>
+                    className="py-3 absolute top-2/4 left-2/4 origin-center transition-all duration-1000 ease-card z-[1]"
+                    style={cardStyle.second}>
                     <div
                         className={`bg-[#f3e9d1] text-[#6f5925] px-4 py-6 w-72 rounded-3xl`}>
                         {whichForm === "signIn" ? (
