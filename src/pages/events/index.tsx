@@ -103,7 +103,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
   return (
     <div className="bg-gradient-to-bl from-black to-slate-900 min-h-screen relative">
       <div className="py-20 px-10">
-        <div className="max-w-7xl grid grid-col-1 md:grid-cols-4 gap-4">
+        <div className="max-w-7xl grid grid-col-1 md:grid-cols-3 gap-4">
           {filteredEvents.length > 0 ? filteredEvents.map((event) => (
             <Event key={event.id} data={event} />
           )) : (

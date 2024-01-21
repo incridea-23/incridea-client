@@ -12,4 +12,4 @@ module.exports = withPWA({
   images: {
     domains: ['res.cloudinary.com', 'incridemo.web.app'],
   },
-});
+})

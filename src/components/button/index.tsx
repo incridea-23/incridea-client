@@ -66,6 +66,7 @@ interface ButtonProps
   disabled?: boolean;
   style?: React.CSSProperties & { [key: string]: any };
   noScaleOnHover?: boolean;
+  variant?: string;
 }
 
 const Button = ({
@@ -77,6 +78,7 @@ const Button = ({
   disabled,
   className,
   noScaleOnHover,
+  variant,
   ...props
 }: ButtonProps) => {
   return (
