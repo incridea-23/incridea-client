@@ -39,6 +39,7 @@ const Event = ({
         data.eventType[0] + data.eventType.slice(1).toLowerCase() 
 
     eventTypeText = eventTypeText.replaceAll('Individual', 'Solo')
+    eventTypeText = eventTypeText.replaceAll('Team', 'Multiplayer')
 
      return [
        {
@@ -81,36 +82,38 @@ const Event = ({
 
   return (
     <Link href={generateEventUrl(data.name, data.id)}>
-      <div className="w-16 h-16 absolute rounded-full bg-slate-400 border-8 border-black"></div>
-      <div className="bg-black h-full hover:shadow-xl transition duration-300 ease-in-out cursor-pointer border-8 border-gray-600 rounded-3xl mt-4 ml-4">
-        <div className="relative grow">
-          <div className="text-center text-slate-400 text-2xl font-bold my-2">
+      <div className="bg-black mt-4 h-full hover:shadow-xl hover:scale-105 transition z-1 duration-300 ease-in-out cursor-pointer border-4 border-gray-600 rounded-xl">
+        <div className="absolute z-10">
+          <div className="w-9 h-9 rounded-full relative bottom-4 right-3 bg-slate-400 hover:scale-105 border-4 border-black"></div>
+        </div>
+        <div className="grow">
+          <div className="text-center text-slate-400 text-xl font-bold my-1 uppercase">
             {data.name}
           </div>
-          <div className="h-[0.625rem] custom-grad min-h-4 my-2"></div>
+          <div className="h-[0.625rem] custom-grad blur-[1.5px] min-h-4 my-2"></div>
           {data.image && (
             <Image
               src={data.image}
               alt={data.name}
               width={500}
               height={300}
-              className="object-cover w-full h-full z-0 px-4 py-2 rounded-3xl"
+              className="object-cover w-full h-full px-2 z-0 rounded-sm"
             />
           )}
-          <div className="bg-slate-800 h-full hover:shadow-xl transition duration-300 ease-in-out cursor-pointer rounded-3xl mx-4 mt-2 mb-4 py-1">
-            <div className="flex flex-wrap mt-2 gap-1.5 bodyFont text-white">
+          <div className="bg-slate-800 mx-2 py-2 mt-2 h-full hover:shadow-xl transition duration-300 ease-in-out cursor-pointer rounded-lg">
+            <div className="flex flex-col gap-1.5 bodyFont text-white text-sm">
               {getEventAttributes().map((attr) =>
                 attr.name ? (
                   <>
-                    <div key={attr.name} className="flex p-3">
-                      {/* {<attr.Date.Icon className="w-5" />} */}
+                    <div key={attr.name} className="flex p-1">
+                      {<attr.Icon className="w-5" />}
                       <p className="leading-4">{attr.text}</p>
                     </div>
                   </>
                 ) : null
               )}
             </div>
-            <div className="mx-4 mt-2 mb-4 py-1 flex justify-center">
+            <div className="flex justify-center">
               <Button variant="secondary" className="bg-blue-200">
                 Press to play
               </Button>
@@ -118,7 +121,6 @@ const Event = ({
           </div>
         </div>
       </div>
-      {/* <div className="w-10 h-10 absolute rounded-full bg-slate-400"></div> */}
     </Link>
   )
 }              

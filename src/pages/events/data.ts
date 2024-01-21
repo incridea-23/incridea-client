@@ -5,7 +5,7 @@ export const data : PublishedEventsQuery= {
        {
         "id": "66",
         "name": "Battle Of Bands",
-        "image": "https://res.cloudinary.com/drzra1b9g/image/upload/v1681470531/Events/Battle_Of_Bands_1681470528835.png",
+        "image": "https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg",
         "venue": "Sadananda",
         "branch": {
           "id": "10",
@@ -28,7 +28,7 @@ export const data : PublishedEventsQuery= {
       {
         "id": "60",
         "name": "Couture",
-        "image": "https://res.cloudinary.com/drzra1b9g/image/upload/v1681304495/Events/Couture_1681304492163.jpg",
+        "image": "https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg",
         "venue": "Sadananda Auditorium",
         "branch": {
           "id": "10",
@@ -51,7 +51,7 @@ export const data : PublishedEventsQuery= {
       {
         "id": "67",
         "name": "Desafio",
-        "image": "https://res.cloudinary.com/drzra1b9g/image/upload/v1681450801/Events/Desafio_1681450800039.jpg",
+        "image": "https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg",
         "venue": "SADANANDA GROUND",
         "branch": {
           "id": "10",
@@ -79,7 +79,7 @@ export const data : PublishedEventsQuery= {
       {
         "id": "61",
         "name": "Hogathon",
-        "image": "https://res.cloudinary.com/drzra1b9g/image/upload/v1681483188/Events/Hogathon_1681483186034.jpg",
+        "image": "https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg",
         "venue": "SAC OAT",
         "branch": {
           "id": "10",
@@ -112,7 +112,7 @@ export const data : PublishedEventsQuery= {
       {
         "id": "70",
         "name": "Knuckle Down",
-        "image": "https://res.cloudinary.com/drzra1b9g/image/upload/v1681852549/Events/Knuckle_Down_1681852546815.jpg",
+        "image": "https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg",
         "venue": "Ramanujan Parking Area",
         "branch": {
           "id": "10",
