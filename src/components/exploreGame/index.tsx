@@ -1,8 +1,8 @@
+import useWindowSize from "@/src/hooks/useWindowSize";
 import { useRef, useEffect, useState } from "react";
 export default function ExploreGame() {
   const canvas = useRef<HTMLCanvasElement>(null);
-  let CANVAS_WIDTH = 500;
-  let CANVAS_HEIGHT = 500;
+  const WINDOW_DIMENSION = useWindowSize();
   const [direction, setDirection] = useState<"left" | "right">("right");
   const walkSprite = [
     {
@@ -75,16 +75,49 @@ export default function ExploreGame() {
     }
   }
 
+  function drawBackground(
+    ctx: CanvasRenderingContext2D | null | undefined,
+    background: HTMLImageElement
+  ) {
+    if (ctx) {
+      const imgHeight = (WINDOW_DIMENSION.height as number) * 2;
+      const imgWidth = ((imgHeight as number) * 2) / 7;
+      const repeatCount = Math.ceil(
+        (WINDOW_DIMENSION.width && WINDOW_DIMENSION.width / imgWidth) as number
+      );
+      for (let i = 0; i < repeatCount; i++) {
+        ctx.drawImage(
+          background,
+          i * imgWidth,
+          0,
+          imgWidth,
+          imgHeight as number
+        );
+      }
+    }
+  }
+
   useEffect(() => {
     const ctx = canvas.current?.getContext("2d");
     const spriteSheet = new Image();
-    if (ctx) {
-      CANVAS_WIDTH = canvas.current?.width || 500;
-      CANVAS_HEIGHT = canvas.current?.height || 500;
-      spriteSheet.src = "/assets/spriteSheets/ryokoRunJump.png";
+    spriteSheet.src = "/assets/spriteSheets/ryokoRunJump.png";
+    const background = new Image();
+    background.src = "/assets/spriteSheets/background.png";
+    const platformSprite = new Image();
+    platformSprite.src = "/assets/spriteSheets/platformSpite.png";
+    if (canvas.current) {
+      canvas.current.width = WINDOW_DIMENSION.width as number;
+      canvas.current.height = 2 * (WINDOW_DIMENSION.height as number);
+      // console.log(WINDOW_DIMENSION.width, WINDOW_DIMENSION.height);
     }
     function animate() {
-      ctx?.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+      ctx?.clearRect(
+        0,
+        0,
+        WINDOW_DIMENSION.width as number,
+        (WINDOW_DIMENSION.height as number) * 2
+      );
+      drawBackground(ctx, background);
       ctx?.drawImage(
         spriteSheet,
         walkSprite[spriteIndex].x,
@@ -93,8 +126,8 @@ export default function ExploreGame() {
         walkSprite[spriteIndex].height,
         0,
         0,
-        CANVAS_WIDTH,
-        CANVAS_HEIGHT
+        100,
+        100
       );
 
       if (gameFrame % staggerFrames === 0) {
@@ -112,10 +145,7 @@ export default function ExploreGame() {
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
-      <canvas
-        ref={canvas}
-        className="w-[500px] h-[500px] border border-black"
-      ></canvas>
+      <canvas ref={canvas} className="h-[200vh] w-full"></canvas>
       <div className="flex w-[500px] justify-between">
         <button onClick={MoveLeft}>Left</button>
         <button onClick={MoveRight}>Right</button>
