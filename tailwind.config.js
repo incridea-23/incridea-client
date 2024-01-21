@@ -36,7 +36,7 @@ module.exports = {
             },
             transitionTimingFunction: {
                 // FIXME: give a better name
-                "swap-card": "cubic-bezier(0.85, 0, 0.15, 1)",
+                "swap-card": "cubic-bezier(0.65, 0, 0.35, 1)",
             },
             colors: {
                 primary: {
