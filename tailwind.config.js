@@ -20,6 +20,19 @@ module.exports = {
                     "0%": { transform: "translateX(calc(-250px * 10))" },
                     "100%": { transform: "translateX(0)" },
                 },
+                fall: {
+                    "0%": {
+                        transform: "translateX(0) rotate(0deg)",
+                        opacity: 1,
+                    },
+                    "80%": {
+                        opacity: 1,
+                    },
+                    "100% ": {
+                        transform: "translateX(85vh) rotate(360deg)",
+                        opacity: 0,
+                    },
+                },
             },
             transitionTimingFunction: {
                 // FIXME: give a better name
