@@ -11,6 +11,7 @@ import {
 import { generateEventUrl } from '@/src/utils/url'
 import Image from 'next/image'
 import Button from '../button'
+import GlitchAnimation from './glitchAnimation'
 
 const Event = ({
   data,
@@ -87,8 +88,12 @@ const Event = ({
           <div className="w-9 h-9 rounded-full relative bottom-4 right-3 bg-slate-400 hover:scale-105 border-4 border-black"></div>
         </div>
         <div className="grow">
-          <div className="text-center text-slate-400 text-xl font-bold my-1 uppercase">
-            {data.name}
+          <div className="text-center flex  w-full justify-center text-slate-400 text-xl font-bold my-1 uppercase">
+            <GlitchAnimation
+              title={data.name}
+              fontSize={1.25} 
+              mainHeading={true}
+            />
           </div>
           <div className="h-[0.625rem] custom-grad blur-[1.5px] min-h-4 my-2"></div>
           {data.image && (
@@ -107,7 +112,9 @@ const Event = ({
                   <>
                     <div key={attr.name} className="flex p-1">
                       {<attr.Icon className="w-5" />}
-                      <p className="leading-4">{attr.text}</p>
+                      <p className="leading-4">
+                        {attr.name} : {attr.text}
+                      </p>
                     </div>
                   </>
                 ) : null
