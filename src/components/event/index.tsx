@@ -89,11 +89,9 @@ const Event = ({
         </div>
         <div className="grow">
           <div className="text-center flex  w-full justify-center text-slate-400 text-xl font-bold my-1 uppercase">
-            <GlitchAnimation
-              title={data.name}
-              fontSize={1.25} 
-              mainHeading={true}
-            />
+            <h1 className="glitch">
+              {data.name}
+            </h1>
           </div>
           <div className="h-[0.625rem] custom-grad blur-[1.5px] min-h-4 my-2"></div>
           {data.image && (
