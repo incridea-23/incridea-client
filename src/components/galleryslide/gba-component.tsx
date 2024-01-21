@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { Autoplay, Mousewheel, Navigation, Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import BlurImage from "../blurImage";
 
 const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
   const [active, setActive] = useState<number>(0);
@@ -14,7 +15,7 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
   const swiperRef = useRef<SwiperType>();
   return (
     <motion.div
-      className="relative sm:mt-20 rounded-3xl flex justify-center items-center w-[305px] h-[445px] sm:w-[1000px] sm:h-[500px] mx-auto sm:shadow-none"
+      className="relative sm:mt-20 rounded-[500px] flex justify-center items-center w-[305px] h-[445px] sm:w-[60vw] sm:h-[60vh] mx-auto sm:shadow-none"
       initial={{
         boxShadow: "0px 10px 49px 10px rgba(0,0,0,0.25)",
         translateY: -19,
@@ -38,13 +39,13 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
       />
       <Image
         fill
-        src={"/assets/svg/gba_gameboy.svg"}
+        src={"/assets/svg/gameboy_no_edge.svg"}
         alt="incridea"
-        className="hidden md:block object-cover"
+        className="hidden md:block object-fill"
         priority
       />
 
-      <div className="absolute w-full h-[40%] right-0 sm:top-[105px] sm:h-[250px] sm:w-[800px] sm:right-[113px] top-[50px] z-10">
+      <div className="absolute w-full h-[40%] right-0 sm:top-[15vh] sm:h-[30vh] sm:w-[55vw] sm:right-[2.55vw] top-[50px] z-10">
         <Swiper
           onBeforeInit={(swiper) => {
             swiperRef.current = swiper;
@@ -52,7 +53,7 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
           mousewheel={true}
           modules={[Navigation, Autoplay, Mousewheel]}
           autoplay={true}
-          className="sm:w-[540px] sm:z-50 w-[230px] h-full border-8 border-[#63aeef] sm:border-none relative"
+          className="sm:w-[33.5vw] sm:z-50 w-[230px] h-full border-8 border-[#63aeef] sm:border-none relative"
         >
           {imgArr.map((img, index) => {
             return (
@@ -60,12 +61,18 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
                 key={index}
                 className="flex justify-center items-center bg-white text-center"
               >
-                <div className="relative w-full sm:h-80 h-full flex justify-center items-center">
+                <div className="relative w-full h-full flex justify-center items-center">
+                  <BlurImage
+                    fill
+                    alt="Blurred Image"
+                    src={`${baseImageUrl}` + `/${img}`}
+                    className="object-cover blur-xl"
+                  />
                   <Image
                     fill
                     src={`${baseImageUrl}` + `/${img}`}
                     alt="incridea"
-                    className="object-scale-down object-center"
+                    className={`object-cover z-10`}
                     priority
                   />
                 </div>

@@ -2,14 +2,15 @@ import { FooterBody } from "@/src/components/footer";
 import GallerySlide from "@/src/components/galleryslide";
 import { motion } from "framer-motion";
 import { NextPage } from "next";
-import { useState } from "react";
-import { Autoplay, Navigation } from "swiper";
+import { useRef, useState } from "react";
+import { Autoplay, Navigation, Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const Gallery: NextPage = () => {
   const [activeYear, setActiveYear] = useState<number>(0);
+  const swiperRef = useRef<SwiperType>();
   const years = [2019, 2020, 2022, 2023];
   const imageCounts = [13, 2, 18, 20];
 
@@ -53,6 +54,9 @@ const Gallery: NextPage = () => {
         <div className="text-black text-5xl">{/* Title {Incridea year} */}</div>
         <Swiper
           autoplay={false}
+          onBeforeInit={(swiper) => {
+            swiperRef.current = swiper;
+          }}
           modules={[Navigation, Autoplay]}
           speed={900}
           className="sm:w-full h-full border-8 border-[#63aeef] relative flex"
@@ -77,6 +81,14 @@ const Gallery: NextPage = () => {
               <GallerySlide title={"2022"} imgArr={img2023} emulator="gba" />
             </div>
           </SwiperSlide>
+          <button
+            onClick={() => swiperRef.current?.slidePrev()}
+            className={`active:bg-gray-800 z-50 h-6 w-6 rounded-lg sm:rounded-full duration-300 transition-all ease-in-out bg-black border-yellow-300 border-2 sm:border-none animate-`}
+          ></button>
+          <button
+            onClick={() => swiperRef.current?.slideNext()}
+            className="active:bg-gray-800 z-50 bg-black rounded-lg sm:rounded-full duration-300 transition-all ease-in-out border-yellow-300 border-2 sm:border-none animate-"
+          ></button>
           {/* <SwiperSlide className="flex justify-center items-center text-center">
             <div className="relative w-full h-full flex justify-center items-center">
               <GallerySlide title={"2022"} imgArr={img2022} emulator="pc" />
