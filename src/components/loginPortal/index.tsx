@@ -4,10 +4,10 @@ import FallingElements from "@/src/pages/fallingElements";
 interface ILPProps {
     isTop: boolean;
 }
-const elements: string[] = ['trophy.png', 'dice.png', 'sword.png', 'witchHat.png', 'pawn.png', 'pacman.png', 'sheild.png', 'bomb.png', 'coin.png', 'potion.png'];
+const elements: string[] = ['trophy.png', 'dice.png', 'sword.png', 'witchHat.png', 'pawn.png', 'pacman.png', 'sheild.png', 'bomb.png', 'coin.png', 'potion.png','bowArrow.png'];
 
 const getElement = (): number => {
-    return (Math.floor(Math.random() * 10)); //used to generate a random index from the assets array
+    return (Math.floor(Math.random() * 11)); //used to generate a random index from the assets array
 };
 const getSize = () => {
     let size = Math.floor(Math.random() * (60 - 30 + 1)) + 30;
