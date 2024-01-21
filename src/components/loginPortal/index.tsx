@@ -4,9 +4,9 @@ import FallingElements from "@/src/pages/fallingElements";
 interface ILPProps {
   isTop: boolean;
 }
-const elements =['trophy.png','dice.png','sword.png','witchHat.png','pawn.png','pacman.png','sheild.png','bomb.png'];
+const elements:string[] =['trophy.png','dice.png','sword.png','witchHat.png','pawn.png','pacman.png','sheild.png','bomb.png'];
 
-const getElement=()=>{
+const getElement=():number=>{
     return (Math.floor(Math.random() * 8) );
 };
 const getSize=()=>{
@@ -17,16 +17,14 @@ const LoginPortal: React.FC<ILPProps> = ({ isTop }: ILPProps) => {
   const [fallingElements, setFallingElements] = useState<React.ReactNode[]>([]);
 
   useEffect(() => {
-    // Create a new falling element every 1 second
     const intervalId = setInterval(() => {
         isTop? setFallingElements((prevElements) => [...prevElements, <FallingElements src={elements[getElement()]} size={getSize()} key={Date.now()} />]): null;
     }, 500);
 
     return () => {
-      // Clear the interval when the component is unmounted
       clearInterval(intervalId);
     };
-  }, []); // Empty dependency array ensures that the effect runs only once on mount
+  }, []); 
 
   return (
     <>

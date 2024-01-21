@@ -10,7 +10,7 @@ const getPosition=()=>{
     return {position:Math.floor(Math.random() * 100) + 1};
 }
 
-const FallingElements = ({src,size}:srcProps) => {
+const FallingElements: React.FC<srcProps> = ({src,size}:srcProps) => {
    return (
         <>
             <div className={` absolute animate-[fall_10s_linear_forwards]`}
