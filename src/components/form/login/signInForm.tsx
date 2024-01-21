@@ -131,22 +131,21 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
                         </div>
                     </div>
                 )}
-                {/* FIXME: needed? made mt-5 => mt-2*/}
-                {/* <div className="flex flex-col md:mt-2 mt-5 relative text-center">
+                <div className="flex flex-col md:mt-2 mt-3 relative text-center">
                     <hr className="my-3 border-[#6f5925]" />
                     <h4 className="absolute top-0.5 translate-x-1/2 w-max mx-auto bg-[#f3e9d1] rounded-full text-[#6f5925] right-1/2 md:px-2 px-3 text-sm">
                         New here?
-                    </h4> */}
-                <Button
-                    onClick={() => {
-                        setWhichForm("signUp");
-                    }}
-                    type="button"
-                    intent={"ghost"}
-                    className="mt-2">
-                    Sign up instead
-                </Button>
-                {/* </div> */}
+                    </h4>
+                    <Button
+                        onClick={() => {
+                            setWhichForm("signUp");
+                        }}
+                        type="button"
+                        intent={"ghost"}
+                        className="mt-5">
+                        Sign up instead
+                    </Button>
+                </div>
             </form>
         </>
     );

@@ -4,29 +4,32 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
+type CardForms = "signIn" | "resetPassword" | "signUp" | "resendEmail";
 type CardStyle = {
     top: string;
     transitionDuration: string;
+    transformOrigin: string;
     transform: string;
 };
 
-const CARD_SWITCH_DURATION = 1000,
-    CSD_IN_STRING = `${CARD_SWITCH_DURATION}ms`;
-
+const CARD_SWITCH_DURATION = 1000;
 const CARD_TOP_STYLE: CardStyle = {
         top: "-50%",
         transitionDuration: "0s",
-        transform: `translate(-50%, -50%) rotateX(90deg)`,
+        transformOrigin: "",
+        transform: `translate(-50%, -50%) rotateX(50deg) scaleX(0.1)`,
     },
     CARD_NEUTRAL_STYLE: CardStyle = {
         top: "50%",
-        transitionDuration: CSD_IN_STRING,
-        transform: `translate(-50%, -50%) rotateX(0deg)`,
+        transitionDuration: `${CARD_SWITCH_DURATION}ms`,
+        transformOrigin: "bottom",
+        transform: `translate(-50%, -50%) rotateX(0deg) scaleX(1)`,
     },
     CARD_BOTTOM_STYLE: CardStyle = {
         top: "150%",
-        transitionDuration: CSD_IN_STRING,
-        transform: `translate(-50%, -50%) rotateX(-90deg)`,
+        transitionDuration: `${CARD_SWITCH_DURATION}ms`,
+        transformOrigin: "top",
+        transform: `translate(-50%, -50%) rotateX(-50deg) scaleX(0.1)`,
     };
 
 const SignIn: NextPage = () => {
@@ -34,14 +37,14 @@ const SignIn: NextPage = () => {
         query,
     }: {
         query: {
-            whichForm?: "signIn" | "resetPassword" | "signUp" | "resendEmail";
+            whichForm?: CardForms;
             redirectUrl?: string;
         };
     } = useRouter();
 
-    const [whichForm, setWhichForm] = useState<
-        "signIn" | "resetPassword" | "signUp" | "resendEmail"
-    >(query.whichForm || "signIn");
+    const [whichForm, setWhichForm] = useState<CardForms>(
+        query.whichForm || "signIn"
+    );
 
     const [cardStyle, setCardStyle] = useState<{
         signIn: CardStyle;
@@ -56,9 +59,7 @@ const SignIn: NextPage = () => {
         [whichForm]: CARD_NEUTRAL_STYLE,
     });
 
-    const changeCard: (
-        newForm: "signIn" | "resetPassword" | "signUp" | "resendEmail"
-    ) => void = (newForm) => {
+    const changeCard: (newForm: CardForms) => void = (newForm) => {
         setCardStyle((prev) => ({
             ...prev,
             [whichForm]: CARD_BOTTOM_STYLE,
@@ -86,6 +87,7 @@ const SignIn: NextPage = () => {
                     whichForm="signIn"
                     cardStyle={cardStyle.signIn}
                     setWhichForm={changeCard}
+                    redirectUrl={query.redirectUrl}
                 />
                 <LoginCard
                     whichForm="resetPassword"
@@ -109,4 +111,4 @@ const SignIn: NextPage = () => {
 };
 
 export default SignIn;
-export type { CardStyle };
+export type { CardForms, CardStyle };
