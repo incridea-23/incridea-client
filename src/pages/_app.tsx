@@ -14,6 +14,7 @@ import { Toaster } from "react-hot-toast";
 import { Analytics } from "@vercel/analytics/react";
 import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas";
 const Navbar = dynamic(() => import("../components/navbar"), { ssr: false });
+import ExploreGame from "../components/exploreGame";
 
 export default function App({
   Component,
@@ -75,12 +76,14 @@ export default function App({
             animate="animateState"
             exit="exitState"
             transition={{ duration: 0.8 }}
-            variants={variants}>
+            variants={variants}
+          >
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8 }}
-              className="min-h-screen">
+              className="min-h-screen"
+            >
               <Component setLoading={setLoading} {...pageProps} />
             </motion.div>
           </motion.main>
