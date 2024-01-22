@@ -5,6 +5,7 @@ import { PublishedEventsDocument, PublishedEventsQuery } from "@/src/generated/g
 import { client } from "@/src/lib/apollo";
 import GlitchAnimation from "@/src/components/event/glitchAnimation";
 import { Menu } from "@headlessui/react";
+import { AiOutlineSearch } from "react-icons/ai";
 
 const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
   data,
@@ -121,18 +122,22 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
               value={query}
               onChange={handleSearch}
             />
+            <AiOutlineSearch
+                size={"1.4rem"}
+                className="absolute right-3 top-2.5 text-gray-300/70"
+            />
           </div>
           <div>
             <div className="flex flex-row justify-between md:justify-evenly items-center py-4 w-full text-lg md:text-xl">
               <div className="flex flex-col md:flex-row justify-center items-center gap-4">
-                <Menu as={"div"} className={"relative w-full inline-block"}>
+                <Menu as={"div"} className={"relative w-full flex justify-center"}>
                   <Menu.Button
                     className={
                       "inline-flex shrink-0 whitespace-nowrap bg-slate-900 hover:bg-slate-800 hover:scale-105 leading-6 w-full justify-center rounded-lg px-4 py-2 h-[40px] font-medium text-white"
                     }>
                     {currentDayFilter !== "ALL" ? currentDayFilter : "Day"}
                   </Menu.Button>
-                  <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-slate-900  absolute z-[100] text-center rounded-lg shadow-black/80 shadow-2xl">
+                  <Menu.Items className="overflow-hidden top-9 pb-1.5 mt-1 bg-slate-900  absolute z-[100] text-center rounded-lg shadow-black/80 shadow-2xl">
                     {dayFilters.map((filter) => (
                       <Menu.Item key={filter}>
                         {({ active }) => (
@@ -150,14 +155,14 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
                 </Menu>
               </div>
               <div className="flex flex-col md:flex-row justify-center items-center gap-4">
-                <Menu as={"div"} className={"relative w-full inline-block"}>
+                <Menu as={"div"} className={"relative w-full flex justify-center"}>
                   <Menu.Button
                     className={
                       "inline-flex shrink-0 whitespace-nowrap bg-slate-900 hover:bg-slate-800 hover:scale-105 leading-6 w-full justify-center rounded-lg px-4 py-2 h-[40px] font-medium text-white"
                     }>
                     {currentCategoryFilter !== "ALL" ? currentCategoryFilter : "Category"}
                   </Menu.Button>
-                  <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-slate-900  absolute z-[100] text-center rounded-lg shadow-black/80 shadow-2xl">
+                  <Menu.Items className="overflow-hidden top-9 pb-1.5 mt-1 bg-slate-900  absolute z-[100] text-center rounded-lg shadow-black/80 shadow-2xl">
                     {categoryFilters.map((filter) => (
                       <Menu.Item key={filter}>
                         {({ active }) => (
@@ -175,14 +180,14 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
                 </Menu>
               </div>
               <div className="flex flex-col md:flex-row justify-center items-center gap-4">
-                <Menu as={"div"} className={"relative w-full inline-block"}>
+                <Menu as={"div"} className={"relative w-full flex justify-center"}>
                   <Menu.Button
                     className={
                       "inline-flex shrink-0 whitespace-nowrap bg-slate-900 hover:bg-slate-800 hover:scale-105 leading-6 w-full justify-center rounded-lg px-4 py-2 h-[40px] font-medium text-white"
                     }>
                     {currentBranchFilter !== "ALL" ? currentBranchFilter : "Branch"}
                   </Menu.Button>
-                  <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-slate-900 rounded-md  absolute z-[100] text-center shadow-black/80 shadow-2xl">
+                  <Menu.Items className="overflow-hidden top-9 pb-1.5 mt-1 bg-slate-900 rounded-md  absolute z-[100] text-center shadow-black/80 shadow-2xl">
                     {branchFilters.map((filter) => (
                       <Menu.Item key={filter}>
                         {({ active }) => (

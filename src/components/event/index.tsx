@@ -111,7 +111,8 @@ const Event = ({
                 />
               )}
               <div className="screen-overlay"></div>
-              {/* <div className="screen-overlay"></div> for extra brightness may be used */}
+              {/* for extra brightness may be used */}
+              {/* <div className="screen-overlay"></div>  */}
             </div>
             <div className="flex items-center justify-center mx-6 md:mx-3 my-2 md:my-0 h-full md:min-h-[120px]  py-2 ">
               <div className="flex flex-col justify-center gap-1.5 bodyFont glitch h-full md:min-h-[120px] min-w-[230px] z-20 relative text-white text-sm border-4 border-gray-600 rounded-xl py-2">
