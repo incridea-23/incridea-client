@@ -30,7 +30,7 @@ const GlitchAnimation =({
     <div className="text-[#e7e7e7]">
       <div
         ref={(el) => (loading_screen.current = el)}
-        className={`relative z-50 w-full bottom-1.5`}
+        className={`relative z-50 w-full bottom-1.5 md:my-2 text-center flex justify-center items-center`}
       >
         <div>
             <div className="flex items-center justify-center invisible">

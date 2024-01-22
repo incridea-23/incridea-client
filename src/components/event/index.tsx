@@ -87,10 +87,14 @@ const Event = ({
         <div className="absolute z-10">
           <div className="w-9 h-9 rounded-full relative bottom-4 right-3 bg-slate-400 hover:scale-105 border-4 border-black"></div>
         </div>
-        <div className="grow">
-          <div className="text-center flex  w-full justify-center text-slate-400 text-xl font-bold my-1 uppercase">
-            <h1 className="glitch">
-              {data.name}
+        <div className="grow glitch">
+          <div className="text-center flex w-full justify-center text-slate-400 text-2xl font-bold  uppercase">
+            <h1 className="mx-1">
+              <GlitchAnimation
+                title={data.name}
+                fontSize={1.25}
+                mainHeading={true}
+              />
             </h1>
           </div>
           <div className="h-[0.625rem] custom-grad blur-[1.5px] min-h-4 my-2"></div>
