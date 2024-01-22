@@ -290,9 +290,9 @@
 .screen {
     display: flex;
     border: 2px solid #3F3B3B;
-    aspect-ratio: 5/3;
+    aspect-ratio: 16/9;
     overflow: hidden;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
     position: relative;
     z-index: 10;
     margin: auto;

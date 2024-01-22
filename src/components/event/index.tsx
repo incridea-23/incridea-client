@@ -106,8 +106,8 @@ const Event = ({
               <div className="screen-overlay"></div>
               <div className="screen-overlay"></div>
             </div>
-            <div className="flex items-center justify-start mx-3">
-              <div className="flex flex-col gap-1.5 bodyFont glitch z-20 relative text-white text-sm mt-5">
+            <div className="flex items-center justify-start mx-6 md:mx-3 my-2 md:my-0 h-full md:min-h-[120px]">
+              <div className="flex flex-col justify-center gap-1.5 bodyFont glitch h-full md:min-h-[120px] z-20 relative text-white text-sm">
                 {getEventAttributes().map((attr) =>
                   attr.name ? (
                     <>
