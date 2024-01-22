@@ -62,15 +62,15 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
                 className="flex justify-center items-center bg-white text-center"
               >
                 <div className="relative w-full h-full flex justify-center items-center">
-                  <BlurImage
+                  {/* <BlurImage
                     fill
                     alt="Blurred Image"
-                    src={`${baseImageUrl}` + `/${img}`}
+                    src={baseImageUrl+img}
                     className="object-cover blur-xl"
-                  />
+                  /> */}
                   <Image
                     fill
-                    src={`${baseImageUrl}` + `/${img}`}
+                    src={baseImageUrl+img}
                     alt="incridea"
                     className={`object-cover z-10`}
                     priority
