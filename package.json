@@ -22,6 +22,7 @@
     "framer-motion": "^9.0.1",
     "graphql": "^16.6.0",
     "graphql-ws": "^5.12.1",
+    "gsap": "^3.12.5",
     "install": "^0.13.0",
     "jsonwebtoken": "^9.0.0",
     "locomotive-scroll": "^4.1.4",

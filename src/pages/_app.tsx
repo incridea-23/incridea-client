@@ -1,18 +1,18 @@
 import { useApollo } from "@/src/lib/apollo";
 import "@/src/styles/globals.css";
 import { ApolloProvider } from "@apollo/client";
-import type { AppProps } from "next/app";
-import HeadComponent from "../components/head";
-import { useEffect, useState } from "react";
-import Footer from "../components/footer";
-import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
-import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
-import Loader from "../components/Loader";
-import { Toaster } from "react-hot-toast";
-import { Analytics } from "@vercel/analytics/react";
 import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas";
+import { Analytics } from "@vercel/analytics/react";
+import { AnimatePresence, motion } from "framer-motion";
+import type { AppProps } from "next/app";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
+import Loader from "../components/Loader";
+import Footer from "../components/footer";
+import HeadComponent from "../components/head";
 const Navbar = dynamic(() => import("../components/navbar"), { ssr: false });
 
 export default function App({

@@ -1,11 +1,10 @@
 import { FooterBody } from "@/src/components/footer";
 import GallerySlide from "@/src/components/galleryslide";
 import { motion } from "framer-motion";
+import gsap from "gsap";
 import { NextPage } from "next";
 import { useRef, useState } from "react";
 import { Autoplay, Navigation, Swiper as SwiperType } from "swiper";
-import "swiper/css";
-import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const Gallery: NextPage = () => {
@@ -30,11 +29,7 @@ const Gallery: NextPage = () => {
     return imagePaths;
   };
 
-  const img2019: string[] = generateImagePaths(
-    years[0],
-    imageCounts[0],
-    "jpg"
-  );
+  const img2019: string[] = generateImagePaths(years[0], imageCounts[0], "jpg");
   const img2020: string[] = generateImagePaths(years[1], imageCounts[1], "jpg");
   const img2022: string[] = generateImagePaths(years[2], imageCounts[2], "jpg");
   const img2023: string[] = generateImagePaths(years[3], imageCounts[3], "jpg");
@@ -63,15 +58,25 @@ const Gallery: NextPage = () => {
         >
           <SwiperSlide className="flex justify-center items-center text-center">
             <div className="relative w-full h-full flex justify-center items-center">
-              <GallerySlide title={"2022"} imgArr={img2019} emulator="gba" />
+              <GallerySlide
+                title={"2022"}
+                imgArr={img2019}
+                emulator="gba"
+                year={activeYear}
+              />
             </div>
           </SwiperSlide>
           <SwiperSlide className="flex justify-center items-center text-center">
             <div className="relative w-full h-full flex justify-center items-center">
-              <GallerySlide title={"2022"} imgArr={img2020} emulator="gba" />
+              <GallerySlide
+                title={"2022"}
+                imgArr={img2020}
+                emulator="gba"
+                year={activeYear}
+              />
             </div>
           </SwiperSlide>
-          <SwiperSlide className="flex justify-center items-center text-center">
+          {/* <SwiperSlide className="flex justify-center items-center text-center">
             <div className="relative w-full h-full flex justify-center items-center">
               <GallerySlide title={"2022"} imgArr={img2022} emulator="gba" />
             </div>
@@ -80,15 +85,47 @@ const Gallery: NextPage = () => {
             <div className="relative w-full h-full flex justify-center items-center">
               <GallerySlide title={"2022"} imgArr={img2023} emulator="gba" />
             </div>
-          </SwiperSlide>
+          </SwiperSlide> */}
           <button
-            onClick={() => swiperRef.current?.slidePrev()}
-            className={`active:bg-gray-800 z-50 h-6 w-6 rounded-lg sm:rounded-full duration-300 transition-all ease-in-out bg-black border-yellow-300 border-2 sm:border-none animate-`}
-          ></button>
+            onClick={async () => {
+              if (activeYear !== 0) {
+                await gsap.to("#animation", {
+                  y: -70,
+                  boxShadow: "0px 10px 67px 20px rgba(0,0,0,0.25)",
+                  duration: 1,
+                });
+              }
+
+              setActiveYear((cur) => {
+                if (cur === 0) return cur;
+                return --cur;
+              });
+              return swiperRef.current?.slidePrev();
+            }}
+            className={`absolute top-[90%] left-[40%] h-6 w-auto z-10 duration-300 transition-all ease-in-out border-yellow-300 border-2 sm:border-none animate-`}
+          >
+            Prev
+          </button>
           <button
-            onClick={() => swiperRef.current?.slideNext()}
-            className="active:bg-gray-800 z-50 bg-black rounded-lg sm:rounded-full duration-300 transition-all ease-in-out border-yellow-300 border-2 sm:border-none animate-"
-          ></button>
+            onClick={async () => {
+              if (activeYear !== years.length) {
+                await gsap.to("#animation", {
+                  y: -70,
+                  boxShadow: "0px 10px 67px 20px rgba(0,0,0,0.25)",
+                  duration: 1,
+                });
+              }
+
+              setActiveYear((cur) => {
+                if (cur === years.length) return cur;
+                return ++cur;
+              });
+              return swiperRef.current?.slideNext();
+            }}
+            className="absolute top-[90%] left-[60%] z-10 h-6 w-auto duration-300 transition-all ease-in-out border-yellow-300 border-2 sm:border-none animate-"
+          >
+            Next
+          </button>
           {/* <SwiperSlide className="flex justify-center items-center text-center">
             <div className="relative w-full h-full flex justify-center items-center">
               <GallerySlide title={"2022"} imgArr={img2022} emulator="pc" />
@@ -127,7 +164,7 @@ const Gallery: NextPage = () => {
   //     {/* Header Part */}
   //     <div
   //       id="head"
-  //       className="snap-start min-h-screen w-full relative flex overflow-hidden bg-black/60"
+  //       className="snap-start min-h-screen w-full relative flex overflow-hidden /60"
   //     >
   //       <video
   //         autoPlay

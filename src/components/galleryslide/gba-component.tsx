@@ -1,34 +1,62 @@
 import { baseImageUrl } from "@/src/utils/url";
 import { motion } from "framer-motion";
+import gsap from "gsap";
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Autoplay, Mousewheel, Navigation, Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import BlurImage from "../blurImage";
 
-const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
+const GbaComponent = ({ imgArr, year }: { imgArr: string[]; year: number }) => {
   const [active, setActive] = useState<number>(0);
   const [activeImg, setActiveImg] = useState<string>("");
   useEffect(() => {
     setActiveImg(imgArr[active]);
   }, [active, imgArr]);
+
   const swiperRef = useRef<SwiperType>();
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const t1 = gsap.timeline();
+      t1.from("#animation", {
+        x: -60,
+      })
+        .to("#animation", {
+          x: 0,
+          duration: 0.5,
+        })
+        .from("#animation", {
+          y: -90,
+          boxShadow: "0px 10px 67px 20px rgba(0,0,0,0.25)",
+        })
+        .to("#animation", {
+          y: 0,
+          boxShadow: "0px 10px 67px 63px rgba(0,0,0,0.25)",
+          duration: 1,
+        });
+    });
+
+    return () => ctx.revert();
+  }, [year]);
+
   return (
-    <motion.div
+    <div
+      id="animation"
       className="relative rounded-[500px] flex justify-center items-center w-[305px] h-[445px] md:w-[65vw] md:h-[33vw] mx-auto md:shadow-none"
-      initial={{
-        boxShadow: "0px 0px 49px 10px rgba(0,0,0,0.25)",
-        translateY: -19,
-      }}
-      animate={{
-        boxShadow: "0px 10px 48px 30px rgba(0,0,0,0.25)",
-        translateY: 0,
-      }}
-      exit={{
-        translateY: -19,
-        boxShadow: "0px 10px 49px 10px rgba(0,0,0,0.25)",
-      }}
-      transition={{ duration: 1, ease: "easeInOut", delay: 0.5 }}
+      // initial={{
+      //   boxShadow: "0px 0px 49px 10px rgba(0,0,0,0.25)",
+      //   translateY: -19,
+      // }}
+      // animate={{
+      //   boxShadow: "0px 10px 48px 30px rgba(0,0,0,0.25)",
+      //   translateY: 0,
+      // }}
+      // exit={{
+      //   translateY: -19,
+      //   boxShadow: "0px 10px 49px 10px rgba(0,0,0,0.25)",
+      // }}
+      // transition={{ duration: 1, ease: "easeInOut", delay: 0.5 }}
     >
       <Image
         fill
@@ -70,7 +98,7 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
                   /> */}
                   <Image
                     fill
-                    src={baseImageUrl+img}
+                    src={baseImageUrl + img}
                     alt="incridea"
                     className={`object-cover z-10`}
                     priority
@@ -102,7 +130,7 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
           className="active:bg-gray-800 sm:opacity-40 absolute top-[240px] left-[80px] md:-top-[0.9vw] md:left-[39.75vw] w-[2.2rem] h-8 md:h-[7.3vw] md:w-[7.3vw] rounded-lg md:rounded-full duration-300 transition-all ease-in-out border-yellow-300 border-2 md:border-none animate-"
         ></button>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

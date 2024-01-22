@@ -17,17 +17,17 @@ type GalleryProps = {
   // prev: string;
   imgArr: string[];
   emulator: string;
+  year: number;
 };
 
-const GallerySlide: FC<GalleryProps> = ({ title, imgArr, emulator }) => {
+const GallerySlide: FC<GalleryProps> = ({ title, imgArr, emulator ,year}) => {
   // const [active, setActive] = useState<number>(0);
   // const [activeImg, setActiveImg] = useState<string>("");
   const swiperRef = useRef<SwiperType>();
   // useEffect(() => {
   //   setActiveImg(imgArr[active]);
   // }, [active, imgArr]);
-  return <GbaComponent imgArr={imgArr}/>
- ;
+  return <GbaComponent imgArr={imgArr} year={year} />;
 
   // return (
   //   <div
