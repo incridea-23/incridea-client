@@ -8,74 +8,120 @@ export default function ExploreGame() {
     height: 0,
   };
   const [direction, setDirection] = useState<"left" | "right">("right");
-  const walkSprite = [
-    {
-      x: 0,
-      y: 0,
-      width: 32,
-      height: 64,
-    },
-    {
-      x: 32,
-      y: 0,
-      width: 32,
-      height: 64,
-    },
-    {
-      x: 68,
-      y: 0,
-      width: 32,
-      height: 64,
-    },
-    {
-      x: 99,
-      y: 0,
-      width: 32,
-      height: 64,
-    },
-    {
-      x: 128,
-      y: 0,
-      width: 32,
-      height: 64,
-    },
-    {
-      x: 162,
-      y: 0,
-      width: 38,
-      height: 64,
-    },
-    {
-      x: 204,
-      y: 0,
-      width: 36,
-      height: 64,
-    },
-    {
-      x: 238,
-      y: 0,
-      width: 32,
-      height: 64,
-    },
+  const SpriteDimensions = [
+    [
+      {
+        x: 0,
+        y: 0,
+        width: 200,
+        height: 248,
+      },
+    ],
+    [
+      {
+        x: 0,
+        y: 248,
+        width: 180,
+        height: 248,
+      },
+      {
+        x: 400,
+        y: 248,
+        width: 180,
+        height: 248,
+      },
+      {
+        x: 600,
+        y: 248,
+        width: 180,
+        height: 248,
+      },
+      {
+        x: 850,
+        y: 248,
+        width: 180,
+        height: 248,
+      },
+      {
+        x: 1100,
+        y: 248,
+        width: 180,
+        height: 248,
+      },
+      {
+        x: 1325,
+        y: 248,
+        width: 180,
+        height: 248,
+      },
+      {
+        x: 1550,
+        y: 248,
+        width: 180,
+        height: 248,
+      },
+      {
+        x: 1800,
+        y: 248,
+        width: 180,
+        height: 248,
+      },
+    ],
   ];
   let spriteIndex = 0;
   let spriteRow = 0;
   let gameFrame = 0;
   let staggerFrames = 25;
+  let spriteX = 0;
+  let spriteY = WINDOW_DIMENSION.height * 1.5;
+  let rightBoundary = WINDOW_DIMENSION.width - 50;
+  let leftBoundary = 50;
+  let spriteState = "idle";
+  let velocity = {
+    x: 15,
+    y: 1,
+  };
 
   function MoveRight() {
+    console.log(spriteState);
     if (spriteIndex > 6) {
       spriteIndex = 0;
+      if (spriteX < rightBoundary) {
+        spriteX += 15;
+      }
     } else {
       spriteIndex++;
+      if (spriteX < rightBoundary) {
+        spriteX += 15;
+      }
     }
   }
 
   function MoveLeft() {
+    console.log(spriteState);
     if (spriteIndex < 1) {
       spriteIndex = 7;
+      if (spriteX > leftBoundary) {
+        spriteX -= 15;
+      }
     } else {
       spriteIndex--;
+      if (spriteX > leftBoundary) {
+        spriteX -= 15;
+      }
+    }
+  }
+
+  function ForwardJump() {
+    velocity.y = -7;
+    if (spriteX < rightBoundary) {
+      spriteX += 30;
+    }
+  }
+
+  function Jump() {
+    if (velocity.y === 1) {
+      velocity.y = -7;
     }
   }
 
@@ -196,6 +242,65 @@ export default function ExploreGame() {
     }
   };
 
+  useEffect(() => {
+    // Define your event handlers
+    const moveLeft = (event: KeyboardEvent) => {
+      if (event.key === "ArrowLeft") {
+        spriteState = "walk";
+        MoveLeft();
+      }
+    };
+
+    const moveRight = (event: KeyboardEvent) => {
+      if (event.key === "ArrowRight") {
+        spriteState = "walk";
+        MoveRight();
+      }
+    };
+
+    const jump = (event: KeyboardEvent) => {
+      if (event.key === "ArrowUp") {
+        Jump();
+      }
+    };
+
+    const jumpForward = (event: KeyboardEvent) => {
+      //@ts-ignore
+      if (event.key === "ArrowUp" && event.key === "ArrowRight") {
+        ForwardJump();
+      }
+    };
+
+    // Add the event listeners
+    window.addEventListener("keydown", moveLeft);
+    window.addEventListener("keydown", moveRight);
+    window.addEventListener("keyup", () => {
+      spriteState = "idle";
+    });
+    window.addEventListener("keydown", jump);
+    window.addEventListener("keydown", jumpForward);
+    window.addEventListener(
+      "keydown",
+      function (e) {
+        if (
+          ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
+            e.code
+          ) > -1
+        ) {
+          e.preventDefault();
+        }
+      },
+      false
+    );
+    // Remove the event listeners when the component unmounts
+    return () => {
+      window.removeEventListener("keydown", moveLeft);
+      window.removeEventListener("keydown", moveRight);
+      window.removeEventListener("keydown", jump);
+      window.removeEventListener("keydown", jumpForward);
+    };
+  }, []); // Empty dependency array to run only on mount and unmount
+
   // Variables for shadow platform position, scale
   const shadowPlatformSprite = [
     {
@@ -261,7 +366,11 @@ export default function ExploreGame() {
   useEffect(() => {
     const ctx = canvas.current?.getContext("2d");
     const spriteSheet = new Image();
-    spriteSheet.src = "/assets/spriteSheets/ryokoRunJump.png";
+    spriteX =
+      WINDOW_DIMENSION.width * 0.5 - WINDOW_DIMENSION.height * 0.3 * 0.5;
+    rightBoundary = WINDOW_DIMENSION.width - 150;
+    spriteY = WINDOW_DIMENSION.height * 1.06;
+    spriteSheet.src = "/assets/spriteSheets/ryokoSpriteSheet.png";
     const background = new Image();
     background.src = "/assets/spriteSheets/background.png";
     const platformSprite = new Image();
@@ -311,41 +420,64 @@ export default function ExploreGame() {
 
       ctx?.drawImage(
         spriteSheet,
-        walkSprite[spriteIndex].x,
-        walkSprite[spriteIndex].y,
-        walkSprite[spriteIndex].width,
-        walkSprite[spriteIndex].height,
-        0,
-        0,
+        spriteState === "idle"
+          ? SpriteDimensions[0][0].x
+          : SpriteDimensions[1][spriteIndex].x,
+        spriteState === "idle"
+          ? SpriteDimensions[0][0].y
+          : SpriteDimensions[1][spriteIndex].y,
+        spriteState === "idle"
+          ? SpriteDimensions[0][0].width
+          : SpriteDimensions[1][spriteIndex].width,
+        spriteState === "idle"
+          ? SpriteDimensions[0][0].height
+          : SpriteDimensions[1][spriteIndex].height,
+        spriteX,
+        spriteY,
         100,
         100
       );
 
-      if (gameFrame % staggerFrames === 0) {
-        if (spriteIndex > 6) {
-          spriteIndex = 0;
-        } else {
-          spriteIndex++;
-        }
+      spriteY += velocity.y;
+      if (velocity.y < 5) {
+        velocity.y += 0.1;
       }
-      gameFrame++;
+      if (spriteY > WINDOW_DIMENSION.height * 1.5) {
+        spriteY = WINDOW_DIMENSION.height * 1.5;
+        velocity.y = 1;
+      }
+
+      // if (gameFrame % staggerFrames === 0) {
+      //   if (spriteIndex > 6) {
+      //     spriteIndex = 0;
+      //   } else {
+      //     spriteIndex++;
+      //   }
+      // }
+      // gameFrame++;
+
       requestAnimationFrame(animate);
     }
     animate();
-
-    const canvasRefCopy = canvas.current;
-    return () => {
-      canvasRefCopy?.removeEventListener("resize", () => {});
-    };
   }, []);
+
+  //   const canvasRefCopy = canvas.current;
+  //   return () => {
+  //     canvasRefCopy?.removeEventListener("resize", () => {});
+  //   };
+  // }, []);
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
       <canvas ref={canvas} className="h-[200vh] w-full"></canvas>
-      {/* <div className="flex w-[500px] justify-between">
-        <button onClick={MoveLeft}>Left</button>
-        <button onClick={MoveRight}>Right</button>
-      </div> */}
+      <div className="flex w-32 justify-between bg-white py-4 fixed bottom-0">
+        <button onClick={MoveLeft} className="w-full">
+          Left
+        </button>
+        <button onClick={MoveRight} className="w-full">
+          Right
+        </button>
+      </div>
     </div>
   );
 }
