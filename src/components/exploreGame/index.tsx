@@ -93,7 +93,7 @@ export default function ExploreGame() {
     }
   }
 
-  const drawPlatform = (
+  const drawGround = (
     ctx: CanvasRenderingContext2D | null | undefined,
     platformSprite: HTMLImageElement
   ) => {
@@ -140,6 +140,62 @@ export default function ExploreGame() {
     }
   };
 
+  const drawPlatform = (
+    ctx: CanvasRenderingContext2D | null | undefined,
+    platformSprite: HTMLImageElement
+  ) => {
+    if (canvas.current && ctx) {
+      // Drawing the central platform
+      const platformSpriteHeight = WINDOW_DIMENSION.height * 0.3;
+      const platformSpriteWidth = Math.ceil((platformSpriteHeight * 275) / 325); // 275 is the width of the platform sprite, 325 is the height of the platform sprite
+      ctx.drawImage(
+        platformSprite,
+        15,
+        15,
+        275,
+        325,
+        WINDOW_DIMENSION.width * 0.5 - platformSpriteWidth * 0.5,
+        WINDOW_DIMENSION.height * 1.027,
+        platformSpriteWidth,
+        platformSpriteHeight
+      );
+
+      // Drawing the left platform
+      const leftPlatformSpriteHeight = WINDOW_DIMENSION.height * 0.15;
+      const leftPlatformSpriteWidth = Math.ceil(
+        (leftPlatformSpriteHeight * 225) / 150
+      ); // 225 is the width of the platform sprite, 150 is the height of the platform sprite
+      ctx.drawImage(
+        platformSprite,
+        305,
+        15,
+        225,
+        150,
+        WINDOW_DIMENSION.width * 0.5 - leftPlatformSpriteWidth * 1.225,
+        WINDOW_DIMENSION.height * 1.373,
+        leftPlatformSpriteWidth,
+        leftPlatformSpriteHeight
+      );
+
+      // Drawing the right platform
+      const rightPlatformSpriteHeight = WINDOW_DIMENSION.height * 0.17;
+      const rightPlatformSpriteWidth = Math.ceil(
+        (leftPlatformSpriteHeight * 225) / 150
+      ); // 225 is the width of the platform sprite, 150 is the height of the platform sprite
+      ctx.drawImage(
+        platformSprite,
+        305,
+        15,
+        225,
+        150,
+        WINDOW_DIMENSION.width * 0.5 + rightPlatformSpriteWidth * 0.45,
+        WINDOW_DIMENSION.height * 1.3,
+        rightPlatformSpriteWidth,
+        rightPlatformSpriteHeight
+      );
+    }
+  };
+
   const canvasResize = () => {
     if (canvas.current) {
       WINDOW_DIMENSION.width = window.innerWidth;
@@ -167,6 +223,7 @@ export default function ExploreGame() {
     function animate() {
       ctx?.clearRect(0, 0, WINDOW_DIMENSION.width, WINDOW_DIMENSION.height * 2);
       drawBackground(ctx, background);
+      drawGround(ctx, platformSprite);
       drawPlatform(ctx, platformSprite);
       ctx?.drawImage(
         spriteSheet,
