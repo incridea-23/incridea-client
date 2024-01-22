@@ -80,38 +80,38 @@ const Event = ({
 
   return (
     <Link href={generateEventUrl(data.name, data.id)}>
-      <div className="bg-black mt-4 h-full hover:shadow-xl hover:scale-105 transition z-1 duration-300 ease-in-out cursor-pointer border-8 border-gray-600 rounded-3xl">
-        <div className="grow glitch">
+      <div className="bg-black mt-4 h-full hover:shadow-xl hover:scale-105 transition z-1 duration-300 ease-in-out cursor-pointer border-4 border-gray-600 rounded-2xl">
+        <div className="grow">
           <div className="text-center flex w-full justify-center text-slate-400 text-2xl font-bold  uppercase">
-            <h1 className="mx-1">
+            <h1 className="mx-1 glitch">
               <GlitchAnimation
                 title={data.name}
                 fontSize={1.25}
                 mainHeading={true}
               />
             </h1>
-
           </div>
-          <div className="bg-black mt-4 h-full mx-3 hover:shadow-xl flex flex-col justify-center items-centersm:px-2 py-2">
+          <div className="bg-black mt-4 h-full hover:shadow-xl flex flex-col justify-center items-centers ">
+            <div className="h-[0.625rem] custom-grad blur-[1.5px] min-h-4 mb-2"></div>
             <div className="screen">
               {data.image && (
                 <Image
                   src={data.image}
                   alt={data.name} 
-                  width={300}
-                  height={180}
-                  className="object-cover h-full z-0 rounded-sm"
+                  width={250}
+                  height={250}
+                  className="object-fill h-full w-full z-0  text-white"
                 />
               )}
               <div className="screen-overlay"></div>
               <div className="screen-overlay"></div>
             </div>
-            <div className="flex items-center justify-center">
-              <div className="flex flex-col gap-1.5 bodyFont z-20 relative text-white text-sm mt-5">
+            <div className="flex items-center justify-start mx-3">
+              <div className="flex flex-col gap-1.5 bodyFont glitch z-20 relative text-white text-sm mt-5">
                 {getEventAttributes().map((attr) =>
                   attr.name ? (
                     <>
-                      <div key={attr.name} className="flex p-1">
+                      <div key={attr.name} className="flex p-1 ">
                         {<attr.Icon className="w-5" />}
                         <p className="leading-4">
                           {attr.name} : {attr.text}
