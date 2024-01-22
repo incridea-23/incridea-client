@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { PublishedEventsDocument, PublishedEventsQuery } from "@/src/generated/generated";
 import { client } from "@/src/lib/apollo";
 import GlitchAnimation from "@/src/components/event/glitchAnimation";
+import { Menu } from "@headlessui/react";
 
 const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
   data,
@@ -22,7 +23,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
     "BTE",
   ];
 
-  const dayFilters = ["ALL", "DAY 1", "DAY 2", "DAY 3", "DAY 4"];
+  const dayFilters = ["ALL", "DAY 1", "DAY 2", "DAY 3"];
   const categoryFilters = ["ALL", "TECHNICAL", "NON_TECHNICAL", "CORE"];
   const [currentBranchFilter, setCurrentBranchFilter] =
     useState<typeof branchFilters[number]>("ALL");
@@ -59,8 +60,6 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
           ? "2023-04-26"
           : currentDayFilter === "DAY 2"
           ? "2023-04-27"
-          : currentDayFilter === "DAY 3"
-          ? "2023-04-28"
           : "2023-04-29"
       ).getDate();
       tempFilteredEvents = tempFilteredEvents.filter((event) =>
@@ -103,17 +102,105 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
   return (
     <div className="bg-gradient-to-bl from-black to-slate-900 min-h-screen relative">
       <div className="py-16 px-10 flex flex-col items-center justify-center">
-        <div>
-          <div className="font-bold text-5xl tracking-wide text-center text-white glitch">
+        <div className="flex flex-col pb-6 md:pb-12">
+          <div className="font-bold text-6xl tracking-wide text-center text-white glitch">
             <GlitchAnimation
               title={"Events"}
-              fontSize={10}
+              fontSize={7}
               mainHeading={false}
             />
           </div>
           <h3 className={`glitch font-semibold text-xl tracking-wide text-center py-5 pt-10 px-2 text-white`}>
             Ctrl+Play: Navigate Your Digital Playground with Our Ultimate Event Collection!
           </h3>
+          <div className="relative lg:basis-[75%] basis-full w-full lg:w-auto">
+            <input
+              className="text-white pl-8 bg-transparent border-2 p-2 rounded-2xl border-white w-full focus:outline-none placeholder-white placeholder-opacity-50"
+              type="text"
+              placeholder="Search for epic quests here..."
+              value={query}
+              onChange={handleSearch}
+            />
+          </div>
+          <div>
+            <div className="flex flex-row justify-between md:justify-evenly items-center py-4 w-full text-lg md:text-xl">
+              <div className="flex flex-col md:flex-row justify-center items-center gap-4">
+                <Menu as={"div"} className={"relative w-full inline-block"}>
+                  <Menu.Button
+                    className={
+                      "inline-flex shrink-0 whitespace-nowrap bg-slate-900 hover:bg-slate-800 hover:scale-105 leading-6 w-full justify-center rounded-lg px-4 py-2 h-[40px] font-medium text-white"
+                    }>
+                    {currentDayFilter !== "ALL" ? currentDayFilter : "Day"}
+                  </Menu.Button>
+                  <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-slate-900  absolute z-[100] text-center rounded-lg shadow-black/80 shadow-2xl">
+                    {dayFilters.map((filter) => (
+                      <Menu.Item key={filter}>
+                        {({ active }) => (
+                          <button
+                            className={`${
+                              currentDayFilter === filter ? "bg-white/50" : "bg-white/20"
+                            } text-black rounded-sm m-1.5 mb-0 w-36 px-3 py-2 text-sm hover:bg-white/50`}
+                            onClick={() => setCurrentDayFilter(filter)}>
+                            {filter}
+                          </button>
+                        )}
+                      </Menu.Item>
+                    ))}
+                  </Menu.Items>
+                </Menu>
+              </div>
+              <div className="flex flex-col md:flex-row justify-center items-center gap-4">
+                <Menu as={"div"} className={"relative w-full inline-block"}>
+                  <Menu.Button
+                    className={
+                      "inline-flex shrink-0 whitespace-nowrap bg-slate-900 hover:bg-slate-800 hover:scale-105 leading-6 w-full justify-center rounded-lg px-4 py-2 h-[40px] font-medium text-white"
+                    }>
+                    {currentCategoryFilter !== "ALL" ? currentCategoryFilter : "Category"}
+                  </Menu.Button>
+                  <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-slate-900  absolute z-[100] text-center rounded-lg shadow-black/80 shadow-2xl">
+                    {categoryFilters.map((filter) => (
+                      <Menu.Item key={filter}>
+                        {({ active }) => (
+                          <button
+                            className={`${
+                              currentCategoryFilter === filter.replace("_"," ") ? "bg-white/50" : "bg-white/20"
+                            } text-black rounded-sm m-1.5 mb-0 w-36 px-3 py-2 text-sm hover:bg-white/50`}
+                            onClick={() => setCurrentCategoryFilter(filter)}>
+                            {filter.replace("_", " ")}
+                          </button>
+                        )}
+                      </Menu.Item>
+                    ))}
+                  </Menu.Items>
+                </Menu>
+              </div>
+              <div className="flex flex-col md:flex-row justify-center items-center gap-4">
+                <Menu as={"div"} className={"relative w-full inline-block"}>
+                  <Menu.Button
+                    className={
+                      "inline-flex shrink-0 whitespace-nowrap bg-slate-900 hover:bg-slate-800 hover:scale-105 leading-6 w-full justify-center rounded-lg px-4 py-2 h-[40px] font-medium text-white"
+                    }>
+                    {currentBranchFilter !== "ALL" ? currentBranchFilter : "Branch"}
+                  </Menu.Button>
+                  <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-slate-900 rounded-md  absolute z-[100] text-center shadow-black/80 shadow-2xl">
+                    {branchFilters.map((filter) => (
+                      <Menu.Item key={filter}>
+                        {({ active }) => (
+                          <button
+                            className={`${
+                              currentBranchFilter === filter ? "bg-white/50" : "bg-white/20"
+                            } text-black rounded-sm m-1.5 mb-0 w-36 px-3 py-2 text-sm hover:bg-white/50`}
+                            onClick={() => setCurrentBranchFilter(filter)}>
+                            {filter}
+                          </button>
+                        )}
+                      </Menu.Item>
+                    ))}
+                  </Menu.Items>
+                </Menu>
+              </div>
+            </div>
+          </div>
         </div>
         <div className="max-w-7xl w-full h-full mx-auto grid justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredEvents.length > 0 ? filteredEvents.map((event) => (
