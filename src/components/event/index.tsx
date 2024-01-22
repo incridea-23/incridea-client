@@ -80,9 +80,16 @@ const Event = ({
 
   return (
     <Link href={generateEventUrl(data.name, data.id)}>
-      <div className="bg-black mt-4 h-full hover:shadow-xl hover:scale-105 transition z-1 duration-300 ease-in-out cursor-pointer border-4 border-gray-600 rounded-2xl">
+      <div className="bg-black mt-4 h-full hover:shadow-xl hover:scale-105 scale-100 transition z-1 duration-300 ease-in-out cursor-pointer border-4 border-gray-600 rounded-2xl">
+        <Image
+          src="/assets/png/card-bg.png"
+          alt={'bg-img'}
+          width={350}
+          height={400}
+          className="object-fill h-full absolute z-0 overflow-hidden rounded-lg text-white"
+        />
         <div className="grow">
-          <div className="text-center flex w-full justify-center text-slate-400 text-2xl font-bold  uppercase">
+          <div className="text-center flex w-full justify-center text-slate-400 text-2xl font-bold  uppercase  ">
             <h1 className="mx-1 glitch">
               <GlitchAnimation
                 title={data.name}
@@ -91,23 +98,23 @@ const Event = ({
               />
             </h1>
           </div>
-          <div className="bg-black mt-4 h-full hover:shadow-xl flex flex-col justify-center items-centers ">
-            <div className="h-[0.625rem] custom-grad blur-[1.5px] min-h-4 mb-2"></div>
+          <div className="h-[0.625rem] custom-grad blur-[1.5px] min-h-4 mt-4"></div>
+          <div className="mt-4 h-full hover:shadow-xl flex flex-col justify-center items-centers border-4 border-transparent rounded-xl">
             <div className="screen">
               {data.image && (
                 <Image
                   src={data.image}
-                  alt={data.name} 
+                  alt={data.name}
                   width={250}
                   height={250}
-                  className="object-fill h-full w-full z-0  text-white"
+                  className="object-fill h-full w-full z-0 text-white"
                 />
               )}
               <div className="screen-overlay"></div>
-              <div className="screen-overlay"></div>
+              {/* <div className="screen-overlay"></div> for extra brightness may be used */}
             </div>
-            <div className="flex items-center justify-start mx-6 md:mx-3 my-2 md:my-0 h-full md:min-h-[120px]">
-              <div className="flex flex-col justify-center gap-1.5 bodyFont glitch h-full md:min-h-[120px] z-20 relative text-white text-sm">
+            <div className="flex items-center justify-center mx-6 md:mx-3 my-2 md:my-0 h-full md:min-h-[120px]  py-2 ">
+              <div className="flex flex-col justify-center gap-1.5 bodyFont glitch h-full md:min-h-[120px] min-w-[230px] z-20 relative text-white text-sm border-4 border-gray-600 rounded-xl py-2">
                 {getEventAttributes().map((attr) =>
                   attr.name ? (
                     <>
@@ -123,7 +130,7 @@ const Event = ({
               </div>
             </div>
           </div>
-          <div className="flex justify-center mx-2">
+          <div className="flex justify-center relative z-20 mx-2">
             <Button
               noScaleOnHover
               className="hover:scale-0 shrink-0 m-2 w-full"

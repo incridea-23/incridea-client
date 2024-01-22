@@ -223,10 +223,10 @@
 }
 
 .custom-grad{
-    background: linear-gradient(to bottom right, #FFF 0%, rgba(217, 217, 217, 0.00) 50%) bottom right / 50% 50% no-repeat, 
-              linear-gradient(to bottom left, #FFF 0%, rgba(217, 217, 217, 0.00) 50%) bottom left / 50% 50% no-repeat, 
-              linear-gradient(to top left, #FFF 0%, rgba(217, 217, 217, 0.00) 50%) top left / 50% 50% no-repeat, 
-              linear-gradient(to top right, #FFF 0%, rgba(217, 217, 217, 0.00) 50%) top right / 50% 50% no-repeat;
+    background: linear-gradient(to bottom right, #c12c2c 0%, rgba(217, 217, 217, 0.00) 50%) bottom right / 50% 50% no-repeat, 
+              linear-gradient(to bottom left, #c12c2c 0%, rgba(217, 217, 217, 0.00) 50%) bottom left / 50% 50% no-repeat, 
+              linear-gradient(to top left, #c12c2c 0%, rgba(217, 217, 217, 0.00) 50%) top left / 50% 50% no-repeat, 
+              linear-gradient(to top right, #c12c2c 0%, rgba(217, 217, 217, 0.00) 50%) top right / 50% 50% no-repeat;
 }
 
 .glitch {
@@ -290,7 +290,7 @@
 .screen {
     display: flex;
     border: 2px solid #3F3B3B;
-    aspect-ratio: 16/9;
+    aspect-ratio: 16/10;
     overflow: hidden;
     border-radius: 0.5rem;
     position: relative;
@@ -328,3 +328,4 @@
   top: 0px;
   overflow: hidden;
 }
+
