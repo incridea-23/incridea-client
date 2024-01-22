@@ -83,7 +83,6 @@ export default function ExploreGame() {
   };
 
   function MoveRight() {
-    console.log(spriteState);
     if (spriteIndex > 6) {
       spriteIndex = 0;
       if (spriteX < rightBoundary) {
@@ -98,7 +97,6 @@ export default function ExploreGame() {
   }
 
   function MoveLeft() {
-    console.log(spriteState);
     if (spriteIndex < 1) {
       spriteIndex = 7;
       if (spriteX > leftBoundary) {
@@ -113,9 +111,15 @@ export default function ExploreGame() {
   }
 
   function ForwardJump() {
-    velocity.y = -7;
-    if (spriteX < rightBoundary) {
-      spriteX += 30;
+    if (velocity.y === 1) {
+      velocity.y = -7;
+      for (let i = 0; i < 10; i++) {
+        setTimeout(() => {
+          if (spriteX < rightBoundary) {
+            spriteX += 10;
+          }
+        }, i * 20);
+      }
     }
   }
 
@@ -266,7 +270,7 @@ export default function ExploreGame() {
 
     const jumpForward = (event: KeyboardEvent) => {
       //@ts-ignore
-      if (event.key === "ArrowUp" && event.key === "ArrowRight") {
+      if (event.key === "m") {
         ForwardJump();
       }
     };
