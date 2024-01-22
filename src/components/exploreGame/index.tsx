@@ -171,8 +171,8 @@ export default function ExploreGame() {
         15,
         225,
         150,
-        WINDOW_DIMENSION.width * 0.5 - leftPlatformSpriteWidth * 1.225,
-        WINDOW_DIMENSION.height * 1.373,
+        WINDOW_DIMENSION.width * 0.5 - leftPlatformSpriteWidth * 1.05,
+        WINDOW_DIMENSION.height * 1.39,
         leftPlatformSpriteWidth,
         leftPlatformSpriteHeight
       );
@@ -188,11 +188,64 @@ export default function ExploreGame() {
         15,
         225,
         150,
-        WINDOW_DIMENSION.width * 0.5 + rightPlatformSpriteWidth * 0.45,
+        WINDOW_DIMENSION.width * 0.5 + rightPlatformSpriteWidth * 0.4,
         WINDOW_DIMENSION.height * 1.3,
         rightPlatformSpriteWidth,
         rightPlatformSpriteHeight
       );
+    }
+  };
+
+  // Variables for shadow platform position, scale
+  const shadowPlatformSprite = [
+    {
+      heightPercent: 0.093,
+      spritePosition: { x: 305, y: 180, width: 150, height: 100 },
+    },
+    {
+      heightPercent: 0.06,
+      spritePosition: { x: 305, y: 290, width: 150, height: 55 },
+    },
+  ];
+
+  let shadowPlatformPosition: {
+    x: number;
+    y: number;
+    scale: number;
+    shadowPlatformSpriteIndex: number;
+  }[] = [];
+
+  const drawShadowPlatform = (
+    ctx: CanvasRenderingContext2D | null | undefined,
+    platformSprite: HTMLImageElement
+  ) => {
+    if (ctx && canvas.current) {
+      shadowPlatformPosition.map((shadowPlatform, index) => {
+        const spritePos =
+          shadowPlatformSprite[shadowPlatform.shadowPlatformSpriteIndex]
+            .spritePosition;
+
+        const shadowPlatformSpriteHeight =
+          shadowPlatformSprite[shadowPlatform.shadowPlatformSpriteIndex]
+            .heightPercent *
+          WINDOW_DIMENSION.height *
+          shadowPlatform.scale;
+        const shadowPlatformSpriteWidth = Math.ceil(
+          (shadowPlatformSpriteHeight * spritePos.width) / spritePos.height
+        );
+        ctx.drawImage(
+          platformSprite,
+          spritePos.x,
+          spritePos.y,
+          spritePos.width,
+          spritePos.height,
+          shadowPlatform.x - shadowPlatformSpriteWidth / 2,
+          shadowPlatform.y,
+          shadowPlatformSpriteWidth,
+          shadowPlatformSpriteHeight
+        );
+      });
+      console.log("drawn");
     }
   };
 
@@ -213,6 +266,7 @@ export default function ExploreGame() {
     background.src = "/assets/spriteSheets/background.png";
     const platformSprite = new Image();
     platformSprite.src = "/assets/spriteSheets/platformSprite.png";
+
     if (canvas.current) {
       canvasResize();
 
@@ -220,11 +274,41 @@ export default function ExploreGame() {
         canvasResize();
       });
     }
+
+    const shadowPlatformRepeatCount = Math.ceil(
+      WINDOW_DIMENSION.width /
+        (shadowPlatformSprite[0].spritePosition.width * 2)
+    );
+
+    const shadowPlatformConstructor = () => {
+      let shadowPlatformSpawnWidth =
+        WINDOW_DIMENSION.width / shadowPlatformRepeatCount;
+      let shadowPlatformSpawnHeight = WINDOW_DIMENSION.height * 0.228;
+      for (let i = 0; i < shadowPlatformRepeatCount; i++) {
+        shadowPlatformPosition.push({
+          x:
+            Math.random() * shadowPlatformSpawnWidth +
+            shadowPlatformSpawnWidth * i +
+            (i && 100),
+          y:
+            Math.random() * shadowPlatformSpawnHeight +
+            1.207 * WINDOW_DIMENSION.height,
+          scale: Math.random() * 0.5 + 0.75,
+          shadowPlatformSpriteIndex: Math.round(Math.random()),
+        });
+      }
+
+      console.log(shadowPlatformPosition);
+    };
+    shadowPlatformConstructor();
+
     function animate() {
       ctx?.clearRect(0, 0, WINDOW_DIMENSION.width, WINDOW_DIMENSION.height * 2);
       drawBackground(ctx, background);
       drawGround(ctx, platformSprite);
+      drawShadowPlatform(ctx, platformSprite);
       drawPlatform(ctx, platformSprite);
+
       ctx?.drawImage(
         spriteSheet,
         walkSprite[spriteIndex].x,
@@ -249,10 +333,10 @@ export default function ExploreGame() {
     }
     animate();
 
-    // const canvasRefCopy = canvas.current;
-    // return () => {
-    //   canvasRefCopy?.removeEventListener("resize", () => {});
-    // };
+    const canvasRefCopy = canvas.current;
+    return () => {
+      canvasRefCopy?.removeEventListener("resize", () => {});
+    };
   }, []);
 
   return (
