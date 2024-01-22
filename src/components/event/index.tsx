@@ -80,13 +80,20 @@ const Event = ({
 
   return (
     <Link href={generateEventUrl(data.name, data.id)}>
-      <div className="bg-black mt-4 h-full hover:shadow-xl hover:scale-105 transition z-1 duration-300 ease-in-out cursor-pointer border-8 border-[#3F3B3B] rounded-3xl">
-        <div className="grow flex-col justify-between">
-          <div className="text-center flex z-20 w-full justify-center text-slate-400 text-xl font-bold uppercase relative">
-            <h1 className="glitch my-2">{data.name}</h1>
+      <div className="bg-black mt-4 h-full hover:shadow-xl hover:scale-105 transition z-1 duration-300 ease-in-out cursor-pointer border-4 border-gray-600 rounded-xl">
+        <div className="grow glitch">
+          <div className="text-center flex w-full justify-center text-slate-400 text-2xl font-bold  uppercase">
+            <h1 className="mx-1">
+              <GlitchAnimation
+                title={data.name}
+                fontSize={1.25}
+                mainHeading={true}
+              />
+            </h1>
+
           </div>
           <div className="bg-black mt-4 h-full mx-3 hover:shadow-xl cursor-pointer border-8 border-[#3F3B3B] rounded-3xl w-11/12 flex flex-col justify-center items-center p-2">
-            <div className="screen m-2">
+            <div className="screen">
               {data.image && (
                 <Image
                   src={data.image}

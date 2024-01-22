@@ -289,13 +289,14 @@
 
 .screen {
     display: flex;
-    border: 3px solid #1f4db89a;
+    border: 3px solid #3F3B3B;
     aspect-ratio: 16/10;
     overflow: hidden;
     border-radius: 1rem;
     position: relative;
     z-index: 10;
     margin: auto;
+    width: 200px;
 }
 
 
@@ -311,12 +312,12 @@
 
 .screen-overlay {    
   background: linear-gradient(
-    rgba(35, 95, 95, 0.246),
-    #1f4db852 2px,
+    rgba(44, 109, 135, 0.246),
+    #41414152 2px,
     transparent 2px,
     transparent 5px
   );
-  background-size: 100% 5px;
+  background-size: 100% 2px;
   display: inherit;
   height: 100%;
   width: 100%;
