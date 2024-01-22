@@ -80,7 +80,7 @@ const Event = ({
 
   return (
     <Link href={generateEventUrl(data.name, data.id)}>
-      <div className="bg-black mt-4 h-full hover:shadow-xl hover:scale-105 transition z-1 duration-300 ease-in-out cursor-pointer border-4 border-gray-600 rounded-xl">
+      <div className="bg-black mt-4 h-full hover:shadow-xl hover:scale-105 transition z-1 duration-300 ease-in-out cursor-pointer border-8 border-gray-600 rounded-3xl">
         <div className="grow glitch">
           <div className="text-center flex w-full justify-center text-slate-400 text-2xl font-bold  uppercase">
             <h1 className="mx-1">
@@ -92,12 +92,12 @@ const Event = ({
             </h1>
 
           </div>
-          <div className="bg-black mt-4 h-full mx-3 hover:shadow-xl cursor-pointer border-8 border-[#3F3B3B] rounded-3xl w-11/12 flex flex-col justify-center items-center p-2">
+          <div className="bg-black mt-4 h-full mx-3 hover:shadow-xl flex flex-col justify-center items-centersm:px-2 py-2">
             <div className="screen">
               {data.image && (
                 <Image
                   src={data.image}
-                  alt={data.name}
+                  alt={data.name} 
                   width={300}
                   height={180}
                   className="object-cover h-full z-0 rounded-sm"
