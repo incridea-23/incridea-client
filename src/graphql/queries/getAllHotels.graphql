@@ -1,0 +1,11 @@
+query GetAllHotels {
+  getAllHotels {
+    ac
+    createdAt
+    details
+    id
+    name
+    price
+    updatedAt
+  }
+}

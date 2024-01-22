@@ -1,0 +1,33 @@
+query MyQuery($date: DateTime!) {
+  accommodationRequestByDay(date: $date) {
+    checkIn
+    checkOut
+    createdAt
+    gender
+    hotel {
+      ac
+      createdAt
+      details
+      id
+      name
+      price
+      updatedAt
+    }
+    id
+    room
+    status
+    updatedAt
+    user {
+      college {
+        id
+        name
+      }
+      createdAt
+      email
+      id
+      isVerified
+      name
+      phoneNumber
+    }
+  }
+}
