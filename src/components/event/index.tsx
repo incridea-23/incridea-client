@@ -18,7 +18,6 @@ const Event = ({
 }: {
   data: PublishedEventsQuery['publishedEvents'][0]
 }) => {
-
   const getEventAttributes = () => {
     let teamSizeText = '',
       eventTypeText = ''
@@ -36,99 +35,100 @@ const Event = ({
         data.eventType.split('_')[0].slice(1).toLowerCase() +
         ' Event (Multiple Entry)'
     } else
-      eventTypeText =
-        data.eventType[0] + data.eventType.slice(1).toLowerCase() 
+      eventTypeText = data.eventType[0] + data.eventType.slice(1).toLowerCase()
 
     eventTypeText = eventTypeText.replaceAll('Individual', 'Solo')
     eventTypeText = eventTypeText.replaceAll('Team', 'Multiplayer')
 
-     return [
-       {
-         name: 'Date',
-         text: data.rounds[0]?.date
-           ? new Date(data.rounds[0]?.date).toLocaleString('en-IN', {
-               day: 'numeric',
-               month: 'short',
-               hour: 'numeric',
-               minute: 'numeric',
-               hour12: true,
-             })
-           : 'TBD',
-         Icon: IoCalendarOutline,
-       },
-       {
-         name: 'Type',
-         text: eventTypeText,
-         Icon: IoPersonOutline,
-       },
-       {
-         name: 'Venue',
-         text: data.venue,
-         Icon: IoLocationOutline,
-       },
-       {
-         name: 'Fees',
-         text: data.fees || 'Free',
-         Icon: IoCashOutline,
-       },
+    return [
+      {
+        name: 'Date',
+        text: data.rounds[0]?.date
+          ? new Date(data.rounds[0]?.date).toLocaleString('en-IN', {
+              day: 'numeric',
+              month: 'short',
+              hour: 'numeric',
+              minute: 'numeric',
+              hour12: true,
+            })
+          : 'TBD',
+        Icon: IoCalendarOutline,
+      },
+      {
+        name: 'Type',
+        text: eventTypeText,
+        Icon: IoPersonOutline,
+      },
+      {
+        name: 'Venue',
+        text: data.venue,
+        Icon: IoLocationOutline,
+      },
+      //  {
+      //    name: 'Fees',
+      //    text: data.fees || 'Free',
+      //    Icon: IoCashOutline,
+      //  },
 
       //  {
       //    name: 'Team Size',
       //    text: teamSizeText,
       //    Icon: IoPeopleOutline,
       //  },
-     ]
+    ]
   }
-  
 
   return (
     <Link href={generateEventUrl(data.name, data.id)}>
-      <div className="bg-black mt-4 h-full hover:shadow-xl hover:scale-105 transition z-1 duration-300 ease-in-out cursor-pointer border-4 border-gray-600 rounded-xl">
-        <div className="absolute z-10">
-          <div className="w-9 h-9 rounded-full relative bottom-4 right-3 bg-slate-400 hover:scale-105 border-4 border-black"></div>
-        </div>
-        <div className="grow">
-          <div className="text-center flex  w-full justify-center text-slate-400 text-xl font-bold my-1 uppercase">
-            <h1 className="glitch">
-              {data.name}
-            </h1>
+      <div className="bg-black mt-4 h-full hover:shadow-xl hover:scale-105 transition z-1 duration-300 ease-in-out cursor-pointer border-8 border-[#3F3B3B] rounded-3xl">
+        <div className="grow flex-col justify-between">
+          <div className="text-center flex z-20 w-full justify-center text-slate-400 text-xl font-bold uppercase relative">
+            <h1 className="glitch my-2">{data.name}</h1>
           </div>
-          <div className="h-[0.625rem] custom-grad blur-[1.5px] min-h-4 my-2"></div>
-          {data.image && (
-            <Image
-              src={data.image}
-              alt={data.name}
-              width={500}
-              height={300}
-              className="object-cover w-full h-full px-2 z-0 rounded-sm"
-            />
-          )}
-          <div className="bg-slate-800 mx-2 py-2 mt-2 h-full hover:shadow-xl transition duration-300 ease-in-out cursor-pointer rounded-lg">
-            <div className="flex flex-col gap-1.5 bodyFont text-white text-sm">
-              {getEventAttributes().map((attr) =>
-                attr.name ? (
-                  <>
-                    <div key={attr.name} className="flex p-1">
-                      {<attr.Icon className="w-5" />}
-                      <p className="leading-4">
-                        {attr.name} : {attr.text}
-                      </p>
-                    </div>
-                  </>
-                ) : null
+          <div className="bg-black mt-4 h-full mx-3 hover:shadow-xl cursor-pointer border-8 border-[#3F3B3B] rounded-3xl w-11/12 flex flex-col justify-center items-center p-2">
+            <div className="screen m-2">
+              {data.image && (
+                <Image
+                  src={data.image}
+                  alt={data.name}
+                  width={300}
+                  height={180}
+                  className="object-cover h-full z-0 rounded-sm"
+                />
               )}
+              <div className="screen-overlay"></div>
+              <div className="screen-overlay"></div>
             </div>
-            <div className="flex justify-center">
-              <Button variant="secondary" className="bg-blue-200">
-                Press to play
-              </Button>
+            <div className="flex items-center justify-center">
+              <div className="flex flex-col gap-1.5 bodyFont z-20 relative text-white text-sm mt-5">
+                {getEventAttributes().map((attr) =>
+                  attr.name ? (
+                    <>
+                      <div key={attr.name} className="flex p-1">
+                        {<attr.Icon className="w-5" />}
+                        <p className="leading-4">
+                          {attr.name} : {attr.text}
+                        </p>
+                      </div>
+                    </>
+                  ) : null
+                )}
+              </div>
             </div>
+          </div>
+          <div className="flex justify-center mx-2">
+            <Button
+              noScaleOnHover
+              className="hover:scale-0 shrink-0 m-2 w-full"
+            >
+              Press to play
+            </Button>
           </div>
         </div>
       </div>
     </Link>
   )
-}              
+}
 
 export default Event
 

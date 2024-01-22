@@ -286,3 +286,44 @@
     transition-delay: 0s !important;
   }
 }
+
+.screen {
+    display: flex;
+    border: 3px solid #1f4db89a;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    border-radius: 1rem;
+    position: relative;
+    z-index: 10;
+    margin: auto;
+}
+
+
+@keyframes pan-overlay {
+  from {
+    background-position: 0% 0%;
+  }
+  
+  to {
+    background-position: 0% -100%;
+  }
+}
+
+.screen-overlay {    
+  background: linear-gradient(
+    rgba(35, 95, 95, 0.246),
+    #1f4db852 2px,
+    transparent 2px,
+    transparent 5px
+  );
+  background-size: 100% 5px;
+  display: inherit;
+  height: 100%;
+  width: 100%;
+  animation: pan-overlay 22s infinite linear;
+  position: absolute;
+  z-index: 2;
+  left: 0px;
+  top: 0px;
+  overflow: hidden;
+}
