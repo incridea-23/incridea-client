@@ -3,6 +3,7 @@ import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { PublishedEventsDocument, PublishedEventsQuery } from "@/src/generated/generated";
 import { client } from "@/src/lib/apollo";
+import GlitchAnimation from "@/src/components/event/glitchAnimation";
 
 const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
   data,
@@ -101,7 +102,19 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
 
   return (
     <div className="bg-gradient-to-bl from-black to-slate-900 min-h-screen relative">
-      <div className="py-20 px-10 flex items-center justify-center">
+      <div className="py-16 px-10 flex flex-col items-center justify-center">
+        <div>
+          <div className="font-bold text-5xl tracking-wide text-center text-white glitch">
+            <GlitchAnimation
+              title={"Events"}
+              fontSize={10}
+              mainHeading={false}
+            />
+          </div>
+          <h3 className={`glitch font-semibold text-xl tracking-wide text-center py-5 pt-10 px-2 text-white`}>
+            Ctrl+Play: Navigate Your Digital Playground with Our Ultimate Event Collection!
+          </h3>
+        </div>
         <div className="max-w-7xl w-full h-full mx-auto grid justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredEvents.length > 0 ? filteredEvents.map((event) => (
             <Event key={event.id} data={event} />
