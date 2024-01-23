@@ -28,7 +28,7 @@ const Hero: React.FC = () => {
 
   return (
     <section
-      data-scroll-section
+    data-scroll-section
       className="relative bg-gradient-to-bl -z-10  from-indigo-200 via-sky-500 to-cyan-100"
     >
       {/* 1. Sun Rays */}
@@ -82,9 +82,8 @@ function Sun() {
       {[...Array(8)].map((_, index) => (
         <div
           key={index}
-          className={`w-full h-2 rounded-full absolute ${
-            index % 2 === 0 ? 'bg-transparent' : 'bg-yellow-500'
-          }`}
+          className={`w-full h-2 rounded-full absolute ${index % 2 === 0 ? 'bg-transparent' : 'bg-yellow-500'
+            }`}
           style={{
             top: '50%',
             left: '50%',

@@ -1,0 +1,20 @@
+mutation UpdateAccommodationStatus($bookingId: Int!, $status: String!){
+  updateStatus(bookingId: $bookingId, status: $status) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationUpdateStatusSuccess {
+      __typename
+      data {
+        status
+        user {
+          name
+        }
+        hotel {
+          name
+        }
+      }
+    }
+  }
+}

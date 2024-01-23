@@ -1,0 +1,18 @@
+mutation CreateHotel($Details: String!, $IsAc: Boolean!, $HotelName: String!, $RoomPrice: Float!){
+  createHotel(details: $Details, isAC: $IsAc, name: $HotelName, price: $RoomPrice) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationCreateHotelSuccess {
+      __typename
+      data {
+        ac
+        details
+        id
+        name
+        price
+      }
+    }
+  }
+}
