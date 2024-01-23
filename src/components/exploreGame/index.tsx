@@ -1,133 +1,234 @@
-import useWindowSize from "@/src/hooks/useWindowSize";
 import { useRef, useEffect, useState } from "react";
+
+const WINDOW_DIMENSION = {
+  width: 0,
+  height: 0,
+};
+const player = {
+  height: 75,
+  width: 75,
+  x: 0,
+  y: 0,
+};
+const velocity = {
+  x: 15,
+  y: 0,
+};
+let rightBoundary = 0;
+let leftBoundary = 0;
+const prevPos = { x: 0, y: 0 };
+
 export default function ExploreGame() {
   const canvas = useRef<HTMLCanvasElement>(null);
-  // const WINDOW_DIMENSION = useWindowSize();
-  const WINDOW_DIMENSION = {
-    width: 0,
-    height: 0,
+  const SpriteDimensions = {
+    right: [
+      [
+        {
+          x: 0,
+          y: 0,
+          width: 200,
+          height: 248,
+        },
+      ],
+      [
+        {
+          x: 1346,
+          y: 255,
+          width: 164,
+          height: 220,
+        },
+        {
+          x: 1577,
+          y: 265,
+          width: 171,
+          height: 220,
+        },
+        {
+          x: 1809,
+          y: 272,
+          width: 156,
+          height: 227,
+        },
+        {
+          x: 0,
+          y: 251,
+          width: 130,
+          height: 217,
+        },
+        {
+          x: 191,
+          y: 258,
+          width: 144,
+          height: 215,
+        },
+        {
+          x: 405,
+          y: 255,
+          width: 171,
+          height: 218,
+        },
+        {
+          x: 627,
+          y: 265,
+          width: 140,
+          height: 220,
+        },
+        {
+          x: 860,
+          y: 265,
+          width: 171,
+          height: 220,
+        },
+        {
+          x: 1115,
+          y: 255,
+          width: 145,
+          height: 218,
+        },
+      ],
+    ],
+    left: [
+      [
+        {
+          x: 0,
+          y: 752,
+          width: 200,
+          height: 246,
+        },
+      ],
+      [
+        {
+          x: 455,
+          y: 1006,
+          width: 164,
+          height: 220,
+        },
+        {
+          x: 217,
+          y: 1006,
+          width: 171,
+          height: 220,
+        },
+        {
+          x: 0,
+          y: 1023,
+          width: 157,
+          height: 227,
+        },
+        {
+          x: 1835,
+          y: 1002,
+          width: 131,
+          height: 217,
+        },
+        {
+          x: 1630,
+          y: 1009,
+          width: 144,
+          height: 215,
+        },
+        {
+          x: 1389,
+          y: 1006,
+          width: 171,
+          height: 218,
+        },
+        {
+          x: 1198,
+          y: 1016,
+          width: 140,
+          height: 220,
+        },
+        {
+          x: 934,
+          y: 1016,
+          width: 171,
+          height: 220,
+        },
+        {
+          x: 705,
+          y: 1006,
+          width: 145,
+          height: 218,
+        },
+      ],
+    ],
   };
-  const [direction, setDirection] = useState<"left" | "right">("right");
-  const SpriteDimensions = [
-    [
-      {
-        x: 0,
-        y: 0,
-        width: 200,
-        height: 248,
-      },
-    ],
-    [
-      {
-        x: 0,
-        y: 248,
-        width: 180,
-        height: 248,
-      },
-      {
-        x: 400,
-        y: 248,
-        width: 180,
-        height: 248,
-      },
-      {
-        x: 600,
-        y: 248,
-        width: 180,
-        height: 248,
-      },
-      {
-        x: 850,
-        y: 248,
-        width: 180,
-        height: 248,
-      },
-      {
-        x: 1100,
-        y: 248,
-        width: 180,
-        height: 248,
-      },
-      {
-        x: 1325,
-        y: 248,
-        width: 180,
-        height: 248,
-      },
-      {
-        x: 1550,
-        y: 248,
-        width: 180,
-        height: 248,
-      },
-      {
-        x: 1800,
-        y: 248,
-        width: 180,
-        height: 248,
-      },
-    ],
-  ];
   let spriteIndex = 0;
-  let spriteRow = 0;
-  let gameFrame = 0;
-  let staggerFrames = 25;
-  let spriteX = 0;
-  let spriteY = WINDOW_DIMENSION.height * 1.5;
-  let rightBoundary = WINDOW_DIMENSION.width - 50;
-  let leftBoundary = 50;
+  let frameCount = 0;
   let spriteState = "idle";
-  let velocity = {
-    x: 15,
-    y: 1,
-  };
+  const gravity = 0.1;
+  let isRightDirection = true;
+  const actionKeys: string[] = [];
+  let isGrounded = false;
 
   function MoveRight() {
-    if (spriteIndex > 6) {
-      spriteIndex = 0;
-      if (spriteX < rightBoundary) {
-        spriteX += 15;
-      }
-    } else {
-      spriteIndex++;
-      if (spriteX < rightBoundary) {
-        spriteX += 15;
-      }
+    if (frameCount === 0 && isGrounded) {
+      if (
+        spriteIndex >= SpriteDimensions.right[1].length - 1 &&
+        frameCount == 0
+      )
+        spriteIndex = 0;
+      else spriteIndex++;
+    }
+    if (player.x < rightBoundary) {
+      player.x += 6;
     }
   }
 
   function MoveLeft() {
-    if (spriteIndex < 1) {
-      spriteIndex = 7;
-      if (spriteX > leftBoundary) {
-        spriteX -= 15;
-      }
-    } else {
-      spriteIndex--;
-      if (spriteX > leftBoundary) {
-        spriteX -= 15;
+    if (frameCount === 0 && isGrounded) {
+      if (spriteIndex >= SpriteDimensions.left[1].length - 1) spriteIndex = 0;
+      else {
+        spriteIndex++;
       }
     }
-  }
-
-  function ForwardJump() {
-    if (velocity.y === 1) {
-      velocity.y = -7;
-      for (let i = 0; i < 10; i++) {
-        setTimeout(() => {
-          if (spriteX < rightBoundary) {
-            spriteX += 10;
-          }
-        }, i * 20);
-      }
+    if (player.x > leftBoundary) {
+      player.x -= 6;
     }
   }
 
   function Jump() {
-    if (velocity.y === 1) {
+    if (isGrounded) {
       velocity.y = -7;
+      isGrounded = false;
     }
   }
+
+  const keyboardDownEventHandler = (e: KeyboardEvent) => {
+    switch (e.key) {
+      case "ArrowLeft":
+        e.preventDefault();
+        isRightDirection = false;
+        actionKeys.indexOf("ArrowLeft") === -1 && actionKeys.push(e.key);
+        break;
+      case "ArrowRight":
+        e.preventDefault();
+        actionKeys.indexOf("ArrowRight") === -1 && actionKeys.push(e.key);
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        actionKeys.indexOf("ArrowUp") === -1 && actionKeys.push(e.key);
+        break;
+    }
+  };
+
+  const keyboardUpEventHandler = (event: KeyboardEvent) => {
+    actionKeys.includes(event.key) &&
+      actionKeys.splice(actionKeys.indexOf(event.key), 1);
+  };
+
+  useEffect(() => {
+    // Add the event listeners
+    window.addEventListener("keydown", (event) =>
+      keyboardDownEventHandler(event)
+    );
+    window.addEventListener("keyup", (event) => keyboardUpEventHandler(event));
+    return () => {
+      window.removeEventListener("keydown", keyboardDownEventHandler);
+      window.removeEventListener("keyup", keyboardUpEventHandler);
+    };
+  }, []); // Empty dependency array to run only on mount and unmount
 
   function drawBackground(
     ctx: CanvasRenderingContext2D | null | undefined,
@@ -246,64 +347,145 @@ export default function ExploreGame() {
     }
   };
 
-  useEffect(() => {
-    // Define your event handlers
-    const moveLeft = (event: KeyboardEvent) => {
-      if (event.key === "ArrowLeft") {
-        spriteState = "walk";
-        MoveLeft();
-      }
-    };
-
-    const moveRight = (event: KeyboardEvent) => {
-      if (event.key === "ArrowRight") {
-        spriteState = "walk";
-        MoveRight();
-      }
-    };
-
-    const jump = (event: KeyboardEvent) => {
-      if (event.key === "ArrowUp") {
-        Jump();
-      }
-    };
-
-    const jumpForward = (event: KeyboardEvent) => {
-      //@ts-ignore
-      if (event.key === "m") {
-        ForwardJump();
-      }
-    };
-
-    // Add the event listeners
-    window.addEventListener("keydown", moveLeft);
-    window.addEventListener("keydown", moveRight);
-    window.addEventListener("keyup", () => {
-      spriteState = "idle";
-    });
-    window.addEventListener("keydown", jump);
-    window.addEventListener("keydown", jumpForward);
-    window.addEventListener(
-      "keydown",
-      function (e) {
-        if (
-          ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
-            e.code
-          ) > -1
-        ) {
-          e.preventDefault();
-        }
-      },
-      false
+  const collisionDetection = (
+    ctx: CanvasRenderingContext2D | null | undefined
+  ) => {
+    const centralPlatformSpriteHeight = WINDOW_DIMENSION.height * 0.3;
+    const centralPlatformSpriteWidth = Math.ceil(
+      (centralPlatformSpriteHeight * 275) / 325
     );
-    // Remove the event listeners when the component unmounts
-    return () => {
-      window.removeEventListener("keydown", moveLeft);
-      window.removeEventListener("keydown", moveRight);
-      window.removeEventListener("keydown", jump);
-      window.removeEventListener("keydown", jumpForward);
-    };
-  }, []); // Empty dependency array to run only on mount and unmount
+
+    const leftPlatformSpriteHeight = WINDOW_DIMENSION.height * 0.15;
+    const leftPlatformSpriteWidth = Math.ceil(
+      (leftPlatformSpriteHeight * 225) / 150
+    );
+
+    const rightPlatformSpriteWidth = Math.ceil(
+      (leftPlatformSpriteHeight * 225) / 150
+    );
+
+    // ctx?.strokeRect(
+    //   WINDOW_DIMENSION.width * 0.5 - centralPlatformSpriteWidth * 0.5,
+    //   WINDOW_DIMENSION.height * 1.18 - player.height,
+    //   centralPlatformSpriteWidth,
+    //   1
+    // );
+    // ctx?.strokeRect(
+    //   WINDOW_DIMENSION.width * 0.5 - leftPlatformSpriteWidth * 1.05,
+    //   WINDOW_DIMENSION.height * 1.425,
+    //   leftPlatformSpriteWidth,
+    //   1
+    // );
+    // ctx?.strokeRect(
+    //   WINDOW_DIMENSION.width * 0.5 - leftPlatformSpriteWidth * 1.05,
+    //   WINDOW_DIMENSION.height * 1.405,
+    //   leftPlatformSpriteWidth,
+    //   1
+    // );
+    // ctx?.strokeRect(
+    //   WINDOW_DIMENSION.width * 0.5 + rightPlatformSpriteWidth * 0.4,
+    //   WINDOW_DIMENSION.height * 1.32 - player.height,
+    //   rightPlatformSpriteWidth,
+    //   1
+    // );
+
+    if (player.y >= WINDOW_DIMENSION.height * 1.62 - player.height) {
+      isGrounded = true;
+      player.y = WINDOW_DIMENSION.height * 1.62 - player.height;
+    } else if (
+      player.y >= WINDOW_DIMENSION.height * 1.405 - player.height &&
+      prevPos.y <= WINDOW_DIMENSION.height * 1.405 - player.height &&
+      player.x >=
+        WINDOW_DIMENSION.width * 0.5 -
+          leftPlatformSpriteWidth * 1.05 -
+          player.width / 2 &&
+      player.x <=
+        WINDOW_DIMENSION.width * 0.5 -
+          leftPlatformSpriteWidth * 1.05 +
+          leftPlatformSpriteWidth -
+          player.width / 4
+    ) {
+      isGrounded = true;
+      player.y = WINDOW_DIMENSION.height * 1.405 - player.height;
+    } else if (
+      player.y <= WINDOW_DIMENSION.height * 1.425 &&
+      prevPos.y > WINDOW_DIMENSION.height * 1.425 &&
+      player.x >=
+        WINDOW_DIMENSION.width * 0.5 -
+          leftPlatformSpriteWidth * 1.05 -
+          player.width / 2 &&
+      player.x <=
+        WINDOW_DIMENSION.width * 0.5 -
+          leftPlatformSpriteWidth * 1.05 +
+          leftPlatformSpriteWidth -
+          player.width / 4
+    ) {
+      isGrounded = false;
+      velocity.y = 0;
+    } else if (
+      player.y >= WINDOW_DIMENSION.height * 1.32 - player.height &&
+      prevPos.y <= WINDOW_DIMENSION.height * 1.32 - player.height &&
+      player.x >=
+        WINDOW_DIMENSION.width * 0.5 +
+          rightPlatformSpriteWidth * 0.4 -
+          player.width / 2 &&
+      player.x <=
+        WINDOW_DIMENSION.width * 0.5 +
+          rightPlatformSpriteWidth * 0.4 +
+          rightPlatformSpriteWidth -
+          player.width / 4
+    ) {
+      isGrounded = true;
+      player.y = WINDOW_DIMENSION.height * 1.32 - player.height;
+    } else if (
+      player.y <= WINDOW_DIMENSION.height * 1.34 &&
+      prevPos.y > WINDOW_DIMENSION.height * 1.34 &&
+      player.x >=
+        WINDOW_DIMENSION.width * 0.5 +
+          rightPlatformSpriteWidth * 0.4 -
+          player.width / 2 &&
+      player.x <=
+        WINDOW_DIMENSION.width * 0.5 +
+          rightPlatformSpriteWidth * 0.4 +
+          rightPlatformSpriteWidth -
+          player.width / 4
+    ) {
+      isGrounded = false;
+      velocity.y = 0;
+    } else if (
+      player.y >= WINDOW_DIMENSION.height * 1.18 - player.height &&
+      prevPos.y <= WINDOW_DIMENSION.height * 1.18 - player.height &&
+      player.x >=
+        WINDOW_DIMENSION.width * 0.5 -
+          centralPlatformSpriteWidth * 0.5 -
+          player.width / 2 &&
+      player.x <=
+        WINDOW_DIMENSION.width * 0.5 -
+          centralPlatformSpriteWidth * 0.5 +
+          centralPlatformSpriteWidth
+    ) {
+      isGrounded = true;
+      player.y = WINDOW_DIMENSION.height * 1.18 - player.height;
+    } else if (
+      player.y <= WINDOW_DIMENSION.height * 1.2 &&
+      prevPos.y > WINDOW_DIMENSION.height * 1.2 &&
+      player.x >=
+        WINDOW_DIMENSION.width * 0.5 -
+          centralPlatformSpriteWidth * 0.5 -
+          player.width / 2 &&
+      player.x <=
+        WINDOW_DIMENSION.width * 0.5 -
+          centralPlatformSpriteWidth * 0.5 +
+          centralPlatformSpriteWidth
+    ) {
+      isGrounded = false;
+      velocity.y = 0;
+
+      /* ######### EASTER EGG GOES HERE ######### */
+    } else {
+      isGrounded = false;
+    }
+  };
 
   // Variables for shadow platform position, scale
   const shadowPlatformSprite = [
@@ -317,7 +499,7 @@ export default function ExploreGame() {
     },
   ];
 
-  let shadowPlatformPosition: {
+  const shadowPlatformPosition: {
     x: number;
     y: number;
     scale: number;
@@ -354,7 +536,6 @@ export default function ExploreGame() {
           shadowPlatformSpriteHeight
         );
       });
-      console.log("drawn");
     }
   };
 
@@ -370,10 +551,12 @@ export default function ExploreGame() {
   useEffect(() => {
     const ctx = canvas.current?.getContext("2d");
     const spriteSheet = new Image();
-    spriteX =
+    player.x =
       WINDOW_DIMENSION.width * 0.5 - WINDOW_DIMENSION.height * 0.3 * 0.5;
-    rightBoundary = WINDOW_DIMENSION.width - 150;
-    spriteY = WINDOW_DIMENSION.height * 1.06;
+    rightBoundary = WINDOW_DIMENSION.width - player.width;
+    player.y = WINDOW_DIMENSION.height * 1.06;
+    prevPos.x = player.x;
+    prevPos.y = player.y;
     spriteSheet.src = "/assets/spriteSheets/ryokoSpriteSheet.png";
     const background = new Image();
     background.src = "/assets/spriteSheets/background.png";
@@ -385,6 +568,9 @@ export default function ExploreGame() {
 
       window.addEventListener("resize", () => {
         canvasResize();
+        WINDOW_DIMENSION.width = window.innerWidth;
+        WINDOW_DIMENSION.height = window.innerHeight;
+        rightBoundary = WINDOW_DIMENSION.width - player.width;
       });
     }
 
@@ -402,7 +588,7 @@ export default function ExploreGame() {
           x:
             Math.random() * shadowPlatformSpawnWidth +
             shadowPlatformSpawnWidth * i +
-            (i && 100),
+            (i && shadowPlatformSpawnWidth / 2),
           y:
             Math.random() * shadowPlatformSpawnHeight +
             1.207 * WINDOW_DIMENSION.height,
@@ -410,66 +596,102 @@ export default function ExploreGame() {
           shadowPlatformSpriteIndex: Math.round(Math.random()),
         });
       }
-
-      console.log(shadowPlatformPosition);
     };
     shadowPlatformConstructor();
 
     function animate() {
+      // console.log("spriteIndex", spriteIndex);
+      // console.log("action keys", actionKeys);
+
+      actionKeys.map((key) => {
+        switch (key) {
+          case "ArrowLeft":
+            MoveLeft();
+            break;
+          case "ArrowRight":
+            MoveRight();
+            break;
+          case "ArrowUp":
+            Jump();
+            break;
+        }
+      });
+
+      if (
+        actionKeys.includes("ArrowLeft") &&
+        actionKeys.includes("ArrowRight")
+      ) {
+        spriteState = "idle";
+      } else if (
+        actionKeys.includes("ArrowLeft") ||
+        actionKeys.includes("ArrowRight")
+      ) {
+        spriteState = "walk";
+      } else {
+        spriteState = "idle";
+      }
+
+      if (
+        actionKeys.includes("ArrowLeft") &&
+        actionKeys.includes("ArrowRight")
+      ) {
+        isRightDirection =
+          actionKeys.indexOf("ArrowLeft") > actionKeys.indexOf("ArrowRight")
+            ? false
+            : true;
+      } else if (actionKeys.includes("ArrowLeft")) {
+        isRightDirection = false;
+      } else if (actionKeys.includes("ArrowRight")) {
+        isRightDirection = true;
+      }
+
       ctx?.clearRect(0, 0, WINDOW_DIMENSION.width, WINDOW_DIMENSION.height * 2);
       drawBackground(ctx, background);
       drawGround(ctx, platformSprite);
       drawShadowPlatform(ctx, platformSprite);
       drawPlatform(ctx, platformSprite);
 
+      const currentSpriteState =
+        spriteState === "idle"
+          ? SpriteDimensions[isRightDirection ? "right" : "left"][0][0]
+          : SpriteDimensions[isRightDirection ? "right" : "left"][1][
+              spriteIndex
+            ];
+
+      // console.log(player.y === prevPos.y);
+      player.y += velocity.y;
+      collisionDetection(ctx);
+      if (!isGrounded) {
+        velocity.y += gravity;
+      } else {
+        velocity.y = 0;
+      }
+      // console.log(velocity.y);
       ctx?.drawImage(
         spriteSheet,
-        spriteState === "idle"
-          ? SpriteDimensions[0][0].x
-          : SpriteDimensions[1][spriteIndex].x,
-        spriteState === "idle"
-          ? SpriteDimensions[0][0].y
-          : SpriteDimensions[1][spriteIndex].y,
-        spriteState === "idle"
-          ? SpriteDimensions[0][0].width
-          : SpriteDimensions[1][spriteIndex].width,
-        spriteState === "idle"
-          ? SpriteDimensions[0][0].height
-          : SpriteDimensions[1][spriteIndex].height,
-        spriteX,
-        spriteY,
-        100,
-        100
+        currentSpriteState.x,
+        currentSpriteState.y,
+        currentSpriteState.width,
+        currentSpriteState.height,
+        player.x,
+        player.y,
+        player.width,
+        player.height
       );
 
-      spriteY += velocity.y;
-      if (velocity.y < 5) {
-        velocity.y += 0.1;
-      }
-      if (spriteY > WINDOW_DIMENSION.height * 1.5) {
-        spriteY = WINDOW_DIMENSION.height * 1.5;
-        velocity.y = 1;
-      }
+      prevPos.x = player.x;
+      prevPos.y = player.y;
 
-      // if (gameFrame % staggerFrames === 0) {
-      //   if (spriteIndex > 6) {
-      //     spriteIndex = 0;
-      //   } else {
-      //     spriteIndex++;
-      //   }
-      // }
-      // gameFrame++;
-
+      frameCount = (frameCount + 1) % 5;
       requestAnimationFrame(animate);
     }
     animate();
-  }, []);
 
-  //   const canvasRefCopy = canvas.current;
-  //   return () => {
-  //     canvasRefCopy?.removeEventListener("resize", () => {});
-  //   };
-  // }, []);
+    const canvasRefCopy = canvas.current;
+    return () => {
+      canvasRefCopy?.removeEventListener("resize", () => {});
+    };
+  }, []);
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
