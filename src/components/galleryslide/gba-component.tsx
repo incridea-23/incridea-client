@@ -28,11 +28,11 @@ const GbaComponent = ({ imgArr, year }: { imgArr: string[]; year: number }) => {
         })
         .from("#animation", {
           y: -90,
-          boxShadow: "0px 10px 67px 20px rgba(0,0,0,0.25)",
+          boxShadow: "0px 10px 67px 40px rgba(0,0,0,0.25)",
         })
         .to("#animation", {
           y: 0,
-          boxShadow: "0px 10px 67px 63px rgba(0,0,0,0.25)",
+          boxShadow: "0px 10px 67px 90px rgba(0,0,0,0.25)",
           duration: 1,
         });
     });
@@ -43,7 +43,7 @@ const GbaComponent = ({ imgArr, year }: { imgArr: string[]; year: number }) => {
   return (
     <div
       id="animation"
-      className="relative rounded-[500px] flex justify-center items-center w-[305px] h-[445px] md:w-[65vw] md:h-[33vw] mx-auto md:shadow-none"
+      className="relative rounded-[85px] flex justify-center items-center w-[85vw] h-[119vw] md:w-[63.5vw] md:h-[30vw] mx-auto"
       // initial={{
       //   boxShadow: "0px 0px 49px 10px rgba(0,0,0,0.25)",
       //   translateY: -19,
@@ -60,20 +60,20 @@ const GbaComponent = ({ imgArr, year }: { imgArr: string[]; year: number }) => {
     >
       <Image
         fill
-        src={"/assets/svg/gba_no_buttons.svg"}
+        src={"/assets/svg/gba-vertical.svg"}
         alt="incridea"
-        className="md:hidden object-cover object-center"
+        className="md:hidden object-center scale-110"
         priority
       />
       <Image
         fill
-        src={"/assets/svg/gameboy_no_edge.svg"}
+        src={"/assets/svg/gba-horizontal.svg"}
         alt="incridea"
-        className="hidden md:block"
+        className="hidden md:block scale-125"
         priority
       />
 
-      <div className="absolute w-full h-[40%] right-0 md:top-[7.5vw] md:h-[15.55vw] md:w-[34.3vw] md:right-[16.13vw] top-[50px] z-10">
+      <div className="absolute w-[50vw] h-[23.6vw] md:top-[5.5vw] md:h-[31vw] md:w-[64vw] md:right-[-.35vw] top-[19vw] z-10 scale-[110%]">
         <Swiper
           onBeforeInit={(swiper) => {
             swiperRef.current = swiper;
@@ -81,7 +81,7 @@ const GbaComponent = ({ imgArr, year }: { imgArr: string[]; year: number }) => {
           mousewheel={true}
           modules={[Navigation, Autoplay, Mousewheel]}
           autoplay={true}
-          className="md:w-[36vw] md:h-[16.7vw] md:top-[0.65vw] md:z-50 w-[230px] h-full border-8 border-[#63aeef] md:border-none relative"
+          className="md:w-[35.7vw] md:h-[18vw] md:-top-[.9vw] w-[58vw] h-[54vw] md:left-[0] -top-[7vw] left-[-4vw] md:z-50 md:border-none relative md:scale-125"
         >
           {imgArr.map((img, index) => {
             return (
@@ -123,11 +123,11 @@ const GbaComponent = ({ imgArr, year }: { imgArr: string[]; year: number }) => {
 
         <button
           onClick={() => swiperRef.current?.slidePrev()}
-          className={`active:bg-gray-800 md:opacity-40 absolute top-[240px] left-[26px] md:-top-[0.9vw] md:-left-[11.1vw] w-[2.2rem] h-8 md:h-[7.3vw] md:w-[7.3vw] rounded-lg md:rounded-full duration-300 transition-all ease-in-out border-yellow-300 border-2 md:border-none animate-`}
+          className={`active:bg-gray-800 bg-black md:opacity-40 absolute top-[62.5vw] left-[-8vw] md:-top-[2.2vw] md:-left-[1vw] w-[8vw] h-[6vw] md:h-[9vw] md:w-[9vw] rounded-lg md:rounded-full duration-300 transition-all ease-in-out border-yellow-300 border-2 md:border-none animate-`}
         ></button>
         <button
           onClick={() => swiperRef.current?.slideNext()}
-          className="active:bg-gray-800 sm:opacity-40 absolute top-[240px] left-[80px] md:-top-[0.9vw] md:left-[39.75vw] w-[2.2rem] h-8 md:h-[7.3vw] md:w-[7.3vw] rounded-lg md:rounded-full duration-300 transition-all ease-in-out border-yellow-300 border-2 md:border-none animate-"
+          className="active:bg-gray-800 bg-black sm:opacity-40 absolute top-[62.5vw] left-[4vw] md:-top-[2.2vw] md:left-[56vw] w-[8vw] h-[6vw] md:h-[9vw] md:w-[9vw] rounded-lg md:rounded-full duration-300 transition-all ease-in-out border-yellow-300 border-2 md:border-none animate-"
         ></button>
       </div>
     </div>
