@@ -303,7 +303,7 @@ export default function ExploreGame() {
         platformSprite,
         15,
         15,
-        275,
+        284,
         325,
         WINDOW_DIMENSION.width * 0.5 - platformSpriteWidth * 0.5,
         WINDOW_DIMENSION.height * 1.027,
@@ -335,8 +335,8 @@ export default function ExploreGame() {
       ); // 225 is the width of the platform sprite, 150 is the height of the platform sprite
       ctx.drawImage(
         platformSprite,
-        305,
-        15,
+        477,
+        177,
         225,
         150,
         WINDOW_DIMENSION.width * 0.5 + rightPlatformSpriteWidth * 0.4,
@@ -363,31 +363,6 @@ export default function ExploreGame() {
     const rightPlatformSpriteWidth = Math.ceil(
       (leftPlatformSpriteHeight * 225) / 150
     );
-
-    // ctx?.strokeRect(
-    //   WINDOW_DIMENSION.width * 0.5 - centralPlatformSpriteWidth * 0.5,
-    //   WINDOW_DIMENSION.height * 1.18 - player.height,
-    //   centralPlatformSpriteWidth,
-    //   1
-    // );
-    // ctx?.strokeRect(
-    //   WINDOW_DIMENSION.width * 0.5 - leftPlatformSpriteWidth * 1.05,
-    //   WINDOW_DIMENSION.height * 1.425,
-    //   leftPlatformSpriteWidth,
-    //   1
-    // );
-    // ctx?.strokeRect(
-    //   WINDOW_DIMENSION.width * 0.5 - leftPlatformSpriteWidth * 1.05,
-    //   WINDOW_DIMENSION.height * 1.405,
-    //   leftPlatformSpriteWidth,
-    //   1
-    // );
-    // ctx?.strokeRect(
-    //   WINDOW_DIMENSION.width * 0.5 + rightPlatformSpriteWidth * 0.4,
-    //   WINDOW_DIMENSION.height * 1.32 - player.height,
-    //   rightPlatformSpriteWidth,
-    //   1
-    // );
 
     if (player.y >= WINDOW_DIMENSION.height * 1.62 - player.height) {
       isGrounded = true;
@@ -600,9 +575,6 @@ export default function ExploreGame() {
     shadowPlatformConstructor();
 
     function animate() {
-      // console.log("spriteIndex", spriteIndex);
-      // console.log("action keys", actionKeys);
-
       actionKeys.map((key) => {
         switch (key) {
           case "ArrowLeft":
