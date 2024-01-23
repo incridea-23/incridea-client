@@ -1,21 +1,24 @@
-query MyQuery($userId: ID!) {
+query AccommodationRequestsByUserId($userId: ID!) {
   accommodationRequestsByUserId(userId: $userId) {
+    ac
     checkIn
     checkOut
     createdAt
     gender
-    id
     room
     status
-    updatedAt
+    hotel {
+      details
+      createdAt
+      id
+      name
+      price
+    }
     user {
       college {
-        id
         name
       }
-      createdAt
       email
-      id
       isVerified
       name
       phoneNumber

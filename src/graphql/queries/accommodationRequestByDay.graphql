@@ -1,11 +1,10 @@
-query MyQuery($date: DateTime!) {
+query AccommodationRequestByDay($date: DateTime!) {
   accommodationRequestByDay(date: $date) {
     checkIn
     checkOut
     createdAt
     gender
     hotel {
-      ac
       createdAt
       details
       id
@@ -15,6 +14,7 @@ query MyQuery($date: DateTime!) {
     }
     id
     room
+    ac
     status
     updatedAt
     user {

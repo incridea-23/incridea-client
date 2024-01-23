@@ -1,4 +1,4 @@
-query MyQuery($name: String!) {
+query AccommodationRequestByHotel($name: String!) {
   accommodationRequestByHotel(name: $name) {
     checkIn
     checkOut
@@ -6,10 +6,10 @@ query MyQuery($name: String!) {
     gender
     id
     room
+    ac
     status
     updatedAt
     hotel {
-      ac
       createdAt
       details
       id
