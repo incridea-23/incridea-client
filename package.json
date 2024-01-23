@@ -26,7 +26,7 @@
     "gsap": "^3.12.5",
     "install": "^0.13.0",
     "jsonwebtoken": "^9.0.0",
-    "locomotive-scroll": "^4.1.4",
+    "locomotive-scroll": "^5.0.0-beta.11",
     "next": "13.1.6",
     "next-auth": "^4.20.1",
     "next-pwa": "^5.6.0",

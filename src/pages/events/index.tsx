@@ -1,15 +1,48 @@
+"use client";
 import Event from "@/src/components/event";
 import { NextPage } from "next";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PublishedEventsDocument, PublishedEventsQuery } from "@/src/generated/generated";
 import { client } from "@/src/lib/apollo";
 import GlitchAnimation from "@/src/components/event/glitchAnimation";
 import { Menu } from "@headlessui/react";
 import { AiOutlineSearch } from "react-icons/ai";
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
 
 const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
   data,
 }) => {
+  const cards = useRef(null);
+
+  useEffect( () => {
+    (
+      async () => {
+          const LocomotiveScroll = (await import('locomotive-scroll')).default
+          const locomotiveScroll = new LocomotiveScroll();
+      }
+    )()
+  }, [])
+
+  useGSAP( () => {
+    gsap.registerPlugin(ScrollTrigger);
+    const timeline = gsap.timeline({
+        scrollTrigger: {
+            trigger: document.documentElement,
+            scrub: true,
+            start: "top",
+            end: "+=500px",
+        },
+    })
+    timeline.from(cards.current, {
+        opacity: 0,
+    })
+    timeline.to(cards.current, {
+        opacity: 1,
+    })
+  })
+  
   const branchFilters = [
     "ALL",
     "CORE",
@@ -207,7 +240,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
             </div>
           </div>
         </div>
-        <div className="max-w-7xl w-full h-full mx-auto grid justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div ref={cards} className="max-w-7xl w-full h-full mx-auto grid justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredEvents.length > 0 ? filteredEvents.map((event) => (
             <Event key={event.id} data={event} />
           )) : (
