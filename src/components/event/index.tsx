@@ -79,7 +79,7 @@ const Event = ({
   }
 
   return (
-    <Link href={generateEventUrl(data.name, data.id)}>
+    <Link data-scroll href={generateEventUrl(data.name, data.id)}>
       <div className="bg-black mt-4 h-full hover:shadow-xl hover:scale-105 scale-100 transition z-1 duration-300 ease-in-out cursor-pointer border-4 border-gray-600 rounded-2xl">
         <Image
           src="/assets/png/card-bg.png"
