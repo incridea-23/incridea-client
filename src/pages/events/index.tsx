@@ -159,7 +159,21 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
   };
 
   return (
-    <div className="bg-gradient-to-bl from-black to-slate-900 min-h-screen relative">
+    <div className=" bg-gradient-to-bl from-black to-slate-900 min-h-screen relative">
+      <div className="area">
+        <ul className="circles">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
       <div className="px-10 flex flex-col items-center justify-center">
         <div ref={title} className="flex flex-col pb-6 md:pb-12 justify-center min-h-screen">
           <div className="font-bold md:pb-0 pb-3 text-7xl tracking-wide text-center text-white glitch">
