@@ -15,6 +15,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
   data,
 }) => {
   const cards = useRef(null);
+  const title = useRef(null);
 
   useEffect( () => {
     (
@@ -32,15 +33,39 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
             trigger: document.documentElement,
             scrub: true,
             start: "top",
-            end: "+=500px",
+            end: "+=600px",
         },
     })
     timeline.from(cards.current, {
         opacity: 0,
+        skewY: -500
     })
     timeline.to(cards.current, {
         opacity: 1,
     })
+
+    const timeline2 = gsap.timeline({
+      scrollTrigger: {
+          trigger: document.documentElement,
+          scrub: true,
+          start: "top",
+          end: "+=200px",
+      },
+    })
+    timeline2.from(title.current, {
+        opacity: 1
+    })
+    timeline2.to(title.current, {
+        opacity: 0,
+    })
+    /* Progress Event */
+    window.addEventListener("progressEvent", (e: any) => {
+      const { progress } = e.detail;
+
+      /* Update timeline progress */
+      timeline.progress(progress);
+      timeline2.progress(progress);
+    });
   })
   
   const branchFilters = [
@@ -135,21 +160,21 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
 
   return (
     <div className="bg-gradient-to-bl from-black to-slate-900 min-h-screen relative">
-      <div className="py-16 px-10 flex flex-col items-center justify-center">
-        <div className="flex flex-col pb-6 md:pb-12">
-          <div className="font-bold text-6xl tracking-wide text-center text-white glitch">
+      <div className="px-10 flex flex-col items-center justify-center">
+        <div ref={title} className="flex flex-col pb-6 md:pb-12 justify-center min-h-screen">
+          <div className="font-bold md:pb-0 pb-3 text-7xl tracking-wide text-center text-white glitch">
             <GlitchAnimation
               title={"Events"}
               fontSize={7}
               mainHeading={false}
             />
           </div>
-          <h3 className={`glitch font-semibold text-xl tracking-wide text-center py-5 pt-10 px-2 text-white`}>
+          <h3 className={`glitch font-semibold text-xl md:text-2xl tracking-wide text-center py-8 pt-10 px-2 text-white`}>
             Ctrl+Play: Navigate Your Digital Playground with Our Ultimate Event Collection!
           </h3>
           <div className="relative lg:basis-[75%] basis-full w-full lg:w-auto">
             <input
-              className="text-white pl-8 bg-transparent border-2 p-2 rounded-2xl border-white w-full focus:outline-none placeholder-white placeholder-opacity-50"
+              className="text-white md:text-xl pl-8 bg-transparent border-2 p-2 rounded-2xl border-white w-full focus:outline-none placeholder-white placeholder-opacity-50"
               type="text"
               placeholder="Search for epic quests here..."
               value={query}
@@ -157,7 +182,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
             />
             <AiOutlineSearch
                 size={"1.4rem"}
-                className="absolute right-3 top-2.5 text-gray-300/70"
+                className="absolute right-3 top-3.5 text-gray-300/70"
             />
           </div>
           <div>
@@ -240,7 +265,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
             </div>
           </div>
         </div>
-        <div ref={cards} className="max-w-7xl w-full h-full mx-auto grid justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div ref={cards} data-scroll data-scroll-speed="0.7" className="max-w-7xl w-full h-full mx-auto grid justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredEvents.length > 0 ? filteredEvents.map((event) => (
             <Event key={event.id} data={event} />
           )) : (
