@@ -1,0 +1,18 @@
+query GetUserXp {
+  getUserXp {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on QueryGetUserXpSuccess {
+      __typename
+      data {
+        id
+        level {
+          id
+          point
+        }
+      }
+    }
+  }
+}

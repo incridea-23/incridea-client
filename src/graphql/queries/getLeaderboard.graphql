@@ -1,0 +1,27 @@
+query GetXpLeaderboard {
+  getXpLeaderboard {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on QueryGetXpLeaderboardSuccess {
+      __typename
+      data {
+        id
+        level {
+          id
+          point
+        }
+        user {
+          name
+          id
+          email
+          createdAt
+          isVerified
+          phoneNumber
+          role
+        }
+      }
+    }
+  }
+}
