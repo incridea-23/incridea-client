@@ -7,14 +7,14 @@ import Modal from "@/src/components/modal";
 import {
   GetAllHotelsDocument,
   UpdateAccommodationStatusDocument,
-  UpdateAccommodationStatusMutation,
 } from "@/src/generated/generated";
 import { useMutation, useQuery } from "@apollo/client";
 import Spinner from "@/src/components/spinner";
+import createToast from "@/src/components/toast";
 
 enum AccommodationStatus {
   pending = "PENDING",
-  complete = "COMPLETE",
+  complete = "CONFIRMED",
   cancelled = "CANCELLED",
 }
 const AddAccommodateDetails: FC<{
@@ -32,8 +32,29 @@ const AddAccommodateDetails: FC<{
   } = useQuery(GetAllHotelsDocument);
 
   const [updateStatus, { data: updateStatusResult }] = useMutation(
-    UpdateAccommodationStatusDocument,
+    UpdateAccommodationStatusDocument
   );
+  const handleUpdate = () => {
+    let promise = updateStatus({
+      variables: {
+        hotelId: hotelDetails,
+        room: roomNo,
+        bookingId: accId as string,
+        status,
+      },
+    }).then((res) => {
+      if (res.data?.updateStatus.__typename !== "MutationUpdateStatusSuccess") {
+        if (res.data?.updateStatus.message !== undefined) {
+          createToast(
+            Promise.reject(res.data?.updateStatus.message),
+            res.data?.updateStatus.message
+          );
+        }
+        return Promise.reject("Error could update status");
+      }
+    });
+    createToast(promise, "Updating Status...");
+  };
   return (
     <>
       <Button
@@ -106,6 +127,15 @@ const AddAccommodateDetails: FC<{
                 </option>
               ))}
             </select>
+            <Button
+              intent={"info"}
+              className="flex gap-2 items-center justify-center"
+              size={"medium"}
+              onClick={() => handleUpdate()}
+            >
+              <MdModeEditOutline />
+              submit
+            </Button>
           </div>
         </div>
       </Modal>

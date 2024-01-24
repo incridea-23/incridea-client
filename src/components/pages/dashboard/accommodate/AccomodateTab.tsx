@@ -7,6 +7,7 @@ import Spinner from '@/src/components/spinner';
 import Badge from '@/src/components/badge';
 import AddAccommodateDetails from './AddAccommodateDetails';
 import ViewAccommodateDetails from './ViewAccommodateDetails';
+import { CreateAccommodationRequest } from '@/src/components/form/accommodation';
 // import ViewEvent from './ViewEventModal';
 
 const AccommodateTab : FC = () => {
@@ -97,6 +98,7 @@ const AccommodateTab : FC = () => {
                             }
                             </>}
                         </div>
+						<CreateAccommodationRequest />
                     </div>  
                     
             </div>

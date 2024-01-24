@@ -5,6 +5,8 @@ import {
   GetAllHotelsDocument,
 } from "@/src/generated/generated";
 import { useState } from "react";
+import Button from "../../button";
+import { MdModeEditOutline } from "react-icons/md";
 
 export const CreateAccommodationRequest = () => {
   const [
@@ -26,6 +28,7 @@ export const CreateAccommodationRequest = () => {
       <h1>Create Accommodation Request</h1>
       <form
         onSubmit={(e) => {
+          e.preventDefault()
           addAccommodation({
             variables: AccommodationInfo,
           });
@@ -39,10 +42,11 @@ export const CreateAccommodationRequest = () => {
               return { ...prevValue, gender: e.target.value };
             })
           }
+          className=" border text-sm rounded-lg   block w-11/12 p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
         >
-          <option>Male</option>
-          <option>Female</option>
-          <option>Other</option>
+          <option>MALE</option>
+          <option>FEMALE</option>
+          <option>OTHER</option>
         </select>
 
         <select
@@ -53,6 +57,7 @@ export const CreateAccommodationRequest = () => {
               return { ...prevValue, hotelId: parseInt(e.target.value) };
             })
           }
+          className="border text-sm rounded-lg block w-11/12 p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
         >
           {/*<option>Other</option> loop over hotels list and generate option*/}
           {allHotels?.getAllHotels.map((hotel, index) => {
@@ -66,8 +71,9 @@ export const CreateAccommodationRequest = () => {
 
         <input
           required
-          type="datetime-local"
+          type="date"
           placeholder="CheckIn Time"
+          className="w-full p-2 rounded-md bg-gray-800/70 text-gray-100"
           onChange={(e) =>
             setAccommodationInfo((prevValue) => {
               return { ...prevValue, checkInTime: e.target.value.toString() };
@@ -76,7 +82,8 @@ export const CreateAccommodationRequest = () => {
         />
         <input
           required
-          type="datetime-local"
+          type="date"
+          className="w-full p-2 rounded-md bg-gray-800/70 text-gray-100"
           placeholder="CheckOut Time"
           onChange={(e) =>
             setAccommodationInfo((prevValue) => {
@@ -84,6 +91,15 @@ export const CreateAccommodationRequest = () => {
             })
           }
         />
+        <Button
+              intent={"info"}
+              className="flex gap-2 items-center justify-center"
+              size={"medium"}
+              type="submit"
+            >
+              <MdModeEditOutline />
+              submit
+            </Button>
       </form>
     </>
   );
