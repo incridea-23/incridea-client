@@ -4,12 +4,13 @@ import { FC,useState } from 'react';
 import Button from '@/src/components/button';
 import { MdModeEditOutline } from "react-icons/md";
 import Modal from '@/src/components/modal';
-import { GetAllHotelsDocument } from '@/src/generated/generated';
+import { GetAllHotelsDocument,EditAccommodationDetailsDocument } from '@/src/generated/generated';
 import { useQuery } from '@apollo/client';
 import Spinner from '@/src/components/spinner';
 
-
-const AddAccommodateDetails: FC = () => {
+const AddAccommodateDetails: FC<{
+  accId:number
+}> = ({accId}) => {
 
     const [showModal, setShowModal] = useState(false);
     const [hotelDetails, setHotelDetails] = useState("");
@@ -21,6 +22,19 @@ const AddAccommodateDetails: FC = () => {
         loading:hotelLoading,
         refetch:hotelRefetch
     } = useQuery(GetAllHotelsDocument);
+
+  //   const {
+  //     data:editHotel,
+  //     loading:editLoading,
+  //     refetch:editRefetch
+  // } = useQuery(EditAccommodationDetailsDocument,{
+  //   variables:{
+  //     id:accId as number,
+  //     hotel,
+  //     roomNo,
+  //     status
+  //   }
+  // });
 
     return (<>
         <Button

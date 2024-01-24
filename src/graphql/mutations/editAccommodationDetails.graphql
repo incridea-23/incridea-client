@@ -1,0 +1,22 @@
+mutation EditAccommodationDetails($hotel: String!, $id: Int!, $room: String!, $status: String!) {
+  editAccommodationDetails(hotel: $hotel, id: $id, room: $room, status: $status) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationEditAccommodationDetailsSuccess {
+      __typename
+      data {
+        id
+        status
+        room
+        hotel {
+          name
+        }
+        user {
+          name
+        }
+      }
+    }
+  }
+}

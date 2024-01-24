@@ -89,10 +89,9 @@ const AccommodateTab : FC = () => {
                                         eventName={event?.node?.name as string}
                                         published={event?.node?.published as boolean}
                                     /> */}
-                                    <AddAccommodateDetails />
+                                    <AddAccommodateDetails accId={acc?.id} />
                                     </h1>
-                                    
-                                    <ViewAccommodateDetails viewDetails={acc?.user?.id} />
+                                    <ViewAccommodateDetails accId={acc?.user?.id} />
                                 </div>
                             )):<>
                             {
