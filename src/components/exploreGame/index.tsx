@@ -11,7 +11,7 @@ const player = {
   y: 0,
 };
 const velocity = {
-  x: 15,
+  x: 6,
   y: 0,
 };
 let rightBoundary = 0;
@@ -172,7 +172,7 @@ export default function ExploreGame() {
       else spriteIndex++;
     }
     if (player.x < rightBoundary) {
-      player.x += 6;
+      player.x += velocity.x;
     }
   }
 
@@ -184,7 +184,7 @@ export default function ExploreGame() {
       }
     }
     if (player.x > leftBoundary) {
-      player.x -= 6;
+      player.x -= velocity.x;
     }
   }
 
@@ -210,12 +210,17 @@ export default function ExploreGame() {
         e.preventDefault();
         actionKeys.indexOf("ArrowUp") === -1 && actionKeys.push(e.key);
         break;
+      case " ":
+        e.preventDefault();
+        actionKeys.indexOf("ArrowUp") === -1 && actionKeys.push("ArrowUp");
+        break;
     }
   };
 
   const keyboardUpEventHandler = (event: KeyboardEvent) => {
     actionKeys.includes(event.key) &&
       actionKeys.splice(actionKeys.indexOf(event.key), 1);
+    event.key === " " && actionKeys.splice(actionKeys.indexOf("ArrowUp"), 1);
   };
 
   useEffect(() => {
@@ -303,7 +308,7 @@ export default function ExploreGame() {
         platformSprite,
         15,
         15,
-        275,
+        284,
         325,
         WINDOW_DIMENSION.width * 0.5 - platformSpriteWidth * 0.5,
         WINDOW_DIMENSION.height * 1.027,
@@ -335,8 +340,8 @@ export default function ExploreGame() {
       ); // 225 is the width of the platform sprite, 150 is the height of the platform sprite
       ctx.drawImage(
         platformSprite,
-        305,
-        15,
+        477,
+        177,
         225,
         150,
         WINDOW_DIMENSION.width * 0.5 + rightPlatformSpriteWidth * 0.4,
@@ -363,31 +368,6 @@ export default function ExploreGame() {
     const rightPlatformSpriteWidth = Math.ceil(
       (leftPlatformSpriteHeight * 225) / 150
     );
-
-    // ctx?.strokeRect(
-    //   WINDOW_DIMENSION.width * 0.5 - centralPlatformSpriteWidth * 0.5,
-    //   WINDOW_DIMENSION.height * 1.18 - player.height,
-    //   centralPlatformSpriteWidth,
-    //   1
-    // );
-    // ctx?.strokeRect(
-    //   WINDOW_DIMENSION.width * 0.5 - leftPlatformSpriteWidth * 1.05,
-    //   WINDOW_DIMENSION.height * 1.425,
-    //   leftPlatformSpriteWidth,
-    //   1
-    // );
-    // ctx?.strokeRect(
-    //   WINDOW_DIMENSION.width * 0.5 - leftPlatformSpriteWidth * 1.05,
-    //   WINDOW_DIMENSION.height * 1.405,
-    //   leftPlatformSpriteWidth,
-    //   1
-    // );
-    // ctx?.strokeRect(
-    //   WINDOW_DIMENSION.width * 0.5 + rightPlatformSpriteWidth * 0.4,
-    //   WINDOW_DIMENSION.height * 1.32 - player.height,
-    //   rightPlatformSpriteWidth,
-    //   1
-    // );
 
     if (player.y >= WINDOW_DIMENSION.height * 1.62 - player.height) {
       isGrounded = true;
@@ -548,6 +528,26 @@ export default function ExploreGame() {
     }
   };
 
+  /* {
+    if(typeof(window) !== undefined)
+    WINDOW_DIMENSION.width = window.innerWidth;
+    WINDOW_DIMENSION.height = window.innerHeight;
+    player.x = prevPos.x;
+    player.y = prevPos.y;
+    rightBoundary = WINDOW_DIMENSION.width - player.width;
+  }; */
+  // Copy this whenever REACT STATES are changed using useEffect having that state as dependency
+
+  // example:
+  // const [dummy, setDummy] = useState(0);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setDummy(dummy + 1);
+  //   }, 1000);
+  //   resetStates();
+  // }, [dummy]);
+
   useEffect(() => {
     const ctx = canvas.current?.getContext("2d");
     const spriteSheet = new Image();
@@ -600,9 +600,6 @@ export default function ExploreGame() {
     shadowPlatformConstructor();
 
     function animate() {
-      // console.log("spriteIndex", spriteIndex);
-      // console.log("action keys", actionKeys);
-
       actionKeys.map((key) => {
         switch (key) {
           case "ArrowLeft":
@@ -658,7 +655,6 @@ export default function ExploreGame() {
               spriteIndex
             ];
 
-      // console.log(player.y === prevPos.y);
       player.y += velocity.y;
       collisionDetection(ctx);
       if (!isGrounded) {
@@ -666,7 +662,6 @@ export default function ExploreGame() {
       } else {
         velocity.y = 0;
       }
-      // console.log(velocity.y);
       ctx?.drawImage(
         spriteSheet,
         currentSpriteState.x,
@@ -697,11 +692,74 @@ export default function ExploreGame() {
     <div className="flex flex-col justify-center items-center min-h-screen">
       <canvas ref={canvas} className="h-[200vh] w-full"></canvas>
       <div className="flex w-32 justify-between bg-white py-4 fixed bottom-0">
-        <button onClick={MoveLeft} className="w-full">
+        <button
+          onTouchStart={() => {
+            actionKeys.push("ArrowLeft");
+            MoveLeft();
+          }}
+          onTouchEnd={() => {
+            if (actionKeys.includes("ArrowLeft")) {
+              actionKeys.splice(actionKeys.indexOf("ArrowLeft", 1));
+            }
+          }}
+          onMouseDown={() => {
+            actionKeys.push("ArrowLeft");
+            MoveLeft();
+          }}
+          onMouseUp={() => {
+            if (actionKeys.includes("ArrowLeft")) {
+              actionKeys.splice(actionKeys.indexOf("ArrowLeft", 1));
+            }
+          }}
+          className="w-full"
+        >
           Left
         </button>
-        <button onClick={MoveRight} className="w-full">
+        <button
+          onTouchStart={() => {
+            actionKeys.push("ArrowRight");
+            MoveRight();
+          }}
+          onTouchEnd={() => {
+            if (actionKeys.includes("ArrowRight")) {
+              actionKeys.splice(actionKeys.indexOf("ArrowRight", 1));
+            }
+          }}
+          onMouseDown={() => {
+            actionKeys.push("ArrowRight");
+            MoveRight();
+          }}
+          onMouseUp={() => {
+            if (actionKeys.includes("ArrowRight")) {
+              actionKeys.splice(actionKeys.indexOf("ArrowRight", 1));
+            }
+          }}
+          className="w-full"
+        >
           Right
+        </button>
+        <button
+          onTouchStart={() => {
+            actionKeys.push("ArrowUp");
+            Jump();
+          }}
+          onTouchEnd={() => {
+            if (actionKeys.includes("ArrowUp")) {
+              actionKeys.splice(actionKeys.indexOf("ArrowUp", 1));
+            }
+          }}
+          onMouseDown={() => {
+            actionKeys.push("ArrowUp");
+            Jump();
+          }}
+          onMouseUp={() => {
+            if (actionKeys.includes("ArrowUp")) {
+              actionKeys.splice(actionKeys.indexOf("ArrowUp", 1));
+            }
+          }}
+          className="w-full"
+        >
+          Jump
         </button>
       </div>
     </div>
