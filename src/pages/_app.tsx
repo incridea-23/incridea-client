@@ -38,7 +38,7 @@ export default function App({
     },
   };
 
-  if (router.pathname === "/theme" || router.pathname === "/test")
+  if (router.pathname === "/theme" || router.pathname === "/landing")
     return (
       <ApolloProvider client={apolloClient}>
         <Component {...pageProps} />
