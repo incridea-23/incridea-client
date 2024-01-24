@@ -12,8 +12,8 @@ import { data } from 'cheerio/lib/api/attributes';
 
 
 const ViewAccommodateDetails: FC<{
-    viewDetails:String
-}> = ({viewDetails}) => {
+    accId:String
+}> = ({accId}) => {
 
     const [showModal, setShowModal] = useState(false);
     const [hotelDetails, setHotelDetails] = useState("");
@@ -25,7 +25,7 @@ const ViewAccommodateDetails: FC<{
         refetch:userRefetch
     } = useQuery(AccommodationRequestsByUserIdDocument,{
         variables:{
-            userId:viewDetails as string
+            userId:accId as string
         }
     });
 

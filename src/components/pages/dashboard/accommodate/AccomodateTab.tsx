@@ -4,18 +4,13 @@ import { EventsDocument } from '@/src/generated/generated';
 import { BranchesDocument } from '@/src/generated/generated';
 import { AccommodationRequestsDocument} from '@/src/generated/generated';
 import Spinner from '@/src/components/spinner';
-// import AddBranchRep from './AddBranchRep';
-// import PublishEventModal from './PublishEventModal';
-// import AddBranchModal from './AddBranchModal';
-// import SearchUsersModal from './SearchUsersModal';
-// import CollegesModal from './CollegesModal';
-// import RoundsDone from './RoundsDone';
 import Badge from '@/src/components/badge';
 import AddAccommodateDetails from './AddAccommodateDetails';
 import ViewAccommodateDetails from './ViewAccommodateDetails';
 // import ViewEvent from './ViewEventModal';
 
 const AccommodateTab : FC = () => {
+
   const {
     data: accommodationRequests,
     loading: accommodateLoading,
@@ -49,7 +44,7 @@ const AccommodateTab : FC = () => {
                             
                         <div className='md:max-h-80 max-h-80 md:h-[300px] overflow-y-auto text-center w-full'>
                             {accommodationRequests?.accommodationRequests?.__typename=="QueryAccommodationRequestsSuccess" ? 
-                            accommodationRequests?.accommodationRequests?.data.map((acc,id) => (
+                            accommodationRequests?.accommodationRequests?.data.map((acc,idx) => (
                                 <div key={acc?.id}
                                 className={`bg-white/10 md:rounded-none rounded-lg md:p-4 ml-2 p-3 flex flex-col md:flex-row md:items-center items-start md:justify-center  mb-3 md:my-0`}>
                                     <h1 className="basis-1/6 flex justify-start py-0.5 text-start text-lg">{acc?.user?.name}</h1>
@@ -89,10 +84,9 @@ const AccommodateTab : FC = () => {
                                         eventName={event?.node?.name as string}
                                         published={event?.node?.published as boolean}
                                     /> */}
-                                    <AddAccommodateDetails />
+                                    <AddAccommodateDetails accId={acc?.id} />
                                     </h1>
-                                    
-                                    <ViewAccommodateDetails viewDetails={acc?.user?.id} />
+                                    <ViewAccommodateDetails accId={acc?.user?.id} />
                                 </div>
                             )):<>
                             {
