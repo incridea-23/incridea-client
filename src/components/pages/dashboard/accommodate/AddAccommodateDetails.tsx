@@ -34,7 +34,6 @@ const AddAccommodateDetails: FC<{
   const [updateStatus, { data: updateStatusResult }] = useMutation(
     UpdateAccommodationStatusDocument,
   );
-
   return (
     <>
       <Button
