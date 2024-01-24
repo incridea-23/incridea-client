@@ -1,5 +1,5 @@
-mutation CreateHotel($Details: String!, $IsAc: Boolean!, $HotelName: String!, $RoomPrice: Float!){
-  createHotel(details: $Details, isAC: $IsAc, name: $HotelName, price: $RoomPrice) {
+mutation CreateHotel($Details: String!, $HotelName: String!, $RoomPrice: Float!){
+  createHotel(details: $Details, name: $HotelName, price: $RoomPrice) {
     ... on Error {
       __typename
       message
@@ -7,7 +7,6 @@ mutation CreateHotel($Details: String!, $IsAc: Boolean!, $HotelName: String!, $R
     ... on MutationCreateHotelSuccess {
       __typename
       data {
-        ac
         details
         id
         name
