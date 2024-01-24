@@ -702,6 +702,15 @@ export default function ExploreGame() {
               actionKeys.splice(actionKeys.indexOf("ArrowLeft", 1));
             }
           }}
+          onMouseDown={() => {
+            actionKeys.push("ArrowLeft");
+            MoveLeft();
+          }}
+          onMouseUp={() => {
+            if (actionKeys.includes("ArrowLeft")) {
+              actionKeys.splice(actionKeys.indexOf("ArrowLeft", 1));
+            }
+          }}
           className="w-full"
         >
           Left
@@ -716,6 +725,15 @@ export default function ExploreGame() {
               actionKeys.splice(actionKeys.indexOf("ArrowRight", 1));
             }
           }}
+          onMouseDown={() => {
+            actionKeys.push("ArrowRight");
+            MoveRight();
+          }}
+          onMouseUp={() => {
+            if (actionKeys.includes("ArrowRight")) {
+              actionKeys.splice(actionKeys.indexOf("ArrowRight", 1));
+            }
+          }}
           className="w-full"
         >
           Right
@@ -726,6 +744,15 @@ export default function ExploreGame() {
             Jump();
           }}
           onTouchEnd={() => {
+            if (actionKeys.includes("ArrowUp")) {
+              actionKeys.splice(actionKeys.indexOf("ArrowUp", 1));
+            }
+          }}
+          onMouseDown={() => {
+            actionKeys.push("ArrowUp");
+            Jump();
+          }}
+          onMouseUp={() => {
             if (actionKeys.includes("ArrowUp")) {
               actionKeys.splice(actionKeys.indexOf("ArrowUp", 1));
             }
