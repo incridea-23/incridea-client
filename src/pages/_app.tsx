@@ -12,7 +12,7 @@ import Image from "next/image";
 import Loader from "../components/Loader";
 import { Toaster } from "react-hot-toast";
 import { Analytics } from "@vercel/analytics/react";
-import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas";
+
 const Navbar = dynamic(() => import("../components/navbar"), { ssr: false });
 
 export default function App({
@@ -52,7 +52,7 @@ export default function App({
       />
       <Toaster />
       <AnimatePresence>{isLoading && <Loader />}</AnimatePresence>
-      <div className="bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6]">
+      <div className={`bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6]`}>
         {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white">
             <Image
