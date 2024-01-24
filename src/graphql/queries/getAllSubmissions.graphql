@@ -1,0 +1,19 @@
+query GetAllSubmissions($day: DayType!) {
+  getAllSubmissions(day: $day) {
+    ... on QueryGetAllSubmissionsSuccess {
+      __typename
+      data {
+        user {
+          name
+          id
+        }
+        image
+        card {
+          clue
+          id
+          day
+        }
+      }
+    }
+  }
+}

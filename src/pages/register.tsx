@@ -69,11 +69,11 @@ const Register: NextPage = (props: Props) => {
             about the guidelines and regulations
           </div>
           <Button
-            disabled={loading}
-            onClick={() => makePayment(setLoading)}
+            disabled={true}
+            // onClick={() => makePayment(setLoading)}
             className="flex gap-2 mt-8 "
           >
-            Pay and Register{' '}
+            Registrations Closed
             {loading && (
               <Spinner className="w-fit" size={'small'} intent={'white'} />
             )}{' '}

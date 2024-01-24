@@ -7,19 +7,26 @@ import "locomotive-scroll/dist/locomotive-scroll.css";
 import EventsReel from "../components/eventsPeek/reel";
 import { HomePageFooter } from "../components/footer";
 import dynamic from "next/dynamic";
+import { BiQuestionMark } from "react-icons/bi";
+import { BsEgg, BsEggFill } from "react-icons/bs";
+import { useRouter } from "next/router";
 const CountDown = dynamic(() => import("../components/countdown"), {
   ssr: false,
 });
 
 const Home = () => {
   const containerRef = useRef(null);
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
+  const router = useRouter();
+
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-x-hidden" style={{ willChange: "transform" }}>
       <LocomotiveScrollProvider
         options={{
           smooth: true,
           smartphone: {
-            smooth: false,
+            smooth: !isMobile,
           },
           tablet: {
             smooth: false,
@@ -40,17 +47,24 @@ const Home = () => {
                 width={1000}
                 alt="flare"
                 className="absolute pointer-events-none opacity-40 z-50 top-0 right-0"
+                priority
               />
               <CountDown />
             </div>
             {/* 3. About Section */}
-            <div className=" bg-gradient-to-b   from-[#2d6aa6] -mt-2   to-[#052749]">
+            <div className=" bg-gradient-to-b pb-3 from-[#2d6aa6] -mt-2   to-[#052749]">
               <About />
               {/* 4. Core Events Section */}
               <EventsReel />
             </div>
             {/* 5. Footer Section */}
-            <section className="-mt-2 bg-[#052749]">
+            <section className="-mt-2 relative bg-[#052749]">
+              <div className="group absolute md:right-48 right-0 top-10 md:top-60 p-3 py-5">
+                <div onClick={() => router.push('/easter-egg')} className="cursor-pointer relative w-fit mr-10">
+                  <BsEggFill style={{rotate: '-6deg'}} className="transition-all  group-hover:animate-bounce text-5xl text-white/80 text-center mx-auto mt-10" />
+                  <BiQuestionMark style={{rotate: '15deg'}} className="transition-all absolute -top-2 text-white/80 text-xl group-hover:animate-bounce  -right-1" />
+                </div>
+              </div>
               <HomePageFooter />
             </section>
           </div>

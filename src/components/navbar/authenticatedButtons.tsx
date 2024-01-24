@@ -12,9 +12,9 @@ const AuthenticatedButtons: FC<{
     <>
       {user?.role === 'USER' ? (
         <div className='flex space-x-2'>
-        <Link href="/register">
-          <Button>Register</Button>
-        </Link>
+        {/* <Link href="/register"> */}
+          <Button>Closed</Button>
+        {/* </Link> */}
         <Button
         onClick={() => signOut()}
         className="w-fit"

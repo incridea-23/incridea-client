@@ -1,0 +1,33 @@
+query MySubmissions($day: DayType!) {
+  submissionsByUser(day: $day) {
+    ... on QuerySubmissionsByUserSuccess {
+      __typename
+      data {
+        cardId
+        image
+      }
+    }
+    ... on Error {
+      __typename
+      message
+    }
+  }
+}
+
+query GetCards($day: DayType!) {
+  getCards(day: $day) {
+    ... on QueryGetCardsSuccess {
+      __typename
+      data {
+        clue
+        day
+        id
+      }
+    }
+    ... on Error {
+      __typename
+      message
+    }
+  }
+}
+

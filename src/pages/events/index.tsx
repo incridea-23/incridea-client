@@ -42,6 +42,19 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
 
   const [filteredEvents, setFilteredEvents] = useState(data || []);
 
+  const [showTopButton, setShowTopButton] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 400) {
+        setShowTopButton(true);
+      } else {
+        setShowTopButton(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   useEffect(() => {
     let tempFilteredEvents = data;
     if (currentBranchFilter !== "ALL")
@@ -96,20 +109,21 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
   };
 
   return (
-    <div className="bg-gradient-to-b  from-[#41acc9]  via-[#075985] to-[#2d6aa6] min-h-screen relative">
+    <div className="bg-gradient-to-b  from-[#41acc9]  via-[#075985] to-[#2d6aa6] min-h-screen relative">    
       <Image
         src="/assets/png/waterflare.png"
         height={1000}
         width={1000}
         alt="flare"
         className="absolute max-h-screen pointer-events-none opacity-50  top-0 right-0"
+        priority
       />
       <h1
         className={`titleFont font-bold text-5xl tracking-wide text-center pt-32 text-white`}
       >
         EVENTS
       </h1>
-      <h3 className={`titleFont font-semibold text-xl tracking-wide text-center py-5 text-white`}>60+ Events: Dive into Limitless Fun and Adventure!</h3>
+      <h3 className={`titleFont font-semibold text-xl tracking-wide text-center py-5 px-2 text-white`}>60+ Events: Dive into Limitless Fun and Adventure!</h3>
       <div className="flex flex-wrap items-center gap-2 px-4 lg:justify-between lg:flex-col lg:mx-auto mt-8">
         <div className="flex flex-col lg:flex-nowrap lg:w-[800px] w-full items-center gap-2">
           <div className="flex w-full items-center justify-between gap-3">
@@ -134,7 +148,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
                   }>
                   {currentBranchFilter !== "ALL" ? currentBranchFilter : "Branch"}
                 </Menu.Button>
-                <Menu.Items className=" overflow-hidden pb-1.5 mt-1 bg-[#075985] absolute z-10 text-center rounded-sm shadow-black/80 shadow-2xl">
+                <Menu.Items className=" overflow-hidden pb-1.5 mt-1 bg-[#286D8C] absolute z-10 text-center rounded-sm shadow-black/80 shadow-2xl">
                   {branchFilters.map((filter) => (
                     <Menu.Item key={filter}>
                       {({ active }) => (
@@ -159,7 +173,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
                   }>
                   {currentDayFilter !== "ALL" ? currentDayFilter : "Day"}
                 </Menu.Button>
-                <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-[#075985]  absolute z-[1] text-center rounded-sm shadow-black/80 shadow-2xl">
+                <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-[#286D8C]  absolute z-[1] text-center rounded-sm shadow-black/80 shadow-2xl">
                   {dayFilters.map((filter) => (
                     <Menu.Item key={filter}>
                       {({ active }) => (
@@ -193,7 +207,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
           </div>
         </div>
 
-        {/* <p className="lg:hidden text-white/90 mr-2">More filters</p> */}
+        {/* Mobile Filters */}
         <div className="flex  justify-between gap-3 basis-full">
           <div className="lg:hidden flex basis-1/3 justify-between  py-2">
             <Menu as={"div"} className={"relative grow inline-block"}>
@@ -203,7 +217,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
                 }>
                 {currentBranchFilter !== "ALL" ? currentBranchFilter : "Branch"}
               </Menu.Button>
-              <Menu.Items className=" overflow-hidden pb-1.5 mt-1 bg-[#075985] absolute z-50 text-center rounded-sm shadow-black/80 shadow-2xl">
+              <Menu.Items className="overflow-hidden pb-1.5 mt-1 bg-[#2e768a] absolute z-50 text-center rounded-sm shadow-black/80 shadow-2xl">
                 {branchFilters.map((filter) => (
                   <Menu.Item key={filter}>
                     {({ active }) => (
@@ -230,7 +244,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
                   ? currentCategoryFilter.replace("_", " ")
                   : "Category"}
               </Menu.Button>
-              <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-[#075985]  absolute z-50 text-center rounded-sm shadow-black/80 shadow-2xl">
+              <Menu.Items className="overflow-hidden right-1/2 translate-x-1/2 pb-1.5 mt-1 bg-[#2e768a]  absolute z-50 text-center rounded-sm shadow-black/80 shadow-2xl">
                 {categoryFilters.map((filter) => (
                   <Menu.Item key={filter}>
                     {({ active }) => (
@@ -255,7 +269,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
                 }>
                 {currentDayFilter !== "ALL" ? currentDayFilter : "Day"}
               </Menu.Button>
-              <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-[#075985]  absolute z-50 text-center rounded-sm shadow-black/80 shadow-2xl">
+              <Menu.Items className="overflow-hidden right-0 pb-1.5 mt-1 bg-[#2e768a]  absolute z-50 text-center rounded-sm shadow-black/80 shadow-2xl">
                 {dayFilters.map((filter) => (
                   <Menu.Item key={filter}>
                     {({ active }) => (
@@ -283,7 +297,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
       )}
       <div className="md:p-10 md:pt-7 pt-1 p-4 flex justify-center ">
         {filteredEvents.length === 0 ? (
-          <div className="bodyFont flex italic items-center justify-center min-h-[20rem] text-xl w-screen text-center text-gray-200/70">
+          <div className="bodyFont flex italic items-center justify-center min-h-[20rem] text-xl min-w-screen text-center text-gray-200/70">
             <span>No events found</span>
           </div>
         ) : (
@@ -294,6 +308,36 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
           </div>
         )}
       </div>
+      {/* Back to top button */}
+      <AnimatePresence>
+      {showTopButton && 
+        <motion.div
+        initial={{ translateY: "100%" }}
+        animate={{ translateY: 0 }}
+        exit={{ translateY: "100%" }}
+        transition={{ duration: 0.5 }}
+
+      className="sticky flex px-3 md:hidden justify-center bottom-0 z-50">
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="bg-white shadow-lg rounded-full p-2 mb-5 text-[#41acc9]">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M5 10l7-7m0 0l7 7m-7-7v18"
+            />
+          </svg>
+        </button>
+      </motion.div>
+      }
+      </AnimatePresence>
     </div>
   );
 };

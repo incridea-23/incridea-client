@@ -1,0 +1,11 @@
+mutation CreateWinner($eventId: ID!, $teamId: ID!, $type: WinnerType!) {
+  createWinner(eventId: $eventId, teamId: $teamId, type: $type) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationCreateWinnerSuccess {
+      __typename
+    }
+  }
+}

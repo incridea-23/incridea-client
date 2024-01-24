@@ -42,30 +42,68 @@ const CountDown: FC = () => {
     { value: countdown.seconds, label: 'Seconds' },
   ];
 
-  return (
-    <section className={`text-white text-center titleFont mb-20 lg:mb-40`}>
-      <TextAnimation
-        text="The wait is almost over!"
-        className="flex justify-center"
-        textStyle="text-2xl md:text-3xl font-semibold lg:text-5xl z-10"
-      />
-      <div className="flex flex-row justify-center items-center sm:items-center gap-2 sm:gap-5 lg:gap-10 mt-4 drop-shadow-xl relative">
-        <Image
-          src={'/assets/png/helm.png'}
-          width={400}
-          height={400}
-          alt="Ship Helm"
-          className="absolute opacity-[8%] -z-10"
-          style={{ transform: `rotate(${rotation})` }}
+  // if (
+  //   countdown.days === 0 &&
+  //   countdown.hours === 0 &&
+  //   countdown.minutes === 0 &&
+  //   countdown.seconds === 0
+  // )
+    return (
+      <section
+        className={`text-white text-center titleFont  mb-28`}
+        style={{ willChange: 'transform' }}
+      >
+        <TextAnimation
+          text="The wait is over!"
+          marginRight='15px'
+          className="flex justify-center"
+          textStyle="text-3xl md:text-3xl font-semibold lg:text-6xl md:mt-10 z-10"
         />
-        {countdownItems.map((item, index) => (
-          <div key={index} className="mx-auto lg:mx-0">
-            <CountdownItem {...item} />
-          </div>
-        ))}
-      </div>
-    </section>
-  );
+        <TextAnimation
+          text="Incridea is live!"
+          marginRight='15px'
+          className="flex justify-center"
+          textStyle="text-2xl md:text-3xl font-semibold lg:text-4xl md:mt-10 mt-4 z-10"
+        />
+        <div className="flex flex-row justify-center items-center sm:items-center gap-2 sm:gap-5 lg:gap-10 md:-mt-20 -mt-10 drop-shadow-xl relative">
+          <Image
+            src={'/assets/png/helm.png'}
+            width={400}
+            height={400}
+            alt="Ship Helm"
+            className="absolute opacity-[8%] -z-10"
+            style={{ transform: `rotate(${rotation})` }}
+          />
+        </div>
+      </section>
+    );
+
+  // return (
+  //   <section
+  //     className={`text-white text-center titleFont mb-20 lg:mb-40`}
+  //     style={{ willChange: "transform" }}>
+  //     <TextAnimation
+  //       text="The wait is almost over!"
+  //       className="flex justify-center"
+  //       textStyle="text-2xl md:text-3xl font-semibold lg:text-5xl z-10"
+  //     />
+  //     <div className="flex flex-row justify-center items-center sm:items-center gap-2 sm:gap-5 lg:gap-10 mt-4 drop-shadow-xl relative">
+  //       <Image
+  //         src={"/assets/png/helm.png"}
+  //         width={400}
+  //         height={400}
+  //         alt="Ship Helm"
+  //         className="absolute opacity-[8%] -z-10"
+  //         style={{ transform: `rotate(${rotation})` }}
+  //       />
+  //       {countdownItems.map((item, index) => (
+  //         <div key={index} className="mx-auto lg:mx-0">
+  //           <CountdownItem {...item} />
+  //         </div>
+  //       ))}
+  //     </div>
+  //   </section>
+  // );
 };
 
 const CountdownItem = ({ value, label }: { value: number; label: string }) => (

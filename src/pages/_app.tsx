@@ -1,17 +1,19 @@
-import { useApollo } from '@/src/lib/apollo';
-import '@/src/styles/globals.css';
-import { ApolloProvider } from '@apollo/client';
-import type { AppProps } from 'next/app';
-import HeadComponent from '../components/head';
-import { useEffect, useState } from 'react';
-import Footer from '../components/footer';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-import { AnimatePresence, motion } from 'framer-motion';
-import Image from 'next/image';
-import Loader from '../components/Loader';
-
-const Navbar = dynamic(() => import('../components/navbar'), { ssr: false });
+import { useApollo } from "@/src/lib/apollo";
+import "@/src/styles/globals.css";
+import { ApolloProvider } from "@apollo/client";
+import type { AppProps } from "next/app";
+import HeadComponent from "../components/head";
+import { useEffect, useState } from "react";
+import Footer from "../components/footer";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
+import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
+import Loader from "../components/Loader";
+import { Toaster } from "react-hot-toast";
+import { Analytics } from "@vercel/analytics/react";
+import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas";
+const Navbar = dynamic(() => import("../components/navbar"), { ssr: false });
 
 export default function App({
   Component,
@@ -20,47 +22,51 @@ export default function App({
   const apolloClient = useApollo(pageProps.initialApolloState);
   const [isLoading, setLoading] = useState<boolean>(false);
   const router = useRouter();
+
   const variants = {
     initialState: {
       opacity: 0,
-      translateY: '100%',
+      translateY: "100px",
     },
     animateState: {
       opacity: 1,
-      translateY: '0%',
+      translateY: "0%",
     },
     exitState: {
       opacity: 0,
-      translateY: '-100%',
+      translateY: "-100px",
     },
   };
 
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => setLoading(false), 5000);
-  }, []);
-
+  if (router.pathname === "/theme" || router.pathname === "/test")
+    return (
+      <ApolloProvider client={apolloClient}>
+        <Component {...pageProps} />
+      </ApolloProvider>
+    );
   return (
     <ApolloProvider client={apolloClient}>
       <HeadComponent
         title="Incridea"
         description="Official Website of Incridea 2023, National level techno-cultural fest, NMAMIT, Nitte. Innovate. Create. Ideate."
       />
+      <Toaster />
       <AnimatePresence>{isLoading && <Loader />}</AnimatePresence>
       <div className="bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6]">
-        {router.route !== '/' && (
+        {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white">
             <Image
-              src={'/assets/png/logo.png'}
+              src={"/assets/png/logo.png"}
               alt="loader"
               width={300}
               height={300}
+              priority
             />
             <h1 className={`titleFont text-xl md:text-3xl text-center`}>
               Tides of Change
             </h1>
           </div>
-        )}
+        }
         {!isLoading && <Navbar />}
         <AnimatePresence mode="wait">
           <motion.main
@@ -68,21 +74,20 @@ export default function App({
             initial="intialState"
             animate="animateState"
             exit="exitState"
-            transition={{ duration: 1 }}
-            variants={variants}
-          >
+            transition={{ duration: 0.8 }}
+            variants={variants}>
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1 }}
-              className="min-h-screen"
-            >
+              transition={{ duration: 0.8 }}
+              className="min-h-screen">
               <Component setLoading={setLoading} {...pageProps} />
             </motion.div>
           </motion.main>
         </AnimatePresence>
         <Footer />
       </div>
+      <Analytics />
     </ApolloProvider>
   );
 }

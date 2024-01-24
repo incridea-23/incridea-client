@@ -1,0 +1,14 @@
+query GetComment($eventId: ID!, $roundNo: Int!, $teamId: ID!) {
+  getComment(eventId: $eventId, roundNo: $roundNo, teamId: $teamId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on QueryGetCommentSuccess {
+      __typename
+      data {
+        comment
+      }
+    }
+  }
+}

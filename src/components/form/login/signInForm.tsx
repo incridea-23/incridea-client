@@ -10,9 +10,10 @@ type SignInFormProps = {
   setWhichForm: (
     whichForm: 'signIn' | 'resetPassword' | 'signUp' | 'resendEmail'
   ) => void;
+  redirectUrl?: string;
 };
 
-const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
+const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm, redirectUrl }) => {
   const [userInfo, setUserInfo] = useState({ email: '', password: '' });
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -44,7 +45,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({ setWhichForm }) => {
     if (res?.ok) {
       setError('');
       setUserInfo({ email: '', password: '' });
-      router.push('/profile');
+      router.push(redirectUrl ? decodeURIComponent(redirectUrl) : '/profile');
     }
   };
 

@@ -40,7 +40,7 @@ const ProfileInfo: FC<{
       />
 
       <div className="flex justify-center items-center lg:space-x-20 lg:flex-row flex-col-reverse mt-10">
-        <div className="flex flex-col justify-center space-y-2 lg:space-y-6 lg:mt-0 md:mt-5 mt-2 md:text-lg text-sm">
+        <div className="flex px-2 md:text-start text-center flex-col justify-center space-y-2 lg:space-y-6 lg:mt-0 md:mt-5 mt-2 md:text-lg text-sm">
           <a className={`text-3xl lg:text-4xl font-bold titleFont`}>
             {user?.name}
           </a>
@@ -48,23 +48,17 @@ const ProfileInfo: FC<{
             {user?.college?.name || '-'}
           </a>
 
-          <div className="flex flex-col gap-2 bodyFont">
+          <div className="flex flex-col justify-center items-center md:items-start gap-2 bodyFont">
             <span className="font-bold text-xl">Contact details</span>
             <div className="flex gap-2 items-center">
               <MdOutlineEmail />
-              <Link href={`mailto:${user?.email}`} className="hover:underline">
-                {user?.email}
-              </Link>
+
+              {user?.email}
             </div>
             {user?.phoneNumber && (
               <div className="flex gap-2 items-center">
                 <MdPhone />
-                <Link
-                  href={`tel:${user?.phoneNumber}`}
-                  className="hover:underline"
-                >
-                  {user?.phoneNumber}
-                </Link>
+                {user?.phoneNumber}
               </div>
             )}
             <Button

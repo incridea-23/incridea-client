@@ -49,7 +49,7 @@ const JoinTeamModal = () => {
         className="w-full"
         disabled={loading}
         onClick={() => setOpen(true)}
-        intent={'primary'}
+        intent={'ghost'}
       >
         Join Team
       </Button>

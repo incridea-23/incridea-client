@@ -22,6 +22,8 @@ import JoinTeamModal from './JoinTeamModal';
 import { useMutation } from '@apollo/client';
 import createToast from '../../toast';
 import Badge from '../../badge';
+import { BiCheck, BiCheckDouble } from 'react-icons/bi';
+import { FaCheck } from 'react-icons/fa';
 
 const TeamCard = ({
   team,
@@ -52,31 +54,52 @@ const TeamCard = ({
 
   return (
     <>
-      <div className="relative flex flex-col items-start justify-center my-4 bg-white/20 rounded-sm  max-w-2xl w-[300px] p-5 ">
+      <div className="relative flex flex-col items-start justify-center mb-4 mt-2  bg-black/20 rounded-md w-full p-5 ">
+        <div className="w-full text-center text-lg font-semibold mb-2 bodyFont">
+          {team.confirmed ? (
+            team.event.eventType === 'INDIVIDUAL' ||
+            team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY' ? (
+              <h1 className="">You&apos;re registered and ready to dive!</h1>
+            ) : (
+              <h1 className="">Your team is registered and ready to dive!</h1>
+            )
+          ) : team.event.eventType === 'INDIVIDUAL' ||
+            team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY' ? (
+            <h1 className="">
+              Heads up! Your registration is not confirmed yet.
+            </h1>
+          ) : (
+            <h1 className="">Heads up! Your team is not confirmed yet.</h1>
+          )}
+        </div>
         <div className="w-full">
           <div className="flex items-center mb-2 justify-center ">
             {team.event.eventType === 'INDIVIDUAL' ||
             team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY' ? (
               team.confirmed && (
-                <div className="p-3 text-center w-fit  bg-white/70 ">
+                <div className="p-3 text-center w-fit   ">
                   <QRCodeSVG
                     value={idToPid(userId)}
                     size={100}
                     className="mb-1"
                     bgColor="transparent"
+                    fgColor="#ffffff"
+                    // filter='drop-shadow(0px 0px 4px #111111bb)'
                   />
-                  <div className="text-black">{idToPid(userId)}</div>
                 </div>
               )
             ) : (
-              <div className="p-3 text-center w-fit  bg-white/70">
+              <div className="p-3 text-center w-fit">
                 <QRCodeSVG
                   value={idToTeamId(team.id)}
                   size={100}
                   className="mb-1"
+                  fgColor="#ffffff"
                   bgColor="transparent"
                 />
-                <div className="text-black mt-2">{idToTeamId(team.id)}</div>
+                <div className="text-white font-semibold bodyFont mt-2">
+                  {idToTeamId(team.id)}
+                </div>
               </div>
             )}
           </div>
@@ -93,7 +116,7 @@ const TeamCard = ({
                 </div>
               ) : (
                 <div
-                  className={`titleFont w-fit text-2xl font-bold  justify-center  text-center space-x-2`}
+                  className={`bodyFont w-full -mt-5 text-lg font-bold  justify-center  text-center space-x-2`}
                 >
                   {idToPid(userId)}
                 </div>
@@ -104,20 +127,26 @@ const TeamCard = ({
                   team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
                 ) && <EditTeamModal team={team} userId={userId} />
               ) : (
-                <Badge color={'success'} className="text-xs bodyFont">
-                  Registered
+                <Badge
+                  color={'success'}
+                  className="inline-flex font-semibold items-center gap-1 text-xs absolute top-0 bg-green-300 text-green-700 -translate-y-1/2 right-1/2 translate-x-1/2 bodyFont"
+                >
+                  <BiCheckDouble /> Registered
                 </Badge>
               )}
             </div>
             {!team.confirmed && (
               <span className="text-xs bodyFont">
                 Almost there!{' '}
-                {team.event.fees ? `Pay ${team.event.fees} to` : ''} Confirm
+                {team.event.fees
+                  ? `Pay ${team.event.fees} to confirm `
+                  : 'Confirm '}
                 your{' '}
                 {team.event.eventType === 'INDIVIDUAL' ||
                 team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
                   ? 'entry'
-                  : 'team'}
+                  : 'team'}{' '}
+                by clicking the button below.
               </span>
             )}
             {!team.confirmed &&
@@ -129,63 +158,66 @@ const TeamCard = ({
                   className="mt-2"
                   disabled={sdkLoading}
                   onClick={() => {
-                    makeTeamPayment(team.id, name, email, setSdkLoading);
+                    team.members.length >= team.event.minTeamSize
+                      ? makeTeamPayment(team.id, name, email, setSdkLoading)
+                      : toast.error(
+                          `You need ${
+                            team.event.minTeamSize - team.members.length
+                          } more members to confirm your team.`,
+                          {
+                            position: 'bottom-center',
+                          }
+                        );
                   }}
                 >
                   Pay {team.event.fees} to confirm
                 </Button>
               ) : (
-                <ConfirmTeamModal teamId={team.id} />
+                <ConfirmTeamModal
+                  teamId={team.id}
+                  canConfirm={team.members.length >= team.event.minTeamSize}
+                  needMore={team.event.minTeamSize - team.members.length}
+                />
               ))}
           </div>
         </div>
 
-        <hr className="w-full border-white/40 my-3" />
-
-        <div className="w-full bodyFont">
-          {team?.members?.map((member: any) => (
-            <div
-              className="flex justify-between items-center"
-              key={member.user.id}
-            >
-              <h1>{member.user.name}</h1>
+        {!(
+          team.event.eventType === 'INDIVIDUAL' ||
+          team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
+        ) && (
+          <>
+            {/* <hr className="w-full border-white/40 mt-3 mb-2" /> */}
+            <p className="text-xs mb-1 mt-5 bodyFont font-semibold">
+              Team Members:
+            </p>
+            <div className="w-full bodyFont">
+              {team?.members?.map((member: any) => (
+                <div className="text-sm" key={member.user.id}>
+                  <h1>{member.user.name}</h1>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </>
+        )}
 
-        <div className="w-full mt-2 bodyFont">
-          {team.confirmed ? (
-            team.event.eventType === 'INDIVIDUAL' ||
-            team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY' ? (
-              <h1 className="text-xs">Your registered and ready to dive!</h1>
-            ) : (
-              <h1 className="text-xs">
-                Your team is registered and ready to dive!
-              </h1>
-            )
-          ) : team.event.eventType === 'INDIVIDUAL' ||
-            team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY' ? (
-            <h1 className="text-xs">
-              Heads up! Your registration is not confirmed yet.
-            </h1>
-          ) : (
-            <h1 className="text-xs">
-              Heads up! Your team is not confirmed yet.
-            </h1>
-          )}
-        </div>
-        {!team.confirmed &&
+        {!(
+          team.event.eventType === 'INDIVIDUAL' ||
+          team.event.eventType === 'INDIVIDUAL_MULTIPLE_ENTRY'
+        ) &&
+          !team.confirmed &&
           (team.leaderId === Number(userId) ? (
             <>
-              <hr className="w-full border-white/40 my-3" />
+              <hr className="w-full border-white/20 my-3" />
               <div className="flex w-full flex-col justify-center bodyFont">
                 <p className="text-xs bodyFont">
                   Share this link with your friends to add them to your team!
                 </p>
                 <div className="flex gap-2 items-center justify-evenly mt-2">
                   <input
+                    readOnly
                     type="url"
-                    className="bg-white bg-opacity-20 rounded-lg overflow-hidden w-full text-sm p-2 bodyFont"
+                    className="bg-white bg-opacity-20 rounded-lg overflow-hidden w-full text-sm p-2 px-3 bodyFont"
                     value={url}
                   />
                   <AiOutlineCopy
@@ -197,7 +229,7 @@ const TeamCard = ({
 
                 <div className="flex items-center py-2 bodyFont">
                   <div className="flex-grow h-px white/40"></div>
-                  <span className="flex-shrink text-sm px-4 italic font-light">
+                  <span className="flex-shrink text-sm px-4 font-light">
                     or
                   </span>
                   <div className="flex-grow h-px white/40"></div>
@@ -205,7 +237,7 @@ const TeamCard = ({
 
                 <Link
                   href={`https://wa.me/?text=${encodeURIComponent(url)}`}
-                  className="flex items-center justify-center gap-2 bg-black/30  hover:bg-black/50 text-green-500 text-bold rounded-md p-2 cursor-pointer text-sm bodyFont"
+                  className="flex items-center transition-colors justify-center gap-2 bg-black/30  hover:bg-black/50 text-green-500 text-bold rounded-md p-2 cursor-pointer text-sm bodyFont"
                 >
                   <BsWhatsapp /> Share on WhatsApp
                 </Link>

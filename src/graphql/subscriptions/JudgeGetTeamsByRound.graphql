@@ -1,0 +1,13 @@
+subscription JudgeGetTeamsByRound($eventId: Int!, $roundId: Int!) {
+  judgeGetTeamsByRound(eventId: $eventId, roundId: $roundId) {
+    id
+    name
+    roundNo
+    leaderId
+    members {
+      user {
+        id
+      }
+    }
+  }
+}

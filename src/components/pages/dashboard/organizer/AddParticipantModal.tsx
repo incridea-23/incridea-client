@@ -1,12 +1,11 @@
-import {  useState } from 'react';
-import {
-  OrganizerRegisterSoloDocument,
-} from '@/src/generated/generated';
+import { useState } from 'react';
+import { OrganizerRegisterSoloDocument } from '@/src/generated/generated';
 import { useMutation } from '@apollo/client';
 import Modal from '@/src/components/modal';
 import createToast from '@/src/components/toast';
 import Button from '@/src/components/button';
 import ScanParticipantModal from './ScanParticipantModal';
+import { pidToId } from '@/src/utils/id';
 
 export default function AddParticipantModal({ eventId }: { eventId: string }) {
   const [organizerRegisterSolo, _] = useMutation(
@@ -22,7 +21,7 @@ export default function AddParticipantModal({ eventId }: { eventId: string }) {
     let promise = organizerRegisterSolo({
       variables: {
         eventId,
-        userId,
+        userId: userId.startsWith('INC23-') ? pidToId(userId) : userId,
       },
     }).then((res) => {
       if (
@@ -44,7 +43,7 @@ export default function AddParticipantModal({ eventId }: { eventId: string }) {
   return (
     <>
       <Button
-        intent={'info'}
+        intent={'ghost'}
         outline
         size={'large'}
         className="w-full md:w-fit whitespace-nowrap rounded-lg"
@@ -67,9 +66,7 @@ export default function AddParticipantModal({ eventId }: { eventId: string }) {
             >
               Scan Participant ID
             </label>
-            <ScanParticipantModal 
-            eventId={eventId}
-            />
+            <ScanParticipantModal eventId={eventId} />
           </div>
           <div className="w-full text-center ">OR</div>
           <div className="space-y-2">

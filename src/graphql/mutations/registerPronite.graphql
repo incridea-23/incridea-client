@@ -1,0 +1,24 @@
+mutation RegisterPronite($userId: ID!) {
+  registerPronite(userId: $userId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationRegisterProniteSuccess {
+      __typename
+      data {
+        proniteDay
+        user {
+          email
+          id
+          name
+          phoneNumber
+          role
+          college {
+            name
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+query RoundByJudge {
+  roundByJudge {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on QueryRoundByJudgeSuccess {
+      __typename
+      data {
+        eventId
+        roundNo
+        criteria {
+          id
+          name
+          type
+        }
+        event {
+          name
+          eventType
+          rounds {
+            roundNo
+            completed
+          }
+        }
+      }
+    }
+  }
+}

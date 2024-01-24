@@ -2,15 +2,16 @@ import Button from '@/src/components/button';
 import Modal from '@/src/components/modal';
 import Spinner from '@/src/components/spinner';
 import createToast from '@/src/components/toast';
-import {
-  ConfirmTeamDocument,
-} from '@/src/generated/generated';
+import { ConfirmTeamDocument } from '@/src/generated/generated';
 import { useMutation } from '@apollo/client';
 import React, { FC, useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 const ConfirmTeamModal: FC<{
   teamId: string;
-}> = ({ teamId }) => {
+  canConfirm?: boolean;
+  needMore?: number;
+}> = ({ teamId, canConfirm, needMore }) => {
   const [showModal, setShowModal] = useState(false);
 
   const [confirmTeam, { loading: confirmTeamLoading }] = useMutation(
@@ -65,7 +66,14 @@ const ConfirmTeamModal: FC<{
           <Button
             size={'small'}
             onClick={() => {
-              handleConfirm(teamId as string);
+              canConfirm
+                ? handleConfirm(teamId as string)
+                : toast.error(
+                    `You need ${needMore} more members to confirm your team.`,
+                    {
+                      position: 'bottom-center',
+                    }
+                  );
             }}
             disabled={confirmTeamLoading}
           >

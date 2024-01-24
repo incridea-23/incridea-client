@@ -17,7 +17,7 @@ const Organizer: NextPage = () => {
       </div>
     );
   if (!user) {
-    router.push("/auth/login");
+    router.push("/login");
     return <div>Redirecting...</div>;
   }
   if (user && user.role !== "ORGANIZER") router.push("/profile");

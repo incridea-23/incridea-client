@@ -23,7 +23,7 @@ const About: FC = () => {
     <section
       data-scroll
       data-scroll-speed="5"
-      className="group text-white mx-auto max-w-screen-xl px-4 py-8 sm:py-12 sm:px-6 lg:py-16 lg:px-8 mb-36 lg:mb-72"
+      className="group text-white mx-auto max-w-screen-xl px-4 py-8 sm:py-12 sm:px-6 lg:py-16 lg:px-8 mb-36 lg:mb-48"
     >
       <div className="grid  grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
         <div className="max-w-2xl mt-12">
@@ -79,7 +79,7 @@ const About: FC = () => {
               <BiDownload /> Rule book
             </a>
             <a
-              // onClick={() => handleDownload('/assets/pdf/schedule.pdf', 'schedule.pdf')}
+              onClick={() => handleDownload('https://drive.google.com/file/d/1mglh-NsLE_AOjY969olQNppZcQyr5p4F/view?usp=sharing', 'schedule.pdf')}
               className="cursor-pointer px-3 flex items-center gap-2 py-2 text-md md:text-lg lg:text-xl font-semibold text-center text-white transition duration-300 rounded-bl-xl rounded-tr-xl bg-white/30 hover:bg-white/40"
             >
               <BiDownload /> Schedule

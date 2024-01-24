@@ -4,13 +4,15 @@ import MarkAttendance from './ScanMarkAttendance';
 import AddParticipantToEvent from './AddParticipantToEvent';
 import ScanParticipantToTeam from './ScanParticipantToTeam';
 import Badge from '@/src/components/badge';
+import Pronite from '@/src/components/pronite';
 
 export const QRCodeScanner: React.FC<{
-  intent: 'attendance' | 'addToTeam' | 'addToEvent';
+  intent: 'attendance' | 'addToTeam' | 'addToEvent' | 'pronite';
   eventId?: string;
   teamId?: string;
   eventType?: string;
-}> = ({ intent, eventId, teamId, eventType }) => {
+  pId?: string;
+}> = ({ intent, eventId, teamId, eventType, pId }) => {
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -22,6 +24,31 @@ export const QRCodeScanner: React.FC<{
       setError(error.message);
     },
   });
+
+  const stopCamera = () => {
+    const stream = ref.current?.srcObject as MediaStream;
+    const tracks = stream?.getTracks();
+    tracks?.forEach((track) => {
+      track.stop();
+    });
+  };
+
+  const startCamera = () => {
+    // start the camera again
+    navigator.mediaDevices
+      .getUserMedia({ video: { facingMode: 'environment' } })
+      .then((stream) => {
+        const video = ref.current;
+        if (video) {
+          video.srcObject = stream;
+        }
+      });
+  };
+
+  const clearScanResults = () => {
+    setResult(null);
+    setError(null);
+  };
 
   return (
     <div className="flex flex-col items-center relative">
@@ -53,6 +80,14 @@ export const QRCodeScanner: React.FC<{
               )}
               {intent === 'addToTeam' && (
                 <ScanParticipantToTeam teamId={teamId || ''} userId={result} />
+              )}
+              {intent === 'pronite' && (
+                <Pronite
+                  pId={result}
+                  stopCamera={stopCamera}
+                  startCamera={startCamera}
+                  clearScanResults={clearScanResults}
+                />
               )}
             </div>
           </div>

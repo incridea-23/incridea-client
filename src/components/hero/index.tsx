@@ -28,7 +28,8 @@ const Hero: React.FC = () => {
 
   return (
     <section
-    data-scroll-section
+      data-scroll-section
+      style={{willChange: 'transform'}}
       className="relative bg-gradient-to-bl -z-10  from-indigo-200 via-sky-500 to-cyan-100"
     >
       {/* 1. Sun Rays */}
@@ -46,7 +47,7 @@ const Hero: React.FC = () => {
       <motion.div
         data-scroll
         data-scroll-speed="-8"
-        className="absolute -z-10  top-0 left-0   "
+        className="absolute -z-10  top-9 md:top-0 left-0   "
       >
         <LandingBg className="h-[70vh] w-screen  md:h-screen " />
       </motion.div>
@@ -55,11 +56,12 @@ const Hero: React.FC = () => {
       <motion.div
         data-scroll
         data-scroll-speed="-6"
-        className="absolute  top-0 right-0 -z-10 backdrop-blur-[1px] text-white flex flex-col justify-center items-center w-screen min-h-screen"
+        className="absolute  -top-20 md:top-0 right-0 -z-10 backdrop-blur-[1px] text-white flex flex-col justify-center items-center w-screen min-h-screen"
       >
         <Image
           className="w-full max-w-lg px-10 h-fit"
           src="/assets/png/logo.png"
+          priority
           width={500}
           height={500}
           alt="INCRIDEA"

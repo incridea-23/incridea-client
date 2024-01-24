@@ -5,17 +5,19 @@ import TextInput from '../input'
 type Props = {
   value: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  className?: string
+  placeholder?: string
 }
 
-const SearchBox = ({ value, onChange }: Props) => {
+const SearchBox = ({className, value, onChange, placeholder }: Props) => {
   return (
-    <div className='relative'>
+    <div className={className + ' relative'}>
       <TextInput
         type={'text'}
         value={value}
         onChange={onChange}
         additionalclasses='p-2 pr-10 w-full'
-        placeholder='Search by name or PID'
+        placeholder={placeholder || 'Search by name or PID'}
       />
       <AiOutlineSearch
         size={'1.4rem'}
