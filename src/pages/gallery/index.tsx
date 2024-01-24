@@ -3,7 +3,7 @@ import GallerySlide from "@/src/components/galleryslide";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { NextPage } from "next";
-import { useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { Autoplay, Navigation, Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -28,7 +28,22 @@ const Gallery: NextPage = () => {
     }
     return imagePaths;
   };
-
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const t1 = gsap.timeline();
+      t1.from("#animation", {
+        delay: 1,
+        filter: "drop-shadow(0px 10px 20px rgba(0,0,0,0.45))",
+        y: -90,
+        // boxShadow: "0px 10px 67px 40px rgba(0,0,0,0.25)",
+      }).to("#animation", {
+        y: 0,
+        filter: "drop-shadow(0px 10px 80px rgba(0,0,0,0.75))",
+        // boxShadow: "0px 10px 67px 90px rgba(0,0,0,0.25)",
+        duration: 1,
+      });
+    });
+  }, [activeYear]);
   const img2019: string[] = generateImagePaths(years[0], imageCounts[0], "jpg");
   const img2020: string[] = generateImagePaths(years[1], imageCounts[1], "jpg");
   const img2022: string[] = generateImagePaths(years[2], imageCounts[2], "jpg");
@@ -54,15 +69,20 @@ const Gallery: NextPage = () => {
           }}
           modules={[Navigation, Autoplay]}
           speed={900}
+          spaceBetween={100}
           className="sm:w-full h-full border-8 border-[#63aeef] relative flex"
         >
+          <SwiperSlide className="flex justify-center items-center text-center">
+            <div className="relative w-full h-full flex justify-center items-center">
+              <GallerySlide title={"2022"} imgArr={img2019} emulator="gba" />
+            </div>
+          </SwiperSlide>
           <SwiperSlide className="flex justify-center items-center text-center">
             <div className="relative w-full h-full flex justify-center items-center">
               <GallerySlide
                 title={"2022"}
                 imgArr={img2019}
-                emulator="gba"
-                year={activeYear}
+                emulator="retroPC"
               />
             </div>
           </SwiperSlide>
@@ -70,18 +90,12 @@ const Gallery: NextPage = () => {
             <div className="relative w-full h-full flex justify-center items-center">
               <GallerySlide
                 title={"2022"}
-                imgArr={img2020}
-                emulator="gba"
-                year={activeYear}
+                imgArr={img2019}
+                emulator="retroTV"
               />
             </div>
           </SwiperSlide>
           {/* <SwiperSlide className="flex justify-center items-center text-center">
-            <div className="relative w-full h-full flex justify-center items-center">
-              <GallerySlide title={"2022"} imgArr={img2022} emulator="gba" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className="flex justify-center items-center text-center">
             <div className="relative w-full h-full flex justify-center items-center">
               <GallerySlide title={"2022"} imgArr={img2023} emulator="gba" />
             </div>
@@ -90,8 +104,9 @@ const Gallery: NextPage = () => {
             onClick={async () => {
               if (activeYear !== 0) {
                 await gsap.to("#animation", {
-                  y: -70,
-                  boxShadow: "0px 10px 67px 20px rgba(0,0,0,0.25)",
+                  y: -90,
+                  // boxShadow: "0px 10px 67px 20px rgba(0,0,0,0.25)",
+                  filter: "drop-shadow(0px 10px 20px rgba(0,0,0,0.45))",
                   duration: 1,
                 });
               }
@@ -102,7 +117,7 @@ const Gallery: NextPage = () => {
               });
               return swiperRef.current?.slidePrev();
             }}
-            className={`absolute top-[90%] left-[40%] h-6 w-auto z-10 duration-300 transition-all ease-in-out border-yellow-300 border-2 sm:border-none animate-`}
+            className={`absolute top-[90%] left-[40%] h-6 w-auto z-10 duration-300 transition-all ease-in-out border-yellow-300 border-2 sm:border-drop-shadow:none animate-`}
           >
             Prev
           </button>
@@ -110,8 +125,9 @@ const Gallery: NextPage = () => {
             onClick={async () => {
               if (activeYear !== years.length) {
                 await gsap.to("#animation", {
-                  y: -70,
-                  boxShadow: "0px 10px 67px 20px rgba(0,0,0,0.25)",
+                  y: -90,
+                  // boxShadow: "0px 10px 67px 20px rgba(0,0,0,0.25)",
+                  filter: "drop-shadow(0px 10px 20px rgba(0,0,0,0.45))",
                   duration: 1,
                 });
               }

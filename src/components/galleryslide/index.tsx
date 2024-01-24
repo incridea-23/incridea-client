@@ -8,26 +8,41 @@ import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { baseImageUrl } from "@/src/utils/url";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
+import { IoAtCircle } from "react-icons/io5";
 import BlurImage from "../blurImage";
+import Console from "./conosole-component";
 import GbaComponent from "./gba-component";
+import RetroPC from "./retropc-component";
+import RetroTV from "./retrotv-component";
 
 type GalleryProps = {
   title: string;
   // next: string;
   // prev: string;
   imgArr: string[];
-  emulator: string;
-  year: number;
+  emulator: "gba" | "retroPC" | "console" | "retroTV";
 };
 
-const GallerySlide: FC<GalleryProps> = ({ title, imgArr, emulator ,year}) => {
+const GallerySlide: FC<GalleryProps> = ({ title, imgArr, emulator }) => {
   // const [active, setActive] = useState<number>(0);
   // const [activeImg, setActiveImg] = useState<string>("");
   const swiperRef = useRef<SwiperType>();
   // useEffect(() => {
   //   setActiveImg(imgArr[active]);
   // }, [active, imgArr]);
-  return <GbaComponent imgArr={imgArr} year={year} />;
+  switch (emulator) {
+    case "gba":
+      return <GbaComponent imgArr={imgArr} />;
+
+    case "retroPC":
+      return <RetroPC imgArr={imgArr} />;
+
+    case "console":
+      return <Console imgArr={imgArr} />;
+
+    case "retroTV":
+      return <RetroTV imgArr={imgArr} />;
+  }
 
   // return (
   //   <div

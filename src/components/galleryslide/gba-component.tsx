@@ -7,7 +7,7 @@ import { Autoplay, Mousewheel, Navigation, Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import BlurImage from "../blurImage";
 
-const GbaComponent = ({ imgArr, year }: { imgArr: string[]; year: number }) => {
+const GbaComponent = ({ imgArr }: { imgArr: string[]}) => {
   const [active, setActive] = useState<number>(0);
   const [activeImg, setActiveImg] = useState<string>("");
   useEffect(() => {
@@ -16,29 +16,23 @@ const GbaComponent = ({ imgArr, year }: { imgArr: string[]; year: number }) => {
 
   const swiperRef = useRef<SwiperType>();
 
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      const t1 = gsap.timeline();
-      t1.from("#animation", {
-        x: -60,
-      })
-        .to("#animation", {
-          x: 0,
-          duration: 0.5,
-        })
-        .from("#animation", {
-          y: -90,
-          boxShadow: "0px 10px 67px 40px rgba(0,0,0,0.25)",
-        })
-        .to("#animation", {
-          y: 0,
-          boxShadow: "0px 10px 67px 90px rgba(0,0,0,0.25)",
-          duration: 1,
-        });
-    });
+  // useLayoutEffect(() => {
+  //   const ctx = gsap.context(() => {
+  //     const t1 = gsap.timeline();
+  //     t1.from("#animation", {
+  //       y: -90,
+  //       // boxShadow: "0px 10px 67px 40px rgba(0,0,0,0.25)",
+  //       filter: "drop-shadow(0px 10px 20px rgba(0,0,0,0.45))",
+  //     }).to("#animation", {
+  //       y: 0,
+  //       // boxShadow: "0px 10px 67px 90px rgba(0,0,0,0.25)",
+  //       filter: "drop-shadow(0px 10px 90px rgba(0,0,0,0.45))",
+  //       duration: 1,
+  //     });
+  //   });
 
-    return () => ctx.revert();
-  }, [year]);
+  //   return () => ctx.revert();
+  // }, []);
 
   return (
     <div
