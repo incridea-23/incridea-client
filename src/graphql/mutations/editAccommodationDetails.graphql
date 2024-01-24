@@ -1,4 +1,4 @@
-mutation EditAccommodationDetails($hotel: String!, $id: Int!, $room: String!, $status: String!) {
+mutation EditAccommodationDetails($hotel: String!, $id: String!, $room: String!, $status: String!) {
   editAccommodationDetails(hotel: $hotel, id: $id, room: $room, status: $status) {
     ... on Error {
       __typename

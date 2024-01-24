@@ -9,7 +9,7 @@ import { useQuery } from '@apollo/client';
 import Spinner from '@/src/components/spinner';
 
 const AddAccommodateDetails: FC<{
-  accId:number
+  accId:String
 }> = ({accId}) => {
 
     const [showModal, setShowModal] = useState(false);
@@ -18,23 +18,23 @@ const AddAccommodateDetails: FC<{
     const [status, setStatus] = useState("");
 
     const {
-        data:hotel,
+        data:allHotels,
         loading:hotelLoading,
         refetch:hotelRefetch
     } = useQuery(GetAllHotelsDocument);
 
-  //   const {
-  //     data:editHotel,
-  //     loading:editLoading,
-  //     refetch:editRefetch
-  // } = useQuery(EditAccommodationDetailsDocument,{
-  //   variables:{
-  //     id:accId as number,
-  //     hotel,
-  //     roomNo,
-  //     status
-  //   }
-  // });
+    const {
+      data:editHotel,
+      loading:editLoading,
+      refetch:editRefetch
+  } = useQuery(EditAccommodationDetailsDocument,{
+    variables:{
+      id:accId as string,
+      hotel:hotelDetails,
+      room:roomNo,
+      status
+    }
+  });
 
     return (<>
         <Button
@@ -65,8 +65,8 @@ const AddAccommodateDetails: FC<{
                 placeholder="Hotel Name"
                 className="border text-sm rounded-lg block w-11/12 p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
               >
-                {hotel?.getAllHotels.map((hot) => (
-                  <option key={hot.id} value={hot.name}>
+                {allHotels?.getAllHotels.map((hot) => (
+                  <option key={hot.id} value={hot.id}>
                     {hot.name}
                   </option>
                 ))}
