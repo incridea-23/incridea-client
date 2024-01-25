@@ -529,7 +529,49 @@ const ExploreGame = () => {
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
-      <canvas ref={canvas} className="h-[200vh] w-full"></canvas>
+      <div
+        className="absolute bg-[#d64d00] h-max w-max top-[20%] text-[#fec3b5] pressStart text-center sm:p-12 border-l-4 border-t-4 border-white p-4 rounded-lg"
+        style={{ borderStyle: "outset" }}
+      >
+        <h1 className="lg:text-8xl md:text-7xl sm:text-6xl text-4xl">
+          INCRIDEA
+        </h1>
+        <h3 className="lg:text-5xl md:text-4xl sm:text-3xl text-xl">
+          DICE OF DESTINY
+        </h3>
+        <span className="absolute -top-16 text-white left-0 flex flex-col lg:text-xl md:text-lg sm:text-md text-sm">
+          <p>RYOKO</p>
+          <p>000006</p>
+        </span>
+        <span className="absolute -bottom-5 text-white right-0 lg:text-xl md:text-lg sm:text-md text-sm">
+          © Incridea 2024
+        </span>
+      </div>
+
+      {showAbout && (
+        <div
+          className="absolute h-max sm:max-w-lg sm:text-xs sm:top-[35%] md:max-w-xl md:text-md max-w-md text-xs top-[30%] mx-4 text-opacity-80  bg-[#86d6e9]/30 p-6 xl:top-[45%] xl:left-6 xl:max-w-xl xl:text-lg  text-white pressStart justify-evenly text-justify space-y-4 rounded-lg"
+          style={{ borderStyle: "outset" }}
+        >
+          <p>
+            Incridea, a three-day National-Level extravaganza will play host to
+            over 60 events, spanning the technical, non-technical, and cultural
+            spheres, replete with cultural soirées and pronites, promising to be
+            an experience of a lifetime.
+          </p>
+          <p>
+            The stunning marine world, with all its wonders and marvels, will be
+            unveiled before your very eyes, as you revel in the vivacity of
+            these momentous days, forging memories that shall be etched in your
+            minds forevermore.
+          </p>
+
+          <span className="absolute bottom-1 right-2 text-xs font-mono">
+            Try controlling Ryoko
+          </span>
+        </div>
+      )}
+      <canvas ref={canvas} className="h-[200vh] w-full "></canvas>
       <div className="hidden">
         <img
           src="/assets/spriteSheets/ryokoSpriteSheet.png"
@@ -547,8 +589,7 @@ const ExploreGame = () => {
           ref={platformSprite}
         />
       </div>
-
-      <div className="flex w-32 justify-between bg-white py-4 fixed bottom-0">
+      {/* <div className="flex w-32 justify-between bg-white py-4 fixed bottom-0">
         <button
           onTouchStart={() => {
             actionKeys.push("ArrowLeft");
@@ -618,8 +659,328 @@ const ExploreGame = () => {
         >
           Jump
         </button>
+      </div> */}
+
+      <div className="fixed bottom-5 right-5 opacity-50">
+        <svg
+          width="205"
+          height="150"
+          viewBox="0 0 1222 888"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="pointer-events-none"
+        >
+          <g
+            id="Right"
+            onTouchStart={() => {
+              actionKeys.push("ArrowRight");
+              MoveRight();
+            }}
+            onTouchEnd={() => {
+              if (actionKeys.includes("ArrowRight")) {
+                actionKeys.splice(actionKeys.indexOf("ArrowRight", 1));
+              }
+            }}
+            onMouseDown={() => {
+              actionKeys.push("ArrowRight");
+              MoveRight();
+              console.log("clicked");
+            }}
+            onMouseUp={() => {
+              if (actionKeys.includes("ArrowRight")) {
+                actionKeys.splice(actionKeys.indexOf("ArrowRight", 1));
+              }
+            }}
+            className="pointer-events-auto"
+          >
+            <g
+              id="Rectangle 6"
+              filter="url(#filter0_b_95_21)"
+              className="pointer-events-none"
+            >
+              <rect
+                x="808"
+                y="495"
+                width="414"
+                height="392"
+                rx="40"
+                fill="white"
+              />
+              <rect
+                x="808.5"
+                y="495.5"
+                width="413"
+                height="391"
+                rx="39.5"
+                stroke="black"
+              />
+            </g>
+            <path
+              id="Polygon 7"
+              d="M1110.02 686.3C1115.71 690.343 1115.62 698.824 1109.84 702.735L965.084 800.648C958.4 805.169 949.389 800.319 949.482 792.25L951.776 593.116C951.869 585.047 960.989 580.405 967.567 585.08L1110.02 686.3Z"
+              fill="black"
+            />
+          </g>
+          <g
+            id="Up"
+            onTouchStart={() => {
+              actionKeys.push("ArrowUp");
+              Jump();
+            }}
+            onTouchEnd={() => {
+              if (actionKeys.includes("ArrowUp")) {
+                actionKeys.splice(actionKeys.indexOf("ArrowUp", 1));
+              }
+            }}
+            onMouseDown={() => {
+              actionKeys.push("ArrowUp");
+              Jump();
+            }}
+            onMouseUp={() => {
+              if (actionKeys.includes("ArrowUp")) {
+                actionKeys.splice(actionKeys.indexOf("ArrowUp", 1));
+              }
+            }}
+          >
+            <g id="Rectangle 6_2" filter="url(#filter1_b_95_21)">
+              <rect
+                x="416"
+                y="414"
+                width="414"
+                height="392"
+                rx="40"
+                transform="rotate(-90 416 414)"
+                fill="white"
+              />
+              <rect
+                x="416.5"
+                y="413.5"
+                width="413"
+                height="391"
+                rx="39.5"
+                transform="matrix(0 -1 1 0 3 830)"
+                stroke="black"
+              />
+            </g>
+            <path
+              id="Polygon 7_2"
+              d="M607.3 111.976C611.343 106.286 619.824 106.383 623.735 112.165L721.648 256.916C726.169 263.6 721.319 272.611 713.25 272.518L514.116 270.224C506.047 270.131 501.405 261.011 506.08 254.433L607.3 111.976Z"
+              fill="black"
+            />
+          </g>
+          <g
+            id="Left"
+            onTouchStart={() => {
+              actionKeys.push("ArrowLeft");
+              MoveLeft();
+            }}
+            onTouchEnd={() => {
+              if (actionKeys.includes("ArrowLeft")) {
+                actionKeys.splice(actionKeys.indexOf("ArrowLeft", 1));
+              }
+            }}
+            onMouseDown={() => {
+              actionKeys.push("ArrowLeft");
+              MoveLeft();
+            }}
+            onMouseUp={() => {
+              if (actionKeys.includes("ArrowLeft")) {
+                actionKeys.splice(actionKeys.indexOf("ArrowLeft", 1));
+              }
+            }}
+          >
+            <g id="Rectangle 7" filter="url(#filter2_b_95_21)">
+              <rect
+                x="416.155"
+                y="884.994"
+                width="414"
+                height="392"
+                rx="40"
+                transform="rotate(179.684 416.155 884.994)"
+                fill="white"
+              />
+              <rect
+                x="415.652"
+                y="884.497"
+                width="413"
+                height="391"
+                rx="39.5"
+                transform="rotate(179.684 415.652 884.497)"
+                stroke="black"
+              />
+            </g>
+            <path
+              id="Polygon 8"
+              d="M113.08 695.362C107.368 691.351 107.419 682.869 113.179 678.927L257.387 580.217C264.047 575.659 273.084 580.46 273.036 588.529L271.84 787.673C271.791 795.742 262.697 800.434 256.093 795.796L113.08 695.362Z"
+              fill="black"
+            />
+          </g>
+          <defs>
+            <filter
+              id="filter0_b_95_21"
+              x="804"
+              y="491"
+              width="422"
+              height="400"
+              filterUnits="userSpaceOnUse"
+              color-interpolation-filters="sRGB"
+            >
+              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feGaussianBlur in="BackgroundImageFix" stdDeviation="2" />
+              <feComposite
+                in2="SourceAlpha"
+                operator="in"
+                result="effect1_backgroundBlur_95_21"
+              />
+              <feBlend
+                mode="normal"
+                in="SourceGraphic"
+                in2="effect1_backgroundBlur_95_21"
+                result="shape"
+              />
+            </filter>
+            <filter
+              id="filter1_b_95_21"
+              x="412"
+              y="-4"
+              width="400"
+              height="422"
+              filterUnits="userSpaceOnUse"
+              color-interpolation-filters="sRGB"
+            >
+              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feGaussianBlur in="BackgroundImageFix" stdDeviation="2" />
+              <feComposite
+                in2="SourceAlpha"
+                operator="in"
+                result="effect1_backgroundBlur_95_21"
+              />
+              <feBlend
+                mode="normal"
+                in="SourceGraphic"
+                in2="effect1_backgroundBlur_95_21"
+                result="shape"
+              />
+            </filter>
+            <filter
+              id="filter2_b_95_21"
+              x="-3.78027"
+              y="489.22"
+              width="423.715"
+              height="401.837"
+              filterUnits="userSpaceOnUse"
+              color-interpolation-filters="sRGB"
+            >
+              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feGaussianBlur in="BackgroundImageFix" stdDeviation="2" />
+              <feComposite
+                in2="SourceAlpha"
+                operator="in"
+                result="effect1_backgroundBlur_95_21"
+              />
+              <feBlend
+                mode="normal"
+                in="SourceGraphic"
+                in2="effect1_backgroundBlur_95_21"
+                result="shape"
+              />
+            </filter>
+          </defs>
+        </svg>
       </div>
     </div>
+    // <div className="flex flex-col justify-center items-center min-h-screen">
+    //   <canvas ref={canvas} className="h-[200vh] w-full"></canvas>
+    //   <div className="hidden">
+    //     <img
+    //       src="/assets/spriteSheets/ryokoSpriteSheet.png"
+    //       alt=""
+    //       ref={ryokoSprite}
+    //     />
+    //     <img
+    //       src="/assets/spriteSheets/background.png"
+    //       alt=""
+    //       ref={background}
+    //     />
+    //     <img
+    //       src="/assets/spriteSheets/platformSprite2.png"
+    //       alt=""
+    //       ref={platformSprite}
+    //     />
+    //   </div>
+
+    //   <div className="flex w-32 justify-between bg-white py-4 fixed bottom-0">
+    //     <button
+    //       onTouchStart={() => {
+    //         actionKeys.push("ArrowLeft");
+    //         MoveLeft();
+    //       }}
+    //       onTouchEnd={() => {
+    //         if (actionKeys.includes("ArrowLeft")) {
+    //           actionKeys.splice(actionKeys.indexOf("ArrowLeft", 1));
+    //         }
+    //       }}
+    //       onMouseDown={() => {
+    //         actionKeys.push("ArrowLeft");
+    //         MoveLeft();
+    //       }}
+    //       onMouseUp={() => {
+    //         if (actionKeys.includes("ArrowLeft")) {
+    //           actionKeys.splice(actionKeys.indexOf("ArrowLeft", 1));
+    //         }
+    //       }}
+    //       className="w-full"
+    //     >
+    //       Left
+    //     </button>
+    //     <button
+    //       onTouchStart={() => {
+    //         actionKeys.push("ArrowRight");
+    //         MoveRight();
+    //       }}
+    //       onTouchEnd={() => {
+    //         if (actionKeys.includes("ArrowRight")) {
+    //           actionKeys.splice(actionKeys.indexOf("ArrowRight", 1));
+    //         }
+    //       }}
+    //       onMouseDown={() => {
+    //         actionKeys.push("ArrowRight");
+    //         MoveRight();
+    //       }}
+    //       onMouseUp={() => {
+    //         if (actionKeys.includes("ArrowRight")) {
+    //           actionKeys.splice(actionKeys.indexOf("ArrowRight", 1));
+    //         }
+    //       }}
+    //       className="w-full"
+    //     >
+    //       Right
+    //     </button>
+    //     <button
+    //       onTouchStart={() => {
+    //         actionKeys.push("ArrowUp");
+    //         Jump();
+    //       }}
+    //       onTouchEnd={() => {
+    //         if (actionKeys.includes("ArrowUp")) {
+    //           actionKeys.splice(actionKeys.indexOf("ArrowUp", 1));
+    //         }
+    //       }}
+    //       onMouseDown={() => {
+    //         actionKeys.push("ArrowUp");
+    //         Jump();
+    //       }}
+    //       onMouseUp={() => {
+    //         if (actionKeys.includes("ArrowUp")) {
+    //           actionKeys.splice(actionKeys.indexOf("ArrowUp", 1));
+    //         }
+    //       }}
+    //       className="w-full"
+    //     >
+    //       Jump
+    //     </button>
+    //   </div>
+    // </div>
   );
 };
 
