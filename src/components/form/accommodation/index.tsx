@@ -25,6 +25,7 @@ export const CreateAccommodationRequest = () => {
     checkOutTime: "",
     id: "",
   });
+
   const handleUpload = (file: File) => {
     const formData = new FormData();
     formData.append("image", file);
