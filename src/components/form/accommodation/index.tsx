@@ -1,12 +1,12 @@
 import { useMutation, useQuery } from "@apollo/client";
 import {
   AddAccommodationRequestDocument,
-  AddAccommodationRequestMutation,
   GetAllHotelsDocument,
 } from "@/src/generated/generated";
 import { useState } from "react";
 import Button from "../../button";
 import { MdModeEditOutline } from "react-icons/md";
+import createToast from "../../toast";
 
 export const CreateAccommodationRequest = () => {
   const [
@@ -15,25 +15,56 @@ export const CreateAccommodationRequest = () => {
   ] = useMutation(AddAccommodationRequestDocument);
 
   const { data: allHotels } = useQuery(GetAllHotelsDocument);
+  const [Uploading, setUploading] = useState(false);
+  const [banner, setBanner] = useState("");
   const [AccommodationInfo, setAccommodationInfo] = useState({
     ac: false,
     hotelId: -1,
     gender: "",
     checkInTime: "",
     checkOutTime: "",
+    id: "",
   });
+  const handleUpload = (file: File) => {
+    const formData = new FormData();
+    formData.append("image", file);
+    const url = `http://localhost:4000/id/upload`;
+    setUploading(true);
+    const promise = fetch(url, {
+      method: "POST",
+      body: formData,
+      mode: "cors",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setBanner(res.url);
+        setUploading(false);
+      })
+      .catch((err) => {
+        setUploading(false);
+        console.log(err);
+      });
+    createToast(promise, "Uploading image...");
+  };
 
   return (
     <>
       <h1>Create Accommodation Request</h1>
       <form
         onSubmit={(e) => {
-          e.preventDefault()
+          e.preventDefault();
           addAccommodation({
             variables: AccommodationInfo,
           });
         }}
+        className="grid grid-cols-2 p-10"
       >
+        <label className="block mb-2 text-sm font-medium text-white">
+          Select gender
+        </label>
         <select
           required
           placeholder="Gender"
@@ -49,6 +80,9 @@ export const CreateAccommodationRequest = () => {
           <option>OTHER</option>
         </select>
 
+        <label className="block mb-2 text-sm font-medium text-white">
+          Select Hotel
+        </label>
         <select
           required
           placeholder="Hotel"
@@ -69,6 +103,9 @@ export const CreateAccommodationRequest = () => {
           })}
         </select>
 
+        <label className="block mb-2 text-sm font-medium text-white">
+          CheckIn Time
+        </label>
         <input
           required
           type="date"
@@ -80,6 +117,10 @@ export const CreateAccommodationRequest = () => {
             })
           }
         />
+
+        <label className="block mb-2 text-sm font-medium text-white">
+          CheckOut Time
+        </label>
         <input
           required
           type="date"
@@ -91,15 +132,30 @@ export const CreateAccommodationRequest = () => {
             })
           }
         />
+
+        <label className="block mb-2 text-sm font-medium text-white">
+          Upload ID
+        </label>
+        <input
+          type="file"
+          id="image"
+          className="file:mr-4 file:py-2.5 file:rounded-r-none file:px-4
+                  file:rounded-md file:border-0
+                  file:text-sm file:font-semibold file:transition-colors file:cursor-pointer
+                  file:bg-blue-50 file:text-blue-700
+                  hover:file:bg-blue-100 border w-full text-sm rounded-lg   block  bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
+          placeholder="Banner..."
+          onChange={(e) => handleUpload(e.target.files![0])}
+        />
         <Button
-              intent={"info"}
-              className="flex gap-2 items-center justify-center"
-              size={"medium"}
-              type="submit"
-            >
-              <MdModeEditOutline />
-              submit
-            </Button>
+          intent={"info"}
+          className="flex gap-2 items-center justify-center"
+          size={"medium"}
+          type="submit"
+        >
+          <MdModeEditOutline />
+          submit
+        </Button>
       </form>
     </>
   );

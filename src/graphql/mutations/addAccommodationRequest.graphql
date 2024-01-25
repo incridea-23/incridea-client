@@ -1,5 +1,19 @@
-mutation AddAccommodationRequest($checkInTime: String!, $checkOutTime: String!, $gender: String!, $ac: Boolean!, $hotelId: Int!){
-  addAccommodationRequest(checkIn: $checkInTime, checkOut: $checkOutTime, gender: $gender, ac:$ac, hotelId: $hotelId) {
+mutation AddAccommodationRequest(
+  $checkInTime: String!
+  $checkOutTime: String!
+  $gender: String!
+  $ac: Boolean!
+  $hotelId: Int!
+  $id: String!
+) {
+  addAccommodationRequest(
+    checkIn: $checkInTime
+    checkOut: $checkOutTime
+    gender: $gender
+    ac: $ac
+    hotelId: $hotelId
+    IdCard: $id
+  ) {
     ... on Error {
       __typename
       message
@@ -11,7 +25,7 @@ mutation AddAccommodationRequest($checkInTime: String!, $checkOutTime: String!, 
         checkOut
         gender
         status
-		ac
+        ac
         user {
           name
           phoneNumber

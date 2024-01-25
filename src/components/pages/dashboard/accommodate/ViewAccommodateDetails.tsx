@@ -10,7 +10,6 @@ import { useQuery } from '@apollo/client';
 import Spinner from '@/src/components/spinner';
 import { data } from 'cheerio/lib/api/attributes';
 
-
 const ViewAccommodateDetails: FC<{
     accId:String
 }> = ({accId}) => {
