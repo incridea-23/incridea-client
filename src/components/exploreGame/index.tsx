@@ -510,7 +510,11 @@ const ExploreGame = () => {
 
     frameCount = (frameCount + 1) % 5;
 
-    requestAnimationFrame(animate);
+    const fps = 60;
+
+    setTimeout(() => {
+      requestAnimationFrame(animate);
+    }, 1000 / fps);
   };
 
   useEffect(() => {
@@ -543,11 +547,6 @@ const ExploreGame = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // useEffect(()=> {
-  //   window.addEventListener("scroll", () => {
-  //     setScrollY(window.scrollY);
-  //   });
-  // }, )
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY);
@@ -559,34 +558,6 @@ const ExploreGame = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [scrollY]);
-
-  // useEffect(() => {
-  //   const centralPlatformSpriteHeight =
-  //     window.innerHeight * platformDimensions.centre.heightPercentage;
-  //   const centralPlatformSpriteWidth = Math.ceil(
-  //     centralPlatformSpriteHeight * platformDimensions.centre.aspectRatio
-  //   );
-  //   if (
-  //     player.current.y >=
-  //       window.innerHeight * (platformDimensions.centre.yPercentage + 0.153) -
-  //         player.current.height &&
-  //     prevPos.current.y <=
-  //       window.innerHeight * (platformDimensions.centre.yPercentage + 0.153) -
-  //         player.current.height &&
-  //     player.current.x >=
-  //       window.innerWidth * 0.5 -
-  //         centralPlatformSpriteWidth * platformDimensions.centre.xPercentage -
-  //         player.current.width / 2 &&
-  //     player.current.x <=
-  //       window.innerWidth * 0.5 -
-  //         centralPlatformSpriteWidth * platformDimensions.centre.xPercentage +
-  //         centralPlatformSpriteWidth
-  //   ) {
-  //     setShowAbout(true);
-  //   } else {
-  //     setShowAbout(false);
-  //   }
-  // }, [player.current.x, player.current.y]);
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
@@ -629,7 +600,7 @@ const ExploreGame = () => {
       {/* { */}
       {scrollY > 450 && showAbout && (
         <div
-          className="absolute h-max sm:max-w-lg sm:text-xs sm:top-[35%] md:max-w-xl md:text-md max-w-md text-xs top-[30%] mx-4 text-opacity-80  bg-[#86d6e9]/30 p-6 xl:top-[45%] xl:left-6 xl:max-w-xl xl:text-lg  text-white pressStart justify-evenly text-justify space-y-4 rounded-lg"
+          className="absolute h-max sm:max-w-lg sm:text-xs sm:top-[35%] md:max-w-xl md:text-sm max-w-md text-xs top-[30%] mx-4 text-opacity-80  bg-[#86d6e9]/30 p-6 xl:top-[45%] xl:left-6 xl:max-w-xl xl:text-base  text-white pressStart justify-evenly text-justify space-y-4 rounded-lg transition-all duration-300 ease-in-out"
           style={{ borderStyle: "outset" }}
         >
           <p>
@@ -651,78 +622,6 @@ const ExploreGame = () => {
         </div>
       )}
       <canvas ref={canvas} className="h-[200vh] w-full "></canvas>
-
-      {/* <div className="flex w-32 justify-between bg-white py-4 fixed bottom-0">
-        <button
-          onTouchStart={() => {
-            actionKeys.push("ArrowLeft");
-            MoveLeft();
-          }}
-          onTouchEnd={() => {
-            if (actionKeys.includes("ArrowLeft")) {
-              actionKeys.splice(actionKeys.indexOf("ArrowLeft", 1));
-            }
-          }}
-          onMouseDown={() => {
-            actionKeys.push("ArrowLeft");
-            MoveLeft();
-          }}
-          onMouseUp={() => {
-            if (actionKeys.includes("ArrowLeft")) {
-              actionKeys.splice(actionKeys.indexOf("ArrowLeft", 1));
-            }
-          }}
-          className="w-full"
-        >
-          Left
-        </button>
-        <button
-          onTouchStart={() => {
-            actionKeys.push("ArrowRight");
-            MoveRight();
-          }}
-          onTouchEnd={() => {
-            if (actionKeys.includes("ArrowRight")) {
-              actionKeys.splice(actionKeys.indexOf("ArrowRight", 1));
-            }
-          }}
-          onMouseDown={() => {
-            actionKeys.push("ArrowRight");
-            MoveRight();
-          }}
-          onMouseUp={() => {
-            if (actionKeys.includes("ArrowRight")) {
-              actionKeys.splice(actionKeys.indexOf("ArrowRight", 1));
-            }
-          }}
-          className="w-full"
-        >
-          Right
-        </button>
-        <button
-          onTouchStart={() => {
-            actionKeys.push("ArrowUp");
-            Jump();
-          }}
-          onTouchEnd={() => {
-            if (actionKeys.includes("ArrowUp")) {
-              actionKeys.splice(actionKeys.indexOf("ArrowUp", 1));
-            }
-          }}
-          onMouseDown={() => {
-            actionKeys.push("ArrowUp");
-            Jump();
-          }}
-          onMouseUp={() => {
-            if (actionKeys.includes("ArrowUp")) {
-              actionKeys.splice(actionKeys.indexOf("ArrowUp", 1));
-            }
-          }}
-          className="w-full"
-        >
-          Jump
-        </button>
-      </div> */}
 
       <div className="fixed bottom-5 right-5 opacity-50">
         <svg
@@ -753,14 +652,6 @@ const ExploreGame = () => {
                 actionKeys.splice(actionKeys.indexOf("ArrowRight", 1));
               }
             }}
-            // onClick={() => {
-            //   if (!actionKeys.includes("ArrowRight")) {
-            //     actionKeys.push("ArrowRight");
-            //     MoveRight();
-            //     console.log("clicked");
-            //   }
-            //   console.log(actionKeys.includes("ArrowRight"));
-            // }}
             className="pointer-events-auto"
           >
             <g
