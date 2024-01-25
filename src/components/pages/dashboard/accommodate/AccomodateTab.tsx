@@ -8,6 +8,8 @@ import Badge from '@/src/components/badge';
 import AddAccommodateDetails from './AddAccommodateDetails';
 import ViewAccommodateDetails from './ViewAccommodateDetails';
 import { CreateAccommodationRequest } from '@/src/components/form/accommodation';
+import CollegesModal from '../admin/CollegesModal';
+import HotelModal from './HotelModal';
 // import ViewEvent from './ViewEventModal';
 
 const AccommodateTab : FC = () => {
@@ -26,6 +28,9 @@ const AccommodateTab : FC = () => {
                         <div className='flex gap-3 items-center  ml-2'>
                             <h1 className="text-2xl">Accommodation Requests</h1>
                         </div>
+                        <div className='flex justify-center items-center'>
+                    <HotelModal />
+                </div>
                         <div className="hidden md:flex ml-2 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-t-lg p-1 items-center justify-between gap-4 text-lg font-bold h-20">
                             <h1 className="basis-1/5 py-2.5 text-start pl-4">Name</h1>
                             <h1 className="basis-1/5 py-2.5 text-center pl-4">Gender</h1>
@@ -74,10 +79,10 @@ const AccommodateTab : FC = () => {
                                         }
                                     </h1>
                                     <h1 className={`basis-1/6 py-0.5 text-center flex justify-center text-lg ${
-                                                                    acc?.status == "SUCCESS"
+                                                                    acc?.status == "CONFIRMED"
                                                                         ? 'border-green-500 text-green-500'
                                                                         : 'border-red-500 text-red-500'
-                                                                    }`}>{acc?.status =="PENDING" ? 'Pending' : 'Failed'}
+                                                                    }`}>{acc?.status}
                                     </h1>
                                     <h1 className="basis-1/6 py-0.5 flex text-center justify-center bg-slate text-lg">
                                     {/* <PublishEventModal 

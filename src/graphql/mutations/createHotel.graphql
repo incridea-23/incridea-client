@@ -1,5 +1,5 @@
-mutation CreateHotel($Details: String!, $HotelName: String!, $RoomPrice: Float!){
-  createHotel(details: $Details, name: $HotelName, price: $RoomPrice) {
+mutation CreateHotel($details: String! $name: String!, $price: Float!) {
+  createHotel(details: $details, name: $name, price: $price) {
     ... on Error {
       __typename
       message
@@ -7,10 +7,12 @@ mutation CreateHotel($Details: String!, $HotelName: String!, $RoomPrice: Float!)
     ... on MutationCreateHotelSuccess {
       __typename
       data {
+        createdAt
         details
         id
         name
         price
+        updatedAt
       }
     }
   }
