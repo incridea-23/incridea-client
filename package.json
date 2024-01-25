@@ -12,6 +12,7 @@
   "dependencies": {
     "@apollo/client": "^3.7.7",
     "@graphql-yoga/apollo-link": "^1.8.1",
+    "@gsap/react": "^2.1.0",
     "@headlessui/react": "^1.7.12",
     "@next/font": "13.1.6",
     "@rive-app/react-canvas": "^3.0.38",
@@ -22,6 +23,7 @@
     "framer-motion": "^9.0.1",
     "graphql": "^16.6.0",
     "graphql-ws": "^5.12.1",
+    "gsap": "^3.12.5",
     "install": "^0.13.0",
     "jsonwebtoken": "^9.0.0",
     "locomotive-scroll": "^4.1.4",
