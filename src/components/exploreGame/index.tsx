@@ -1,166 +1,56 @@
-import { useRef, useEffect, useState } from "react";
+/* eslint-disable @next/next/no-img-element */
+import { useEffect, useRef } from "react";
+import {
+  SpriteDimensions,
+  platformDimensions,
+  platformSpriteDimensions,
+} from "./gameConstants";
 
-const WINDOW_DIMENSION = {
-  width: 0,
-  height: 0,
-};
-const player = {
-  height: 75,
-  width: 75,
-  x: 0,
-  y: 0,
-};
-const velocity = {
-  x: 6,
-  y: 0,
-};
-let rightBoundary = 0;
-let leftBoundary = 0;
-const prevPos = { x: 0, y: 0 };
-
-export default function ExploreGame() {
-  const canvas = useRef<HTMLCanvasElement>(null);
-  const SpriteDimensions = {
-    right: [
-      [
-        {
-          x: 0,
-          y: 0,
-          width: 200,
-          height: 248,
-        },
-      ],
-      [
-        {
-          x: 1346,
-          y: 255,
-          width: 164,
-          height: 220,
-        },
-        {
-          x: 1577,
-          y: 265,
-          width: 171,
-          height: 220,
-        },
-        {
-          x: 1809,
-          y: 272,
-          width: 156,
-          height: 227,
-        },
-        {
-          x: 0,
-          y: 251,
-          width: 130,
-          height: 217,
-        },
-        {
-          x: 191,
-          y: 258,
-          width: 144,
-          height: 215,
-        },
-        {
-          x: 405,
-          y: 255,
-          width: 171,
-          height: 218,
-        },
-        {
-          x: 627,
-          y: 265,
-          width: 140,
-          height: 220,
-        },
-        {
-          x: 860,
-          y: 265,
-          width: 171,
-          height: 220,
-        },
-        {
-          x: 1115,
-          y: 255,
-          width: 145,
-          height: 218,
-        },
-      ],
-    ],
-    left: [
-      [
-        {
-          x: 0,
-          y: 752,
-          width: 200,
-          height: 246,
-        },
-      ],
-      [
-        {
-          x: 455,
-          y: 1006,
-          width: 164,
-          height: 220,
-        },
-        {
-          x: 217,
-          y: 1006,
-          width: 171,
-          height: 220,
-        },
-        {
-          x: 0,
-          y: 1023,
-          width: 157,
-          height: 227,
-        },
-        {
-          x: 1835,
-          y: 1002,
-          width: 131,
-          height: 217,
-        },
-        {
-          x: 1630,
-          y: 1009,
-          width: 144,
-          height: 215,
-        },
-        {
-          x: 1389,
-          y: 1006,
-          width: 171,
-          height: 218,
-        },
-        {
-          x: 1198,
-          y: 1016,
-          width: 140,
-          height: 220,
-        },
-        {
-          x: 934,
-          y: 1016,
-          width: 171,
-          height: 220,
-        },
-        {
-          x: 705,
-          y: 1006,
-          width: 145,
-          height: 218,
-        },
-      ],
-    ],
+const ExploreGame = () => {
+  const canvas = useRef<HTMLCanvasElement | null>(null);
+  const ctx = useRef<CanvasRenderingContext2D | null | undefined>(null);
+  const WINDOW_DIMENSION = {
+    width: window.innerWidth,
+    height: window.innerHeight,
   };
-  let spriteIndex = 0;
-  let frameCount = 0;
-  let spriteState = "idle";
-  const gravity = 0.1;
-  let isRightDirection = true;
+  const player = useRef({
+    x: window.innerWidth * 0.5 - window.innerHeight * 0.3 * 0.5,
+    y: window.innerHeight * 1.06,
+    width: 75,
+    height: 75,
+  });
+  const prevPos = useRef({
+    x: player.current.x,
+    y: player.current.y,
+  });
+  const velocity = {
+    current: { x: 3, y: 0 },
+  };
+  const boundary = { left: 0, right: window.innerWidth - player.current.width };
   const actionKeys: string[] = [];
-  let isGrounded = false;
+  const ryokoSprite = useRef<HTMLImageElement | null>(null);
+  const background = useRef<HTMLImageElement | null>(null);
+  const platformSprite = useRef<HTMLImageElement | null>(null);
+
+  let isRightDirection = true;
+  let spriteState: "idle" | "walk" = "idle";
+  let isGrounded: boolean;
+  let spriteIndex: number = 0;
+  let frameCount: number = 0;
+  const gravity: number = 0.15;
+
+  const resizeCanvas = () => {
+    if (canvas.current) {
+      player.current.x =
+        (player.current.x * window.innerWidth) / WINDOW_DIMENSION.width;
+      player.current.y =
+        (player.current.y * window.innerHeight) / WINDOW_DIMENSION.height;
+      canvas.current.width = WINDOW_DIMENSION.width = window.innerWidth;
+      WINDOW_DIMENSION.height = window.innerHeight;
+      canvas.current.height = window.innerHeight * 2;
+      boundary.right = window.innerWidth - player.current.width;
+    }
+  };
 
   function MoveRight() {
     if (frameCount === 0 && isGrounded) {
@@ -171,8 +61,8 @@ export default function ExploreGame() {
         spriteIndex = 0;
       else spriteIndex++;
     }
-    if (player.x < rightBoundary) {
-      player.x += velocity.x;
+    if (player.current.x < boundary.right) {
+      player.current.x += velocity.current.x;
     }
   }
 
@@ -183,14 +73,19 @@ export default function ExploreGame() {
         spriteIndex++;
       }
     }
-    if (player.x > leftBoundary) {
-      player.x -= velocity.x;
+    if (player.current.x > boundary.left) {
+      player.current.x -= velocity.current.x;
     }
   }
 
   function Jump() {
     if (isGrounded) {
-      velocity.y = -7;
+      velocity.current.y = -Math.sqrt(
+        window.innerHeight *
+          (1.62 - platformDimensions.left.yPercentage) *
+          2 *
+          gravity
+      );
       isGrounded = false;
     }
   }
@@ -223,26 +118,15 @@ export default function ExploreGame() {
     event.key === " " && actionKeys.splice(actionKeys.indexOf("ArrowUp"), 1);
   };
 
-  useEffect(() => {
-    // Add the event listeners
-    window.addEventListener("keydown", (event) =>
-      keyboardDownEventHandler(event)
-    );
-    window.addEventListener("keyup", (event) => keyboardUpEventHandler(event));
-    return () => {
-      window.removeEventListener("keydown", keyboardDownEventHandler);
-      window.removeEventListener("keyup", keyboardUpEventHandler);
-    };
-  }, []); // Empty dependency array to run only on mount and unmount
-
   function drawBackground(
     ctx: CanvasRenderingContext2D | null | undefined,
     background: HTMLImageElement
   ) {
+    // console.log(ctx);
     if (ctx) {
-      const imgHeight = WINDOW_DIMENSION.height * 2;
+      const imgHeight = window.innerHeight * 2;
       const imgWidth = Math.ceil((imgHeight * 2) / 7); // 1000 is the width of the background image, 3500 is the height of the background image
-      const repeatCount = Math.ceil(WINDOW_DIMENSION.width / imgWidth);
+      const repeatCount = Math.ceil(window.innerWidth / imgWidth);
       for (let i = 0; i < repeatCount; i++) {
         ctx.drawImage(background, i * imgWidth, 0, imgWidth, imgHeight);
       }
@@ -255,10 +139,10 @@ export default function ExploreGame() {
   ) => {
     if (canvas.current && ctx) {
       // Drawing the ground
-      const groundSpriteHeight = WINDOW_DIMENSION.height * 0.3;
+      const groundSpriteHeight = window.innerHeight * 0.3;
       const groundSpriteWidth = Math.ceil((groundSpriteHeight * 500) / 245); // 500 is the width of the platform sprite, 245 is the height of the platform sprite
       const repeatCountGround = Math.ceil(
-        WINDOW_DIMENSION.width / groundSpriteWidth
+        window.innerWidth / groundSpriteWidth
       );
       for (let i = 0; i < repeatCountGround; i++) {
         ctx.drawImage(
@@ -268,18 +152,16 @@ export default function ExploreGame() {
           500,
           245,
           i * groundSpriteWidth,
-          WINDOW_DIMENSION.height * 1.7,
+          window.innerHeight * 1.7,
           groundSpriteWidth,
           groundSpriteHeight
         );
       }
 
       // Drawing the grass
-      const grassSpriteHeight = Math.ceil(WINDOW_DIMENSION.height * 0.123);
+      const grassSpriteHeight = Math.ceil(window.innerHeight * 0.123);
       const grassSpriteWidth = grassSpriteHeight * 5; // 500 is the width of the background image, 100 is the height of the background image
-      const repeatCountGrass = Math.ceil(
-        WINDOW_DIMENSION.width / grassSpriteWidth
-      );
+      const repeatCountGrass = Math.ceil(window.innerWidth / grassSpriteWidth);
       for (let i = 0; i < repeatCountGrass; i++) {
         ctx.drawImage(
           platformSprite,
@@ -288,7 +170,7 @@ export default function ExploreGame() {
           500,
           100,
           i * grassSpriteWidth,
-          WINDOW_DIMENSION.height * 1.577,
+          window.innerHeight * 1.577,
           grassSpriteWidth,
           grassSpriteHeight
         );
@@ -302,50 +184,58 @@ export default function ExploreGame() {
   ) => {
     if (canvas.current && ctx) {
       // Drawing the central platform
-      const platformSpriteHeight = WINDOW_DIMENSION.height * 0.3;
-      const platformSpriteWidth = Math.ceil((platformSpriteHeight * 275) / 325); // 275 is the width of the platform sprite, 325 is the height of the platform sprite
+      const centralPlatformSpriteHeight =
+        window.innerHeight * platformDimensions.centre.heightPercentage;
+      const centralPlatformSpriteWidth = Math.ceil(
+        centralPlatformSpriteHeight * platformDimensions.centre.aspectRatio
+      );
       ctx.drawImage(
         platformSprite,
-        15,
-        15,
-        284,
-        325,
-        WINDOW_DIMENSION.width * 0.5 - platformSpriteWidth * 0.5,
-        WINDOW_DIMENSION.height * 1.027,
-        platformSpriteWidth,
-        platformSpriteHeight
+        platformSpriteDimensions.centre.x,
+        platformSpriteDimensions.centre.y,
+        platformSpriteDimensions.centre.width,
+        platformSpriteDimensions.centre.height,
+        window.innerWidth * 0.5 -
+          centralPlatformSpriteWidth * platformDimensions.centre.xPercentage,
+        window.innerHeight * platformDimensions.centre.yPercentage,
+        centralPlatformSpriteWidth,
+        centralPlatformSpriteHeight
       );
 
       // Drawing the left platform
-      const leftPlatformSpriteHeight = WINDOW_DIMENSION.height * 0.15;
+      const leftPlatformSpriteHeight =
+        window.innerHeight * platformDimensions.left.heightPercentage;
       const leftPlatformSpriteWidth = Math.ceil(
-        (leftPlatformSpriteHeight * 225) / 150
-      ); // 225 is the width of the platform sprite, 150 is the height of the platform sprite
+        leftPlatformSpriteHeight * platformDimensions.left.aspectRatio
+      );
       ctx.drawImage(
         platformSprite,
-        305,
-        15,
-        225,
-        150,
-        WINDOW_DIMENSION.width * 0.5 - leftPlatformSpriteWidth * 1.05,
-        WINDOW_DIMENSION.height * 1.39,
+        platformSpriteDimensions.left.x,
+        platformSpriteDimensions.left.y,
+        platformSpriteDimensions.left.width,
+        platformSpriteDimensions.left.height,
+        window.innerWidth * 0.5 -
+          leftPlatformSpriteWidth * platformDimensions.left.xPercentage,
+        window.innerHeight * platformDimensions.left.yPercentage,
         leftPlatformSpriteWidth,
         leftPlatformSpriteHeight
       );
 
       // Drawing the right platform
-      const rightPlatformSpriteHeight = WINDOW_DIMENSION.height * 0.17;
+      const rightPlatformSpriteHeight =
+        window.innerHeight * platformDimensions.right.heightPercentage;
       const rightPlatformSpriteWidth = Math.ceil(
-        (leftPlatformSpriteHeight * 225) / 150
-      ); // 225 is the width of the platform sprite, 150 is the height of the platform sprite
+        leftPlatformSpriteHeight * platformDimensions.right.aspectRatio
+      );
       ctx.drawImage(
         platformSprite,
-        477,
-        177,
-        225,
-        150,
-        WINDOW_DIMENSION.width * 0.5 + rightPlatformSpriteWidth * 0.4,
-        WINDOW_DIMENSION.height * 1.3,
+        platformSpriteDimensions.right.x,
+        platformSpriteDimensions.right.y,
+        platformSpriteDimensions.right.width,
+        platformSpriteDimensions.right.height,
+        window.innerWidth * 0.5 -
+          rightPlatformSpriteWidth * platformDimensions.right.xPercentage,
+        window.innerHeight * platformDimensions.right.yPercentage,
         rightPlatformSpriteWidth,
         rightPlatformSpriteHeight
       );
@@ -355,342 +245,309 @@ export default function ExploreGame() {
   const collisionDetection = (
     ctx: CanvasRenderingContext2D | null | undefined
   ) => {
-    const centralPlatformSpriteHeight = WINDOW_DIMENSION.height * 0.3;
+    const centralPlatformSpriteHeight =
+      window.innerHeight * platformDimensions.centre.heightPercentage;
     const centralPlatformSpriteWidth = Math.ceil(
-      (centralPlatformSpriteHeight * 275) / 325
+      centralPlatformSpriteHeight * platformDimensions.centre.aspectRatio
     );
 
-    const leftPlatformSpriteHeight = WINDOW_DIMENSION.height * 0.15;
+    const leftPlatformSpriteHeight =
+      window.innerHeight * platformDimensions.left.heightPercentage;
     const leftPlatformSpriteWidth = Math.ceil(
-      (leftPlatformSpriteHeight * 225) / 150
+      leftPlatformSpriteHeight * platformDimensions.left.aspectRatio
     );
 
+    const rightPlatformSpriteHeight =
+      window.innerHeight * platformDimensions.right.heightPercentage;
     const rightPlatformSpriteWidth = Math.ceil(
-      (leftPlatformSpriteHeight * 225) / 150
+      rightPlatformSpriteHeight * platformDimensions.right.aspectRatio
     );
 
-    if (player.y >= WINDOW_DIMENSION.height * 1.62 - player.height) {
+    // ctx?.strokeRect(
+    //   window.innerWidth * 0.5 -
+    //     leftPlatformSpriteWidth * platformDimensions.left.xPercentage,
+    //   window.innerHeight * (platformDimensions.left.yPercentage + 0.015),
+    //   leftPlatformSpriteWidth,
+    //   window.innerHeight * 0.02
+    // );
+
+    // ctx?.strokeRect(
+    //   window.innerWidth * 0.5 -
+    //     rightPlatformSpriteWidth * platformDimensions.right.xPercentage -
+    //     player.current.width / 4,
+    //   window.innerHeight * (platformDimensions.right.yPercentage + 0.02),
+    //   rightPlatformSpriteWidth,
+    //   window.innerHeight * 0.02
+    // );
+
+    // ctx?.strokeRect(
+    //   window.innerWidth * 0.5 -
+    //     centralPlatformSpriteWidth * platformDimensions.centre.xPercentage,
+    //   window.innerHeight * (platformDimensions.centre.yPercentage + 0.153),
+    //   centralPlatformSpriteWidth,
+    //   window.innerHeight * 0.02
+    // );
+
+    if (player.current.y >= window.innerHeight * 1.62 - player.current.height) {
+      // Standing on the ground
       isGrounded = true;
-      player.y = WINDOW_DIMENSION.height * 1.62 - player.height;
-    } else if (
-      player.y >= WINDOW_DIMENSION.height * 1.405 - player.height &&
-      prevPos.y <= WINDOW_DIMENSION.height * 1.405 - player.height &&
-      player.x >=
-        WINDOW_DIMENSION.width * 0.5 -
-          leftPlatformSpriteWidth * 1.05 -
-          player.width / 2 &&
-      player.x <=
-        WINDOW_DIMENSION.width * 0.5 -
-          leftPlatformSpriteWidth * 1.05 +
+      player.current.y = window.innerHeight * 1.62 - player.current.height;
+      return;
+    }
+    if (
+      player.current.y >=
+        window.innerHeight * (platformDimensions.left.yPercentage + 0.015) -
+          player.current.height &&
+      prevPos.current.y <=
+        window.innerHeight * (platformDimensions.left.yPercentage + 0.015) -
+          player.current.height &&
+      player.current.x >=
+        window.innerWidth * 0.5 -
+          leftPlatformSpriteWidth * platformDimensions.left.xPercentage -
+          player.current.width / 2 &&
+      player.current.x <=
+        window.innerWidth * 0.5 -
+          leftPlatformSpriteWidth * platformDimensions.left.xPercentage +
           leftPlatformSpriteWidth -
-          player.width / 4
+          player.current.width / 4
     ) {
+      // Standing on the left platform
       isGrounded = true;
-      player.y = WINDOW_DIMENSION.height * 1.405 - player.height;
-    } else if (
-      player.y <= WINDOW_DIMENSION.height * 1.425 &&
-      prevPos.y > WINDOW_DIMENSION.height * 1.425 &&
-      player.x >=
-        WINDOW_DIMENSION.width * 0.5 -
-          leftPlatformSpriteWidth * 1.05 -
-          player.width / 2 &&
-      player.x <=
-        WINDOW_DIMENSION.width * 0.5 -
-          leftPlatformSpriteWidth * 1.05 +
+      player.current.y =
+        window.innerHeight * (platformDimensions.left.yPercentage + 0.015) -
+        player.current.height;
+      return;
+    }
+    if (
+      player.current.y <=
+        window.innerHeight * (platformDimensions.left.yPercentage + 0.035) &&
+      prevPos.current.y >
+        window.innerHeight * (platformDimensions.left.yPercentage + 0.035) &&
+      player.current.x >=
+        window.innerWidth * 0.5 -
+          leftPlatformSpriteWidth * platformDimensions.left.xPercentage -
+          player.current.width / 2 &&
+      player.current.x <=
+        window.innerWidth * 0.5 -
+          leftPlatformSpriteWidth * platformDimensions.left.xPercentage +
           leftPlatformSpriteWidth -
-          player.width / 4
+          player.current.width / 4
     ) {
       isGrounded = false;
-      velocity.y = 0;
-    } else if (
-      player.y >= WINDOW_DIMENSION.height * 1.32 - player.height &&
-      prevPos.y <= WINDOW_DIMENSION.height * 1.32 - player.height &&
-      player.x >=
-        WINDOW_DIMENSION.width * 0.5 +
-          rightPlatformSpriteWidth * 0.4 -
-          player.width / 2 &&
-      player.x <=
-        WINDOW_DIMENSION.width * 0.5 +
-          rightPlatformSpriteWidth * 0.4 +
+      velocity.current.y = 0;
+      return;
+    }
+    if (
+      player.current.y >=
+        window.innerHeight * (platformDimensions.right.yPercentage + 0.02) -
+          player.current.height &&
+      prevPos.current.y <=
+        window.innerHeight * (platformDimensions.right.yPercentage + 0.02) -
+          player.current.height &&
+      player.current.x >=
+        window.innerWidth * 0.5 -
+          rightPlatformSpriteWidth * platformDimensions.right.xPercentage -
+          player.current.width / 2 &&
+      player.current.x <=
+        window.innerWidth * 0.5 -
+          rightPlatformSpriteWidth * platformDimensions.right.xPercentage +
           rightPlatformSpriteWidth -
-          player.width / 4
+          player.current.width / 2
     ) {
+      // Standing on the right platform
       isGrounded = true;
-      player.y = WINDOW_DIMENSION.height * 1.32 - player.height;
-    } else if (
-      player.y <= WINDOW_DIMENSION.height * 1.34 &&
-      prevPos.y > WINDOW_DIMENSION.height * 1.34 &&
-      player.x >=
-        WINDOW_DIMENSION.width * 0.5 +
-          rightPlatformSpriteWidth * 0.4 -
-          player.width / 2 &&
-      player.x <=
-        WINDOW_DIMENSION.width * 0.5 +
-          rightPlatformSpriteWidth * 0.4 +
+      player.current.y =
+        window.innerHeight * (platformDimensions.right.yPercentage + 0.02) -
+        player.current.height;
+      return;
+    }
+    if (
+      player.current.y <=
+        window.innerHeight * (platformDimensions.right.yPercentage + 0.04) &&
+      prevPos.current.y >
+        window.innerHeight * (platformDimensions.right.yPercentage + 0.04) &&
+      player.current.x >=
+        window.innerWidth * 0.5 -
+          rightPlatformSpriteWidth * platformDimensions.right.xPercentage -
+          player.current.width / 2 &&
+      player.current.x <=
+        window.innerWidth * 0.5 -
+          rightPlatformSpriteWidth * platformDimensions.right.xPercentage +
           rightPlatformSpriteWidth -
-          player.width / 4
+          player.current.width / 2
     ) {
       isGrounded = false;
-      velocity.y = 0;
-    } else if (
-      player.y >= WINDOW_DIMENSION.height * 1.18 - player.height &&
-      prevPos.y <= WINDOW_DIMENSION.height * 1.18 - player.height &&
-      player.x >=
-        WINDOW_DIMENSION.width * 0.5 -
-          centralPlatformSpriteWidth * 0.5 -
-          player.width / 2 &&
-      player.x <=
-        WINDOW_DIMENSION.width * 0.5 -
-          centralPlatformSpriteWidth * 0.5 +
+      velocity.current.y = 0;
+      return;
+    }
+    if (
+      player.current.y >=
+        window.innerHeight * (platformDimensions.centre.yPercentage + 0.153) -
+          player.current.height &&
+      prevPos.current.y <=
+        window.innerHeight * (platformDimensions.centre.yPercentage + 0.153) -
+          player.current.height &&
+      player.current.x >=
+        window.innerWidth * 0.5 -
+          centralPlatformSpriteWidth * platformDimensions.centre.xPercentage -
+          player.current.width / 2 &&
+      player.current.x <=
+        window.innerWidth * 0.5 -
+          centralPlatformSpriteWidth * platformDimensions.centre.xPercentage +
           centralPlatformSpriteWidth
     ) {
+      // Standing on the central platform
       isGrounded = true;
-      player.y = WINDOW_DIMENSION.height * 1.18 - player.height;
-    } else if (
-      player.y <= WINDOW_DIMENSION.height * 1.2 &&
-      prevPos.y > WINDOW_DIMENSION.height * 1.2 &&
-      player.x >=
-        WINDOW_DIMENSION.width * 0.5 -
-          centralPlatformSpriteWidth * 0.5 -
-          player.width / 2 &&
-      player.x <=
-        WINDOW_DIMENSION.width * 0.5 -
-          centralPlatformSpriteWidth * 0.5 +
+      player.current.y =
+        window.innerHeight * (platformDimensions.centre.yPercentage + 0.153) -
+        player.current.height;
+      return;
+    }
+    if (
+      player.current.y <=
+        window.innerHeight * (platformDimensions.centre.yPercentage + 0.173) &&
+      prevPos.current.y >
+        window.innerHeight * (platformDimensions.centre.yPercentage + 0.173) &&
+      player.current.x >=
+        window.innerWidth * 0.5 -
+          centralPlatformSpriteWidth * platformDimensions.centre.xPercentage -
+          player.current.width / 2 &&
+      player.current.x <=
+        window.innerWidth * 0.5 -
+          centralPlatformSpriteWidth * platformDimensions.centre.xPercentage +
           centralPlatformSpriteWidth
     ) {
       isGrounded = false;
-      velocity.y = 0;
+      velocity.current.y = 0;
 
       /* ######### EASTER EGG GOES HERE ######### */
+
+      return;
+    }
+
+    isGrounded = false;
+  };
+
+  const animate = () => {
+    ctx.current?.clearRect(0, 0, window.innerWidth, window.innerHeight * 2);
+
+    actionKeys.map((key) => {
+      switch (key) {
+        case "ArrowLeft":
+          MoveLeft();
+          break;
+        case "ArrowRight":
+          MoveRight();
+          break;
+        case "ArrowUp":
+          Jump();
+          break;
+      }
+    });
+
+    if (actionKeys.includes("ArrowLeft") && actionKeys.includes("ArrowRight")) {
+      spriteState = "idle";
+    } else if (
+      actionKeys.includes("ArrowLeft") ||
+      actionKeys.includes("ArrowRight")
+    ) {
+      spriteState = "walk";
     } else {
-      isGrounded = false;
-    }
-  };
-
-  // Variables for shadow platform position, scale
-  const shadowPlatformSprite = [
-    {
-      heightPercent: 0.093,
-      spritePosition: { x: 305, y: 180, width: 150, height: 100 },
-    },
-    {
-      heightPercent: 0.06,
-      spritePosition: { x: 305, y: 290, width: 150, height: 55 },
-    },
-  ];
-
-  const shadowPlatformPosition: {
-    x: number;
-    y: number;
-    scale: number;
-    shadowPlatformSpriteIndex: number;
-  }[] = [];
-
-  const drawShadowPlatform = (
-    ctx: CanvasRenderingContext2D | null | undefined,
-    platformSprite: HTMLImageElement
-  ) => {
-    if (ctx && canvas.current) {
-      shadowPlatformPosition.map((shadowPlatform, index) => {
-        const spritePos =
-          shadowPlatformSprite[shadowPlatform.shadowPlatformSpriteIndex]
-            .spritePosition;
-
-        const shadowPlatformSpriteHeight =
-          shadowPlatformSprite[shadowPlatform.shadowPlatformSpriteIndex]
-            .heightPercent *
-          WINDOW_DIMENSION.height *
-          shadowPlatform.scale;
-        const shadowPlatformSpriteWidth = Math.ceil(
-          (shadowPlatformSpriteHeight * spritePos.width) / spritePos.height
-        );
-        ctx.drawImage(
-          platformSprite,
-          spritePos.x,
-          spritePos.y,
-          spritePos.width,
-          spritePos.height,
-          shadowPlatform.x - shadowPlatformSpriteWidth / 2,
-          shadowPlatform.y,
-          shadowPlatformSpriteWidth,
-          shadowPlatformSpriteHeight
-        );
-      });
-    }
-  };
-
-  const canvasResize = () => {
-    if (canvas.current) {
-      WINDOW_DIMENSION.width = window.innerWidth;
-      WINDOW_DIMENSION.height = window.innerHeight;
-      canvas.current.width = WINDOW_DIMENSION.width;
-      canvas.current.height = 2 * WINDOW_DIMENSION.height;
-    }
-  };
-
-  /* {
-    if(typeof(window) !== undefined)
-    WINDOW_DIMENSION.width = window.innerWidth;
-    WINDOW_DIMENSION.height = window.innerHeight;
-    player.x = prevPos.x;
-    player.y = prevPos.y;
-    rightBoundary = WINDOW_DIMENSION.width - player.width;
-  }; */
-  // Copy this whenever REACT STATES are changed using useEffect having that state as dependency
-
-  // example:
-  // const [dummy, setDummy] = useState(0);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setDummy(dummy + 1);
-  //   }, 1000);
-  //   resetStates();
-  // }, [dummy]);
-
-  useEffect(() => {
-    const ctx = canvas.current?.getContext("2d");
-    const spriteSheet = new Image();
-    player.x =
-      WINDOW_DIMENSION.width * 0.5 - WINDOW_DIMENSION.height * 0.3 * 0.5;
-    rightBoundary = WINDOW_DIMENSION.width - player.width;
-    player.y = WINDOW_DIMENSION.height * 1.06;
-    prevPos.x = player.x;
-    prevPos.y = player.y;
-    spriteSheet.src = "/assets/spriteSheets/ryokoSpriteSheet.png";
-    const background = new Image();
-    background.src = "/assets/spriteSheets/background.png";
-    const platformSprite = new Image();
-    platformSprite.src = "/assets/spriteSheets/platformSprite.png";
-
-    if (canvas.current) {
-      canvasResize();
-
-      window.addEventListener("resize", () => {
-        canvasResize();
-        WINDOW_DIMENSION.width = window.innerWidth;
-        WINDOW_DIMENSION.height = window.innerHeight;
-        rightBoundary = WINDOW_DIMENSION.width - player.width;
-      });
+      spriteState = "idle";
     }
 
-    const shadowPlatformRepeatCount = Math.ceil(
-      WINDOW_DIMENSION.width /
-        (shadowPlatformSprite[0].spritePosition.width * 2)
+    if (actionKeys.includes("ArrowLeft") && actionKeys.includes("ArrowRight")) {
+      isRightDirection =
+        actionKeys.indexOf("ArrowLeft") > actionKeys.indexOf("ArrowRight")
+          ? false
+          : true;
+    } else if (actionKeys.includes("ArrowLeft")) {
+      isRightDirection = false;
+    } else if (actionKeys.includes("ArrowRight")) {
+      isRightDirection = true;
+    }
+
+    drawBackground(ctx.current, background.current as HTMLImageElement);
+    drawGround(ctx.current, platformSprite.current as HTMLImageElement);
+    drawPlatform(ctx.current, platformSprite.current as HTMLImageElement);
+
+    const currentSpriteState =
+      spriteState === "idle"
+        ? SpriteDimensions[isRightDirection ? "right" : "left"][0][0]
+        : SpriteDimensions[isRightDirection ? "right" : "left"][1][spriteIndex];
+
+    player.current.y += velocity.current.y;
+    collisionDetection(ctx.current);
+    if (!isGrounded) {
+      velocity.current.y += gravity;
+    } else {
+      velocity.current.y = 0;
+    }
+    ctx.current?.drawImage(
+      ryokoSprite.current as HTMLImageElement,
+      currentSpriteState.x,
+      currentSpriteState.y,
+      currentSpriteState.width,
+      currentSpriteState.height,
+      player.current.x,
+      player.current.y,
+      player.current.width,
+      player.current.height
     );
 
-    const shadowPlatformConstructor = () => {
-      let shadowPlatformSpawnWidth =
-        WINDOW_DIMENSION.width / shadowPlatformRepeatCount;
-      let shadowPlatformSpawnHeight = WINDOW_DIMENSION.height * 0.228;
-      for (let i = 0; i < shadowPlatformRepeatCount; i++) {
-        shadowPlatformPosition.push({
-          x:
-            Math.random() * shadowPlatformSpawnWidth +
-            shadowPlatformSpawnWidth * i +
-            (i && shadowPlatformSpawnWidth / 2),
-          y:
-            Math.random() * shadowPlatformSpawnHeight +
-            1.207 * WINDOW_DIMENSION.height,
-          scale: Math.random() * 0.5 + 0.75,
-          shadowPlatformSpriteIndex: Math.round(Math.random()),
-        });
-      }
-    };
-    shadowPlatformConstructor();
+    prevPos.current.x = player.current.x;
+    prevPos.current.y = player.current.y;
 
-    function animate() {
-      actionKeys.map((key) => {
-        switch (key) {
-          case "ArrowLeft":
-            MoveLeft();
-            break;
-          case "ArrowRight":
-            MoveRight();
-            break;
-          case "ArrowUp":
-            Jump();
-            break;
-        }
-      });
+    frameCount = (frameCount + 1) % 5;
 
-      if (
-        actionKeys.includes("ArrowLeft") &&
-        actionKeys.includes("ArrowRight")
-      ) {
-        spriteState = "idle";
-      } else if (
-        actionKeys.includes("ArrowLeft") ||
-        actionKeys.includes("ArrowRight")
-      ) {
-        spriteState = "walk";
-      } else {
-        spriteState = "idle";
-      }
+    requestAnimationFrame(animate);
+  };
+  animate();
 
-      if (
-        actionKeys.includes("ArrowLeft") &&
-        actionKeys.includes("ArrowRight")
-      ) {
-        isRightDirection =
-          actionKeys.indexOf("ArrowLeft") > actionKeys.indexOf("ArrowRight")
-            ? false
-            : true;
-      } else if (actionKeys.includes("ArrowLeft")) {
-        isRightDirection = false;
-      } else if (actionKeys.includes("ArrowRight")) {
-        isRightDirection = true;
-      }
+  useEffect(() => {
+    resizeCanvas();
+    // console.log(canvas.current);
+    ctx.current = canvas.current?.getContext("2d");
+    window.addEventListener("resize", resizeCanvas);
+    window.addEventListener("keydown", (event) =>
+      keyboardDownEventHandler(event)
+    );
+    window.addEventListener("keyup", (event) => keyboardUpEventHandler(event));
 
-      ctx?.clearRect(0, 0, WINDOW_DIMENSION.width, WINDOW_DIMENSION.height * 2);
-      drawBackground(ctx, background);
-      drawGround(ctx, platformSprite);
-      drawShadowPlatform(ctx, platformSprite);
-      drawPlatform(ctx, platformSprite);
-
-      const currentSpriteState =
-        spriteState === "idle"
-          ? SpriteDimensions[isRightDirection ? "right" : "left"][0][0]
-          : SpriteDimensions[isRightDirection ? "right" : "left"][1][
-              spriteIndex
-            ];
-
-      player.y += velocity.y;
-      collisionDetection(ctx);
-      if (!isGrounded) {
-        velocity.y += gravity;
-      } else {
-        velocity.y = 0;
-      }
-      ctx?.drawImage(
-        spriteSheet,
-        currentSpriteState.x,
-        currentSpriteState.y,
-        currentSpriteState.width,
-        currentSpriteState.height,
-        player.x,
-        player.y,
-        player.width,
-        player.height
-      );
-
-      prevPos.x = player.x;
-      prevPos.y = player.y;
-
-      frameCount = (frameCount + 1) % 5;
-      requestAnimationFrame(animate);
-    }
-    animate();
-
-    const canvasRefCopy = canvas.current;
     return () => {
-      canvasRefCopy?.removeEventListener("resize", () => {});
+      window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("keydown", (event) =>
+        keyboardDownEventHandler(event)
+      );
+      window.removeEventListener("keyup", (event) =>
+        keyboardUpEventHandler(event)
+      );
     };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
       <canvas ref={canvas} className="h-[200vh] w-full"></canvas>
+      <div className="hidden">
+        <img
+          src="/assets/spriteSheets/ryokoSpriteSheet.png"
+          alt=""
+          ref={ryokoSprite}
+        />
+        <img
+          src="/assets/spriteSheets/background.png"
+          alt=""
+          ref={background}
+        />
+        <img
+          src="/assets/spriteSheets/platformSprite2.png"
+          alt=""
+          ref={platformSprite}
+        />
+      </div>
+
       <div className="flex w-32 justify-between bg-white py-4 fixed bottom-0">
         <button
           onTouchStart={() => {
@@ -764,4 +621,6 @@ export default function ExploreGame() {
       </div>
     </div>
   );
-}
+};
+
+export default ExploreGame;
