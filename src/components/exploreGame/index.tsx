@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   SpriteDimensions,
   platformDimensions,
@@ -7,6 +7,8 @@ import {
 } from "./gameConstants";
 
 const ExploreGame = () => {
+  const [showAbout, setShowAbout] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const ctx = useRef<CanvasRenderingContext2D | null | undefined>(null);
   const WINDOW_DIMENSION = {
@@ -38,6 +40,7 @@ const ExploreGame = () => {
   let spriteIndex: number = 0;
   let frameCount: number = 0;
   const gravity: number = 0.15;
+  let showAboutFlag = true;
 
   const resizeCanvas = () => {
     if (canvas.current) {
@@ -398,6 +401,10 @@ const ExploreGame = () => {
     ) {
       // Standing on the central platform
       isGrounded = true;
+      if (showAboutFlag) {
+        setShowAbout(true);
+        showAboutFlag = false;
+      }
       player.current.y =
         window.innerHeight * (platformDimensions.centre.yPercentage + 0.153) -
         player.current.height;
@@ -426,9 +433,12 @@ const ExploreGame = () => {
     }
 
     isGrounded = false;
+    setShowAbout(false);
+    showAboutFlag = true;
   };
 
   const animate = () => {
+    // console.log(actionKeys);
     ctx.current?.clearRect(0, 0, window.innerWidth, window.innerHeight * 2);
 
     actionKeys.map((key) => {
@@ -502,17 +512,20 @@ const ExploreGame = () => {
 
     requestAnimationFrame(animate);
   };
-  animate();
 
   useEffect(() => {
     resizeCanvas();
-    // console.log(canvas.current);
     ctx.current = canvas.current?.getContext("2d");
+    // console.log(canvas.current);
     window.addEventListener("resize", resizeCanvas);
     window.addEventListener("keydown", (event) =>
       keyboardDownEventHandler(event)
     );
     window.addEventListener("keyup", (event) => keyboardUpEventHandler(event));
+    // window.addEventListener("scroll", () => {
+    //   setScrollY(window.scrollY);
+    // });
+    animate();
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);
@@ -522,13 +535,78 @@ const ExploreGame = () => {
       window.removeEventListener("keyup", (event) =>
         keyboardUpEventHandler(event)
       );
+      // window.removeEventListener("scroll", () => {
+      //   setScrollY(window.scrollY);
+      // });
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // useEffect(()=> {
+  //   window.addEventListener("scroll", () => {
+  //     setScrollY(window.scrollY);
+  //   });
+  // }, )
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [scrollY]);
+
+  // useEffect(() => {
+  //   const centralPlatformSpriteHeight =
+  //     window.innerHeight * platformDimensions.centre.heightPercentage;
+  //   const centralPlatformSpriteWidth = Math.ceil(
+  //     centralPlatformSpriteHeight * platformDimensions.centre.aspectRatio
+  //   );
+  //   if (
+  //     player.current.y >=
+  //       window.innerHeight * (platformDimensions.centre.yPercentage + 0.153) -
+  //         player.current.height &&
+  //     prevPos.current.y <=
+  //       window.innerHeight * (platformDimensions.centre.yPercentage + 0.153) -
+  //         player.current.height &&
+  //     player.current.x >=
+  //       window.innerWidth * 0.5 -
+  //         centralPlatformSpriteWidth * platformDimensions.centre.xPercentage -
+  //         player.current.width / 2 &&
+  //     player.current.x <=
+  //       window.innerWidth * 0.5 -
+  //         centralPlatformSpriteWidth * platformDimensions.centre.xPercentage +
+  //         centralPlatformSpriteWidth
+  //   ) {
+  //     setShowAbout(true);
+  //   } else {
+  //     setShowAbout(false);
+  //   }
+  // }, [player.current.x, player.current.y]);
+
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
+      <div className="hidden">
+        <img
+          src="/assets/spriteSheets/ryokoSpriteSheet.png"
+          alt=""
+          ref={ryokoSprite}
+        />
+        <img
+          src="/assets/spriteSheets/background.png"
+          alt=""
+          ref={background}
+        />
+        <img
+          src="/assets/spriteSheets/platformSprite2.png"
+          alt=""
+          ref={platformSprite}
+        />
+      </div>
       <div
         className="absolute bg-[#d64d00] h-max w-max top-[20%] text-[#fec3b5] pressStart text-center sm:p-12 border-l-4 border-t-4 border-white p-4 rounded-lg"
         style={{ borderStyle: "outset" }}
@@ -548,7 +626,8 @@ const ExploreGame = () => {
         </span>
       </div>
 
-      {showAbout && (
+      {/* { */}
+      {scrollY > 450 && showAbout && (
         <div
           className="absolute h-max sm:max-w-lg sm:text-xs sm:top-[35%] md:max-w-xl md:text-md max-w-md text-xs top-[30%] mx-4 text-opacity-80  bg-[#86d6e9]/30 p-6 xl:top-[45%] xl:left-6 xl:max-w-xl xl:text-lg  text-white pressStart justify-evenly text-justify space-y-4 rounded-lg"
           style={{ borderStyle: "outset" }}
@@ -572,23 +651,7 @@ const ExploreGame = () => {
         </div>
       )}
       <canvas ref={canvas} className="h-[200vh] w-full "></canvas>
-      <div className="hidden">
-        <img
-          src="/assets/spriteSheets/ryokoSpriteSheet.png"
-          alt=""
-          ref={ryokoSprite}
-        />
-        <img
-          src="/assets/spriteSheets/background.png"
-          alt=""
-          ref={background}
-        />
-        <img
-          src="/assets/spriteSheets/platformSprite2.png"
-          alt=""
-          ref={platformSprite}
-        />
-      </div>
+
       {/* <div className="flex w-32 justify-between bg-white py-4 fixed bottom-0">
         <button
           onTouchStart={() => {
@@ -683,8 +746,9 @@ const ExploreGame = () => {
             }}
             onMouseDown={() => {
               actionKeys.push("ArrowRight");
+
               MoveRight();
-              console.log("clicked");
+              console.log(actionKeys);
             }}
             onMouseUp={() => {
               if (actionKeys.includes("ArrowRight")) {
@@ -823,9 +887,9 @@ const ExploreGame = () => {
               width="422"
               height="400"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             >
-              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feFlood floodOpacity="0" result="BackgroundImageFix" />
               <feGaussianBlur in="BackgroundImageFix" stdDeviation="2" />
               <feComposite
                 in2="SourceAlpha"
@@ -846,9 +910,9 @@ const ExploreGame = () => {
               width="400"
               height="422"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             >
-              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feFlood floodOpacity="0" result="BackgroundImageFix" />
               <feGaussianBlur in="BackgroundImageFix" stdDeviation="2" />
               <feComposite
                 in2="SourceAlpha"
@@ -869,9 +933,9 @@ const ExploreGame = () => {
               width="423.715"
               height="401.837"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             >
-              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feFlood floodOpacity="0" result="BackgroundImageFix" />
               <feGaussianBlur in="BackgroundImageFix" stdDeviation="2" />
               <feComposite
                 in2="SourceAlpha"
@@ -889,98 +953,6 @@ const ExploreGame = () => {
         </svg>
       </div>
     </div>
-    // <div className="flex flex-col justify-center items-center min-h-screen">
-    //   <canvas ref={canvas} className="h-[200vh] w-full"></canvas>
-    //   <div className="hidden">
-    //     <img
-    //       src="/assets/spriteSheets/ryokoSpriteSheet.png"
-    //       alt=""
-    //       ref={ryokoSprite}
-    //     />
-    //     <img
-    //       src="/assets/spriteSheets/background.png"
-    //       alt=""
-    //       ref={background}
-    //     />
-    //     <img
-    //       src="/assets/spriteSheets/platformSprite2.png"
-    //       alt=""
-    //       ref={platformSprite}
-    //     />
-    //   </div>
-
-    //   <div className="flex w-32 justify-between bg-white py-4 fixed bottom-0">
-    //     <button
-    //       onTouchStart={() => {
-    //         actionKeys.push("ArrowLeft");
-    //         MoveLeft();
-    //       }}
-    //       onTouchEnd={() => {
-    //         if (actionKeys.includes("ArrowLeft")) {
-    //           actionKeys.splice(actionKeys.indexOf("ArrowLeft", 1));
-    //         }
-    //       }}
-    //       onMouseDown={() => {
-    //         actionKeys.push("ArrowLeft");
-    //         MoveLeft();
-    //       }}
-    //       onMouseUp={() => {
-    //         if (actionKeys.includes("ArrowLeft")) {
-    //           actionKeys.splice(actionKeys.indexOf("ArrowLeft", 1));
-    //         }
-    //       }}
-    //       className="w-full"
-    //     >
-    //       Left
-    //     </button>
-    //     <button
-    //       onTouchStart={() => {
-    //         actionKeys.push("ArrowRight");
-    //         MoveRight();
-    //       }}
-    //       onTouchEnd={() => {
-    //         if (actionKeys.includes("ArrowRight")) {
-    //           actionKeys.splice(actionKeys.indexOf("ArrowRight", 1));
-    //         }
-    //       }}
-    //       onMouseDown={() => {
-    //         actionKeys.push("ArrowRight");
-    //         MoveRight();
-    //       }}
-    //       onMouseUp={() => {
-    //         if (actionKeys.includes("ArrowRight")) {
-    //           actionKeys.splice(actionKeys.indexOf("ArrowRight", 1));
-    //         }
-    //       }}
-    //       className="w-full"
-    //     >
-    //       Right
-    //     </button>
-    //     <button
-    //       onTouchStart={() => {
-    //         actionKeys.push("ArrowUp");
-    //         Jump();
-    //       }}
-    //       onTouchEnd={() => {
-    //         if (actionKeys.includes("ArrowUp")) {
-    //           actionKeys.splice(actionKeys.indexOf("ArrowUp", 1));
-    //         }
-    //       }}
-    //       onMouseDown={() => {
-    //         actionKeys.push("ArrowUp");
-    //         Jump();
-    //       }}
-    //       onMouseUp={() => {
-    //         if (actionKeys.includes("ArrowUp")) {
-    //           actionKeys.splice(actionKeys.indexOf("ArrowUp", 1));
-    //         }
-    //       }}
-    //       className="w-full"
-    //     >
-    //       Jump
-    //     </button>
-    //   </div>
-    // </div>
   );
 };
 
