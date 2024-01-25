@@ -6,6 +6,7 @@ import {
   platformSpriteDimensions,
 } from "./gameConstants";
 
+const actionKeys: string[] = [];
 const ExploreGame = () => {
   const [showAbout, setShowAbout] = useState(false);
   const [scrollY, setScrollY] = useState(0);
@@ -29,7 +30,6 @@ const ExploreGame = () => {
     current: { x: 3, y: 0 },
   };
   const boundary = { left: 0, right: window.innerWidth - player.current.width };
-  const actionKeys: string[] = [];
   const ryokoSprite = useRef<HTMLImageElement | null>(null);
   const background = useRef<HTMLImageElement | null>(null);
   const platformSprite = useRef<HTMLImageElement | null>(null);
@@ -438,7 +438,7 @@ const ExploreGame = () => {
   };
 
   const animate = () => {
-    // console.log(actionKeys);
+    console.log(actionKeys);
     ctx.current?.clearRect(0, 0, window.innerWidth, window.innerHeight * 2);
 
     actionKeys.map((key) => {
@@ -736,8 +736,8 @@ const ExploreGame = () => {
           <g
             id="Right"
             onTouchStart={() => {
-              actionKeys.push("ArrowRight");
-              MoveRight();
+              if (!actionKeys.includes("ArrowRight"))
+                actionKeys.push("ArrowRight");
             }}
             onTouchEnd={() => {
               if (actionKeys.includes("ArrowRight")) {
@@ -745,16 +745,22 @@ const ExploreGame = () => {
               }
             }}
             onMouseDown={() => {
-              actionKeys.push("ArrowRight");
-
-              MoveRight();
-              console.log(actionKeys);
+              if (!actionKeys.includes("ArrowRight"))
+                actionKeys.push("ArrowRight");
             }}
             onMouseUp={() => {
               if (actionKeys.includes("ArrowRight")) {
                 actionKeys.splice(actionKeys.indexOf("ArrowRight", 1));
               }
             }}
+            // onClick={() => {
+            //   if (!actionKeys.includes("ArrowRight")) {
+            //     actionKeys.push("ArrowRight");
+            //     MoveRight();
+            //     console.log("clicked");
+            //   }
+            //   console.log(actionKeys.includes("ArrowRight"));
+            // }}
             className="pointer-events-auto"
           >
             <g
@@ -788,8 +794,7 @@ const ExploreGame = () => {
           <g
             id="Up"
             onTouchStart={() => {
-              actionKeys.push("ArrowUp");
-              Jump();
+              if (!actionKeys.includes("ArrowUp")) actionKeys.push("ArrowUp");
             }}
             onTouchEnd={() => {
               if (actionKeys.includes("ArrowUp")) {
@@ -797,14 +802,14 @@ const ExploreGame = () => {
               }
             }}
             onMouseDown={() => {
-              actionKeys.push("ArrowUp");
-              Jump();
+              if (!actionKeys.includes("ArrowUp")) actionKeys.push("ArrowUp");
             }}
             onMouseUp={() => {
               if (actionKeys.includes("ArrowUp")) {
                 actionKeys.splice(actionKeys.indexOf("ArrowUp", 1));
               }
             }}
+            className="pointer-events-auto"
           >
             <g id="Rectangle 6_2" filter="url(#filter1_b_95_21)">
               <rect
@@ -835,8 +840,8 @@ const ExploreGame = () => {
           <g
             id="Left"
             onTouchStart={() => {
-              actionKeys.push("ArrowLeft");
-              MoveLeft();
+              if (!actionKeys.includes("ArrowLeft"))
+                actionKeys.push("ArrowLeft");
             }}
             onTouchEnd={() => {
               if (actionKeys.includes("ArrowLeft")) {
@@ -844,14 +849,15 @@ const ExploreGame = () => {
               }
             }}
             onMouseDown={() => {
-              actionKeys.push("ArrowLeft");
-              MoveLeft();
+              if (!actionKeys.includes("ArrowLeft"))
+                actionKeys.push("ArrowLeft");
             }}
             onMouseUp={() => {
               if (actionKeys.includes("ArrowLeft")) {
                 actionKeys.splice(actionKeys.indexOf("ArrowLeft", 1));
               }
             }}
+            className="pointer-events-auto"
           >
             <g id="Rectangle 7" filter="url(#filter2_b_95_21)">
               <rect
