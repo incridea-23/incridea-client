@@ -3,6 +3,7 @@ import GallerySlide from "@/src/components/galleryslide";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { NextPage } from "next";
+import Image from "next/image";
 import { useLayoutEffect, useRef, useState } from "react";
 import { Autoplay, Navigation, Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -29,6 +30,19 @@ const Gallery: NextPage = () => {
     return imagePaths;
   };
   useLayoutEffect(() => {
+    // const t2 = gsap.timeline({
+    //   repeat: -1,
+    //   yoyo: true,
+    // });
+    // t2.from("#float", {
+    //   y: -40,
+    //   ease: "sine.in",
+    // }).to("#float", {
+    //   y: 0,
+    //   ease: "sine",
+    //   duration: 1,
+    // });
+
     const ctx = gsap.context(() => {
       const t1 = gsap.timeline();
       t1.from("#animation", {
@@ -95,53 +109,74 @@ const Gallery: NextPage = () => {
               />
             </div>
           </SwiperSlide>
-          {/* <SwiperSlide className="flex justify-center items-center text-center">
+          <SwiperSlide className="flex justify-center items-center text-center">
             <div className="relative w-full h-full flex justify-center items-center">
-              <GallerySlide title={"2022"} imgArr={img2023} emulator="gba" />
+              <GallerySlide
+                title={"2022"}
+                imgArr={img2019}
+                emulator="console"
+              />
             </div>
-          </SwiperSlide> */}
-          <button
-            onClick={async () => {
-              if (activeYear !== 0) {
-                await gsap.to("#animation", {
-                  y: -90,
-                  // boxShadow: "0px 10px 67px 20px rgba(0,0,0,0.25)",
-                  filter: "drop-shadow(0px 10px 20px rgba(0,0,0,0.45))",
-                  duration: 1,
-                });
-              }
+          </SwiperSlide>
+          <div className="mx-auto flex gap-4 absolute top-[85%] justify-between px-20 w-full">
+            <button
+              id="float"
+              onClick={async () => {
+                if (activeYear !== 0) {
+                  await gsap.to("#animation", {
+                    y: -90,
+                    // boxShadow: "0px 10px 67px 20px rgba(0,0,0,0.25)",
+                    filter: "drop-shadow(0px 10px 20px rgba(0,0,0,0.45))",
+                    duration: 1,
+                  });
+                }
 
-              setActiveYear((cur) => {
-                if (cur === 0) return cur;
-                return --cur;
-              });
-              return swiperRef.current?.slidePrev();
-            }}
-            className={`absolute top-[90%] left-[40%] h-6 w-auto z-10 duration-300 transition-all ease-in-out border-yellow-300 border-2 sm:border-drop-shadow:none animate-`}
-          >
-            Prev
-          </button>
-          <button
-            onClick={async () => {
-              if (activeYear !== years.length) {
-                await gsap.to("#animation", {
-                  y: -90,
-                  // boxShadow: "0px 10px 67px 20px rgba(0,0,0,0.25)",
-                  filter: "drop-shadow(0px 10px 20px rgba(0,0,0,0.45))",
-                  duration: 1,
+                setActiveYear((cur) => {
+                  if (cur === 0) return cur;
+                  return --cur;
                 });
-              }
+                return swiperRef.current?.slidePrev();
+              }}
+              className={`h-6 w-auto z-10 duration-300 transition-all ease-in-out`}
+            >
+              <Image
+                src="/assets/svg/8bitArrow.svg"
+                alt="arrow-previous"
+                width={50}
+                height={50}
+                className="drop-shadow-2xl rotate-180"
+              ></Image>
+            </button>
+            <button
+              id="float"
+              onClick={async () => {
+                if (activeYear < years.length - 1) {
+                  await gsap.to("#animation", {
+                    y: -90,
+                    // boxShadow: "0px 10px 67px 20px rgba(0,0,0,0.25)",
+                    filter: "drop-shadow(0px 10px 20px rgba(0,0,0,0.45))",
+                    duration: 1,
+                  });
+                }
 
-              setActiveYear((cur) => {
-                if (cur === years.length) return cur;
-                return ++cur;
-              });
-              return swiperRef.current?.slideNext();
-            }}
-            className="absolute top-[90%] left-[60%] z-10 h-6 w-auto duration-300 transition-all ease-in-out border-yellow-300 border-2 sm:border-none animate-"
-          >
-            Next
-          </button>
+                setActiveYear((cur) => {
+                  if (cur === years.length) return cur;
+                  return ++cur;
+                });
+                return swiperRef.current?.slideNext();
+              }}
+              className="z-10 h-6 w-auto duration-300 transition-all ease-in-out"
+            >
+              <Image
+                src="/assets/svg/8bitArrow.svg"
+                alt="arrow-next"
+                width={50}
+                height={50}
+                className=""
+              ></Image>
+            </button>
+          </div>
+
           {/* <SwiperSlide className="flex justify-center items-center text-center">
             <div className="relative w-full h-full flex justify-center items-center">
               <GallerySlide title={"2022"} imgArr={img2022} emulator="pc" />
