@@ -1,5 +1,5 @@
 mutation DeleteHotel($id: String!) {
-  deleteHotel(id: $id) {
+  deleteHotel(hotelId: $id) {
     ... on Error {
       __typename
       message
