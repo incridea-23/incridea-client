@@ -8,7 +8,7 @@ mutation UpdateAccommodationStatus($bookingId: String!, $status: String!, $hotel
       __typename
       data {
         status
-		room
+        room
         user {
           name
         }
