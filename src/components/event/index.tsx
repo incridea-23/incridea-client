@@ -10,9 +10,6 @@ import {
 } from 'react-icons/io5'
 import { generateEventUrl } from '@/src/utils/url'
 import Image from 'next/image'
-import Button from '../button'
-import GlitchAnimation from './glitchAnimation'
-import styles from "@/src/pages/events/styles.module.css";
 
 const Event = ({
   data,
@@ -34,7 +31,7 @@ const Event = ({
       eventTypeText =
         data.eventType.split('_')[0][0] +
         data.eventType.split('_')[0].slice(1).toLowerCase() +
-        ' Event (Multiple Entry)'
+        ' (Multiple Entry)'
     } else
       eventTypeText = data.eventType[0] + data.eventType.slice(1).toLowerCase()
 
@@ -110,18 +107,25 @@ const Event = ({
             )}
           </div>
         </div>
-        <div className="bottom-section flex flex-col justify-center items-center">
+        <div className="bottom-section flex flex-col justify-center items-center w-full">
           <span className="glitch eventTitle flex justify-center items-center text-center text-lg w-fit px-4">{data.name}</span>
-          <div className="row row1">
-          {getEventAttributes().map((attr,i) =>
-            attr.name ? (
-              <div className="item" key={i}>
-                <span className="big-text"><attr.Icon/>{attr.name}</span>
-                <span className="regular-text">{attr.text}</span>
-              </div>
-            ) : null
-          )}
+          <div className="flex flex-col gap-1 text-center text-base text-blue-200 px-1 py-3 justify-center items-start md:w-full">
+            {getEventAttributes().map((attr,i) =>
+              attr.name ? (
+                <div className="flex flex-row gap-2 justify-center items-start text-left" key={i}>
+                  <span className="flex flex-row gap-1"><attr.Icon/></span>
+                  <span className="">{attr.text}</span>
+                </div>
+              ) : null
+            )}
           </div>
+        </div>
+        <div className="p-2 pt-0 mt-0">
+          <button className="hover:bg-[#69e5f8] shrink-0 w-full mt-0 py-2 flex gap-2 items-center justify-center rounded transition-colors duration-300 titleFont bg-[#10adc6]">
+            <Link href={generateEventUrl(data.name, data.id)}>
+              play the game
+            </Link>
+          </button>
         </div>
       </div>
     </Link>
