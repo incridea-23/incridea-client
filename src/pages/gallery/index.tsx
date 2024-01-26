@@ -1,6 +1,5 @@
 import { FooterBody } from "@/src/components/footer";
 import GallerySlide from "@/src/components/galleryslide";
-import { motion } from "framer-motion";
 import gsap from "gsap";
 import { NextPage } from "next";
 import Image from "next/image";
@@ -29,19 +28,8 @@ const Gallery: NextPage = () => {
     }
     return imagePaths;
   };
+  
   useLayoutEffect(() => {
-    // const t2 = gsap.timeline({
-    //   repeat: -1,
-    //   yoyo: true,
-    // });
-    // t2.from("#float", {
-    //   y: -40,
-    //   ease: "sine.in",
-    // }).to("#float", {
-    //   y: 0,
-    //   ease: "sine",
-    //   duration: 1,
-    // });
 
     const ctx = gsap.context(() => {
       const t1 = gsap.timeline();
@@ -81,10 +69,11 @@ const Gallery: NextPage = () => {
           onBeforeInit={(swiper) => {
             swiperRef.current = swiper;
           }}
-          modules={[Navigation, Autoplay]}
           speed={900}
-          spaceBetween={100}
-          className="sm:w-full h-full border-8 border-[#63aeef] relative flex"
+          spaceBetween={200}
+          noSwiping={true}
+          allowTouchMove={false}
+          className="sm:w-full h-full relative flex"
         >
           <SwiperSlide className="flex justify-center items-center text-center">
             <div className="relative w-full h-full flex justify-center items-center">
@@ -144,7 +133,7 @@ const Gallery: NextPage = () => {
                 alt="arrow-previous"
                 width={50}
                 height={50}
-                className="drop-shadow-2xl rotate-180"
+                className="drop-shadow-2xl rotate-180 w-12 h-12 md:w-20 md:h-20"
               ></Image>
             </button>
             <button
@@ -172,40 +161,11 @@ const Gallery: NextPage = () => {
                 alt="arrow-next"
                 width={50}
                 height={50}
-                className=""
+                className="w-12 h-12 md:w-20 md:h-20"
               ></Image>
             </button>
           </div>
-
-          {/* <SwiperSlide className="flex justify-center items-center text-center">
-            <div className="relative w-full h-full flex justify-center items-center">
-              <GallerySlide title={"2022"} imgArr={img2022} emulator="pc" />
-            </div>
-          </SwiperSlide> */}
         </Swiper>
-        {/*
-        <GallerySlide
-          title={"2022"}
-          next={"2020"}
-          prev={"head"}
-          imgArr={img2022}
-        />
-
-            <GallerySlide
-              title={"2022"}
-              next={"2020"}
-              prev={"head"}
-              imgArr={img2022}
-            />
-
-            <GallerySlide
-              title={"2022"}
-              next={"2020"}
-              prev={"head"}
-              imgArr={img2022}
-            /> */}
-        <div>{/* Next/Previous Sections Buttons */}</div>
-        <div>{/* ProgressBar with Dice */}</div>
       </div>
     </section>
   );
