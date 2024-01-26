@@ -12,7 +12,7 @@ type ModalProps = {
 const Modal: FC<ModalProps> = ({ children, title, onClose, showModal }) => {
   return (
     <Transition appear show={showModal} as={Fragment}>
-      <Dialog as="div" className="relative z-[900] " onClose={onClose}>
+      <Dialog as="div" className="relative z-[900]" onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -22,12 +22,10 @@ const Modal: FC<ModalProps> = ({ children, title, onClose, showModal }) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black/25 backdrop-blur-sm" />
+          <div className="fixed inset-0 bg-black/25 backdrop-blur-lg" />
         </Transition.Child>
 
-        <div
-          className={`fixed inset-0 z-10 h-full w-full p-4 md:p- overflow-y-auto`}
-        >
+        <div className={`fixed inset-0 z-10 h-full w-full overflow-y-auto`}>
           <div className="flex min-h-full items-center justify-center text-center">
             <Transition.Child
               as={Fragment}
@@ -39,7 +37,7 @@ const Modal: FC<ModalProps> = ({ children, title, onClose, showModal }) => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel
-                className={`w-full max-w-6xl transform overflow-hidden rounded-xl bg-gray-700/70 text-gray-100 backdrop-blur-xl text-left align-middle shadow-xl transition-all`}
+                className={`w-full h-full transform overflow-hidden rounded-none text-gray-100 backdrop-blur-xl text-left align-middle shadow-xl transition-all`}
               >
                 <button
                   className="hover:text-white text-gray-200 transition-colors z-[50000] absolute top-2 right-2"
@@ -47,7 +45,7 @@ const Modal: FC<ModalProps> = ({ children, title, onClose, showModal }) => {
                 >
                   <IoClose size="1.4rem" />
                 </button>
-                <div className="w-full">{children}</div>
+                <div>{children}</div>
               </Dialog.Panel>
             </Transition.Child>
           </div>

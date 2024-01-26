@@ -8,6 +8,7 @@ import { Autoplay, Mousewheel, Navigation, Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import BlurImage from "../blurImage";
 import Modal from "./gallery-modal";
+import PreviewComponent from "./preview-component";
 
 const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
   const [active, setActive] = useState<number>(0);
@@ -67,7 +68,8 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
             return (
               <SwiperSlide
                 key={index}
-                className="flex justify-center items-center bg-white text-center"
+                className="flex justify-center items-center bg-white text-center cursor-pointer"
+                onClick={() => setActiveModal(true)}
               >
                 <div className="relative w-full h-full flex justify-center items-center">
                   <BlurImage
@@ -99,8 +101,7 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
               />
             </div>
           </SwiperSlide> */}
-          
-           </Swiper>
+        </Swiper>
 
         <button
           onClick={() => swiperRef.current?.slidePrev()}
@@ -110,14 +111,14 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
           onClick={() => swiperRef.current?.slideNext()}
           className="active:bg-gray-800 bg-black sm:opacity-40 absolute top-[62.5vw] left-[4vw] md:-top-[2.2vw] md:left-[56vw] w-[8vw] h-[6vw] md:h-[9vw] md:w-[9vw] rounded-lg md:rounded-full duration-300 transition-all ease-in-out border-yellow-300 border-2 md:border-none animate-"
         ></button>
-        <button
+        {/* <button
           className="absolute bottom-0 left-[50%] rounded-full -translate-x-[50%] w-20 h-10 text-white z-50 border border-white transition-colors duration-300 ease-in-out hover:bg-white hover:text-black"
           onClick={() => {
             return setActiveModal(true);
           }}
         >
           Preview
-        </button>
+        </button> */}
       </div>
 
       <Modal
@@ -125,40 +126,7 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
         title="test"
         onClose={() => setActiveModal(false)}
       >
-        <Swiper
-          onBeforeInit={(swiper) => {
-            swiperRef.current = swiper;
-          }}
-          mousewheel={true}
-          modules={[Navigation, Autoplay, Mousewheel]}
-          autoplay={true}
-          className="w-full h-[100vh] md:w-[100%] md:max-h-[600px] max-h-[400px] md:z-50 md:border-none relative"
-        >
-          {imgArr.map((img, index) => {
-            return (
-              <SwiperSlide
-                key={index}
-                className="flex justify-center items-center bg-white text-center"
-              >
-                <div className="w-full h-full flex justify-center items-center">
-                  {/* <BlurImage
-                    fill
-                    alt="Blurred Image"
-                    src={baseImageUrl+img}
-                    className="object-cover blur-xl"
-                  /> */}
-                  <Image
-                    fill
-                    src={baseImageUrl + img}
-                    alt="incridea"
-                    className={`object-cover z-10`}
-                    priority
-                  />
-                </div>
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
+        <PreviewComponent imgArr={imgArr} />
       </Modal>
     </div>
   );
