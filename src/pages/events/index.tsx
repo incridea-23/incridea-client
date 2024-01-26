@@ -242,7 +242,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
                 </div>
               </div>
             </div>
-            <div data-scroll-section data-scroll-speed="0.7" className="max-w-7xl w-full h-full mx-auto grid justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-80">
+            <div data-scroll-section data-scroll-speed="0.7" className="max-w-7xl w-full h-full mx-auto grid justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 mb-80">
               {filteredEvents.length > 0 ? filteredEvents.map((event) => (
                 <Event key={event.id} data={event} />
               )) : (

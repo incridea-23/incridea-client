@@ -12,6 +12,7 @@ import { generateEventUrl } from '@/src/utils/url'
 import Image from 'next/image'
 import Button from '../button'
 import GlitchAnimation from './glitchAnimation'
+import styles from "@/src/pages/events/styles.module.css";
 
 const Event = ({
   data,
@@ -80,64 +81,46 @@ const Event = ({
 
   return (
     <Link data-scroll href={generateEventUrl(data.name, data.id)}>
-      <div className="bg-black mt-4 h-full hover:shadow-xl hover:scale-105 scale-100 transition z-1 duration-300 ease-in-out cursor-pointer border-4 border-gray-600 rounded-2xl">
-        <Image
-          src="/assets/png/card-bg.png"
-          alt={'bg-img'}
-          width={350}
-          height={400}
-          className="object-fill h-full absolute z-0 overflow-hidden rounded-lg text-white"
-        />
-        <div className="grow">
-          <div className="text-center flex w-full justify-center text-slate-400 text-2xl font-bold  uppercase  ">
-            <h1 className="mx-1 glitch">
-              <GlitchAnimation
-                title={data.name}
-                fontSize={1.25}
-                mainHeading={true}
-              />
-            </h1>
-          </div>
-          <div className="h-[0.625rem] custom-grad blur-[1.5px] min-h-4 mt-4"></div>
-          <div className="mt-4 h-full hover:shadow-xl flex flex-col justify-center items-centers border-4 border-transparent rounded-xl">
-            <div className="screen">
-              {data.image && (
-                <Image
-                  src={data.image}
-                  alt={data.name}
-                  width={250}
-                  height={250}
-                  className="object-fill h-full w-full z-0 text-white"
-                />
-              )}
-              <div className="screen-overlay"></div>
-              {/* for extra brightness may be used */}
-              {/* <div className="screen-overlay"></div>  */}
-            </div>
-            <div className="flex items-center justify-center mx-6 md:mx-3 my-2 md:my-0 h-full md:min-h-[120px]  py-2 ">
-              <div className="flex flex-col justify-center gap-1.5 bodyFont glitch h-full md:min-h-[120px] min-w-[230px] z-20 relative text-white text-sm border-4 border-gray-600 rounded-xl py-2">
-                {getEventAttributes().map((attr) =>
-                  attr.name ? (
-                    <>
-                      <div key={attr.name} className="flex p-1 ">
-                        {<attr.Icon className="w-5" />}
-                        <p className="leading-4">
-                          {attr.name} : {attr.text}
-                        </p>
-                      </div>
-                    </>
-                  ) : null
-                )}
+      <div className="card w-full h-full">
+        <div className="top-section flex flex-col">
+          <div>
+            <div className="borderCard"></div>
+            <div className="icons">
+              <div className="logo">
+                {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 94 94" className="svg">
+                  <path fill="white" d="M38.0481 4.82927C38.0481 2.16214 40.018 0 42.4481 0H51.2391C53.6692 0 55.6391 2.16214 55.6391 4.82927V40.1401C55.6391 48.8912 53.2343 55.6657 48.4248 60.4636C43.6153 65.2277 36.7304 67.6098 27.7701 67.6098C18.8099 67.6098 11.925 65.2953 7.11548 60.6663C2.37183 56.0036 3.8147e-06 49.2967 3.8147e-06 40.5456V4.82927C3.8147e-06 2.16213 1.96995 0 4.4 0H13.2405C15.6705 0 17.6405 2.16214 17.6405 4.82927V39.1265C17.6405 43.7892 18.4805 47.2018 20.1605 49.3642C21.8735 51.5267 24.4759 52.6079 27.9678 52.6079C31.4596 52.6079 34.0127 51.5436 35.6268 49.4149C37.241 47.2863 38.0481 43.8399 38.0481 39.0758V4.82927Z"></path>
+                  <path fill="white" d="M86.9 61.8682C86.9 64.5353 84.9301 66.6975 82.5 66.6975H73.6595C71.2295 66.6975 69.2595 64.5353 69.2595 61.8682V4.82927C69.2595 2.16214 71.2295 0 73.6595 0H82.5C84.9301 0 86.9 2.16214 86.9 4.82927V61.8682Z"></path>
+                  <path fill="white" d="M2.86102e-06 83.2195C2.86102e-06 80.5524 1.96995 78.3902 4.4 78.3902H83.6C86.0301 78.3902 88 80.5524 88 83.2195V89.1707C88 91.8379 86.0301 94 83.6 94H4.4C1.96995 94 0 91.8379 0 89.1707L2.86102e-06 83.2195Z"></path>
+                </svg> */}
+              </div>
+              <div className="social-media capitalize font-semibold justify-items-end items-center text-center text-[1.05rem]">
+                {data.category?.replace("_"," ").toLocaleLowerCase()}
               </div>
             </div>
           </div>
-          <div className="flex justify-center relative z-20 mx-2">
-            <Button
-              noScaleOnHover
-              className="hover:scale-0 shrink-0 m-2 w-full"
-            >
-              Press to play
-            </Button>
+          <div className="m-[6px]">
+            {data.image && (
+              <Image
+                src={`https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg`}
+                alt={"Image"}
+                width={250}
+                height={250}
+                className="object-scale-down rounded-xl h-full w-full z-0 text-white"
+              />
+            )}
+          </div>
+        </div>
+        <div className="bottom-section flex flex-col justify-center items-center">
+          <span className="glitch eventTitle flex justify-center items-center text-center text-lg w-fit px-4">{data.name}</span>
+          <div className="row row1">
+          {getEventAttributes().map((attr,i) =>
+            attr.name ? (
+              <div className="item" key={i}>
+                <span className="big-text"><attr.Icon/>{attr.name}</span>
+                <span className="regular-text">{attr.text}</span>
+              </div>
+            ) : null
+          )}
           </div>
         </div>
       </div>
