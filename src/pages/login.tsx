@@ -83,7 +83,7 @@ const SignIn: NextPage = () => {
             <div className="h-16"></div>
             <div
                 className={`min-h-[92vh] min-w-screen bg-[#000000] flex flex-col justify-between relative overflow-hidden [transform-style:preserve-3d] [perspective:500px]`}>
-                <LoginPortal isTop={true} src={"/assets/"} />
+                <LoginPortal isTop={true} src={"/assets/png/portal1.png"} />
                 <LoginCard
                     whichForm="signIn"
                     cardStyle={cardStyle.signIn}
@@ -105,7 +105,7 @@ const SignIn: NextPage = () => {
                     cardStyle={cardStyle.resendEmail}
                     setWhichForm={changeCard}
                 />
-                <LoginPortal isTop={false} src={"/assets/png/"} />
+                <LoginPortal isTop={false} src={"/assets/png/portal1.png"} />
             </div>
         </>
     );

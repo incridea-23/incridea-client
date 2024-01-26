@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 import FallingElement from "./fallingElement";
 
-type srcProps = {
-    isTop: boolean;
-};
-
 const elements: string[] = [
     "trophy.png",
     "dice.png",
@@ -28,29 +24,28 @@ const getSize = () => {
     return { width: size, height: size }; //used to generate a random size everytime an element is made to fall
 };
 
-const FallingElements: React.FC<srcProps> = ({ isTop }) => {
+const FallingElements: React.FC = () => {
     const [fallingElements, setFallingElements] = useState<React.ReactNode[]>(
         []
     ); //used to append new elements to the falling elements
 
     useEffect(() => {
         const intervalId = setInterval(() => {
-            isTop
-                ? setFallingElements((prevElements) => [
-                      ...prevElements,
-                      <FallingElement
-                          src={elements[getElement()]}
-                          size={getSize()}
-                          key={Date.now()}
-                      />,
-                  ])
-                : null;
-        }, 1000);
+            setFallingElements((prevElements) => [
+                ...prevElements,
+                <FallingElement
+                    src={elements[getElement()]}
+                    size={getSize()}
+                    key={Date.now()}
+                />,
+            ]);
+        }, 2000);
 
         return () => {
             clearInterval(intervalId);
         };
     }, []);
+
     return (
         <>
             <div>{fallingElements}</div>
