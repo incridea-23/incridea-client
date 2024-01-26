@@ -81,17 +81,17 @@ const leaderBoard = () => {
             return "bg-gradient-to-b from-amber-700 to-amber-900"
         }
         else{
-            return "bg-gradient-to-b from-blue-200 to-cyan-200"
+            return "bg-gradient-to-r from-slate-900 to-slate-700"
         }
     }
     let isMobile = typeof window !== "undefined" && window.innerWidth < 768;
     return (
-        <div className="overflow-x-hidden" style={{ willChange: "transform" }}>
-            <div className=" bg-gradient-to-bl bg-white min-h-screen relative pt-32">
+        <div className="font-VikingHell" style={{ willChange: "transform" }}>
+            <div className=" bg-gradient-to-bl bg-white min-h-screen relative py-32">
                 <h1 className="text-white glitch text-4xl md:text-5xl text-center font-bold">
                     XP Leaderboard
                 </h1>
-                <h3 className="my-6 text-white text-2xl text-center">
+                <h3 className="my-6 text-white text-2xl text-center bodyFont">
                     Embark on an XP Quest: Uncover Hidden Easter Eggs and Level Up Your Experience!
                 </h3>
                 <div className="flex mb-2 md:mx-36 mx-5 mt-10 md:mt-7 rounded-lg bg-white text-gray-300 bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-t-lg p-1 items-center justify-evenly text-sm md:text-xl font-bold h-20">
@@ -105,7 +105,7 @@ const leaderBoard = () => {
                     <Spinner className='text-gray-300' />
                 </div>
                 )}
-                <div className='md:mx-36 mx-5 text-white text-center flex flex-col gap-2'>
+                <div className='md:mx-36 mx-5 text-white text-center flex flex-col gap-2 bodyFont'>
                     {sortedLeaderboard.map((user,i) => (
                         <div key={user.userId}
                         className={`${getColor(i+1)} shadow-2xl rounded-lg flex flex-row items-center justify-center h-16 `}>

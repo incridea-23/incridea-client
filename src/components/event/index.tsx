@@ -78,7 +78,7 @@ const Event = ({
 
   return (
     <Link data-scroll href={generateEventUrl(data.name, data.id)}>
-      <div className="card w-full h-full">
+      <div className="card w-full h-full font-VikingHell">
         <div className="top-section flex flex-col">
           <div>
             <div className="borderCard"></div>
@@ -109,7 +109,7 @@ const Event = ({
         </div>
         <div className="bottom-section flex flex-col justify-center items-center w-full">
           <span className="glitch eventTitle flex justify-center items-center text-center text-lg w-fit px-4">{data.name}</span>
-          <div className="flex flex-col gap-1 text-center text-base text-blue-200 px-1 py-3 justify-center items-start md:w-full">
+          <div className="flex flex-col gap-1 text-center bodyFont text-base text-blue-200 px-1 py-3 justify-center items-start md:w-full">
             {getEventAttributes().map((attr,i) =>
               attr.name ? (
                 <div className="flex flex-row gap-2 justify-center items-start text-left" key={i}>
@@ -121,7 +121,7 @@ const Event = ({
           </div>
         </div>
         <div className="p-2 pt-0 mt-0">
-          <button className="hover:bg-[#69e5f8] shrink-0 w-full mt-0 py-2 flex gap-2 items-center justify-center rounded transition-colors duration-300 titleFont bg-[#10adc6]">
+          <button className="hover:bg-[#69e5f8] shrink-0 w-full mt-0 py-2 flex gap-2 items-center justify-center rounded transition-colors duration-300 bg-[#10adc6]">
             <Link href={generateEventUrl(data.name, data.id)}>
               play the game
             </Link>
@@ -133,47 +133,3 @@ const Event = ({
 }
 
 export default Event
-
-{
-  /* <div className="flex justify-center items-center">
-        <div className="text-center text-white text-2xl font-bold">
-          {data.name}
-        </div>
-      </div>
-
-      <div className="bg-slate-800 h-full rounded-lg hover:shadow-xl transition duration-300 ease-in-out cursor-pointer ">
-        <div className="relative grow">
-          {data.image && (
-            <Image
-              src={data.image}
-              alt={data.name}
-              width={500}
-              height={300}
-              className="object-cover w-full h-full z-0 py-4 border-b border-orange-800"
-            />
-          )}
-          <div className="flex flex-wrap mt-2 gap-1.5 bodyFont text-white">
-            {getEventAttributes().map((attr) =>
-              attr.text ? (
-                <div key={attr.name} className="flex px-3 py-2 event-attribute">
-                  {<attr.Icon className="w-5" />}
-                  <p className="leading-4">{attr.text}</p>
-                </div>
-              ) : null
-            )}
-          </div>
-<Button noScaleOnHover className="hover:scale-0 shrink-0 mt-2">
-            <Link href={generateEventUrl(data.name, data.id)}>
-              play the game
-            </Link>
-          </Button>
-        </div>
-      </div> */
-}
-
-// {getEventAttributes().map((attr, index) => (
-//   <div key={index}>
-//     <p>{attr.Date.text}</p>
-//     {/* You can access other attributes similarly */}
-//   </div>
-// ))}

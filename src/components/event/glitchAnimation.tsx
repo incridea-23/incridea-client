@@ -27,7 +27,7 @@ const GlitchAnimation =({
     anim3 = `text-[1.25rem] md:text-[1.25rem] w-full`;
   }
   return (
-    <div className="text-[#e7e7e7]">
+    <div className="text-[#e7e7e7] font-VikingHell">
       <div
         ref={(el) => (loading_screen.current = el)}
         className={`relative z-50 w-full text-center flex justify-center items-center`}

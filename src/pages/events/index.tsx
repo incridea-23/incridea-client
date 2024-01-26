@@ -107,7 +107,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
   };
 
   return (
-    <div className="overflow-x-hidden" style={{ willChange: "transform" }}>
+    <div className="overflow-x-hidden font-VikingHell" style={{ willChange: "transform" }}>
       <LocomotiveScrollProvider
         options={{
           smooth: true,
@@ -146,7 +146,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
                   mainHeading={false}
                 />
               </div>
-              <h3 data-scroll className={`glitch font-semibold text-xl md:text-2xl tracking-wide text-center py-8 pt-10 px-2 text-white`}>
+              <h3 data-scroll className={`glitch bodyFont font-semibold text-xl md:text-2xl tracking-wide text-center py-8 pt-10 px-2 text-white`}>
                 Ctrl+Play: Navigate Your Digital Playground with Our Ultimate Event Collection!
               </h3>
               <div data-scroll className="relative lg:basis-[75%] basis-full w-full lg:w-auto">
