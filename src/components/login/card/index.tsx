@@ -1,4 +1,4 @@
-import { CardForms, CardStyle } from "@/src/pages/login";
+import { CardStyle } from "@/src/pages/login";
 import React, { FunctionComponent } from "react";
 import SignInForm from "../../form/login/signInForm";
 import ResetPasswordForm from "../../form/login/resetPasswordForm";
@@ -6,9 +6,11 @@ import SignUpForm from "../../form/signUp";
 import ResendEmail from "../../form/login/resendEmailForm";
 
 type LoginCardProps = {
-    whichForm: CardForms;
+    whichForm: "signIn" | "resetPassword" | "signUp" | "resendEmail";
     cardStyle: CardStyle;
-    setWhichForm: (whichForm: CardForms) => void;
+    setWhichForm: (
+        whichForm: "signIn" | "resetPassword" | "signUp" | "resendEmail"
+    ) => void;
     redirectUrl?: string;
 };
 
@@ -20,23 +22,20 @@ const LoginCard: FunctionComponent<LoginCardProps> = ({
 }) => {
     return (
         <div
-            className="py-3 absolute top-2/4 left-2/4 transition-all ease-swap-card"
+            className="absolute max-w-[75vw] max-h-[60vh] w-[75vw] h-max px-5 py-8 rounded-2xl top-2/4 left-2/4 transition-all ease-swap-card bg-[#f3e9d1] text-[#6f5925]"
             style={cardStyle}>
-            <div
-                className={`bg-[#f3e9d1] text-[#6f5925] px-4 py-6 w-72 rounded-3xl`}>
-                {whichForm === "signIn" ? (
-                    <SignInForm
-                        redirectUrl={redirectUrl}
-                        setWhichForm={setWhichForm}
-                    />
-                ) : whichForm === "resetPassword" ? (
-                    <ResetPasswordForm setWhichForm={setWhichForm} />
-                ) : whichForm === "signUp" ? (
-                    <SignUpForm setWhichForm={setWhichForm} />
-                ) : (
-                    <ResendEmail setWhichForm={setWhichForm} />
-                )}
-            </div>
+            {whichForm === "signIn" ? (
+                <SignInForm
+                    redirectUrl={redirectUrl}
+                    setWhichForm={setWhichForm}
+                />
+            ) : whichForm === "resetPassword" ? (
+                <ResetPasswordForm setWhichForm={setWhichForm} />
+            ) : whichForm === "signUp" ? (
+                <SignUpForm setWhichForm={setWhichForm} />
+            ) : (
+                <ResendEmail setWhichForm={setWhichForm} />
+            )}
         </div>
     );
 };

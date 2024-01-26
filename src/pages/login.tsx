@@ -4,7 +4,6 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-type CardForms = "signIn" | "resetPassword" | "signUp" | "resendEmail";
 type CardStyle = {
     top: string;
     transitionDuration: string;
@@ -17,7 +16,7 @@ const CARD_TOP_STYLE: CardStyle = {
         top: "-50%",
         transitionDuration: "0s",
         transformOrigin: "",
-        transform: `translate(-50%, -50%) rotateX(50deg) scaleX(0.1)`,
+        transform: `translate(-50%, -50%) rotateX(50deg) scaleX(0)`,
     },
     CARD_NEUTRAL_STYLE: CardStyle = {
         top: "50%",
@@ -29,7 +28,7 @@ const CARD_TOP_STYLE: CardStyle = {
         top: "150%",
         transitionDuration: `${CARD_SWITCH_DURATION}ms`,
         transformOrigin: "top",
-        transform: `translate(-50%, -50%) rotateX(-50deg) scaleX(0.1)`,
+        transform: `translate(-50%, -50%) rotateX(-50deg) scaleX(0)`,
     };
 
 const SignIn: NextPage = () => {
@@ -37,14 +36,14 @@ const SignIn: NextPage = () => {
         query,
     }: {
         query: {
-            whichForm?: CardForms;
+            whichForm?: "signIn" | "resetPassword" | "signUp" | "resendEmail";
             redirectUrl?: string;
         };
     } = useRouter();
 
-    const [whichForm, setWhichForm] = useState<CardForms>(
-        query.whichForm || "signIn"
-    );
+    const [whichForm, setWhichForm] = useState<
+        "signIn" | "resetPassword" | "signUp" | "resendEmail"
+    >(query.whichForm || "signIn");
 
     const [cardStyle, setCardStyle] = useState<{
         signIn: CardStyle;
@@ -59,7 +58,9 @@ const SignIn: NextPage = () => {
         [whichForm]: CARD_NEUTRAL_STYLE,
     });
 
-    const changeCard: (newForm: CardForms) => void = (newForm) => {
+    const changeCard: (
+        newForm: "signIn" | "resetPassword" | "signUp" | "resendEmail"
+    ) => void = (newForm) => {
         setCardStyle((prev) => ({
             ...prev,
             [whichForm]: CARD_BOTTOM_STYLE,
@@ -81,8 +82,8 @@ const SignIn: NextPage = () => {
         <>
             <div className="h-16"></div>
             <div
-                className={`min-h-[92vh] min-w-screen bg-gray-600 flex flex-col justify-between relative overflow-hidden [transform-style:preserve-3d] [perspective:500px]`}>
-                <LoginPortal isTop={true} />
+                className={`min-h-[92vh] min-w-screen bg-[#000000] flex flex-col justify-between relative overflow-hidden [transform-style:preserve-3d] [perspective:500px]`}>
+                <LoginPortal isTop={true} src={"/assets/"} />
                 <LoginCard
                     whichForm="signIn"
                     cardStyle={cardStyle.signIn}
@@ -104,11 +105,11 @@ const SignIn: NextPage = () => {
                     cardStyle={cardStyle.resendEmail}
                     setWhichForm={changeCard}
                 />
-                <LoginPortal isTop={false} />
+                <LoginPortal isTop={false} src={"/assets/png/"} />
             </div>
         </>
     );
 };
 
+export type { CardStyle };
 export default SignIn;
-export type { CardForms, CardStyle };

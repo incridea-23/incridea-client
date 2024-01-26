@@ -26,19 +26,21 @@ type SignUpFormProps = {
 const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
     const [userInfo, setUserInfo] = useState({
         name: "",
+        college: "",
         email: "",
         password: "",
         phoneNumber: "",
-        college: "",
         accepted: false,
     });
     const [error, setError] = useState("");
-    const [emailSuccess, setEmailSuccess] = useState(false);
     const [verifyError, setVerifyError] = useState(false);
+
+    const [emailSuccess, setEmailSuccess] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
     const [signUpMutation, { loading, error: mutationError }] =
         useMutation(SignUpDocument);
+
     const [
         emailVerificationMutation,
         {
@@ -47,6 +49,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
             error: emailVerificationError,
         },
     ] = useMutation(EmailVerificationDocument);
+
     const {
         data: collegeData,
         loading: collegesLoading,
@@ -74,6 +77,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
     };
 
     const sortedColleges = sortColleges();
+
     const [selectedCollege, setSelectedCollege] = useState<{
         name: string;
         id: string;
@@ -113,6 +117,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         e.preventDefault();
         setVerifyError(false);
         setError("");
+
         if (
             !userInfo.name ||
             !userInfo.email ||
@@ -123,12 +128,14 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
             setError("Please fill all the fields");
             return;
         }
+
         if (selectedCollege.name === "N.M.A.M. Institute of Technology") {
             if (userInfo.email.split("@").length > 1) {
                 setError('Please only enter your USN without "@nmamit.in"');
                 return;
             }
         }
+
         if (
             userInfo.phoneNumber.length !== 10 ||
             isNaN(Number(userInfo.phoneNumber))
@@ -136,10 +143,12 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
             setError("Please enter a valid 10-digit mobile number");
             return;
         }
+
         if (userInfo.password.length < 8) {
             setError("Password must be at least 8 characters long");
             return;
         }
+
         signUpMutation({
             variables: {
                 name: userInfo.name,
@@ -173,6 +182,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                         }
                     });
                 }
+
                 if (res.data?.signUp.__typename === "Error") {
                     setError(res.data.signUp.message);
                     if (res.data.signUp.message.includes("verify"))
