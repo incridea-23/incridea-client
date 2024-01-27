@@ -78,13 +78,13 @@ function event({ event, error }: { event: Event; error: String }) {
     <div className="bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6]">
       {event ? (
         // <section className="flex lg:flex-row flex-col gap-5 py-20 px-5 max-w-7xl mx-auto text-white">
-        <section className="flex lg:flex-row flex-col gap-5 py-20 px-5 max-w-7xl mx-auto text-black">
+        <section className="flex lg:flex-row flex-col gap-5 py-20 px-5 max-w-7xl mx-auto text-amber-900">
           {/* <div className="basis-3/4 grow-0 space-y-4 sm:space-y-10 bg-black/20 backdrop-blur-sm p-0 sm:p-7 rounded-md"> */}
-          <div className="basis-3/4 grow-0 space-y-4 sm:space-y-10 bg backdrop-blur-sm p-0 sm:p-7 rounded-md">
+          <div className="basis-3/4 grow-0 space-y-4 sm:space-y-10 bg p-0 sm:p-7 rounded-md">
             {event.image && (
               <Image
                 src={event.image as string}
-                className="w-full sm:rounded-md rounded-t-md"
+                className="w-full sm:rounded-md rounded-t-md masker"
                 alt={event.name}
                 width={1000}
                 height={1000}
