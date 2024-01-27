@@ -73,9 +73,9 @@ const leaderBoard = () => {
 
     const getColor = (i: number) => {
         if(i === 1){
-            return "bg-gradient-to-b from-amber-200 to-yellow-500"
+            return "bg-gradient-to-b from-amber-400 to-yellow-700"
         }else if(i === 2){
-            return "bg-gradient-to-b from-slate-300 to-slate-500"
+            return "bg-gradient-to-b from-slate-500 to-slate-700"
         }
         else if(i === 3){
             return "bg-gradient-to-b from-amber-700 to-amber-900"
@@ -143,6 +143,14 @@ const leaderBoard = () => {
                             </h1>
                         </div>
                     ))}
+                    {
+                        sortedLeaderboard.length === 0 && !leaderboardLoading &&
+                        <div className="flex justify-center items-center">
+                            <span className='text-gray-300 text-xl'>
+                                The XP leaderboard is currently as empty as a blank canvas, waiting for the vibrant colors of your achievements to fill it up! Embark on your journey, complete challenges, and earn XP to climb to the top
+                            </span>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
