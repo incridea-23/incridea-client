@@ -15,7 +15,7 @@
     "@gsap/react": "^2.1.0",
     "@headlessui/react": "^1.7.12",
     "@next/font": "13.1.6",
-    "@react-three/drei": "^9.96.4",
+    "@react-three/drei": "^9.96.5",
     "@react-three/fiber": "^8.15.15",
     "@rive-app/react-canvas": "^3.0.38",
     "@theatre/core": "^0.7.0",
