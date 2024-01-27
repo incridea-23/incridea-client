@@ -1,24 +1,26 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, useEffect, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { getProject } from "@theatre/core";
 // import studio from "@theatre/studio";
 import extension from "@theatre/r3f/dist/extension";
 import { SheetProvider, editable as e, PerspectiveCamera } from "@theatre/r3f";
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 import { ScrollControls } from "@react-three/drei";
-import { Scene1 } from "@/src/components/scene/scene1";
-import scene1 from "../../../public/assets/3d/state.json";
-// const Scene1 = dynamic(() => import("@/src/components/scene/scene1"), {
-//   ssr: false,
-// });
-// import { OrbitControls, ScrollControls } from "@react-three/drei";
-// import demoProjectState from './state.json'
+// import { Scene1 } from "@/src/components/scene/scene1";
+import scene1 from "../../../public/assets/3d/state1.json";
+import studio from "@theatre/studio";
+import Annotation from "@/src/components/scene/annotation";
+import dynamic from "next/dynamic";
+const Scene1 = dynamic(() => import("@/src/components/scene/scene1"), {
+  ssr: false,
+});
 
-// studio.extend(extension);
-// studio.initialize();
+studio.extend(extension);
+studio.initialize();
 
 const demoSheet = getProject("Scene 1", { state: scene1 }).sheet("Scene 1");
 const App = () => {
+  const modalRef = useRef(null);
   // useEffect(() => {
   //   demoSheet.project.ready.then(() =>
   //     demoSheet.sequence.play({ iterationCount: Infinity, range: [0, 1] })
@@ -32,10 +34,11 @@ const App = () => {
           gl={{
             preserveDrawingBuffer: true,
           }}
+          className="z-50"
         >
-          <color attach={"background"} args={["#87CEEB"]} />
-          <ScrollControls pages={6}>
-            <SheetProvider sheet={demoSheet}>
+          <SheetProvider sheet={demoSheet}>
+            <color attach={"background"} args={["#87CEEB"]} />
+            <ScrollControls pages={6}>
               <>
                 <e.group theatreKey="cameraContainer" position={[0, 10, 0]}>
                   <PerspectiveCamera
@@ -57,11 +60,11 @@ const App = () => {
                 />
                 <Scene1 />
               </>
-            </SheetProvider>
-          </ScrollControls>
+            </ScrollControls>
+          </SheetProvider>
         </Canvas>
       </Suspense>
-      {/* <div className="h-500vh -z-100"></div> */}
+      <div className="" ref={modalRef}></div>
     </div>
   );
 };
