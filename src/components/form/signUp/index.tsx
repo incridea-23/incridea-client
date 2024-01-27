@@ -457,7 +457,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
 
             <div className="flex flex-col mt-2 relative text-center">
                 <hr className="my-3 border-accent-50" />
-                <h4 className="absolute top-0.5 translate-x-1/2 w-max mx-auto bg-primary-300 rounded-full text-primary-900 right-1/2 md:px-2 px-3 text-sm">
+                <h4 className="absolute top-0.5 translate-x-1/2 w-max mx-auto bg-primary-400 rounded-full text-primary-900 right-1/2 md:px-2 px-3 text-sm">
                     Already have an account?
                 </h4>
                 <Button

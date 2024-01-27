@@ -2,7 +2,12 @@ import { FormEventHandler, FunctionComponent, useState } from "react";
 
 type AccommodationFormProps = {
     setWhichForm: (
-        whichForm: "signIn" | "resetPassword" | "signUp" | "resendEmail"
+        whichForm:
+            | "signIn"
+            | "resetPassword"
+            | "signUp"
+            | "resendEmail"
+            | "accommodation"
     ) => void;
 };
 

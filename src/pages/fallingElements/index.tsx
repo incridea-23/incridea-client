@@ -20,8 +20,8 @@ const getElement = (): number => {
 };
 
 const getSize = () => {
-    let size = Math.floor(Math.random() * (60 - 30 + 1)) + 30;
-    return { width: size, height: size }; //used to generate a random size everytime an element is made to fall
+    let size = Math.floor(Math.random() * (60 - 40)) + 40;
+    return { width: size, height: size }; //used to generate a random size every time an element is made to fall
 };
 
 const FallingElements: React.FC = () => {
@@ -31,8 +31,8 @@ const FallingElements: React.FC = () => {
 
     useEffect(() => {
         const intervalId = setInterval(() => {
-            setFallingElements((prevElements) => [
-                ...prevElements,
+            setFallingElements((prev) => [
+                ...prev,
                 <FallingElement
                     src={elements[getElement()]}
                     size={getSize()}
@@ -46,11 +46,7 @@ const FallingElements: React.FC = () => {
         };
     }, []);
 
-    return (
-        <>
-            <div>{fallingElements}</div>
-        </>
-    );
+    return <>{fallingElements}</>;
 };
 
 export default FallingElements;

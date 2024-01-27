@@ -33,13 +33,18 @@ const SignIn: NextPage = () => {
         query,
     }: {
         query: {
-            whichForm?: "signIn" | "resetPassword" | "signUp" | "resendEmail";
+            whichForm?:
+                | "signIn"
+                | "resetPassword"
+                | "signUp"
+                | "resendEmail"
+                | "accommodation";
             redirectUrl?: string;
         };
     } = useRouter();
 
     const [whichForm, setWhichForm] = useState<
-        "signIn" | "resetPassword" | "signUp" | "resendEmail"
+        "signIn" | "resetPassword" | "signUp" | "resendEmail" | "accommodation"
     >(query.whichForm || "signIn");
 
     const [cardStyle, setCardStyle] = useState<{
@@ -47,17 +52,26 @@ const SignIn: NextPage = () => {
         signUp: CardStyle;
         resetPassword: CardStyle;
         resendEmail: CardStyle;
+        accommodation: CardStyle;
     }>({
         signIn: CARD_TOP_STYLE,
         resetPassword: CARD_TOP_STYLE,
         signUp: CARD_TOP_STYLE,
         resendEmail: CARD_TOP_STYLE,
+        accommodation: CARD_TOP_STYLE,
         [whichForm]: CARD_NEUTRAL_STYLE,
     });
 
     const changeCard: (
-        newForm: "signIn" | "resetPassword" | "signUp" | "resendEmail"
+        newForm:
+            | "signIn"
+            | "resetPassword"
+            | "signUp"
+            | "resendEmail"
+            | "accommodation"
     ) => void = (newForm) => {
+        if (whichForm === newForm) return;
+
         setCardStyle((prev) => ({
             ...prev,
             [whichForm]: CARD_BOTTOM_STYLE,
@@ -75,13 +89,50 @@ const SignIn: NextPage = () => {
     };
 
     return (
-        // TODO:92 vh as there was some footer in viewport
         <>
-            {/* FIXME: change the props if needed */}
-            <div className="h-16 bg-primary-700"></div>
+            {/* HACK: remove me */}
+            <div className="fixed top-1/2 gap-1 z-50 left-0 flex flex-col">
+                <button
+                    className="bg-slate-700 text-slate-100"
+                    onClick={() => {
+                        changeCard("signIn");
+                    }}>
+                    signIn
+                </button>
+                <button
+                    className="bg-slate-700 text-slate-100"
+                    onClick={() => {
+                        changeCard("signUp");
+                    }}>
+                    signUp
+                </button>
+                <button
+                    className="bg-slate-700 text-slate-100"
+                    onClick={() => {
+                        changeCard("resendEmail");
+                    }}>
+                    resendEmail
+                </button>
+                <button
+                    className="bg-slate-700 text-slate-100"
+                    onClick={() => {
+                        changeCard("resetPassword");
+                    }}>
+                    resetPassword
+                </button>
+                <button
+                    className="bg-slate-700 text-slate-100"
+                    onClick={() => {
+                        changeCard("accommodation");
+                    }}>
+                    accommodation
+                </button>
+            </div>
+
+            <div className="h-16 bg-primary-800"></div>
             <div
-                className={`relative min-h-[92vh] bg-gradient-to-b from-primary-600 to-primary-800 min-w-screen flex flex-col justify-between [transform-style:preserve-3d] [perspective:500px] overflow-hidden`}>
-                <LoginPortal isTop={true} src={"/assets/png/portalv2"} />
+                className={`relative min-h-[92vh] bg-gradient-to-b from-primary-700 to-primary-900 min-w-screen flex flex-col justify-between [transform-style:preserve-3d] [perspective:500px] overflow-hidden`}>
+                <LoginPortal isTop={true} src={"/assets/png/portalv3"} />
                 <LoginCard
                     whichForm="signIn"
                     cardStyle={cardStyle.signIn}
@@ -103,7 +154,12 @@ const SignIn: NextPage = () => {
                     cardStyle={cardStyle.resendEmail}
                     setWhichForm={changeCard}
                 />
-                <LoginPortal isTop={false} src={"/assets/png/portalv2"} />
+                <LoginCard
+                    whichForm="accommodation"
+                    cardStyle={cardStyle.accommodation}
+                    setWhichForm={changeCard}
+                />
+                <LoginPortal isTop={false} src={"/assets/png/portalv3"} />
             </div>
         </>
     );

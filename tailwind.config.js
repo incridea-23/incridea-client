@@ -10,6 +10,8 @@ module.exports = {
                 "spin-slow": "spin 2s linear infinite",
                 scroll: "scroll 60s linear infinite",
                 "scroll-reverse": "scroll-reverse 60s linear infinite",
+                "free-fall":
+                    "fall 8s cubic-bezier(0.33333, 0, 0.66667, 0.33333) forwards",
             },
             keyframes: {
                 scroll: {
@@ -22,21 +24,21 @@ module.exports = {
                 },
                 fall: {
                     "0%": {
-                        transform: "translateX(0) rotate(0deg)",
+                        transform: "translateY(0) rotate(0deg)",
                         opacity: 1,
                     },
                     "80%": {
                         opacity: 1,
                     },
                     "100% ": {
-                        transform: "translateX(85vh) rotate(360deg)",
+                        transform: "translateY(85vh) rotate(360deg)",
                         opacity: 0,
                     },
                 },
             },
             transitionTimingFunction: {
                 // FIXME: give a better name
-                "swap-card": "cubic-bezier(0.65, 0, 0.35, 1)",
+                "suck-in": "cubic-bezier(0.65, 0, 0.35, 1)",
             },
             colors: {
                 primary: {
