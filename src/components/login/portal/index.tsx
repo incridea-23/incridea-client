@@ -7,26 +7,69 @@ type LoginPortalProps = {
     src: string;
 };
 
+type PortalStyle = {
+    height: string;
+    transform: string;
+    top?: string;
+    bottom?: string;
+};
+
+const PORTAL_HEIGHT: number = 50;
+
+const TOP_PORTAL_STYLE: PortalStyle = {
+        height: `${PORTAL_HEIGHT / 2}px`,
+        transform: "translate(-50%) rotate(180deg)",
+        top: "0%",
+    },
+    BOTTOM_PORTAL_STYLE: PortalStyle = {
+        height: `${PORTAL_HEIGHT / 2}px`,
+        transform: "translate(-50%) rotate(0deg)",
+        bottom: "0%",
+    };
+
 const LoginPortal: FunctionComponent<LoginPortalProps> = ({ isTop, src }) => {
+    const PORTAL_STYLE: PortalStyle = isTop
+        ? TOP_PORTAL_STYLE
+        : BOTTOM_PORTAL_STYLE;
+
     return (
         <>
-            <Image
-                width={500}
-                height={500}
-                src={src}
-                alt="Portal"
-                className="pointer-events-none z-50"
-            />
-            <div className="relative rotate-90">
-                {isTop && <FallingElements />}
+            <div
+                className={`left-2/4 absolute -z-50 w-full md:w-[600px]`}
+                style={
+                    isTop
+                        ? {
+                              ...PORTAL_STYLE,
+                              top: `${PORTAL_HEIGHT / 2}px`,
+                          }
+                        : {
+                              ...PORTAL_STYLE,
+                              bottom: `${PORTAL_HEIGHT / 2}px`,
+                          }
+                }>
+                <Image
+                    fill={true}
+                    src={`${src}1.png`}
+                    alt={"Portal"}
+                    className={"pointer-events-none"}
+                    priority
+                />
             </div>
-            <Image
-                width={500}
-                height={500}
-                src={src}
-                alt="Portal"
-                className="pointer-events-none z-0"
-            />
+            {/* FIXME: give position correctly */}
+            {/* <div className="bg-red-400 relative rotate-90 h-[95vw] w-6">
+                {isTop && <FallingElements />}
+            </div> */}
+            <div
+                className={`left-2/4 absolute z-50 w-full md:w-[600px]`}
+                style={{ ...PORTAL_STYLE }}>
+                <Image
+                    fill={true}
+                    src={`${src}2.png`}
+                    alt={"Portal"}
+                    className={"pointer-events-none"}
+                    priority
+                />
+            </div>
 
             {/* FIXME: Add the same logic as the bottom code to the above thing if posiible */}
             {/* <div className="flex justify-center items-center w-full h-[50px] md:h-16 xl:h-20 mb-2">

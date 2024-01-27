@@ -67,15 +67,20 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
                             }}
                             type="email"
                             required
-                            className=" py-2 px-1 border-b  bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e]-500 outline-none"
+                            className="py-2 px-1 border-b bg-transparent transition-all border-gray-400 placeholder:text-slate-400  md:focus:border-[#dd5c6e]-500 outline-none"
                             placeholder="Email"
                         />
-                        <Button type="submit">Send Reset Link</Button>
+
+                        <Button type="submit" className="mt-4">
+                            Send Reset Link
+                        </Button>
+
                         {loading && (
                             <div className="absolute h-full w-full bg-[#f3e9d1] bg-opacity-60 inset-0 rounded-lg cursor-not-allowed pointer-events-none z-50">
                                 <Spinner className="text-[#dd5c6e]" />
                             </div>
                         )}
+
                         {(error || mutationError) && (
                             <div className="bg-red-100 p-2 flex items-center gap-3 px-4 rounded-md font-semibold text-red-500">
                                 <BiErrorCircle size={"1.3rem"} />

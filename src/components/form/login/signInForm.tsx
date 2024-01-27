@@ -76,7 +76,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
                     value={userInfo.email}
                     id="email"
                     onChange={handleChange}
-                    className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none"
+                    className="placeholder:text-slate-400 py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400 md:focus:border-[#dd5c6e] outline-none"
                     type="email"
                     name="email"
                     placeholder="Email"
@@ -87,7 +87,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
                         value={userInfo.password}
                         id="password"
                         onChange={handleChange}
-                        className="py-2 px-1 w-full border-b text-sm md:text-base bg-transparent transition-all border-gray-400 placeholder:text-gray-500 text-black md:focus:border-[#dd5c6e] outline-none"
+                        className="placeholder:text-slate-400 py-2 px-1 w-full border-b text-sm md:text-base bg-transparent transition-all border-gray-400 md:focus:border-[#dd5c6e] outline-none"
                         type={showPassword ? "text" : "password"}
                         name="password"
                         placeholder="Password"
@@ -104,7 +104,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
                 <button
                     onClick={() => setWhichForm("resetPassword")}
                     type="button"
-                    className="text-sm w-fit -md:mt-1 mb-2 hover:underline text-[#6f5925]   text-start">
+                    className="text-sm w-fit -md:mt-1 mb-2 hover:underline text-accent-300 text-start">
                     Forgot your password?
                 </button>
                 <Button intent={`primary`} type="submit">
@@ -115,6 +115,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
                         <Spinner className="text-[#dd5c6e]" />
                     </div>
                 )}
+
                 {error && (
                     <div className="bg-red-100 p-2 flex items-center gap-3 px-4 rounded-md font-semibold text-red-500">
                         <BiErrorCircle className="shrink-0" />
@@ -131,9 +132,10 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
                         </div>
                     </div>
                 )}
+
                 <div className="flex flex-col md:mt-2 mt-3 relative text-center">
-                    <hr className="my-3 border-[#6f5925]" />
-                    <h4 className="absolute top-0.5 translate-x-1/2 w-max mx-auto bg-[#f3e9d1] rounded-full text-[#6f5925] right-1/2 md:px-2 px-3 text-sm">
+                    <hr className="my-3 border-accent-50-50" />
+                    <h4 className="absolute top-0.5 translate-x-1/2 w-max mx-auto bg-primary-300 rounded-full text-primary-900 right-1/2 md:px-2 px-3 text-sm">
                         New here?
                     </h4>
                     <Button

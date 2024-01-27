@@ -222,7 +222,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                         required
                         className={`${
                             selectedCollege.name === "Other" ? "mt-2" : "mt-2"
-                        } py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none`}
+                        } py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-slate-400    md:focus:border-[#dd5c6e] outline-none`}
                         placeholder="Name"
                     />
                     {/* FIXME: removed mt-10 from the above component when college was not "Other"*/}
@@ -244,7 +244,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                                     displayValue={(college: { name: string }) =>
                                         college.name
                                     }
-                                    className="w-full bg-transparent outline-none text-sm md:text-base py-2 pl-1 pr-10 md:text-gray-900 placeholder:text-gray-500 text-black   "
+                                    className="w-full bg-transparent outline-none text-sm md:text-base py-2 pl-1 pr-10 md:text-gray-900 placeholder:text-slate-400    "
                                     onChange={(e) => setQuery(e.target.value)}
                                 />
                                 <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -338,12 +338,12 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                                 selectedCollege.name ==
                                     "N.M.A.M. Institute of Technology" &&
                                 "pr-28"
-                            } w-full py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none`}
+                            } w-full py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-slate-400    md:focus:border-[#dd5c6e] outline-none`}
                             placeholder="Email"
                         />
                         {selectedCollege.name ===
                             "N.M.A.M. Institute of Technology" && (
-                            <span className="absolute top-0 mt-2 right-0 mr-3 text-black">
+                            <span className="absolute top-0 mt-2 right-0 mr-3 ">
                                 @nmamit.in
                             </span>
                         )}
@@ -356,7 +356,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                             type={showPassword ? "text" : "password"}
                             required
                             placeholder="Password"
-                            className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400 placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none w-full"
+                            className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400 placeholder:text-slate-400    md:focus:border-[#dd5c6e] outline-none w-full"
                         />
                         <button
                             type="button"
@@ -376,7 +376,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                         type="text"
                         required
                         placeholder="Mobile"
-                        className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e] outline-none"
+                        className=" py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-slate-400 md:focus:border-[#dd5c6e] outline-none"
                     />
 
                     <div className="flex">
@@ -394,7 +394,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                             }
                         />
                         <label htmlFor="termsCheckbox">
-                            <span className="text-xs lg:text-sm md:text-base text-gray-500">
+                            <span className="text-xs lg:text-sm md:text-base text-slate-400">
                                 I agree to all the{" "}
                                 <Link
                                     href="/rules"
@@ -456,8 +456,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
             )}
 
             <div className="flex flex-col mt-2 relative text-center">
-                <hr className="my-3 border-[#6f5925]" />
-                <h4 className="absolute top-0.5 translate-x-1/2 w-max mx-auto bg-[#f3e9d1] rounded-full text-[#6f5925] right-1/2 md:px-2 px-3 text-sm">
+                <hr className="my-3 border-accent-50" />
+                <h4 className="absolute top-0.5 translate-x-1/2 w-max mx-auto bg-primary-300 rounded-full text-primary-900 right-1/2 md:px-2 px-3 text-sm">
                     Already have an account?
                 </h4>
                 <Button

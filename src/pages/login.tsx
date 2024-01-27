@@ -3,32 +3,29 @@ import LoginPortal from "@/src/components/login/portal";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import Image from "next/image";
 
 type CardStyle = {
     top: string;
     transitionDuration: string;
-    transformOrigin: string;
     transform: string;
 };
 
-const CARD_SWITCH_DURATION = 1000;
+const CARD_SWITCH_DURATION: number = 1000;
 const CARD_TOP_STYLE: CardStyle = {
         top: "-50%",
         transitionDuration: "0s",
-        transformOrigin: "",
-        transform: `translate(-50%, -50%) rotateX(50deg) scaleX(0)`,
+        transform: `translate(-50%, -50%) rotateX(45deg) scaleX(-0.2)`,
     },
     CARD_NEUTRAL_STYLE: CardStyle = {
         top: "50%",
         transitionDuration: `${CARD_SWITCH_DURATION}ms`,
-        transformOrigin: "bottom",
         transform: `translate(-50%, -50%) rotateX(0deg) scaleX(1)`,
     },
     CARD_BOTTOM_STYLE: CardStyle = {
         top: "150%",
         transitionDuration: `${CARD_SWITCH_DURATION}ms`,
-        transformOrigin: "top",
-        transform: `translate(-50%, -50%) rotateX(-50deg) scaleX(0)`,
+        transform: `translate(-50%, -50%) rotateX(-45deg) scaleX(-0.2)`,
     };
 
 const SignIn: NextPage = () => {
@@ -80,10 +77,11 @@ const SignIn: NextPage = () => {
     return (
         // TODO:92 vh as there was some footer in viewport
         <>
-            <div className="h-16"></div>
+            {/* FIXME: change the props if needed */}
+            <div className="h-16 bg-primary-700"></div>
             <div
-                className={`min-h-[92vh] min-w-screen bg-[#000000] flex flex-col justify-between relative overflow-hidden [transform-style:preserve-3d] [perspective:500px]`}>
-                <LoginPortal isTop={true} src={"/assets/png/portal1.png"} />
+                className={`relative min-h-[92vh] bg-gradient-to-b from-primary-600 to-primary-800 min-w-screen flex flex-col justify-between [transform-style:preserve-3d] [perspective:500px] overflow-hidden`}>
+                <LoginPortal isTop={true} src={"/assets/png/portalv2"} />
                 <LoginCard
                     whichForm="signIn"
                     cardStyle={cardStyle.signIn}
@@ -105,7 +103,7 @@ const SignIn: NextPage = () => {
                     cardStyle={cardStyle.resendEmail}
                     setWhichForm={changeCard}
                 />
-                <LoginPortal isTop={false} src={"/assets/png/portal1.png"} />
+                <LoginPortal isTop={false} src={"/assets/png/portalv2"} />
             </div>
         </>
     );
