@@ -33,7 +33,7 @@ const LoginCard: FunctionComponent<LoginCardProps> = ({
 }) => {
     return (
         <div
-            className="absolute px-5 py-8 min-w-[80vw] md:min-w-[350px] h-max bg-gradient-to-t from-secondary-950 to-secondary-900  backdrop-blur-sm rounded-md top-2/4 left-2/4 origin-bottom transition-all ease-suck-in bg-[#] text-accent-200"
+            className="absolute px-5 py-8 min-w-[80vw] md:min-w-[350px] h-max bg-gradient-to-t from-secondary-950 to-secondary-900 rounded-md top-2/4 left-2/4 origin-bottom transition-all ease-suck-in bg-[#] text-accent-200"
             style={cardStyle}>
             {whichForm === "signIn" ? (
                 <SignInForm
