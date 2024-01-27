@@ -1,19 +1,12 @@
 import { FC } from 'react';
 import { useQuery } from '@apollo/client';
-import { EventsDocument } from '@/src/generated/generated';
-import { BranchesDocument } from '@/src/generated/generated';
 import { AccommodationRequestsDocument} from '@/src/generated/generated';
 import Spinner from '@/src/components/spinner';
-import Badge from '@/src/components/badge';
 import AddAccommodateDetails from './AddAccommodateDetails';
 import ViewAccommodateDetails from './ViewAccommodateDetails';
-import { CreateAccommodationRequest } from '@/src/components/form/accommodation';
-import CollegesModal from '../admin/CollegesModal';
 import HotelModal from './HotelModal';
-// import ViewEvent from './ViewEventModal';
 
 const AccommodateTab : FC = () => {
-
   const {
     data: accommodationRequests,
     loading: accommodateLoading,
@@ -24,18 +17,18 @@ const AccommodateTab : FC = () => {
             {/* Admin Header */}
            
             <div className="flex gap-1 flex-col md:flex-row md:justify-center md:m-3 mt-6">
-                <div className="mt-5 flex gap-1 md:gap-0.5 flex-col justify-center basis-2/3">
-                        <div className='flex gap-3 items-center  ml-2'>
-                            <h1 className="text-2xl">Accommodation Requests</h1>
-                        </div>
+                <div className="mt-5 flex gap-1 md:gap-0.5 flex-col justify-between  basis-2/3">
+                        <div className='flex gap-3 items-center justify-between m-4'>
+                            <h1 className="text-3xl">Accommodation Requests</h1>
                         <div className='flex justify-center items-center'>
                     <HotelModal />
                 </div>
-                        <div className="hidden md:flex ml-2 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-t-lg p-1 items-center justify-between gap-4 text-lg font-bold h-20">
-                            <h1 className="basis-1/5 py-2.5 text-start pl-4">Name</h1>
-                            <h1 className="basis-1/5 py-2.5 text-center pl-4">Gender</h1>
-                            <h1 className="basis-1/5 py-2.5 text-center pl-4">CheckIn</h1>
-                            <h1 className="basis-1/5 py-2.5 text-center pl-4">CheckOut</h1>
+                        </div>
+                        <div className="hidden md:flex ml-2 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-t-lg p-8 items-center justify-between gap-8 text-lg font-bold h-20">
+                            <h1 className="basis-1/5 py-2.5 text-start">Name</h1>
+                            <h1 className="basis-1/5 py-2.5 text-center">Gender</h1>
+                            <h1 className="basis-1/5 py-2.5 text-center">CheckIn</h1>
+                            <h1 className="basis-1/5 py-2.5 text-center">CheckOut</h1>
                             <h1 className="basis-1/5 py-2.5 text-center pr-2">Hotel</h1>
                             <h1 className="basis-1/5 py-2.5 text-center ">Room No.</h1>
                             <h1 className="basis-1/5 py-2.5 text-center pr-2">Status</h1>
@@ -85,11 +78,6 @@ const AccommodateTab : FC = () => {
                                                                     }`}>{acc?.status}
                                     </h1>
                                     <h1 className="basis-1/6 py-0.5 flex text-center justify-center bg-slate text-lg">
-                                    {/* <PublishEventModal 
-                                        eventId={event?.node?.id as string}
-                                        eventName={event?.node?.name as string}
-                                        published={event?.node?.published as boolean}
-                                    /> */}
                                     <AddAccommodateDetails accId={acc?.id} />
                                     </h1>
                                     <ViewAccommodateDetails accId={acc?.user?.id} />
@@ -103,7 +91,6 @@ const AccommodateTab : FC = () => {
                             }
                             </>}
                         </div>
-						<CreateAccommodationRequest />
                     </div>  
                     
             </div>

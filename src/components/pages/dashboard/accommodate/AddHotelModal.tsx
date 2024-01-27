@@ -70,7 +70,7 @@ const AddHotelModal:FC = () => {
                             <textarea 
                                 id="collegeDescription" 
                                 className=" border  text-sm rounded-lg w-11/12   block p-2.5 py-10 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500" 
-                                placeholder="College Description..." 
+                                placeholder="Hotel Description..." 
                                 onChange={ (e) => {setHotelDescription(e.target.value)}}
                                 value={hotelDescription}
                             />
