@@ -107,6 +107,8 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
     setFilteredEvents(data || []);
   };
 
+  const backgroundImages = ["crash.png","mario.png","pac-man.png","lara-croft.png","pikachu.png","sonic.png","kratos.png"]
+
   return (
     <div className="overflow-x-hidden font-VikingHell" style={{ willChange: "transform" }}>
       <LocomotiveScrollProvider
@@ -126,13 +128,13 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
         <div className=" bg-gradient-to-bl from-black to-slate-900 min-h-screen relative">
           <div className="area">
             <ul className="circles">
-              {Array.from({ length: 30 }).map((_, i) => (
+              {backgroundImages.map((image, i) => (
                 <li key={i}>
                   <Image
-                    src={`/assets/png/eventsPageBg/${i+1<10 ? `0${i+1}` : i+1}.png`}
-                    alt={`Image ${i+1}`}
-                    width={30}
-                    height={30}
+                    src={`/assets/png/eventsPageBg/${image}`}
+                    alt={`${image}`}
+                    width={image==="sonic.png" ? 50 : 100}
+                    height={100}
                     className="text-white bodyFont"
                   />
                 </li>

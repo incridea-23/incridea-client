@@ -355,9 +355,6 @@
   list-style: none;
   animation: animate 25s linear infinite;
   bottom: -150px;
-  left: 10%;
-  animation-delay: 2s;
-  animation-duration: 24s;
 }
 
 .circles li:nth-child(1){
@@ -369,12 +366,12 @@
 .circles li:nth-child(2){
   left: 10%;
   animation-delay: 2s;
-  animation-duration: 12s;
+  animation-duration: 10s;
 }
 
 .circles li:nth-child(3){
   left: 70%;
-  animation-delay: 4s;
+  animation-delay: 14s;
 }
 
 .circles li:nth-child(4){
