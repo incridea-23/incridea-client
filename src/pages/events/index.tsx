@@ -9,6 +9,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { LocomotiveScrollProvider,useLocomotiveScroll } from "react-locomotive-scroll";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import Footer from "@/src/components/footer";
+import Image from "next/image";
 
 const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
   data,
@@ -125,16 +126,17 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
         <div className=" bg-gradient-to-bl from-black to-slate-900 min-h-screen relative">
           <div className="area">
             <ul className="circles">
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
+              {Array.from({ length: 30 }).map((_, i) => (
+                <li key={i}>
+                  <Image
+                    src={`/assets/png/eventsPageBg/${i+1<10 ? `0${i+1}` : i+1}.png`}
+                    alt={`Image ${i+1}`}
+                    width={30}
+                    height={30}
+                    className="text-white bodyFont"
+                  />
+                </li>
+              ))}
             </ul>
           </div>
           <div data-scroll-container ref={containerRef} className="relative px-10 flex flex-col items-center justify-center">
