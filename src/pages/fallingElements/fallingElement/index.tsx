@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 type srcProps = {
     src: string;
@@ -13,21 +14,34 @@ const getPosition: () => number = () => {
 };
 
 const FallingElement: React.FC<srcProps> = ({ src, size }: srcProps) => {
+    const [localSrc, setLocalSrc] = useState(src);
+    const [left, setLeft] = useState<number | null>(null);
+
+    useEffect(() => {
+        setLeft(getPosition());
+    }, []);
+    useEffect(()=>{
+        localSrc==="explode.png" ? setTimeout(()=>{setLocalSrc("")},150): null;
+    },[localSrc])
     return (
         <>
             <div
+                onClick={() => { localSrc === "bomb.png" ? setLocalSrc("explode.png") : null }}
                 className={`absolute bottom-0 animate-free-fall`}
                 style={{
-                    left: `${getPosition()}%`,
+                    left: `${left}%`,
                     width: `${size.width}px`,
                     height: `${size.height}px`,
                 }}>
-                <Image
-                    src={`/assets/png/${src}`}
-                    alt={src}
+                 {localSrc != "" ? <Image
+                    src={`/assets/png/${localSrc}`}
+                    alt={""}
                     width={size.width}
                     height={size.height}
-                />
+                />: null}   
+                
+
+
             </div>
         </>
     );
