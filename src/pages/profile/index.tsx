@@ -9,6 +9,7 @@ import Link from 'next/link';
 import Button from '@/src/components/button';
 import Image from 'next/image';
 import Loader from '@/src/components/Loader';
+import { useEffect } from 'react';
 
 const Profile: NextPage = () => {
   const { error, user, loading } = useAuth();
@@ -48,21 +49,21 @@ const Profile: NextPage = () => {
     <>
       <main
         ref={containerRef}
-        className="py-20 bg-black"
+        className=" h-dvh lg:p-20 bg-[#140F34] lg:h-screen"
       >
-        <div className='h-max w-full flex flex-col-reverse md:flex-row justify-center '>
+        <div className='flex lg:h-full flex-col-reverse lg:flex-row justify-around items-center lg:space-x-10 lg:mt-8'>
 
           {/* 2. Registered Events section & Teams section */}
-          <div className='h-dvh m-6 bg-zinc-900 rounded-lg p-5 shadow-2xl shadow-orange-500'>
+          <div className='h-full w-full rounded-lg lg:overflow-auto bg-[#ababab] backdrop-filter backdrop-blur-xl px-3 pb-5 bg-opacity-10 border-gray-200/30 '>
             <UserEvents userId={user?.id!} name={user.name} email={user.email} />
           </div>
 
           {/* 1. Profile Info section */}
-          <div className='h-dvh bg-zinc-900  m-6 rounded-lg p-10 flex items-center shadow-2xl shadow-orange-500'>
+          <div className='h-full w-full bg-[#ababab] backdrop-filter backdrop-blur-xl bg-opacity-10 rounded-xl border-gray-200/30'>
           <ProfileInfo user={user} />
           </div>
 
-        </div>
+        </div> 
       </main>
     </>
   );
