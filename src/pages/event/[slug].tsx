@@ -77,8 +77,10 @@ function event({ event, error }: { event: Event; error: String }) {
   return (
     <div className="bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6]">
       {event ? (
-        <section className="flex lg:flex-row flex-col gap-5 py-20 px-5 max-w-7xl mx-auto text-white">
-          <div className="basis-3/4 grow-0 space-y-4 sm:space-y-10 bg-black/20 backdrop-blur-sm p-0 sm:p-7 rounded-md">
+        // <section className="flex lg:flex-row flex-col gap-5 py-20 px-5 max-w-7xl mx-auto text-white">
+        <section className="flex lg:flex-row flex-col gap-5 py-20 px-5 max-w-7xl mx-auto text-black">
+          {/* <div className="basis-3/4 grow-0 space-y-4 sm:space-y-10 bg-black/20 backdrop-blur-sm p-0 sm:p-7 rounded-md"> */}
+          <div className="basis-3/4 grow-0 space-y-4 sm:space-y-10 bg backdrop-blur-sm p-0 sm:p-7 rounded-md">
             {event.image && (
               <Image
                 src={event.image as string}
@@ -89,7 +91,8 @@ function event({ event, error }: { event: Event; error: String }) {
               />
             )}
             <h1
-              className={`titleFont capitalize text-2xl sm:text-4xl px-4 pb-0 sm:p-0 font-bold text-white`}
+              // className={`titleFont capitalize text-2xl sm:text-4xl px-4 pb-0 sm:p-0 font-bold text-white`}
+              className={`titleFont capitalize text-2xl sm:text-4xl px-4 pb-0 sm:p-0 font-bold text-black`}
             >
               {event.name}
             </h1>
