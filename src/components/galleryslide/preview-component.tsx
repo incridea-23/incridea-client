@@ -99,7 +99,6 @@ const PreviewComponent = ({ imgArr }: { imgArr: string[] }) => {
         mousewheel={true}
         //@ts-ignore
         onSwiper={setThumbsSwiper}
-        centeredSlides={true}
         slidesPerView={10}
         speed={500}
         freeMode={true}
