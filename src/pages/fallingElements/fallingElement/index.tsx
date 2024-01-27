@@ -16,7 +16,7 @@ const FallingElement: React.FC<srcProps> = ({ src, size }: srcProps) => {
     return (
         <>
             <div
-                className={`absolute animate-free-fall`}
+                className={`absolute bottom-0 animate-free-fall`}
                 style={{
                     left: `${getPosition()}%`,
                     width: `${size.width}px`,

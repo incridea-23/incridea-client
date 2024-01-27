@@ -32,7 +32,7 @@ const FallingElements: React.FC = () => {
     useEffect(() => {
         const intervalId = setInterval(() => {
             setFallingElements((prev) => [
-                ...prev,
+                ...prev.slice(prev.length < 5 ? 0 : 1, 5),
                 <FallingElement
                     src={elements[getElement()]}
                     size={getSize()}
