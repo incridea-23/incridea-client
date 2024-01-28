@@ -1,0 +1,33 @@
+query AccommodationRequestByHotel($name: String!) {
+  accommodationRequestByHotel(name: $name) {
+    checkIn
+    checkOut
+    createdAt
+    gender
+    id
+    room
+    ac
+    status
+    updatedAt
+    hotel {
+      createdAt
+      details
+      id
+      name
+      price
+      updatedAt
+    }
+    user {
+      college {
+        id
+        name
+      }
+      createdAt
+      email
+      id
+      isVerified
+      name
+      phoneNumber
+    }
+  }
+}

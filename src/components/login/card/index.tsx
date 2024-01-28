@@ -4,7 +4,7 @@ import SignInForm from "../../form/login/signInForm";
 import ResetPasswordForm from "../../form/login/resetPasswordForm";
 import SignUpForm from "../../form/signUp";
 import ResendEmail from "../../form/login/resendEmailForm";
-import AccommodationForm from "../../form/accommodation";
+import CreateAccommodationRequest from "../../form/accommodation";
 
 type LoginCardProps = {
     whichForm:
@@ -47,7 +47,7 @@ const LoginCard: FunctionComponent<LoginCardProps> = ({
             ) : whichForm === "resendEmail" ? (
                 <ResendEmail setWhichForm={setWhichForm} />
             ) : (
-                <AccommodationForm setWhichForm={setWhichForm} />
+                <CreateAccommodationRequest setWhichForm={setWhichForm} />
             )}
         </div>
     );
