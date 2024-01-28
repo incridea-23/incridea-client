@@ -156,7 +156,8 @@ return (
               alt="arrow-previous"
               width={50}
               height={50}
-              className="drop-shadow-2xl rotate-180 w-12 h-12 md:w-20 md:h-20"
+              className="rotate-180 w-12 h-12 md:w-20 md:h-20"
+              style={{filter:"drop-shadow(0px 0px 8px white)"}}
             ></Image>
           </button>
           <button
@@ -185,6 +186,7 @@ return (
               width={50}
               height={50}
               className="w-12 h-12 md:w-20 md:h-20"
+              style={{filter:"drop-shadow(0px 0px 8px white)"}}
             ></Image>
           </button>
         </div>
