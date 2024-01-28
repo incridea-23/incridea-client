@@ -1,12 +1,16 @@
 import { FooterBody } from "@/src/components/footer";
 import GallerySlide from "@/src/components/galleryslide";
+import ProgressBar from "@/src/components/galleryslide/progress-bar";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import gsap from "gsap";
 import { NextPage } from "next";
 import Image from "next/image";
 import { useLayoutEffect, useRef, useState } from "react";
-import { Autoplay, Navigation, Swiper as SwiperType } from "swiper";
+import { Autoplay, Navigation, Pagination, Swiper as SwiperType } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 const Gallery: NextPage = () => {
   const [activeYear, setActiveYear] = useState<number>(0);
@@ -31,7 +35,6 @@ const Gallery: NextPage = () => {
   };
 
   useLayoutEffect(() => {
-
     const ctx = gsap.context(() => {
       const t1 = gsap.timeline();
       t1.from("#animation", {
@@ -56,142 +59,164 @@ const Gallery: NextPage = () => {
   const y = useMotionValue(0.5);
   const mouseXSpring = useSpring(x);
   const mouseYSpring = useSpring(y);
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['37.5deg', '-37.5deg']);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-17.5deg', '17.5deg']);
-//   window.addEventListener('deviceorientation', (evt) => {
-//     if (evt.alpha !== null && evt.beta !== null) {
-//       const xPct = evt.alpha / window.innerWidth - 0.5;
-//       const yPct = evt.beta / window.innerHeight - 0.5;
-//       const element = document.getElementById('stars')
-//       if(element) element.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`
-//   }
-// });
-const tiltStars = (e: any) => {
-  const xPct = e.clientX / window.innerWidth - 0.5;
-  const yPct = e.clientY / window.innerHeight - 0.5;
-  x.set(xPct);
-  y.set(yPct);
-};
+  const rotateX = useTransform(
+    mouseYSpring,
+    [-0.5, 0.5],
+    ["37.5deg", "-37.5deg"]
+  );
+  const rotateY = useTransform(
+    mouseXSpring,
+    [-0.5, 0.5],
+    ["-17.5deg", "17.5deg"]
+  );
+  //   window.addEventListener('deviceorientation', (evt) => {
+  //     if (evt.alpha !== null && evt.beta !== null) {
+  //       const xPct = evt.alpha / window.innerWidth - 0.5;
+  //       const yPct = evt.beta / window.innerHeight - 0.5;
+  //       const element = document.getElementById('stars')
+  //       if(element) element.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`
+  //   }
+  // });
+  const tiltStars = (e: any) => {
+    const xPct = e.clientX / window.innerWidth - 0.5;
+    const yPct = e.clientY / window.innerHeight - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
 
-return (
-  <section className="flex flex-col w-full h-screen bg-[url('/assets/png/galleryBg.png')] bg-cover bg-center relative overflow-hidden" onMouseMove={tiltStars}>
-    <motion.div className={"absolute w-full h-full bg-[url('/assets/png/galleryBgStars.png')] bg-cover bg-center"} id="stars" style={{ rotateY, rotateX }} ></motion.div>
-    {/* <div className="min-h-screen text-5xl text-gray-200">
+  return (
+    <section
+      className="flex flex-col w-full h-screen bg-[url('/assets/png/galleryBg.png')] bg-cover bg-center relative overflow-hidden"
+      onMouseMove={tiltStars}
+    >
+      <motion.div
+        className={
+          "absolute w-full h-full bg-[url('/assets/png/galleryBgStars.png')] bg-cover bg-center"
+        }
+        id="stars"
+        style={{ rotateY, rotateX }}
+      ></motion.div>
+      {/* <div className="min-h-screen text-5xl text-gray-200">
         <div className="absolute top-1/2 left-1/2 -translate-x-[50%]">
           <p>Header Section</p>
           <p className="text-3xl mt-2 text-center">Real nice Quotes</p>
         </div>
         <div className="absolute bottom-8 w-3/4 bg-white left-1/2 -translate-x-[50%] h-[2px]"></div>
       </div> */}
-    {/* Pc Section */}
-    <div className="min-h-screen overflow-y-auto">
-      {/* Slide Section */}
-      <div className="text-black text-5xl">{/* Title {Incridea year} */}</div>
-      <Swiper
-        autoplay={false}
-        onBeforeInit={(swiper) => {
-          swiperRef.current = swiper;
-        }}
-        speed={900}
-        spaceBetween={200}
-        noSwiping={true}
-        allowTouchMove={false}
-        className="sm:w-full h-full relative flex"
-      >
-        <SwiperSlide className="flex justify-center items-center text-center">
-          <div className="relative w-full h-full flex justify-center items-center">
-            <GallerySlide title={"2022"} imgArr={img2019} emulator="gba" />
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className="flex justify-center items-center text-center">
-          <div className="relative w-full h-full flex justify-center items-center">
-            <GallerySlide
-              title={"2022"}
-              imgArr={img2019}
-              emulator="retroPC"
-            />
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className="flex justify-center items-center text-center">
-          <div className="relative w-full h-full flex justify-center items-center">
-            <GallerySlide
-              title={"2022"}
-              imgArr={img2019}
-              emulator="retroTV"
-            />
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className="flex justify-center items-center text-center">
-          <div className="relative w-full h-full flex justify-center items-center">
-            <GallerySlide
-              title={"2022"}
-              imgArr={img2019}
-              emulator="console"
-            />
-          </div>
-        </SwiperSlide>
-        <div className="mx-auto flex gap-4 absolute top-[85%] justify-between px-20 w-full">
-          <button
-            id="float"
-            onClick={async () => {
-              if (activeYear !== 0) {
-                await gsap.to("#animation", {
-                  y: -90,
-                  // boxShadow: "0px 10px 67px 20px rgba(0,0,0,0.25)",
-                  filter: "drop-shadow(0px 10px 20px rgba(0,0,0,0.45))",
-                  duration: 1,
-                });
-              }
+      {/* Pc Section */}
+      <div className="min-h-screen overflow-y-auto">
+        {/* Slide Section */}
+        <div className="text-black text-5xl">{/* Title {Incridea year} */}</div>
+        <Swiper
+          autoplay={false}
+          onBeforeInit={(swiper) => {
+            swiperRef.current = swiper;
+          }}
+          pagination={{
+            type: "progressbar",
+          }}
+          modules={[Pagination]}
+          speed={900}
+          spaceBetween={200}
+          noSwiping={true}
+          allowTouchMove={false}
+          className="sm:w-full h-full relative flex"
+        >
+          <SwiperSlide className="flex justify-center items-center text-center">
+            <div className="relative w-full h-full flex justify-center items-center">
+              <GallerySlide title={"2022"} imgArr={img2019} emulator="gba" />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className="flex justify-center items-center text-center">
+            <div className="relative w-full h-full flex justify-center items-center">
+              <GallerySlide
+                title={"2022"}
+                imgArr={img2019}
+                emulator="retroPC"
+              />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className="flex justify-center items-center text-center">
+            <div className="relative w-full h-full flex justify-center items-center">
+              <GallerySlide
+                title={"2022"}
+                imgArr={img2019}
+                emulator="retroTV"
+              />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className="flex justify-center items-center text-center">
+            <div className="relative w-full h-full flex justify-center items-center">
+              <GallerySlide
+                title={"2022"}
+                imgArr={img2019}
+                emulator="console"
+              />
+            </div>
+          </SwiperSlide>
+          <div className="mx-auto flex gap-4 absolute top-[85%] justify-between px-20 w-full">
+            <button
+              id="float"
+              onClick={async () => {
+                if (activeYear !== 0) {
+                  await gsap.to("#animation", {
+                    y: -90,
+                    // boxShadow: "0px 10px 67px 20px rgba(0,0,0,0.25)",
+                    filter: "drop-shadow(0px 10px 20px rgba(0,0,0,0.45))",
+                    duration: 1,
+                  });
+                }
 
-              setActiveYear((cur) => {
-                if (cur === 0) return cur;
-                return --cur;
-              });
-              return swiperRef.current?.slidePrev();
-            }}
-            className={`h-6 w-auto z-10 duration-300 transition-all ease-in-out`}
-          >
-            <Image
-              src="/assets/svg/8bitArrow.svg"
-              alt="arrow-previous"
-              width={50}
-              height={50}
-              className="drop-shadow-2xl rotate-180 w-12 h-12 md:w-20 md:h-20"
-            ></Image>
-          </button>
-          <button
-            id="float"
-            onClick={async () => {
-              if (activeYear < years.length - 1) {
-                await gsap.to("#animation", {
-                  y: -90,
-                  // boxShadow: "0px 10px 67px 20px rgba(0,0,0,0.25)",
-                  filter: "drop-shadow(0px 10px 20px rgba(0,0,0,0.45))",
-                  duration: 1,
+                setActiveYear((cur) => {
+                  if (cur === 0) return cur;
+                  return --cur;
                 });
-              }
+                return swiperRef.current?.slidePrev();
+              }}
+              className={`h-6 w-auto z-10 duration-300 transition-all ease-in-out`}
+            >
+              <Image
+                src="/assets/svg/8bitArrow.svg"
+                alt="arrow-previous"
+                width={50}
+                height={50}
+                className="drop-shadow-2xl rotate-180 w-12 h-12 md:w-20 md:h-20"
+              ></Image>
+            </button>
+            <button
+              id="float"
+              onClick={async () => {
+                if (activeYear < years.length) {
+                  await gsap.to("#animation", {
+                    y: -90,
+                    // boxShadow: "0px 10px 67px 20px rgba(0,0,0,0.25)",
+                    filter: "drop-shadow(0px 10px 20px rgba(0,0,0,0.45))",
+                    duration: 1,
+                  });
+                }
 
-              setActiveYear((cur) => {
-                if (cur === years.length) return cur;
-                return ++cur;
-              });
-              return swiperRef.current?.slideNext();
-            }}
-            className="z-10 h-6 w-auto duration-300 transition-all ease-in-out"
-          >
-            <Image
-              src="/assets/svg/8bitArrow.svg"
-              alt="arrow-next"
-              width={50}
-              height={50}
-              className="w-12 h-12 md:w-20 md:h-20"
-            ></Image>
-          </button>
-        </div>
-      </Swiper>
-    </div>
-  </section>
-);
+                setActiveYear((cur) => {
+                  if (cur === years.length) return cur;
+                  return ++cur;
+                });
+                return swiperRef.current?.slideNext();
+              }}
+              className="z-10 h-6 w-auto duration-300 transition-all ease-in-out"
+            >
+              <Image
+                src="/assets/svg/8bitArrow.svg"
+                alt="arrow-next"
+                width={50}
+                height={50}
+                className="w-12 h-12 md:w-20 md:h-20"
+              ></Image>
+            </button>
+          </div>
+        </Swiper>
+      </div>
+      <ProgressBar year={activeYear}></ProgressBar>
+    </section>
+  );
 
   // return (
   //   <div className="flex flex-col h-screen w-full overflow-x-hidden overflow-y-auto text-gray-100 bg-gradient-to-b from-[#2d6aa6] to-[#052749] snap-y snap-mandatory relative">

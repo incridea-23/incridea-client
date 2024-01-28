@@ -1,6 +1,7 @@
 import { baseImageUrl } from "@/src/utils/url";
 import Image from "next/image";
 import React, { useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import {
   Autoplay,
   FreeMode,
@@ -16,6 +17,7 @@ import "swiper/css/thumbs";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const PreviewComponent = ({ imgArr }: { imgArr: string[] }) => {
+  const isMediumScreen = useMediaQuery({ query: "(min-width: 800px)" });
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   return (
     // <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 p-20 gap-6 border-black">
@@ -68,7 +70,7 @@ const PreviewComponent = ({ imgArr }: { imgArr: string[] }) => {
           swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
         }}
         autoplay={true}
-        className="w-[80%] h-[80vh] md:z-50 md:border-none mt-[2vh]"
+        className="md:w-[80%] md:h-[80vh] h-[30vh] w-[90%] md:z-50 md:border-none md:mt-[2vh]"
       >
         {imgArr.map((img, index) => {
           return (
@@ -99,13 +101,13 @@ const PreviewComponent = ({ imgArr }: { imgArr: string[] }) => {
         mousewheel={true}
         //@ts-ignore
         onSwiper={setThumbsSwiper}
-        slidesPerView={10}
+        slidesPerView={!isMediumScreen ? 5 : 10}
         speed={500}
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
         autoplay={true}
-        className="w-full h-[16vh] md:z-50 absolute mb-[2vh]"
+        className="w-full h-[12vh] md:z-50 absolute md:mb-[2vh]"
       >
         {imgArr.map((img, index) => {
           return (
