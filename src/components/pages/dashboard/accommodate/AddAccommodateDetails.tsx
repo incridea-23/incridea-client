@@ -129,7 +129,7 @@ const AddAccommodateDetails: FC<{
             </select>
             <Button
               intent={"info"}
-              className="flex gap-2 items-center justify-center"
+              className="flex gap-2 mt-4 items-center justify-center"
               size={"medium"}
               onClick={() => handleUpdate()}
             >
