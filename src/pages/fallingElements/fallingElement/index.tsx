@@ -21,12 +21,12 @@ const FallingElement: React.FC<srcProps> = ({ src, size }: srcProps) => {
         setLeft(getPosition());
     }, []);
     useEffect(()=>{
-        localSrc==="explode.png" ? setTimeout(()=>{setLocalSrc("")},500): null;
+        localSrc==="explodeGif.gif" ? setTimeout(()=>{setLocalSrc("")},1000): null;
     },[localSrc])
     return (
         <>
             <div
-                onClick={() => { localSrc === "bomb.png" ? setLocalSrc("explode.png") : null }}
+                onClick={() => { localSrc === "bomb.png" ? setLocalSrc("explodeGif.gif") : null }}
                 className={`absolute bottom-0 animate-free-fall`}
                 style={{
                     left: `${left}%`,
@@ -43,6 +43,7 @@ const FallingElement: React.FC<srcProps> = ({ src, size }: srcProps) => {
 
 
             </div>
+            
         </>
     );
 };
