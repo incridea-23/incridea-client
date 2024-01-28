@@ -17,30 +17,39 @@ const LoginPortal: FunctionComponent<LoginPortalProps> = ({ isTop, src }) => {
     return (
         <>
             <div
-                className={`absolute left-2/4 -translate-x-2/4 z-50 w-[110vw] md:w-[700px]`}
+                className={`absolute left-2/4 -translate-x-2/4 z-50 h-[100px] w-[115vw] md:w-[750px]`}
                 style={isTop ? { top: "-25px" } : { bottom: "-15px" }}>
                 <Image
                     fill={true}
-                    src={`${src}1.png`}
+                    src={
+                        isTop
+                            ? "/assets/png/portalv71.png"
+                            : "/assets/png/portalv72.png"
+                    }
                     alt={"portal"}
                     priority
                 />
             </div>
 
             {/* <div
-                className={`absolute left-2/4 -translate-x-2/4 z-40 w-full md:w-[750px] bg-black`}
-                style={isTop ? TOP_PORTAL_STYLE : BOTTOM_PORTAL_STYLE}></div> */}
+                className={`absolute left-2/4 -translate-x-2/4 z-40 h-20 w-full md:w-[750px] bg-black`}
+                style={isTop ? { top: "-25px" } : { bottom: "-15px" }}></div> */}
 
             {isTop && (
-                <div className="absolute left-2/4 -translate-x-2/4 -z-40 h-0 w-[70vw] md:w-[500px]">
+                <div className="absolute left-2/4 -translate-x-2/4 -z-40 h-1 bg-red-500 w-[65vw] md:w-[400px]">
                     <FallingElements />
                 </div>
             )}
 
             <div
-                className={`absolute left-2/4 -translate-x-2/4 -z-50 h-[100px] w-[110vw] md:w-[700px]`}
+                className={`absolute left-2/4 -translate-x-2/4 -z-50 h-[100px] w-[115vw] md:w-[750px]`}
                 style={isTop ? { top: "-25px" } : { bottom: "-15px" }}>
-                <Image fill={true} src={`${src}.png`} alt={"portal"} priority />
+                <Image
+                    fill={true}
+                    src={"/assets/png/portalv7.png"}
+                    alt={"portal"}
+                    priority
+                />
             </div>
         </>
     );
