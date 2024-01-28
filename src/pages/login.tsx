@@ -8,6 +8,8 @@ import Image from "next/image";
 type CardStyle = {
     top: string;
     transitionDuration: string;
+    opacity?: string;
+    pointerEvents?: string;
     transform: string;
 };
 
@@ -15,11 +17,15 @@ const CARD_SWITCH_DURATION: number = 1000;
 const CARD_TOP_STYLE: CardStyle = {
         top: "-50%",
         transitionDuration: "0s",
+        opacity: "0%",
+        pointerEvents: "none",
         transform: `translate(-50%, -50%) rotateX(45deg) scaleX(-0.2)`,
     },
     CARD_NEUTRAL_STYLE: CardStyle = {
         top: "50%",
         transitionDuration: `${CARD_SWITCH_DURATION}ms`,
+        opacity: "100%",
+        pointerEvents: "auto",
         transform: `translate(-50%, -50%) rotateX(0deg) scaleX(1)`,
     },
     CARD_BOTTOM_STYLE: CardStyle = {
@@ -133,7 +139,7 @@ const SignIn: NextPage = () => {
             <Image
                 fill={true}
                 className="object-cover mt-16"
-                src={"/assets/png/loginBG.png"}
+                src={"/assets/svg/loginBGv4.svg"}
                 alt={"loginBG"}
                 quality={100}
                 priority

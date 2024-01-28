@@ -135,7 +135,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
 
                 <div className="flex flex-col md:mt-2 mt-3 relative text-center">
                     <hr className="my-3 border-accent-50" />
-                    <h4 className="absolute top-0.5 translate-x-1/2 w-max mx-auto bg-secondary-900 rounded-full text-accent-50 right-1/2 px-3 py-[1px] text-sm">
+                    <h4 className="absolute top-0.5 translate-x-1/2 w-max mx-auto bg-[#1f2e97] rounded-full text-accent-50 right-1/2 px-3 py-[1px] text-sm">
                         New here?
                     </h4>
                     <Button

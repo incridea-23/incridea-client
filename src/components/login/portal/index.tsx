@@ -16,8 +16,9 @@ const LoginPortal: FunctionComponent<LoginPortalProps> = ({ isTop }) => {
     return (
         <>
             <div
-                className={`absolute left-2/4 -translate-x-2/4 z-50 h-[110px] w-[115vw] md:w-[750px]`}
-                style={isTop ? { top: "-25px" } : { bottom: "-15px" }}>
+                className={`absolute left-2/4 ${
+                    isTop ? "-top-[25px]" : "-bottom-[20px]"
+                } -translate-x-2/4 z-50 h-[110px] w-[115vw] md:w-[750px]`}>
                 <Image
                     fill={true}
                     src={
@@ -32,12 +33,13 @@ const LoginPortal: FunctionComponent<LoginPortalProps> = ({ isTop }) => {
             </div>
 
             <div
-                className={`absolute left-2/4 -translate-x-2/4 z-40 h-[50px] w-[85vw] md:w-[490px] ${
+                className={`absolute left-2/4 ${
+                    isTop ? "-top-[25px]" : "-bottom-[20px]"
+                } -translate-x-2/4 z-40 h-[50px] w-[85vw] md:w-[490px] pointer-events-none ${
                     isTop
                         ? "bg-[#7449d8]"
                         : "bg-gradient-to-r from-[#2c1387] to-[#8c2ef3]"
-                }`}
-                style={isTop ? { top: "-25px" } : { bottom: "-15px" }}></div>
+                }`}></div>
 
             {isTop && (
                 <div className="absolute left-2/4 -translate-x-2/4 -z-40 h-0 w-[65vw] md:w-[490px]">
@@ -46,8 +48,9 @@ const LoginPortal: FunctionComponent<LoginPortalProps> = ({ isTop }) => {
             )}
 
             <div
-                className={`absolute left-2/4 -translate-x-2/4 -z-50 h-[110px] w-[115vw] md:w-[750px]`}
-                style={isTop ? { top: "-25px" } : { bottom: "-15px" }}>
+                className={`absolute left-2/4 ${
+                    isTop ? "-top-[25px]" : "-bottom-[20px]"
+                } -translate-x-2/4 -z-50 h-[110px] w-[115vw] md:w-[750px]`}>
                 <Image
                     fill={true}
                     src={

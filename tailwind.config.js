@@ -25,14 +25,9 @@ module.exports = {
                 fall: {
                     "0%": {
                         transform: "translateY(0) rotate(0deg)",
-                        opacity: 1,
-                    },
-                    "80%": {
-                        opacity: 1,
                     },
                     "100% ": {
-                        transform: "translateY(85vh) rotate(360deg)",
-                        opacity: 0,
+                        transform: "translateY(100vh) rotate(360deg)",
                     },
                 },
             },
