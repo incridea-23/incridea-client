@@ -14,7 +14,6 @@ query Me {
         createdAt
         email
         id
-        totalXp
         isVerified
         name
         phoneNumber
