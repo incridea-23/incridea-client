@@ -33,53 +33,51 @@ const Gallery: NextPage = () => {
     }
     return imagePaths;
   };
+  const x = useMotionValue(0.5);
+  const y = useMotionValue(0.5);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const t1 = gsap.timeline();
       t1.from("#animation", {
-        delay: 1,
-        filter: "drop-shadow(0px 10px 20px rgba(0,0,0,0.45))",
+        delay: 0.3,
+        filter: "drop-shadow(0px 0px 0px white)",
         y: -90,
         // boxShadow: "0px 10px 67px 40px rgba(0,0,0,0.25)",
       }).to("#animation", {
         y: 0,
-        filter: "drop-shadow(0px 10px 80px rgba(0,0,0,0.75))",
+        filter: "drop-shadow(0px 0px 2vw white)",
         // boxShadow: "0px 10px 67px 90px rgba(0,0,0,0.25)",
-        duration: 1,
+        duration: 0.5,
       });
     });
-  }, [activeYear]);
+    window?.addEventListener("deviceorientation", (evt) => {
+      let xAng = evt.gamma;
+      xAng ? x.set(xAng / 100) : null;
+      let yAng = evt.beta;
+      yAng ? y.set(yAng / 100) : null;
+    });
+  }, [activeYear, x, y]);
   const img2019: string[] = generateImagePaths(years[0], imageCounts[0], "jpg");
   const img2020: string[] = generateImagePaths(years[1], imageCounts[1], "jpg");
   const img2022: string[] = generateImagePaths(years[2], imageCounts[2], "jpg");
   const img2023: string[] = generateImagePaths(years[3], imageCounts[3], "jpg");
 
-  const x = useMotionValue(0.5);
-  const y = useMotionValue(0.5);
   const mouseXSpring = useSpring(x);
   const mouseYSpring = useSpring(y);
   const rotateX = useTransform(
     mouseYSpring,
-    [-0.5, 0.5],
-    ["37.5deg", "-37.5deg"]
+    [-1.8, 1.8],
+    ["150deg", "-150deg"]
   );
   const rotateY = useTransform(
     mouseXSpring,
-    [-0.5, 0.5],
-    ["-17.5deg", "17.5deg"]
+    [-1.8, 1.8],
+    ["-150deg", "150deg"]
   );
-  //   window.addEventListener('deviceorientation', (evt) => {
-  //     if (evt.alpha !== null && evt.beta !== null) {
-  //       const xPct = evt.alpha / window.innerWidth - 0.5;
-  //       const yPct = evt.beta / window.innerHeight - 0.5;
-  //       const element = document.getElementById('stars')
-  //       if(element) element.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`
-  //   }
-  // });
   const tiltStars = (e: any) => {
-    const xPct = e.clientX / window.innerWidth - 0.5;
-    const yPct = e.clientY / window.innerHeight - 0.5;
+    const xPct = (e.clientX / window.innerWidth - 0.5) * 0.4;
+    const yPct = (e.clientY / window.innerHeight - 0.5) * 0.4;
     x.set(xPct);
     y.set(yPct);
   };
@@ -162,8 +160,8 @@ const Gallery: NextPage = () => {
                   await gsap.to("#animation", {
                     y: -90,
                     // boxShadow: "0px 10px 67px 20px rgba(0,0,0,0.25)",
-                    filter: "drop-shadow(0px 10px 20px rgba(0,0,0,0.45))",
-                    duration: 1,
+                    filter: "drop-shadow(0px 0px 0px white)",
+                    duration: 0.2,
                   });
                 }
 
@@ -173,14 +171,15 @@ const Gallery: NextPage = () => {
                 });
                 return swiperRef.current?.slidePrev();
               }}
-              className={`h-6 w-auto z-10 duration-300 transition-all ease-in-out`}
+              className={`h-6 w-auto z-10 duration-75 transition-all ease-in-out`}
             >
               <Image
                 src="/assets/svg/8bitArrow.svg"
                 alt="arrow-previous"
                 width={50}
                 height={50}
-                className="drop-shadow-2xl rotate-180 w-12 h-12 md:w-20 md:h-20"
+                className="rotate-180 w-12 h-12 md:w-20 md:h-20"
+                style={{ filter: "drop-shadow(0px 0px 8px white)" }}
               ></Image>
             </button>
             <button
@@ -190,8 +189,8 @@ const Gallery: NextPage = () => {
                   await gsap.to("#animation", {
                     y: -90,
                     // boxShadow: "0px 10px 67px 20px rgba(0,0,0,0.25)",
-                    filter: "drop-shadow(0px 10px 20px rgba(0,0,0,0.45))",
-                    duration: 1,
+                    filter: "drop-shadow(0px 0px 0px white)",
+                    duration: 0.2,
                   });
                 }
 
@@ -201,7 +200,7 @@ const Gallery: NextPage = () => {
                 });
                 return swiperRef.current?.slideNext();
               }}
-              className="z-10 h-6 w-auto duration-300 transition-all ease-in-out"
+              className="z-10 h-6 w-auto duration-75 transition-all ease-in-out"
             >
               <Image
                 src="/assets/svg/8bitArrow.svg"
@@ -209,6 +208,7 @@ const Gallery: NextPage = () => {
                 width={50}
                 height={50}
                 className="w-12 h-12 md:w-20 md:h-20"
+                style={{ filter: "drop-shadow(0px 0px 8px white)" }}
               ></Image>
             </button>
           </div>

@@ -30,10 +30,10 @@ const RetroPC = ({ imgArr }: { imgArr: string[] }) => {
   return (
     <div
       id="animation"
-      className="relative rounded-[85px] flex justify-center items-center w-[40vw] h-[60vw] mx-auto md:scale-[120%] scale-[260%]"
+      className="relative rounded-[85px] flex justify-center items-center w-[40svw] h-[60svw] mx-auto md:scale-[120%] scale-[260%]"
     >
       <Image fill priority src={retroPCSVG} alt="svg" id="image"></Image>
-      <div className="absolute w-[50vw] h-[23.6vw] right-[5vw] top-[19vw] z-10">
+      <div className="absolute w-[50svw] h-[23.6svw] right-[5svw] top-[19svw] z-10">
         <Swiper
           onBeforeInit={(swiper) => {
             swiperRef.current = swiper;
@@ -41,7 +41,7 @@ const RetroPC = ({ imgArr }: { imgArr: string[] }) => {
           mousewheel={true}
           modules={[Navigation, Autoplay, Mousewheel]}
           autoplay={true}
-          className="w-[32.2vw] h-[25.3vw] -top-[7.3vw] left-[10vw] z-50 relative"
+          className="w-[32.2svw] h-[25.3svw] -top-[7.3svw] left-[10svw] z-50 relative"
         >
           {imgArr.map((img, index) => {
             return (
@@ -71,11 +71,11 @@ const RetroPC = ({ imgArr }: { imgArr: string[] }) => {
 
         <button
           onClick={() => swiperRef.current?.slidePrev()}
-          className={`active:bg-gray-800 bg-black opacity-40 absolute top-[19.2vw] left-[vw] w-[4.2vw] h-[1.3vw] rounded-lg duration-300 transition-all ease-in-out border-yellow-300 border-2 animate-`}
+          className={`active:bg-gray-800 bg-black opacity-40 absolute top-[19.2svw] left-[svw] w-[4.2svw] h-[1.3svw] rounded-lg duration-300 transition-all ease-in-out border-yellow-300 border-2 animate-`}
         ></button>
         <button
           onClick={() => swiperRef.current?.slideNext()}
-          className="active:bg-gray-800 bg-black opacity-40 absolute top-[19.2vw] left-[40.7vw] w-[4.2vw] h-[1.3vw] rounded-lg duration-300 transition-all ease-in-out border-yellow-300 border-2 animate-"
+          className="active:bg-gray-800 bg-black opacity-40 absolute top-[19.2svw] left-[40.7svw] w-[4.2svw] h-[1.3svw] rounded-lg duration-300 transition-all ease-in-out border-yellow-300 border-2 animate-"
         ></button>
       </div>
     </div>

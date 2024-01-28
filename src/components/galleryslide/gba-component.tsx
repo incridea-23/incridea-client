@@ -26,7 +26,7 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
       }).to("#animation", {
         y: 0,
         // boxShadow: "0px 10px 67px 90px rgba(0,0,0,0.25)",
-        filter: "drop-shadow(0px 10px 90px rgba(0,0,0,0.45))",
+        filter: "drop-shadow(0px 0px 2vw white)",
         duration: 1,
       });
     });

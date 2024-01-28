@@ -69,7 +69,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ year }) => {
         <div key={index} className={styles["progress-step"]}>
           {index < filledSteps && (
             <Image
-              src={`/assets/svg/${index}.svg`}
+              src={`/assets/svg/beach.svg`}
               alt={`Step ${index + 1}`}
               width={50}
               height={50}
@@ -81,7 +81,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ year }) => {
       ))}
       {/* Character SVG */}
       <Image
-        src="/assets/svg/beach.svg" 
+        src="/assets/svg/beach.svg"
         alt="Character"
         width={50}
         height={50}
