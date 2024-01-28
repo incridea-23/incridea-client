@@ -9,7 +9,7 @@ type CardStyle = {
     top: string;
     transitionDuration: string;
     opacity?: string;
-    pointerEvents?: string;
+    pointerEvents?: React.CSSProperties["pointerEvents"];
     transform: string;
 };
 
@@ -96,45 +96,6 @@ const SignIn: NextPage = () => {
 
     return (
         <>
-            {/* HACK: remove me */}
-            <div className="fixed top-1/2 gap-2 z-50 left-0 flex flex-col opacity-30">
-                <button
-                    className="bg-red-700 text-slate-100"
-                    onClick={() => {
-                        changeCard("signIn");
-                    }}>
-                    signIn
-                </button>
-                <button
-                    className="bg-red-700 text-slate-100"
-                    onClick={() => {
-                        changeCard("signUp");
-                    }}>
-                    signUp
-                </button>
-                <button
-                    className="bg-red-700 text-slate-100"
-                    onClick={() => {
-                        changeCard("resendEmail");
-                    }}>
-                    resendEmail
-                </button>
-                <button
-                    className="bg-red-700 text-slate-100"
-                    onClick={() => {
-                        changeCard("resetPassword");
-                    }}>
-                    resetPassword
-                </button>
-                <button
-                    className="bg-red-700 text-slate-100"
-                    onClick={() => {
-                        changeCard("accommodation");
-                    }}>
-                    accommodation
-                </button>
-            </div>
-
             <div className="h-16 bg-[#6a5fd7]"></div>
             <Image
                 fill={true}

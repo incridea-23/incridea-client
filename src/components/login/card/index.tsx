@@ -32,8 +32,6 @@ const LoginCard: FunctionComponent<LoginCardProps> = ({
     redirectUrl,
 }) => {
     return (
-        // bg-gradient-to-b from-secondary-900 to-secondary-950
-        //
         <div
             className="absolute px-5 py-8 min-w-[80vw] md:min-w-[350px] h-max bg-gradient-to-b from-[#1f2e97] to-[#090d4b] rounded-md top-2/4 left-2/4 origin-bottom transition-all ease-suck-in shadow-[0_0_18px_1px_#141e73] md:shadow-[0_0_20px_2px_#141e73] text-accent-200"
             style={cardStyle}>
