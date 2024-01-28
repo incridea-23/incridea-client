@@ -11,16 +11,21 @@ import scene1 from "../../../public/assets/3d/state3.json";
 import studio from "@theatre/studio";
 import Annotation from "@/src/components/scene/annotation";
 import dynamic from "next/dynamic";
+import useStore from "@/src/components/store/store";
+import BookModal from "@/src/components/explore/BookModal";
 const Scene1 = dynamic(() => import("@/src/components/scene/scene1"), {
   ssr: false,
 });
 
-studio.extend(extension);
-studio.initialize();
+// studio.extend(extension);
+// studio.initialize();
 
 const demoSheet = getProject("Scene 1", { state: scene1 }).sheet("Scene 1");
 const App = () => {
   const modalRef = useRef(null);
+  const sponsorBookRef = useRef(null);
+  const eventDex = useStore((state) => state.eventDex);
+  const sponsor = useStore((state) => state.sponsor);
   // useEffect(() => {
   //   demoSheet.project.ready.then(() =>
   //     demoSheet.sequence.play({ iterationCount: Infinity, range: [0, 1] })
@@ -65,6 +70,9 @@ const App = () => {
         </Canvas>
       </Suspense>
       <div className="" ref={modalRef}></div>
+      <div className="" ref={sponsorBookRef}>
+        {sponsor && <BookModal />}
+      </div>
     </div>
   );
 };

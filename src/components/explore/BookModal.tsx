@@ -1,9 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import styles from "./bookModal.module.css";
+import useStore from "../store/store";
 
 const BookModal: React.FC = () => {
   const pageRef = useRef<HTMLDivElement[]>([]);
+
+  const setSponsorFlag = useStore((state) => state.setSponsor);
 
   useEffect(() => {
     gsap.set(`.${styles.pageBg}`, { xPercent: -50, yPercent: -50 });
@@ -92,7 +95,10 @@ const BookModal: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex  z-50 h-screen items-center justify-center p-5  overflow-hidden">
+    <div className="flex fixed inset-0 z-[1000] h-screen items-center justify-center p-5  overflow-hidden">
+      <div className="absolute top-5 right-5" onClick={setSponsorFlag}>
+        X
+      </div>
       <div className="h-1/3 sm:h-3/4 lg:h-5/6  max-w-2xl lg:max-w-3xl w-full">
         <div className={styles.bookBg}>
           <div className={styles.pageBg}>
