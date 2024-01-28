@@ -16,7 +16,6 @@ export const CreateAccommodationRequest = () => {
 
   const { data: allHotels } = useQuery(GetAllHotelsDocument);
   const [Uploading, setUploading] = useState(false);
-  const [banner, setBanner] = useState("");
   const [AccommodationInfo, setAccommodationInfo] = useState({
     ac: false,
     hotelId: -1,
@@ -41,7 +40,9 @@ export const CreateAccommodationRequest = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        setBanner(res.url);
+        setAccommodationInfo((prevValue) => {
+          return { ...prevValue, id: res.url };
+        });
         setUploading(false);
       })
       .catch((err) => {
