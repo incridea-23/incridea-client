@@ -3,8 +3,8 @@ import { HtmlProps } from "@react-three/drei/web/Html";
 import { extend, useFrame } from "@react-three/fiber";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { geometry } from "maath";
-import styles from "./annotation.module.css";
-import { editable as e } from "@theatre/r3f";
+import styles from "./eventAnnotation.module.css";
+import useStore from "../store/store";
 
 extend(geometry);
 
@@ -12,42 +12,55 @@ const Annotation = () => {
   const scroll = useScroll();
   const [scrollData, setScrollData] = useState(false);
   let scrollChangeFlag = useRef(false);
+  const setEventDexFlag = useStore((state) => state.setEventDex);
 
   useFrame(() => {
-    if (scrollChangeFlag.current !== scroll.visible(0.42, 0.6)) {
+    if (scrollChangeFlag.current !== scroll.visible(0.35, 0.6)) {
+      // console.log(scrollChangeFlag.current);
       scrollChangeFlag.current = !scrollChangeFlag.current;
       setScrollData(scrollChangeFlag.current);
     }
   });
 
   return (
-    <e.group theatreKey="html">
-      <Html
-        transform
-        occlude="blending"
-        scale={0.35}
-        position={[0, -0.2, 0]}
-        rotation={[0, Math.PI / 4 + 0.5, 0]}
-        // distanceFactor={5}
-        wrapperClass={styles.annotationContainer}
-        zIndexRange={[0, 50]}
-        geometry={
-          <Plane args={[0.175, 0.175]} position={[0, 0.05, 0.2]}>
-            <meshStandardMaterial color={"black"} transparent opacity={0} />
-          </Plane>
-        }
-        center
-        portal={{ current: scroll.fixed }}
+    <Html
+      transform
+      occlude="blending"
+      scale={0.35}
+      position={[0, 0.1, 0]}
+      rotation={[0, Math.PI / 4 + 0.5, 0]}
+      wrapperClass={styles.annotationContainer}
+      zIndexRange={[0, 50]}
+      geometry={
+        <Plane args={[0.175, 0.175]} position={[0, 0.05, 0.2]}>
+          <meshStandardMaterial color={"black"} transparent opacity={0} />
+        </Plane>
+      }
+      center
+      portal={{ current: scroll.fixed }}
+    >
+      <div
+        style={{
+          paddingTop: "25px",
+          borderRadius: "99px",
+          width: "45px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+        onClick={() => {
+          setEventDexFlag();
+          console.log("Clicked");
+        }}
       >
         <span
           className={styles.annotation}
           style={{ display: scrollData ? "block" : "none" }}
-          onClick={() => console.log("Clicked")}
         >
           Click Here
         </span>
-      </Html>
-    </e.group>
+      </div>
+    </Html>
   );
 };
 

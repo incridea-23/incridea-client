@@ -7,7 +7,7 @@ import { SheetProvider, editable as e, PerspectiveCamera } from "@theatre/r3f";
 // import dynamic from "next/dynamic";
 import { ScrollControls } from "@react-three/drei";
 // import { Scene1 } from "@/src/components/scene/scene1";
-import scene1 from "../../../public/assets/3d/state1.json";
+import scene1 from "../../../public/assets/3d/state3.json";
 import studio from "@theatre/studio";
 import Annotation from "@/src/components/scene/annotation";
 import dynamic from "next/dynamic";
