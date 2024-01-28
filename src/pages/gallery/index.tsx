@@ -36,12 +36,12 @@ const Gallery: NextPage = () => {
       const t1 = gsap.timeline();
       t1.from("#animation", {
         delay: 1,
-        filter: "drop-shadow(0px 10px 20px rgba(0,0,0,0.45))",
+        filter: "drop-shadow(0px 0px 0px white)",
         y: -90,
         // boxShadow: "0px 10px 67px 40px rgba(0,0,0,0.25)",
       }).to("#animation", {
         y: 0,
-        filter: "drop-shadow(0px 10px 80px rgba(0,0,0,0.75))",
+        filter: "drop-shadow(0px 0px 16px white)",
         // boxShadow: "0px 10px 67px 90px rgba(0,0,0,0.25)",
         duration: 1,
       });
@@ -138,7 +138,7 @@ return (
                 await gsap.to("#animation", {
                   y: -90,
                   // boxShadow: "0px 10px 67px 20px rgba(0,0,0,0.25)",
-                  filter: "drop-shadow(0px 10px 20px rgba(0,0,0,0.45))",
+                  filter: "drop-shadow(0px 0px 0px white)",
                   duration: 1,
                 });
               }
@@ -166,7 +166,7 @@ return (
                 await gsap.to("#animation", {
                   y: -90,
                   // boxShadow: "0px 10px 67px 20px rgba(0,0,0,0.25)",
-                  filter: "drop-shadow(0px 10px 20px rgba(0,0,0,0.45))",
+                  filter: "drop-shadow(0px 0px 0px white)",
                   duration: 1,
                 });
               }

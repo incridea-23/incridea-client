@@ -32,7 +32,6 @@ const RetroPC = ({ imgArr }: { imgArr: string[] }) => {
       id="animation"
       className="relative rounded-[85px] flex justify-center items-center w-[40svw] h-[60svw] mx-auto md:scale-[120%] scale-[260%]"
     >
-      <Image fill priority src={retroPCSVG} alt="svg" id="image" className="filter blur-md brightness-200 contrast-200"></Image>
       <Image fill priority src={retroPCSVG} alt="svg" id="image"></Image>
       <div className="absolute w-[50svw] h-[23.6svw] right-[5svw] top-[19svw] z-10">
         <Swiper
