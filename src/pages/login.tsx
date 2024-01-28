@@ -139,7 +139,7 @@ const SignIn: NextPage = () => {
             <Image
                 fill={true}
                 className="object-cover mt-16"
-                src={"/assets/svg/loginBGv4.svg"}
+                src={"/assets/svg/loginBG.svg"}
                 alt={"loginBG"}
                 quality={100}
                 priority
