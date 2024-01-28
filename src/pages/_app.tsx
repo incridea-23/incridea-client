@@ -42,7 +42,8 @@ export default function App({
   if (
     router.pathname === "/theme" ||
     router.pathname === "/landing" ||
-    router.pathname === "/explore/level2"
+    router.pathname === "/explore/level2" ||
+    router.pathname === "/test"
   )
     return (
       <ApolloProvider client={apolloClient}>
@@ -80,12 +81,14 @@ export default function App({
             animate="animateState"
             exit="exitState"
             transition={{ duration: 0.8 }}
-            variants={variants}>
+            variants={variants}
+          >
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8 }}
-              className="min-h-screen">
+              className="min-h-screen"
+            >
               <Component setLoading={setLoading} {...pageProps} />
             </motion.div>
           </motion.main>

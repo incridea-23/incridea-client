@@ -1,0 +1,81 @@
+
+
+
+.bookBg {
+	position: relative;
+	background-color: #4c3212;
+	width: 100%;
+	height: 100%;
+	border-radius: 12px;
+}
+
+.pageBg {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	background-color: #999;
+	width: calc(100% - 20px);
+	height: calc(100% - 20px);
+	border-radius: 0px;
+}
+
+.pageWrapper {
+	position: absolute;
+	width: 50%;
+	height: 100%;
+	float: left;
+	-webkit-font-smoothing: antialiased;
+}
+
+.page {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+.pageFace {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	text-align: center;
+}
+
+.front {
+	background: linear-gradient(to right, #d9d9d9 0%, #f9f9f9 3%, #ffffff 8%, #ffffff 100%);
+}
+
+.back {
+	background: linear-gradient(to right, #ffffff 0%, #ffffff 92%, #f9f9f9 97%, #d9d9d9 100%);
+}
+
+.pageFoldRight {
+	position: absolute;
+	width: 0px;
+	height: 0px;
+	top: 0;
+	right: 0;
+	border-left-width: 1px;
+	border-left-color: #DDDDDD;
+	border-left-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #DDDDDD;
+	border-bottom-style: solid;
+	box-shadow: -5px 5px 10px #dddddd;
+}
+
+.pageFoldLeft {
+	position: absolute;
+	width: 0px;
+	height: 0px;
+	top: 0;
+	left: 0;
+	border-right-width: 1px;
+	border-right-color: #DDDDDD;
+	border-right-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #DDDDDD;
+	border-bottom-style: solid;
+	box-shadow: 5px 5px 10px #dddddd;
+}
