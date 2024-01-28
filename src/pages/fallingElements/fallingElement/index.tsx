@@ -21,7 +21,7 @@ const FallingElement: React.FC<srcProps> = ({ src, size }: srcProps) => {
         setLeft(getPosition());
     }, []);
     useEffect(()=>{
-        localSrc==="explode.png" ? setTimeout(()=>{setLocalSrc("")},150): null;
+        localSrc==="explode.png" ? setTimeout(()=>{setLocalSrc("")},500): null;
     },[localSrc])
     return (
         <>
