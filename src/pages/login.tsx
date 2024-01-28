@@ -91,37 +91,37 @@ const SignIn: NextPage = () => {
     return (
         <>
             {/* HACK: remove me */}
-            <div className="fixed top-1/2 gap-1 z-50 left-0 flex flex-col">
+            <div className="fixed top-1/2 gap-2 z-50 left-0 flex flex-col opacity-30">
                 <button
-                    className="bg-slate-700 text-slate-100"
+                    className="bg-red-700 text-slate-100"
                     onClick={() => {
                         changeCard("signIn");
                     }}>
                     signIn
                 </button>
                 <button
-                    className="bg-slate-700 text-slate-100"
+                    className="bg-red-700 text-slate-100"
                     onClick={() => {
                         changeCard("signUp");
                     }}>
                     signUp
                 </button>
                 <button
-                    className="bg-slate-700 text-slate-100"
+                    className="bg-red-700 text-slate-100"
                     onClick={() => {
                         changeCard("resendEmail");
                     }}>
                     resendEmail
                 </button>
                 <button
-                    className="bg-slate-700 text-slate-100"
+                    className="bg-red-700 text-slate-100"
                     onClick={() => {
                         changeCard("resetPassword");
                     }}>
                     resetPassword
                 </button>
                 <button
-                    className="bg-slate-700 text-slate-100"
+                    className="bg-red-700 text-slate-100"
                     onClick={() => {
                         changeCard("accommodation");
                     }}>
@@ -129,10 +129,18 @@ const SignIn: NextPage = () => {
                 </button>
             </div>
 
-            <div className="h-16 bg-primary-800"></div>
+            <div className="h-16 bg-[#6a5fd7]"></div>
+            <Image
+                fill={true}
+                className="object-cover mt-16"
+                src={"/assets/png/loginBG.png"}
+                alt={"loginBG"}
+                quality={100}
+                priority
+            />
             <div
-                className={`relative min-h-[92vh] bg-gradient-to-b from-primary-700 to-primary-900 min-w-screen flex flex-col justify-between [transform-style:preserve-3d] [perspective:500px] overflow-hidden`}>
-                <LoginPortal isTop={true} src={"/assets/png/portalv3"} />
+                className={`relative min-h-[93vh] min-w-screen flex flex-col justify-between [transform-style:preserve-3d] [perspective:500px] overflow-hidden`}>
+                <LoginPortal isTop={true} src={"/assets/png/portalv7"} />
                 <LoginCard
                     whichForm="signIn"
                     cardStyle={cardStyle.signIn}
@@ -159,7 +167,7 @@ const SignIn: NextPage = () => {
                     cardStyle={cardStyle.accommodation}
                     setWhichForm={changeCard}
                 />
-                <LoginPortal isTop={false} src={"/assets/png/portalv3"} />
+                <LoginPortal isTop={false} src={"/assets/png/portalv7"} />
             </div>
         </>
     );

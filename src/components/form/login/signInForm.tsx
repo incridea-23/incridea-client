@@ -107,7 +107,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
                     className="text-sm w-fit -md:mt-1 mb-2 hover:underline text-accent-300 text-start">
                     Forgot your password?
                 </button>
-                <Button intent={`primary`} type="submit">
+                <Button intent={`primary`} type="submit" className="mx-1">
                     Login
                 </Button>
                 {loading && (
@@ -135,7 +135,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
 
                 <div className="flex flex-col md:mt-2 mt-3 relative text-center">
                     <hr className="my-3 border-accent-50" />
-                    <h4 className="absolute top-0.5 translate-x-1/2 w-max mx-auto bg-secondary-900 rounded-full text-accent-50 right-1/2 md:px-2 px-3 text-sm">
+                    <h4 className="absolute top-0.5 translate-x-1/2 w-max mx-auto bg-secondary-900 rounded-full text-accent-50 right-1/2 px-3 py-[1px] text-sm">
                         New here?
                     </h4>
                     <Button
@@ -144,7 +144,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
                         }}
                         type="button"
                         intent={"ghost"}
-                        className="mt-5">
+                        className="mt-5 mx-1">
                         Sign up instead
                     </Button>
                 </div>
