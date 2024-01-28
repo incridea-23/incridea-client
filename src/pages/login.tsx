@@ -8,6 +8,8 @@ import Image from "next/image";
 type CardStyle = {
     top: string;
     transitionDuration: string;
+    opacity?: string;
+    pointerEvents?: React.CSSProperties["pointerEvents"];
     transform: string;
 };
 
@@ -15,11 +17,15 @@ const CARD_SWITCH_DURATION: number = 1000;
 const CARD_TOP_STYLE: CardStyle = {
         top: "-50%",
         transitionDuration: "0s",
+        opacity: "0%",
+        pointerEvents: "none",
         transform: `translate(-50%, -50%) rotateX(45deg) scaleX(-0.2)`,
     },
     CARD_NEUTRAL_STYLE: CardStyle = {
         top: "50%",
         transitionDuration: `${CARD_SWITCH_DURATION}ms`,
+        opacity: "100%",
+        pointerEvents: "auto",
         transform: `translate(-50%, -50%) rotateX(0deg) scaleX(1)`,
     },
     CARD_BOTTOM_STYLE: CardStyle = {
@@ -90,49 +96,18 @@ const SignIn: NextPage = () => {
 
     return (
         <>
-            {/* HACK: remove me */}
-            <div className="fixed top-1/2 gap-1 z-50 left-0 flex flex-col">
-                <button
-                    className="bg-slate-700 text-slate-100"
-                    onClick={() => {
-                        changeCard("signIn");
-                    }}>
-                    signIn
-                </button>
-                <button
-                    className="bg-slate-700 text-slate-100"
-                    onClick={() => {
-                        changeCard("signUp");
-                    }}>
-                    signUp
-                </button>
-                <button
-                    className="bg-slate-700 text-slate-100"
-                    onClick={() => {
-                        changeCard("resendEmail");
-                    }}>
-                    resendEmail
-                </button>
-                <button
-                    className="bg-slate-700 text-slate-100"
-                    onClick={() => {
-                        changeCard("resetPassword");
-                    }}>
-                    resetPassword
-                </button>
-                <button
-                    className="bg-slate-700 text-slate-100"
-                    onClick={() => {
-                        changeCard("accommodation");
-                    }}>
-                    accommodation
-                </button>
-            </div>
-
-            <div className="h-16 bg-primary-800"></div>
+            <div className="h-16 bg-[#6a5fd7]"></div>
+            <Image
+                fill={true}
+                className="object-cover mt-16"
+                src={"/assets/svg/loginBG.svg"}
+                alt={"loginBG"}
+                quality={100}
+                priority
+            />
             <div
-                className={`relative min-h-[92vh] bg-gradient-to-b from-primary-700 to-primary-900 min-w-screen flex flex-col justify-between [transform-style:preserve-3d] [perspective:500px] overflow-hidden`}>
-                <LoginPortal isTop={true} src={"/assets/png/portalv3"} />
+                className={`relative min-h-[93vh] min-w-screen flex flex-col justify-between [transform-style:preserve-3d] [perspective:500px] overflow-hidden`}>
+                <LoginPortal isTop={true} />
                 <LoginCard
                     whichForm="signIn"
                     cardStyle={cardStyle.signIn}
@@ -159,7 +134,7 @@ const SignIn: NextPage = () => {
                     cardStyle={cardStyle.accommodation}
                     setWhichForm={changeCard}
                 />
-                <LoginPortal isTop={false} src={"/assets/png/portalv3"} />
+                <LoginPortal isTop={false} />
             </div>
         </>
     );

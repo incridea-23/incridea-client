@@ -222,10 +222,9 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                         required
                         className={`${
                             selectedCollege.name === "Other" ? "mt-2" : "mt-2"
-                        } py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-slate-400    md:focus:border-[#dd5c6e] outline-none`}
+                        } py-2 px-1 border-b text-sm md:text-base bg-transparent transition-all border-gray-400   placeholder:text-slate-400 md:focus:border-[#dd5c6e] outline-none`}
                         placeholder="Name"
                     />
-                    {/* FIXME: removed mt-10 from the above component when college was not "Other"*/}
 
                     <Combobox
                         value={selectedCollege}
@@ -244,7 +243,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                                     displayValue={(college: { name: string }) =>
                                         college.name
                                     }
-                                    className="w-full bg-transparent outline-none text-sm md:text-base py-2 pl-1 pr-10 md:text-gray-900 placeholder:text-slate-400    "
+                                    className="w-full bg-transparent outline-none text-sm md:text-base py-2 pl-1 pr-10 placeholder:text-slate-400    "
                                     onChange={(e) => setQuery(e.target.value)}
                                 />
                                 <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -457,7 +456,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
 
             <div className="flex flex-col mt-2 relative text-center">
                 <hr className="my-3 border-accent-50" />
-                <h4 className="absolute top-0.5 translate-x-1/2 w-max mx-auto bg-secondary-900 rounded-full text-accent-50 right-1/2 md:px-2 px-3 text-sm">
+                <h4 className="absolute top-0.5 translate-x-1/2 w-max mx-auto bg-[#1f2e97] rounded-full text-accent-50 right-1/2 md:px-2 px-3 text-sm">
                     Already have an account?
                 </h4>
                 <Button

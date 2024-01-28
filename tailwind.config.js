@@ -25,19 +25,13 @@ module.exports = {
                 fall: {
                     "0%": {
                         transform: "translateY(0) rotate(0deg)",
-                        opacity: 1,
-                    },
-                    "80%": {
-                        opacity: 1,
                     },
                     "100% ": {
-                        transform: "translateY(85vh) rotate(360deg)",
-                        opacity: 0,
+                        transform: "translateY(100vh) rotate(360deg)",
                     },
                 },
             },
             transitionTimingFunction: {
-                // FIXME: give a better name
                 "suck-in": "cubic-bezier(0.65, 0, 0.35, 1)",
             },
             fontFamily: {
