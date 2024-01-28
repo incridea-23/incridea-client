@@ -10,6 +10,7 @@ import {
 } from 'react-icons/io5'
 import { generateEventUrl } from '@/src/utils/url'
 import Image from 'next/image'
+import styles from './styles.module.css'
 
 const Event = ({
   data,
@@ -78,22 +79,24 @@ const Event = ({
 
   return (
     <Link data-scroll href={generateEventUrl(data.name, data.id)}>
-      <div className="card w-full h-full font-VikingHell">
-        <div className="top-section flex flex-col">
+      <div className={`${styles.card} w-full h-full font-VikingHell`}>
+        <div className={`${styles.top_section} flex flex-col`}>
           <div>
-            <div className="borderCard"></div>
-            <div className="icons">
+            <div className={styles.borderCard}></div>
+            <div className={styles.icons}>
               <div className="pl-2">
                 <Image
                   src="/assets/png/incridealogo.png"
-                  alt={"Incridea Logo"}
+                  alt={'Incridea Logo'}
                   width={550}
                   height={550}
                   className="object-fill h-full w-full z-0 text-white"
                 />
               </div>
-              <div className="social-media capitalize font-semibold justify-items-end items-center text-center text-[1.05rem]">
-                {data.category?.replace("_"," ").toLocaleLowerCase()}
+              <div
+                className={`${styles.social_media} capitalize font-semibold justify-items-end items-center text-center text-[1.05rem]`}
+              >
+                {data.category?.replace('_', ' ').toLocaleLowerCase()}
               </div>
             </div>
           </div>
@@ -102,7 +105,7 @@ const Event = ({
               <Image
                 // src={`https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg`}
                 src={data.image}
-                alt={"Image"}
+                alt={'Image'}
                 width={250}
                 height={250}
                 className="object-scale-down rounded-xl h-full w-full z-0 text-white"
@@ -110,13 +113,24 @@ const Event = ({
             )}
           </div>
         </div>
-        <div className="bottom-section flex flex-col justify-center items-center w-full">
-          <span className="glitch eventTitle flex justify-center items-center text-center text-lg w-fit px-4">{data.name}</span>
+        <div
+          className={`${styles.bottom_section} flex flex-col justify-center items-center w-full`}
+        >
+          <span
+            className={`${styles.glitch} ${styles.eventTitle} flex justify-center items-center text-center text-lg w-fit px-4`}
+          >
+            {data.name}
+          </span>
           <div className="flex flex-col gap-1 text-center bodyFont text-base text-blue-200 px-1 py-3 justify-center items-start md:w-full">
-            {getEventAttributes().map((attr,i) =>
+            {getEventAttributes().map((attr, i) =>
               attr.name ? (
-                <div className="flex flex-row gap-2 justify-center items-start text-left" key={i}>
-                  <span className="flex flex-row gap-1"><attr.Icon/></span>
+                <div
+                  className="flex flex-row gap-2 justify-center items-start text-left"
+                  key={i}
+                >
+                  <span className="flex flex-row gap-1">
+                    <attr.Icon />
+                  </span>
                   <span className="">{attr.text}</span>
                 </div>
               ) : null
