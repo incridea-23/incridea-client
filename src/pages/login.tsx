@@ -39,18 +39,14 @@ const SignIn: NextPage = () => {
         query,
     }: {
         query: {
-            whichForm?:
-                | "signIn"
-                | "resetPassword"
-                | "signUp"
-                | "resendEmail"
-                | "accommodation";
+            whichForm?: "signIn" | "resetPassword" | "signUp" | "resendEmail";
+
             redirectUrl?: string;
         };
     } = useRouter();
 
     const [whichForm, setWhichForm] = useState<
-        "signIn" | "resetPassword" | "signUp" | "resendEmail" | "accommodation"
+        "signIn" | "resetPassword" | "signUp" | "resendEmail"
     >(query.whichForm || "signIn");
 
     const [cardStyle, setCardStyle] = useState<{
@@ -58,23 +54,16 @@ const SignIn: NextPage = () => {
         signUp: CardStyle;
         resetPassword: CardStyle;
         resendEmail: CardStyle;
-        accommodation: CardStyle;
     }>({
         signIn: CARD_TOP_STYLE,
         resetPassword: CARD_TOP_STYLE,
         signUp: CARD_TOP_STYLE,
         resendEmail: CARD_TOP_STYLE,
-        accommodation: CARD_TOP_STYLE,
         [whichForm]: CARD_NEUTRAL_STYLE,
     });
 
     const changeCard: (
-        newForm:
-            | "signIn"
-            | "resetPassword"
-            | "signUp"
-            | "resendEmail"
-            | "accommodation"
+        newForm: "signIn" | "resetPassword" | "signUp" | "resendEmail"
     ) => void = (newForm) => {
         if (whichForm === newForm) return;
 
@@ -96,45 +85,6 @@ const SignIn: NextPage = () => {
 
     return (
         <>
-            {/* HACK: remove me */}
-            <div className="fixed top-1/2 gap-2 z-50 left-0 flex flex-col opacity-30">
-                <button
-                    className="bg-red-700 text-slate-100"
-                    onClick={() => {
-                        changeCard("signIn");
-                    }}>
-                    signIn
-                </button>
-                <button
-                    className="bg-red-700 text-slate-100"
-                    onClick={() => {
-                        changeCard("signUp");
-                    }}>
-                    signUp
-                </button>
-                <button
-                    className="bg-red-700 text-slate-100"
-                    onClick={() => {
-                        changeCard("resendEmail");
-                    }}>
-                    resendEmail
-                </button>
-                <button
-                    className="bg-red-700 text-slate-100"
-                    onClick={() => {
-                        changeCard("resetPassword");
-                    }}>
-                    resetPassword
-                </button>
-                <button
-                    className="bg-red-700 text-slate-100"
-                    onClick={() => {
-                        changeCard("accommodation");
-                    }}>
-                    accommodation
-                </button>
-            </div>
-
             <div className="h-16 bg-[#6a5fd7]"></div>
             <Image
                 fill={true}
@@ -168,11 +118,7 @@ const SignIn: NextPage = () => {
                     cardStyle={cardStyle.resendEmail}
                     setWhichForm={changeCard}
                 />
-                <LoginCard
-                    whichForm="accommodation"
-                    cardStyle={cardStyle.accommodation}
-                    setWhichForm={changeCard}
-                />
+
                 <LoginPortal isTop={false} />
             </div>
         </>

@@ -4,23 +4,12 @@ import SignInForm from "../../form/login/signInForm";
 import ResetPasswordForm from "../../form/login/resetPasswordForm";
 import SignUpForm from "../../form/signUp";
 import ResendEmail from "../../form/login/resendEmailForm";
-import CreateAccommodationRequest from "../../form/accommodation";
 
 type LoginCardProps = {
-    whichForm:
-        | "signIn"
-        | "resetPassword"
-        | "signUp"
-        | "resendEmail"
-        | "accommodation";
+    whichForm: "signIn" | "resetPassword" | "signUp" | "resendEmail";
     cardStyle: CardStyle;
     setWhichForm: (
-        whichForm:
-            | "signIn"
-            | "resetPassword"
-            | "signUp"
-            | "resendEmail"
-            | "accommodation"
+        whichForm: "signIn" | "resetPassword" | "signUp" | "resendEmail"
     ) => void;
     redirectUrl?: string;
 };
@@ -44,10 +33,8 @@ const LoginCard: FunctionComponent<LoginCardProps> = ({
                 <ResetPasswordForm setWhichForm={setWhichForm} />
             ) : whichForm === "signUp" ? (
                 <SignUpForm setWhichForm={setWhichForm} />
-            ) : whichForm === "resendEmail" ? (
-                <ResendEmail setWhichForm={setWhichForm} />
             ) : (
-                <CreateAccommodationRequest />
+                <ResendEmail setWhichForm={setWhichForm} />
             )}
         </div>
     );

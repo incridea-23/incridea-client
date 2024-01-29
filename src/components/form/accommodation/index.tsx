@@ -1,10 +1,4 @@
-import {
-    useState,
-    FunctionComponent,
-    FormEventHandler,
-    Fragment,
-    useEffect,
-} from "react";
+import { useState, FunctionComponent, FormEventHandler, Fragment } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import {
     AddAccommodationRequestDocument,
@@ -13,7 +7,7 @@ import {
 import Button from "../../button";
 import { MdModeEditOutline } from "react-icons/md";
 import createToast from "../../toast";
-import { Combobox, Transition } from "@headlessui/react";
+import { Combobox, Transition, Switch } from "@headlessui/react";
 import { BsChevronExpand } from "react-icons/bs";
 import Link from "next/link";
 
@@ -31,7 +25,7 @@ const CreateAccommodationRequest: FunctionComponent = () => {
     const [Uploading, setUploading] = useState(false);
     const [banner, setBanner] = useState("");
 
-    const genders = ["MALE", "FEMALE", "OTHER"];
+    const genders = ["Male", "Female", "Other"];
     const [gender, setGender] = useState("");
     const [genderQuery, setGenderQuery] = useState("");
     const filteredGenders =
@@ -49,11 +43,13 @@ const CreateAccommodationRequest: FunctionComponent = () => {
     const filteredHotels =
         hotelQuery === ""
             ? hotels
-            : hotels?.filter((hotel, index) => {
+            : hotels?.filter((hotel) => {
                   return hotel.name
                       .toLowerCase()
                       .includes(hotelQuery.toLowerCase());
-              });
+              }) || [];
+
+    const [AC, setAC] = useState<boolean>(false);
 
     const [AccommodationInfo, setAccommodationInfo] = useState({
         ac: false,
@@ -90,6 +86,7 @@ const CreateAccommodationRequest: FunctionComponent = () => {
     };
 
     const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+        console.log(AccommodationInfo);
         e.preventDefault();
         addAccommodation({
             variables: AccommodationInfo,
@@ -100,18 +97,16 @@ const CreateAccommodationRequest: FunctionComponent = () => {
         <>
             <form
                 onSubmit={handleSubmit}
-                className={`flex relative justify-center min-h-full flex-col gap-3`}>
-                {/* FIXME:start of ur code */}
+                className={`flex relative justify-center min-h-full flex-col gap-5`}>
                 <p className="text-2xl text-center font-semibold mb-3">
                     Accommodation Request
                 </p>
 
-                {/* Gender */}
                 <Combobox
                     value={gender}
                     onChange={(value) => {
                         setAccommodationInfo((prev) => {
-                            return { ...prev, gender: value };
+                            return { ...prev, gender: value.toUpperCase() };
                         });
                         setGender(value);
                     }}>
@@ -166,7 +161,6 @@ const CreateAccommodationRequest: FunctionComponent = () => {
                     </div>
                 </Combobox>
 
-                {/* Hotel */}
                 <Combobox
                     value={hotel}
                     onChange={(id: string) => {
@@ -177,7 +171,7 @@ const CreateAccommodationRequest: FunctionComponent = () => {
                             };
                         });
                         setHotel(
-                            hotels.find((hotel) => hotel.id === id)?.name || ""
+                            hotels?.find((hotel) => hotel.id === id)?.name || ""
                         );
                     }}>
                     <div className="relative">
@@ -213,7 +207,7 @@ const CreateAccommodationRequest: FunctionComponent = () => {
                                         </Link>
                                     </div>
                                 ) : (
-                                    filteredHotels?.map((hotel, index) => (
+                                    filteredHotels?.map((hotel) => (
                                         <Combobox.Option
                                             className={({ active }) =>
                                                 `relative select-none py-2 text-xs md:text-base cursor-pointer px-4 ${
@@ -233,46 +227,84 @@ const CreateAccommodationRequest: FunctionComponent = () => {
                     </div>
                 </Combobox>
 
-                {/* FIXME : END */}
+                <Switch.Group>
+                    <div className="flex items-center">
+                        <Switch.Label className="mr-4">Non-AC</Switch.Label>
+                        <Switch
+                            checked={AC}
+                            onChange={(e) => {
+                                setAC(e);
+                                setAccommodationInfo((prev) => {
+                                    // FIXME: fix why AC had to be negated
+                                    return { ...prev, ac: !AC };
+                                });
+                            }}
+                            as={Fragment}>
+                            {({ checked }) => (
+                                <button
+                                    className={`${
+                                        checked
+                                            ? "bg-secondary-800"
+                                            : "bg-gray-300"
+                                    } relative inline-flex h-6 w-11 items-center rounded-full`}>
+                                    <span className="sr-only">AC</span>
+                                    <span
+                                        className={`${
+                                            checked
+                                                ? "translate-x-6"
+                                                : "translate-x-1"
+                                        } inline-block h-4 w-4 transform rounded-full bg-white transition`}
+                                    />
+                                </button>
+                            )}
+                        </Switch>
+                        <Switch.Label className="ml-4">AC</Switch.Label>
+                    </div>
+                </Switch.Group>
 
-                <div>
-                    <label className="block mb-2 text-sm text-white">
-                        CheckIn Time
-                    </label>
-                    <input
-                        required
-                        type="date"
-                        placeholder="CheckIn Time"
-                        className="w-full p-2 rounded-md bg-gray-800/70 text-gray-100"
-                        onChange={(e) =>
-                            setAccommodationInfo((prevValue) => {
-                                return {
-                                    ...prevValue,
-                                    checkInTime: e.target.value.toString(),
-                                };
-                            })
-                        }
-                    />
-                </div>
-
-                <div>
-                    <label className="block mb-2 text-sm text-white">
-                        CheckOut Time
-                    </label>
-                    <input
-                        required
-                        type="date"
-                        className="w-full p-2 rounded-md bg-gray-800/70 text-gray-100"
-                        placeholder="CheckOut Time"
-                        onChange={(e) =>
-                            setAccommodationInfo((prevValue) => {
-                                return {
-                                    ...prevValue,
-                                    checkOutTime: e.target.value.toString(),
-                                };
-                            })
-                        }
-                    />
+                <div className="flex flex-row justify-between gap-3 flex-wrap">
+                    <div className="w-full md:w-40">
+                        <label
+                            htmlFor="checkInTime"
+                            className="mb-2 text-sm block">
+                            From Date
+                        </label>
+                        <input
+                            required
+                            type="date"
+                            id="checkInTime"
+                            className="w-full mt-1 p-1 bg-inherit border-b border-gray-400"
+                            onChange={(e) =>
+                                setAccommodationInfo((prevValue) => {
+                                    return {
+                                        ...prevValue,
+                                        checkInTime: e.target.value.toString(),
+                                    };
+                                })
+                            }
+                        />
+                    </div>
+                    <div className="w-full md:w-40">
+                        <label
+                            htmlFor="checkOutTime"
+                            className="mb-2 text-sm block">
+                            To Date
+                        </label>
+                        <input
+                            required
+                            type="date"
+                            id="checkOutTime"
+                            className="w-full mt-1 p-1 bg-inherit border-b border-gray-400"
+                            onChange={(e) =>
+                                setAccommodationInfo((prevValue) => {
+                                    return {
+                                        ...prevValue,
+                                        checkOutTime: e.target.value.toString(),
+                                    };
+                                })
+                            }
+                        />
+                    </div>
                 </div>
 
                 <div>
@@ -283,12 +315,14 @@ const CreateAccommodationRequest: FunctionComponent = () => {
                         type="file"
                         id="image"
                         className="file:mr-4 file:py-2.5 file:rounded-r-none file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:transition-colors file:cursor-pointer file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border w-full text-sm rounded-lg block  bg-gray-600 border-gray-600 placeholder-slate-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
-                        placeholder="Banner..."
                         onChange={(e) => handleUpload(e.target.files![0])}
                     />
                 </div>
 
-                <Button intent={"primary"} type="submit" className="my-4">
+                <Button
+                    intent={"primary"}
+                    type="submit"
+                    className="my-4 flex justify-center">
                     <MdModeEditOutline />
                     Submit
                 </Button>
