@@ -249,7 +249,7 @@ August 2021 : ok on Chrome v92+, Firefox v90+, Edge v92+
   height: 100%;
   /* center page with absolute position */
   top: 0%; left: 50%; 
-  transform: translate(-52%, 0);
+  transform: translate(-51%, 0);
   /* margin: 2em 0; */
 	padding: 4em;
 	box-shadow: 2px 3px 20px black, 0 0 125px #8f5922 inset;
@@ -283,6 +283,20 @@ August 2021 : ok on Chrome v92+, Firefox v90+, Edge v92+
   height: auto;
   margin: 0 auto;
 	padding: 1em;
+}
+
+.mapicon::before{
+  content: "";
+  background-image: url('/assets/eventSlug/map.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      opacity: 0.3;
 }
 
 /* .inkTitle {
