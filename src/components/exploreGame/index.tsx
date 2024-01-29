@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import {
   SpriteDimensions,
   platformDimensions,
@@ -9,6 +10,8 @@ import {
 const actionKeys: string[] = [];
 const ExploreGame = () => {
   const [showAbout, setShowAbout] = useState(false);
+  const [showRuleBook, setShowRuleBook] = useState(false);
+  const [showSchedule, setShowSchedule] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const ctx = useRef<CanvasRenderingContext2D | null | undefined>(null);
@@ -41,6 +44,8 @@ const ExploreGame = () => {
   let frameCount: number = 0;
   const gravity: number = 0.15;
   let showAboutFlag = true;
+  let showRuleBookFlag = true;
+  let showScheduleFlag = true;
 
   const resizeCanvas = () => {
     if (canvas.current) {
@@ -316,6 +321,10 @@ const ExploreGame = () => {
     ) {
       // Standing on the left platform
       isGrounded = true;
+      if (showScheduleFlag) {
+        setShowSchedule(true);
+        showScheduleFlag = false;
+      }
       player.current.y =
         window.innerHeight * (platformDimensions.left.yPercentage + 0.015) -
         player.current.height;
@@ -359,6 +368,10 @@ const ExploreGame = () => {
     ) {
       // Standing on the right platform
       isGrounded = true;
+      if (showRuleBookFlag) {
+        setShowRuleBook(true);
+        showRuleBookFlag = false;
+      }
       player.current.y =
         window.innerHeight * (platformDimensions.right.yPercentage + 0.02) -
         player.current.height;
@@ -434,7 +447,11 @@ const ExploreGame = () => {
 
     isGrounded = false;
     setShowAbout(false);
+    setShowRuleBook(false);
+    setShowSchedule(false);
+    showRuleBookFlag = true;
     showAboutFlag = true;
+    showScheduleFlag = true;
   };
 
   const animate = () => {
@@ -560,7 +577,7 @@ const ExploreGame = () => {
   }, [scrollY]);
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen">
+    <div className="h-[200dvh] relative">
       <div className="hidden">
         <img
           src="/assets/spriteSheets/ryokoSpriteSheet.png"
@@ -578,29 +595,30 @@ const ExploreGame = () => {
           ref={platformSprite}
         />
       </div>
-      <div
-        className="absolute bg-[#d64d00] h-max w-max top-[20%] text-[#fec3b5] pressStart text-center sm:p-12 border-l-4 border-t-4 border-white p-4 rounded-lg"
-        style={{ borderStyle: "outset" }}
-      >
-        <h1 className="lg:text-8xl md:text-7xl sm:text-6xl text-4xl">
-          INCRIDEA
-        </h1>
-        <h3 className="lg:text-5xl md:text-4xl sm:text-3xl text-xl">
-          DICE OF DESTINY
-        </h3>
-        <span className="absolute -top-16 text-white left-0 flex flex-col lg:text-xl md:text-lg sm:text-md text-sm">
-          <p>RYOKO</p>
-          <p>000006</p>
-        </span>
-        <span className="absolute -bottom-5 text-white right-0 lg:text-xl md:text-lg sm:text-md text-sm">
-          © Incridea 2024
-        </span>
+      <div className="flex w-full justify-center items-center">
+        <div
+          className="absolute bg-[#d64d00] z-50 h-max w-max top-[20%] text-[#fec3b5] pressStart text-center sm:p-12 border-l-4 border-t-4 border-white p-4 rounded-lg"
+          style={{ borderStyle: "outset" }}
+        >
+          <h1 className="lg:text-8xl md:text-7xl sm:text-6xl text-4xl">
+            INCRIDEA
+          </h1>
+          <h3 className="lg:text-5xl md:text-4xl sm:text-3xl text-xl">
+            DICE OF DESTINY
+          </h3>
+          <span className="absolute -top-16 text-white left-0 flex flex-col lg:text-xl md:text-lg sm:text-md text-sm">
+            <p>RYOKO</p>
+            <p>000006</p>
+          </span>
+          <span className="absolute -bottom-5 text-white right-0 lg:text-xl md:text-lg sm:text-md text-sm">
+            © Incridea 2024
+          </span>
+        </div>
       </div>
 
-      {/* { */}
       {scrollY > 450 && showAbout && (
         <div
-          className="absolute h-max sm:max-w-lg sm:text-xs sm:top-[35%] md:max-w-xl md:text-sm max-w-md text-xs top-[30%] mx-4 text-opacity-80  bg-[#86d6e9]/30 p-6 xl:top-[45%] xl:left-6 xl:max-w-xl xl:text-base  text-white pressStart justify-evenly text-justify space-y-4 rounded-lg transition-all duration-300 ease-in-out"
+          className="absolute z-50 h-max sm:max-w-lg sm:text-xs sm:top-[35%] md:max-w-xl md:text-sm max-w-md text-xs top-[30%] mx-4 text-opacity-80  bg-[#86d6e9]/30 p-6 xl:top-[45%] xl:left-6 xl:max-w-xl xl:text-base  text-white pressStart justify-evenly text-justify space-y-4 rounded-lg transition-all duration-300 ease-in-out"
           style={{ borderStyle: "outset" }}
         >
           <p>
@@ -621,16 +639,55 @@ const ExploreGame = () => {
           </span>
         </div>
       )}
-      <canvas ref={canvas} className="h-[200vh] w-full "></canvas>
 
-      <div className="fixed bottom-5 right-5 opacity-50">
+      {scrollY > 450 && (showRuleBook || showSchedule) && (
+        <div className="absolute z-50 h-max sm:max-w-lg sm:text-xs sm:top-[35%] md:max-w-xl md:text-sm max-w-md text-xs top-[30%] mx-4 text-opacity-80  bg-[#86d6e9]/30 p-6 xl:top-[45%] xl:left-6 xl:max-w-xl xl:text-base  text-white pressStart justify-evenly text-justify space-y-4 rounded-lg transition-all duration-300 ease-in-out">
+          {/* <p>Jello</p> */}
+          <div className="flex w-full justify-center">
+            <Image
+              src={
+                showRuleBook
+                  ? "/assets/png/ruleBook.png"
+                  : "/assets/png/rulebook.png"
+              }
+              alt="RuleBook"
+              width={100}
+              height={100}
+              className="w-[10rem] h-[15rem] sm:w-[12rem] sm:h-[18rem] md:w-[14rem] md:h-[21rem] xl:w-[20rem] xl:h-[30rem]"
+            />
+          </div>
+          <a
+            href={
+              showRuleBook
+                ? "/assets/images/ruleBook.png"
+                : "/assets/images/rulebook.png"
+            }
+            className="flex w-full justify-center py-4 bg-orange-500 rounded-xl"
+            download
+          >
+            <button className="px-4">
+              Download {showRuleBook ? "Rule Book" : "Schedule"}
+            </button>
+          </a>
+        </div>
+      )}
+      <canvas ref={canvas} className="h-[200vh] w-full absolute"></canvas>
+
+      <div
+        className="sticky h-screen top-0 justify-end items-end flex w-full "
+        style={{
+          opacity: scrollY > window.innerHeight * 0.5 ? 0.5 : 0,
+          pointerEvents: scrollY > window.innerHeight * 0.5 ? "all" : "none",
+          transition: "opacity 0.5s ease-in-out",
+        }}
+      >
         <svg
           width="205"
           height="150"
           viewBox="0 0 1222 888"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="pointer-events-none"
+          className="pointer-events-none mb-8 mr-8"
         >
           <g
             id="Right"
