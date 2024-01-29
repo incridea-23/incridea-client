@@ -66,10 +66,10 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
     if (currentDayFilter !== "ALL") {
       let filteredDay = new Date(
         currentDayFilter === "DAY 1"
-          ? "2023-04-26"
+          ? "2023-04-22"
           : currentDayFilter === "DAY 2"
-          ? "2023-04-27"
-          : "2023-04-29"
+          ? "2023-04-23"
+          : "2023-04-24"
       ).getDate();
       tempFilteredEvents = tempFilteredEvents.filter((event) =>
         event.rounds.some((round) => new Date(round.date).getDate() === filteredDay)
@@ -212,7 +212,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
                                 } text-black rounded-sm m-1.5 mb-0 w-36 px-3 py-2 text-sm hover:bg-white/50`}
                                 onClick={() => setCurrentDayFilter(filter)}
                               >
-                                {filter}
+                                {filter.split(" ")[0]}<span className="bodyFont font-bold ml-1">{filter.split(" ")[1]}</span>
                               </button>
                             )}
                           </Menu.Item>
@@ -269,7 +269,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
                           ? currentBranchFilter
                           : 'Branch'}
                       </Menu.Button>
-                      <Menu.Items className="overflow-hidden top-9 pb-1.5 mt-1 bg-slate-900 rounded-md  absolute z-[100] text-center shadow-black/80 shadow-2xl">
+                      <Menu.Items className="overflow-x-hidden overflow-y-auto max-h-40 top-9 pb-1.5 mt-1 bg-slate-900 rounded-md  absolute z-[100] text-center shadow-black/80 shadow-2xl">
                         {branchFilters.map((filter) => (
                           <Menu.Item key={filter}>
                             {({ active }) => (
