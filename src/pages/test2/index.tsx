@@ -3,7 +3,9 @@ import gsap from "gsap";
 import Image from "next/image";
 import Carousel from "@/src/components/slider";
 
+
 const Pokedex = () => {
+    
   useEffect(() => {
     // Initialize GSAP
     const tl = gsap.timeline();
@@ -14,8 +16,8 @@ const Pokedex = () => {
       .set(".carousel-container", { opacity: 0 });
 
     // Opening animation
-    tl.to(".animate-1", { y: -20, duration: 2, delay: 1 })
-      .to(".animate-3", { y: 40, duration: 2 }, "<")
+    tl.to(".animate-1", { y: -20, duration: 2, delay:1 })
+      .to(".animate-3", { y: 40, duration: 2,}, "<")
       .to(".carousel-container", { opacity: 1, duration: 1, delay: 1 }, "<");
 
     // Optionally, you can add more animations here.
@@ -43,7 +45,7 @@ const Pokedex = () => {
             <div className="md:w-80 w-full relative z-0 bg-[#E1FDFA] flex flex-col justify-center p-[10px] ">
               {/* Your carousel content goes here */}
               <div className="w-full h-[43vh] relative bg-blue-500 rounded-xl flex flex-col items-center carousel-conatainer">
-                <Carousel />
+                  <Carousel />
               </div>
             </div>
           </div>
