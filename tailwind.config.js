@@ -21,6 +21,9 @@ module.exports = {
           "100%": { transform: "translateX(0)" },
         },
       },
+      fontFamily: {
+        VikingHell: 'VikingHell'
+      },
       colors: {
         primary: {
           50: "#F4EEFC",

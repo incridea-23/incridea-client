@@ -4,6 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'VikingHell';
+  src: url('../../public/font/Viking\ Hell.otf') format('opentype');
+  font-display: swap;
+}
+
 /* create a youtube-like scrollbar */
 ::-webkit-scrollbar {
   width: 0.4rem;
@@ -220,4 +226,18 @@
   @apply max-w-screen-2xl;
   @apply mx-auto;
   @apply p-4 md:p-12;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
 }
