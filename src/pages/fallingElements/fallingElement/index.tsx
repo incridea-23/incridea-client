@@ -10,12 +10,12 @@ type srcProps = {
 const getPosition: () => number = () => {
     /* used to generate the point from where the element should fall */
     /* in a range of 0% to 100% of portal width */
-    return Math.floor(Math.random() * (90 - 10)) + 10;
+    return Math.floor(Math.random() * (60-40)) + 40;
 };
 
 const FallingElement: React.FC<srcProps> = ({ src, size }: srcProps) => {
     const [localSrc, setLocalSrc] = useState(src);
-    const [left, setLeft] = useState<number | null>(null);
+    const [left, setLeft] = useState<number>(0);
 
     useEffect(() => {
         setLeft(getPosition());
@@ -27,17 +27,19 @@ const FallingElement: React.FC<srcProps> = ({ src, size }: srcProps) => {
         <>
             <div
                 onClick={() => { localSrc === "bomb.png" ? setLocalSrc("explodeGif.gif") : null }}
-                className={`absolute bottom-0 animate-free-fall`}
+                className={`absolute bottom-0 animate-free-fall ${localSrc === "bomb.png" ? "z-[900]": "z-50"}`}
                 style={{
-                    left: `${left}%`,
-                    width: `${size.width}px`,
-                    height: `${size.height}px`,
+                    
+                    left: `${localSrc !== "explodeGif.gif" ? left : left-15}%`,
+                    width: `${localSrc !== "explodeGif.gif" ? size.width : 170}px`,
+                    height: `${localSrc !== "explodeGif.gif" ? size.height : 170}px`,
                 }}>
-                 {localSrc != "" ? <Image
+                 {localSrc != "" ? <Image 
                     src={`/assets/png/${localSrc}`}
                     alt={""}
-                    width={size.width}
-                    height={size.height}
+                    /* fill={true} */
+                    width={localSrc !== "explodeGif.gif" ? size.width : 170}
+                    height={localSrc !== "explodeGif.gif" ? size.height :170}
                 />: null}   
                 
 

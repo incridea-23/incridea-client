@@ -4,6 +4,7 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Image from "next/image";
+import FallingElements from "./fallingElements";
 
 type CardStyle = {
     top: string;
@@ -108,6 +109,7 @@ const SignIn: NextPage = () => {
             <div
                 className={`relative min-h-[93vh] min-w-screen flex flex-col justify-between [transform-style:preserve-3d] [perspective:500px] overflow-hidden`}>
                 <LoginPortal isTop={true} />
+                
                 <LoginCard
                     whichForm="signIn"
                     cardStyle={cardStyle.signIn}
