@@ -47,6 +47,7 @@ const Annotation = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          cursor: "pointer",
         }}
         onClick={() => {
           setEventDexFlag();

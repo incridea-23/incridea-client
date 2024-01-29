@@ -2,11 +2,13 @@ import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import styles from "./bookModal.module.css";
 import useStore from "../store/store";
+import { IoMdClose } from "react-icons/io";
 
 const BookModal: React.FC = () => {
   const pageRef = useRef<HTMLDivElement[]>([]);
 
   const setSponsorFlag = useStore((state) => state.setSponsor);
+  const sponsorFlag = useStore((state) => state.sponsor);
 
   useEffect(() => {
     gsap.set(`.${styles.pageBg}`, { xPercent: -50, yPercent: -50 });
@@ -96,8 +98,12 @@ const BookModal: React.FC = () => {
 
   return (
     <div className="flex fixed inset-0 z-[1000] h-screen items-center justify-center p-5  overflow-hidden">
-      <div className="absolute top-5 right-5" onClick={setSponsorFlag}>
-        X
+      <div
+        className="absolute top-5 right-5 cursor-pointer bg-red-600 px-2 py-1 rounded-sm"
+        style={{ pointerEvents: sponsorFlag ? "all" : "none" }}
+        onClick={setSponsorFlag}
+      >
+        <IoMdClose className="text-lg text-white" />
       </div>
       <div className="h-1/3 sm:h-3/4 lg:h-5/6  max-w-2xl lg:max-w-3xl w-full">
         <div className={styles.bookBg}>

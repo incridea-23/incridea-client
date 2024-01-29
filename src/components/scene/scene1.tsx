@@ -123,16 +123,16 @@ type GLTFResult = GLTF & {
 export default function Scene1(props: JSX.IntrinsicElements["group"]) {
   const group = useRef<THREE.Group>(null);
   const { nodes, materials, animations } = useGLTF(
-    "/assets/3d/level2-sponsorBook3.glb"
+    "/assets/3d/level2-sponsorBook4.glb"
   ) as GLTFResult;
-  const { actions } = useAnimations(animations);
+  const { actions, names } = useAnimations(animations);
   const sheet = useCurrentSheet();
   const scroll = useScroll();
-  console.log(actions);
+  console.log(actions, names);
   useEffect(() => {
-    actions["pokeballSpin"]?.reset().play();
-    console.log(actions["pokeballSpin"]);
-  }, [actions]);
+    actions[names[0]]?.reset().play();
+    console.log(actions[names[0]]?.isRunning());
+  }, [actions, names]);
 
   useFrame(() => {
     const sequenceLength = val((sheet as ISheet).sequence.pointer.length);
@@ -547,4 +547,4 @@ export default function Scene1(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
-useGLTF.preload("/assets/3d/level2-sponsorBook3.glb");
+useGLTF.preload("/assets/3d/level2-sponsorBook4.glb");
