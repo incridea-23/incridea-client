@@ -1,6 +1,6 @@
 import { FooterBody } from "@/src/components/footer";
 import GallerySlide from "@/src/components/galleryslide";
-import ProgressBar from "@/src/components/galleryslide/progress-bar";
+import ProgressBar from "@/src/components/galleryslide/progressBar/progress-bar";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import gsap from "gsap";
 import { NextPage } from "next";

@@ -6,9 +6,9 @@ import Image from "next/image";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Autoplay, Mousewheel, Navigation, Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import BlurImage from "../blurImage";
-import Modal from "./gallery-modal";
-import PreviewComponent from "./preview-component";
+import BlurImage from "../../blurImage";
+import Modal from "../gallery-modal";
+import PreviewComponent from "../previewComponent/preview-component";
 
 const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
   const [active, setActive] = useState<number>(0);

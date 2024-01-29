@@ -2,7 +2,7 @@
 import gsap from "gsap";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import styles from "./gallery.module.css";
+import styles from "src/components/galleryslide/styles/gallery.module.css";
 
 interface ProgressBarProps {
   year: number;
@@ -81,7 +81,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ year }) => {
       ))}
       {/* Character SVG */}
       <Image
-        src="/assets/svg/beach.svg"
+        src="/assets/svg/character.svg"
         alt="Character"
         width={50}
         height={50}

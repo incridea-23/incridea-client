@@ -1,11 +1,15 @@
 import { baseImageUrl } from "@/src/utils/url";
 import Image from "next/image";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Autoplay, Mousewheel, Navigation, Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import BlurImage from "../blurImage";
+import BlurImage from "../../blurImage";
+import Modal from "../gallery-modal";
+import PreviewComponent from "../previewComponent/preview-component";
 
 const Console = ({ imgArr }: { imgArr: string[] }) => {
+  const [active, setActive] = useState<number>(0);
+  const [activeModal, setActiveModal] = useState<boolean>(false);
   const swiperRef = useRef<SwiperType>();
   return (
     <div
@@ -35,6 +39,7 @@ const Console = ({ imgArr }: { imgArr: string[] }) => {
               <SwiperSlide
                 key={index}
                 className="flex justify-center items-center bg-white text-center"
+                onClick={() => setActiveModal(true)}
               >
                 <div className="relative w-full h-full flex justify-center items-center">
                   <BlurImage
@@ -65,6 +70,13 @@ const Console = ({ imgArr }: { imgArr: string[] }) => {
           className="active:bg-gray-800 bg-black opacity-40 absolute w-[9vw] h-[9vw] top-[22vw] left-[41.5vw] md:top-[18.5vw] md:left-[20.5vw] md:w-[1.5vw] md:h-[1.5vw] rounded-full duration-300 transition-all ease-in-out border-yellow-300 border-2 animate-"
         ></button>
       </div>
+      <Modal
+        showModal={activeModal}
+        title="test"
+        onClose={() => setActiveModal(false)}
+      >
+        <PreviewComponent imgArr={imgArr} />
+      </Modal>
     </div>
   );
 };
