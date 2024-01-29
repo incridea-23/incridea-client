@@ -6,7 +6,6 @@ import {
   platformDimensions,
   platformSpriteDimensions,
 } from "./gameConstants";
-import { scryptSync } from "crypto";
 
 const actionKeys: string[] = [];
 const ExploreGame = () => {
@@ -617,7 +616,6 @@ const ExploreGame = () => {
         </div>
       </div>
 
-      {/* { */}
       {scrollY > 450 && showAbout && (
         <div
           className="absolute z-50 h-max sm:max-w-lg sm:text-xs sm:top-[35%] md:max-w-xl md:text-sm max-w-md text-xs top-[30%] mx-4 text-opacity-80  bg-[#86d6e9]/30 p-6 xl:top-[45%] xl:left-6 xl:max-w-xl xl:text-base  text-white pressStart justify-evenly text-justify space-y-4 rounded-lg transition-all duration-300 ease-in-out"
