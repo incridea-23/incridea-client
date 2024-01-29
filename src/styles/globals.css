@@ -227,3 +227,18 @@
   @apply mx-auto;
   @apply p-4 md:p-12;
 }
+
+.swiper-slide-thumb-active {
+  opacity: 1;
+  scale: 130%;
+  height: 20vh;
+  z-index: 100000;
+  transition: all 4000ms ease-in-out;
+}
+
+
+/* .swiper-horizontal > .swiper-pagination-progressbar {
+  width: 60% !important;
+  top: 20vw !important;
+  left: 20vw !important;
+} */
