@@ -4,7 +4,6 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Image from "next/image";
-import FallingElements from "./fallingElements";
 
 type CardStyle = {
     top: string;

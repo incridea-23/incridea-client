@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
-import FallingElements from "@/src/pages/fallingElements";
-import FallingElement from "@/src/pages/fallingElements/fallingElement";
+import FallingElements from "../fallingElements";
+import FallingElement from "../fallingElements/fallingElement";
 import Image from "next/image";
 
 type LoginPortalProps = {
