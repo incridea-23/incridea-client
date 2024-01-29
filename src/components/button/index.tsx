@@ -1,5 +1,5 @@
 import { cva, VariantProps } from 'class-variance-authority';
-import React from 'react';
+import React, { ReactChildren, ReactElement } from 'react';
 
 const buttonStyles = cva(
   `flex gap-2 items-center transition-colors font-VikingHell duration-300`,
@@ -57,11 +57,11 @@ const buttonStyles = cva(
   }
 );
 
-interface ButtonProps extends VariantProps<typeof buttonStyles> {
+interface ButtonProps extends VariantProps<typeof buttonStyles> ,  React.ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
   style?: React.CSSProperties & { [key: string]: any };
   noScaleOnHover?: boolean;
-  children?: string;
+  children?: React.ReactNode;
   className?: string
 }
 

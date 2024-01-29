@@ -5,6 +5,7 @@ query AccommodationRequestsByUserId($userId: ID!) {
     checkOut
     createdAt
     gender
+    IdCard
     room
     status
     hotel {
