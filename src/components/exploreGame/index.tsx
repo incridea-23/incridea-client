@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import {
   SpriteDimensions,
   platformDimensions,
@@ -9,6 +10,8 @@ import {
 const actionKeys: string[] = [];
 const ExploreGame = () => {
   const [showAbout, setShowAbout] = useState(false);
+  const [showRuleBook, setShowRuleBook] = useState(false);
+  const [showSchedule, setShowSchedule] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const ctx = useRef<CanvasRenderingContext2D | null | undefined>(null);
@@ -41,6 +44,8 @@ const ExploreGame = () => {
   let frameCount: number = 0;
   const gravity: number = 0.15;
   let showAboutFlag = true;
+  let showRuleBookFlag = true;
+  let showScheduleFlag = true;
 
   const resizeCanvas = () => {
     if (canvas.current) {
@@ -316,6 +321,10 @@ const ExploreGame = () => {
     ) {
       // Standing on the left platform
       isGrounded = true;
+      if (showScheduleFlag) {
+        setShowSchedule(true);
+        showScheduleFlag = false;
+      }
       player.current.y =
         window.innerHeight * (platformDimensions.left.yPercentage + 0.015) -
         player.current.height;
@@ -359,6 +368,10 @@ const ExploreGame = () => {
     ) {
       // Standing on the right platform
       isGrounded = true;
+      if (showRuleBookFlag) {
+        setShowRuleBook(true);
+        showRuleBookFlag = false;
+      }
       player.current.y =
         window.innerHeight * (platformDimensions.right.yPercentage + 0.02) -
         player.current.height;
@@ -434,7 +447,11 @@ const ExploreGame = () => {
 
     isGrounded = false;
     setShowAbout(false);
+    setShowRuleBook(false);
+    setShowSchedule(false);
+    showRuleBookFlag = true;
     showAboutFlag = true;
+    showScheduleFlag = true;
   };
 
   const animate = () => {
@@ -619,6 +636,34 @@ const ExploreGame = () => {
           <span className="absolute bottom-1 right-2 text-xs font-mono">
             Try controlling Ryoko
           </span>
+        </div>
+      )}
+
+      {scrollY > 450 && (showRuleBook || showSchedule) && (
+        <div className="absolute h-max sm:max-w-lg sm:text-xs sm:top-[35%] md:max-w-xl md:text-sm max-w-md text-xs top-[30%] mx-4 text-opacity-80  bg-[#86d6e9]/30 p-6 xl:top-[45%] xl:left-6 xl:max-w-xl xl:text-base  text-white pressStart justify-evenly text-justify space-y-4 rounded-lg transition-all duration-300 ease-in-out">
+          {/* <p>Jello</p> */}
+          <Image
+            src={
+              showRuleBook
+                ? "/assets/png/ruleBook.png"
+                : "/assets/png/rulebook.png"
+            }
+            alt="RuleBook"
+            width={100}
+            height={100}
+            className="w-[10rem] h-[15rem] sm:w-[12rem] sm:h-[18rem] md:w-[14rem] md:h-[21rem] xl:w-[20rem] xl:h-[30rem]"
+          />
+          <a
+            href={
+              showRuleBook
+                ? "/assets/images/ruleBook.png"
+                : "/assets/images/rulebook.png"
+            }
+            className="flex w-full justify-center py-4 bg-orange-500 rounded-xl"
+            download
+          >
+            <button>Download {showRuleBook ? "Rule Book" : "Schedule"}</button>
+          </a>
         </div>
       )}
       <canvas ref={canvas} className="h-[200vh] w-full "></canvas>
