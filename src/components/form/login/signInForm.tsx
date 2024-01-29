@@ -107,9 +107,11 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
                     className="text-sm w-fit -md:mt-1 mb-2 hover:underline text-accent-300 text-start">
                     Forgot your password?
                 </button>
+
                 <Button intent={`primary`} type="submit" className="mx-1">
                     Login
                 </Button>
+
                 {loading && (
                     <div className="absolute h-full w-full bg-[#f3e9d1] bg-opacity-60 inset-0 rounded-lg cursor-not-allowed pointer-events-none z-50">
                         <Spinner className="text-[#dd5c6e]" />

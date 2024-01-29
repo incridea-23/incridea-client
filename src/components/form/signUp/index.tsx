@@ -210,7 +210,9 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
             className={`flex relative justify-center min-h-full flex-col gap-3 ${
                 loading && "cursor-not-allowed pointer-events-none"
             }`}>
-            <p className="text-2xl text-center font-semibold">Welcome player</p>
+            <p className="text-2xl text-center font-semibold mb-3">
+                Welcome player
+            </p>
 
             {!emailSuccess && (
                 <>
