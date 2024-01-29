@@ -4,10 +4,10 @@ import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { idToPid } from "@/src/utils/id";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { NextPage } from "next";
 
 
-const leaderBoard = () => {
+const LeaderBoard : NextPage = () => {
     interface UserTotalPoints {
         [userId: string]: {
             levelPoints: number;
@@ -157,4 +157,4 @@ const leaderBoard = () => {
     )
 }
 
-export default leaderBoard;
+export default LeaderBoard;
