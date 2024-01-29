@@ -13,12 +13,13 @@ import Annotation from "@/src/components/scene/annotation";
 import dynamic from "next/dynamic";
 import useStore from "@/src/components/store/store";
 import BookModal from "@/src/components/explore/BookModal";
+import Pokedex from "@/src/components/pokedex";
 const Scene1 = dynamic(() => import("@/src/components/scene/scene1"), {
   ssr: false,
 });
 
-// studio.extend(extension);
-// studio.initialize();
+studio.extend(extension);
+studio.initialize();
 
 const demoSheet = getProject("Scene 1", { state: scene1 }).sheet("Scene 1");
 const App = () => {
@@ -69,7 +70,9 @@ const App = () => {
           </SheetProvider>
         </Canvas>
       </Suspense>
-      <div className="" ref={modalRef}></div>
+      <div className="" ref={modalRef}>
+        {/* {eventDex && <Pokedex data={} />} */}
+      </div>
       <div className="" ref={sponsorBookRef}>
         {sponsor && <BookModal />}
       </div>

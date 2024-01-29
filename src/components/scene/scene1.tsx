@@ -1,6 +1,12 @@
 import * as THREE from "three";
 import React, { useEffect, useRef } from "react";
-import { useAnimations, useGLTF, useScroll } from "@react-three/drei";
+import {
+  Html,
+  Plane,
+  useAnimations,
+  useGLTF,
+  useScroll,
+} from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 import { useCurrentSheet } from "@theatre/r3f";
 import { useFrame } from "@react-three/fiber";
@@ -8,6 +14,7 @@ import { ISheet, val } from "@theatre/core";
 import Annotation from "./annotation";
 import Sponsor from "./sponsor";
 import { editable as e } from "@theatre/r3f";
+import Level3 from "./level3Button";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -134,10 +141,10 @@ export default function Scene1(props: JSX.IntrinsicElements["group"]) {
     console.log(actions[names[0]]?.isRunning());
   }, [actions, names]);
 
-  useFrame(() => {
-    const sequenceLength = val((sheet as ISheet).sequence.pointer.length);
-    sheet && (sheet.sequence.position = scroll.offset * sequenceLength);
-  });
+  // useFrame(() => {
+  //   const sequenceLength = val((sheet as ISheet).sequence.pointer.length);
+  //   sheet && (sheet.sequence.position = scroll.offset * sequenceLength);
+  // });
   return (
     <>
       <group {...props} dispose={null}>
@@ -541,6 +548,9 @@ export default function Scene1(props: JSX.IntrinsicElements["group"]) {
           >
             <Sponsor />
           </mesh>
+        </group>
+        <group>
+          <Level3 />
         </group>
       </group>
     </>
