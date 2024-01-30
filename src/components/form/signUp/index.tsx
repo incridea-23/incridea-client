@@ -207,7 +207,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
     return (
         <form
             onSubmit={handleSubmit}
-            className={`flex relative justify-center min-h-full flex-col gap-3 ${
+            className={`px-6 flex relative justify-center min-h-full flex-col gap-3 ${
                 loading && "cursor-not-allowed pointer-events-none"
             }`}>
             <p className="text-2xl text-center font-semibold mb-3">
@@ -472,8 +472,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                 </Button>
             </div>
 
-            {(loading || emailVerificationLoading) && (
-                <div className="absolute h-full text-[#dd5c6e] gap-5 w-full flex flex-col items-center justify-center bg-[#f3e9d1] bg-opacity-70 inset-0 rounded-lg cursor-not-allowed pointer-events-none z-30">
+            {(!loading || emailVerificationLoading) && (
+                <div className={`absolute h-full text-[#dd5c6e] gap-5 w-full flex flex-col items-center justify-center bg-gradient-to-b from-[#1f2e97] to-[#090d4b] ${!loading ? "opacity-70" : "bg-opacity-60"} bg-opacity-70 inset-0 rounded-lg cursor-not-allowed  z-30`}>
                     <Spinner className="h-fit my-0 text-[#dd5c6e]" />
                     {emailVerificationLoading && (
                         <p className="font-semibold">
