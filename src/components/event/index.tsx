@@ -24,6 +24,7 @@ const Event = ({
       if (data.minTeamSize !== 1)
         teamSizeText += `${data.minTeamSize} members per team`
       if (data.minTeamSize === 0) teamSizeText = ''
+      else teamSizeText = "1 member per team"
     } else {
       teamSizeText = `${data.minTeamSize} - ${data.maxTeamSize} members per team`
     }
@@ -69,11 +70,11 @@ const Event = ({
       //    Icon: IoCashOutline,
       //  },
 
-      //  {
-      //    name: 'Team Size',
-      //    text: teamSizeText,
-      //    Icon: IoPeopleOutline,
-      //  },
+       {
+         name: 'Team Size',
+         text: teamSizeText,
+         Icon: IoPeopleOutline,
+       },
     ]
   }
 
@@ -94,7 +95,7 @@ const Event = ({
                 />
               </div>
               <div
-                className={`${styles.social_media} capitalize font-semibold justify-items-end items-center text-center text-[1.05rem]`}
+                className={`${styles.social_media} font-VikingHell capitalize font-semibold justify-items-end items-center text-center text-[1.05rem]`}
               >
                 {data.category?.replace('_', ' ').toLocaleLowerCase()}
               </div>
@@ -103,7 +104,7 @@ const Event = ({
           <div className="m-[6px]">
             {data.image && (
               <Image
-                // src={`https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg`}
+                //src={`https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg`}
                 src={data.image}
                 alt={'Image'}
                 width={250}
@@ -117,7 +118,7 @@ const Event = ({
           className={`${styles.bottom_section} flex flex-col justify-center items-center w-full`}
         >
           <span
-            className={`${styles.glitch} ${styles.eventTitle} flex justify-center items-center text-center text-lg w-fit px-4`}
+            className={`${styles.glitch} ${styles.eventTitle} font-VikingHell flex justify-center items-center text-center text-lg w-fit px-4`}
           >
             {data.name}
           </span>
@@ -138,7 +139,7 @@ const Event = ({
           </div>
         </div>
         <div className="p-2 pt-0 mt-0">
-          <button className="hover:bg-[#69e5f8] shrink-0 w-full mt-0 py-2 flex gap-2 items-center justify-center rounded transition-colors duration-300 bg-[#10adc6]">
+          <button className="hover:bg-[#69e5f8] shrink-0 w-full mt-0 py-2 flex gap-2 items-center justify-center rounded transition-colors duration-300 bg-[#10adc6] font-VikingHell">
             <Link href={generateEventUrl(data.name, data.id)}>
               play the game
             </Link>

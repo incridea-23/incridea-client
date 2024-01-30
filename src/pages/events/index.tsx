@@ -18,6 +18,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
   const containerRef = useRef(null);
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
+  // TODO: add new branchs
   const branchFilters = [
     "ALL",
     "CORE",
@@ -66,10 +67,10 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
     if (currentDayFilter !== "ALL") {
       let filteredDay = new Date(
         currentDayFilter === "DAY 1"
-          ? "2023-04-22"
+          ? "2024-02-22"
           : currentDayFilter === "DAY 2"
-          ? "2023-04-23"
-          : "2023-04-24"
+          ? "2024-02-23"
+          : "2024-02-24"
       ).getDate();
       tempFilteredEvents = tempFilteredEvents.filter((event) =>
         event.rounds.some((round) => new Date(round.date).getDate() === filteredDay)
