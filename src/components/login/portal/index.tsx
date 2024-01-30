@@ -35,11 +35,7 @@ const LoginPortal: FunctionComponent<LoginPortalProps> = ({ isTop }) => {
       <div
         className={`absolute left-2/4 ${
           isTop ? "-top-[25px]" : "-bottom-[20px]"
-        } -translate-x-2/4 z-40 h-[50px] w-[75vw] md:w-[450px] pointer-events-none ${
-          isTop
-            ? "bg-gradient-to-r from-[#7449d8] to-[#7048d5]"
-            : "bg-gradient-to-r from-[#2c1387] to-[#8c2ef3]"
-        }`}></div>
+        } -translate-x-2/4 z-40 h-[50px] w-[75vw] md:w-[450px] backdrop-blur-[100px] pointer-events-none`}></div>
 
       {isTop && (
         <>
