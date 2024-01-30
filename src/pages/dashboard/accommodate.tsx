@@ -5,10 +5,22 @@ import { Toaster } from "react-hot-toast";
 import Spinner from "@/src/components/spinner";
 import Dashboard from "@/src/components/layout/dashboard";
 import AccommodateTab from "@/src/components/pages/dashboard/accommodate/AccomodateTab";
+import { AccommodationRequestsDocument } from "@/src/generated/generated";
+import { useQuery } from "@apollo/client";
+
+
 
 const Accommodate: NextPage = () => {
   const router = useRouter();
   const { user, loading } = useAuth();
+
+  const {
+    data,
+    loading: submissionsLoading,
+    error,
+    refetch: submissionsRefetch,
+  } = useQuery(AccommodationRequestsDocument);
+
 
   if (loading)
     return (
@@ -25,7 +37,8 @@ const Accommodate: NextPage = () => {
 
   // 2. Redirect to profile if user is not a admin
   // if (user && user.role !== 'ADMIN') router.push('/profile');
-
+  // 2. Redirect to profile if user is not a accommodation committee member
+  if (data?.accommodationRequests.__typename === "Error") router.push("/profile");
   return (
     <Dashboard>
       <Toaster />
