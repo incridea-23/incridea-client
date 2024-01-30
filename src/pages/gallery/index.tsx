@@ -1,6 +1,6 @@
 import { FooterBody } from "@/src/components/footer";
 import GallerySlide from "@/src/components/galleryslide";
-import ProgressBar from "@/src/components/galleryslide/progress-bar";
+import ProgressBar from "@/src/components/galleryslide/progress/progress-bar";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import gsap from "gsap";
 import { NextPage } from "next";
@@ -122,13 +122,13 @@ const Gallery: NextPage = () => {
         >
           <SwiperSlide className="flex justify-center items-center text-center">
             <div className="relative w-full h-full flex justify-center items-center">
-              <GallerySlide title={"2022"} imgArr={img2019} emulator="gba" />
+              <GallerySlide title={"2019"} imgArr={img2019} emulator="gba" />
             </div>
           </SwiperSlide>
           <SwiperSlide className="flex justify-center items-center text-center">
             <div className="relative w-full h-full flex justify-center items-center">
               <GallerySlide
-                title={"2022"}
+                title={"2020"}
                 imgArr={img2019}
                 emulator="retroPC"
               />
@@ -146,10 +146,15 @@ const Gallery: NextPage = () => {
           <SwiperSlide className="flex justify-center items-center text-center">
             <div className="relative w-full h-full flex justify-center items-center">
               <GallerySlide
-                title={"2022"}
+                title={"2023"}
                 imgArr={img2019}
                 emulator="console"
               />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className="flex justify-center items-center text-center">
+            <div className="relative w-full h-full flex justify-center items-center">
+              <GallerySlide title={"2024"} imgArr={img2019} emulator="final" />
             </div>
           </SwiperSlide>
           <div className="mx-auto flex gap-4 absolute top-[85%] justify-between px-20 w-full">
@@ -171,7 +176,7 @@ const Gallery: NextPage = () => {
                 });
                 return swiperRef.current?.slidePrev();
               }}
-              className={`h-6 w-auto z-10 duration-75 transition-all ease-in-out`}
+              className={`h-6 w-auto duration-75 transition-all ease-in-out z-50`}
             >
               <Image
                 src="/assets/svg/8bitArrow.svg"
@@ -200,7 +205,7 @@ const Gallery: NextPage = () => {
                 });
                 return swiperRef.current?.slideNext();
               }}
-              className="z-10 h-6 w-auto duration-75 transition-all ease-in-out"
+              className="h-6 w-auto duration-75 transition-all ease-in-out z-50"
             >
               <Image
                 src="/assets/svg/8bitArrow.svg"

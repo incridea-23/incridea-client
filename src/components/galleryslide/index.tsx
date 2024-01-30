@@ -10,17 +10,18 @@ import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { IoAtCircle } from "react-icons/io5";
 import BlurImage from "../blurImage";
-import Console from "./conosole-component";
-import GbaComponent from "./gba-component";
-import RetroPC from "./retropc-component";
-import RetroTV from "./retrotv-component";
+import Console from "./devices/conosole-component";
+import FinalComponent from "./devices/final-component";
+import GbaComponent from "./devices/gba-component";
+import RetroPC from "./devices/retropc-component";
+import RetroTV from "./devices/retrotv-component";
 
 type GalleryProps = {
   title: string;
   // next: string;
   // prev: string;
   imgArr: string[];
-  emulator: "gba" | "retroPC" | "console" | "retroTV";
+  emulator: "gba" | "retroPC" | "console" | "retroTV" | "final";
 };
 
 const GallerySlide: FC<GalleryProps> = ({ title, imgArr, emulator }) => {
@@ -36,6 +37,8 @@ const GallerySlide: FC<GalleryProps> = ({ title, imgArr, emulator }) => {
 
     case "retroTV":
       return <RetroTV imgArr={imgArr} />;
+    case "final":
+      return <FinalComponent />;
   }
 
   // return (

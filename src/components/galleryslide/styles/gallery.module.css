@@ -1,0 +1,39 @@
+.progress-bar {
+  position: absolute;
+  bottom: 5vw;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.progress-step {
+  width: 2vw;
+  height: 2vw;
+  background-color: #d6b951; /* Default color for unfilled steps */
+  border: black solid 1px;
+  border-radius: 50%;
+  position: relative;
+}
+
+@media (max-width: 800px) {
+  .progress-step {
+    width: 8vw;
+    height: 8vw;
+  }
+}
+
+.filled {
+  background-color: #4248ad !important; /* Color for filled steps */
+}
+
+.svg-art {
+  position: absolute;
+  top: -70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-filter: drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black);
+  filter: drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black);
+}
