@@ -38,7 +38,7 @@ const ResendEmail = ({ setWhichForm }: Props) => {
     return (
         <>
             <form
-                className={`relative flex flex-col gap-2 min-h-full justify-center ${
+                className={`relative px-6 flex flex-col gap-2 min-h-full justify-center ${
                     loading && "cursor-not-allowed pointer-events-none"
                 }`}
                 onSubmit={handleSubmit}>
@@ -81,7 +81,7 @@ const ResendEmail = ({ setWhichForm }: Props) => {
                             }}
                             type="email"
                             required
-                            className=" py-2 px-1 border-b  bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-red-500 outline-none"
+                            className=" py-2 px-1 border-b  bg-transparent transition-all border-gray-400   placeholder:text-gray-500    md:focus:border-red-500 outline-none"
                             placeholder="Email"
                         />
                         {(error || emailVerificationError) && (
@@ -94,7 +94,7 @@ const ResendEmail = ({ setWhichForm }: Props) => {
                             Send Verification Email
                         </Button>
                         {loading && (
-                            <div className="absolute h-full w-full bg-[#f3e9d1] bg-opacity-60 inset-0 rounded-lg cursor-not-allowed pointer-events-none z-50">
+                            <div className="absolute h-full w-full bg-[#f3e9d1] bg-opacity-60 inset-0 rounded-lg cursor-not-allowed  z-50">
                                 <Spinner className="text-[#dd5c6e]" />
                             </div>
                         )}

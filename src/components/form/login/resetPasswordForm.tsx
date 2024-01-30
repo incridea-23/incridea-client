@@ -39,7 +39,7 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
     return (
         <>
             <form
-                className={`relative flex flex-col gap-2 min-h-full justify-center ${
+                className={`relative px-6 flex flex-col gap-2 min-h-full justify-center ${
                     loading && "cursor-not-allowed pointer-events-none"
                 }`}
                 onSubmit={handleSubmit}>
@@ -75,8 +75,8 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
                             Send Reset Link
                         </Button>
 
-                        {loading && (
-                            <div className="absolute h-full w-full bg-[#f3e9d1] bg-opacity-60 inset-0 rounded-lg cursor-not-allowed pointer-events-none z-50">
+                        {!loading && (
+                            <div className={`absolute h-full w-full bg-gradient-to-b from-[#1f2e97] to-[#090d4b] ${!loading ? "opacity-70" : "bg-opacity-60"} bg-opacity-60 inset-0 rounded-lg cursor-not-allowed  z-50`}>
                                 <Spinner className="text-[#dd5c6e]" />
                             </div>
                         )}
