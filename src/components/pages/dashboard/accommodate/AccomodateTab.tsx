@@ -5,7 +5,6 @@ import Spinner from "@/src/components/spinner";
 import AddAccommodateDetails from "./AddAccommodateDetails";
 import ViewAccommodateDetails from "./ViewAccommodateDetails";
 import HotelModal from "./HotelModal";
-import { CreateAccommodationRequest } from "@/src/components/form/accommodation";
 
 const AccommodateTab: FC = () => {
   const {
@@ -50,8 +49,7 @@ const AccommodateTab: FC = () => {
                   (acc, idx) => (
                     <div
                       key={acc?.id}
-                      className={`bg-white/10 md:rounded-none rounded-lg md:p-4 ml-2 p-3 flex flex-col md:flex-row md:items-center items-start md:justify-center  mb-3 md:my-0`}
-                    >
+                      className={`bg-white/10 md:rounded-none rounded-lg md:p-4 ml-2 p-3 flex flex-col md:flex-row md:items-center items-start md:justify-center  mb-3 md:my-0`}>
                       <h1 className="basis-1/6 flex justify-start py-0.5 text-start text-lg">
                         {acc?.user?.name}
                       </h1>
@@ -79,8 +77,7 @@ const AccommodateTab: FC = () => {
                           acc?.status == "CONFIRMED"
                             ? "border-green-500 text-green-500"
                             : "border-red-500 text-red-500"
-                        }`}
-                      >
+                        }`}>
                         {acc?.status}
                       </h1>
                       <h1 className="basis-1/6 py-0.5 flex text-center justify-center bg-slate text-lg">
