@@ -3,7 +3,7 @@ import { HTMLMotionProps, motion } from 'framer-motion';
 import React from 'react';
 
 const buttonStyles = cva(
-  `flex gap-2 items-center justify-center rounded transition-colors duration-300 titleFont`,
+  `flex gap-2 items-center justify-center rounded transition-colors duration-300`,
   {
     variants: {
       intent: {

@@ -8,6 +8,7 @@ export type Team = {
   confirmed: boolean;
   leaderId: string;
   event: {
+    minTeamSize: number;
     id: string;
     name: string;
     maxTeamSize: number;

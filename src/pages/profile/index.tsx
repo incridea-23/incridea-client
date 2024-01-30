@@ -49,17 +49,19 @@ const Profile: NextPage = () => {
     <>
       <main
         ref={containerRef}
-        className=" h-dvh lg:p-20 bg-[#140F34] lg:h-screen"
+        className="h-dvh lg:p-10 bg-[#140F34] lg:h-screen"
       >
-        <div className='flex lg:h-full flex-col-reverse lg:flex-row justify-around items-center lg:space-x-10 lg:mt-8'>
+        
+        {/* <div className='flex lg:h-full flex-col-reverse lg:flex-row justify-around items-center 2xl:items-start lg:space-x-10 lg:mt-8 2xl:p-15 2xl:mx-52 page-c'> */}
+        <div className='flex lg:h-full flex-col-reverse lg:flex-row justify-around items-center 2xl:items-start lg:space-x-8 lg:mt-8 page-container'>
 
           {/* 2. Registered Events section & Teams section */}
-          <div className='h-full w-full rounded-lg lg:overflow-auto bg-[#ababab] backdrop-filter backdrop-blur-xl px-3 pb-5 bg-opacity-10 border-gray-200/30 '>
+          <div className='h-full w-full basis-2/3 lg:rounded-lg lg:overflow-auto lg:bg-[#ababab] backdrop-filter backdrop-blur-xl pb-5 lg:bg-opacity-10 border-gray-200/30 '>
             <UserEvents userId={user?.id!} name={user.name} email={user.email} />
           </div>
 
           {/* 1. Profile Info section */}
-          <div className='h-full w-full bg-[#ababab] backdrop-filter backdrop-blur-xl bg-opacity-10 rounded-xl border-gray-200/30'>
+          <div className='h-full basis-1/3 2xl:w-min 2xl:h-min 2xl:p-10 lg:bg-[#ababab] backdrop-filter backdrop-blur-xl lg:bg-opacity-10 lg:rounded-xl border-gray-200/30'>
           <ProfileInfo user={user} />
           </div>
 

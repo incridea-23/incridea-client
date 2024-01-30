@@ -44,9 +44,10 @@ const UserEvents: FC<{
         events.registeredEvents.data.length !== 0 && (
           <>
            {/* the mini bar */}
-            <div className='h-auto w-full bg-[#ababab] backdrop-filter backdrop-blur-xl bg-opacity-10 font-bold text-xl md:p-3 text-white sticky top-0 z-50 text-center'>My Quests</div>
-            <h3 className='text-white px-3 pt-3 z-1'>You have entered <span className='text-fuchsia-500'>{events.registeredEvents.data.length}</span> quests</h3>
-            <div className="flex gap-5 flex-wrap  pt-3 items-stretch justify-center lg:p-3">
+            <div className='h-auto hidden lg:block w-full bg-[#ababab] backdrop-filter backdrop-blur-xl bg-opacity-10 font-bold text-xl md:p-3 text-white sticky top-0 z-50 text-center'>My Quests</div>
+            <div className='p-5'>
+            <h3 className='text-white px-3 z-1 md:text-center lg:text-left'>You have entered <span className='text-fuchsia-500'>{events.registeredEvents.data.length}</span> quest{events.registeredEvents.data.length > 1 && 's'}</h3>
+            <div className="flex gap-5 flex-wrap  pt-3 items-center justify-center lg:p-3">
            
             
               {events?.registeredEvents.__typename ===
@@ -54,6 +55,7 @@ const UserEvents: FC<{
                 events?.registeredEvents.data?.map((event) => (
                   <EventCard key={event.id} teams={event.teams} event={event} userId={userId} name={name} email={email} />
                 ))}
+            </div>
             </div>
           </>
         )}
