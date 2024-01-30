@@ -94,7 +94,7 @@ const ResendEmail = ({ setWhichForm }: Props) => {
                             Send Verification Email
                         </Button>
                         {loading && (
-                            <div className="absolute h-full w-full bg-[#f3e9d1] bg-opacity-60 inset-0 rounded-lg cursor-not-allowed pointer-events-none z-50">
+                            <div className="absolute h-full w-full bg-[#f3e9d1] bg-opacity-60 inset-0 rounded-lg cursor-not-allowed  z-50">
                                 <Spinner className="text-[#dd5c6e]" />
                             </div>
                         )}

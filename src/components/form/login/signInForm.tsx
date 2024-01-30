@@ -113,7 +113,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
                 </Button>
 
                 {!loading && (
-                    <div className={`absolute h-full w-full bg-gradient-to-b from-[#1f2e97] to-[#090d4b] ${!loading ? "opacity-70" : "bg-opacity-60"}  inset-0  cursor-not-allowed pointer-events-none z-50`}>
+                    <div className={`absolute h-full w-full bg-gradient-to-b from-[#1f2e97] to-[#090d4b] ${!loading ? "opacity-70" : "bg-opacity-60"}  inset-0  cursor-not-allowed  z-50`}>
                         <Spinner className="text-[#dd5c6e]" />
                     </div>
                 )}
