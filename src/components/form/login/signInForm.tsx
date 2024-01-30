@@ -60,7 +60,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
   return (
     <>
       <form
-        className={`px-6 flex relative justify-center flex-col gap-3 min-h-full z-40 ${
+        className={`relative py-3 px-3 flex justify-center flex-col gap-3 min-h-full z-40 ${
           loading && "cursor-not-allowed pointer-events-none"
         }`}
         onSubmit={handleSubmit}>
@@ -109,8 +109,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
         </Button>
 
         {loading && (
-          <div
-            className={`absolute h-full w-full bg-gradient-to-b from-[#1f2e97] to-[#090d4b] bg-opacity-60 inset-0  cursor-not-allowed  z-50`}>
+          <div className="absolute h-full w-full bg-gradient-to-b from-[#1f2e97] to-[#090d4b] opacity-60 inset-0 cursor-not-allowed z-50 rounded-lg">
             <Spinner className="text-[#dd5c6e]" />
           </div>
         )}

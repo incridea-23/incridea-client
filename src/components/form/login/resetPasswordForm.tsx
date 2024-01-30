@@ -40,7 +40,7 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
   return (
     <>
       <form
-        className={`relative px-6 flex flex-col gap-2 min-h-full justify-center ${
+        className={`relative py-3 px-3 flex flex-col gap-2 min-h-full justify-center ${
           loading && "cursor-not-allowed pointer-events-none"
         }`}
         onSubmit={handleSubmit}>
@@ -77,8 +77,7 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
             </Button>
 
             {loading && (
-              <div
-                className={`absolute h-full w-full bg-gradient-to-b from-[#1f2e97] to-[#090d4b] bg-opacity-60 inset-0 rounded-lg cursor-not-allowed  z-50`}>
+              <div className="absolute h-full w-full bg-gradient-to-b from-[#1f2e97] to-[#090d4b] opacity-60 inset-0 cursor-not-allowed z-50 rounded-lg">
                 <Spinner className="text-[#dd5c6e]" />
               </div>
             )}
