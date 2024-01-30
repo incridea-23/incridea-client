@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import gsap from "gsap";
 import Image from "next/image";
 import Carousel from "@/src/components/slider";
+import Link from "next/link";
+import Button from "@/src/components/button";
 
 const Pokedex = () => {
   useEffect(() => {
@@ -17,8 +19,6 @@ const Pokedex = () => {
     tl.to(".animate-1", { y: -20, duration: 2, delay: 1 })
       .to(".animate-3", { y: 40, duration: 2 }, "<")
       .to(".carousel-container", { opacity: 1, duration: 1, delay: 1 }, "<");
-
-    // Optionally, you can add more animations here.
   }, []);
 
   return (
@@ -40,10 +40,17 @@ const Pokedex = () => {
           {/* Carousel at the center */}
           <div className="flex flex-col overflow-x-clip lg:overflow-x-visible justify-center items-center relative z-0 w-full">
             {/* Carousel */}
-            <div className="md:w-80 w-full relative z-0 bg-[#E1FDFA] flex flex-col justify-center p-[10px] ">
+            <div className="md:w-80 w-full relative z-10 bg-[#B5FFF7] flex flex-col justify-center p-[10px] ">
               {/* Your carousel content goes here */}
-              <div className="w-full h-[43vh] relative bg-blue-500 rounded-xl flex flex-col items-center carousel-conatainer">
+              <div className="w-full h-full relative bg-blue-500 rounded-xl flex flex-col items-center carousel-container py-2">
                 <Carousel />
+                {/* Dex button inside the carousel container */}
+                <Link
+                  href={"/events"}
+                  className="flex w-full justify-center relative z-20 px-2 -bottom-1 mb-2"
+                >
+                  <Button className="rounded-xl h-full">View Events</Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -55,7 +62,7 @@ const Pokedex = () => {
               alt="dexmid"
               width={2491}
               height={1082}
-              className="md:w-80 aspect-[2491/1022] bottom-10 animate-3 relative"
+              className="md:w-80 aspect-[2491/1022] bottom-10 animate-3 relative z-0"
             />
           </div>
         </div>

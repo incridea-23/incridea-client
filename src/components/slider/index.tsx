@@ -1,6 +1,6 @@
 // Carousel.tsx
 import React, { useState } from "react";
-import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import SwiperCore, { Navigation, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
 import styles from "./styles.module.css";
@@ -10,6 +10,8 @@ import {
   PublishedEventsDocument,
   PublishedEventsQuery,
 } from "@/src/generated/generated";
+import Link from "next/link";
+import { generateEventUrl } from "@/src/utils/url";
 
 // Import Swiper styles
 import "swiper/swiper-bundle.min.css";
@@ -17,77 +19,72 @@ import "swiper/swiper-bundle.min.css";
 // Install Swiper modules
 SwiperCore.use([Navigation, Scrollbar, A11y]);
 
-// Sample array of image URLs
-
-
 const Carousel: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const imageSlides = [
-    "https://incridemo.web.app/events/CORE/robowars.png",
-    "https://incridemo.web.app/events/CORE/robowars.png",
-    "https://incridemo.web.app/events/CORE/StompThat.png",
-    "https://incridemo.web.app/events/CORE/navarasa.png",
-    "https://incridemo.web.app/events/CORE/Hogathon.png",
-    "https://incridemo.web.app/events/CORE/navarasa.png",
-    "https://incridemo.web.app/events/CORE/Hogathon.png",
-    "https://incridemo.web.app/events/CORE/navarasa.png",
-    "https://incridemo.web.app/events/CORE/Hogathon.png",
-    "https://incridemo.web.app/events/CORE/navarasa.png",
-    "https://incridemo.web.app/events/CORE/Hogathon.png",
-  ];
-
   const {
-    data: Events,
-    loading: EventLoading,
-    error: EventError,
+    data: eventsData,
+    loading: eventLoading,
+    error: eventError,
   } = useQuery<PublishedEventsQuery>(PublishedEventsDocument);
 
-  let tempFilteredEvents = Events?.publishedEvents;
+  let tempFilteredEvents = eventsData?.publishedEvents;
 
   tempFilteredEvents = tempFilteredEvents?.filter(
     (event) => event.category === "CORE"
   );
 
-  let core_events: string[] | undefined = tempFilteredEvents?.map((event) => {
-    return event.image || ""; 
-  });
-  console.log(core_events);
+  const events: Array<{ id: string; name: string; image: string }> =
+    tempFilteredEvents?.map((event) => ({
+      id: event.id,
+      name: event.name || "",
+      image: event.image || "",
+    })) || [];
 
   const handleSlideChange = (swiper: any) => {
     setActiveIndex(swiper.realIndex);
   };
 
   return (
-    <div className=" w-[300%] top-10 flex justify-center items-center relative z-10">
+    <div className="w-[300%] flex justify-center items-center relative z-10">
       <div className={styles.carousel_container}>
         <Swiper
-          loop={true} // Make it an infinite loop
+          loop={true}
           navigation={{
             nextEl: `.${styles.swiper_button_next}`,
             prevEl: `.${styles.swiper_button_prev}`,
           }}
           draggable={true}
           onSlideChange={handleSlideChange}
-          spaceBetween={40} // Adjust spacing between slides
-          slidesPerView={3} // Show 3 slides at a time
-          centeredSlides={true} // Center the active slide
+          spaceBetween={40}
+          slidesPerView={3}
+          centeredSlides={true}
         >
-          {/* {core_events?.map((imageUrl, index) => ( */}
-            {imageSlides.map((imageUrl, index) => (
+          {events.map((data, index) => (
             <SwiperSlide
               key={index}
               className={`${styles.swiper_slide} ${
                 index === activeIndex ? `${styles.active}` : ""
               }`}
             >
-              <Image
-                height={400}
-                width={240}
-                src={imageUrl}
-                alt={`Card ${index + 1}`}
-                className="object-contain"
-              />
+              {data.image ? (
+                <Link href={generateEventUrl(data.name, data.id)}>
+                  {data.image && (
+                    <Image
+                       src={`https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg`}
+                      // src={data.image}
+                      alt={"Image"}
+                      width={100}
+                      height={100}
+                      className="object-scale-down rounded-xl h-full w-full z-0"
+                    />
+                  )}
+                </Link>
+              ) : (
+                <div className="h-full w-full bg-gray-300 flex items-center justify-center">
+                  No Image
+                </div>
+              )}
             </SwiperSlide>
           ))}
         </Swiper>
