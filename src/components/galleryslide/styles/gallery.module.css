@@ -12,9 +12,11 @@
 .progress-step {
   width: 2vw;
   height: 2vw;
-  background-color: #ccc; /* Default color for unfilled steps */
+  background-color: #cbc747;
   border-radius: 50%;
   position: relative;
+  opacity: 0.4 !important;
+  /* border: black solid 1px; */
 }
 
 @media (max-width: 800px) {
@@ -25,12 +27,22 @@
 }
 
 .filled {
-  background-color: #3f51b5 !important; /* Color for filled steps */
+  background-color: #4761cb !important;
+  opacity: 1 !important; /* Color for filled steps */
+  border: black solid 1px;
 }
 
 .svg-art {
+  -webkit-filter: drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black);
+  filter: drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black);
   position: absolute;
-  top: -50%;
+  top: -70%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.character {
+  position: absolute;
+  -webkit-filter: drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black);
+  filter: drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black);
 }

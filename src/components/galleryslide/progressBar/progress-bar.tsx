@@ -1,8 +1,8 @@
 // React component
+import styles from "@/src/components/galleryslide/styles/gallery.module.css";
 import gsap from "gsap";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import styles from "src/components/galleryslide/styles/gallery.module.css";
 
 interface ProgressBarProps {
   year: number;
@@ -14,54 +14,57 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ year }) => {
   const [loadedSteps, setLoadedSteps] = useState(0);
   const characterRef = useRef<HTMLImageElement | null>(null);
 
-  useEffect(() => {
-    const elements = document.querySelectorAll(`.${styles["progress-step"]}`);
-    const character = characterRef.current;
+ useEffect(() => {
+   const elements = document.querySelectorAll(`.${styles["progress-step"]}`);
+   const character = characterRef.current;
 
-    elements.forEach((element, index) => {
-      if (index < filledSteps && index < loadedSteps) {
-        const ctx = gsap.context(() => {
-          const t1 = gsap.timeline();
-          t1.fromTo(
-            element,
-            { opacity: 0, scale: 0.5, delay: 1 },
-            { opacity: 1, scale: 1, duration: 1, ease: "sine.inOut" }
-          );
+   const tl = gsap.timeline();
 
-          const elementRect = element.getBoundingClientRect();
-          const characterRect = character?.getBoundingClientRect();
-          if (index !== 0) {
-            t1.to(character, {
-              x: (elementRect.width * 2 + 20) * index,
-              duration: 1,
-              ease: "sine.inOut",
-            });
-          } else {
-            t1.to(character, {
-              x: 0,
-              duration: 1,
-              ease: "sine.inOut",
-            });
-          }
-        });
-        element.classList.add(styles.filled);
-        return () => ctx.revert();
-      } else {
-        // const ctx = gsap.context(() => {
-        //   const t1 = gsap.timeline();
-        //   const elementRect = element.getBoundingClientRect();
-        //   if (index !== 0) {
-        //     t1.to(character, {
-        //       x: (elementRect.width + elementRect.width + 20) * index,
-        //       duration: 1,
-        //       ease: "sine.inOut",
-        //     });
-        //   }
-        // });
-        element.classList.remove(styles.filled);
-      }
-    });
-  }, [filledSteps, loadedSteps, year]);
+   elements.forEach((element, index) => {
+     if (index < filledSteps) {
+       element.classList.add(styles.filled);
+     }
+
+     if (index === filledSteps - 1 && index < loadedSteps) {
+       tl.fromTo(
+         element,
+         { opacity: 0, scale: 0.5 },
+         { opacity: 1, scale: 1, duration: 0.5, ease: "sine.inOut" },
+         0 // This makes all animations start at the same time
+       );
+
+       const elementRect = element.getBoundingClientRect();
+       const characterRect = character?.getBoundingClientRect();
+       if (index !== 0) {
+         tl.to(
+           character,
+           {
+             x: (elementRect.width * 2 + 20) * index,
+             duration: 0.5,
+             ease: "sine.inOut",
+           },
+           0
+         );
+       } else {
+         tl.to(
+           character,
+           {
+             x: 0,
+             duration: 0.5,
+             ease: "sine.inOut",
+           },
+           0
+         );
+       }
+     } else {
+       element.classList.remove(styles.filled);
+     }
+   });
+
+   // You can adjust the duration of the timeline as needed
+   // and add other timeline configurations if required.
+ }, [filledSteps, loadedSteps, year]);
+
 
   return (
     <div className={styles["progress-bar"]}>
@@ -69,10 +72,10 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ year }) => {
         <div key={index} className={styles["progress-step"]}>
           {index < filledSteps && (
             <Image
-              src={`/assets/svg/beach.svg`}
+              src={`/assets/png/${index + 1}.png`}
               alt={`Step ${index + 1}`}
-              width={50}
-              height={50}
+              width={200}
+              height={200}
               className={styles["svg-art"]}
               onLoad={() => setLoadedSteps((prev) => prev + 1)}
             />
@@ -85,7 +88,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ year }) => {
         alt="Character"
         width={50}
         height={50}
-        className="absolute -left-2"
+        className={styles["character"]}
         ref={characterRef}
       />
     </div>
