@@ -2,7 +2,6 @@ mutation AddAccommodationRequest(
   $checkInTime: String!
   $checkOutTime: String!
   $gender: String!
-  $ac: Boolean!
   $hotelId: Int!
   $id: String!
 ) {
@@ -10,7 +9,6 @@ mutation AddAccommodationRequest(
     checkIn: $checkInTime
     checkOut: $checkOutTime
     gender: $gender
-    ac: $ac
     hotelId: $hotelId
     IdCard: $id
   ) {
@@ -25,7 +23,6 @@ mutation AddAccommodationRequest(
         checkOut
         gender
         status
-        ac
         user {
           name
           phoneNumber

@@ -8,7 +8,6 @@ import Modal from "@/src/components/modal";
 import { AccommodationRequestsByUserIdDocument } from "@/src/generated/generated";
 import { useQuery } from "@apollo/client";
 import Spinner from "@/src/components/spinner";
-import { data } from "cheerio/lib/api/attributes";
 
 const ViewAccommodateDetails: FC<{
   accId: String;
