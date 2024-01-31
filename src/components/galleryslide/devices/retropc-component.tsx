@@ -76,11 +76,11 @@ const RetroPC = ({ imgArr }: { imgArr: string[] }) => {
 
         <button
           onClick={() => swiperRef.current?.slidePrev()}
-          className={`active:bg-gray-800 bg-black opacity-40 absolute top-[19.2svw] left-[svw] w-[4.2svw] h-[1.3svw] rounded-lg duration-300 transition-all ease-in-out border-yellow-300 border-2 animate-`}
+          className={`active:bg-gray-800 opacity-40 absolute top-[19.2svw] left-[svw] w-[4.2svw] h-[1.3svw] rounded-lg duration-300 transition-all ease-in-out animate-`}
         ></button>
         <button
           onClick={() => swiperRef.current?.slideNext()}
-          className="active:bg-gray-800 bg-black opacity-40 absolute top-[19.2svw] left-[40.7svw] w-[4.2svw] h-[1.3svw] rounded-lg duration-300 transition-all ease-in-out border-yellow-300 border-2 animate-"
+          className="active:bg-gray-800 opacity-40 absolute top-[19.2svw] left-[40.7svw] w-[4.2svw] h-[1.3svw] rounded-lg duration-300 transition-all ease-in-out animate-"
         ></button>
       </div>
       <Modal

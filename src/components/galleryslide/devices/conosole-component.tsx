@@ -63,11 +63,11 @@ const Console = ({ imgArr }: { imgArr: string[] }) => {
 
         <button
           onClick={() => swiperRef.current?.slidePrev()}
-          className={`active:bg-gray-800 bg-black opacity-40 absolute w-[9vw] h-[9vw] top-[12vw] left-[41.5vw] md:top-[18.5vw] md:left-[18.5vw] md:w-[1.5vw] md:h-[1.5vw] rounded-full duration-300 transition-all ease-in-out border-yellow-300 border-2 animate-`}
+          className={`active:bg-gray-800 opacity-40 absolute w-[9vw] h-[9vw] top-[12vw] left-[41.5vw] md:top-[18.5vw] md:left-[18.5vw] md:w-[1.5vw] md:h-[1.5vw] rounded-full duration-300 transition-all ease-in-out animate-`}
         ></button>
         <button
           onClick={() => swiperRef.current?.slideNext()}
-          className="active:bg-gray-800 bg-black opacity-40 absolute w-[9vw] h-[9vw] top-[22vw] left-[41.5vw] md:top-[18.5vw] md:left-[20.5vw] md:w-[1.5vw] md:h-[1.5vw] rounded-full duration-300 transition-all ease-in-out border-yellow-300 border-2 animate-"
+          className="active:bg-gray-800 opacity-40 absolute w-[9vw] h-[9vw] top-[22vw] left-[41.5vw] md:top-[18.5vw] md:left-[20.5vw] md:w-[1.5vw] md:h-[1.5vw] rounded-full duration-300 transition-all ease-in-out animate-"
         ></button>
       </div>
       <Modal

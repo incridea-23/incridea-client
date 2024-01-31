@@ -105,11 +105,11 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
 
         <button
           onClick={() => swiperRef.current?.slidePrev()}
-          className={`active:bg-gray-800 bg-black md:opacity-40 absolute top-[62.5vw] left-[-8vw] md:-top-[2.2vw] md:-left-[1vw] w-[8vw] h-[6vw] md:h-[9vw] md:w-[9vw] rounded-lg md:rounded-full duration-300 transition-all ease-in-out border-yellow-300 border-2 md:border-none animate-`}
+          className={`active:bg-gray-800 md:opacity-40 absolute top-[62.5vw] left-[-8vw] md:-top-[2.2vw] md:-left-[1vw] w-[8vw] h-[6vw] md:h-[9vw] md:w-[9vw] rounded-lg md:rounded-full duration-300 transition-all ease-in-out md:border-none animate-`}
         ></button>
         <button
           onClick={() => swiperRef.current?.slideNext()}
-          className="active:bg-gray-800 bg-black sm:opacity-40 absolute top-[62.5vw] left-[4vw] md:-top-[2.2vw] md:left-[56vw] w-[8vw] h-[6vw] md:h-[9vw] md:w-[9vw] rounded-lg md:rounded-full duration-300 transition-all ease-in-out border-yellow-300 border-2 md:border-none animate-"
+          className="active:bg-gray-800 sm:opacity-40 absolute top-[62.5vw] left-[4vw] md:-top-[2.2vw] md:left-[56vw] w-[8vw] h-[6vw] md:h-[9vw] md:w-[9vw] rounded-lg md:rounded-full duration-300 transition-all ease-in-out md:border-none animate-"
         ></button>
         {/* <button
           className="absolute bottom-0 left-[50%] rounded-full -translate-x-[50%] w-20 h-10 text-white z-50 border border-white transition-colors duration-300 ease-in-out hover:bg-white hover:text-black"
