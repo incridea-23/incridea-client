@@ -41,7 +41,8 @@ const ResendEmail = ({ setWhichForm }: Props) => {
         className={`relative py-3 px-3 flex flex-col gap-2 min-h-full justify-center ${
           loading && "cursor-not-allowed pointer-events-none"
         }`}
-        onSubmit={handleSubmit}>
+        onSubmit={handleSubmit}
+      >
         <h2 className="text-center text-2xl pb-1 font-semibold">
           Resend Verification Email
         </h2>
@@ -61,7 +62,8 @@ const ResendEmail = ({ setWhichForm }: Props) => {
                   <button
                     type="button"
                     onClick={handleSubmit}
-                    className="font-normal underline text-sm transition-colors   text-green-500 hover:text-green-700">
+                    className="font-normal underline text-sm transition-colors   text-green-500 hover:text-green-700"
+                  >
                     Click here to resend it
                   </button>
                 </div>
@@ -86,7 +88,7 @@ const ResendEmail = ({ setWhichForm }: Props) => {
             />
 
             {(error || emailVerificationError) && (
-              <div className="bg-red-100 p-2 flex items-center gap-3 px-4 rounded-md font-semibold text-red-500">
+              <div className="bg-red-100 p-2 flex items-center gap-3 px-4 rounded-md font-semibold text-red-500 overflow-x-auto min-w-full">
                 <BiErrorCircle size={"1.3rem"} />
                 {error || emailVerificationError?.message}
               </div>

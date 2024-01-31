@@ -43,7 +43,8 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
         className={`relative py-3 px-3 flex flex-col gap-2 min-h-full justify-center ${
           loading && "cursor-not-allowed pointer-events-none"
         }`}
-        onSubmit={handleSubmit}>
+        onSubmit={handleSubmit}
+      >
         <h2 className="text-center text-2xl pb-1 font-semibold">
           Forgot password?
         </h2>
@@ -83,7 +84,7 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
             )}
 
             {(error || mutationError) && (
-              <div className="bg-red-100 p-2 flex items-center gap-3 px-4 rounded-md font-semibold text-red-500">
+              <div className="bg-red-100 p-2 flex items-center gap-3 px-4 rounded-md font-semibold text-red-500 overflow-x-auto min-w-full">
                 <BiErrorCircle size={"1.3rem"} />
                 {error || mutationError?.message}
               </div>
@@ -93,7 +94,8 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
         <Button
           intent={"ghost"}
           className="mt-5"
-          onClick={() => setWhichForm("signIn")}>
+          onClick={() => setWhichForm("signIn")}
+        >
           <FaAngleLeft /> Go Back
         </Button>
       </form>
