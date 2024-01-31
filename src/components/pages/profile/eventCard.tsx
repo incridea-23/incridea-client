@@ -88,8 +88,8 @@ const EventCard: FC<{
       </div>
 
       {/* button and status of the team */}
-      {teams?.map((team: Team) => (
-        <div className='flex flex-col gap-2'>
+      {teams?.map((team: Team,index:number) => (
+        <div className='flex flex-col gap-2' key={index}>
         <div className='flex justify-start'>
         {!team.confirmed &&
             Number(team.leaderId) === Number(userId) &&
