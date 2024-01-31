@@ -38,7 +38,7 @@ const Console = ({ imgArr }: { imgArr: string[] }) => {
             return (
               <SwiperSlide
                 key={index}
-                className="flex justify-center items-center bg-white text-center"
+                className="flex justify-center items-center bg-white text-center cursor-pointer"
                 onClick={() => setActiveModal(true)}
               >
                 <div className="relative w-full h-full flex justify-center items-center">
