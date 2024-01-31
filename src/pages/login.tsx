@@ -1,10 +1,8 @@
-import ResetPasswordForm from "@/src/components/form/login/resetPasswordForm";
-import SignInForm from "@/src/components/form/login/signInForm";
-import SignUpForm from "@/src/components/form/signUp";
+import LoginCard from "../components/login/card";
+import LoginPortal from "@/src/components/login/portal";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import ResendEmail from "../components/form/login/resendEmailForm";
 import Image from "next/image";
 
 type CardStyle = {
