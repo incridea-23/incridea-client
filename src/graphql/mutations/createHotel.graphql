@@ -1,0 +1,19 @@
+mutation CreateHotel($details: String! $name: String!, $price: Float!) {
+  createHotel(details: $details, name: $name, price: $price) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationCreateHotelSuccess {
+      __typename
+      data {
+        createdAt
+        details
+        id
+        name
+        price
+        updatedAt
+      }
+    }
+  }
+}

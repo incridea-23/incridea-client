@@ -5,6 +5,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'VikingHell';
+  src: url('../../public/font/Viking\ Hell.otf') format('opentype');
+  font-display: swap;
+}
+
 /* create a youtube-like scrollbar */
 ::-webkit-scrollbar {
   width: 0.4rem;
