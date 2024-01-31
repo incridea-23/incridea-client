@@ -11,6 +11,7 @@ import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { IoAtCircle } from "react-icons/io5";
 import BlurImage from "../blurImage";
 import Console from "./devices/conosole-component";
+import FinalComponent from "./devices/final-component";
 import GbaComponent from "./devices/gba-component";
 import RetroPC from "./devices/retropc-component";
 import RetroTV from "./devices/retrotv-component";
@@ -20,7 +21,7 @@ type GalleryProps = {
   // next: string;
   // prev: string;
   imgArr: string[];
-  emulator: "gba" | "retroPC" | "console" | "retroTV";
+  emulator: "gba" | "retroPC" | "console" | "retroTV" | "final";
 };
 
 const GallerySlide: FC<GalleryProps> = ({ title, imgArr, emulator }) => {
@@ -36,6 +37,8 @@ const GallerySlide: FC<GalleryProps> = ({ title, imgArr, emulator }) => {
 
     case "retroTV":
       return <RetroTV imgArr={imgArr} />;
+    case "final":
+      return <FinalComponent />;
   }
 
   // return (
