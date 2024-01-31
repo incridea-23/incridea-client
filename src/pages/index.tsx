@@ -29,7 +29,7 @@ const Home = () => {
             smooth: !isMobile,
           },
           tablet: {
-            smooth: true,
+            smooth: false,
           },
         }}
         watch={[]}

@@ -1,10 +1,10 @@
-import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/router';
-import { FormEventHandler, FunctionComponent, useState } from 'react';
-import { BiErrorCircle } from 'react-icons/bi';
-import Button from '../../button';
-import Spinner from '../../spinner';
-import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
+import { FormEventHandler, FunctionComponent, useState } from "react";
+import { BiErrorCircle } from "react-icons/bi";
+import Button from "../../button";
+import Spinner from "../../spinner";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 type SignInFormProps = {
   setWhichForm: (
