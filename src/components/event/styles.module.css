@@ -47,10 +47,9 @@
 /* events page game screen effect */
 .screen {
     display: flex;
-    border: 2px solid #3F3B3B;
+    /* border: 2px solid #3F3B3B; */
     aspect-ratio: 16/10;
     overflow: hidden;
-    border-radius: 0.5rem;
     position: relative;
     z-index: 10;
     margin: auto;
@@ -70,7 +69,7 @@
 
 .screen_overlay {    
   background: linear-gradient(
-    rgba(44, 109, 135, 0.246),
+    rgba(44, 109, 135, 0.201),
     #41414152 2px,
     transparent 2px,
     transparent 5px
@@ -210,6 +209,13 @@
   flex-direction: column;
   background: linear-gradient(45deg, rgb(4, 159, 187) 0%, rgb(80, 246, 255) 100%);
   position: relative;
+}
+
+@media screen and (max-width: 768px) {
+  .card .top_section {
+    margin-left: 6px;
+    margin-right: 6px;
+  }
 }
 
 .card .top_section .borderCard {

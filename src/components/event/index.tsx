@@ -21,10 +21,11 @@ const Event = ({
     let teamSizeText = '',
       eventTypeText = ''
     if (data.minTeamSize === data.maxTeamSize) {
-      if (data.minTeamSize !== 1)
+      if (data.minTeamSize === 1) 
+        teamSizeText += `${data.minTeamSize} member per team`
+      else
         teamSizeText += `${data.minTeamSize} members per team`
       if (data.minTeamSize === 0) teamSizeText = ''
-      else teamSizeText = "1 member per team"
     } else {
       teamSizeText = `${data.minTeamSize} - ${data.maxTeamSize} members per team`
     }
@@ -101,17 +102,21 @@ const Event = ({
               </div>
             </div>
           </div>
-          <div className="m-[6px]">
-            {data.image && (
-              <Image
-                //src={`https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg`}
-                src={data.image}
-                alt={'Image'}
-                width={250}
-                height={250}
-                className="object-scale-down rounded-xl h-full w-full z-0 text-white"
-              />
-            )}
+          <div className="my-[8px] md:m-[6px] px-2 md:px-0">
+            <div className={`${styles.screen} rounded-xl object-fill md:m-[6px]`}>
+              {data.image && (
+                <Image
+                  src={`https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg`}
+                  //src={data.image}
+                  alt={'Image'}
+                  width={250}
+                  height={250}
+                  className="object-fill rounded-xl h-full w-full z-0 text-white"
+                />
+              )}
+              <div className={`${styles.screen_overlay}`}></div>
+              <div className={`${styles.screen_overlay}`}></div>
+            </div>
           </div>
         </div>
         <div
