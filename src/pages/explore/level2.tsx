@@ -7,9 +7,8 @@ import { SheetProvider, editable as e, PerspectiveCamera } from "@theatre/r3f";
 // import dynamic from "next/dynamic";
 import { ScrollControls } from "@react-three/drei";
 // import { Scene1 } from "@/src/components/scene/scene1";
-import scene1 from "../../../public/assets/3d/state3.json";
+import scene1 from "../../../public/assets/3d/state4.json";
 import studio from "@theatre/studio";
-import Annotation from "@/src/components/scene/annotation";
 import dynamic from "next/dynamic";
 import useStore from "@/src/components/store/store";
 import BookModal from "@/src/components/explore/BookModal";
@@ -18,8 +17,8 @@ const Scene1 = dynamic(() => import("@/src/components/scene/scene1"), {
   ssr: false,
 });
 
-studio.extend(extension);
-studio.initialize();
+// studio.extend(extension);
+// studio.initialize();
 
 const demoSheet = getProject("Scene 1", { state: scene1 }).sheet("Scene 1");
 const App = () => {
@@ -44,7 +43,7 @@ const App = () => {
         >
           <SheetProvider sheet={demoSheet}>
             <color attach={"background"} args={["#87CEEB"]} />
-            <ScrollControls pages={6}>
+            <ScrollControls pages={6} damping={0.5}>
               <>
                 <e.group theatreKey="cameraContainer" position={[0, 10, 0]}>
                   <PerspectiveCamera
@@ -71,7 +70,7 @@ const App = () => {
         </Canvas>
       </Suspense>
       <div className="" ref={modalRef}>
-        {/* {eventDex && <Pokedex data={} />} */}
+        {eventDex && <Pokedex />}
       </div>
       <div className="" ref={sponsorBookRef}>
         {sponsor && <BookModal />}

@@ -9,19 +9,20 @@ const Level3 = () => {
   const scrollChangeFlag = useRef(false);
 
   useFrame(() => {
-    if (scrollChangeFlag.current !== scroll.visible(0.35, 0.6)) {
+    if (scrollChangeFlag.current !== scroll.visible(0.865, 1)) {
       // console.log(scrollChangeFlag.current);
       scrollChangeFlag.current = !scrollChangeFlag.current;
       setScrollData(scrollChangeFlag.current);
     }
+    // console.log(scroll.offset);
   });
 
   return (
     <Html
       transform
       occlude="blending"
-      scale={1}
-      position={[0, 0.1, 64.25]}
+      scale={1.25}
+      position={[0, 1, 64.25]}
       rotation={[0, Math.PI, 0]}
       wrapperClass={styles.annotationContainer}
       zIndexRange={[0, 50]}
@@ -35,7 +36,7 @@ const Level3 = () => {
     >
       <div
         style={{
-          paddingTop: "25px",
+          // paddingTop: "25px",
           borderRadius: "99px",
           width: "100px",
           display: "flex",
@@ -48,7 +49,7 @@ const Level3 = () => {
         }}
       >
         <span
-          className={styles.annotation}
+          className={styles.levelButton}
           style={{
             opacity: scrollData ? 1 : 0,
             pointerEvents: scrollData ? "all" : "none",

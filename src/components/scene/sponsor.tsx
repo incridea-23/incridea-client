@@ -14,7 +14,7 @@ const Sponsor = () => {
 
   useFrame(() => {
     // console.log(scroll.offset);
-    if (scrollChangeFlag.current !== scroll.visible(0.7953, 0.912)) {
+    if (scrollChangeFlag.current !== scroll.visible(0.774, 0.912)) {
       scrollChangeFlag.current = !scrollChangeFlag.current;
       setScrollData(scrollChangeFlag.current);
     }

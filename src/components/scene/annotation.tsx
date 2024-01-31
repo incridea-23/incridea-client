@@ -51,7 +51,6 @@ const Annotation = () => {
         }}
         onClick={() => {
           setEventDexFlag();
-          console.log("Clicked");
         }}
       >
         <span

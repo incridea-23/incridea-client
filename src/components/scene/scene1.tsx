@@ -141,10 +141,10 @@ export default function Scene1(props: JSX.IntrinsicElements["group"]) {
     console.log(actions[names[0]]?.isRunning());
   }, [actions, names]);
 
-  // useFrame(() => {
-  //   const sequenceLength = val((sheet as ISheet).sequence.pointer.length);
-  //   sheet && (sheet.sequence.position = scroll.offset * sequenceLength);
-  // });
+  useFrame(() => {
+    const sequenceLength = val((sheet as ISheet).sequence.pointer.length);
+    sheet && (sheet.sequence.position = scroll.offset * sequenceLength);
+  });
   return (
     <>
       <group {...props} dispose={null}>

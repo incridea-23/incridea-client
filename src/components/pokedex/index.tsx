@@ -2,8 +2,12 @@ import { useEffect } from "react";
 import gsap from "gsap";
 import Image from "next/image";
 import Carousel from "@/src/components/slider";
+import { IoMdClose } from "react-icons/io";
+import useStore from "../store/store";
 
 const Pokedex = () => {
+  const setEventDex = useStore((state) => state.setSponsor);
+  const eventDex = useStore((state) => state.sponsor);
   useEffect(() => {
     // Initialize GSAP
     const tl = gsap.timeline();
@@ -22,8 +26,15 @@ const Pokedex = () => {
   }, []);
 
   return (
-    <>
-      <div className="bg-black page-container h-screen relative">
+    <div className="fixed inset-0 z-[100]">
+      <div
+        className="absolute top-5 right-5 cursor-pointer bg-red-600 px-2 py-1 rounded-sm z-50"
+        style={{ pointerEvents: eventDex ? "all" : "none" }}
+        onClick={setEventDex}
+      >
+        <IoMdClose className="text-lg text-white" />
+      </div>
+      <div className="page-container h-screen relative">
         {/* Pokedex background */}
         <div className="h-full w-full flex flex-col justify-center items-center relative animation-container z-0">
           {/* Top part of Pokedex */}
@@ -42,7 +53,7 @@ const Pokedex = () => {
             {/* Carousel */}
             <div className="md:w-80 w-full relative z-0 bg-[#E1FDFA] flex flex-col justify-center p-[10px] ">
               {/* Your carousel content goes here */}
-              <div className="w-full h-[43vh] relative bg-blue-500 rounded-xl flex flex-col items-center carousel-conatainer">
+              <div className="w-full h-[43vh] relative bg-blue-500 rounded-xl flex flex-col items-center carousel-container">
                 <Carousel />
               </div>
             </div>
@@ -60,7 +71,7 @@ const Pokedex = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
