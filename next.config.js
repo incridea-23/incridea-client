@@ -10,6 +10,6 @@ const withPWA = require('next-pwa')({
 module.exports = withPWA({
   reactStrictMode: true,
   images: {
-    domains: ['res.cloudinary.com', 'incridemo.web.app'],
+    domains: ['res.cloudinary.com', 'incridemo.web.app',],
   },
-});
+})

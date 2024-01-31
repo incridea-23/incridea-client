@@ -1,0 +1,18 @@
+mutation AddXP($levelId: ID!) {
+  addXP(levelId: $levelId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationAddXPSuccess {
+      __typename
+      data {
+        id
+        level {
+          id
+          point
+        }
+      }
+    }
+  }
+}

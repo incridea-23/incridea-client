@@ -1,69 +1,59 @@
-/* eslint-disable @next/next/no-img-element */
-
-import { PublishedEventsQuery } from '@/src/generated/generated';
-import { AnimatePresence, motion } from 'framer-motion';
-import { useRouter } from 'next/router';
-import Button from '../button';
-import Link from 'next/link';
-import Image from 'next/image';
+import React from 'react'
+import { PublishedEventsQuery } from '@/src/generated/generated'
+import Link from 'next/link'
 import {
   IoCalendarOutline,
   IoCashOutline,
   IoLocationOutline,
   IoPeopleOutline,
   IoPersonOutline,
-} from 'react-icons/io5';
-import { generateEventUrl } from '@/src/utils/url';
+} from 'react-icons/io5'
+import { generateEventUrl } from '@/src/utils/url'
+import Image from 'next/image'
+import styles from './styles.module.css'
 
 const Event = ({
   data,
 }: {
-  data: PublishedEventsQuery['publishedEvents'][0];
+  data: PublishedEventsQuery['publishedEvents'][0]
 }) => {
-
   const getEventAttributes = () => {
     let teamSizeText = '',
-      eventTypeText = '';
+      eventTypeText = ''
     if (data.minTeamSize === data.maxTeamSize) {
-      if (data.minTeamSize !== 1)
-        teamSizeText += `${data.minTeamSize} members per team`;
-      if (data.minTeamSize === 0)
-        teamSizeText = "";
+      if (data.minTeamSize === 1) 
+        teamSizeText += `${data.minTeamSize} member per team`
+      else
+        teamSizeText += `${data.minTeamSize} members per team`
+      if (data.minTeamSize === 0) teamSizeText = ''
     } else {
-      teamSizeText = `${data.minTeamSize} - ${data.maxTeamSize} members per team`;
+      teamSizeText = `${data.minTeamSize} - ${data.maxTeamSize} members per team`
     }
 
     if (data.eventType.includes('MULTIPLE')) {
       eventTypeText =
         data.eventType.split('_')[0][0] +
         data.eventType.split('_')[0].slice(1).toLowerCase() +
-        ' Event (Multiple Entry)';
+        ' (Multiple Entry)'
     } else
-      eventTypeText =
-        data.eventType[0] + data.eventType.slice(1).toLowerCase() + ' Event';
+      eventTypeText = data.eventType[0] + data.eventType.slice(1).toLowerCase()
 
-    eventTypeText= eventTypeText.replaceAll("Individual", "Solo")
+    eventTypeText = eventTypeText.replaceAll('Individual', 'Solo')
+    eventTypeText = eventTypeText.replaceAll('Team', 'Multiplayer')
+
     return [
       {
-        name: "Date",
-        text: data.rounds[0]?.date ? new Date(data.rounds[0]?.date).toLocaleString('en-IN', {
-          day: 'numeric',
-          month: 'short',
-          hour: 'numeric',
-          minute: 'numeric',
-          hour12: true,
-        })  : "TBD",
+        name: 'Date',
+        text: data.rounds[0]?.date
+          ? new Date(data.rounds[0]?.date).toLocaleString('en-IN', {
+              day: 'numeric',
+              month: 'short',
+              hour: 'numeric',
+              minute: 'numeric',
+              hour12: true,
+            })
+          : 'TBD',
         Icon: IoCalendarOutline,
-      },
-      {
-        name: 'Venue',
-        text: data.venue,
-        Icon: IoLocationOutline,
-      },
-      {
-        name: 'Fees',
-        text: data.fees || 'Free',
-        Icon: IoCashOutline,
       },
       {
         name: 'Type',
@@ -71,76 +61,98 @@ const Event = ({
         Icon: IoPersonOutline,
       },
       {
-        name: 'Team Size',
-        text: teamSizeText,
-        Icon: IoPeopleOutline,
+        name: 'Venue',
+        text: data.venue,
+        Icon: IoLocationOutline,
       },
-    ];
-  };
+      //  {
+      //    name: 'Fees',
+      //    text: data.fees || 'Free',
+      //    Icon: IoCashOutline,
+      //  },
+
+       {
+         name: 'Team Size',
+         text: teamSizeText,
+         Icon: IoPeopleOutline,
+       },
+    ]
+  }
 
   return (
-      <Link
-      href={`event/${data.name.toLocaleLowerCase().split(' ').join('-')}-${
-        data.id
-      }`}
-      >
-    <AnimatePresence>
-        <motion.div
-          whileHover={{
-            scale: 1.02,
-            transition: { duration: 0.1 },
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          layout
-          key={data.id}
-          className="bg-black/20 backdrop-blur-sm flex h-full flex-col cursor-pointer p-4 rounded-sm"
-        >
-          <div className="relative grow">
-            {data.image ? (
-              <Image
-                src={data.image}
-                alt={data.name}
-                width={500}
-                height={300}
-                className="w-full h-full object-cover rounded-sm"
-              />
-            ) : (
-              <div className="bodyFont h-full min-h-[200px] bg-gray-700 flex items-center justify-center italic text-gray-400 rounded-sm">
-                no image
+    <Link data-scroll href={generateEventUrl(data.name, data.id)}>
+      <div className={`${styles.card} w-full h-full vikingHell`}>
+        <div className={`${styles.top_section} flex flex-col`}>
+          <div>
+            <div className={styles.borderCard}></div>
+            <div className={styles.icons}>
+              <div className="pl-2">
+                <Image
+                  src="/assets/png/incridealogo.png"
+                  alt={'Incridea Logo'}
+                  width={550}
+                  height={550}
+                  className="object-fill h-full w-full z-0 text-white"
+                />
               </div>
-            )}
-            <span
-              className={`titleFont bg-gradient-to-t capitalize from-black/50 to-transparent p-2 pl-4 h-1/2 w-full flex items-end bottom-0 absolute drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.7)] text-gray-100 font-bold text-xl`}>
-              {data.name}
-            </span>
+              <div
+                className={`${styles.social_media} vikingHell capitalize font-semibold justify-items-end items-center text-center text-[1.05rem]`}
+              >
+                {data.category?.replace('_', ' ').toLocaleLowerCase()}
+              </div>
+            </div>
           </div>
-          <div className="flex flex-wrap mt-2 gap-1.5 bodyFont">
-            {getEventAttributes().map((attr) =>
-              attr.text ? (
+          <div className="my-[8px] md:m-[6px] px-2 md:px-0">
+            <div className={`${styles.screen} rounded-xl object-fill md:m-[6px]`}>
+              {data.image && (
+                <Image
+                  src={`https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg`}
+                  //src={data.image}
+                  alt={'Image'}
+                  width={250}
+                  height={250}
+                  className="object-fill rounded-xl h-full w-full z-0 text-white"
+                />
+              )}
+              <div className={`${styles.screen_overlay}`}></div>
+              <div className={`${styles.screen_overlay}`}></div>
+            </div>
+          </div>
+        </div>
+        <div
+          className={`${styles.bottom_section} flex flex-col justify-between items-center w-full`}
+        >
+          <span
+            className={`${styles.glitch} ${styles.eventTitle} vikingHell flex justify-center items-center text-center text-lg w-fit px-4`}
+          >
+            {data.name}
+          </span>
+          <div className="flex flex-col gap-1 text-center bodyFont text-base text-blue-200 px-1 py-3 justify-center items-start md:w-full h-[9rem]">
+            {getEventAttributes().map((attr, i) =>
+              attr.name ? (
                 <div
-                  key={attr.name}
-                  className="flex px-3 py-2 text-gray-200 bg-gray-300/20 shrink-0 text-sm rounded-sm grow gap-1 items-center max-w-full"
+                  className="flex flex-row gap-2 justify-center items-start text-left"
+                  key={i}
                 >
-                  {<attr.Icon className='w-5' />}
-                  <p className="leading-4">
-                    {/* <span className="font-semibold">{attr.name}: </span> */}
-                    {attr.text}
-                  </p>
+                  <span className="flex flex-row gap-1">
+                    <attr.Icon />
+                  </span>
+                  <span className="">{attr.text}</span>
                 </div>
-              ) : (
-                <></>
-              )
+              ) : null
             )}
           </div>
-          <Button disabled={data.name.toLowerCase() === 'lazzerena'} noScaleOnHover className="hover:scale-0 shrink-0 mt-2">
-            <Link href={generateEventUrl(data.name, data.id)}>{data.name.toLowerCase() === 'lazzerena' ? 'On Spot Registrations Only'  : 'Register'}</Link>
-          </Button>
-        </motion.div>
-    </AnimatePresence>
-      </Link>
-  );
-};
+          <div className="p-2 pt-0 mt-0 w-full">
+            <button className="hover:bg-[#69e5f8] shrink-0 w-full mt-0 py-2 flex gap-2 items-center justify-center rounded transition-colors duration-300 bg-[#10adc6] vikingHell">
+              <Link href={generateEventUrl(data.name, data.id)}>
+                play the game
+              </Link>
+            </button>
+          </div>
+        </div>
+      </div>
+    </Link>
+  )
+}
 
-export default Event;
+export default Event
