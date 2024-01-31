@@ -3,6 +3,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import {
   AddAccommodationRequestDocument,
   GetAllHotelsDocument,
+  AccommodationRequestsByUserDocument,
 } from "@/src/generated/generated";
 import Button from "../../button";
 import { MdModeEditOutline } from "react-icons/md";
@@ -11,8 +12,10 @@ import { Combobox, Transition, Switch } from "@headlessui/react";
 import { BsChevronExpand } from "react-icons/bs";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FaAngleLeft } from "react-icons/fa";
+import { TbArrowBackUp } from "react-icons/tb";
 import { toISOStringWithTimezone } from "../../pages/dashboard/organizer/RoundsAddModal";
+import Spinner from "../../spinner";
+import { IoEye } from "react-icons/io5";
 
 const AccommodationForm: FunctionComponent = () => {
   const [
@@ -23,9 +26,15 @@ const AccommodationForm: FunctionComponent = () => {
   const router = useRouter();
 
   const { data: allHotels } = useQuery(GetAllHotelsDocument);
-  const [Uploading, setUploading] = useState(false);
-  const [banner, setBanner] = useState("");
+  const {
+    data: accommodationData,
+    loading: accommodationLoading,
+    refetch: userRefetch,
+  } = useQuery(AccommodationRequestsByUserDocument);
+
+  const [uploading, setUploading] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const genders = ["Male", "Female", "Other"];
   const [gender, setGender] = useState("");
@@ -50,9 +59,7 @@ const AccommodationForm: FunctionComponent = () => {
   // FIXME: No AC rooms??
   // const [AC, setAC] = useState<boolean>(false);
 
-  // 24hr = 86000 seconds
   const [AccommodationInfo, setAccommodationInfo] = useState({
-    ac: false,
     hotelId: -1,
     gender: "",
     checkInTime: new Date(2024, 2, 22, 9, 30).toString(),
@@ -99,17 +106,39 @@ const AccommodationForm: FunctionComponent = () => {
   return (
     <>
       <div className="mt-10 mb-4 px-6 py-8 h-max max-w-[350px] md:max-w-[450px] bg-gradient-to-b from-[#1f2e97] to-[#090d4b] rounded-md text-accent-200">
-        {formSubmitted ? (
-          <div className="flex">
-            <p className="">We will get back to you within 2 working days</p>
+        {accommodationLoading ? (
+          <div className="flex flex-col md:flex-row w-full">
+            <Spinner className="text-[#dd5c6e]" />
+          </div>
+        ) : formSubmitted ? (
+          <div className="flex flex-col md:flex-row">
+            <div className="flex justify-center">
+              We will get back to you within 2 working days.
+            </div>
             <Button
               onClick={() => {
                 router.push("/profile");
               }}
               size={"small"}
-              className="ml-3">
-              <FaAngleLeft />
+              className="ml-3 w-max mt-3 md:mt-0">
+              <TbArrowBackUp />
               Go Back
+            </Button>
+          </div>
+        ) : accommodationData?.accommodationRequestsByUser[0]?.status ? (
+          <div className="flex flex-col md:flex-row">
+            <div className="flex justify-center">
+              We are processing your request. Please bear with us.
+            </div>
+            <Button
+              onClick={() => {
+                console.log(showModal);
+                setShowModal(true);
+              }}
+              size={"small"}
+              className="ml-3 w-max mt-3 md:mt-0">
+              <IoEye />
+              View Request
             </Button>
           </div>
         ) : (
@@ -321,6 +350,7 @@ const AccommodationForm: FunctionComponent = () => {
             <div>
               <label className="block mb-2 text-sm text-white">Upload ID</label>
               <input
+                required
                 type="file"
                 id="image"
                 className="file:mr-4 file:py-2.5 file:rounded-r-none file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:transition-colors file:cursor-pointer file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border w-full text-sm rounded-lg block  bg-gray-600 border-gray-600 placeholder-slate-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
