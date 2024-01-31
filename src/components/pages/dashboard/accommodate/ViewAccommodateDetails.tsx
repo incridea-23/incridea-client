@@ -32,8 +32,7 @@ const ViewAccommodateDetails: FC<{
         intent={"info"}
         className="flex gap-2 items-center justify-center"
         size={"medium"}
-        onClick={() => setShowModal(true)}
-      >
+        onClick={() => setShowModal(true)}>
         <IoEye />
         View
       </Button>
@@ -42,8 +41,7 @@ const ViewAccommodateDetails: FC<{
         showModal={showModal}
         onClose={() => setShowModal(false)}
         title={"View User Details"}
-        size="medium"
-      >
+        size="medium">
         <div className="flex m-4 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-t-lg p-1 items-center justify-center gap-2.5 h-80">
           <div className="flex flex-row gap-3 items-start justify-center m-4 text-lg">
             <div className="flex flex-col text-lg font-bold">

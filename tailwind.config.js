@@ -10,6 +10,8 @@ module.exports = {
         "spin-slow": "spin 2s linear infinite",
         scroll: "scroll 60s linear infinite",
         "scroll-reverse": "scroll-reverse 60s linear infinite",
+        "free-fall":
+          "fall 8s cubic-bezier(0.33333, 0, 0.66667, 0.33333) forwards",
       },
       keyframes: {
         scroll: {
@@ -20,9 +22,20 @@ module.exports = {
           "0%": { transform: "translateX(calc(-250px * 10))" },
           "100%": { transform: "translateX(0)" },
         },
+        fall: {
+          "0%": {
+            transform: "translateY(0) rotate(0deg)",
+          },
+          "100% ": {
+            transform: "translateY(100vh) rotate(360deg)",
+          },
+        },
+      },
+      transitionTimingFunction: {
+        "suck-in": "cubic-bezier(0.65, 0, 0.35, 1)",
       },
       fontFamily: {
-        VikingHell: 'VikingHell'
+        VikingHell: "VikingHell",
       },
       colors: {
         primary: {
@@ -36,7 +49,7 @@ module.exports = {
           700: "#33115A",
           800: "#220C3C",
           900: "#11061E",
-          950: "#07020D"
+          950: "#07020D",
         },
         secondary: {
           50: "#FFF0F9",
@@ -49,7 +62,7 @@ module.exports = {
           700: "#FF40B1",
           800: "#D6007D",
           900: "#6B003E",
-          950: "#33001E"
+          950: "#33001E",
         },
         accent: {
           50: "#F2FBFD",
@@ -62,7 +75,7 @@ module.exports = {
           700: "#52C4E0",
           800: "#3ABCDC",
           900: "#156275",
-          950: "#0B333D"
+          950: "#0B333D",
         },
       },
     },
