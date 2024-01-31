@@ -99,6 +99,9 @@ const HomeUi = () => {
             {/* backgrounds */}
             <Image src={'/assets/home/bg.png'} alt='Gradient' width={1920} height={1080} className='w-full h-full object-center object-cover absolute bottom-0 left-0' />
 
+            <div className="!w-full !h-full !object-center !object-cover !opacity-60 !absolute !bottom-0 !left-0">
+
+            </div>
             <Image data-depth="0.5" src={'/assets/home/moon.png'} alt='Gradient' width={1920} height={1080} className='!w-full !h-full !object-center !object-cover !opacity-60 !absolute !bottom-0 !left-0' />
 
             <Image data-depth="0.4" src={'/assets/home/stars.png'} alt='Gradient' width={1920} height={1080} className='!w-full !h-full !object-center !object-cover !absolute !bottom-0 !left-0' />
