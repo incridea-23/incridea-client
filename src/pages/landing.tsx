@@ -98,19 +98,21 @@ const HomeUi = () => {
         <section id="scene" className='absolute w-full h-screen'>
 
             <Image src={'/assets/home/bg.png'} alt='Gradient' width={1920} height={1080} className='w-full h-full object-center object-cover absolute bottom-0 left-0' />
-            <Image data-depth="0.5" src={'/assets/home/moon.png'} alt='Gradient' width={1920} height={1080} className='w-full h-full object-center object-cover opacity-60 absolute bottom-0 left-0' />
-            <Image data-depth="0.4" src={'/assets/home/stars.png'} alt='Gradient' width={1920} height={1080} className='w-full h-full object-center object-cover absolute bottom-0 left-0' />
+            <Image data-depth="0.5" src={'/assets/home/moon.png'} alt='Gradient' width={1920} height={1080} className='!w-full !h-full !object-center !object-cover !opacity-60 !absolute !bottom-0 !left-0' />
+            <Image data-depth="0.4" src={'/assets/home/stars.png'} alt='Gradient' width={1920} height={1080} className='!w-full !h-full !object-center !object-cover !absolute !bottom-0 !left-0' />
 
 
 
 
-            <div data-depth="0.2" className="flex right-0 justify-end md:mt-0 mt-[580px]">
-                <Image src={'/assets/home/ryoko.png'} id="Ryoko" alt='Ryoko looking at portal' width={1920} height={1080} className="object-bottom" />
+
+            <div data-depth="0.2" className="!container !flex !right-0 !justify-end !md:mt-8 !top-auto !bottom-0">
+                <Image src={'/assets/home/ryoko.png'} id="Ryoko" alt='Ryoko looking at portal' width={1920} height={1080} className="!object-bottom" />
             </div>
 
-            <div data-depth="0.3" className="w-100vw flex mr-2 justify-end md:mt-0 mt-[600px]">
-                <Image src={'/assets/home/portal.png'} alt='Portal' width={1920} height={1080} className="scale-110 object-bottom" />
+            <div data-depth="0.3" className="!md:w-full !flex !md:mt-0 !top-auto !bottom-0 ">
+                <Image src={'/assets/home/portal.png'} alt='Portal' width={2050} height={1080} className="!scale-125 !object-bottom" />
             </div>
+
         </section>
     )
 }
