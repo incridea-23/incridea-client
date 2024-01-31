@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import {
   SpriteDimensions,
   platformDimensions,
@@ -48,8 +47,6 @@ const ExploreGame = () => {
   let frameCount: number = 0;
   const gravity: number = 0.15;
   let showAboutFlag = true;
-  let showRuleBookFlag = true;
-  let showScheduleFlag = true;
 
   const resizeCanvas = () => {
     if (canvas.current) {
@@ -325,10 +322,6 @@ const ExploreGame = () => {
     ) {
       // Standing on the left platform
       isGrounded = true;
-      if (showScheduleFlag) {
-        setShowSchedule(true);
-        showScheduleFlag = false;
-      }
       player.current.y =
         window.innerHeight * (platformDimensions.left.yPercentage + 0.015) -
         player.current.height;
@@ -372,10 +365,6 @@ const ExploreGame = () => {
     ) {
       // Standing on the right platform
       isGrounded = true;
-      if (showRuleBookFlag) {
-        setShowRuleBook(true);
-        showRuleBookFlag = false;
-      }
       player.current.y =
         window.innerHeight * (platformDimensions.right.yPercentage + 0.02) -
         player.current.height;
@@ -451,11 +440,7 @@ const ExploreGame = () => {
 
     isGrounded = false;
     setShowAbout(false);
-    setShowRuleBook(false);
-    setShowSchedule(false);
-    showRuleBookFlag = true;
     showAboutFlag = true;
-    showScheduleFlag = true;
   };
 
   const animate = () => {
@@ -584,7 +569,7 @@ const ExploreGame = () => {
   }, [scrollY]);
 
   return (
-    <div className="h-[200dvh] relative">
+    <div className="flex flex-col justify-center items-center min-h-screen">
       <div className="hidden">
         <img
           src="/assets/spriteSheets/ryokoSpriteSheet.png"
@@ -602,25 +587,23 @@ const ExploreGame = () => {
           ref={platformSprite}
         />
       </div>
-      <div className="flex w-full justify-center items-center">
-        <div
-          className="absolute bg-[#d64d00] z-50 h-max w-max top-[20%] text-[#fec3b5] pressStart text-center sm:p-12 border-l-4 border-t-4 border-white p-4 rounded-lg"
-          style={{ borderStyle: "outset" }}
-        >
-          <h1 className="lg:text-8xl md:text-7xl sm:text-6xl text-4xl">
-            INCRIDEA
-          </h1>
-          <h3 className="lg:text-5xl md:text-4xl sm:text-3xl text-xl">
-            DICE OF DESTINY
-          </h3>
-          <span className="absolute -top-16 text-white left-0 flex flex-col lg:text-xl md:text-lg sm:text-md text-sm">
-            <p>RYOKO</p>
-            <p>000006</p>
-          </span>
-          <span className="absolute -bottom-5 text-white right-0 lg:text-xl md:text-lg sm:text-md text-sm">
-            © Incridea 2024
-          </span>
-        </div>
+      <div
+        className="absolute bg-[#d64d00] h-max w-max top-[20%] text-[#fec3b5] pressStart text-center sm:p-12 border-l-4 border-t-4 border-white p-4 rounded-lg"
+        style={{ borderStyle: "outset" }}
+      >
+        <h1 className="lg:text-8xl md:text-7xl sm:text-6xl text-4xl">
+          INCRIDEA
+        </h1>
+        <h3 className="lg:text-5xl md:text-4xl sm:text-3xl text-xl">
+          DICE OF DESTINY
+        </h3>
+        <span className="absolute -top-16 text-white left-0 flex flex-col lg:text-xl md:text-lg sm:text-md text-sm">
+          <p>RYOKO</p>
+          <p>000006</p>
+        </span>
+        <span className="absolute -bottom-5 text-white right-0 lg:text-xl md:text-lg sm:text-md text-sm">
+          © Incridea 2024
+        </span>
       </div>
 
       <div
@@ -709,7 +692,7 @@ const ExploreGame = () => {
           viewBox="0 0 1222 888"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="pointer-events-none mb-8 mr-8"
+          className="pointer-events-none"
         >
           <g
             id="Right"
