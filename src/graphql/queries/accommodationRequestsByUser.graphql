@@ -1,0 +1,12 @@
+query AccommodationRequestsByUser {
+  accommodationRequestsByUser {
+    checkIn
+    checkOut
+    room
+    status
+    hotel {
+      name
+      price
+    }
+  }
+}
