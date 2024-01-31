@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { idToPid } from "@/src/utils/id";
 import Image from "next/image";
 import { NextPage } from "next";
+import styles from "@/src/components/event/styles.module.css"
 
 
 const LeaderBoard : NextPage = () => {
@@ -82,10 +83,16 @@ const LeaderBoard : NextPage = () => {
     }
     let isMobile = typeof window !== "undefined" && window.innerWidth < 768;
     return (
-        <div className="font-VikingHell" style={{ willChange: "transform" }}>
+        <div className={`font-VikingHell`} style={{ willChange: "transform",overflowX:"hidden" }}>
+            {sortedLeaderboard.length > 0 && 
+            <div className={`${styles.container}`}>
+                {Array.from({ length: 30 }).map((_, i) => (
+                    <div key={i} className={`${styles.confetti}`}></div>
+                ))}
+            </div>}
             <div className=" bg-gradient-to-bl from-black to-slate-900 min-h-screen relative">
                 <div className=" bg-gradient-to-bl bg-white min-h-screen relative py-32">
-                    <h1 className="text-white glitch text-4xl md:text-5xl text-center font-bold">
+                    <h1 className={`text-white ${styles.glitch} text-4xl md:text-5xl text-center font-bold`}>
                         XP Leaderboard
                     </h1>
                     <h3 className="my-6 text-white text-2xl text-center bodyFont">
