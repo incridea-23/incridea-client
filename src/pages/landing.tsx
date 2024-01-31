@@ -19,7 +19,7 @@ export default function Landing() {
             scale: 13,
             translateY: 500,
             translateX: 150,
-            duration: 2.5,
+            duration: 2.0,
             delay: 0.5,
             ease: "power4.in",
             onComplete() { gsap.to(landingContainer.current, { opacity: 0, duration: 1 }); setTimeout(() => { setPageLoader(false) }, 1000); gsap.from(Logo.current, { delay: 0.2, duration: 2, scale: 2, opacity: 0.6 }) }
@@ -95,24 +95,27 @@ const HomeUi = () => {
     })
 
     return (
-        <section id="scene" className='absolute w-full h-screen'>
-
+        <section id="scene" className='absolute w-screen h-screen'>
+            {/* backgrounds */}
             <Image src={'/assets/home/bg.png'} alt='Gradient' width={1920} height={1080} className='w-full h-full object-center object-cover absolute bottom-0 left-0' />
+
             <Image data-depth="0.5" src={'/assets/home/moon.png'} alt='Gradient' width={1920} height={1080} className='!w-full !h-full !object-center !object-cover !opacity-60 !absolute !bottom-0 !left-0' />
+
             <Image data-depth="0.4" src={'/assets/home/stars.png'} alt='Gradient' width={1920} height={1080} className='!w-full !h-full !object-center !object-cover !absolute !bottom-0 !left-0' />
 
-
-
-
-
-            <div data-depth="0.2" className="!container !flex !right-0 !justify-end !md:mt-8 !top-auto !bottom-0">
-                <Image src={'/assets/home/ryoko.png'} id="Ryoko" alt='Ryoko looking at portal' width={1920} height={1080} className="!object-bottom" />
+            {/* building */}
+            <div data-depth="0.3" className="!flex !top-auto !bottom-0 !w-[125%] md:!w-[115%] absolute">
+                <div className="!w-[200%] md:!w-[111%] absolute bottom-0 left-1/4 md:-left-1/4 md:right-3 md:-translate-x-0 -translate-x-2/3">
+                    <Image src={'/assets/home/portal.png'} alt='Portal' width={2050} height={1080} className="!scale-125 !object-bottom" />
+                </div>
             </div>
 
-            <div data-depth="0.3" className="!md:w-full !flex !md:mt-0 !top-auto !bottom-0 ">
-                <Image src={'/assets/home/portal.png'} alt='Portal' width={2050} height={1080} className="!scale-125 !object-bottom" />
+            {/* man */}
+            <div data-depth="0.2" className="!container !w-full !h-full !flex !right-0 !justify-end !md:mt-8 !top-auto !bottom-0">
+                <div className="!w-[200%] absolute bottom-0 left-1/4 md:-left-1/4 md:-translate-x-0 -translate-x-1/3">
+                    <Image src={'/assets/home/ryoko.png'} id="Ryoko" alt='Ryoko looking at portal' width={1920} height={1080} className="!object-bottom" />
+                </div>
             </div>
-
         </section>
     )
 }
