@@ -244,12 +244,12 @@ August 2021 : ok on Chrome v92+, Firefox v90+, Edge v92+
 
 .parchment {
   position: absolute;
-  display: flex;
+  /* display: flex; */
 	width: 100%;
   height: 100%;
   /* center page with absolute position */
   top: 0%; left: 50%; 
-  transform: translate(-51%, 0);
+  transform: translate(-50.5%, 0);
   /* margin: 2em 0; */
 	padding: 4em;
 	box-shadow: 2px 3px 20px black, 0 0 125px #8f5922 inset;
@@ -279,10 +279,10 @@ August 2021 : ok on Chrome v92+, Firefox v90+, Edge v92+
  	display: flex;
   flex-direction: column;
   align-items: center;
-	width: 100%;
+	width: auto;
   height: auto;
   margin: 0 auto;
-	padding: 1em;
+	padding: 2em;
 }
 
 .mapicon::before{
@@ -392,4 +392,16 @@ August 2021 : ok on Chrome v92+, Firefox v90+, Edge v92+
 
 .masker{
   mask: url(https://static.rfstat.com/renderforest/images/website_maker_images/components/component-images/text14-3.4.0.svg) -2px top / auto 100% repeat-x;
+}
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari, and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+  display: none;
+  }
+  /* Hide scrollbar for IE, Edge, and Firefox */
+  .no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  }
 }

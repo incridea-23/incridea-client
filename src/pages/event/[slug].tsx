@@ -77,39 +77,48 @@ function event({ event, error }: { event: Event; error: String }) {
   return (
     // <div className="bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6]">
     // <div className="bg-[url('/assets/eventSlug/desertbg1.svg')] bg-cover bg-no-repeat bg-right-bottom">
-    <div className=" bg-gradient-to-t from-primary-900 via-primary-800 to-primary-600">
+    // <div className=" bg-gradient-to-t from-primary-900 via-primary-800 to-primary-600 max-h-screen overflow-y-scroll no-scrollbar">
+    <div className="bg-[url('/assets/eventSlug/cover.svg')] bg-cover ">
+      {/* <img className="top-0 left-0 fixed h-screen w-full" src="/assets/eventslug/slugBg.svg" alt="bg"/> */}
       {event ? (
           // <section className="flex lg:flex-row flex-col gap-5 py-20 px-5 max-w-7xl mx-auto text-white">
-          <section className="flex lg:flex-row flex-col gap-5 py-20 px-5 max-w-7xl mx-auto text-amber-900 ">
+          // <section className="flex lg:flex-row flex-col gap-5 py-20 px-5 max-w-7xl mx-auto text-amber-900">
+          // <section className="sticky place-self-center grid grid-cols-1 lg:grid-cols-2  py-20 px-5 max-w-7xl mx-auto text-amber-900 h-screen overflow-y-hidden">
+          <section className="flex lg:flex-row flex-col gap-5  pt-20  px- max-w-7xl mx-auto text-amber-900 h-screen overflow-y-scroll lg:overflow-y-hidden">
+          
+          {/* <section className="grid grid-flow-row lg:grid-flow-col gap-5 py-20 sm:px-5 max-w-7xl mx-auto text-amber-900 "> */}
           {/* <div className="basis-3/4 grow-0 space-y-4 sm:space-y-10 bg-black/20 backdrop-blur-sm p-0 sm:p-7 rounded-md"> */}
-          <div className="main">
-          <div className="parchment"></div>
-          <div className="contain">
-              {/* <div className="basis-3/4 grow-0 space-y-4 sm:space-y-10 p-0 sm:p-7 rounded-md"> */}
-              <div className="basis-3/4 grow-0 space-y-4 sm:space-y-10 rounded-md mapicon">
-                {event.image && (
-                  <Image
-                    src={event.image as string}
-                    className="w-full sm:rounded-md rounded-t-md"
-                    alt={event.name}
-                    width={1000}
-                    height={1000}
-                  />
-                )}
-                <h1
-                  // className={`titleFont capitalize text-2xl sm:text-4xl px-4 pb-0 sm:p-0 font-bold text-white`}
-                  className={`font-VikingHell capitalize text-2xl sm:text-4xl px-4 pb-0 sm:p-0 font-bold`}
-                >
-                  {event.name}
-                </h1>
-                <div className="px-4 pb-4 sm:p-0">
-                  <EventDetails details={event.description as string} />
+          <div className="lg:h-full lg:overflow-y-scroll lg:no-scrollbar px-3 lg:pb-8">
+            <div className="main">
+            <div className="parchment"/>
+            <div className="contain">
+                {/* <div className="basis-3/4 grow-0 space-y-4 sm:space-y-10 p-0 sm:p-7 rounded-md"> */}
+                {/* <div className="basis-3/4 grow-0 space-y-4 sm:space-y-10 rounded-md mapicon"> */}
+                <div className=" grow-0 space-y-4 sm:space-y-10 rounded-md mapicon">
+                  {event.image && (
+                    <Image
+                      src={event.image as string}
+                      className="w-full sm:rounded-md rounded-t-md"
+                      alt={event.name}
+                      width={1000}
+                      height={1000}
+                    />
+                  )}
+                  <h1
+                    // className={`titleFont capitalize text-2xl sm:text-4xl px-4 pb-0 sm:p-0 font-bold text-white`}
+                    className={`font-VikingHell capitalize text-2xl sm:text-4xl px-4 pb-0 sm:p-0 font-bold`}
+                  >
+                    {event.name}
+                  </h1>
+                  <div className="px-4 pb-4 sm:p-0">
+                    <EventDetails details={event.description as string} />
+                  </div>
                 </div>
               </div>
-            </div>
-            </div>
+          </div>
+          </div>
           {/* <div className="basis-1/4 shrink-0 flex flex-col gap-5 items-center rounded-md sm:bg-black/20 backdrop-blur-sm p-0 sm:p-7"> */}
-          <div className="basis-1/4 shrink-0 flex flex-col gap-5 items-center rounded-md">
+          <div className="lg:h-full lg:overflow-y-scroll lg:no-scrollbar px-3 pb-8 w-auto shrink-0 flex flex-col gap-5 items-center rounded-md">
             {/* <div className="space-y-1.5 order-2 max-w-2xl sm:w-[300px]">
               <h2 className={`titleFont mb-2 text-2xl`}>Details</h2>
               <div className="flex flex-wrap mt-2 gap-1.5  w-full bodyFont">
@@ -174,7 +183,7 @@ function event({ event, error }: { event: Event; error: String }) {
                 </div>}
             </div> */}
             <div className="main">
-              <div className="parchment"></div>
+              <div className="parchment"/>
               <div className="contain">
                 <div className="space-y-1.5 order-2 max-w-2xl sm:w-[300px] mapicon">
                   <h2 className={`font-VikingHell mb-2 text-2xl`}>Details</h2>
@@ -255,7 +264,7 @@ function event({ event, error }: { event: Event; error: String }) {
               </div>
             </div>
             <div className="main">
-              <div className="parchment"></div>
+              <div className="parchment"/>
               <div className="contain">
                 <div className="w-full order-3">
                   <h2 className={`font-VikingHell mb-2 text-2xl`}>Organizers</h2>
