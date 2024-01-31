@@ -37,7 +37,7 @@ const Modal: FC<ModalProps> = ({ children, title, onClose, showModal }) => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel
-                className={`w-full h-full transform overflow-hidden rounded-none text-gray-100 backdrop-blur-xl text-left align-middle shadow-xl transition-all`}
+                className={`w-full h-full transform overflow-hidden rounded-none text-gray-100 text-left align-middle shadow-xl transition-all`}
               >
                 <button
                   className="hover:text-white text-gray-200 transition-colors z-[50000] absolute top-2 right-2"
