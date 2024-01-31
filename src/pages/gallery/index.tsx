@@ -122,13 +122,13 @@ const Gallery: NextPage = () => {
         >
           <SwiperSlide className="flex justify-center items-center text-center">
             <div className="relative w-full h-full flex justify-center items-center">
-              <GallerySlide title={"2022"} imgArr={img2019} emulator="gba" />
+              <GallerySlide title={"2019"} imgArr={img2019} emulator="gba" />
             </div>
           </SwiperSlide>
           <SwiperSlide className="flex justify-center items-center text-center">
             <div className="relative w-full h-full flex justify-center items-center">
               <GallerySlide
-                title={"2022"}
+                title={"2020"}
                 imgArr={img2019}
                 emulator="retroPC"
               />
@@ -146,13 +146,22 @@ const Gallery: NextPage = () => {
           <SwiperSlide className="flex justify-center items-center text-center">
             <div className="relative w-full h-full flex justify-center items-center">
               <GallerySlide
-                title={"2022"}
+                title={"2023"}
                 imgArr={img2019}
                 emulator="console"
               />
             </div>
           </SwiperSlide>
-          <div className="mx-auto flex gap-4 absolute top-[85%] justify-between px-20 w-full">
+          <SwiperSlide className="flex justify-center items-center text-center">
+            <div className="relative w-full h-full flex justify-center items-center">
+              <GallerySlide
+                title={"2024"}
+                imgArr={img2019}
+                emulator="final"
+              />
+            </div>
+          </SwiperSlide>
+          <div className="mx-auto flex gap-4 absolute bottom-[16%] justify-between px-20 w-full">
             <button
               id="float"
               onClick={async () => {
