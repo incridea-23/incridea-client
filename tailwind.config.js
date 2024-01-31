@@ -12,8 +12,16 @@ module.exports = {
         "scroll-reverse": "scroll-reverse 60s linear infinite",
         "free-fall":
           "fall 8s cubic-bezier(0.33333, 0, 0.66667, 0.33333) forwards",
+        shake: "shake 0.3s linear infinite",
       },
       keyframes: {
+        shake: {
+          "0%": { transform: "translate(0, 0) rotate(0deg)" },
+          "25%": { transform: "translate(5px, 5px) rotate(5deg)" },
+          "50%": { transform: "translate(0, 0) rotate(0eg)" },
+          "75%": { transform: " translate(-5px, 5px) rotate(-5deg)" },
+          "100%": { transform: "translate(0, 0) rotate(0deg)" },
+        },
         scroll: {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(calc(-250px * 10))" },
