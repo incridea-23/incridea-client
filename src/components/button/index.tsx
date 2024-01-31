@@ -1,25 +1,25 @@
 import { cva, VariantProps } from 'class-variance-authority';
-import React, { ReactChildren, ReactElement } from 'react';
+import React from 'react';
 
 const buttonStyles = cva(
-  `flex gap-2 items-center transition-all font-VikingHell tracking-widest duration-300 ease-in-out`,
+  `flex gap-2 items-center transition-colors font-VikingHell duration-300`,
   {
     variants: {
       intent: {
         primary:
-          'bg-gradient-to-tr from-secondary-800 to-secondary-600 text-white -skew-x-12',
+          'bg-gradient-to-tr from-secondary-800 to-secondary-500 text-white -skew-x-12',
         secondary: 'bg-gray-700 text-gray-200 hover:bg-gray-600',
         danger: 'bg-red-500 text-white hover:bg-red-600',
         success: 'bg-green-500 text-white hover:bg-green-600',
         info: 'bg-teal-500 text-white hover:bg-teal-600',
         dark: 'bg-gray-900/60 text-white hover:bg-opacity-30',
-        ghost: 'bg-transparent border-secondary-700 border text-secondary-700 -skew-x-12 backdrop-blur-md',
+        ghost: 'bg-transparent border-secondary-700 border text-secondary-700 -skew-x-12',
       },
       size: {
         small: ['text-sm', 'py-1', 'px-2'],
         medium: ['text-sm md:text-base', 'py-1 md:py-2', 'px-2 md:px-4'],
         large: ['text-lg', 'py-2', 'px-4'],
-        xlarge: ['text-lg md:text-3xl','py-2']
+        xlarge: ['text-lg sm:text-2xl','py-2']
       },
       fullWidth: {
         true: 'w-full',
@@ -57,11 +57,11 @@ const buttonStyles = cva(
   }
 );
 
-interface ButtonProps extends VariantProps<typeof buttonStyles> ,  React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends VariantProps<typeof buttonStyles> {
   disabled?: boolean;
   style?: React.CSSProperties & { [key: string]: any };
   noScaleOnHover?: boolean;
-  children?: React.ReactNode;
+  children?: string;
   className?: string
 }
 

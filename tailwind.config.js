@@ -30,34 +30,23 @@ module.exports = {
           "0%": { transform: "translateX(calc(-250px * 10))" },
           "100%": { transform: "translateX(0)" },
         },
-        fall: {
-          "0%": {
-            transform: "translateY(0) rotate(0deg)",
-          },
-          "100% ": {
-            transform: "translateY(100vh) rotate(360deg)",
-          },
-        },
-      },
-      transitionTimingFunction: {
-        "suck-in": "cubic-bezier(0.65, 0, 0.35, 1)",
       },
       fontFamily: {
-        VikingHell: "VikingHell",
+        VikingHell: 'VikingHell'
       },
       colors: {
         primary: {
-          50: "#E7D9F8",
-          100: "#D2B6F1",
-          200: "#A46EE3",
-          300: "#7628D0",
-          400: "#6623B4",
-          500: "#551D96",
-          600: "#441778",
-          700: "#33115A",
-          800: "#220C3C",
-          900: "#11061E",
-          950: "#07020D",
+          50: "#F4EEFC",
+          100: "#E7D9F8",
+          200: "#D2B6F1",
+          300: "#BA90EA",
+          400: "#A46EE3",
+          500: "#8C47DC",
+          600: "#7628D0",
+          700: "#581E9A",
+          800: "#3A1467",
+          900: "#1D0A33",
+          950: "#0F051A"
         },
         secondary: {
           50: "#FFF0F9",
@@ -70,7 +59,7 @@ module.exports = {
           700: "#FF40B1",
           800: "#D6007D",
           900: "#6B003E",
-          950: "#33001E",
+          950: "#33001E"
         },
         accent: {
           50: "#F2FBFD",
@@ -83,7 +72,7 @@ module.exports = {
           700: "#52C4E0",
           800: "#3ABCDC",
           900: "#156275",
-          950: "#0B333D",
+          950: "#0B333D"
         },
       },
     },
