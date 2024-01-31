@@ -5,6 +5,9 @@ import {
   platformDimensions,
   platformSpriteDimensions,
 } from "./gameConstants";
+import { useMutation } from "@apollo/client";
+import { AddXpDocument } from "@/src/generated/generated";
+import toast from "react-hot-toast";
 
 const actionKeys: string[] = [];
 const ExploreGame = () => {
@@ -12,6 +15,27 @@ const ExploreGame = () => {
   const [scrollY, setScrollY] = useState(0);
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const ctx = useRef<CanvasRenderingContext2D | null | undefined>(null);
+
+  const [addXp] = useMutation(AddXpDocument,{
+    variables: {
+        levelId: "1",
+    },
+  });
+
+  const handleAddXp = () => {
+      const promise = addXp().then((res) => {
+          if (res.data?.addXP.__typename !== "MutationAddXPSuccess") {
+              toast.error(`Opps!! You have already claimed your xp or not logged in`, {
+                  position: "bottom-center",
+              });
+          } else {
+              toast.success(`Added ${res.data?.addXP.data.level.point} Xp`, {
+                  position: "bottom-center",
+              });
+          }
+      });
+    };
+
   const WINDOW_DIMENSION = {
     width: window.innerWidth,
     height: window.innerHeight,
@@ -428,7 +452,7 @@ const ExploreGame = () => {
       velocity.current.y = 0;
 
       /* ######### EASTER EGG GOES HERE ######### */
-
+      handleAddXp();
       return;
     }
 
