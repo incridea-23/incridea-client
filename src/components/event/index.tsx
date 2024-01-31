@@ -120,14 +120,14 @@ const Event = ({
           </div>
         </div>
         <div
-          className={`${styles.bottom_section} flex flex-col justify-center items-center w-full`}
+          className={`${styles.bottom_section} flex flex-col justify-between items-center w-full`}
         >
           <span
             className={`${styles.glitch} ${styles.eventTitle} font-VikingHell flex justify-center items-center text-center text-lg w-fit px-4`}
           >
             {data.name}
           </span>
-          <div className="flex flex-col gap-1 text-center bodyFont text-base text-blue-200 px-1 py-3 justify-center items-start md:w-full">
+          <div className="flex flex-col gap-1 text-center bodyFont text-base text-blue-200 px-1 py-3 justify-center items-start md:w-full h-[9rem]">
             {getEventAttributes().map((attr, i) =>
               attr.name ? (
                 <div
@@ -142,13 +142,13 @@ const Event = ({
               ) : null
             )}
           </div>
-        </div>
-        <div className="p-2 pt-0 mt-0">
-          <button className="hover:bg-[#69e5f8] shrink-0 w-full mt-0 py-2 flex gap-2 items-center justify-center rounded transition-colors duration-300 bg-[#10adc6] font-VikingHell">
-            <Link href={generateEventUrl(data.name, data.id)}>
-              play the game
-            </Link>
-          </button>
+          <div className="p-2 pt-0 mt-0 w-full">
+            <button className="hover:bg-[#69e5f8] shrink-0 w-full mt-0 py-2 flex gap-2 items-center justify-center rounded transition-colors duration-300 bg-[#10adc6] font-VikingHell">
+              <Link href={generateEventUrl(data.name, data.id)}>
+                play the game
+              </Link>
+            </button>
+          </div>
         </div>
       </div>
     </Link>
