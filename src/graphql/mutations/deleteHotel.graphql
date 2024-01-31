@@ -1,0 +1,17 @@
+mutation DeleteHotel($id: String!) {
+  deleteHotel(hotelId: $id) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationDeleteHotelSuccess {
+      __typename
+      data {
+        details
+        id
+        name
+        price
+      }
+    }
+  }
+}

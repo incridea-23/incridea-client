@@ -10,7 +10,7 @@
     "codegen": "graphql-codegen"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.7",
+    "@apollo/client": "^3.8.10",
     "@graphql-yoga/apollo-link": "^1.8.1",
     "@gsap/react": "^2.1.0",
     "@headlessui/react": "^1.7.12",
@@ -39,6 +39,7 @@
     "npm": "^9.6.5",
     "owl.carousel": "^2.3.4",
     "postprocessing": "^6.34.1",
+    "parallax-js": "^3.1.0",
     "qrcode.react": "^3.1.0",
     "react": "^18.2.0",
     "react-csv": "^2.2.2",
@@ -56,7 +57,8 @@
     "three-stdlib": "^2.29.4",
     "typescript": "4.9.5",
     "ws": "^8.13.0",
-    "zustand": "^4.5.0"
+    "zustand": "^4.5.0",
+    "typewriter-effect": "^2.21.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^3.0.0",
@@ -66,6 +68,7 @@
     "@types/draftjs-to-html": "^0.8.1",
     "@types/locomotive-scroll": "^4.1.0",
     "@types/node": "18.11.19",
+    "@types/parallax-js": "^3.1.3",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
     "@types/react-draft-wysiwyg": "^1.13.4",

@@ -14,8 +14,10 @@ const ResendEmail = ({ setWhichForm }: Props) => {
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
 
-  const [emailVerificationMutation, { data, loading, error: emailVerificationError }] =
-    useMutation(EmailVerificationDocument);
+  const [
+    emailVerificationMutation,
+    { data, loading, error: emailVerificationError },
+  ] = useMutation(EmailVerificationDocument);
 
   const handleSubmit = async (e: any) => {
     setError(null);
@@ -36,7 +38,7 @@ const ResendEmail = ({ setWhichForm }: Props) => {
   return (
     <>
       <form
-        className={`relative flex flex-col gap-2 min-h-full justify-center ${
+        className={`relative py-3 px-3 flex flex-col gap-2 min-h-full justify-center ${
           loading && "cursor-not-allowed pointer-events-none"
         }`}
         onSubmit={handleSubmit}>
@@ -79,23 +81,29 @@ const ResendEmail = ({ setWhichForm }: Props) => {
               }}
               type="email"
               required
-              className=" py-2 px-1 border-b  bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-red-500 outline-none"
+              className=" py-2 px-1 border-b  bg-transparent transition-all border-gray-400   placeholder:text-gray-500    md:focus:border-red-500 outline-none"
               placeholder="Email"
             />
+
             {(error || emailVerificationError) && (
               <div className="bg-red-100 p-2 flex items-center gap-3 px-4 rounded-md font-semibold text-red-500">
                 <BiErrorCircle size={"1.3rem"} />
                 {error || emailVerificationError?.message}
               </div>
             )}
-            <Button type="submit">Send Verification Email</Button>
+
+            <Button type="submit" className="my-2">
+              Send Verification Email
+            </Button>
+
             {loading && (
-              <div className="absolute h-full w-full bg-[#f3e9d1] bg-opacity-60 inset-0 rounded-lg cursor-not-allowed pointer-events-none z-50">
+              <div className="absolute h-full w-full bg-gradient-to-b from-[#1f2e97] to-[#090d4b] opacity-60 inset-0 cursor-not-allowed z-50 rounded-lg">
                 <Spinner className="text-[#dd5c6e]" />
               </div>
             )}
           </>
         )}
+
         <Button intent={"ghost"} onClick={() => setWhichForm("signIn")}>
           <FaAngleLeft /> Go Back
         </Button>

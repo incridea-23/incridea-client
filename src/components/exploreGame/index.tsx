@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import {
   SpriteDimensions,
   platformDimensions,
@@ -8,10 +9,16 @@ import {
 import { useMutation } from "@apollo/client";
 import { AddXpDocument } from "@/src/generated/generated";
 import toast from "react-hot-toast";
+import Typewriter from "typewriter-effect";
+import { useRouter } from "next/router";
+import { MdArrowRightAlt } from "react-icons/md";
 
 const actionKeys: string[] = [];
 const ExploreGame = () => {
   const [showAbout, setShowAbout] = useState(false);
+  const [showRuleBook, setShowRuleBook] = useState(false);
+  const router = useRouter();
+  const [showSchedule, setShowSchedule] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const ctx = useRef<CanvasRenderingContext2D | null | undefined>(null);
@@ -53,7 +60,7 @@ const ExploreGame = () => {
   const velocity = {
     current: { x: 3, y: 0 },
   };
-  const boundary = { left: 0, right: window.innerWidth - player.current.width };
+  const boundary = { left: 0, right: window.innerWidth };
   const ryokoSprite = useRef<HTMLImageElement | null>(null);
   const background = useRef<HTMLImageElement | null>(null);
   const platformSprite = useRef<HTMLImageElement | null>(null);
@@ -65,6 +72,8 @@ const ExploreGame = () => {
   let frameCount: number = 0;
   const gravity: number = 0.15;
   let showAboutFlag = true;
+  let showRuleBookFlag = true;
+  let showScheduleFlag = true;
 
   const resizeCanvas = () => {
     if (canvas.current) {
@@ -75,7 +84,7 @@ const ExploreGame = () => {
       canvas.current.width = WINDOW_DIMENSION.width = window.innerWidth;
       WINDOW_DIMENSION.height = window.innerHeight;
       canvas.current.height = window.innerHeight * 2;
-      boundary.right = window.innerWidth - player.current.width;
+      boundary.right = window.innerWidth;
     }
   };
 
@@ -340,6 +349,10 @@ const ExploreGame = () => {
     ) {
       // Standing on the left platform
       isGrounded = true;
+      if (showScheduleFlag) {
+        setShowSchedule(true);
+        showScheduleFlag = false;
+      }
       player.current.y =
         window.innerHeight * (platformDimensions.left.yPercentage + 0.015) -
         player.current.height;
@@ -383,6 +396,10 @@ const ExploreGame = () => {
     ) {
       // Standing on the right platform
       isGrounded = true;
+      if (showRuleBookFlag) {
+        setShowRuleBook(true);
+        showRuleBookFlag = false;
+      }
       player.current.y =
         window.innerHeight * (platformDimensions.right.yPercentage + 0.02) -
         player.current.height;
@@ -458,11 +475,14 @@ const ExploreGame = () => {
 
     isGrounded = false;
     setShowAbout(false);
+    setShowRuleBook(false);
+    setShowSchedule(false);
+    showRuleBookFlag = true;
     showAboutFlag = true;
+    showScheduleFlag = true;
   };
 
   const animate = () => {
-    console.log(actionKeys);
     ctx.current?.clearRect(0, 0, window.innerWidth, window.innerHeight * 2);
 
     actionKeys.map((key) => {
@@ -499,6 +519,10 @@ const ExploreGame = () => {
       isRightDirection = false;
     } else if (actionKeys.includes("ArrowRight")) {
       isRightDirection = true;
+    }
+
+    if (player.current.x > boundary.right) {
+      router.push("/explore/level2");
     }
 
     drawBackground(ctx.current, background.current as HTMLImageElement);
@@ -584,7 +608,7 @@ const ExploreGame = () => {
   }, [scrollY]);
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen">
+    <div className="h-[200dvh] relative">
       <div className="hidden">
         <img
           src="/assets/spriteSheets/ryokoSpriteSheet.png"
@@ -602,59 +626,114 @@ const ExploreGame = () => {
           ref={platformSprite}
         />
       </div>
+      <div className="flex w-full justify-center items-center">
+        <div
+          className="absolute bg-[#d64d00] z-50 h-max w-max top-[20%] text-[#fec3b5] pressStart text-center sm:p-12 border-l-4 border-t-4 border-white p-4 rounded-lg"
+          style={{ borderStyle: "outset" }}
+        >
+          <h1 className="lg:text-8xl md:text-7xl sm:text-6xl text-4xl">
+            INCRIDEA
+          </h1>
+          <h3 className="lg:text-5xl md:text-4xl sm:text-3xl text-xl">
+            DICE OF DESTINY
+          </h3>
+          <span className="absolute -top-16 text-white left-0 flex flex-col lg:text-xl md:text-lg sm:text-md text-sm">
+            <p>RYOKO</p>
+            <p>000006</p>
+          </span>
+          <span className="absolute -bottom-5 text-white right-0 lg:text-xl md:text-lg sm:text-md text-sm">
+            © Incridea 2024
+          </span>
+        </div>
+      </div>
+
       <div
-        className="absolute bg-[#d64d00] h-max w-max top-[20%] text-[#fec3b5] pressStart text-center sm:p-12 border-l-4 border-t-4 border-white p-4 rounded-lg"
-        style={{ borderStyle: "outset" }}
+        style={{
+          opacity: scrollY > 450 && showAbout ? 1 : 0,
+          pointerEvents: scrollY > 450 && showAbout ? "all" : "none",
+          transition: "opacity 0.5s ease-in-out",
+        }}
+        className="absolute z-50  h-[20rem] md:h-[24rem] sm:h-[20rem] sm:w-[32rem] sm:text-xs sm:top-[35%]  md:w-[36rem] md:text-sm w-[22rem] text-[0.6rem]  top-[30%] mx-4 text-opacity-80  bg-[#86d6e9]/30 p-6 xl:top-[45%] xl:left-6 xl:max-w-xl xl:text-base xl:h-[28rem]  text-white pressStart justify-evenly text-justify space-y-4 rounded-lg transition-all duration-300 ease-in-out"
       >
-        <h1 className="lg:text-8xl md:text-7xl sm:text-6xl text-4xl">
-          INCRIDEA
-        </h1>
-        <h3 className="lg:text-5xl md:text-4xl sm:text-3xl text-xl">
-          DICE OF DESTINY
-        </h3>
-        <span className="absolute -top-16 text-white left-0 flex flex-col lg:text-xl md:text-lg sm:text-md text-sm">
-          <p>RYOKO</p>
-          <p>000006</p>
-        </span>
-        <span className="absolute -bottom-5 text-white right-0 lg:text-xl md:text-lg sm:text-md text-sm">
-          © Incridea 2024
+        <Typewriter
+          onInit={(typewriter) => {
+            typewriter
+              .changeDelay(30)
+              .typeString(
+                "Incridea, a three-day National-Level extravaganza will play host to over 60 events, spanning the technical, non-technical, and cultural spheres, replete with cultural soirées and pronites, promising to be an experience of a lifetime.<br/><br/>The stunning marine world, with all its wonders and marvels, will be unveiled before your very eyes, as you revel in the vivacity of these momentous days, forging memories that shall be etched in your minds forevermore."
+              )
+
+              .start();
+          }}
+        />
+
+        <span className="absolute bottom-1 right-2 text-xs font-mono">
+          Try controlling Ryoko
         </span>
       </div>
 
-      {/* { */}
-      {scrollY > 450 && showAbout && (
-        <div
-          className="absolute h-max sm:max-w-lg sm:text-xs sm:top-[35%] md:max-w-xl md:text-sm max-w-md text-xs top-[30%] mx-4 text-opacity-80  bg-[#86d6e9]/30 p-6 xl:top-[45%] xl:left-6 xl:max-w-xl xl:text-base  text-white pressStart justify-evenly text-justify space-y-4 rounded-lg transition-all duration-300 ease-in-out"
-          style={{ borderStyle: "outset" }}
-        >
-          <p>
-            Incridea, a three-day National-Level extravaganza will play host to
-            over 60 events, spanning the technical, non-technical, and cultural
-            spheres, replete with cultural soirées and pronites, promising to be
-            an experience of a lifetime.
-          </p>
-          <p>
-            The stunning marine world, with all its wonders and marvels, will be
-            unveiled before your very eyes, as you revel in the vivacity of
-            these momentous days, forging memories that shall be etched in your
-            minds forevermore.
-          </p>
-
-          <span className="absolute bottom-1 right-2 text-xs font-mono">
-            Try controlling Ryoko
-          </span>
+      <div
+        style={{
+          opacity: (scrollY > 450 && showRuleBook) || showSchedule ? 1 : 0,
+          pointerEvents:
+            (scrollY > 450 && showRuleBook) || showSchedule ? "all" : "none",
+          transition: "opacity 0.5s ease-in-out",
+        }}
+        className="absolute z-50 h-max sm:max-w-lg sm:text-xs sm:top-[35%] md:max-w-xl md:text-sm max-w-md text-xs top-[30%] mx-4 text-opacity-80  bg-[#86d6e9]/30 p-6 xl:top-[45%] xl:left-6 left-12 xl:max-w-xl xl:text-base  text-white pressStart justify-evenly text-justify space-y-4 rounded-lg transition-all duration-300 ease-in-out"
+      >
+        {/* <p>Jello</p> */}
+        <div className="flex w-full justify-center">
+          <Image
+            src={
+              showRuleBook
+                ? "/assets/png/ruleBook.png"
+                : "/assets/png/rulebook.png"
+            }
+            alt="RuleBook"
+            width={100}
+            height={100}
+            className="w-[10rem] h-[15rem] sm:w-[12rem] sm:h-[18rem] md:w-[14rem] md:h-[21rem] xl:w-[20rem] xl:h-[30rem]"
+          />
         </div>
-      )}
-      <canvas ref={canvas} className="h-[200vh] w-full "></canvas>
+        <a
+          href={
+            showRuleBook
+              ? "/assets/images/ruleBook.png"
+              : "/assets/images/rulebook.png"
+          }
+          className="flex w-full justify-center py-4 bg-orange-500 rounded-xl"
+          download
+        >
+          <button className="px-4">
+            Download {showRuleBook ? "Rule Book" : "Schedule"}
+          </button>
+        </a>
+      </div>
 
-      <div className="fixed bottom-5 right-5 opacity-50">
+      <div className="absolute sm:top-[57%] top-[75%] sm:right-12 right-2 z-50 text-white font-bold animate-pulse">
+        <MdArrowRightAlt
+          size={80}
+          className="text-white justify-center w-full flex"
+        />
+        <span>Move to Level 2</span>
+      </div>
+      <canvas ref={canvas} className="h-[200vh] w-full absolute"></canvas>
+
+      <div
+        className="sticky h-screen top-0 justify-end items-end flex w-full "
+        style={{
+          opacity: scrollY > window.innerHeight * 0.5 ? 0.5 : 0,
+          pointerEvents: scrollY > window.innerHeight * 0.5 ? "all" : "none",
+          transition: "opacity 0.5s ease-in-out",
+        }}
+      >
         <svg
           width="205"
           height="150"
           viewBox="0 0 1222 888"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="pointer-events-none"
+          className="pointer-events-none mb-8 mr-8"
         >
           <g
             id="Right"

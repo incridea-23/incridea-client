@@ -1,0 +1,33 @@
+mutation AddAccommodationRequest(
+  $checkInTime: String!
+  $checkOutTime: String!
+  $gender: String!
+  $hotelId: Int!
+  $id: String!
+) {
+  addAccommodationRequest(
+    checkIn: $checkInTime
+    checkOut: $checkOutTime
+    gender: $gender
+    hotelId: $hotelId
+    IdCard: $id
+  ) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationAddAccommodationRequestSuccess {
+      __typename
+      data {
+        checkIn
+        checkOut
+        gender
+        status
+        user {
+          name
+          phoneNumber
+        }
+      }
+    }
+  }
+}
