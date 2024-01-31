@@ -1,25 +1,25 @@
 import { cva, VariantProps } from 'class-variance-authority';
-import { HTMLMotionProps, motion } from 'framer-motion';
-import React from 'react';
+import React, { ReactChildren, ReactElement } from 'react';
 
 const buttonStyles = cva(
-  `flex gap-2 items-center justify-center rounded transition-colors duration-300 titleFont`,
+  `flex gap-2 items-center transition-all font-VikingHell tracking-widest duration-300 ease-in-out`,
   {
     variants: {
       intent: {
         primary:
-          'bg-gradient-to-br from-[#e95c71] via-[#dd5c6e] to-[#bb384c]  text-white ',
+          'bg-gradient-to-tr from-secondary-800 to-secondary-600 text-white -skew-x-12',
         secondary: 'bg-gray-700 text-gray-200 hover:bg-gray-600',
         danger: 'bg-red-500 text-white hover:bg-red-600',
         success: 'bg-green-500 text-white hover:bg-green-600',
         info: 'bg-teal-500 text-white hover:bg-teal-600',
         dark: 'bg-gray-900/60 text-white hover:bg-opacity-30',
-        ghost: 'bg-transparent border-[#e95c71] border text-[#f3556a] ',
+        ghost: 'bg-transparent border-secondary-700 border text-secondary-700 -skew-x-12 backdrop-blur-md',
       },
       size: {
         small: ['text-sm', 'py-1', 'px-2'],
         medium: ['text-sm md:text-base', 'py-1 md:py-2', 'px-2 md:px-4'],
         large: ['text-lg', 'py-2', 'px-4'],
+        xlarge: ['text-lg md:text-3xl','py-2']
       },
       fullWidth: {
         true: 'w-full',
@@ -57,15 +57,12 @@ const buttonStyles = cva(
   }
 );
 
-interface ButtonProps
-  extends Omit<
-      HTMLMotionProps<'button'>,
-      'onAnimationStart' | 'onDrag' | 'onDragEnd' | 'onDragStart' | 'style'
-    >,
-    VariantProps<typeof buttonStyles> {
+interface ButtonProps extends VariantProps<typeof buttonStyles> ,  React.ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
   style?: React.CSSProperties & { [key: string]: any };
   noScaleOnHover?: boolean;
+  children?: React.ReactNode;
+  className?: string
 }
 
 const Button = ({
@@ -80,10 +77,8 @@ const Button = ({
   ...props
 }: ButtonProps) => {
   return (
-    <motion.button
-      whileHover={noScaleOnHover ? { scale: 1 } : { scale: 1.05 }}
-      whileTap={{ scale: 0.9 }}
-      className={`${className} ${buttonStyles({
+    <button
+      className={`${noScaleOnHover ? 'hover:scale-100' : 'transition-transform duration-300 ease-in-out hover:scale-105'} ${className+' active:scale-90 '} ${buttonStyles({
         intent,
         size,
         fullWidth,
@@ -93,7 +88,7 @@ const Button = ({
       {...props}
     >
       {children}
-    </motion.button>
+    </button>
   );
 };
 

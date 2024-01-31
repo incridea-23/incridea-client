@@ -45,7 +45,9 @@ const ConfirmTeamModal: FC<{
       <Button
         size={'small'}
         className="mt-3 w-fit"
-        onClick={() => {
+        onClick={(e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+          e.preventDefault();
+          e.stopPropagation();
           setShowModal(true);
         }}
         intent={'primary'}
@@ -65,7 +67,9 @@ const ConfirmTeamModal: FC<{
         <div className="flex justify-center gap-3 my-5">
           <Button
             size={'small'}
-            onClick={() => {
+            onClick={(e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+              e.preventDefault();
+              e.stopPropagation();
               canConfirm
                 ? handleConfirm(teamId as string)
                 : toast.error(
@@ -86,7 +90,10 @@ const ConfirmTeamModal: FC<{
           <Button
             size={'small'}
             intent={'ghost'}
-            onClick={() => handleCloseModal()}
+            onClick={(e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleCloseModal()}}
           >
             Cancel
           </Button>

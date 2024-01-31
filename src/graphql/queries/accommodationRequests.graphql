@@ -1,0 +1,40 @@
+query AccommodationRequests {
+  accommodationRequests {
+    ... on QueryAccommodationRequestsSuccess {
+      __typename
+      data {
+        checkIn
+        checkOut
+        createdAt
+        gender
+        id
+        room
+        ac
+        status
+        updatedAt
+        user {
+          email
+          createdAt
+          id
+          isVerified
+          name
+          phoneNumber
+          college {
+            id
+            name
+          }
+        }
+        hotel {
+          details
+          id
+          name
+          price
+        }
+      }
+    }
+    ... on Error {
+      __typename
+      message
+    }
+  }
+}

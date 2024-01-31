@@ -11,9 +11,10 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import Loader from "../components/Loader";
-import Footer from "../components/footer";
-import HeadComponent from "../components/head";
 const Navbar = dynamic(() => import("../components/navbar"), { ssr: false });
+import ExploreGame from "../components/exploreGame";
+import HeadComponent from "../components/head";
+import Footer from "../components/footer";
 
 export default function App({
   Component,
@@ -38,7 +39,7 @@ export default function App({
     },
   };
 
-  if (router.pathname === "/theme" || router.pathname === "/test")
+  if (router.pathname === "/theme" || router.pathname === "/landing")
     return (
       <ApolloProvider client={apolloClient}>
         <Component {...pageProps} />
@@ -87,7 +88,7 @@ export default function App({
         </AnimatePresence>
         <Footer />
       </div>
-      <Analytics />
+      {/* <Analytics /> */}
     </ApolloProvider>
   );
 }

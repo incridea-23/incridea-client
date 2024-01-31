@@ -1,8 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Luckiest+Guy&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" );
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'VikingHell';
+  src: url('../../public/font/Viking\ Hell.otf') format('opentype');
+  font-display: swap;
+}
 
 /* create a youtube-like scrollbar */
 ::-webkit-scrollbar {
@@ -159,15 +166,15 @@
 }
 
 .titleFont {
-  font-family: "Trade Winds", cursive;
+  font-family: "Roboto Slab", cursive;
 }
 
 .bodyFont {
-  font-family: "Montserrat", sans-serif;
+  font-family: "arvo", sans-serif;
 }
 
 .event-description * {
-  font-family: "Montserrat", sans-serif !important;
+  font-family: "arvo", sans-serif !important;
 }
 
 .pressStart {

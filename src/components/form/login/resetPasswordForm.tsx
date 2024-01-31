@@ -40,17 +40,19 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
   return (
     <>
       <form
-        className={`relative flex flex-col gap-2 min-h-full justify-center ${
+        className={`relative py-3 px-3 flex flex-col gap-2 min-h-full justify-center ${
           loading && "cursor-not-allowed pointer-events-none"
         }`}
         onSubmit={handleSubmit}>
-        <h2 className="text-center text-2xl pb-1 font-semibold">Forgot password?</h2>
+        <h2 className="text-center text-2xl pb-1 font-semibold">
+          Forgot password?
+        </h2>
         {data?.sendPasswordResetEmail.__typename ===
         "MutationSendPasswordResetEmailSuccess" ? (
           <>
             <div className="flex flex-col gap-2 text-center items-center text-green-500 bg-green-100 font-semibold p-4 rounded-md">
-              <BiCheckCircle size={"2rem"} /> Reset link sent to your email. Please check
-              your inbox.
+              <BiCheckCircle size={"2rem"} /> Reset link sent to your email.
+              Please check your inbox.
             </div>
           </>
         ) : (
@@ -66,15 +68,20 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
               }}
               type="email"
               required
-              className=" py-2 px-1 border-b  bg-transparent transition-all border-gray-400   placeholder:text-gray-500 text-black   md:focus:border-[#dd5c6e]-500 outline-none"
+              className="py-2 px-1 border-b bg-transparent transition-all border-gray-400 placeholder:text-slate-400  md:focus:border-[#dd5c6e]-500 outline-none"
               placeholder="Email"
             />
-            <Button type="submit">Send Reset Link</Button>
+
+            <Button type="submit" className="mt-4">
+              Send Reset Link
+            </Button>
+
             {loading && (
-              <div className="absolute h-full w-full bg-[#f3e9d1] bg-opacity-60 inset-0 rounded-lg cursor-not-allowed pointer-events-none z-50">
+              <div className="absolute h-full w-full bg-gradient-to-b from-[#1f2e97] to-[#090d4b] opacity-60 inset-0 cursor-not-allowed z-50 rounded-lg">
                 <Spinner className="text-[#dd5c6e]" />
               </div>
             )}
+
             {(error || mutationError) && (
               <div className="bg-red-100 p-2 flex items-center gap-3 px-4 rounded-md font-semibold text-red-500">
                 <BiErrorCircle size={"1.3rem"} />
@@ -83,9 +90,12 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
             )}
           </>
         )}
-            <Button intent={'ghost'} onClick={() => setWhichForm("signIn")}>
-              <FaAngleLeft /> Go Back
-            </Button>
+        <Button
+          intent={"ghost"}
+          className="mt-5"
+          onClick={() => setWhichForm("signIn")}>
+          <FaAngleLeft /> Go Back
+        </Button>
       </form>
     </>
   );
