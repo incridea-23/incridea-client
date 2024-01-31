@@ -23,7 +23,6 @@ const ExploreGame = () => {
   });
 
   const handleAddXp = () => {
-      console.log("add xp"); 
       const promise = addXp().then((res) => {
           if (res.data?.addXP.__typename !== "MutationAddXPSuccess") {
               toast.error(`Opps!! You have already claimed your xp or not logged in`, {
