@@ -1,3 +1,4 @@
+"use client";
 import Spinner from "@/src/components/spinner";
 import { GetXpLeaderboardDocument } from "@/src/generated/generated";
 import { useQuery } from "@apollo/client";
@@ -83,7 +84,7 @@ const LeaderBoard : NextPage = () => {
     }
     let isMobile = typeof window !== "undefined" && window.innerWidth < 768;
     return (
-        <div className={`font-VikingHell`} style={{ willChange: "transform",overflowX:"hidden" }}>
+        <div className={`vikingHell`} style={{ willChange: "transform",overflowX:"hidden" }}>
             {sortedLeaderboard.length > 0 && 
             <div className={`${styles.container} overflow-y-hidden`}>
                 {Array.from({ length: 30 }).map((_, i) => (

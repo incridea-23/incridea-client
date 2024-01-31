@@ -81,7 +81,7 @@ const Event = ({
 
   return (
     <Link data-scroll href={generateEventUrl(data.name, data.id)}>
-      <div className={`${styles.card} w-full h-full font-VikingHell`}>
+      <div className={`${styles.card} w-full h-full vikingHell`}>
         <div className={`${styles.top_section} flex flex-col`}>
           <div>
             <div className={styles.borderCard}></div>
@@ -96,7 +96,7 @@ const Event = ({
                 />
               </div>
               <div
-                className={`${styles.social_media} font-VikingHell capitalize font-semibold justify-items-end items-center text-center text-[1.05rem]`}
+                className={`${styles.social_media} vikingHell capitalize font-semibold justify-items-end items-center text-center text-[1.05rem]`}
               >
                 {data.category?.replace('_', ' ').toLocaleLowerCase()}
               </div>
@@ -123,7 +123,7 @@ const Event = ({
           className={`${styles.bottom_section} flex flex-col justify-between items-center w-full`}
         >
           <span
-            className={`${styles.glitch} ${styles.eventTitle} font-VikingHell flex justify-center items-center text-center text-lg w-fit px-4`}
+            className={`${styles.glitch} ${styles.eventTitle} vikingHell flex justify-center items-center text-center text-lg w-fit px-4`}
           >
             {data.name}
           </span>
@@ -143,7 +143,7 @@ const Event = ({
             )}
           </div>
           <div className="p-2 pt-0 mt-0 w-full">
-            <button className="hover:bg-[#69e5f8] shrink-0 w-full mt-0 py-2 flex gap-2 items-center justify-center rounded transition-colors duration-300 bg-[#10adc6] font-VikingHell">
+            <button className="hover:bg-[#69e5f8] shrink-0 w-full mt-0 py-2 flex gap-2 items-center justify-center rounded transition-colors duration-300 bg-[#10adc6] vikingHell">
               <Link href={generateEventUrl(data.name, data.id)}>
                 play the game
               </Link>

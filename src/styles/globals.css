@@ -180,6 +180,10 @@
   font-family: "Press Start 2P", system-ui;
 }
 
+.vikingHell {
+  font-family: "VikingHell", system-ui;
+}
+
 @keyframes fly-up-down {
   0% {
     transform: translateY(0);

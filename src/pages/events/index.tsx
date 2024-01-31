@@ -1,3 +1,4 @@
+"use client"
 import Event from "@/src/components/event";
 import { NextPage } from "next";
 import { useEffect, useRef, useState } from "react";
@@ -113,7 +114,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
 
   return (
     <div
-      className="overflow-x-hidden font-VikingHell"
+      className="overflow-x-hidden vikingHell"
       style={{ willChange: 'transform' }}
     >
       <LocomotiveScrollProvider
