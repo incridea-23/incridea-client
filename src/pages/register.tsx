@@ -68,45 +68,43 @@ const Register: NextPage = (props: Props) => {
           </p>
           <ol className="mt-2 list-decimal pl-4">
             <li>
-              {' '}
+              {" "}
               NMAM Institute of Technology students who pay ₹200 will have
               access to all events and pronites
             </li>
             <li>
-              {' '}
-              Engineering college students, other than NMAMIT, who pay ₹300 will
-              have access to all events and pronites.
+              {" "}
+              Engineering college students, other than NMAMIT, who pay ₹300
+              will have access to all events and pronites.
             </li>
             <li>
               Non-engineering college and Nitte sister college students who pay
               ₹300 will have access only to Core Events and pronites.
             </li>
             <li>
-              {' '}
-              Invite-only participants who pay ₹150 will have access to the one
-              core event they were invited to. If the invite-only participant is
-              a college student and wants to attend pronite, they will have to
-              register as given in point 3.
+              {" "}
+              Invite-only participants who pay ₹150 will have access to the
+              one core event they were invited to. If the invite-only
+              participant is a college student and wants to attend pronite, they
+              will have to register as given in point 3.
             </li>
           </ol>
-          <div className='mt-2'>
+          <div className="mt-2">
             <Link
               className="hover:text-gray-300 underline"
-              href={'/guidelines'}
-            >
+              href={"/guidelines"}>
               Read More
-            </Link>{' '}
+            </Link>{" "}
             about the guidelines and regulations
           </div>
           <Button
             disabled={true}
             // onClick={() => makePayment(setLoading)}
-            className="flex gap-2 mt-8 "
-          >
+            className="flex gap-2 mt-8 ">
             Registrations Closed
             {loading && (
-              <Spinner className="w-fit" size={'small'} intent={'white'} />
-            )}{' '}
+              <Spinner className="w-fit" size={"small"} intent={"white"} />
+            )}{" "}
           </Button>
           <h1 className="text-xs md:text-sm mt-2 text-gray-100">
             By clicking the above button, you agree to the mentioned terms and

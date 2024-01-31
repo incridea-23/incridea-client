@@ -4,6 +4,6 @@ const ExploreGame = dynamic(() => import("@/src/components/exploreGame/"), {
   ssr: false,
 });
 
-export default function Explore() {
+export default function Level1() {
   return <ExploreGame />;
 }

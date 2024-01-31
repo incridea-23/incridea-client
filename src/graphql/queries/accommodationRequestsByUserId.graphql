@@ -1,0 +1,28 @@
+query AccommodationRequestsByUserId($userId: ID!) {
+  accommodationRequestsByUserId(userId: $userId) {
+    ac
+    checkIn
+    checkOut
+    createdAt
+    gender
+    IdCard
+    room
+    status
+    hotel {
+      details
+      createdAt
+      id
+      name
+      price
+    }
+    user {
+      college {
+        name
+      }
+      email
+      isVerified
+      name
+      phoneNumber
+    }
+  }
+}

@@ -1,0 +1,33 @@
+query AccommodationRequestByDay($date: DateTime!) {
+  accommodationRequestByDay(date: $date) {
+    checkIn
+    checkOut
+    createdAt
+    gender
+    hotel {
+      createdAt
+      details
+      id
+      name
+      price
+      updatedAt
+    }
+    id
+    room
+    ac
+    status
+    updatedAt
+    user {
+      college {
+        id
+        name
+      }
+      createdAt
+      email
+      id
+      isVerified
+      name
+      phoneNumber
+    }
+  }
+}
