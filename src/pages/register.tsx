@@ -1,12 +1,14 @@
-import { NextPage } from 'next';
-import React, { useState } from 'react';
-import { useAuth } from '../hooks/useAuth';
-import { useRouter } from 'next/router';
-import Button from '../components/button';
-import { makePayment } from '../utils/razorpay';
-import Spinner from '../components/spinner';
-import Link from 'next/link';
-import Loader from '../components/Loader';
+import { NextPage } from "next";
+import React, { useState } from "react";
+import { useAuth } from "../hooks/useAuth";
+import { useRouter } from "next/router";
+import Button from "../components/button";
+import { makePayment } from "../utils/razorpay";
+import Spinner from "../components/spinner";
+import Link from "next/link";
+import Loader from "../components/Loader";
+import { AccommodationRequestsByUserIdDocument } from "../generated/generated";
+import { useQuery } from "@apollo/client";
 
 type Props = {};
 
@@ -14,9 +16,20 @@ const Register: NextPage = (props: Props) => {
   const { error, user, loading: userLoading } = useAuth();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  if (userLoading) return <Loader/>
-  if (!user) router.push('/login');
-  if (user?.role !== 'USER') router.push('/');
+
+  if (userLoading) return <Loader />;
+  if (!user) router.push("/login");
+  if (user?.role !== "USER") router.push("/");
+  // TODO: add the component to show already accommodated user
+  // const {
+  //   data,
+  //   loading: loadingAccommodation,
+  //   error: errorAccommodation,
+  // } = useQuery(AccommodationRequestsByUserIdDocument, {
+  //   variables: {
+  //     userId: user?.id,
+  //   },
+  // });
 
   return (
     <div className="px-4 md:px-6 pt-32 pb-10 min-h-screen text-white bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
@@ -24,10 +37,27 @@ const Register: NextPage = (props: Props) => {
         <h2 className={`titleFont text-white text-center text-4xl md:text-5xl`}>
           Register
         </h2>
+
         <h5 className="bodyFont text-center mt-5 md:mt-7 text-base md:text-xl max-w-7xl mx-auto">
           Before you dive in, read through the list of T&C, and register
           yourself for the fest by clicking the button below.
         </h5>
+
+        <div className="bodyFont md:px-10 px-5 md:mt-8 mt-6 max-w-7xl mx-auto bg-white/20 rounded-sm md:py-7 py-4">
+          <div className="px-4 flex flex-row justify-between">
+            <div className="flex justify-center text-md">
+              We provide accommodation for participants and non-participants
+            </div>
+            <Button
+              onClick={() => {
+                router.push("/accommodation");
+              }}
+              size={"small"}>
+              Accommodate Me
+            </Button>
+          </div>
+        </div>
+
         <div className="bodyFont md:px-10 px-5 md:mt-8 mt-6 max-w-7xl mx-auto bg-white/20 rounded-sm md:py-7 py-4">
           <h2 className="font-semibold md:text-2xl text-base">
             Terms and Conditions
