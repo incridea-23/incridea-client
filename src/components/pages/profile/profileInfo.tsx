@@ -158,13 +158,12 @@
 // };
 
 // export default ProfileInfo;
-import { User } from '@/src/generated/generated';
-
+import { AccommodationRequestsByUserDocument, User } from '@/src/generated/generated';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { QRCodeSVG } from 'qrcode.react';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { FaSignOutAlt, FaDice } from 'react-icons/fa';
 import { MdOutlineEmail, MdPhone } from 'react-icons/md';
 import TextAnimation from '../../animation/text';
@@ -172,13 +171,23 @@ import { idToPid } from '@/src/utils/id';
 import Button from '../../button';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { useQuery } from '@apollo/client';
+import Spinner from '../../spinner';
+import ViewUserAccommodation from './viewUserAccommodation';
 // import { GiShipWheel } from 'react-icons/gi';
 
 const ProfileInfo: FC<{
   user: User | null | undefined;
 }> = ({ user }) => {
-  const router = useRouter();
+  const router = useRouter();  
+  const {
+    data: dataAccommodation,
+    loading: loadingAccommodation,
+    error: errorAccommodation,
+  } = useQuery(AccommodationRequestsByUserDocument);
 
+  const [showModal, setShowModal] = useState(false);
+  
   if (user?.role === 'USER') {
     router.push('/register');
   }
@@ -217,6 +226,18 @@ const ProfileInfo: FC<{
             > <FaSignOutAlt className="inline-block mr-1" />
               Sign Out
             </Button>
+
+            <ViewUserAccommodation
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
+            {
+              loadingAccommodation ? (
+                <Spinner className="text-[#dd5c6e]" />
+              ) : dataAccommodation?.accommodationRequestsByUser[0]?.status?
+              (<Button onClick={()=>setShowModal(true)} className="w-max mt-3 md:mt-2">View Request</Button>):
+            (<Button onClick={()=>router.push("/accommodation")} className="w-max mt-3 md:mt-2">Accommodate Me</Button>)
+            }
 
       </div>
 

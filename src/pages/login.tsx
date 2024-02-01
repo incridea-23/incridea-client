@@ -94,7 +94,7 @@ const SignIn: NextPage = () => {
         priority
       />
       <div
-        className={`relative min-h-[93vh] min-w-screen flex flex-col justify-between [transform-style:preserve-3d] [perspective:500px] overflow-hidden`}>
+        className={`relative min-h-[93vh] flex flex-col justify-between [transform-style:preserve-3d] [perspective:500px] overflow-hidden`}>
         <LoginPortal isTop={true} />
 
         <LoginCard
