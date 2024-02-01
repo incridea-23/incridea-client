@@ -10,6 +10,7 @@ import dynamic from "next/dynamic";
 import { BiQuestionMark } from "react-icons/bi";
 import { BsEgg, BsEggFill } from "react-icons/bs";
 import { useRouter } from "next/router";
+import Pokedex from "../components/pokedex";
 const CountDown = dynamic(() => import("../components/countdown"), {
   ssr: false,
 });
@@ -56,6 +57,7 @@ const Home = () => {
               <About />
               {/* 4. Core Events Section */}
               <EventsReel />
+              
             </div>
             {/* 5. Footer Section */}
             <section className="-mt-2 relative bg-[#052749]">

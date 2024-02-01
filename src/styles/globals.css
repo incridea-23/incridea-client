@@ -181,6 +181,10 @@
   font-family: "Press Start 2P", system-ui;
 }
 
+.vikingHell {
+  font-family: "VikingHell", system-ui;
+}
+
 @keyframes fly-up-down {
   0% {
     transform: translateY(0);
@@ -243,3 +247,29 @@
   top: 20vw !important;
   left: 20vw !important;
 } */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari, and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+  display: none;
+  }
+  /* Hide scrollbar for IE, Edge, and Firefox */
+  .no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  }
+}

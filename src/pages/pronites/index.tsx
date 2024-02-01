@@ -48,7 +48,7 @@ const Pronite: NextPage = () => {
               alt="setia"
             />
           </div>
-          <div className="snap-start min-w-full h-screen place-items-center w-screen">
+          <div className=" snap-start min-w-full h-screen place-items-center w-screen">
             <Image
               className="relative h-screen w-screen -bottom-10 sm:bottom-0"
               src="/assets/svg/raghavA.svg"

@@ -45,6 +45,9 @@ module.exports = {
       fontFamily: {
         VikingHell: "VikingHell",
       },
+      fontFamily: {
+        VikingHell: 'VikingHell'
+      },
       colors: {
         primary: {
           50: "#E7D9F8",

@@ -61,6 +61,7 @@ interface ButtonProps extends VariantProps<typeof buttonStyles> ,  React.ButtonH
   disabled?: boolean;
   style?: React.CSSProperties & { [key: string]: any };
   noScaleOnHover?: boolean;
+  variant?: string;
   children?: React.ReactNode;
   className?: string
 }
@@ -74,6 +75,7 @@ const Button = ({
   disabled,
   className,
   noScaleOnHover,
+  variant,
   ...props
 }: ButtonProps) => {
   return (
