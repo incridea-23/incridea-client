@@ -102,7 +102,7 @@ const Event = ({
               </div>
             </div>
           </div>
-          <div className="my-[8px] md:m-[6px] px-2 md:px-0">
+          <div className="my-[5px] px-0 md:px-0">
             <div className={`${styles.screen} rounded-xl object-fill md:m-[6px]`}>
               {data.image && (
                 <Image
@@ -120,7 +120,7 @@ const Event = ({
           </div>
         </div>
         <div
-          className={`${styles.bottom_section} flex flex-col justify-between items-center w-full gap-2`}
+          className={`${styles.bottom_section} flex flex-col justify-between items-center w-full gap-1`}
         >
           <span
             className={`${styles.glitch} ${styles.eventTitle} font-normal black-ops flex justify-center items-center text-center ${data.name.length > 14 ? "text-base" : "text-lg"} w-fit px-4`}
