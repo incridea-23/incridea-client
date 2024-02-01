@@ -44,14 +44,14 @@ const AvatarModal: React.FunctionComponent<Props> = ({
       showModal={showModal}
       onClose={() => setShowModal(false)}
       title={"Choose your avatar"}
-      size="medium">
+      size="small">
       <div className="flex m-4 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg p-1 items-center justify-center gap-2.5 h-80">
-        <div className="flex flex-row gap-3 items-start justify-center m-4 text-lg">
+        <div className="flex flex-row flex-wrap gap-3 items-start justify-center m-4 text-lg">
           {/* {loading ? (
             <Spinner className="text-[#dd5c6e]" />
           ) : ( */}
             {avatarList.map((avatar,index) => (
-                <div className="flex flex-col" key={index}>
+                <div className="flex flex-col hover:bg-slate-400 hover:rounded" key={index}>
                     <Image src={avatar.url} alt={avatar.name} className="rounded-full h-20 w-20" width={100} height={100} />
                     <div className="text-center">{avatar.name}</div>
                 </div>
