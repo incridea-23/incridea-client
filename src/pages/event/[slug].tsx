@@ -87,7 +87,7 @@ function event({ event, error }: { event: Event; error: String }) {
       />
       <div className={`absolute pointer-events-none h-full w-full opacity-90 bg-blue-600/30 backdrop-brightness-80 z-50 top-0 right-0`} />
       {event ? (
-        <section className={`flex lg:flex-row flex-col gap-5  pt-20 md:pt-24  px- max-w-7xl mx-auto text-amber-900 h-screen overflow-y-scroll lg:overflow-y-hidden`}>
+        <section className={`flex lg:flex-row flex-col gap-5 pt-20 md:pt-24 max-w-7xl mx-auto text-amber-900 h-screen overflow-y-scroll no-scrollbar lg:overflow-y-hidden`}>
           <div className={`overflow-x-visible lg:h-full lg:overflow-y-scroll lg:no-scrollbar px-3 lg:pb-8`}>
             <div className={`${styles.main}`}>
               <div className={`${styles.parchment}`} />
@@ -235,7 +235,7 @@ function event({ event, error }: { event: Event; error: String }) {
                 </div>
               </div>
             </div>
-            <svg className={`hidden`}>
+            <svg className={`invisible pointer-events-none h-0`}>
               <filter id="wavy2">
                 <feTurbulence
                   x="0"
