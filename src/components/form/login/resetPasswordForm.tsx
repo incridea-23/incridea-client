@@ -48,6 +48,7 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
         <h2 className="text-center text-2xl pb-1 font-semibold">
           Forgot password?
         </h2>
+
         {data?.sendPasswordResetEmail.__typename ===
         "MutationSendPasswordResetEmailSuccess" ? (
           <>
