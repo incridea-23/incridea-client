@@ -63,7 +63,7 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
         {data?.sendPasswordResetEmail.__typename ===
         "MutationSendPasswordResetEmailSuccess" ? (
           <>
-            <div className="flex flex-col gap-2 text-center items-center text-secondary-700 bg-secondary-300 font-semibold p-4 rounded-md">
+            <div className="flex flex-col gap-2 text-center items-center text-[#d7037f] bg-secondary-300 font-semibold p-4 rounded-md">
               <BiCheckCircle size={"2rem"} /> Reset link sent to your email.
               Please check your inbox.
             </div>

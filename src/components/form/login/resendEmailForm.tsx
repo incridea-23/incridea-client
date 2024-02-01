@@ -59,7 +59,7 @@ const ResendEmail = ({ setWhichForm, setGotDialogBox }: Props) => {
         </h2>
         {data?.sendEmailVerification.__typename ===
         "MutationSendEmailVerificationSuccess" ? (
-          <div className="flex flex-col gap-2 text-center items-center text-secondary-700 bg-secondary-300 font-semibold p-4 pb-2 rounded-md">
+          <div className="flex flex-col gap-2 text-center items-center text-[#d7037f] bg-secondary-300 font-semibold p-4 pb-2 rounded-md">
             <BiCheckCircle size={"2rem"} />
             <div className="bg-secondary-300 flex flex-col text-center mb-5 items-center gap-3 rounded-md font-semibold">
               Verification email sent to {email}
@@ -72,7 +72,7 @@ const ResendEmail = ({ setWhichForm, setGotDialogBox }: Props) => {
                 <button
                   type="button"
                   onClick={handleSubmit}
-                  className="font-normal underline text-sm transition-colors text-secondary-800/70 hover:text-secondary-800"
+                  className="font-normal underline text-sm transition-colors text-secondary-800 hover:font-medium"
                 >
                   Click here to resend it
                 </button>

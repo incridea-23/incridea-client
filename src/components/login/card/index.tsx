@@ -30,7 +30,7 @@ const LoginCard: FunctionComponent<LoginCardProps> = ({
       setCount((prev) => (prev + 1) % 10);
       setGotDialogBox(false);
     }
-  }, [cardStyle.top]);
+  }, [cardStyle.top, gotDialogBox]);
 
   return (
     // HACK: Please update anything here or in children also in auth/reset-password.tsx

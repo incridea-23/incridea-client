@@ -436,7 +436,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({
       )}
 
       {emailSuccess && (
-        <div className="bg-secondary-300 p-4 flex flex-col text-center  items-center gap-3 rounded-md font-semibold text-secondary-700">
+        <div className="bg-secondary-300 p-4 flex flex-col text-center  items-center gap-3 rounded-md font-semibold text-[#d7037f]">
           <div>
             Verification email sent to {userInfo.email}
             {selectedCollege.name === "N.M.A.M. Institute of Technology" &&
@@ -450,7 +450,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({
               <button
                 type="button"
                 onClick={resendEmail}
-                className="font-normal underline text-sm transition-colors text-secondary-800/70 hover:text-secondary-800"
+                className="font-normal underline text-sm transition-colors text-secondary-800 hover:font-medium"
               >
                 Click here to resend it
               </button>
