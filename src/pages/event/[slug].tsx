@@ -86,6 +86,7 @@ function event({ event, error }: { event: Event; error: String }) {
         className={`w-screen h-screen object-cover object-center top-0 left-0 absolute -z-10`}
       />
       <div className={`absolute pointer-events-none h-full w-full opacity-90 bg-blue-600/30 backdrop-brightness-80 z-50 top-0 right-0`} />
+      <Toaster/>
       {event ? (
         <section className={`flex lg:flex-row flex-col gap-5 pt-20 md:pt-24 max-w-7xl mx-auto text-amber-900 h-screen overflow-y-scroll no-scrollbar lg:overflow-y-hidden`}>
           <div className={`overflow-x-visible lg:h-full lg:overflow-y-scroll lg:no-scrollbar px-3 lg:pb-8`}>
@@ -96,7 +97,7 @@ function event({ event, error }: { event: Event; error: String }) {
                   {event.image && (
                     <Image
                       src={event.image as string}
-                      className={`w-full sm:rounded-md rounded-t-md`}
+                      className={`relative w-full sm:rounded-md rounded-t-md z-10`}
                       alt={event.name}
                       width={1000}
                       height={1000}
