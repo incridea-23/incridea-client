@@ -81,7 +81,7 @@ const Event = ({
 
   return (
     <Link data-scroll href={generateEventUrl(data.name, data.id)}>
-      <div className={`${styles.card} w-full h-full vikingHell`}>
+      <div className={`${styles.card} w-full h-full black-ops`}>
         <div className={`${styles.top_section} flex flex-col`}>
           <div>
             <div className={styles.borderCard}></div>
@@ -96,13 +96,13 @@ const Event = ({
                 />
               </div>
               <div
-                className={`${styles.social_media} vikingHell capitalize font-semibold justify-items-end items-center text-center text-[1.05rem]`}
+                className={`${styles.social_media} black-ops capitalize justify-items-end items-center text-center ${data.category?.toLowerCase() === "non_technical" ?"text-[0.9rem]" :"text-[1.05rem]"}`}
               >
                 {data.category?.replace('_', ' ').toLocaleLowerCase()}
               </div>
             </div>
           </div>
-          <div className="my-[8px] md:m-[6px] px-2 md:px-0">
+          <div className="my-[5px] px-0 md:px-0">
             <div className={`${styles.screen} rounded-xl object-fill md:m-[6px]`}>
               {data.image && (
                 <Image
@@ -120,14 +120,16 @@ const Event = ({
           </div>
         </div>
         <div
-          className={`${styles.bottom_section} flex flex-col justify-between items-center w-full`}
+          className={`${styles.bottom_section} flex flex-col justify-between items-center w-full gap-1`}
         >
           <span
-            className={`${styles.glitch} ${styles.eventTitle} vikingHell flex justify-center items-center text-center text-lg w-fit px-4`}
+            className={`${styles.glitch} ${styles.eventTitle} font-normal black-ops flex justify-center items-center text-center ${data.name.length > 14 ? "text-base" : "text-lg"} w-fit px-4`}
           >
-            {data.name}
+            <div className={`my-1`}>
+              {data.name.toUpperCase()}
+            </div>
           </span>
-          <div className="flex flex-col gap-1 text-center bodyFont text-base text-blue-200 px-1 py-3 justify-center items-start md:w-full h-[9rem]">
+          <div className="flex flex-col gap-1 text-center black-ops text-base text-blue-200 px-1 py-3 justify-center items-start md:w-full h-[9rem]">
             {getEventAttributes().map((attr, i) =>
               attr.name ? (
                 <div
@@ -143,7 +145,7 @@ const Event = ({
             )}
           </div>
           <div className="p-2 pt-0 mt-0 w-full">
-            <button className="hover:bg-[#69e5f8] shrink-0 w-full mt-0 py-2 flex gap-2 items-center justify-center rounded transition-colors duration-300 bg-[#10adc6] vikingHell">
+            <button className="hover:bg-[#69e5f8] text-lg capitalize shrink-0 w-full mt-0 py-2 flex gap-2 items-center justify-center rounded transition-colors duration-300 bg-[#10adc6] black-ops">
               <Link href={generateEventUrl(data.name, data.id)}>
                 play the game
               </Link>

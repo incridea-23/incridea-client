@@ -1,4 +1,4 @@
-schema: http://localhost:4000/graphql
+schema: "https://incridea-test.onrender.com/graphql"
 documents: "./src/**/*.graphql"
 generates:
   ./src/generated/generated.ts:
