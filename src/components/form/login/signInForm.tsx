@@ -63,7 +63,8 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
         className={`relative py-3 px-3 flex justify-center flex-col gap-3 min-h-full z-40 ${
           loading && "cursor-not-allowed pointer-events-none"
         }`}
-        onSubmit={handleSubmit}>
+        onSubmit={handleSubmit}
+      >
         <h2 className="text-3xl text-center font-semibold">Welcome back!</h2>
         <h6 className="mb-10 text-center font-semibold md:font-normal">
           Sign in using your email and password
@@ -92,7 +93,8 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
           <button
             type="button"
             className="absolute top-0 mt-2 right-0 hover:bg-orange-500 hover:bg-opacity-10 rounded-sm w-fit p-2"
-            onClick={() => setShowPassword((prev) => !prev)}>
+            onClick={() => setShowPassword((prev) => !prev)}
+          >
             {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
           </button>
         </div>
@@ -100,7 +102,8 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
         <button
           onClick={() => setWhichForm("resetPassword")}
           type="button"
-          className="text-sm w-fit -md:mt-1 mb-2 hover:underline text-accent-300 text-start">
+          className="text-sm w-fit -md:mt-1 mb-2 hover:underline text-accent-300 text-start"
+        >
           Forgot your password?
         </button>
 
@@ -115,7 +118,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
         )}
 
         {error && (
-          <div className="bg-red-100 p-2 flex items-center gap-3 px-4 rounded-md font-semibold text-red-500">
+          <div className="bg-red-100 p-2 flex items-center gap-3 px-4 rounded-md font-semibold text-red-500 max-w-[20px] overflow-x-auto min-w-full">
             <BiErrorCircle className="shrink-0" />
             <div>
               {error}
@@ -123,7 +126,8 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
                 <button
                   type="button"
                   onClick={() => setWhichForm("resendEmail")}
-                  className="inline-block transition-colors text-start hover:text-red-700 text-red-500 font-normal text-sm underline">
+                  className="inline-block transition-colors text-start hover:text-red-700 text-red-500 font-normal text-sm underline"
+                >
                   Click here to resend verification email
                 </button>
               )}
@@ -142,7 +146,8 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
             }}
             type="button"
             intent={"ghost"}
-            className="mt-5 mx-1">
+            className="mt-5 mx-1"
+          >
             Sign up instead
           </Button>
         </div>

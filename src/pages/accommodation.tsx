@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import AccommodationForm from "../components/form/accommodation";
 import Button from "../components/button";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { TbArrowBackUp } from "react-icons/tb";
 
 const Accommodation = () => {
   const router = useRouter();
@@ -17,6 +18,7 @@ const Accommodation = () => {
                 router.push("/profile");
               }}
               size={"small"}>
+              <TbArrowBackUp />
               Go Back
             </Button>
           </div>

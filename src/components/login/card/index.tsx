@@ -21,9 +21,11 @@ const LoginCard: FunctionComponent<LoginCardProps> = ({
   redirectUrl,
 }) => {
   return (
+    // HACK: Please update anything here also in auth/reset-password.tsx
     <div
       className="absolute px-3 py-3 overflow-y-auto min-w-[80vw] max-w-[80vw] sm:min-w-[350px] sm:max-w-[350px] max-h-[75vh] lg:max-h-[76vh] bg-gradient-to-b from-[#1f2e97] to-[#090d4b] rounded-md top-2/4 left-2/4 origin-bottom transition-all ease-suck-in shadow-[0_0_18px_1px_#141e73] md:shadow-[0_0_20px_2px_#141e73] text-accent-200"
-      style={cardStyle}>
+      style={cardStyle}
+    >
       {whichForm === "signIn" ? (
         <SignInForm redirectUrl={redirectUrl} setWhichForm={setWhichForm} />
       ) : whichForm === "resetPassword" ? (

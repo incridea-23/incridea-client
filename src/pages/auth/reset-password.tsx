@@ -1,58 +1,38 @@
+import LoginPortal from "@/src/components/login/portal";
 import ResetPassword from "../../components/form/resetPassword";
 import { NextPage } from "next";
 import Image from "next/image";
-import { useRouter } from "next/router";
-import { useState } from "react";
 
 const Reset: NextPage = () => {
-  const {
-    query,
-  }: {
-    query: {
-      whichForm?: "signIn" | "resetPassword" | "signUp" | "resendEmail";
-    };
-  } = useRouter();
-  const [whichForm, setWhichForm] = useState<
-    "signIn" | "resetPassword" | "signUp" | "resendEmail"
-  >(query.whichForm || "signIn");
-
   return (
-    <div className="min-h-screen pt-20 md:pt-0 overflow-x-hidden min-w-screen bg-[#f3e9d1]">
+    <>
+      <div className="h-16 bg-[#6a5fd7]"></div>
+
+      <Image
+        fill={true}
+        className="object-cover mt-16"
+        src={"/assets/svg/loginBG.svg"}
+        alt={"loginBG"}
+        quality={100}
+        priority
+      />
+
       <div
-        className={`w-screen transition-transform duration-500 flex ${
-          whichForm === "signUp" ? "md:translate-x-0" : "md:-translate-x-[50vw]"
-        }`}
+        className={`relative min-h-[93vh] flex flex-col justify-between [transform-style:preserve-3d] [perspective:500px] overflow-hidden`}
       >
-        <div className="hidden md:flex h-full grow">
-          <div
-            className={`titleFont text-center w-[50vw] items-center justify-center text-white/70 flex bg-gradient-to-r to-[#3baee7] from-[#144f6d] `}
-          >
-            <p className="text-2xl -rotate-90">The adventure ahead awaits!</p>
-          </div>
-          <Image height={1080} width={200} alt="login-wave" src={"/login-wave.png"} className="h-screen" />
-        </div>
-        <div
-          className={`shrink-0 md:w-[50vw] w-screen flex items-center justify-center bg-[#f3e9d1] text-[#6f5925] `}
-        >
-          <div className="md:max-w-md flex flex-col h-full min-h-screen">
-            <div className="p-6 md:py-10 grow">
+        <LoginPortal isTop={true} />
+
+        <div className="absolute px-3 py-3 overflow-y-auto min-w-[80vw] max-w-[80vw] sm:min-w-[350px] sm:max-w-[350px] max-h-[75vh] lg:max-h-[76vh] bg-gradient-to-b from-[#1f2e97] to-[#090d4b] rounded-md top-2/4 left-2/4 origin-bottom transition-all ease-suck-in shadow-[0_0_18px_1px_#141e73] md:shadow-[0_0_20px_2px_#141e73] text-accent-200 -translate-x-2/4 -translate-y-2/4">
+          <div className={`shrink-0 flex items-center justify-center`}>
+            <div className="p-3 py-5 grow">
               <ResetPassword />
             </div>
-            <Image src={'/login-wave.svg'} alt="Wave" width={500} height={200} className="md:hidden block w-full h-auto" />
           </div>
         </div>
-        <div className="hidden md:flex grow">
-        <Image height={1080} width={200} alt="login-wave" src={"/login-wave.png"} className="rotate-180 h-screen" />
-          <div
-            className={`titleFont text-center text-white/70 w-[50vw] items-center justify-center flex bg-gradient-to-l to-[#3baee7] from-[#144f6d]`}
-          >
-            <p className="text-2xl rotate-90">
-              Conquer the depths of the ocean!
-            </p>
-          </div>
-        </div>
+
+        <LoginPortal isTop={false} />
       </div>
-    </div>
+    </>
   );
 };
 
