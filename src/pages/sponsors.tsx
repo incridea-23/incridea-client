@@ -62,7 +62,11 @@ const Sponsors: NextPage = () => {
         </div>
         <div className="relative py-3 md:py-16 min-h-[93vh] md:px-14 lg:px-20 flex flex-col gap-6 md:gap-11 lg:gap-16 w-full">
           {sponsorDetails.map((sponsor, index) => (
-            <SponsorCard sponsor={sponsor} isEven={index % 2 === 0} />
+            <SponsorCard
+              key={index}
+              sponsor={sponsor}
+              isEven={index % 2 === 0}
+            />
           ))}
         </div>
       </div>

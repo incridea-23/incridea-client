@@ -49,7 +49,7 @@ const SponsorCard: React.FunctionComponent<SponsorCardProps> = ({
           </h3>
         </div>
         <p className="text-center text-slate-300">{sponsor.desc}</p>
-        <a href={sponsor.websiteURL} target="_blank">
+        <a href={sponsor.websiteURL} target="_blank" rel="noreferrer">
           <Button className="w-max" size={"large"}>
             Visit Website <FiExternalLink />
           </Button>
