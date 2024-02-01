@@ -307,7 +307,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
             ) : (
               <div
                 data-scroll
-              className={`${styles.glitch} flex justify-center items-center text-center text-white text-3xl py-10`}
+              className={`${styles.glitch} flex justify-center items-center text-center text-white text-3xl pt-10 pb-24`}
               >
                 No events found
               </div>
