@@ -8,8 +8,8 @@ import Link from "next/link";
 import Button from "@/src/components/button";
 
 const Pokedex = () => {
-  const setEventDex = useStore((state) => state.setSponsor);
-  const eventDex = useStore((state) => state.sponsor);
+  const setEventDex = useStore((state) => state.setEventDex);
+  const eventDex = useStore((state) => state.eventDex);
   useEffect(() => {
     // Initialize GSAP
     const tl = gsap.timeline();
@@ -26,7 +26,7 @@ const Pokedex = () => {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-[100]">
+    <div className="fixed inset-0 z-[100] bg-black bg-opacity-50">
       <div
         className="absolute top-5 right-5 cursor-pointer bg-red-600 px-2 py-1 rounded-sm z-50"
         style={{ pointerEvents: eventDex ? "all" : "none" }}
