@@ -12,7 +12,7 @@ const FinalComponent = () => {
         Its your time to create great memories
       </p>
       <Image
-        src={"/assets/png/4.png"}
+        src={"/assets/png/dice.png"}
         alt="dice"
         width={50}
         height={50}
