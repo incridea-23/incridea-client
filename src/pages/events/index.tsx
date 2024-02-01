@@ -114,7 +114,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
 
   return (
     <div
-      className="overflow-x-hidden vikingHell"
+      className="overflow-x-hidden black-ops"
       style={{ willChange: 'transform' }}
     >
       <LocomotiveScrollProvider
@@ -157,7 +157,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
             >
               <div
                 data-scroll
-                className={`font-bold md:pb-0 pb-3 text-7xl tracking-wide text-center text-white  ${styles.glitch}`}
+                className={` md:pb-0 pb-6 text-8xl tracking-wide text-center text-white  ${styles.glitch}`}
               >
                 <GlitchAnimation
                   title={'Events'}
@@ -167,7 +167,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
               </div>
               <h3
                 data-scroll
-                className={`${styles.glitch} bodyFont font-semibold text-xl md:text-2xl tracking-wide text-center py-8 pt-10 px-2 text-white`}
+                className={`${styles.glitch} black-ops text-xl md:text-2xl tracking-wide text-center py-8 pt-12 px-2 text-white`}
               >
                 Ctrl+Play: Navigate Your Digital Playground with Our Ultimate
                 Event Collection!
@@ -197,7 +197,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
                     >
                       <Menu.Button
                         className={
-                          'inline-flex shrink-0 whitespace-nowrap bg-slate-900 hover:bg-slate-800 hover:scale-105 leading-6 w-full justify-center rounded-lg px-4 py-2 h-[40px] font-medium text-white'
+                          'inline-flex shrink-0 whitespace-nowrap bg-slate-900 hover:bg-slate-800 hover:scale-105 leading-6 w-full justify-center rounded-lg px-4 py-2 h-[40px] text-white'
                         }
                       >
                         {currentDayFilter !== 'ALL' ? currentDayFilter : 'Day'}
@@ -211,7 +211,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
                                   currentDayFilter === filter
                                     ? 'bg-white/50'
                                     : 'bg-white/20'
-                                } text-black rounded-sm m-1.5 mb-0 w-36 px-3 py-2 text-sm hover:bg-white/50`}
+                                } text-white rounded-sm m-1.5 mb-0 w-36 px-3 py-2 text-sm hover:bg-white/50`}
                                 onClick={() => setCurrentDayFilter(filter)}
                               >
                                 {filter.split(" ")[0]}<span className="bodyFont font-bold ml-1">{filter.split(" ")[1]}</span>
@@ -229,7 +229,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
                     >
                       <Menu.Button
                         className={
-                          'inline-flex shrink-0 whitespace-nowrap bg-slate-900 hover:bg-slate-800 hover:scale-105 leading-6 w-full justify-center rounded-lg px-4 py-2 h-[40px] font-medium text-white'
+                          'inline-flex shrink-0 whitespace-nowrap bg-slate-900 hover:bg-slate-800 hover:scale-105 leading-6 w-full justify-center rounded-lg px-4 py-2 h-[40px] text-white'
                         }
                       >
                         {currentCategoryFilter !== 'ALL'
@@ -246,7 +246,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
                                   filter.replace('_', ' ')
                                     ? 'bg-white/50'
                                     : 'bg-white/20'
-                                } text-black rounded-sm m-1.5 mb-0 w-36 px-3 py-2 text-sm hover:bg-white/50`}
+                                } text-white rounded-sm m-1.5 mb-0 w-36 px-3 py-2 text-sm hover:bg-white/50`}
                                 onClick={() => setCurrentCategoryFilter(filter)}
                               >
                                 {filter.replace('_', ' ')}
@@ -264,7 +264,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
                     >
                       <Menu.Button
                         className={
-                          'inline-flex shrink-0 whitespace-nowrap bg-slate-900 hover:bg-slate-800 hover:scale-105 leading-6 w-full justify-center rounded-lg px-4 py-2 h-[40px] font-medium text-white'
+                          'inline-flex shrink-0 whitespace-nowrap bg-slate-900 hover:bg-slate-800 hover:scale-105 leading-6 w-full justify-center rounded-lg px-4 py-2 h-[40px] text-white'
                         }
                       >
                         {currentBranchFilter !== 'ALL'
@@ -280,7 +280,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
                                   currentBranchFilter === filter
                                     ? 'bg-white/50'
                                     : 'bg-white/20'
-                                } text-black rounded-sm m-1.5 mb-0 w-36 px-3 py-2 text-sm hover:bg-white/50`}
+                                } text-white rounded-sm m-1.5 mb-0 w-36 px-3 py-2 text-sm hover:bg-white/50`}
                                 onClick={() => setCurrentBranchFilter(filter)}
                               >
                                 {filter}
@@ -306,7 +306,7 @@ const Events: NextPage<{ data: PublishedEventsQuery['publishedEvents'] }> = ({
               ) : (
                 <div
                   data-scroll
-                  className="text-center text-white text-2xl font-bold py-10"
+                className={`${styles.glitch} text-center text-white text-2xl py-10`}
                 >
                   No events found
                 </div>

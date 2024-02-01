@@ -84,7 +84,7 @@ const LeaderBoard : NextPage = () => {
     }
     let isMobile = typeof window !== "undefined" && window.innerWidth < 768;
     return (
-        <div className={`vikingHell`} style={{ willChange: "transform",overflowX:"hidden" }}>
+        <div className={`black-ops`} style={{ willChange: "transform",overflowX:"hidden" }}>
             {sortedLeaderboard.length > 0 && 
             <div className={`${styles.container} overflow-y-hidden`}>
                 {Array.from({ length: 30 }).map((_, i) => (
@@ -93,13 +93,13 @@ const LeaderBoard : NextPage = () => {
             </div>}
             <div className=" bg-gradient-to-bl from-black to-slate-900 min-h-screen relative">
                 <div className=" bg-gradient-to-bl bg-white min-h-screen relative py-32">
-                    <h1 className={`text-white ${styles.glitch} text-4xl md:text-5xl text-center font-bold`}>
+                    <h1 className={`text-white ${styles.glitch} text-5xl md:text-5xl text-center black-ops`}>
                         XP Leaderboard
                     </h1>
-                    <h3 className="my-6 text-white text-2xl text-center bodyFont">
+                    <h3 className="my-6 mx-2 md:mx-0 text-white text-2xl md:text-3xl text-center black-ops">
                         Embark on an XP Quest: Uncover Hidden Easter Eggs and Level Up Your Experience!
                     </h3>
-                    <div className="flex mb-2 md:mx-36 mx-5 mt-10 md:mt-7 rounded-lg bg-white text-gray-300 bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-t-lg p-1 items-center justify-evenly text-sm md:text-xl font-bold h-20">
+                    <div className="black-ops flex mb-2 md:mx-36 mx-5 mt-10 md:mt-7 rounded-lg bg-white text-gray-300 bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-t-lg p-1 items-center justify-evenly text-sm md:text-2xl  h-20">
                         <h1 className="basis-1/4 text-center">Position</h1>
                         <h1 className="basis-1/4 text-center">Player Id</h1>
                         <h1 className="basis-1/4 text-center">Player Name</h1>

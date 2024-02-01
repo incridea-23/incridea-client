@@ -27,7 +27,7 @@ const GlitchAnimation =({
     anim3 = `text-[1.25rem] md:text-[1.25rem] w-full`;
   }
   return (
-    <div className="text-[#e7e7e7] vikingHell">
+    <div className="text-[#e7e7e7] black-ops">
       <div
         ref={(el) => (loading_screen.current = el)}
         className={`relative z-50 w-full text-center flex justify-center items-center`}
@@ -36,7 +36,7 @@ const GlitchAnimation =({
             <div className="flex items-center justify-center invisible">
                 <div
                 ref={(el) => (logo_1.current = el)}
-                className={`font-semibold text-[#e7e7e7] ${anim1} mix-blend-difference leading-none`}
+                className={` text-[#e7e7e7] ${anim1} mix-blend-difference leading-none`}
                 >
                 {title}
                 </div>
@@ -44,7 +44,7 @@ const GlitchAnimation =({
             <div className={titleClass}>
                 <div
                 ref={(el) => (logo_1.current = el)}
-                className={`absolute font-semibold text-[#e7e7e7] ${anim1} mix-blend-difference leading-none`}
+                className={`absolute  text-[#e7e7e7] ${anim1} mix-blend-difference leading-none`}
                 >
                 {title}
                 </div>
@@ -52,7 +52,7 @@ const GlitchAnimation =({
             <div className={titleClass}>
                 <div
                 ref={(el) => (logo_2.current = el)}
-                className={`absolute font-semibold text-[#01ff01] ${anim1} mix-blend-difference leading-none`}
+                className={`absolute  text-[#01ff01] ${anim1} mix-blend-difference leading-none`}
                 >
                 {title}
                 </div>
@@ -60,7 +60,7 @@ const GlitchAnimation =({
             <div className={titleClass}>
                 <div
                 ref={(el) => (logo_3.current = el)}
-                className={`absolute font-semibold text-[#fc1f1f] ${anim2} mix-blend-difference leading-none`}
+                className={`absolute  text-[#fc1f1f] ${anim2} mix-blend-difference leading-none`}
                 >
                 {title}
                 </div>
@@ -68,7 +68,7 @@ const GlitchAnimation =({
             <div className={titleClass}>
                 <div
                 ref={(el) => (logo_4.current = el)}
-                className={`absolute font-semibold text-[#8cf7f7] ${anim2} mix-blend-difference leading-none`}
+                className={`absolute  text-[#8cf7f7] ${anim2} mix-blend-difference leading-none`}
                 >
                 {title}
                 </div>
@@ -76,7 +76,7 @@ const GlitchAnimation =({
             <div className={titleClass}>
                 <div
                 ref={(el) => (logo_5.current = el)}
-                className={`absolute font-semibold text-[#4254f8] ${anim3} mix-blend-difference leading-none`}
+                className={`absolute  text-[#4254f8] ${anim3} mix-blend-difference leading-none`}
                 >
                 {title}
                 </div>
@@ -84,7 +84,7 @@ const GlitchAnimation =({
             <div className={titleClass}>
                 <div
                 ref={(el) => (logo_6.current = el)}
-                className={`absolute font-semibold text-[#ac00ac] ${anim3} mix-blend-difference leading-none`}
+                className={`absolute  text-[#ac00ac] ${anim3} mix-blend-difference leading-none`}
                 >
                 {title}
                 </div>

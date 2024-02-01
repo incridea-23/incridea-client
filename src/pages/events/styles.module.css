@@ -283,7 +283,7 @@
 
 .card .bottom-section .eventTitle {
   display: block;
-  font-weight: bolder;
+  /* font-weight: bolder; */
   color: white;
   text-align: center;
   letter-spacing: 2px;
