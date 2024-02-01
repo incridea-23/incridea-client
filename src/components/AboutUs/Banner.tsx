@@ -1,7 +1,6 @@
 import Reveal from "./reveal";
 import ScrollLag from "./scrollLag";
 import Image from "next/image";
-// import ReactPlayer from "react-player";
 import dynamic from 'next/dynamic'
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
 

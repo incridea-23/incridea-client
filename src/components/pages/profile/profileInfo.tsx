@@ -179,15 +179,15 @@ import ViewUserAccommodation from './viewUserAccommodation';
 const ProfileInfo: FC<{
   user: User | null | undefined;
 }> = ({ user }) => {
-  const router = useRouter();  
-  const {
+  const router = useRouter();
+    const {
     data: dataAccommodation,
     loading: loadingAccommodation,
     error: errorAccommodation,
   } = useQuery(AccommodationRequestsByUserDocument);
 
   const [showModal, setShowModal] = useState(false);
-  
+
   if (user?.role === 'USER') {
     router.push('/register');
   }
@@ -196,15 +196,15 @@ const ProfileInfo: FC<{
     <section className="text-white h-full flex pt-20 lg:w-full lg:pt-0 justify-center items-center">
  
 
- <div className='flex flex-col h-full px-2 lg:px-0 lg:pt-0 justify-center items-start'>
-  <div className='flex flex-row 2xl:flex-col  items-center'>
+ <div className='flex flex-col h-full px-2 lg:p-3 lg:pt-0 justify-center items-start'>
+  <div className='flex flex-row 2xl:flex-col items-center'>
 
       {/* /profile picture ka div */}
       <div className='justify-center items-start flex'>
            <Image
                 src={'/assets/png/c.png'}
-                width={150}
-                height={150}
+                width={130}
+                height={130}
                 alt="map"
               />
       </div>
@@ -213,30 +213,30 @@ const ProfileInfo: FC<{
 
       {/* //contents ka div */}
       <div className='flex flex-col px-4'>
-            <a className={`text-3xl font-bold titleFont`}>
+            <a className={`text-xl font-bold titleFont`}>
             {user?.name}
           </a>
           <a className="text-sm flex items-center gap-5 bodyFont">
             {user?.college?.name || '-'}
           </a>
-            <Button
+            {/* <Button
               onClick={() => signOut()}
               className="mt-1 w-fit"
-              intent={'danger'}
+              intent={'primary'}
             > <FaSignOutAlt className="inline-block mr-1" />
               Sign Out
-            </Button>
-
+            </Button> */}
             <ViewUserAccommodation
         showModal={showModal}
         setShowModal={setShowModal}
       />
             {
               loadingAccommodation ? (
-                <Spinner className="text-[#dd5c6e]" />
+                <Button size={'small'} onClick={()=>setShowModal(true)} className="w-max mt-3 md:mt-2"><Spinner size={'small'} className="text-[#dd5c6e]" /></Button>
+                
               ) : dataAccommodation?.accommodationRequestsByUser[0]?.status?
-              (<Button onClick={()=>setShowModal(true)} className="w-max mt-3 md:mt-2">View Request</Button>):
-            (<Button onClick={()=>router.push("/accommodation")} className="w-max mt-3 md:mt-2">Accommodate Me</Button>)
+              (<Button size={'small'} onClick={()=>setShowModal(true)} className="w-max mt-3 md:mt-2">View Request</Button>):
+            (<Button size={'small'} onClick={()=>router.push("/accommodation")} className="w-max mt-3 md:mt-2">Accommodate Me</Button>)
             }
 
       </div>
@@ -295,9 +295,9 @@ const ProfileInfo: FC<{
       </div>       
   </div>
 
-  <div className='flex flex-row text-center text-white justify-between items-center w-full px-3 mt-3'>
+  <div className='flex flex-row text-white justify-between items-center w-full px-3 mt-3'>
       <div className='flex justify-end h-full flex-col'>
-      <p className="font-bold text-sm">Contact details:</p>
+      <p className="font-bold text-sm px-0">Contact details:</p>
       <div className="flex gap-2 items-center">
            <MdOutlineEmail />
 
@@ -309,6 +309,15 @@ const ProfileInfo: FC<{
                  {user?.phoneNumber}
                </div>
              )}
+           <div className=''>
+            <Button
+              onClick={() => signOut()}
+              className="mt-1 w-fit"
+              intent={'danger'}
+              size={'small'}
+            > <FaSignOutAlt className="inline-block #dc2626" />
+              Sign Out
+            </Button> </div>
       </div>
       {/* qr code div*/}
       <div>

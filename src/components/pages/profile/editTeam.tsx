@@ -22,7 +22,9 @@ const EditTeamModal: FC<{
 
   return (
     <>
-      <Button onClick={() => setShowModal(true)} size={'small'}>
+      <Button onClick={(e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+                  e.preventDefault();
+                  e.stopPropagation(); setShowModal(true)}} size={'small'}>
         <BiEditAlt />
       </Button>
       <Modal
