@@ -7,8 +7,10 @@ import { makePayment } from "../utils/razorpay";
 import Spinner from "../components/spinner";
 import Link from "next/link";
 import Loader from "../components/Loader";
-import { AccommodationRequestsByUserIdDocument } from "../generated/generated";
+import { AccommodationRequestsByUserDocument } from "../generated/generated";
 import { useQuery } from "@apollo/client";
+import ViewUserAccommodation from "../components/pages/profile/viewUserAccommodation";
+import { IoEye } from "react-icons/io5";
 
 type Props = {};
 
@@ -16,23 +18,24 @@ const Register: NextPage = (props: Props) => {
   const { error, user, loading: userLoading } = useAuth();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
+
+  const {
+    data: userDetails,
+    loading: loadingAccommodation,
+    error: errorAccommodation,
+  } = useQuery(AccommodationRequestsByUserDocument);
 
   if (userLoading) return <Loader />;
   if (!user) router.push("/login");
-  if (user?.role !== "USER") router.push("/");
-  // TODO: add the component to show already accommodated user
-  // const {
-  //   data,
-  //   loading: loadingAccommodation,
-  //   error: errorAccommodation,
-  // } = useQuery(AccommodationRequestsByUserIdDocument, {
-  //   variables: {
-  //     userId: user?.id,
-  //   },
-  // });
+  if (user?.role !== "USER") router.push("/profile");
 
   return (
     <div className="px-4 md:px-6 pt-32 pb-10 min-h-screen text-white bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
+      <ViewUserAccommodation
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
       <div className="mx-auto max-w-4xl">
         <h2 className={`titleFont text-white text-center text-4xl md:text-5xl`}>
           Register
@@ -44,18 +47,40 @@ const Register: NextPage = (props: Props) => {
         </h5>
 
         <div className="bodyFont md:px-10 px-5 md:mt-8 mt-6 max-w-7xl mx-auto bg-white/20 rounded-sm md:py-7 py-4">
-          <div className="px-4 flex flex-row justify-between">
-            <div className="flex justify-center text-md">
-              We provide accommodation for participants and non-participants
+          {loadingAccommodation ? (
+            <Spinner className="text-[#dd5c6e]" />
+          ) : userDetails?.accommodationRequestsByUser[0]?.status ? (
+            <div>
+              <div className="px-4 flex flex-col md:flex-row justify-between">
+                <div className="flex justify-center text-md">
+                  We are processing your request. Please bear with us.
+                </div>
+                <Button
+                  onClick={() => {
+                    console.log(showModal);
+                    setShowModal(true);
+                  }}
+                  size={"small"}
+                  className="w-max mt-3 md:mt-0">
+                  <IoEye />
+                  View Request
+                </Button>
+              </div>
             </div>
-            <Button
-              onClick={() => {
-                router.push("/accommodation");
-              }}
-              size={"small"}>
-              Accommodate Me
-            </Button>
-          </div>
+          ) : (
+            <div className="px-4 flex flex-row justify-between">
+              <div className="flex justify-center text-md">
+                We provide accommodation for participants and non-participants
+              </div>
+              <Button
+                onClick={() => {
+                  router.push("/accommodation");
+                }}
+                size={"small"}>
+                Accommodate Me
+              </Button>
+            </div>
+          )}
         </div>
 
         <div className="bodyFont md:px-10 px-5 md:mt-8 mt-6 max-w-7xl mx-auto bg-white/20 rounded-sm md:py-7 py-4">
@@ -99,7 +124,7 @@ const Register: NextPage = (props: Props) => {
           </div>
           <Button
             disabled={true}
-            // onClick={() => makePayment(setLoading)}
+            onClick={() => makePayment(setLoading)}
             className="flex gap-2 mt-8 ">
             Registrations Closed
             {loading && (
