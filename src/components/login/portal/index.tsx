@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from "react";
 import FallingElements from "../fallingElements";
 import Image from "next/image";
+import Bomb from "../bomb";
 
 type LoginPortalProps = {
   isTop: boolean;
@@ -43,7 +44,8 @@ const LoginPortal: FunctionComponent<LoginPortalProps> = ({ isTop }) => {
             <FallingElements isBomb={false} />
           </div>
           <div className="absolute left-2/4 -translate-x-2/4 z-30 h-0 w-[65vw] md:w-[440px]">
-            <FallingElements isBomb={true} />
+            {/* <FallingElements isBomb={true} /> */}
+            <Bomb />
           </div>
         </>
       )}

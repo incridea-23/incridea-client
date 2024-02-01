@@ -47,7 +47,7 @@ const FallingElements: React.FC<{ isBomb: boolean }> = ({ isBomb }) => {
           ),
         ]);
       },
-      isBomb ? 15000 : 2000
+      isBomb ? 1000 : 2000
     );
 
     return () => {
