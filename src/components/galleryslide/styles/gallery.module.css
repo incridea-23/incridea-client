@@ -1,0 +1,48 @@
+.progress-bar {
+  position: absolute;
+  bottom: 5vw;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.progress-step {
+  width: 2vw;
+  height: 2vw;
+  background-color: #cbc747;
+  border-radius: 50%;
+  position: relative;
+  opacity: 0.4 !important;
+  /* border: black solid 1px; */
+}
+
+@media (max-width: 800px) {
+  .progress-step {
+    width: 8vw;
+    height: 8vw;
+  }
+}
+
+.filled {
+  background-color: #4761cb !important;
+  opacity: 1 !important; /* Color for filled steps */
+  border: black solid 1px;
+}
+
+.svg-art {
+  -webkit-filter: drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black);
+  filter: drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black);
+  position: absolute;
+  top: -70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.character {
+  position: absolute;
+  -webkit-filter: drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black);
+  filter: drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black);
+}
