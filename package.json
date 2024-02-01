@@ -38,8 +38,8 @@
     "next-pwa": "^5.6.0",
     "npm": "^9.6.5",
     "owl.carousel": "^2.3.4",
-    "postprocessing": "^6.34.1",
     "parallax-js": "^3.1.0",
+    "postprocessing": "^6.34.1",
     "qrcode.react": "^3.1.0",
     "react": "^18.2.0",
     "react-csv": "^2.2.2",
@@ -50,15 +50,16 @@
     "react-icons": "^4.7.1",
     "react-locomotive-scroll": "^0.2.2",
     "react-owl-carousel": "^2.3.3",
+    "react-pageflip": "^2.0.3",
     "react-zxing": "^1.1.3",
     "sharp": "^0.32.0",
     "swiper": "^9.1.1",
     "three": "^0.160.1",
     "three-stdlib": "^2.29.4",
     "typescript": "4.9.5",
+    "typewriter-effect": "^2.21.0",
     "ws": "^8.13.0",
-    "zustand": "^4.5.0",
-    "typewriter-effect": "^2.21.0"
+    "zustand": "^4.5.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^3.0.0",
