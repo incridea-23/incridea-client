@@ -1,19 +1,13 @@
 import { NextPage } from "next";
 import React, { useRef, useState } from "react";
 import SponsorCard from "../components/sponsors/sponsorCard";
-import sponsors from "../../public/assets/json/sponsors.json";
+import sponsors, { Sponsor } from "../components/sponsors/sponsorDetails";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
 
-const sponsorDetails: {
-  name: string;
-  tier: string;
-  desc: string;
-  websiteURL: string;
-  imageURL: string;
-}[] = sponsors;
+const sponsorDetails: Sponsor[] = sponsors;
 
 gsap.registerPlugin(ScrollTrigger);
 
