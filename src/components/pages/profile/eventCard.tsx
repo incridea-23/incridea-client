@@ -162,6 +162,7 @@ const EventCard: FC<{
             )}
           </div>
           </div>
+          <div className='w-full flex justify-end'>
             <QRCodeSVG
         color="#ffffff"
         fgColor="#ffffff"
@@ -170,6 +171,7 @@ const EventCard: FC<{
         className="h-fit w-fit"
         bgColor="transparent"
         />
+        </div>
         <button
         onClick={async (event) => {
           event.preventDefault();
