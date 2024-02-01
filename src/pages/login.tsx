@@ -13,6 +13,7 @@ type CardStyle = {
   transform: string;
 };
 
+// HACK: If "top" values are changed, please check LoginCard component logic once
 const CARD_SWITCH_DURATION: number = 1000;
 const CARD_TOP_STYLE: CardStyle = {
     top: "-50%",
@@ -94,7 +95,8 @@ const SignIn: NextPage = () => {
         priority
       />
       <div
-        className={`relative min-h-[93vh] flex flex-col justify-between [transform-style:preserve-3d] [perspective:500px] overflow-hidden`}>
+        className={`relative min-h-[93vh] flex flex-col justify-between [transform-style:preserve-3d] [perspective:500px] overflow-hidden`}
+      >
         <LoginPortal isTop={true} />
 
         <LoginCard
