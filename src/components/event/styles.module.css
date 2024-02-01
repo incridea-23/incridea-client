@@ -20,25 +20,6 @@
   }
 }
 
-.screen_overlay {
-  background: linear-gradient(
-    rgba(44, 109, 135, 0.201),
-    #41414152 2px,
-    transparent 2px,
-    transparent 5px
-  );
-  background-size: 100% 2px;
-  display: inherit;
-  height: 100%;
-  width: 100%;
-  animation: pan-overlay 22s infinite linear;
-  position: absolute;
-  z-index: 2;
-  left: 0px;
-  top: 0px;
-  overflow: hidden;
-}
-
 /* events page background */
 .area {
   width: 100%;
@@ -138,16 +119,13 @@
 /* events page card*/
 .card {
   width: 100%;
-  border-radius: 20px;
-  background: #1b233d;
-  padding: 5px;
   overflow: hidden;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px;
   transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .card:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 .card .top_section {
@@ -155,11 +133,6 @@
   border-radius: 15px;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(
-    45deg,
-    rgb(4, 159, 187) 0%,
-    rgb(80, 246, 255) 100%
-  );
   position: relative;
 }
 
@@ -175,10 +148,10 @@
   height: 30px;
   width: 130px;
   background: white;
-  background: #1b233d;
+  background: #551D96;
   position: relative;
   transform: skew(-40deg);
-  box-shadow: -10px -10px 0 0 #1b233d;
+  box-shadow: -10px -10px 0 0 #551D96;
 }
 
 .card .top_section .borderCard::before {
@@ -190,7 +163,7 @@
   right: -15px;
   background: rgba(255, 255, 255, 0);
   border-top-left-radius: 10px;
-  box-shadow: -5px -5px 0 2px #1b233d;
+  box-shadow: -5px -5px 0 2px #551D96;
 }
 
 .card .top_section::before {
@@ -202,7 +175,7 @@
   height: 15px;
   width: 15px;
   border-top-left-radius: 15px;
-  box-shadow: -5px -5px 0 2px #1b233d;
+  box-shadow: -5px -5px 0 2px #551D96;
 }
 
 .card .top_section .icons {
@@ -220,14 +193,14 @@
 
 .card .top_section .icons .social_media {
   height: 100%;
-  padding: 8px 15px;
+  padding: 17px 15px;
   display: flex;
   gap: 7px;
 }
 
 .card .top_section .icons .social_media .svg {
   height: 100%;
-  fill: #1b233d;
+  fill: #551D96;
 }
 
 .card .top_section .icons .social_media .svg:hover {
@@ -236,7 +209,6 @@
 
 .card .bottom_section {
   margin-top: 15px;
-  padding: 10px 5px;
 }
 
 .card .bottom_section .eventTitle {
@@ -275,7 +247,6 @@
 .card .bottom_section .row .item {
   flex: 30%;
   text-align: center;
-  padding: 5px;
   color: rgba(170, 222, 243, 0.721);
 }
 

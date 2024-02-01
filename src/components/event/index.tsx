@@ -11,6 +11,7 @@ import { generateEventUrl } from "@/src/utils/url";
 import Image from "next/image";
 import styles from "./styles.module.css";
 import { useRouter } from "next/router";
+import { IoIosPlayCircle } from "react-icons/io";
 
 const Event = ({
   data,
@@ -77,13 +78,15 @@ const Event = ({
     <div
       onClick={() => router.push(generateEventUrl(data.name, data.id))}
       data-scroll
-      className={`${styles.card} w-full h-full black-ops`}
+      className={`${styles.card} rounded-2xl p-2 bg-primary-500 border border-primary-200/80 cursor-pointer w-full h-full`}
     >
-      <div className={`${styles.top_section} flex flex-col`}>
+      <div
+        className={`${styles.top_section} bg-gradient-to-tr from-secondary-800 to-secondary-600 flex flex-col`}
+      >
         <div>
           <div className={styles.borderCard}></div>
           <div className={styles.icons}>
-            <div className="pl-2">
+            <div className="pl-2 pb-1">
               <Image
                 src="/assets/png/incridealogo.png"
                 alt={"Incridea Logo"}
@@ -95,7 +98,7 @@ const Event = ({
             <div
               className={`${
                 styles.social_media
-              } black-ops capitalize justify-items-end items-center text-center ${
+              } uppercase font-bold items-center text-center text-secondary-900 ${
                 data.category?.toLowerCase() === "non_technical"
                   ? "text-[0.9rem]"
                   : "text-[1.05rem]"
@@ -105,8 +108,8 @@ const Event = ({
             </div>
           </div>
         </div>
-        <div className="my-[5px] px-0 md:px-0">
-          <div className={`${styles.screen} rounded-xl object-fill md:m-[6px]`}>
+        <div className="py-2">
+          <div className={`rounded-xl object-fill px-2`}>
             {data.image && (
               <Image
                 src={`https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg`}
@@ -117,46 +120,41 @@ const Event = ({
                 className="object-fill rounded-xl h-full w-full z-0 text-white"
               />
             )}
-            <div className={`${styles.screen_overlay}`}></div>
-            <div className={`${styles.screen_overlay}`}></div>
           </div>
         </div>
       </div>
       <div
-        className={`${styles.bottom_section} flex flex-col justify-between items-center w-full gap-1`}
+        className={`pt-3 flex flex-col justify-center gap-3 items-center w-full`}
       >
         <span
-          className={`${
-            styles.eventTitle
-          } font-normal black-ops flex justify-center items-center text-center ${
-            data.name.length > 14 ? "text-base" : "text-lg"
-          } w-fit px-4`}
+          className={`font-bold text-white flex justify-center items-center text-center text-xl w-fit px-2`}
         >
-          <div className={`my-1`}>{data.name.toUpperCase()}</div>
+          {data.name.toUpperCase()}
         </span>
-        <div className="flex flex-col gap-1 text-center black-ops text-base text-blue-200 px-1 py-3 justify-center items-start md:w-full h-[9rem]">
+        <div className="flex flex-col w-full gap-2 text-center text-white px-1 py-3 justify-center items-start md:w-full h-[9rem]">
           {getEventAttributes().map((attr, i) =>
             attr.name ? (
               <div
-                className="flex flex-row gap-2 justify-center items-start text-left"
+                className="w-full flex gap-2 justify-center items-center text-left bg-primary-200/30 p-1 rounded-full px-2"
                 key={i}
               >
-                <span className="flex flex-row gap-1">
-                  <attr.Icon />
-                </span>
+                <attr.Icon />
                 {/* hyd warning due to toLocaleString()
                 safe to ignore - https://nextjs.org/docs/messages/react-hydration-error#solution-3-using-suppresshydrationwarning */}
-                <span suppressHydrationWarning>{attr.text}</span>
+                <span suppressHydrationWarning className="text-sm truncate">
+                  {attr.text}
+                </span>
               </div>
             ) : null
           )}
         </div>
         <div className="p-2 pt-0 mt-0 w-full">
-          <button className="hover:bg-[#69e5f8] text-lg capitalize shrink-0 w-full mt-0 py-2 flex gap-2 items-center justify-center rounded transition-colors duration-300 bg-[#10adc6] black-ops">
-            <Link href={generateEventUrl(data.name, data.id)}>
-              Play the game
-            </Link>
-          </button>
+          <Link href={generateEventUrl(data.name, data.id)}>
+            <button className="text-lg text-white capitalize shrink-0 w-full mt-0 py-2 flex gap-2 items-center justify-center rounded-full bg-gradient-to-tr from-secondary-800 to-secondary-600 hover:brightness-125 hover:scale-[1.02] transition-all duration-300">
+              <IoIosPlayCircle />
+              Play
+            </button>
+          </Link>
         </div>
       </div>
     </div>

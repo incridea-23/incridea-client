@@ -7,9 +7,9 @@ import {
   PublishedEventsQuery,
 } from "@/src/generated/generated";
 import { client } from "@/src/lib/apollo";
-import { Menu } from "@headlessui/react";
+import { Menu, Transition } from "@headlessui/react";
 import { AiOutlineSearch } from "react-icons/ai";
-import Lenis from "@studio-freight/lenis";
+// import Lenis from "@studio-freight/lenis";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import Image from "next/image";
 import styles from "./styles.module.css";
@@ -26,7 +26,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
 
   // TODO: add new branchs
   const branchFilters = [
-    "ALL",
+    "All",
     "CORE",
     "CSE",
     "ISE",
@@ -39,14 +39,14 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
     "BTE",
   ];
 
-  const dayFilters = ["ALL", "DAY 1", "DAY 2", "DAY 3"];
-  const categoryFilters = ["ALL", "TECHNICAL", "NON_TECHNICAL", "CORE"];
+  const dayFilters = ["All", "DAY 1", "DAY 2", "DAY 3"];
+  const categoryFilters = ["All", "TECHNICAL", "NON_TECHNICAL", "CORE"];
   const [currentBranchFilter, setCurrentBranchFilter] =
-    useState<(typeof branchFilters)[number]>("ALL");
+    useState<(typeof branchFilters)[number]>("All");
   const [currentDayFilter, setCurrentDayFilter] =
-    useState<(typeof dayFilters)[number]>("ALL");
+    useState<(typeof dayFilters)[number]>("All");
   const [currentCategoryFilter, setCurrentCategoryFilter] =
-    useState<(typeof branchFilters)[number]>("ALL");
+    useState<(typeof branchFilters)[number]>("All");
   const [query, setQuery] = useState("");
 
   const [filteredEvents, setFilteredEvents] = useState(data || []);
@@ -54,14 +54,14 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
   const [showTopButton, setShowTopButton] = useState(false);
 
   useEffect(() => {
-    const lenis = new Lenis();
+    // const lenis = new Lenis();
 
-    function raf(time: any) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+    // function raf(time: any) {
+    //   lenis.raf(time);
+    //   requestAnimationFrame(raf);
+    // }
 
-    requestAnimationFrame(raf);
+    // requestAnimationFrame(raf);
 
     const handleScroll = () => {
       if (window.scrollY > 400) {
@@ -78,11 +78,11 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
 
   useEffect(() => {
     let tempFilteredEvents = data;
-    if (currentBranchFilter !== "ALL")
+    if (currentBranchFilter !== "All")
       tempFilteredEvents = tempFilteredEvents.filter(
         (event) => event.branch.name === currentBranchFilter
       );
-    if (currentDayFilter !== "ALL") {
+    if (currentDayFilter !== "All") {
       let filteredDay = new Date(
         currentDayFilter === "DAY 1"
           ? "2024-02-22"
@@ -96,7 +96,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
         )
       );
     }
-    if (currentCategoryFilter !== "ALL") {
+    if (currentCategoryFilter !== "All") {
       tempFilteredEvents = tempFilteredEvents.filter(
         (event) => event.category === currentCategoryFilter
       );
@@ -106,9 +106,9 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
-    setCurrentBranchFilter("ALL");
-    setCurrentDayFilter("ALL");
-    setCurrentCategoryFilter("ALL");
+    setCurrentBranchFilter("All");
+    setCurrentDayFilter("All");
+    setCurrentCategoryFilter("All");
     if (e.target.value === "") {
       setFilteredEvents(data || []);
     } else {
@@ -123,9 +123,9 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
   //TODO: Add reset filter button on mobile
   const resetFilters = () => {
     setQuery("");
-    setCurrentBranchFilter("ALL");
-    setCurrentDayFilter("ALL");
-    setCurrentCategoryFilter("ALL");
+    setCurrentBranchFilter("All");
+    setCurrentDayFilter("All");
+    setCurrentCategoryFilter("All");
     setFilteredEvents(data || []);
   };
 
@@ -186,8 +186,8 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
             <input
               value={query}
               onChange={handleSearch}
-              className="w-full pr-14 border border-gray-200/30 bg-black/30 placeholder:text-gray-200 focus:outline-none text-white rounded-full pl-6 p-3"
-              placeholder="Search for epic quests here..."
+              className="w-full pr-14 border border-primary-200/80 bg-black/30 placeholder:text-gray-200 focus:outline-none text-white rounded-full pl-6 p-3"
+              placeholder="Search epic quests here..."
               type="text"
             />
             <AiOutlineSearch
@@ -201,36 +201,54 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
             className="flex flex-row justify-between md:justify-evenly items-center py-4 w-full text-lg md:text-xl"
           >
             <div className="flex flex-col md:flex-row justify-center items-center gap-4">
-              <Menu
-                as={"div"}
-                className={"relative w-full flex justify-center"}
-              >
+              <Menu as={"div"} className={"relative w-full flex justify-start"}>
                 <Menu.Button
                   className={
-                    "inline-flex shrink-0 gap-2 text-sm md:text-lg whitespace-nowrap bg-black/30 border border-gray-200/30 items-center w-full justify-center rounded-full px-4 py-2 h-[40px] text-white"
+                    "inline-flex shrink-0 gap-2 text-sm md:text-lg whitespace-nowrap bg-black/30 border border-primary-200/80 items-center w-full justify-center rounded-full px-4 py-2 h-[40px] text-white"
                   }
                 >
-                  <IoTodayOutline size={isMobile ? 10 : 16} />
-                  {currentDayFilter !== "ALL" ? currentDayFilter : "Day"}
+                  <IoTodayOutline size="16" className="hidden md:block" />
+                  {currentDayFilter !== "All"
+                    ? currentDayFilter
+                        .toLowerCase()
+                        .replace(/_/g, " ")
+                        .replace(/\b\w/g, (char) => char.toUpperCase())
+                    : "Day"}
                 </Menu.Button>
-                <Menu.Items className="overflow-hidden bg-primary-300 border border-gray-200/30 top-11 p-2 flex flex-col gap-2 mt-1 absolute z-[100] text-center rounded-3xl shadow-black/80 shadow-2xl">
-                  {dayFilters.map((filter) => (
-                    <Menu.Item key={filter}>
-                      {({ active }) => (
-                        <button
-                          className={`${
-                            currentDayFilter === filter
-                              ? "bg-white/20"
-                              : "bg-black/10"
-                          } text-white rounded-full w-36 px-3 py-1.5 text-sm hover:bg-white/10 border border-gray-200/20 transition-all duration-300`}
-                          onClick={() => setCurrentDayFilter(filter)}
-                        >
-                          {filter.split(" ")[0]} {filter.split(" ")[1]}
-                        </button>
-                      )}
-                    </Menu.Item>
-                  ))}
-                </Menu.Items>
+                <Transition
+                  enter="transition duration-300 ease-out"
+                  enterFrom="transform scale-95 opacity-0"
+                  enterTo="transform scale-100 opacity-100"
+                  leave="transition duration-300 ease-out"
+                  leaveFrom="transform scale-100 opacity-100"
+                  leaveTo="transform scale-95 opacity-0"
+                  className="overflow-hidden bg-primary-300 border border-primary-200/80 top-11 p-2 absolute z-[100] text-center rounded-3xl shadow-black/80 shadow-2xl"
+                >
+                  <Menu.Items className="flex flex-col gap-2 mt-1">
+                    {dayFilters.map((filter) => (
+                      <Menu.Item key={filter}>
+                        {({ active }) => (
+                          <button
+                            className={`${
+                              currentDayFilter === filter
+                                ? "bg-white/20"
+                                : "bg-black/10"
+                            } text-white rounded-full w-36 px-3 py-1.5 text-sm hover:bg-white/10 border border-primary-200/80 transition-all duration-300`}
+                            onClick={() => setCurrentDayFilter(filter)}
+                          >
+                            {
+                              filter
+                                .toLowerCase()
+                                .replace(/\b\w/g, (char) => char.toUpperCase())
+                                .split(" ")[0]
+                            }{" "}
+                            {filter.split(" ")[1]}
+                          </button>
+                        )}
+                      </Menu.Item>
+                    ))}
+                  </Menu.Items>
+                </Transition>
               </Menu>
             </div>
             <div className="flex flex-col md:flex-row justify-center items-center gap-4">
@@ -240,67 +258,90 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
               >
                 <Menu.Button
                   className={
-                    "inline-flex shrink-0 gap-2 text-sm md:text-lg whitespace-nowrap bg-black/30 border border-gray-200/30 items-center w-full justify-center rounded-full px-4 py-2 h-[40px] text-white"
+                    "inline-flex shrink-0 gap-2 text-sm md:text-lg whitespace-nowrap bg-black/30 border border-primary-200/80 items-center w-full justify-center rounded-full px-4 py-2 h-[40px] text-white"
                   }
                 >
-                  <BiCategory size={isMobile ? 10 : 16} />
-                  {currentCategoryFilter !== "ALL"
+                  <BiCategory size="16" className="hidden md:block" />
+                  {currentCategoryFilter !== "All"
                     ? currentCategoryFilter
+                        .toLowerCase()
+                        .replace(/_/g, " ")
+                        .replace(/\b\w/g, (char) => char.toUpperCase())
                     : "Category"}
                 </Menu.Button>
-                <Menu.Items className="overflow-hidden bg-primary-300 border border-gray-200/30 top-11 p-2 flex flex-col gap-2 mt-1 absolute z-[100] text-center rounded-3xl shadow-black/80 shadow-2xl">
-                  {categoryFilters.map((filter) => (
-                    <Menu.Item key={filter}>
-                      {({ active }) => (
-                        <button
-                          className={`${
-                            currentCategoryFilter === filter.replace("_", " ")
-                              ? "bg-white/20"
-                              : "bg-black/10"
-                          } text-white rounded-full w-36 px-3 py-1.5 text-sm hover:bg-white/10 border border-gray-200/20 transition-all duration-300`}
-                          onClick={() => setCurrentCategoryFilter(filter)}
-                        >
-                          {filter.replace("_", " ")}
-                        </button>
-                      )}
-                    </Menu.Item>
-                  ))}
-                </Menu.Items>
+                <Transition
+                  enter="transition duration-300 ease-out"
+                  enterFrom="transform scale-95 opacity-0"
+                  enterTo="transform scale-100 opacity-100"
+                  leave="transition duration-300 ease-out"
+                  leaveFrom="transform scale-100 opacity-100"
+                  leaveTo="transform scale-95 opacity-0"
+                  className="overflow-hidden bg-primary-300 border border-primary-200/80 top-11 p-2 mt-1 absolute z-[100] text-center rounded-3xl shadow-black/80 shadow-2xl"
+                >
+                  <Menu.Items className="flex flex-col gap-2">
+                    {categoryFilters.map((filter) => (
+                      <Menu.Item key={filter}>
+                        {({ active }) => (
+                          <button
+                            className={`${
+                              currentCategoryFilter === filter.replace("_", " ")
+                                ? "bg-white/20"
+                                : "bg-black/10"
+                            } text-white rounded-full w-36 px-3 py-1.5 text-sm hover:bg-white/10 border border-primary-200/80 transition-all duration-300`}
+                            onClick={() => setCurrentCategoryFilter(filter)}
+                          >
+                            {filter
+                              .replace("_", " ")
+                              .toLowerCase()
+                              .replace(/\b\w/g, (char) => char.toUpperCase())}
+                          </button>
+                        )}
+                      </Menu.Item>
+                    ))}
+                  </Menu.Items>
+                </Transition>
               </Menu>
             </div>
             <div className="flex flex-col md:flex-row justify-center items-center gap-4">
-              <Menu
-                as={"div"}
-                className={"relative w-full flex justify-center"}
-              >
+              <Menu as={"div"} className={"relative w-full flex justify-end"}>
                 <Menu.Button
                   className={
-                    "inline-flex shrink-0 gap-2 text-sm md:text-lg whitespace-nowrap bg-black/30 border border-gray-200/30 items-center w-full justify-center rounded-full px-4 py-2 h-[40px] text-white"
+                    "inline-flex shrink-0 gap-2 text-sm md:text-lg whitespace-nowrap bg-black/30 border border-primary-200/80 items-center w-full justify-center rounded-full px-4 py-2 h-[40px] text-white"
                   }
                 >
-                  <FaUniversity size={isMobile ? 10 : 16} />
-                  {currentBranchFilter !== "ALL"
+                  <FaUniversity size="16" className="hidden md:block" />
+                  {currentBranchFilter !== "All"
                     ? currentBranchFilter
                     : "Branch"}
                 </Menu.Button>
-                <Menu.Items className="bg-primary-300 border border-gray-200/30 top-11 p-2 flex flex-col gap-2 overflow-x-hidden overflow-y-auto max-h-40 mt-1 rounded-3xl absolute z-[100] text-center shadow-black/80 shadow-2xl">
-                  {branchFilters.map((filter) => (
-                    <Menu.Item key={filter}>
-                      {({ active }) => (
-                        <button
-                          className={`${
-                            currentBranchFilter === filter
-                              ? "bg-white/20"
-                              : "bg-black/10"
-                          } text-white rounded-full w-36 px-3 py-1.5 text-sm hover:bg-white/10 border border-gray-200/20 transition-all duration-300`}
-                          onClick={() => setCurrentBranchFilter(filter)}
-                        >
-                          {filter}
-                        </button>
-                      )}
-                    </Menu.Item>
-                  ))}
-                </Menu.Items>
+                <Transition
+                  enter="transition duration-300 ease-out"
+                  enterFrom="transform scale-95 opacity-0"
+                  enterTo="transform scale-100 opacity-100"
+                  leave="transition duration-300 ease-out"
+                  leaveFrom="transform scale-100 opacity-100"
+                  leaveTo="transform scale-95 opacity-0"
+                  className="bg-primary-300 border border-primary-200/80 top-11 p-2 overflow-x-hidden overflow-y-auto max-h-40 mt-1 rounded-3xl absolute z-[100] text-center shadow-black/80 shadow-2xl"
+                >
+                  <Menu.Items className="flex flex-col gap-2">
+                    {branchFilters.map((filter) => (
+                      <Menu.Item key={filter}>
+                        {({ active }) => (
+                          <button
+                            className={`${
+                              currentBranchFilter === filter
+                                ? "bg-white/20"
+                                : "bg-black/10"
+                            } text-white rounded-full w-36 px-3 py-1.5 text-sm hover:bg-white/10 border border-primary-200/80 transition-all duration-300`}
+                            onClick={() => setCurrentBranchFilter(filter)}
+                          >
+                            {filter}
+                          </button>
+                        )}
+                      </Menu.Item>
+                    ))}
+                  </Menu.Items>
+                </Transition>
               </Menu>
             </div>
           </div>
@@ -320,7 +361,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
           ) : (
             <div
               data-scroll
-              className={`w-full flex flex-col bg-black/30 p-10 rounded-xl gap-5 justify-center items-center text-center text-white text-xl border border-gray-200/30`}
+              className={`w-full flex flex-col bg-black/30 p-10 rounded-xl gap-5 justify-center items-center text-center text-white text-xl border border-primary-200/80`}
             >
               <CiWarning size={50} />
               No events found
