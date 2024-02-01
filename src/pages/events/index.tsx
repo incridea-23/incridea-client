@@ -9,7 +9,6 @@ import {
 import { client } from "@/src/lib/apollo";
 import { Menu, Transition } from "@headlessui/react";
 import { AiOutlineSearch } from "react-icons/ai";
-// import Lenis from "@studio-freight/lenis";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import Image from "next/image";
 import styles from "./styles.module.css";
@@ -17,12 +16,12 @@ import { IoTodayOutline } from "react-icons/io5";
 import { BiCategory } from "react-icons/bi";
 import { FaUniversity } from "react-icons/fa";
 import { CiWarning } from "react-icons/ci";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
   data,
 }) => {
   const containerRef = useRef(null);
-  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
   // TODO: add new branchs
   const branchFilters = [
@@ -54,15 +53,6 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
   const [showTopButton, setShowTopButton] = useState(false);
 
   useEffect(() => {
-    // const lenis = new Lenis();
-
-    // function raf(time: any) {
-    //   lenis.raf(time);
-    //   requestAnimationFrame(raf);
-    // }
-
-    // requestAnimationFrame(raf);
-
     const handleScroll = () => {
       if (window.scrollY > 400) {
         setShowTopButton(true);

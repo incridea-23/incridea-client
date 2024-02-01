@@ -78,7 +78,7 @@ const Event = ({
     <div
       onClick={() => router.push(generateEventUrl(data.name, data.id))}
       data-scroll
-      className={`${styles.card} rounded-2xl p-2 bg-primary-500 border border-primary-200/80 cursor-pointer w-full h-full`}
+      className={`${styles.card} rounded-2xl p-2 py-3 bg-primary-500 border border-primary-200/80 cursor-pointer w-full h-full`}
     >
       <div
         className={`${styles.top_section} bg-gradient-to-tr from-secondary-800 to-secondary-600 flex flex-col`}
@@ -131,11 +131,11 @@ const Event = ({
         >
           {data.name.toUpperCase()}
         </span>
-        <div className="flex flex-col w-full gap-2 text-center text-white px-1 py-3 justify-center items-start md:w-full h-[9rem]">
+        <div className="flex flex-col w-full gap-2 text-white px-1 py-3 justify-center items-start md:w-full h-[9rem]">
           {getEventAttributes().map((attr, i) =>
             attr.name ? (
               <div
-                className="w-full flex gap-2 justify-center items-center text-left bg-primary-200/30 p-1 rounded-full px-2"
+                className="w-full flex items-center border border-secondary-400/40 gap-2 text-left bg-primary-200/30 p-1 rounded-full px-2"
                 key={i}
               >
                 <attr.Icon />
@@ -148,7 +148,7 @@ const Event = ({
             ) : null
           )}
         </div>
-        <div className="p-2 pt-0 mt-0 w-full">
+        <div className="w-full">
           <Link href={generateEventUrl(data.name, data.id)}>
             <button className="text-lg text-white capitalize shrink-0 w-full mt-0 py-2 flex gap-2 items-center justify-center rounded-full bg-gradient-to-tr from-secondary-800 to-secondary-600 hover:brightness-125 hover:scale-[1.02] transition-all duration-300">
               <IoIosPlayCircle />
