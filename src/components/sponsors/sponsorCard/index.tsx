@@ -2,7 +2,6 @@ import Image from "next/image";
 import React from "react";
 import Button from "../../button";
 import { FiExternalLink } from "react-icons/fi";
-import { motion } from "framer-motion";
 
 type SponsorCardProps = {
   sponsor: {
@@ -25,22 +24,14 @@ const SponsorCard: React.FunctionComponent<SponsorCardProps> = ({
         isEven ? "self-start" : "self-end"
       }`}
     >
-      <motion.div
-        whileHover={{ scale: 1.2, rotate: 12 }}
-        whileTap={{
-          scale: 0.8,
-          rotate: -10,
-          borderRadius: "100%",
-        }}
-        className="relative h-52 w-52 aspect-square flex justify-center items-center"
-      >
+      <div className="relative h-52 w-52 aspect-square flex justify-center items-center">
         <Image
           src={sponsor?.imageURL}
           fill={true}
           alt={sponsor?.name + " logo"}
           className="rounded-full object-cover"
         />
-      </motion.div>
+      </div>
       <div className="flex flex-col items-center justify-between gap-7">
         <div className="flex flex-col justify-between items-center gap-2">
           <h2 className="text-3xl text-center">{sponsor.name}</h2>
