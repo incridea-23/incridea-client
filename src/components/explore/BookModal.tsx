@@ -71,9 +71,12 @@ const BookModal: React.FC = () => {
               className="h-full w-full"
             />
           </div>
-          {sponsors.map((page) => {
+          {sponsors.map((page, index) => {
             return (
-              <div className="bg-[url('/assets/png/pageTexture.jpg')] bg-center bg-cover flex flex-col justify-center items-center w-full">
+              <div
+                className="bg-[url('/assets/png/pageTexture.jpg')] bg-center bg-cover flex flex-col justify-center items-center w-full"
+                key={index}
+              >
                 <Image
                   src={page.logo}
                   alt={page.name}
