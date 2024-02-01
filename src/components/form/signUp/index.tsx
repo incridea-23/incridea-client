@@ -200,7 +200,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
       onSubmit={handleSubmit}
       className={`relative px-3 py-3 flex justify-center min-h-full flex-col gap-3 ${
         loading && "cursor-not-allowed pointer-events-none"
-      }`}>
+      }`}
+    >
       <p className="text-2xl text-center font-semibold mb-3">Welcome Player</p>
 
       {!emailSuccess && (
@@ -225,7 +226,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                 college: value.id,
               }));
               setSelectedCollege(value);
-            }}>
+            }}
+          >
             <div className="relative">
               <div className="relative w-full md:focus-within:border-[#dd5c6e] md:focus:border-[#dd5c6e] border-gray-400 cursor-default overflow-hidden border-b ">
                 <Combobox.Input
@@ -247,7 +249,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                 leave="transition ease-in duration-100"
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
-                afterLeave={() => setQuery("")}>
+                afterLeave={() => setQuery("")}
+              >
                 <Combobox.Options className="z-10 absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 border text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                   {collegesLoading ? (
                     <div className="select-none text-center py-2 px-4 italic text-gray-500">
@@ -259,7 +262,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                       College not found. Please{" "}
                       <Link
                         href="/contact"
-                        className="underline hover:text-gray-700 cursor-pointer">
+                        className="underline hover:text-gray-700 cursor-pointer"
+                      >
                         contact admin.
                       </Link>
                     </div>
@@ -272,7 +276,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                           }`
                         }
                         key={college?.id}
-                        value={college}>
+                        value={college}
+                      >
                         {college?.name}
                       </Combobox.Option>
                     ))
@@ -292,13 +297,15 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                   and you are not invited, please{" "}
                   <Link
                     href="/contact"
-                    className="underline hover:text-blue-700 cursor-pointer">
+                    className="underline hover:text-blue-700 cursor-pointer"
+                  >
                     contact us
                   </Link>
                   . Refer to the{" "}
                   <Link
                     href="/guidelines"
-                    className="underline hover:text-blue-700 cursor-pointer">
+                    className="underline hover:text-blue-700 cursor-pointer"
+                  >
                     Guidelines
                   </Link>{" "}
                   page for more details.
@@ -338,7 +345,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
             <button
               type="button"
               className="absolute top-0 mt-2 right-0 hover:bg-orange-500 hover:bg-opacity-10 rounded-sm w-fit p-2"
-              onClick={() => setShowPassword((prev) => !prev)}>
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
               {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
             </button>
           </div>
@@ -371,13 +379,15 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                 I agree to all the{" "}
                 <Link
                   href="/rules"
-                  className="underline hover:text-gray-700 cursor-pointer">
+                  className="underline hover:text-gray-700 cursor-pointer"
+                >
                   T&C
                 </Link>{" "}
                 and{" "}
                 <Link
                   href="/guidelines"
-                  className="underline hover:text-gray-700 cursor-pointer">
+                  className="underline hover:text-gray-700 cursor-pointer"
+                >
                   Guidelines
                 </Link>{" "}
               </span>
@@ -389,7 +399,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
       )}
 
       {(error || mutationError || emailVerificationError) && (
-        <div className="bg-red-100 p-2 flex items-center gap-3 px-4 rounded-md font-semibold text-red-500">
+        <div className="bg-red-100 p-2 flex items-center gap-3 px-4 rounded-md font-semibold text-red-500 overflow-x-auto min-w-full">
           <BiErrorCircle className="shrink-0" />
           <div>
             {error}
@@ -397,7 +407,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
               <button
                 type="button"
                 onClick={() => setWhichForm("resendEmail")}
-                className="inline-block transition-colors text-start hover:text-red-700 text-red-500 font-normal text-sm underline">
+                className="inline-block transition-colors text-start hover:text-red-700 text-red-500 font-normal text-sm underline"
+              >
                 Click here to resend verification email
               </button>
             )}
@@ -420,7 +431,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
               <button
                 type="button"
                 onClick={resendEmail}
-                className="font-normal underline text-sm transition-colors  text-green-500 hover:text-green-700">
+                className="font-normal underline text-sm transition-colors  text-green-500 hover:text-green-700"
+              >
                 Click here to resend it
               </button>
             </div>
@@ -439,7 +451,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
             setWhichForm("signIn");
           }}
           type="button"
-          className="mt-4">
+          className="mt-4"
+        >
           Sign in instead
         </Button>
       </div>
