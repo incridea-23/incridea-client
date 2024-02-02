@@ -1,0 +1,9 @@
+
+mutation UpdateProfileImage($imageURL: String!) {
+  updateProfileImage(imageURL: $imageURL) {
+    ... on Error {
+      __typename
+      message
+    }
+  }
+}

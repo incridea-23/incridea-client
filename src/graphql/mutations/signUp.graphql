@@ -12,6 +12,7 @@ mutation SignUp(
       password: $password
       phoneNumber: $phoneNumber
       collegeId: $collegeId
+      profileImage: ""
     }
   ) {
     ... on Error {

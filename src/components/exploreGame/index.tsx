@@ -1,17 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useRef, useState } from "react";
+import { AddXpDocument } from "@/src/generated/generated";
+import { useMutation } from "@apollo/client";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
+import { MdArrowRightAlt } from "react-icons/md";
+import Typewriter from "typewriter-effect";
+import AudioPlayer from "../explore/AudioPlayer";
 import {
   SpriteDimensions,
   platformDimensions,
   platformSpriteDimensions,
 } from "./gameConstants";
-import { useMutation } from "@apollo/client";
-import { AddXpDocument } from "@/src/generated/generated";
-import toast from "react-hot-toast";
-import Typewriter from "typewriter-effect";
-import { useRouter } from "next/router";
-import { MdArrowRightAlt } from "react-icons/md";
 
 const actionKeys: string[] = [];
 const ExploreGame = () => {
@@ -22,10 +23,23 @@ const ExploreGame = () => {
   const [scrollY, setScrollY] = useState(0);
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const ctx = useRef<CanvasRenderingContext2D | null | undefined>(null);
+  const lastExecutionTimeRef = useRef<number>(0);
 
-  const [addXp] = useMutation(AddXpDocument,{
+  const movementSoundTrigger = (path: string, delay: number) => {
+    const currentTime = Date.now();
+    const elapsedTime = currentTime - lastExecutionTimeRef.current;
+
+    if (elapsedTime >= delay) {
+      const audio = new Audio(path);
+      audio.play();
+
+      lastExecutionTimeRef.current = currentTime;
+    }
+  };
+
+  const [addXp] = useMutation(AddXpDocument, {
     variables: {
-        levelId: "1",
+      levelId: "1",
     },
   });
 
@@ -48,8 +62,8 @@ const ExploreGame = () => {
                   }
               });
           }
-      });
-    };
+        });
+      }
 
   const WINDOW_DIMENSION = {
     width: window.innerWidth,
@@ -108,6 +122,7 @@ const ExploreGame = () => {
     if (player.current.x < boundary.right) {
       player.current.x += velocity.current.x;
     }
+    movementSoundTrigger("/audio/XMovement.mp3", 300);
   }
 
   function MoveLeft() {
@@ -120,6 +135,7 @@ const ExploreGame = () => {
     if (player.current.x > boundary.left) {
       player.current.x -= velocity.current.x;
     }
+    movementSoundTrigger("/audio/XMovement.mp3", 300);
   }
 
   function Jump() {
@@ -132,6 +148,7 @@ const ExploreGame = () => {
       );
       isGrounded = false;
     }
+    movementSoundTrigger("/audio/jump.mp3", 250);
   }
 
   const keyboardDownEventHandler = (e: KeyboardEvent) => {
@@ -357,6 +374,7 @@ const ExploreGame = () => {
     ) {
       // Standing on the left platform
       isGrounded = true;
+
       if (showScheduleFlag) {
         setShowSchedule(true);
         showScheduleFlag = false;
@@ -960,6 +978,7 @@ const ExploreGame = () => {
           </defs>
         </svg>
       </div>
+      <AudioPlayer mainTheme="/audio/Level1MainTheme.mp3"></AudioPlayer>
     </div>
   );
 };
