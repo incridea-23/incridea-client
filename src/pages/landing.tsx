@@ -19,10 +19,10 @@ export default function Landing() {
             scale: 13,
             translateY: 500,
             translateX: 150,
-            duration: 2.5,
+            duration: 2.0,
             delay: 0.5,
             ease: "power4.in",
-            onComplete() { gsap.to(landingContainer.current, { opacity: 0, duration: 1 }); setTimeout(() => { setPageLoader(false) }, 1000); gsap.from(Logo.current,{ delay:0.2, duration:2, scale:2, opacity:0.6 }) }
+            onComplete() { gsap.to(landingContainer.current, { opacity: 0, duration: 1 }); setTimeout(() => { setPageLoader(false) }, 1000); gsap.from(Logo.current, { delay: 0.2, duration: 2, scale: 2, opacity: 0.6 }) }
         });
     }, { scope: landingContainer });
 
@@ -30,7 +30,7 @@ export default function Landing() {
         <main className="flex relative min-h-screen w-full overflow-hidden justify-center">
             {
                 pageLoader && <section ref={landingContainer} className="flex min-h-screen w-full bg-black z-[999] absolute top-0 left-0">
-                    <Image src={'/assets/landing/landing@2x.png'} alt="UI Incridea 2024" width={1920*2} height={1080*2} className='image w-full h-full object-cover object-center absolute top-0 left-0' />
+                    <Image src={'/assets/landing/landing@2x.png'} alt="UI Incridea 2024" width={1920 * 2} height={1080 * 2} className='image w-full h-full object-cover object-center absolute top-0 left-0' />
                 </section>
             }
             <div ref={Logo} className='flex w-[320px] md:w-[480px] lg:w-[640px] h-fit z-50 mt-16 md:mt-28'>
@@ -68,43 +68,56 @@ const Menu = () => {
     return (
         <div className='flex flex-col absolute bottom-0 left-0 w-full h-full justify-center items-center'>
             <div className='flex justify-center static sm:absolute bottom-28 left-1/2 sm:-translate-x-1/2'>
-                <Button intent={'primary'} className='h-fit m-8 px-4 sm:px-12' size={'xlarge'}>Register</Button>
-                <Button intent={'ghost'} className='h-fit m-8 px-4 sm:px-12' size={'xlarge'}>Explore</Button>
+                <Button skew intent={'primary'} className='h-fit m-8 px-4 sm:px-12' size={'xlarge'}>Register</Button>
+                <Button skew intent={'ghost'} className='h-fit m-8 px-4 sm:px-12' size={'xlarge'}>Explore</Button>
             </div>
             <div className='flex flex-col w-fit h-fit static md:absolute bottom-48 xl:bottom-32 -right-8'>
                 <h3 className='text-2xl sm:text-4xl hidden sm:block text-white font-VikingHell text-center mb-0 sm:mb-4'>Menu</h3>
                 {
                     navItems.map((e, i) => (
                         <Link key={i} href={e.href}>
-                            <Button className='my-2 md:my-4 w-52 md:w-80 justify-center md:justify-end px-12 md:px-16' size={'xlarge'}>{e.target}</Button>
+                            <Button skew className='my-2 md:my-4 w-52 md:w-80 justify-center md:justify-end px-12 md:px-16' size={'xlarge'}>{e.target}</Button>
                         </Link>
                     ))
                 }
             </div>
-            
+
         </div>
     )
 }
 
 const HomeUi = () => {
 
-    useLayoutEffect(()=>{
+    useLayoutEffect(() => {
         const scene = document.getElementById("scene") as HTMLElement
 
-        let parallaxInstance = new Parallax(scene,{relativeInput: true});
+        let parallaxInstance = new Parallax(scene, { relativeInput: true });
     })
 
     return (
-        <section id="scene" className='absolute w-full h-screen'>
-
+        <section id="scene" className='absolute w-screen h-screen'>
+            {/* backgrounds */}
             <Image src={'/assets/home/bg.png'} alt='Gradient' width={1920} height={1080} className='w-full h-full object-center object-cover absolute bottom-0 left-0' />
-            <Image data-depth="0.5" src={'/assets/home/moon.png'} alt='Gradient' width={1920} height={1080} className='w-full h-full object-center object-cover opacity-60 absolute bottom-0 left-0' />
-            <Image data-depth="0.4" src={'/assets/home/stars.png'} alt='Gradient' width={1920} height={1080} className='w-full h-full object-center object-cover absolute bottom-0 left-0' />
-            <div data-depth="0.3" className="flex w-full h-screen abolute bottom-0 right-0 justify-end">
-                <Image src={'/assets/home/portal.png'} alt='Portal' width={1920} height={1080} className="scale-110 object-bottom" />
+
+            <div className="!w-full !h-full !object-center !object-cover !opacity-60 !absolute !bottom-0 !left-0">
+
             </div>
-            <div data-depth="0.2" className="flex w-full h-screen abolute bottom-0 left-0 justify-end">
-                <Image  src={'/assets/home/ryoko.png'} id="Ryoko" alt='Ryoko looking at portal' width={1920} height={1080} className="object-bottom" />
+            <Image data-depth="0.5" src={'/assets/home/moon.png'} alt='Gradient' width={1920} height={1080} className='!w-full !h-full !object-center !object-cover !opacity-60 !absolute !bottom-0 !left-0' />
+
+            <Image data-depth="0.4" src={'/assets/home/stars.png'} alt='Gradient' width={1920} height={1080} className='!w-full !h-full !object-center !object-cover !absolute !bottom-0 !left-0' />
+
+            {/* building */}
+            <div data-depth="0.3" className="!flex !top-auto !bottom-0 !w-[125%] md:!w-[115%] absolute">
+                <div className="!w-[200%] md:!w-[111%] absolute bottom-0 left-1/4 md:-left-1/4 md:right-3 md:-translate-x-0 -translate-x-2/3">
+                    <Image src={'/assets/home/portal.png'} alt='Portal' width={2050} height={1080} className="!scale-125 !object-bottom" />
+                </div>
+            </div>
+
+            {/* man */}
+            <div data-depth="0.2" className="!container !w-full !h-full !flex !right-0 !justify-end !md:mt-8 !top-auto !bottom-0">
+                <div className="!w-[200%] absolute bottom-0 left-1/4 md:-left-1/4 md:-translate-x-0 -translate-x-1/3">
+                    <Image src={'/assets/home/ryoko.png'} id="Ryoko" alt='Ryoko looking at portal' width={1920} height={1080} className="!object-bottom" />
+                </div>
             </div>
         </section>
     )

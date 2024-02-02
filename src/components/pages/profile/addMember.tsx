@@ -76,9 +76,9 @@ const AddMemberModal: FC<{
 
           <Link
             href={`https://wa.me/?text=${encodeURIComponent(url)}`}
-            className="flex items-center justify-center gap-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg p-2 cursor-pointer text-sm bodyFont"
+            className="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white rounded-lg p-2 cursor-pointer text-sm bodyFont"
           >
-            <BsWhatsapp /> Share on WhatsApp
+            <BsWhatsapp/> Share on WhatsApp
           </Link>
         </div>
       </Modal>
