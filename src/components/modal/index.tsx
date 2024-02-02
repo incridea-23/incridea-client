@@ -68,14 +68,14 @@ const Modal: FC<ModalProps> = ({
                   >
                     {title}
                   </h3>
-                  {size !== "small" && (
+                  {/* {size !== "small" && ( */}
                     <button
                       className="hover:text-white text-gray-400 transition-colors cursor-pointer z-[50000]"
                       onClick={onClose}
                     >
                       <IoClose size="1.4rem" />
                     </button>
-                  )}
+                  {/* )} */}
                 </Dialog.Title>
                 {size !== "small" && <hr className="opacity-30" />}
                 <div>{children}</div>
