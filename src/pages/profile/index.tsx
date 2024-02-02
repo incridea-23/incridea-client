@@ -25,7 +25,7 @@ const Profile: NextPage = () => {
       <div className="flex flex-col text-center space-y-3 items-center justify-center h-screen bg-gradient-to-b from-slate-800  via-slate-600 to-slate-500">
         {/* Todo: Any graphic to fill space */}
         <div className="flex z-10 justify-center items-center h-96 mt-8">
-            <Image src={ '/assets/png/gamer.png' } alt="404" width={400} height={400} />
+            <Image src={ '/assets/png/mario.png' } alt="404" width={400} height={400} />
         </div>
         <h1 className="bodyFont lg:text-xl text-lg text-white -translate-y-10">
           Hey there! You need to login to view your profile page.
