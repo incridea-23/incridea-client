@@ -1,5 +1,6 @@
-import { NextPage } from 'next';
-import Image from 'next/image';
+import { NextPage } from "next";
+import Image from "next/image";
+import { VikingHell } from "../_app";
 
 const Guidelines: NextPage = () => {
   return (
@@ -13,10 +14,12 @@ const Guidelines: NextPage = () => {
           className="absolute opacity-40 z-10 top-0 right-0"
           priority
         />
-        <h1 className={`titleFont pt-24 text-5xl mb-3 text-center`}>
+        <h1
+          className={`${VikingHell.className} pt-24 text-5xl mb-3 text-center`}
+        >
           Guidelines
         </h1>
-        <div className='bodyFont'>
+        <div className="bodyFont">
           <h2 className="text-2xl my-6">OVERVIEW</h2>
           <p className="mt-2">
             Incridea is a national-level techno-cultural festival that offers a
@@ -65,7 +68,7 @@ const Guidelines: NextPage = () => {
               ineligible to participate in the event.
             </li>
           </ul>
-         {/* <h2 className="text-2xl my-6">Event Scoring:</h2>
+          {/* <h2 className="text-2xl my-6">Event Scoring:</h2>
           <p className="mt-2">
             Every event included in Incridea counts towards the overall
             championship, with the following weightage:
@@ -133,12 +136,12 @@ const Guidelines: NextPage = () => {
           </p>
           <ol className="mt-2 list-decimal pl-4">
             <li>
-              {' '}
+              {" "}
               NMAM Institute of Technology students who pay ₹200 will have
               access to all events and pronites
             </li>
             <li>
-              {' '}
+              {" "}
               Engineering college students, other than NMAMIT, who pay ₹300 will
               have access to all events and pronites.
             </li>
@@ -147,7 +150,7 @@ const Guidelines: NextPage = () => {
               ₹300 will have access only to Core Events and pronites.
             </li>
             <li>
-              {' '}
+              {" "}
               Invite-only participants who pay ₹150 will have access to the one
               core event they were invited to. If the invite-only participant is
               a college student and wants to attend pronite, they will have to
@@ -165,14 +168,14 @@ const Guidelines: NextPage = () => {
         </div>
         <div className={`flex w-full -translate-x-10 translate-y-8 opacity-75`}>
           <Image
-            src={'/assets/png/atlantis.png'}
+            src={"/assets/png/atlantis.png"}
             width={750}
             height={50}
             className="object-center"
             alt="atlantis"
           />
           <Image
-            src={'/assets/png/atlantis.png'}
+            src={"/assets/png/atlantis.png"}
             width={750}
             height={50}
             className="object-center"
