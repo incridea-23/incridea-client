@@ -5,10 +5,7 @@ interface AudioPlayerProps {
   mainTheme: string;
 }
 
-const AudioPlayer: React.FC<AudioPlayerProps> = ({
-  mainTheme,
-
-}) => {
+const AudioPlayer: React.FC<AudioPlayerProps> = ({ mainTheme }) => {
   const mainThemeAudioRef = useRef<HTMLAudioElement | null>(null);
   const [isMuted, setIsMuted] = useState(true);
   const [hasInteracted, setHasInteracted] = useState(false);
@@ -30,7 +27,11 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   }, [hasInteracted]);
 
   return (
-    <div style={{ position: "relative" }}>
+    // <div style={{ position: "relative", height: "80px" }}>
+    <div
+      style={{ position: "sticky", top: 80, right: 20, zIndex: 1000 }}
+      className="flex justify-end pr-4"
+    >
       <audio ref={mainThemeAudioRef} loop muted={isMuted} autoPlay playsInline>
         <source src={mainTheme} type="audio/mp3" />
         Your browser does not support the audio element.
@@ -40,16 +41,14 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
         onClick={handleTogglePlayback}
         className="text-white scale-125 hover:scale-150"
         style={{
-          position: "absolute",
-          bottom: 0,
-          right: 20,
           border: "none",
           cursor: "pointer",
         }}
       >
-        {isMuted ? <IoVolumeMute size={20} /> : <IoVolumeHigh size={20} />}
+        {isMuted ? <IoVolumeMute size={30} /> : <IoVolumeHigh size={30} />}
       </button>
     </div>
+    // </div>
   );
 };
 
