@@ -15,12 +15,11 @@ const ImageUpload = ({ existingImage, setImage, loading, cardId }: Props) => {
   const [highlighted, setHighlighted] = useState(false);
 
   const [mediaPreview, setMediaPreview] = useState<string | null>(null);
-  const [manualLoading, setManualLoading] = useState(false)
+  const [manualLoading, setManualLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const [submissionMutation, { data, loading: submissionLoading, error }] = useMutation(
-    CreateSubmissionDocument
-  );
+  const [submissionMutation, { data, loading: submissionLoading, error }] =
+    useMutation(CreateSubmissionDocument);
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
@@ -34,9 +33,9 @@ const ImageUpload = ({ existingImage, setImage, loading, cardId }: Props) => {
     setMediaPreview(URL.createObjectURL(files[0]));
 
     const formData = new FormData();
-    const url = `https://incridea.onrender.com/easter-egg/upload`;
+    const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/easter-egg/upload`;
 
-    setManualLoading(true)
+    setManualLoading(true);
 
     formData.append("image", files[0]);
     await fetch(url, {
@@ -56,7 +55,8 @@ const ImageUpload = ({ existingImage, setImage, loading, cardId }: Props) => {
           },
         }).then((res) => {
           if (
-            res.data?.createSubmission.__typename !== "MutationCreateSubmissionSuccess"
+            res.data?.createSubmission.__typename !==
+            "MutationCreateSubmissionSuccess"
           ) {
             throw new Error("Error uploading submission");
           }
@@ -65,8 +65,7 @@ const ImageUpload = ({ existingImage, setImage, loading, cardId }: Props) => {
       .catch((err) => {
         alert(err);
       });
-    setManualLoading(false)
-
+    setManualLoading(false);
   };
 
   return (
@@ -104,7 +103,8 @@ const ImageUpload = ({ existingImage, setImage, loading, cardId }: Props) => {
             setImage(droppedFile[0]);
             setMediaPreview(URL.createObjectURL(droppedFile[0]));
           }
-        }}>
+        }}
+      >
         {loading || submissionLoading || manualLoading ? (
           <>
             <Spinner />
