@@ -156,6 +156,8 @@
 // export default ProfileInfo;
 import {
   AccommodationRequestsByUserDocument,
+  GetUserXpDocument,
+  GetXpLeaderboardDocument,
   User,
 } from "@/src/generated/generated";
 import { motion } from "framer-motion";
@@ -331,6 +333,79 @@ const ProfileInfo: FC<{
   //     </section>
   //   );
 
+  const [level, setLevel] = useState(0);
+  const [xp, setXp] = useState(0);
+  const [userId, setUser] = useState('');
+  const [rank, setRank] = useState(0);
+
+  const userXp = useQuery(GetUserXpDocument,{});
+  useEffect(() => {
+    if (userXp?.data && userXp.data.getUserXp.__typename === "QueryGetUserXpSuccess") {
+      setLevel(userXp.data.getUserXp.data.length);
+      setXp(userXp.data.getUserXp.data.reduce((acc, curr) => acc + curr.level.point, 0));
+      setUser(userXp.data.getUserXp.data[0].user.id);
+    }
+  }, [userXp.data]);
+
+  interface UserTotalPoints {
+    [userId: string]: {
+        levelPoints: number;
+        name: string;
+        count: number;
+    }
+  }
+const{
+    data: Leaderboard,
+    loading: leaderboardLoading,
+}  = useQuery(GetXpLeaderboardDocument,{})
+
+const [sortedLeaderboard, setSortedLeaderboard] = useState< {
+    levelPoints: number;
+    name: string;
+    userId: string;
+    count: number;
+}[]>([]);
+
+useEffect(() => {
+    if(Leaderboard?.getXpLeaderboard.__typename === "QueryGetXpLeaderboardSuccess"){
+      const userTotalPoints: UserTotalPoints = {};
+
+      Leaderboard?.getXpLeaderboard.data.forEach((item) => {
+        const userId: string = item.user.id;
+        const levelPoints: number = item.level.point;
+        const userName: string = item.user.name;
+        const levelCount: number = 1;
+
+        // Check if the user ID is already in the userTotalPoints object
+        if (userTotalPoints[userId]) {
+          // If yes, add the level points to the existing total
+            userTotalPoints[userId].levelPoints += levelPoints;
+            userTotalPoints[userId].count += levelCount;
+        } else {
+          // If no, create a new entry for the user ID
+            userTotalPoints[userId] = {
+                levelPoints,
+                name: userName,
+                count: 1
+            };
+        }
+      });
+    // Convert userTotalPoints to an array of objects
+    const userTotalPointsArray = Object.entries(userTotalPoints).map(([userId, data]) => ({
+        userId,
+        ...data,
+    }));
+
+    // Sort the array in descending order based on total points
+    userTotalPointsArray.sort((a, b) => b.levelPoints - a.levelPoints);
+    console.log(userTotalPointsArray);
+    // get current user's rank
+    const currentUserRank = userTotalPointsArray.findIndex((user) => user.userId === userId);
+    console.log(currentUserRank);
+    setRank(currentUserRank + 1);
+  }
+}, [Leaderboard,userId]);
+
   return (
     <>
       <div className="text-white flex flex-col justify-between items-center h-full px-8 py-16 gap-y-8 border-2 border-slate-400 rounded-xl">
@@ -364,7 +439,7 @@ const ProfileInfo: FC<{
 
             <div className="lg">
               <p className="">Leaderboard</p>
-              <p>80/100</p>
+              <p>{rank}</p>
             </div>
           </div>
 
@@ -379,7 +454,7 @@ const ProfileInfo: FC<{
 
             <div className="text-lg">
               <p className="">XP</p>
-              <p>100</p>
+              <p>{xp}</p>
             </div>
           </div>
 
@@ -394,7 +469,7 @@ const ProfileInfo: FC<{
 
             <div className="lg">
               <p className="">Level</p>
-              <p>3</p>
+              <p>{level}</p>
             </div>
           </div>
         </div>
