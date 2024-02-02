@@ -6,6 +6,7 @@ import Button from "../components/button";
 import Link from "next/link";
 import { BsFillSuitHeartFill } from "react-icons/bs";
 import Parallax from "parallax-js";
+import Arcade from "../components/svg/arcade";
 
 export default function Landing() {
   const landingContainer = useRef(null);
@@ -16,22 +17,16 @@ export default function Landing() {
     () => {
       gsap.to(landingContainer.current, {
         scale: 13,
-        translateY: 500,
-        translateX: 150,
-        duration: 2.0,
+        translateY: 650,
+        translateX: 0,
+        duration: 2,
         delay: 0.5,
-        ease: "power4.in",
+        ease: "power2.in",
         onComplete() {
           gsap.to(landingContainer.current, { opacity: 0, duration: 1 });
           setTimeout(() => {
             setPageLoader(false);
           }, 1000);
-          gsap.from(Logo.current, {
-            delay: 0.2,
-            duration: 2,
-            scale: 2,
-            opacity: 0.6,
-          });
         },
       });
     },
@@ -43,15 +38,19 @@ export default function Landing() {
       {pageLoader && (
         <section
           ref={landingContainer}
-          className="flex min-h-screen w-full bg-black z-[999] absolute top-0 left-0"
+          className=" min-h-screen w-full flex justify-center items-center bg-black z-[999] absolute top-0 left-0"
         >
           <Image
-            src={"/assets/landing/landing@2x.png"}
+            src={"/assets/landing/lounge@2x.png"}
             alt="UI Incridea 2024"
-            width={1920 * 2}
-            height={1080 * 2}
+            width={1920}
+            height={1080}
+            priority
             className="image w-full h-full object-cover object-center absolute top-0 left-0"
           />
+          <div className="absolute  translate-y-[18%]">
+            <Arcade />
+          </div>
         </section>
       )}
 
@@ -92,7 +91,6 @@ const Menu = () => {
     <div className="w-screen overflow-x-hidden flex flex-col absolute bottom-0 left-0 h-full justify-center items-center">
       <div className="lg:flex flex-col hidden  absolute bottom-10 items-center sm:flex-row  md:gap-10 my-24 gap-3  w-fit ">
         <Button
-          skew
           intent={"primary"}
           className="h-fit w-52  px-4 sm:px-12"
           size={"xlarge"}
@@ -100,7 +98,6 @@ const Menu = () => {
           Register
         </Button>
         <Button
-          skew
           intent={"ghost"}
           className="h-fit w-52 px-4 sm:px-12"
           size={"xlarge"}
@@ -115,7 +112,6 @@ const Menu = () => {
         {
           <>
             <Button
-              skew
               intent={"ghost"}
               className="lg:hidden !bg-primary-800/70 block w-52 md:w-80 justify-center md:justify-end px-12 md:px-16"
               size={"xlarge"}
@@ -123,7 +119,6 @@ const Menu = () => {
               Register
             </Button>
             <Button
-              skew
               intent={"ghost"}
               className="lg:hidden !bg-primary-800/70 block w-52 md:w-80 justify-center md:justify-end px-12 md:px-16"
               size={"xlarge"}
@@ -135,7 +130,6 @@ const Menu = () => {
         {navItems.map((e, i) => (
           <Link key={i} href={e.href}>
             <Button
-              skew
               className="w-52 md:w-80 justify-center md:justify-end px-12 md:px-16"
               size={"xlarge"}
             >

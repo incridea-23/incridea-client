@@ -68,15 +68,15 @@ const Menu = () => {
     return (
         <div className='flex flex-col absolute bottom-0 left-0 w-full h-full justify-center items-center'>
             <div className='flex justify-center static sm:absolute bottom-28 left-1/2 sm:-translate-x-1/2'>
-                <Button skew intent={'primary'} className='h-fit m-8 px-4 sm:px-12' size={'xlarge'}>Register</Button>
-                <Button skew intent={'ghost'} className='h-fit m-8 px-4 sm:px-12' size={'xlarge'}>Explore</Button>
+                <Button intent={'primary'} className='h-fit m-8 px-4 sm:px-12' size={'xlarge'}>Register</Button>
+                <Button intent={'ghost'} className='h-fit m-8 px-4 sm:px-12' size={'xlarge'}>Explore</Button>
             </div>
             <div className='flex flex-col w-fit h-fit static md:absolute bottom-48 xl:bottom-32 -right-8'>
                 <h3 className='text-2xl sm:text-4xl hidden sm:block text-white font-VikingHell text-center mb-0 sm:mb-4'>Menu</h3>
                 {
                     navItems.map((e, i) => (
                         <Link key={i} href={e.href}>
-                            <Button skew className='my-2 md:my-4 w-52 md:w-80 justify-center md:justify-end px-12 md:px-16' size={'xlarge'}>{e.target}</Button>
+                            <Button className='my-2 md:my-4 w-52 md:w-80 justify-center md:justify-end px-12 md:px-16' size={'xlarge'}>{e.target}</Button>
                         </Link>
                     ))
                 }

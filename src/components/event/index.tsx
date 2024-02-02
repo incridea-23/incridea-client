@@ -96,15 +96,11 @@ const Event = ({
               />
             </div>
             <div
-              className={`${
-                styles.social_media
-              } uppercase font-bold items-center text-center text-secondary-900 ${
-                data.category?.toLowerCase() === "non_technical"
-                  ? "text-[0.9rem]"
-                  : "text-[1.05rem]"
-              }`}
+              className={`${styles.social_media} text-sm uppercase font-bold items-center text-center text-secondary-900`}
             >
-              {data.category?.replace("_", " ").toLocaleLowerCase()}
+              {data.category?.toLowerCase() === "non_technical"
+                ? "Non-Tech"
+                : data.category?.toLocaleLowerCase()}
             </div>
           </div>
         </div>
@@ -112,9 +108,9 @@ const Event = ({
           <div className={`rounded-xl object-fill px-2`}>
             {data.image && (
               <Image
-                src={`https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg`}
-                // src={data.image}
-                alt={"Image"}
+                // src={`https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg`}
+                src={data.image}
+                alt={data.name}
                 width={250}
                 height={250}
                 className="object-fill rounded-xl h-full w-full z-0 text-white"
@@ -150,7 +146,7 @@ const Event = ({
         </div>
         <div className="w-full">
           <Link href={generateEventUrl(data.name, data.id)}>
-            <button className="text-lg text-white capitalize shrink-0 w-full mt-0 py-2 flex gap-2 items-center justify-center rounded-full bg-gradient-to-tr from-secondary-800 to-secondary-600 hover:brightness-125 hover:scale-[1.02] transition-all duration-300">
+            <button className="mt-1 text-lg text-white capitalize shrink-0 w-full py-2 flex gap-2 items-center justify-center rounded-full bg-gradient-to-tr from-secondary-800 to-secondary-600 hover:brightness-125 hover:scale-[1.02] transition-all duration-300">
               <IoIosPlayCircle />
               Play
             </button>

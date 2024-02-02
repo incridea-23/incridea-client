@@ -150,7 +150,7 @@ function event({ event, error }: { event: Event; error: String }) {
                             Round {round.roundNo}
                           </div>
                           <div className={`space-y-2`}>
-                            <p className={`flex gap-2 items-center`}>
+                            <p className={`flex gap-2 items-center`} suppressHydrationWarning>
                               <BsFillCalendar2WeekFill />
                               {round.date &&
                                 new Date(round.date).toLocaleDateString(
@@ -161,7 +161,7 @@ function event({ event, error }: { event: Event; error: String }) {
                                   }
                                 )}
                             </p>
-                            <p className={`flex gap-2 items-center`}>
+                            <p className={`flex gap-2 items-center`} suppressHydrationWarning>
                               <BiTimeFive />
                               {round.date &&
                                 new Date(round.date).toLocaleTimeString(

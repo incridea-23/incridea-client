@@ -133,6 +133,7 @@ export type Event = {
 export enum EventCategory {
   Core = 'CORE',
   NonTechnical = 'NON_TECHNICAL',
+  Special = 'SPECIAL',
   Technical = 'TECHNICAL'
 }
 
