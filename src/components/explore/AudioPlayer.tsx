@@ -5,8 +5,12 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { AiFillSound, AiOutlineSound } from "react-icons/ai";
+import { GiSoundOff, GiSoundOn } from "react-icons/gi";
 import Button from "../button";
 import Modal from "../modal";
+import styles from "./audioPlayer.module.css";
+// Adjust the path accordingly
 
 interface AudioPlayerProps {
   mainTheme: string;
@@ -68,12 +72,12 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   useEffect(() => {
     if (mainThemeAudioRef.current && hasInteracted) {
       mainThemeAudioRef.current.play();
-      mainThemeAudioRef.current.volume = volume/100;
+      mainThemeAudioRef.current.volume = volume / 100;
     }
   }, [hasInteracted]);
 
   return (
-    <div style={{ position: "relative" }}>
+    <div className={"sticky h-0 top-20 z-[60]"}>
       <audio ref={mainThemeAudioRef} loop muted={isMuted} autoPlay playsInline>
         <source src={mainTheme} type="audio/mp3" />
         Your browser does not support the audio element.
@@ -81,21 +85,17 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
 
       <button
         onClick={handleTogglePlayback}
-        style={{
-          position: "absolute",
-          bottom: 0,
-          right: 0,
-          padding: "10px",
-          backgroundColor: "white",
-          border: "none",
-          cursor: "pointer",
-        }}
+        className={styles["audio-player-button"]}
       >
-        {isMuted ? "Unmute" : "Mute"}
+        {isMuted && (
+          <AiOutlineSound className="w-8 h-8 transition-colors duration-150" />
+        )}
+        {!isMuted && (
+          <AiFillSound className="w-8 h-8 transition-colors duration-150" />
+        )}
       </button>
-      <div style={{ position: "absolute", bottom: "50px", right: "10px" }}>
-        <label htmlFor="volumeSlider">Volume:</label>
-        <p className="text-white">{isMuted ? "Muted" : "NonMuted"}</p>
+      <div className={styles["audio-player-volume"]}>
+        <label htmlFor="volumeSlider"></label>
         <input
           id="volumeSlider"
           type="range"
@@ -103,6 +103,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
           max="100"
           value={volume}
           onChange={handleVolumeChange}
+          className="w-28"
         />
       </div>
       <Modal

@@ -1,0 +1,12 @@
+/* AudioPlayer.module.css */
+.audio-player-button {
+  padding: 10px;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.audio-player-volume {
+  margin-top: 2px;
+  padding-left: 10px;
+}
