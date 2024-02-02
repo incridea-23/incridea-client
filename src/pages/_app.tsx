@@ -1,7 +1,6 @@
 import { useApollo } from "@/src/lib/apollo";
 import "@/src/styles/globals.css";
 import { ApolloProvider } from "@apollo/client";
-import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas";
 import { Analytics } from "@vercel/analytics/react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { AppProps } from "next/app";
@@ -12,7 +11,6 @@ import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import Loader from "../components/Loader";
 const Navbar = dynamic(() => import("../components/navbar"), { ssr: false });
-import ExploreGame from "../components/exploreGame";
 import HeadComponent from "../components/head";
 import Footer from "../components/footer";
 
@@ -41,10 +39,9 @@ export default function App({
 
   if (
     router.pathname === "/theme" ||
-    router.pathname === "/landing" ||
-    router.pathname === "/explore/level2" ||
     router.pathname === "/test" ||
-    router.pathname === "/landing2"
+    router.pathname === "/" ||
+    router.pathname.startsWith("/explore")
   )
     return (
       <ApolloProvider client={apolloClient}>
@@ -59,41 +56,9 @@ export default function App({
       />
       <Toaster />
       <AnimatePresence>{isLoading && <Loader />}</AnimatePresence>
-      <div className="bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6]">
-        {
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white">
-            <Image
-              src={"/assets/png/logo.png"}
-              alt="loader"
-              width={300}
-              height={300}
-              priority
-            />
-            <h1 className={`titleFont text-xl md:text-3xl text-center`}>
-              Tides of Change
-            </h1>
-          </div>
-        }
+      <div className=" ">
         {!isLoading && <Navbar />}
-        <AnimatePresence mode="wait">
-          <motion.main
-            key={router.route}
-            initial="intialState"
-            animate="animateState"
-            exit="exitState"
-            transition={{ duration: 0.8 }}
-            variants={variants}
-          >
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8 }}
-              className="min-h-screen"
-            >
-              <Component setLoading={setLoading} {...pageProps} />
-            </motion.div>
-          </motion.main>
-        </AnimatePresence>
+        <Component setLoading={setLoading} {...pageProps} />
         <Footer />
       </div>
       {/* <Analytics /> */}
