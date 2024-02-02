@@ -93,7 +93,7 @@ const LeaderBoard : NextPage = () => {
             </div>}
             <div className=" bg-gradient-to-bl from-black to-slate-900 min-h-screen relative">
                 <div className=" bg-gradient-to-bl bg-white min-h-screen relative py-32">
-                    <h1 className={`text-white ${styles.glitch} text-5xl md:text-5xl text-center black-ops`}>
+                    <h1 className={`text-white text-5xl md:text-5xl text-center black-ops`}>
                         XP Leaderboard
                     </h1>
                     <h3 className="my-6 mx-2 md:mx-0 text-white text-2xl md:text-3xl text-center black-ops">
