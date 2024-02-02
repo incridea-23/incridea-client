@@ -994,11 +994,13 @@ const ExploreGame = () => {
           </defs>
         </svg>
       </div>
-      <AudioPlayer
-        mainTheme="/audio/Level1MainTheme.mp3"
-        isMuted={isMuted}
-        setIsMuted={setIsMuted}
-      ></AudioPlayer>
+      <div>
+        <AudioPlayer
+          mainTheme="/audio/Level1MainTheme.mp3"
+          isMuted={isMuted}
+          setIsMuted={setIsMuted}
+        ></AudioPlayer>
+      </div>
     </div>
   );
 };

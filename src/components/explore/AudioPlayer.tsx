@@ -55,7 +55,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     }
   }
 
-  const [volume, setVolume] = useState(50);
+  const [volume, setVolume] = useState(30);
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newVolume = parseInt(event.target.value);
     setVolume(newVolume);
@@ -68,6 +68,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   useEffect(() => {
     if (mainThemeAudioRef.current && hasInteracted) {
       mainThemeAudioRef.current.play();
+      mainThemeAudioRef.current.volume = volume/100;
     }
   }, [hasInteracted]);
 
