@@ -16,6 +16,7 @@ import ExploreGame from "../components/exploreGame";
 import HeadComponent from "../components/head";
 import Footer from "../components/footer";
 
+
 export default function App({
   Component,
   pageProps: { session, ...pageProps },

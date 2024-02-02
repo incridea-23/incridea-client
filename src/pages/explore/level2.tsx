@@ -49,6 +49,8 @@ const App = () => {
       image: event.image || "",
     })) || [];
 
+
+  ;
   const modalRef = useRef(null);
   const sponsorBookRef = useRef(null);
   const eventDex = useStore((state) => state.eventDex);

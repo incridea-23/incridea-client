@@ -12,8 +12,8 @@ interface DexProps {
 }
 
 const Pokedex: React.FC<DexProps> = ({ data = [] }) => {
-  const setEventDex = useStore((state) => state.setSponsor);
-  const eventDex = useStore((state) => state.sponsor);
+  const setEventDex = useStore((state) => state.setEventDex);
+  const eventDex = useStore((state) => state.eventDex);
   useEffect(() => {
     // Initialize GSAP
     const tl = gsap.timeline();
@@ -21,14 +21,12 @@ const Pokedex: React.FC<DexProps> = ({ data = [] }) => {
     // Initial state (closed)
     tl.set(".animate-1", { y: 80 })
       .set(".animate-3", { y: -80 })
-      .set(".carousel-container", { opacity: 0 })
-      .set(".butanim", { opacity: 0 });
+      .set(".carousel-container", { opacity: 0 });
 
     // Opening animation
     tl.to(".animate-1", { y: -20, duration: 2, delay: 1 })
       .to(".animate-3", { y: 40, duration: 2 }, "<")
-      .to(".carousel-container", { opacity: 1, duration: 5 }, "<")
-      .to(".butanim", { opacity: 1, duration: 2 });
+      .to(".carousel-container", { opacity: 1, duration: 3 }, "<");
   }, []);
 
   return (

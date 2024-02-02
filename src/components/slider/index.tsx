@@ -35,7 +35,6 @@ const Carousel: React.FC<CarouselProps> = ({ events = [] }) => {
     <div className="w-[300%] flex justify-center items-center relative z-10">
       <div className={styles.carousel_container}>
         <Swiper
-          loop={true}
           navigation={{
             nextEl: `.${styles.swiper_button_next}`,
             prevEl: `.${styles.swiper_button_prev}`,
@@ -45,6 +44,8 @@ const Carousel: React.FC<CarouselProps> = ({ events = [] }) => {
           spaceBetween={40}
           slidesPerView={3}
           centeredSlides={true}
+          loop={true}
+          
         >
           {events.map((data, index) => (
             <SwiperSlide
@@ -57,11 +58,10 @@ const Carousel: React.FC<CarouselProps> = ({ events = [] }) => {
                 <Link href={generateEventUrl(data.name, data.id)}>
                   {data.image && (
                     <Image
-                      // src={`https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg`}
                       src={data.image}
                       alt={"Image"}
-                      width={300}
-                      height={300}
+                      width={100}
+                      height={100}
                       className="object-scale-down rounded-xl h-full w-full z-0"
                     />
                   )}
