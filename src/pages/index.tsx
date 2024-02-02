@@ -1,79 +1,249 @@
-import About from "../components/about";
 import Image from "next/image";
-import { useRef } from "react";
-import Hero from "../components/hero";
-import { LocomotiveScrollProvider } from "react-locomotive-scroll";
-import "locomotive-scroll/dist/locomotive-scroll.css";
-import EventsReel from "../components/eventsPeek/reel";
-import { HomePageFooter } from "../components/footer";
-import dynamic from "next/dynamic";
-import { BiQuestionMark } from "react-icons/bi";
-import { BsEgg, BsEggFill } from "react-icons/bs";
-import { useRouter } from "next/router";
-import Pokedex from "../components/pokedex";
-const CountDown = dynamic(() => import("../components/countdown"), {
-  ssr: false,
-});
+import { useLayoutEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import Button from "../components/button";
+import Link from "next/link";
+import { BsFillSuitHeartFill } from "react-icons/bs";
+import Parallax from "parallax-js";
+import Arcade from "../components/svg/arcade";
+import { VikingHell } from "./_app";
 
-const Home = () => {
-  const containerRef = useRef(null);
-  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+export default function Landing() {
+  const landingContainer = useRef(null);
+  const [pageLoader, setPageLoader] = useState<boolean>(true);
 
-  const router = useRouter();
+  useGSAP(
+    () => {
+      gsap.to(landingContainer.current, {
+        scale: 13,
+        translateY: 650,
+        translateX: 0,
+        duration: 2,
+        delay: 0.5,
+        ease: "power2.in",
+        onComplete() {
+          gsap.to(landingContainer.current, { opacity: 0, duration: 1 });
+          setTimeout(() => {
+            setPageLoader(false);
+          }, 1000);
+        },
+      });
+    },
+    { scope: landingContainer }
+  );
 
   return (
-    <div className="overflow-x-hidden" style={{ willChange: "transform" }}>
-      <LocomotiveScrollProvider
-        options={{
-          smooth: true,
-          smartphone: {
-            smooth: !isMobile,
-          },
-          tablet: {
-            smooth: false,
-          },
-        }}
-        watch={[]}
-        containerRef={containerRef}>
-        <main data-scroll-container ref={containerRef}>
-          {/* 1. Hero Section */}
-          <Hero />
-
-          <div data-scroll-section className="relative -mt-2  ">
-            <div className="relative pt-[200px] w-full flex justify-center items-center bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
-              {/* 2. Countdown Section */}
-              <Image
-                src="/assets/png/waterflare.png"
-                height={1000}
-                width={1000}
-                alt="flare"
-                className="absolute pointer-events-none opacity-40 z-50 top-0 right-0"
-                priority
-              />
-              <CountDown />
-            </div>
-            {/* 3. About Section */}
-            <div className=" bg-gradient-to-b pb-3 from-[#2d6aa6] -mt-2   to-[#052749]">
-              <About />
-              {/* 4. Core Events Section */}
-              <EventsReel />
-              
-            </div>
-            {/* 5. Footer Section */}
-            <section className="-mt-2 relative bg-[#052749]">
-              <div className="group absolute md:right-48 right-0 top-10 md:top-60 p-3 py-5">
-                <div onClick={() => router.push('/easter-egg')} className="cursor-pointer relative w-fit mr-10">
-                  <BsEggFill style={{rotate: '-6deg'}} className="transition-all  group-hover:animate-bounce text-5xl text-white/80 text-center mx-auto mt-10" />
-                  <BiQuestionMark style={{rotate: '15deg'}} className="transition-all absolute -top-2 text-white/80 text-xl group-hover:animate-bounce  -right-1" />
-                </div>
-              </div>
-              <HomePageFooter />
-            </section>
+    <main className="h-screen relative overflow-hidden">
+      {pageLoader && (
+        <section
+          ref={landingContainer}
+          className=" min-h-screen w-full flex justify-center items-center  z-[999] absolute top-0 left-0"
+        >
+          <Image
+            src={"/assets/landing/lounge@2x.png"}
+            alt="UI Incridea 2024"
+            width={1920}
+            height={1080}
+            priority
+            className="image w-full h-full object-cover object-center absolute top-0 left-0"
+          />
+          <div className="absolute  translate-y-[18%]">
+            <Arcade />
           </div>
-        </main>
-      </LocomotiveScrollProvider>
+        </section>
+      )}
+
+      <div className="absolute top-0">
+        <HomeUi />
+        <Menu />
+        <HomeFooter />
+      </div>
+    </main>
+  );
+}
+
+const HomeFooter = () => {
+  return (
+    <footer className="absolute w-full text-gray-200 bottom-0">
+      <p className="text-center p-5 text-sm">
+        <Link
+          className="flex justify-center items-center tracking-normal transition-all hover:tracking-widest hover:text-gray-300"
+          href="/team"
+        >
+          Made with <BsFillSuitHeartFill className="mx-2" /> by Technical Team
+        </Link>
+        © Incridea 2023
+      </p>
+    </footer>
+  );
+};
+
+const Menu = () => {
+  const navItems = [
+    { href: "/events", target: "Events" },
+    { href: "/pronite", target: "Pronite" },
+    { href: "/gallery", target: "Gallery" },
+    { href: "/about", target: "about" },
+    { href: "/sponsors", target: "Sponsors" },
+  ];
+
+  return (
+    <div className="w-screen overflow-x-hidden flex flex-col absolute bottom-0 left-0 h-full justify-center items-center">
+      <div className="lg:flex flex-col hidden  absolute bottom-10 items-center sm:flex-row  md:gap-10 my-24 gap-3  w-fit ">
+        <Button
+          intent={"primary"}
+          className="h-fit w-52  px-4 sm:px-12"
+          size={"xlarge"}
+        >
+          Register
+        </Button>
+        <Button
+          intent={"ghost"}
+          className="h-fit w-52 px-4 sm:px-12"
+          size={"xlarge"}
+        >
+          Explore
+        </Button>
+      </div>
+      <div className="space-y-5 absolute flex flex-col w-fit h-fit -right-8 bottom-[15%]  lg:absolute ">
+        <h3
+          className={`text-2xl hidden md:block  md:mb-5 sm:text-4xl  text-white  tracking-widest text-center ${VikingHell.className} `}
+        >
+          Menu
+        </h3>
+        {
+          <>
+            <Button
+              intent={"ghost"}
+              className="lg:hidden !bg-primary-800/70 block w-52 md:w-80 justify-center md:justify-end px-12 md:px-16"
+              size={"xlarge"}
+            >
+              Register
+            </Button>
+            <Button
+              intent={"ghost"}
+              className="lg:hidden !bg-primary-800/70 block w-52 md:w-80 justify-center md:justify-end px-12 md:px-16"
+              size={"xlarge"}
+            >
+              Explore
+            </Button>
+          </>
+        }
+        {navItems.map((e, i) => (
+          <Link key={i} href={e.href}>
+            <Button
+              className="w-52 md:w-80 justify-center md:justify-end px-12 md:px-16"
+              size={"xlarge"}
+            >
+              {e.target}
+            </Button>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };
 
-export default Home;
+const HomeUi = () => {
+  useLayoutEffect(() => {
+    const scene = document.getElementById("scene") as HTMLElement;
+
+    let parallaxInstance = new Parallax(scene, {
+      relativeInput: true,
+    });
+  });
+  const Logo = useRef(null);
+  gsap.from(Logo.current, {
+    delay: 0,
+    duration: 0,
+    scale: 3,
+    opacity: 0.6,
+    zIndex: 9999,
+  });
+  gsap.to(Logo.current, {
+    duration: 2,
+    scale: 1,
+    opacity: 1,
+  });
+
+  return (
+    <section
+      id="scene"
+      className="relative bg-gradient-to-b min-h-screen from-[#00002a] via-[#1c23bb] to-pink-800/50"
+    >
+      <div className="h-screen w-screen absolute">
+        <div id="foglayer_01" className="fog">
+          <div className="image01"></div>
+          <div className="image02"></div>
+        </div>
+        <div id="foglayer_02" className="fog">
+          <div className="image01"></div>
+          <div className="image02"></div>
+        </div>
+        <div id="foglayer_03" className="fog">
+          <div className="image01"></div>
+          <div className="image02"></div>
+        </div>
+      </div>
+      <div data-depth="0.5" className="absolute  h-screen w-screen ">
+        <div className="opacity-50 translate-y-16 h-[75vh] md:h-full absolute bottom-0 left-[50%] -translate-x-1/2 md:left-0 md:translate-x-0 md:w-full aspect-video  ">
+          <Image
+            src={"/assets/home/moon.png"}
+            alt="Gradient"
+            width={1920}
+            height={1080}
+            className="object-bottom  h-full w-full object-contain"
+          />
+        </div>
+      </div>
+      <div data-depth="0.4" className="h-screen w-screen absolute">
+        <Image
+          src={"/assets/home/stars.png"}
+          alt="Gradient"
+          width={1920}
+          height={1080}
+          className="w-full h-full object-center object-cover absolute "
+        />
+      </div>
+
+      <div data-depth="0.3" className="absolute h-screen w-screen">
+        <div className="h-full absolute aspect-video right-0  translate-x-[18%]  sm:translate-x-[12%] md:translate-x-[10%] bottom-0 lg:translate-x-[4%] translate-y-[3%]">
+          <Image
+            src={"/assets/home/portal.png"}
+            alt="Portal"
+            width={2050}
+            height={1080}
+            className="w-full h-full object-cover object-right-bottom  "
+          />
+        </div>
+      </div>
+      <div
+        data-depth="0.2"
+        className="absolute flex  items-center  justify-center h-screen w-screen"
+      >
+        <div className="w-fit mx-auto p-5 mt-[3%]" ref={Logo}>
+          <Image
+            src={"/assets/home/DoD.png"}
+            width={640}
+            height={640}
+            alt="Dice of Destiny"
+            className="object-center max-w-xl w-full h-fit object-contain"
+          />
+        </div>
+      </div>
+      <div data-depth="0.1" className="absolute h-screen w-screen">
+        <div className="h-full absolute aspect-video left-0 -translate-x-[20%] sm:-translate-x-[18%]  md:-translate-x-[12%] bottom-0 lg:-translate-x-[10%] translate-y-[3%]   ">
+          <Image
+            src={"/assets/home/ryoko.png"}
+            id="Ryoko"
+            alt="Ryoko looking at portal"
+            width={1920}
+            height={1080}
+            className="w-full h-full object-cover object-left-bottom"
+          />
+        </div>
+      </div>
+    </section>
+  );
+};

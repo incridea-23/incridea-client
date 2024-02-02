@@ -1,7 +1,8 @@
-import { FC } from 'react';
-import TextAnimation from '../animation/text';
-import Image from 'next/image';
-import { BiDownload } from 'react-icons/bi';
+import { FC } from "react";
+import TextAnimation from "../animation/text";
+import Image from "next/image";
+import { BiDownload } from "react-icons/bi";
+import { VikingHell } from "@/src/pages/_app";
 
 const About: FC = () => {
   const handleDownload = (path: string, name: string) => {
@@ -9,7 +10,7 @@ const About: FC = () => {
     const fileUrl = path;
     const fileName = name;
 
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.href = fileUrl;
     link.download = fileName;
 
@@ -29,7 +30,7 @@ const About: FC = () => {
         <div className="max-w-2xl mt-12">
           <TextAnimation
             text="About Incridea"
-            className={`titleFont`}
+            className={`${VikingHell.className}`}
             textStyle="text-xl font-semibold lg:text-3xl"
           />
           <div className="text-sm lg:text-lg mt-4 space-y-2 bodyFont">
@@ -55,7 +56,7 @@ const About: FC = () => {
               width={300}
               height={300}
               className={
-                'group-hover:scale-110 group-hover:-translate-y-2 transform transition-all duration-500'
+                "group-hover:scale-110 group-hover:-translate-y-2 transform transition-all duration-500"
               }
               alt="Incridea Emblem"
             />
@@ -68,18 +69,23 @@ const About: FC = () => {
             />
           </div>
           <div
-            className={`mt-2 text-lg flex justify-center space-x-2 items-center titleFont`}
+            className={`mt-2 text-lg flex justify-center space-x-2 items-center ${VikingHell.className}`}
           >
             <a
               onClick={() =>
-                handleDownload('/assets/pdf/rulebook.pdf', 'Rulebook.pdf')
+                handleDownload("/assets/pdf/rulebook.pdf", "Rulebook.pdf")
               }
               className="cursor-pointer px-3 flex items-center gap-2 py-2 text-md md:text-lg lg:text-xl font-semibold text-center text-white transition duration-300 rounded-bl-xl rounded-tr-xl bg-white/30 hover:bg-white/40"
             >
               <BiDownload /> Rule book
             </a>
             <a
-              onClick={() => handleDownload('https://drive.google.com/file/d/1mglh-NsLE_AOjY969olQNppZcQyr5p4F/view?usp=sharing', 'schedule.pdf')}
+              onClick={() =>
+                handleDownload(
+                  "https://drive.google.com/file/d/1mglh-NsLE_AOjY969olQNppZcQyr5p4F/view?usp=sharing",
+                  "schedule.pdf"
+                )
+              }
               className="cursor-pointer px-3 flex items-center gap-2 py-2 text-md md:text-lg lg:text-xl font-semibold text-center text-white transition duration-300 rounded-bl-xl rounded-tr-xl bg-white/30 hover:bg-white/40"
             >
               <BiDownload /> Schedule

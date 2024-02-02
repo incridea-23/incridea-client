@@ -1,16 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Anton&family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Luckiest+Guy&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" );
-@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'VikingHell';
-  src: url('../../public/font/Viking\ Hell.otf') format('opentype');
-  font-display: swap;
-}
+
 
 /* create a youtube-like scrollbar */
 ::-webkit-scrollbar {
@@ -166,9 +158,9 @@
   -webkit-text-fill-color: transparent;
 }
 
-.titleFont {
+/* .titleFont {
   font-family: "Roboto Slab", cursive;
-}
+} */
 
 .bodyFont {
   font-family: "arvo", sans-serif;
@@ -248,11 +240,6 @@
 }
 
 
-/* .swiper-horizontal > .swiper-pagination-progressbar {
-  width: 60% !important;
-  top: 20vw !important;
-  left: 20vw !important;
-} */
 
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -282,7 +269,6 @@
 
 
 /* fog */
-
 .fogwrapper {
   z-index: 1020;
   height: 100%;
@@ -611,3 +597,6 @@
   }
 }
 
+.titleFont {
+  @apply !font-VikingHell
+}
