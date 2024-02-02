@@ -8,11 +8,6 @@ export default function Document() {
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="robots" content="index, follow" />
         <meta name="theme-color" content="#46aacf" />
-        <script
-          type="text/javascript"
-          async
-          src="https://tenor.com/embed.js"
-        ></script>
       </Head>
       <body className="min-h-screen bg-primary-700">
         <Main />
