@@ -1,8 +1,7 @@
 import retroTV from "@/public/assets/svg/retro-tv.svg";
 import { baseImageUrl } from "@/src/utils/url";
-import gsap from "gsap";
 import Image from "next/image";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Autoplay, Mousewheel, Navigation, Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import BlurImage from "../../blurImage";
@@ -10,7 +9,6 @@ import Modal from "../gallery-modal";
 import PreviewComponent from "../previewComponent/preview-component";
 
 const RetroTV = ({ imgArr }: { imgArr: string[] }) => {
-  const [active, setActive] = useState<number>(0);
   const [activeModal, setActiveModal] = useState<boolean>(false);
   const swiperRef = useRef<SwiperType>();
   return (

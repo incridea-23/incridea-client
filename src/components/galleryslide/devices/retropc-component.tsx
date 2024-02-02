@@ -1,8 +1,7 @@
 import retroPCSVG from "@/public/assets/svg/retro-pc.svg";
 import { baseImageUrl } from "@/src/utils/url";
-import gsap from "gsap";
 import Image from "next/image";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import { Autoplay, Mousewheel, Navigation, Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import BlurImage from "../../blurImage";
@@ -10,26 +9,8 @@ import Modal from "../gallery-modal";
 import PreviewComponent from "../previewComponent/preview-component";
 
 const RetroPC = ({ imgArr }: { imgArr: string[] }) => {
-  const [active, setActive] = useState<number>(0);
   const [activeModal, setActiveModal] = useState<boolean>(false);
   const swiperRef = useRef<SwiperType>();
-
-  // useLayoutEffect(() => {
-  //   const ctx = gsap.context(() => {
-  //     const t1 = gsap.timeline();
-  //     t1.from("#animation", {
-  //       delay: 0.2,
-  //       filter: "drop-shadow:(0px 10px 40px rgba(0,0,0,0.45))",
-  //       y: -90,
-  //       // boxShadow: "0px 10px 67px 40px rgba(0,0,0,0.25)",
-  //     }).to("#animation", {
-  //       y: 0,
-  //       filter: "drop-shadow(0px 10px 95px rgba(0,0,0,0.55))",
-  //       // boxShadow: "0px 10px 67px 90px rgba(0,0,0,0.25)",
-  //       duration: 1,
-  //     });
-  //   });
-  // }, [activeYear]);
 
   return (
     <div

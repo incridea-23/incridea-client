@@ -8,7 +8,6 @@ import Modal from "../gallery-modal";
 import PreviewComponent from "../previewComponent/preview-component";
 
 const Console = ({ imgArr }: { imgArr: string[] }) => {
-  const [active, setActive] = useState<number>(0);
   const [activeModal, setActiveModal] = useState<boolean>(false);
   const swiperRef = useRef<SwiperType>();
   return (
