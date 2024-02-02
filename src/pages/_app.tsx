@@ -40,8 +40,10 @@ export default function App({
           title="Incridea"
           description="Official Website of Incridea 2024, National level techno-cultural fest, NMAMIT, Nitte. Innovate. Create. Ideate."
         />
-        <Component {...pageProps} />
-        <Toaster />
+        <div className={`min-h-screen ${VikingHell.variable}`}>
+          <Component {...pageProps} />
+          <Toaster />
+        </div>
       </ApolloProvider>
     );
   return (

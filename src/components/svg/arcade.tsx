@@ -14,7 +14,8 @@ function Arcade() {
       />
       <div className="absolute left-1/2 -translate-x-1/2 top-[12%] h-[20%] w-[50%]  ">
         <Image
-          fill
+          height={482}
+          width={256}
           className="w-full h-full rounded-lg"
           src="/assets/gif/nosignal.gif"
           alt="no signal"

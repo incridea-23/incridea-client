@@ -38,7 +38,7 @@ export default function Landing() {
       {pageLoader && (
         <section
           ref={landingContainer}
-          className=" min-h-screen w-full flex justify-center items-center bg-black z-[999] absolute top-0 left-0"
+          className=" min-h-screen w-full flex justify-center items-center  z-[999] absolute top-0 left-0"
         >
           <Image
             src={"/assets/landing/lounge@2x.png"}
@@ -151,7 +151,6 @@ const HomeUi = () => {
 
     let parallaxInstance = new Parallax(scene, {
       relativeInput: true,
-      clipRelativeInput: true,
     });
   });
   const Logo = useRef(null);
