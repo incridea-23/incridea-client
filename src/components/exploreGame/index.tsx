@@ -34,10 +34,18 @@ const ExploreGame = () => {
           if (res.data?.addXP.__typename !== "MutationAddXPSuccess") {
               toast.error(`Opps!! You have already claimed your xp or not logged in`, {
                   position: "bottom-center",
+                  style:{
+                    backgroundColor: "#7628D0",
+                    color: "white"
+                  }
               });
           } else {
-              toast.success(`Added ${res.data?.addXP.data.level.point} Xp`, {
+              toast.success(`Congratulations!!! You have found ${res.data?.addXP.data.level.point} Xp`, {
                   position: "bottom-center",
+                  style:{
+                    backgroundColor: "#7628D0",
+                    color: "white"
+                  }
               });
           }
       });

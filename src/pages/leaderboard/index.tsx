@@ -86,7 +86,7 @@ const LeaderBoard : NextPage = () => {
     return (
         <div className={``} style={{ willChange: "transform",overflowX:"hidden" }}>
             {sortedLeaderboard.length > 0 && 
-            <div className={`${styles.container} overflow-y-hidden`}>
+            <div className={`${styles.container} overflow-hidden`}>
                 {Array.from({ length: 30 }).map((_, i) => (
                     <div key={i} className={`${styles.confetti}`}></div>
                 ))}
