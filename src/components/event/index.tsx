@@ -96,15 +96,11 @@ const Event = ({
               />
             </div>
             <div
-              className={`${
-                styles.social_media
-              } uppercase font-bold items-center text-center text-secondary-900 ${
-                data.category?.toLowerCase() === "non_technical"
-                  ? "text-[0.9rem]"
-                  : "text-[1.05rem]"
-              }`}
+              className={`${styles.social_media} text-sm uppercase font-bold items-center text-center text-secondary-900`}
             >
-              {data.category?.replace("_", " ").toLocaleLowerCase()}
+              {data.category?.toLowerCase() === "non_technical"
+                ? "Non-Tech"
+                : data.category?.toLocaleLowerCase()}
             </div>
           </div>
         </div>
@@ -114,7 +110,7 @@ const Event = ({
               <Image
                 // src={`https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg`}
                 src={data.image}
-                alt={"Image"}
+                alt={data.name}
                 width={250}
                 height={250}
                 className="object-fill rounded-xl h-full w-full z-0 text-white"
