@@ -333,7 +333,7 @@ const ProfileInfo: FC<{
 
   return (
     <>
-      <div className="text-white flex flex-col justify-between items-center h-full px-8 py-16 gap-y-8">
+      <div className="text-white flex flex-col justify-between items-center h-full px-8 py-16 gap-y-8 border-2 border-slate-400 rounded-xl">
         <div className="flex gap-5">
           <Image
             src={"/assets/png/avatar.png"}
@@ -362,23 +362,23 @@ const ProfileInfo: FC<{
               className="sm:h-16 sm:w-16 h-12 w-12"
             />
 
-            <div className="">
-              <p className="text-sm">Leaderboard</p>
+            <div className="lg">
+              <p className="">Leaderboard</p>
               <p>80/100</p>
             </div>
           </div>
 
           <div className="flex flex-row space-x-2 items-center titleFont">
             <Image
-              src={"/assets/png/XP.png"}
+              src={"/assets/png/XP.webp"}
               width={100}
               height={100}
               alt="map"
               className="sm:h-16 sm:w-16 h-12 w-12"
             />
 
-            <div className="">
-              <p className="text-sm">Gold</p>
+            <div className="text-lg">
+              <p className="">XP</p>
               <p>100</p>
             </div>
           </div>
@@ -392,8 +392,8 @@ const ProfileInfo: FC<{
               className="sm:h-16 sm:w-16 h-12 w-12"
             />
 
-            <div className="">
-              <p className="text-sm">Level</p>
+            <div className="lg">
+              <p className="">Level</p>
               <p>3</p>
             </div>
           </div>
@@ -461,14 +461,14 @@ const ProfileInfo: FC<{
             </div>
           </section>
 
-          <div className="flex flex-col w-full justify-center h-full items-center gap-y-3 border-2 shadow-md shadow-white border-primary-300 rounded-xl p-4">
+          <div className="flex flex-col w-full justify-center h-full items-center gap-y-3 ">
             <QRCodeSVG
               value={idToPid(user?.id!)}
               size={100}
               bgColor="transparent"
               color="#ffffff"
               fgColor="#ffffff"
-              className="md:h-32 md:w-32 h-20 w-20"
+              className="h-44 w-44"
             />
             <span className={`titleFont text-[#fff] sm:text-xl text-md`}>
               {idToPid(user?.id!)}

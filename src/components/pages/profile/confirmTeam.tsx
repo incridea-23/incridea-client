@@ -51,9 +51,8 @@ const ConfirmTeamModal: FC<{
           setShowModal(true);
         }}
         intent={"primary"}
-        fullWidth
       >
-        {"Confirm"}
+        Confirm
       </Button>
       <Modal
         title={`Are you sure you want to confirm the team?`}
