@@ -40,7 +40,7 @@ export default function Landing() {
 
   return (
     <main className="h-screen relative overflow-hidden">
-      {/* {pageLoader && (
+      {pageLoader && (
         <section
           ref={landingContainer}
           className="flex min-h-screen w-full bg-black z-[999] absolute top-0 left-0"
@@ -53,7 +53,7 @@ export default function Landing() {
             className="image w-full h-full object-cover object-center absolute top-0 left-0"
           />
         </section>
-      )} */}
+      )}
 
       <div className="absolute top-0">
         <HomeUi />
