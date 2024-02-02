@@ -39,18 +39,27 @@ export default function Landing() {
   );
 
   return (
-    <main className="h-screen overflow-hidden">
-      {/* {
-                pageLoader && <section ref={landingContainer} className="flex min-h-screen w-full bg-black z-[999] absolute top-0 left-0">
-                    <Image src={'/assets/landing/landing@2x.png'} alt="UI Incridea 2024" width={1920 * 2} height={1080 * 2} className='image w-full h-full object-cover object-center absolute top-0 left-0' />
-                </section>
-            }
-            <div ref={Logo} className='flex w-[320px] md:w-[480px] lg:w-[640px] h-fit z-50 mt-16 md:mt-28'>
-                <Image src={'/assets/home/DoD.png'} width={640} height={640} alt='Dice of Destiny' className='object-center object-contain' />
-            </div> */}
-      <HomeUi />
-      <Menu />
-      <HomeFooter />
+    <main className="h-screen relative overflow-hidden">
+      {pageLoader && (
+        <section
+          ref={landingContainer}
+          className="flex min-h-screen w-full bg-black z-[999] absolute top-0 left-0"
+        >
+          <Image
+            src={"/assets/landing/landing@2x.png"}
+            alt="UI Incridea 2024"
+            width={1920 * 2}
+            height={1080 * 2}
+            className="image w-full h-full object-cover object-center absolute top-0 left-0"
+          />
+        </section>
+      )}
+
+      <div className="absolute top-0">
+        <HomeUi />
+        <Menu />
+        <HomeFooter />
+      </div>
     </main>
   );
 }
@@ -81,7 +90,7 @@ const Menu = () => {
 
   return (
     <div className="w-screen overflow-x-hidden flex flex-col absolute bottom-0 left-0 h-full justify-center items-center">
-      <div className="flex flex-col items-center sm:flex-row w-full md:gap-10 my-24 gap-3 max-w-xs sm:max-md">
+      <div className="lg:flex flex-col hidden  absolute bottom-10 items-center sm:flex-row  md:gap-10 my-24 gap-3  w-fit ">
         <Button
           intent={"primary"}
           className="h-fit w-52  px-4 sm:px-12"
@@ -97,14 +106,32 @@ const Menu = () => {
           Explore
         </Button>
       </div>
-      <div className="flex flex-col w-fit h-fit static md:absolute bottom-48 xl:bottom-32 -right-8">
-        <h3 className="text-2xl sm:text-4xl hidden sm:block text-white font-VikingHell text-center mb-0 sm:mb-4">
+      <div className="space-y-5 absolute flex flex-col w-fit h-fit -right-8 bottom-[15%]  lg:absolute ">
+        <h3 className="text-2xl hidden md:block  md:mb-5 sm:text-4xl  text-white font-VikingHell text-center ">
           Menu
         </h3>
+        {
+          <>
+            <Button
+              intent={"ghost"}
+              className="lg:hidden !bg-primary-800/70 block w-52 md:w-80 justify-center md:justify-end px-12 md:px-16"
+              size={"xlarge"}
+            >
+              Register
+            </Button>
+            <Button
+              intent={"ghost"}
+              className="lg:hidden !bg-primary-800/70 block w-52 md:w-80 justify-center md:justify-end px-12 md:px-16"
+              size={"xlarge"}
+            >
+              Explore
+            </Button>
+          </>
+        }
         {navItems.map((e, i) => (
           <Link key={i} href={e.href}>
             <Button
-              className="my-2 md:my-4 w-52 md:w-80 justify-center md:justify-end px-12 md:px-16"
+              className="w-52 md:w-80 justify-center md:justify-end px-12 md:px-16"
               size={"xlarge"}
             >
               {e.target}
@@ -125,20 +152,25 @@ const HomeUi = () => {
       clipRelativeInput: true,
     });
   });
+  const Logo = useRef(null);
+  gsap.from(Logo.current, {
+    delay: 0,
+    duration: 0,
+    scale: 3,
+    opacity: 0.6,
+    zIndex: 9999,
+  });
+  gsap.to(Logo.current, {
+    duration: 2,
+    scale: 1,
+    opacity: 1,
+  });
 
   return (
     <section
       id="scene"
       className="relative bg-gradient-to-b min-h-screen from-[#00002a] via-[#1c23bb] to-pink-800/50"
     >
-      {/* backgrounds */}
-      {/* <Image
-        src={"/assets/home/bg.png"}
-        alt="Gradient"
-        width={1920}
-        height={1080}
-        className="w-screen h-full object-center object-cover absolute "
-      /> */}
       <div className="h-screen w-screen absolute">
         <div id="foglayer_01" className="fog">
           <div className="image01"></div>
@@ -185,8 +217,21 @@ const HomeUi = () => {
           />
         </div>
       </div>
-
-      <div data-depth="0.2" className="absolute h-screen w-screen">
+      <div
+        data-depth="0.2"
+        className="absolute flex  items-center  justify-center h-screen w-screen"
+      >
+        <div className="w-fit mx-auto p-5 mt-[3%]" ref={Logo}>
+          <Image
+            src={"/assets/home/DoD.png"}
+            width={640}
+            height={640}
+            alt="Dice of Destiny"
+            className="object-center max-w-xl w-full h-fit object-contain"
+          />
+        </div>
+      </div>
+      <div data-depth="0.1" className="absolute h-screen w-screen">
         <div className="h-full absolute aspect-video left-0 -translate-x-[20%] sm:-translate-x-[18%]  md:-translate-x-[12%] bottom-0 lg:-translate-x-[10%] translate-y-[3%]   ">
           <Image
             src={"/assets/home/ryoko.png"}
