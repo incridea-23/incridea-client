@@ -20,27 +20,12 @@ import "swiper/swiper-bundle.min.css";
 // Install Swiper modules
 SwiperCore.use([Navigation, Scrollbar, A11y]);
 
-const Carousel: React.FC = () => {
+interface CarouselProps {
+  events?: Array<{ id: string; name: string; image: string }>;
+}
+
+const Carousel: React.FC<CarouselProps> = ({ events = [] }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const {
-    data: eventsData,
-    loading: eventLoading,
-    error: eventError,
-  } = useQuery<PublishedEventsQuery>(PublishedEventsDocument);
-
-  let tempFilteredEvents = eventsData?.publishedEvents;
-
-  tempFilteredEvents = tempFilteredEvents?.filter(
-    (event) => event.category === "CORE"
-  );
-
-  const events: Array<{ id: string; name: string; image: string }> =
-    tempFilteredEvents?.map((event) => ({
-      id: event.id,
-      name: event.name || "",
-      image: event.image || "",
-    })) || [];
 
   const handleSlideChange = (swiper: any) => {
     setActiveIndex(swiper.realIndex);
