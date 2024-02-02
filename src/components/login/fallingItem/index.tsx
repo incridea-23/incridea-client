@@ -46,7 +46,7 @@ const FallingItem: FunctionComponent<Prop> = ({ delay }) => {
         // TODO: 100000 should be same as that in animation duration of free-fall in tailwind.config.js
       }, 10000);
     }, delay);
-  }, []);
+  }, [delay]);
 
   return (
     <div
