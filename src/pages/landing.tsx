@@ -30,7 +30,8 @@ export default function Landing() {
         <main className="flex relative min-h-screen w-full overflow-hidden justify-center">
             {
                 pageLoader && <section ref={landingContainer} className="flex min-h-screen w-full bg-black z-[999] absolute top-0 left-0">
-                    <Image src={'/assets/landing/landing@2x.png'} alt="UI Incridea 2024" width={1920 * 2} height={1080 * 2} className='image w-full h-full object-cover object-center absolute top-0 left-0' />
+                    <Image src={'/assets/landing/lounge@2x.png'} alt="UI Incridea 2024" width={1920 * 2} height={1080 * 2} className='w-full h-full object-cover object-center absolute top-0 left-0' />
+                    <Image src={'/assets/landing/lottery.svg'} alt="UI Incridea 2024" width={1920} height={1080} className='w-full h-full object-cover object-center absolute top-0 left-0' />
                 </section>
             }
             <div ref={Logo} className='flex w-[320px] md:w-[480px] lg:w-[640px] h-fit z-50 mt-16 md:mt-28'>
@@ -85,7 +86,6 @@ const Menu = () => {
         </div>
     )
 }
-
 const HomeUi = () => {
 
     useLayoutEffect(() => {
@@ -102,14 +102,16 @@ const HomeUi = () => {
             <div className="!w-full !h-full !object-center !object-cover !opacity-60 !absolute !bottom-0 !left-0">
 
             </div>
-            <Image data-depth="0.5" src={'/assets/home/moon.png'} alt='Gradient' width={1920} height={1080} className='!w-full !h-full !object-center !object-cover !opacity-60 !absolute !bottom-0 !left-0' />
+            <Image data-depth="0.5" src={'/assets/home/moon.png'} alt='Gradient' width={1920} height={1080} className='!w-full !h-full !object-center !object-cover !opacity-30 sm:!opacity-60 !absolute !bottom-0 !left-0 !scale-125 sm:!scale-100' />
 
             <Image data-depth="0.4" src={'/assets/home/stars.png'} alt='Gradient' width={1920} height={1080} className='!w-full !h-full !object-center !object-cover !absolute !bottom-0 !left-0' />
+
+            <Image src={'/assets/home/mist.png'} alt='Mist' width={1920} height={1080} className='!w-full !h-full !object-center !object-cover !absolute !bottom-0 !left-0 mix-blend-screen opacity-70'/>
 
             {/* building */}
             <div data-depth="0.3" className="!flex !top-auto !bottom-0 !w-[125%] md:!w-[115%] absolute">
                 <div className="!w-[200%] md:!w-[111%] absolute bottom-0 left-1/4 md:-left-1/4 md:right-3 md:-translate-x-0 -translate-x-2/3">
-                    <Image src={'/assets/home/portal.png'} alt='Portal' width={2050} height={1080} className="!scale-125 !object-bottom" />
+                    <Image src={'/assets/home/portal.png'} alt='Portal' width={2050} height={1080} className="!scale-110 !object-bottom" />
                 </div>
             </div>
 
