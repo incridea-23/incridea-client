@@ -150,7 +150,7 @@ const Event = ({
         </div>
         <div className="w-full">
           <Link href={generateEventUrl(data.name, data.id)}>
-            <button className="text-lg text-white capitalize shrink-0 w-full mt-0 py-2 flex gap-2 items-center justify-center rounded-full bg-gradient-to-tr from-secondary-800 to-secondary-600 hover:brightness-125 hover:scale-[1.02] transition-all duration-300">
+            <button className="mt-1 text-lg text-white capitalize shrink-0 w-full py-2 flex gap-2 items-center justify-center rounded-full bg-gradient-to-tr from-secondary-800 to-secondary-600 hover:brightness-125 hover:scale-[1.02] transition-all duration-300">
               <IoIosPlayCircle />
               Play
             </button>

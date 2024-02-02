@@ -174,6 +174,8 @@ import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
 import Spinner from '../../spinner';
 import ViewUserAccommodation from './viewUserAccommodation';
+import AvatarModal from './avatarModal';
+
 // import { GiShipWheel } from 'react-icons/gi';
 
 const ProfileInfo: FC<{
@@ -186,7 +188,8 @@ const ProfileInfo: FC<{
     error: errorAccommodation,
   } = useQuery(AccommodationRequestsByUserDocument);
 
-  const [showModal, setShowModal] = useState(false);
+  const [showAccommodationModal, setShowAccommodationModal] = useState(false);
+  const [avatarModal, setAvatarModal] = useState(false);
 
   if (user?.role === 'USER') {
     router.push('/register');
@@ -200,9 +203,11 @@ const ProfileInfo: FC<{
   <div className='flex flex-row 2xl:flex-col items-center'>
 
       {/* /profile picture ka div */}
-      <div className='justify-center items-start flex'>
+      <div className='justify-center items-start flex' onClick={()=>setAvatarModal(true)}> 
+        <AvatarModal showModal={avatarModal} setShowModal={setAvatarModal}/>
+     
            <Image
-                src={'/assets/png/c.png'}
+                src={user?.profileImage || ""}
                 width={130}
                 height={130}
                 alt="map"
@@ -227,15 +232,15 @@ const ProfileInfo: FC<{
               Sign Out
             </Button> */}
             <ViewUserAccommodation
-        showModal={showModal}
-        setShowModal={setShowModal}
+        showModal={showAccommodationModal}
+        setShowModal={setShowAccommodationModal}
       />
             {
               loadingAccommodation ? (
-                <Button size={'small'} onClick={()=>setShowModal(true)} className="w-max mt-3 md:mt-2"><Spinner size={'small'} className="text-[#dd5c6e]" /></Button>
+                <Button size={'small'} onClick={()=>setShowAccommodationModal(true)} className="w-max mt-3 md:mt-2"><Spinner size={'small'} className="text-[#dd5c6e]" /></Button>
                 
               ) : dataAccommodation?.accommodationRequestsByUser[0]?.status?
-              (<Button size={'small'} onClick={()=>setShowModal(true)} className="w-max mt-3 md:mt-2">View Request</Button>):
+              (<Button size={'small'} onClick={()=>setShowAccommodationModal(true)} className="w-max mt-3 md:mt-2">View Request</Button>):
             (<Button size={'small'} onClick={()=>router.push("/accommodation")} className="w-max mt-3 md:mt-2">Accommodate Me</Button>)
             }
 

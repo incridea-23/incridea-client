@@ -170,9 +170,9 @@ html{
   -webkit-text-fill-color: transparent;
 }
 
-.titleFont {
+/* .titleFont {
   font-family: "Roboto Slab", cursive;
-}
+} */
 
 .bodyFont {
   font-family: "arvo", sans-serif;
