@@ -50,7 +50,7 @@ const FallingItem: FunctionComponent<Prop> = ({ delay }) => {
 
   return (
     <div
-      className={"absolute animate-free-fall"}
+      className={"absolute animate-free-fall pointer-events-none"}
       style={{
         animationDelay: `${delay}ms`,
         top: "0px",
@@ -61,7 +61,7 @@ const FallingItem: FunctionComponent<Prop> = ({ delay }) => {
     >
       <Image
         src={`/assets/png/${src}`}
-        alt={""}
+        alt={src}
         width={size.width}
         height={size.height}
       />

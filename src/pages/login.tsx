@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import Image from "next/image";
 import FallingItem from "../components/login/fallingItem";
+import EasterBomb from "../components/login/easterBomb";
 
 type CardStyle = {
   top: string;
@@ -102,14 +103,15 @@ const SignIn: NextPage = () => {
 
         {/* TODO: Change the time delay here according to time delay set for free-fall animation in tailwind.config.js */}
         <div className="absolute left-2/4 -translate-x-2/4 -top-[10vh] -z-40 h-0 w-[65vw] md:w-[440px]">
-          <FallingItem delay={0} />
+          {/* <FallingItem delay={0} />
           <FallingItem delay={2000} />
           <FallingItem delay={4000} />
           <FallingItem delay={6000} />
-          <FallingItem delay={8000} />
+          <FallingItem delay={8000} /> */}
+          <EasterBomb />
         </div>
 
-        <LoginCard
+        {/* <LoginCard
           whichForm="signIn"
           cardStyle={cardStyle.signIn}
           setWhichForm={changeCard}
@@ -129,7 +131,7 @@ const SignIn: NextPage = () => {
           whichForm="resendEmail"
           cardStyle={cardStyle.resendEmail}
           setWhichForm={changeCard}
-        />
+        /> */}
 
         <LoginPortal isTop={false} />
       </div>
