@@ -18,6 +18,7 @@ query Me {
         name
         phoneNumber
         role
+        profileImage
         college {
           id
           name
