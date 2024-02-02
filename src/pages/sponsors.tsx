@@ -13,6 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Sponsors: NextPage = () => {
   const pathRef = useRef<SVGPathElement | null>(null);
+  // FIXME: hard code the actual length og the svg path being used
   const [pathLength, setPathLength] = useState<number>(1000000);
   const [scrollYProgress, setScrollYProgress] = useState<number>(0);
 

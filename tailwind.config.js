@@ -11,7 +11,7 @@ module.exports = {
         scroll: "scroll 60s linear infinite",
         "scroll-reverse": "scroll-reverse 60s linear infinite",
         "free-fall":
-          "fall 8s cubic-bezier(0.33333, 0, 0.66667, 0.33333) forwards",
+          "gravity 10s cubic-bezier(0.33333, 0, 0.66667, 0.33333) infinite",
         shake: "shake 0.3s linear infinite",
       },
       keyframes: {
@@ -30,12 +30,12 @@ module.exports = {
           "0%": { transform: "translateX(calc(-250px * 10))" },
           "100%": { transform: "translateX(0)" },
         },
-        fall: {
+        gravity: {
           "0%": {
-            transform: "translateY(0) rotate(0deg)",
+            transform: "translateY(-10vh) rotate(0deg)",
           },
           "100% ": {
-            transform: "translateY(100vh) rotate(360deg)",
+            transform: "translateY(110vh) rotate(360deg)",
           },
         },
       },
@@ -44,9 +44,6 @@ module.exports = {
       },
       fontFamily: {
         VikingHell: "VikingHell",
-      },
-      fontFamily: {
-        VikingHell: 'VikingHell'
       },
       colors: {
         primary: {
