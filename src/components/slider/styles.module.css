@@ -8,54 +8,51 @@
 
 .swiper_slide {
   transition: transform 0.3s, filter 0.3s;
-  width: 80%; 
+  width: 80%;
 }
 
 .swiper_slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: all .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .swiper_slide.active img {
-  transform: scale(1.0);
-  
+  transform: scale(1);
+
   opacity: 1;
   filter: grayscale(0%);
 }
 
 .swiper_slide:not(.active) img {
   transform: scale(0.6);
-  opacity: 0.2;
+  opacity: 0.6;
   filter: grayscale(100%);
 }
 
 .swiper_button_next,
 .swiper_button_prev {
   position: absolute;
-  bottom: 20px; /* Adjust the distance from the bottom */
-  width: 30px;
-  height: 30px;
+  bottom: 70px; /* Adjust the distance from the bottom */
+  width: 70px;
+  height: 70px;
   background-color: #333; /* Button background color */
   color: #fff; /* Button text color */
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 1000;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
-.swiper_button_next {
-  right: 20px; 
+/* .swiper_button_next {
+  right: 10rem;
   border-radius: 50%;
-  /* Adjust the distance from the right */
 }
 
 .swiper_button_prev {
   left: 20px;
-  border-radius: 50%; /* Adjust the distance from the left */
-}
+  border-radius: 50%;
+} */

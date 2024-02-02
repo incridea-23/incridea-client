@@ -6,6 +6,7 @@ import Image from "next/image";
 import styles from "./styles.module.css";
 import { client } from "@/src/lib/apollo";
 import { useQuery } from "@apollo/client";
+import { GoChevronRight, GoChevronLeft } from "react-icons/go";
 import {
   PublishedEventsDocument,
   PublishedEventsQuery,
@@ -71,11 +72,11 @@ const Carousel: React.FC = () => {
                 <Link href={generateEventUrl(data.name, data.id)}>
                   {data.image && (
                     <Image
-                       src={`https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg`}
-                      // src={data.image}
+                      // src={`https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg`}
+                      src={data.image}
                       alt={"Image"}
-                      width={100}
-                      height={100}
+                      width={300}
+                      height={300}
                       className="object-scale-down rounded-xl h-full w-full z-0"
                     />
                   )}
@@ -88,10 +89,18 @@ const Carousel: React.FC = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-      </div>
-      <div className="flex justify-center items-center">
-        <div className={styles.swiper_button_next}>{`>`}</div>
-        <div className={styles.swiper_button_prev}>{`<`}</div>
+        <div className="flex flex-between items-center">
+          <div
+            className={`${styles.swiper_button_next} lg:right-0 md:right-[10%] sm:right-[20%]  right-[30%]  z-[1001] rounded-full opacity-90`}
+          >
+            <GoChevronRight size={30} />
+          </div>
+          <div
+            className={`${styles.swiper_button_prev} lg:left-0 md:left-[10%] sm:left-[20%] left-[30%] z-[1001] rounded-full opacity-90`}
+          >
+            <GoChevronLeft size={30} />
+          </div>
+        </div>
       </div>
     </div>
   );

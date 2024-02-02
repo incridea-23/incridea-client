@@ -2,6 +2,7 @@ import { Html, Plane, useScroll } from "@react-three/drei";
 import styles from "./eventAnnotation.module.css";
 import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
+import Link from "next/link";
 
 const Level3 = () => {
   const scroll = useScroll();
@@ -48,15 +49,17 @@ const Level3 = () => {
           console.log("Clicked");
         }}
       >
-        <span
-          className={styles.levelButton}
-          style={{
-            opacity: scrollData ? 1 : 0,
-            pointerEvents: scrollData ? "all" : "none",
-          }}
-        >
-          Enter level 3
-        </span>
+        <Link href={"/explore/level3"}>
+          <span
+            className={styles.levelButton}
+            style={{
+              opacity: scrollData ? 1 : 0,
+              pointerEvents: scrollData ? "all" : "none",
+            }}
+          >
+            Enter level 3
+          </span>
+        </Link>
       </div>
     </Html>
   );
