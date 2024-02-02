@@ -370,7 +370,7 @@ const ProfileInfo: FC<{
 
           <div className="flex flex-row space-x-2 items-center titleFont">
             <Image
-              src={"/assets/png/XP.webp"}
+              src={"/assets/png/XP.png"}
               width={100}
               height={100}
               alt="map"
@@ -378,7 +378,7 @@ const ProfileInfo: FC<{
             />
 
             <div className="">
-              <p className="text-sm">XP</p>
+              <p className="text-sm">Gold</p>
               <p>100</p>
             </div>
           </div>
@@ -461,14 +461,14 @@ const ProfileInfo: FC<{
             </div>
           </section>
 
-          <div className="flex flex-col w-fit justify-center h-full items-center gap-y-3 border-2 shadow-md shadow-white border-primary-300 rounded-xl px-8 py-4">
+          <div className="flex flex-col w-full justify-center h-full items-center gap-y-3 border-2 shadow-md shadow-white border-primary-300 rounded-xl p-4">
             <QRCodeSVG
               value={idToPid(user?.id!)}
-              size={150}
+              size={100}
               bgColor="transparent"
               color="#ffffff"
               fgColor="#ffffff"
-              className="h-32 w-32"
+              className="md:h-32 md:w-32 h-20 w-20"
             />
             <span className={`titleFont text-[#fff] sm:text-xl text-md`}>
               {idToPid(user?.id!)}

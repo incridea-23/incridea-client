@@ -27,7 +27,7 @@ const UserEvents: FC<{
         events.registeredEvents.data.length === 0 ? (
         <div className="flex flex-col items-center justify-center gap-5 h-full">
           <p className="text-white/80 text-lg">
-            Register for an event to see it here gamer!
+            Register for an event to see it here!
           </p>
           <Link href="/events" className="text-white">
             <Button>Explore Quests</Button>

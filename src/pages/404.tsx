@@ -1,29 +1,33 @@
-import { NextPage } from 'next';
-import Image from 'next/image';
-import Button from '../components/button';
-import Link from 'next/link';
+import { NextPage } from "next";
+import Image from "next/image";
+import Button from "../components/button";
+import Link from "next/link";
 
 const Page404: NextPage = () => {
-  const titleText: string = 'Lost at sea...of 404';
-  const bodyText: string = "Let's steer you back to smoother waters.";
+  const titleText: string = "Game Over!";
+  const bodyText: string =
+    "Looks like you've taken a wrong turn.";
 
   return (
-    <div className="flex flex-col min-h-screen justify-center items-center bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6]">
-        <div className="flex z-10 justify-center items-center h-96 mt-8">
-            <Image src={ '/assets/png/diver.png' } alt="404" width={400} height={400} />
-        </div>
-        <div className='flex flex-col justify-center items-center mb-10 -translate-y-10'>
-            <h1 className={`titleFont text-xl text-white transition-colors duration-300 flex justify-center items-center text-center mx-2`}>{ titleText }</h1>
-            <h1 className={`titleFont text-lg text-white transition-colors duration-300 flex justify-center items-center text-center mx-2`}>{ bodyText } </h1>
-            <Link href={'/'} as="/">
-                <Button
-                    className="mt-4"
-                    intent={"primary"}
-                >
-                    HOME
-                </Button>
-            </Link>
-        </div>
+    <div className="flex flex-col min-h-screen justify-center items-center bg-gradient-to-b from-primary-300 to-primary-500">
+      <div className="text-9xl font-black text-white/30">404</div>
+      <div className="flex flex-col justify-center items-center">
+        <h1
+          className={`font-bold text-2xl md:text-5xl mb-1 md:mb-3 text-white transition-colors duration-300 flex justify-center items-center text-center mx-2`}
+        >
+          {titleText}
+        </h1>
+        <h1
+          className={`text-sm md:text-lg text-gray-200 transition-colors duration-300 flex justify-center items-center text-center mx-2`}
+        >
+          {bodyText}{" "}
+        </h1>
+        <Link href={"/"} as="/">
+          <Button className="mt-4" intent={"primary"}>
+            Return to Main Menu
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 };

@@ -54,7 +54,7 @@ export default function EditEventModal({
   const handleUpload = (file: File) => {
     const formData = new FormData();
     formData.append("image", file);
-    const url = `https://incridea.onrender.com/cloudinary/upload/${event.name}`;
+    const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/cloudinary/upload/${event.name}`;
     setUploading(true);
     const promise = fetch(url, {
       method: "POST",
@@ -130,7 +130,8 @@ export default function EditEventModal({
           event.published
             ? "opacity-50 pointer-events-none cursor-not-allowed"
             : ""
-        }>
+        }
+      >
         <AiOutlineEdit />
         Edit
       </Button>
@@ -138,13 +139,15 @@ export default function EditEventModal({
         title="Edit Event Details"
         size="medium"
         showModal={showModal}
-        onClose={handleCloseModal}>
+        onClose={handleCloseModal}
+      >
         <div className=" p-5 ">
           <div className="mt-2">
             <div className="mb-6">
               <label
                 htmlFor="name"
-                className="block mb-2 text-sm font-medium text-white">
+                className="block mb-2 text-sm font-medium text-white"
+              >
                 Event Name
               </label>
               <input
@@ -160,7 +163,8 @@ export default function EditEventModal({
             <div className="mb-6">
               <label
                 htmlFor="description"
-                className="block mb-2 text-sm font-medium text-white">
+                className="block mb-2 text-sm font-medium text-white"
+              >
                 Event Description
               </label>
               <Editor
@@ -175,7 +179,8 @@ export default function EditEventModal({
               <div className="grow md:basis-1/4 basis-full">
                 <label
                   htmlFor="Venue"
-                  className="block mb-2 text-sm font-medium text-white">
+                  className="block mb-2 text-sm font-medium text-white"
+                >
                   Venue
                 </label>
                 <input
@@ -197,7 +202,8 @@ export default function EditEventModal({
                   placeholder="Event Type"
                   value={eventType}
                   onChange={(e) => setEventType(e.target.value)}
-                  className="w-full  bg-gray-600 border border-gray-600 h-10 px-4 pr-16 rounded-lg text-sm focus:outline-none focus:ring-2 ring-gray-500">
+                  className="w-full  bg-gray-600 border border-gray-600 h-10 px-4 pr-16 rounded-lg text-sm focus:outline-none focus:ring-2 ring-gray-500"
+                >
                   {Object.values(EventType).map((type) => (
                     <option key={type} value={type}>
                       {type}
@@ -214,7 +220,8 @@ export default function EditEventModal({
                   placeholder="Category"
                   value={category as string}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="w-full  bg-gray-600 border border-gray-600 h-10 px-4 pr-16 rounded-lg text-sm focus:outline-none focus:ring-2 ring-gray-500">
+                  className="w-full  bg-gray-600 border border-gray-600 h-10 px-4 pr-16 rounded-lg text-sm focus:outline-none focus:ring-2 ring-gray-500"
+                >
                   {Object.values(EventCategory).map((type) => (
                     <option key={type} value={type}>
                       {type}
@@ -228,7 +235,8 @@ export default function EditEventModal({
               <div className="grow md:basis-1/3 basis-full">
                 <label
                   htmlFor="fees"
-                  className="block mb-2 text-sm font-medium text-white">
+                  className="block mb-2 text-sm font-medium text-white"
+                >
                   Entry Fees
                 </label>
                 <input
@@ -339,7 +347,8 @@ export default function EditEventModal({
               intent={"success"}
               onClick={saveHandler}
               disabled={loading || uploading}
-              className="rounded-lg">
+              className="rounded-lg"
+            >
               Save
             </Button>
           </div>
