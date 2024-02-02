@@ -16,6 +16,13 @@ import ExploreGame from "../components/exploreGame";
 import HeadComponent from "../components/head";
 import Footer from "../components/footer";
 
+import VikingHell from "@next/font/local";
+
+// Font files can be colocated inside of `pages`
+const vikHell = VikingHell({
+  src: "../../public/font/Viking Hell.otf",
+  variable: "--font-vikingHell",
+});
 
 export default function App({
   Component,
@@ -60,7 +67,9 @@ export default function App({
       />
       <Toaster />
       <AnimatePresence>{isLoading && <Loader />}</AnimatePresence>
-      <div className="bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6]">
+      <div
+        className={`bg-gradient-to-bl ${vikHell.variable}  from-[#41acc9]  via-[#075985] to-[#2d6aa6]`}
+      >
         {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white">
             <Image

@@ -43,11 +43,11 @@ module.exports = {
         "suck-in": "cubic-bezier(0.65, 0, 0.35, 1)",
       },
       fontFamily: {
-        VikingHell: "VikingHell",
+        VikingHell: "var(--font-vikingHell)",
       },
-      fontFamily: {
-        VikingHell: 'VikingHell'
-      },
+      // fontFamily: {
+      //   VikingHell: 'VikingHell'
+      // },
       colors: {
         primary: {
           50: "#E7D9F8",

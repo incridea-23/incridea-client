@@ -48,9 +48,71 @@ const App = () => {
       name: event.name || "",
       image: event.image || "",
     })) || [];
+  
 
+  const dummyData = [
+    {
+      id: "1",
+      name: "Event 1",
+      image:
+        "https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg",
+    },
+    {
+      id: "2",
+      name: "Event 2",
+      image:
+        "https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg",
+    },
+    {
+      id: "3",
+      name: "Event 3",
+      image:
+        "https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg",
+    },
+    {
+      id: "4",
+      name: "Event 4",
+      image:
+        "https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg",
+    },
+    {
+      id: "5",
+      name: "Event 5",
+      image:
+        "https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg",
+    },
+    {
+      id: "6",
+      name: "Event 6",
+      image:
+        "https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg",
+    },
+    {
+      id: "7",
+      name: "Event 7",
+      image:
+        "https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg",
+    },
+    {
+      id: "8",
+      name: "Event 8",
+      image:
+        "https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg",
+    },
+    {
+      id: "9",
+      name: "Event 9",
+      image:
+        "https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg",
+    },
+    {
+      id: "10",
+      name: "Event 10",
+      image:
+        "https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg",
+    },
+  ];
 
-  ;
   const modalRef = useRef(null);
   const sponsorBookRef = useRef(null);
   const eventDex = useStore((state) => state.eventDex);
@@ -99,7 +161,7 @@ const App = () => {
         </Canvas>
       </Suspense>
       <div className="" ref={modalRef}>
-        {eventDex && <Pokedex data={events}/>}
+        {eventDex && <Pokedex data={dummyData}/>}
       </div>
       <div className="" ref={sponsorBookRef}>
         {sponsor && <BookModal />}

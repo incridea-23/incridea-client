@@ -45,7 +45,6 @@ const Carousel: React.FC<CarouselProps> = ({ events = [] }) => {
           slidesPerView={3}
           centeredSlides={true}
           loop={true}
-          
         >
           {events.map((data, index) => (
             <SwiperSlide
@@ -60,8 +59,8 @@ const Carousel: React.FC<CarouselProps> = ({ events = [] }) => {
                     <Image
                       src={data.image}
                       alt={"Image"}
-                      width={100}
-                      height={100}
+                      width={300}
+                      height={300}
                       className="object-scale-down rounded-xl h-full w-full z-0"
                     />
                   )}

@@ -112,8 +112,8 @@ const Event = ({
           <div className={`rounded-xl object-fill px-2`}>
             {data.image && (
               <Image
-                src={`https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg`}
-                //src={data.image}
+                // src={`https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg`}
+                src={data.image}
                 alt={"Image"}
                 width={250}
                 height={250}
