@@ -26,7 +26,7 @@ const FallingElement: React.FC<srcProps> = ({ src, size }: srcProps) => {
     return (
         <>
             <div
-                /* onClick={() => { localSrc === "bomb.png" ? setLocalSrc("explodeGif.gif") : null }} */
+                
                 className={`absolute bottom-0 animate-free-fall ${localSrc === "bomb.png" ? "z-[900]": "z-50"}`}
                 style={{
                     
@@ -37,7 +37,6 @@ const FallingElement: React.FC<srcProps> = ({ src, size }: srcProps) => {
                  {localSrc != "" ? <Image 
                     src={`/assets/png/${localSrc}`}
                     alt={""}
-                    /* fill={true} */
                     width={localSrc !== "explodeGif.gif" ? size.width : 170}
                     height={localSrc !== "explodeGif.gif" ? size.height :170}
                 />: null}   

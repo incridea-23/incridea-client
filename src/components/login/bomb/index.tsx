@@ -29,7 +29,7 @@ const Bomb: React.FC = () => {
     return () => {
       clearInterval(intervalId);
     };
-  }, [isBombClicked]); // Include isBombClicked in the dependency array
+  }, [isBombClicked]); 
 
   return <>{fallingElements}</>;
 };

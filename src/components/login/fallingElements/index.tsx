@@ -24,7 +24,7 @@ const getSize = () => {
   return { width: size, height: size }; //used to generate a random size every time an element is made to fall
 };
 
-const FallingElements: React.FC<{ isBomb: boolean }> = ({ isBomb }) => {
+const FallingElements: React.FC = () => {
   const [fallingElements, setFallingElements] = useState<React.ReactNode[]>([]); //used to append new elements to the falling elements
 
   useEffect(() => {
@@ -32,22 +32,22 @@ const FallingElements: React.FC<{ isBomb: boolean }> = ({ isBomb }) => {
       () => {
         setFallingElements((prev) => [
           ...prev.slice(prev.length < 4 ? 0 : 1),
-          !isBomb ? (
+          
             <FallingElement
               src={elements[getElement()]}
               size={getSize()}
               key={Date.now()}
             />
-          ) : (
+           /* (
             <FallingElement
               src="bomb.png"
               size={{ width: 40, height: 40 }}
               key={Date.now()}
             />
-          ),
+          ), */
         ]);
       },
-      isBomb ? 1000 : 2000
+       2000
     );
 
     return () => {

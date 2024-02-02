@@ -41,10 +41,9 @@ const LoginPortal: FunctionComponent<LoginPortalProps> = ({ isTop }) => {
       {isTop && (
         <>
           <div className="absolute left-2/4 -translate-x-2/4 -z-40 h-0 w-[65vw] md:w-[440px]">
-            <FallingElements isBomb={false} />
+            <FallingElements  />
           </div>
           <div className="absolute left-2/4 -translate-x-2/4 z-30 h-0 w-[65vw] md:w-[440px]">
-            {/* <FallingElements isBomb={true} /> */}
             <Bomb />
           </div>
         </>
