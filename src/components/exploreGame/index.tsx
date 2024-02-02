@@ -14,6 +14,7 @@ import {
   platformSpriteDimensions,
 } from "./gameConstants";
 
+const fps: number = 60;
 const actionKeys: string[] = [];
 const ExploreGame = () => {
   const [showAbout, setShowAbout] = useState(false);
@@ -24,6 +25,7 @@ const ExploreGame = () => {
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const ctx = useRef<CanvasRenderingContext2D | null | undefined>(null);
   const lastExecutionTimeRef = useRef<number>(0);
+  const lastCanvasExecutionTimeRef = useRef<number>(Date.now());
 
   const movementSoundTrigger = (path: string, delay: number) => {
     const currentTime = Date.now();
@@ -504,86 +506,96 @@ const ExploreGame = () => {
   };
 
   const animate = () => {
-    ctx.current?.clearRect(0, 0, window.innerWidth, window.innerHeight * 2);
+    const currentTime = Date.now();
 
-    actionKeys.map((key) => {
-      switch (key) {
-        case "ArrowLeft":
-          MoveLeft();
-          break;
-        case "ArrowRight":
-          MoveRight();
-          break;
-        case "ArrowUp":
-          Jump();
-          break;
+    if (currentTime - lastCanvasExecutionTimeRef.current > 1000 / fps) {
+      ctx.current?.clearRect(0, 0, window.innerWidth, window.innerHeight * 2);
+
+      actionKeys.map((key) => {
+        switch (key) {
+          case "ArrowLeft":
+            MoveLeft();
+            break;
+          case "ArrowRight":
+            MoveRight();
+            break;
+          case "ArrowUp":
+            Jump();
+            break;
+        }
+      });
+
+      if (
+        actionKeys.includes("ArrowLeft") &&
+        actionKeys.includes("ArrowRight")
+      ) {
+        spriteState = "idle";
+      } else if (
+        actionKeys.includes("ArrowLeft") ||
+        actionKeys.includes("ArrowRight")
+      ) {
+        spriteState = "walk";
+      } else {
+        spriteState = "idle";
       }
-    });
 
-    if (actionKeys.includes("ArrowLeft") && actionKeys.includes("ArrowRight")) {
-      spriteState = "idle";
-    } else if (
-      actionKeys.includes("ArrowLeft") ||
-      actionKeys.includes("ArrowRight")
-    ) {
-      spriteState = "walk";
-    } else {
-      spriteState = "idle";
+      if (
+        actionKeys.includes("ArrowLeft") &&
+        actionKeys.includes("ArrowRight")
+      ) {
+        isRightDirection =
+          actionKeys.indexOf("ArrowLeft") > actionKeys.indexOf("ArrowRight")
+            ? false
+            : true;
+      } else if (actionKeys.includes("ArrowLeft")) {
+        isRightDirection = false;
+      } else if (actionKeys.includes("ArrowRight")) {
+        isRightDirection = true;
+      }
+
+      if (player.current.x > boundary.right) {
+        router.push("/explore/level2");
+      }
+
+      drawBackground(ctx.current, background.current as HTMLImageElement);
+      drawGround(ctx.current, platformSprite.current as HTMLImageElement);
+      drawPlatform(ctx.current, platformSprite.current as HTMLImageElement);
+
+      const currentSpriteState =
+        spriteState === "idle"
+          ? SpriteDimensions[isRightDirection ? "right" : "left"][0][0]
+          : SpriteDimensions[isRightDirection ? "right" : "left"][1][
+              spriteIndex
+            ];
+
+      player.current.y += velocity.current.y;
+      collisionDetection(ctx.current);
+      if (!isGrounded) {
+        velocity.current.y += gravity;
+      } else {
+        velocity.current.y = 0;
+      }
+      ctx.current?.drawImage(
+        ryokoSprite.current as HTMLImageElement,
+        currentSpriteState.x,
+        currentSpriteState.y,
+        currentSpriteState.width,
+        currentSpriteState.height,
+        player.current.x,
+        player.current.y,
+        player.current.width,
+        player.current.height
+      );
+
+      prevPos.current.x = player.current.x;
+      prevPos.current.y = player.current.y;
+
+      lastCanvasExecutionTimeRef.current = currentTime;
     }
-
-    if (actionKeys.includes("ArrowLeft") && actionKeys.includes("ArrowRight")) {
-      isRightDirection =
-        actionKeys.indexOf("ArrowLeft") > actionKeys.indexOf("ArrowRight")
-          ? false
-          : true;
-    } else if (actionKeys.includes("ArrowLeft")) {
-      isRightDirection = false;
-    } else if (actionKeys.includes("ArrowRight")) {
-      isRightDirection = true;
-    }
-
-    if (player.current.x > boundary.right) {
-      router.push("/explore/level2");
-    }
-
-    drawBackground(ctx.current, background.current as HTMLImageElement);
-    drawGround(ctx.current, platformSprite.current as HTMLImageElement);
-    drawPlatform(ctx.current, platformSprite.current as HTMLImageElement);
-
-    const currentSpriteState =
-      spriteState === "idle"
-        ? SpriteDimensions[isRightDirection ? "right" : "left"][0][0]
-        : SpriteDimensions[isRightDirection ? "right" : "left"][1][spriteIndex];
-
-    player.current.y += velocity.current.y;
-    collisionDetection(ctx.current);
-    if (!isGrounded) {
-      velocity.current.y += gravity;
-    } else {
-      velocity.current.y = 0;
-    }
-    ctx.current?.drawImage(
-      ryokoSprite.current as HTMLImageElement,
-      currentSpriteState.x,
-      currentSpriteState.y,
-      currentSpriteState.width,
-      currentSpriteState.height,
-      player.current.x,
-      player.current.y,
-      player.current.width,
-      player.current.height
-    );
-
-    prevPos.current.x = player.current.x;
-    prevPos.current.y = player.current.y;
 
     frameCount = (frameCount + 1) % 5;
 
-    const fps = 60;
-
-    setTimeout(() => {
-      requestAnimationFrame(animate);
-    }, 1000 / fps);
+    requestAnimationFrame(animate);
   };
 
   useEffect(() => {
@@ -764,7 +776,7 @@ const ExploreGame = () => {
             }}
             onTouchEnd={() => {
               if (actionKeys.includes("ArrowRight")) {
-                actionKeys.splice(actionKeys.indexOf("ArrowRight", 1));
+                actionKeys.splice(0, actionKeys.length);
               }
             }}
             onMouseDown={() => {
@@ -773,16 +785,12 @@ const ExploreGame = () => {
             }}
             onMouseUp={() => {
               if (actionKeys.includes("ArrowRight")) {
-                actionKeys.splice(actionKeys.indexOf("ArrowRight", 1));
+                actionKeys.splice(0, actionKeys.length);
               }
             }}
             className="pointer-events-auto"
           >
-            <g
-              id="Rectangle 6"
-              filter="url(#filter0_b_95_21)"
-              className="pointer-events-none"
-            >
+            <g id="Rectangle 6" filter="url(#filter0_b_95_21)" className="">
               <rect
                 x="808"
                 y="495"
@@ -813,7 +821,7 @@ const ExploreGame = () => {
             }}
             onTouchEnd={() => {
               if (actionKeys.includes("ArrowUp")) {
-                actionKeys.splice(actionKeys.indexOf("ArrowUp", 1));
+                actionKeys.splice(0, actionKeys.length);
               }
             }}
             onMouseDown={() => {
@@ -821,7 +829,7 @@ const ExploreGame = () => {
             }}
             onMouseUp={() => {
               if (actionKeys.includes("ArrowUp")) {
-                actionKeys.splice(actionKeys.indexOf("ArrowUp", 1));
+                actionKeys.splice(0, actionKeys.length);
               }
             }}
             className="pointer-events-auto"
@@ -860,7 +868,7 @@ const ExploreGame = () => {
             }}
             onTouchEnd={() => {
               if (actionKeys.includes("ArrowLeft")) {
-                actionKeys.splice(actionKeys.indexOf("ArrowLeft", 1));
+                actionKeys.splice(0, actionKeys.length);
               }
             }}
             onMouseDown={() => {
@@ -869,7 +877,7 @@ const ExploreGame = () => {
             }}
             onMouseUp={() => {
               if (actionKeys.includes("ArrowLeft")) {
-                actionKeys.splice(actionKeys.indexOf("ArrowLeft", 1));
+                actionKeys.splice(0, actionKeys.length);
               }
             }}
             className="pointer-events-auto"
