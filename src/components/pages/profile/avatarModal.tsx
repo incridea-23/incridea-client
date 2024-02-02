@@ -1,6 +1,6 @@
 import Modal from "@/src/components/modal";
-import { GetAvatarsDocument } from "@/src/generated/generated";
-import { useQuery } from "@apollo/client";
+import { GetAvatarsDocument, MeDocument, UpdateProfileImageDocument,  } from "@/src/generated/generated";
+import { useMutation, useQuery } from "@apollo/client";
 import Spinner from "@/src/components/spinner";
 import Image from "next/image";
 
@@ -16,6 +16,13 @@ const AvatarModal: React.FunctionComponent<Props> = ({
   showModal,
   setShowModal,
 }) => {
+
+  const [updateAvatarMutation, { data:updateImageResponse, loading: Updating, error }] =
+    useMutation(UpdateProfileImageDocument,{
+      refetchQueries: [{ query: MeDocument }],
+    });
+
+
   const data = useQuery(GetAvatarsDocument) || [];
   let avatarList:{
 
@@ -39,7 +46,11 @@ const AvatarModal: React.FunctionComponent<Props> = ({
             <Spinner className="text-[#dd5c6e]" />
           ) : ( */}
             {avatarList.map((avatar,index) => (
-                <div className="flex flex-col hover:bg-slate-500 hover:rounded" key={index}>
+                <div className="flex flex-col hover:bg-slate-500 hover:rounded" key={index} onClick={()=>updateAvatarMutation({
+                  variables:{
+                    imageURL:avatar.url
+                  }
+                })}>
                     <Image src={avatar.url} alt={avatar.name} className="rounded-full h-20 w-20" width={100} height={100} />
                     <div className="text-center">{avatar.name}</div>
                 </div>

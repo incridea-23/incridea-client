@@ -175,6 +175,7 @@ import { useQuery } from '@apollo/client';
 import Spinner from '../../spinner';
 import ViewUserAccommodation from './viewUserAccommodation';
 import AvatarModal from './avatarModal';
+
 // import { GiShipWheel } from 'react-icons/gi';
 
 const ProfileInfo: FC<{
@@ -206,7 +207,7 @@ const ProfileInfo: FC<{
         <AvatarModal showModal={avatarModal} setShowModal={setAvatarModal}/>
      
            <Image
-                src={'/assets/png/c.png'}
+                src={user?.profileImage || ""}
                 width={130}
                 height={130}
                 alt="map"
