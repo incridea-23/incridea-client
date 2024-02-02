@@ -24,8 +24,10 @@ const ExploreGame = () => {
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const ctx = useRef<CanvasRenderingContext2D | null | undefined>(null);
   const lastExecutionTimeRef = useRef<number>(0);
-
+  let audioElement: "ground" | "middle" | "left" | "right" | "jump" = "middle";
+  const [isMuted, setIsMuted] = useState(false);
   const movementSoundTrigger = (path: string, delay: number) => {
+    if (isMuted) return;
     const currentTime = Date.now();
     const elapsedTime = currentTime - lastExecutionTimeRef.current;
 
@@ -134,6 +136,7 @@ const ExploreGame = () => {
   }
 
   function Jump() {
+    audioElement = "jump";
     if (isGrounded) {
       velocity.current.y = -Math.sqrt(
         window.innerHeight *
@@ -346,6 +349,10 @@ const ExploreGame = () => {
 
     if (player.current.y >= window.innerHeight * 1.62 - player.current.height) {
       // Standing on the ground
+      if (audioElement !== "ground") {
+        audioElement = "ground";
+        movementSoundTrigger("/audio/thud.mp3", 0);
+      }
       isGrounded = true;
       player.current.y = window.innerHeight * 1.62 - player.current.height;
       return;
@@ -369,6 +376,10 @@ const ExploreGame = () => {
     ) {
       // Standing on the left platform
       isGrounded = true;
+      if (audioElement !== "left") {
+        audioElement = "left";
+        movementSoundTrigger("/audio/thump.mp3", 250);
+      }
 
       if (showScheduleFlag) {
         setShowSchedule(true);
@@ -416,6 +427,10 @@ const ExploreGame = () => {
           player.current.width / 2
     ) {
       // Standing on the right platform
+      if (audioElement !== "right") {
+        audioElement = "right";
+        movementSoundTrigger("/audio/thump.mp3", 0);
+      }
       isGrounded = true;
       if (showRuleBookFlag) {
         setShowRuleBook(true);
@@ -462,6 +477,10 @@ const ExploreGame = () => {
           centralPlatformSpriteWidth
     ) {
       // Standing on the central platform
+      if (audioElement !== "middle") {
+        audioElement = "middle";
+        movementSoundTrigger("/audio/thump.mp3", 0);
+      }
       isGrounded = true;
       if (showAboutFlag) {
         setShowAbout(true);
@@ -490,7 +509,9 @@ const ExploreGame = () => {
       velocity.current.y = 0;
 
       /* ######### EASTER EGG GOES HERE ######### */
+      movementSoundTrigger("/audio/thud.mp3", 250);
       handleAddXp();
+      //replace with xp sound
       return;
     }
 
@@ -973,7 +994,11 @@ const ExploreGame = () => {
           </defs>
         </svg>
       </div>
-      <AudioPlayer mainTheme="/audio/Level1MainTheme.mp3"></AudioPlayer>
+      <AudioPlayer
+        mainTheme="/audio/Level1MainTheme.mp3"
+        isMuted={isMuted}
+        setIsMuted={setIsMuted}
+      ></AudioPlayer>
     </div>
   );
 };
