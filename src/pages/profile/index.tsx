@@ -1,19 +1,54 @@
 import { useAuth } from "@/src/hooks/useAuth";
 import { NextPage } from "next";
 import "locomotive-scroll/dist/locomotive-scroll.css";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import ProfileInfo from "@/src/components/pages/profile/profileInfo";
 import UserEvents from "@/src/components/pages/profile/registeredEvents";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
 import Button from "@/src/components/button";
 import Image from "next/image";
 import Loader from "@/src/components/Loader";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { useMutation } from "@apollo/client";
+import { AddXpDocument } from "@/src/generated/generated";
 
 const Profile: NextPage = () => {
   const { error, user, loading } = useAuth();
   const containerRef = useRef(null);
+  const router = useRouter(); 
+  const [bombXp, setBombXp] = useState<Boolean>(false);
+  const [addXp] = useMutation(AddXpDocument,{
+    variables: {
+        levelId: "2",
+    },
+  });
+
+  useEffect(() => {
+    if(router.isReady){
+      setBombXp(localStorage.getItem("bombClicked") === "true" ? true : false);
+    }
+  },[router.isReady])
+
+  useEffect(() => {
+    if (bombXp) {
+      console.log("bombXp", bombXp);
+      addXp().then((res) => {
+        if (res.data?.addXP.__typename !== "MutationAddXPSuccess") {
+        } else {
+          toast.success(`Added ${res.data?.addXP.data.level.point} bomb Xp`, {
+            position: "bottom-center",
+            style:{
+              backgroundColor: "#7628D0",
+              color: "white"
+            }
+          });
+          localStorage.removeItem("bombClicked");
+        }
+      });
+    }
+  }, [bombXp]);
 
   if (loading) return <Loader />; // Todo: Loading page here
 
