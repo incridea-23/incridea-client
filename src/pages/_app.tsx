@@ -67,7 +67,7 @@ export default function App({
         <Toaster />
         <AnimatePresence>{isLoading && <Loader />}</AnimatePresence>
         <div
-          className={`min-h-screen ${VikingHell.variable} ${pressStart.className}`}
+          className={`min-h-screen ${VikingHell.variable} ${pressStart.variable}`}
         >
           {!isLoading && <Navbar />}
           <Component setLoading={setLoading} {...pageProps} />
