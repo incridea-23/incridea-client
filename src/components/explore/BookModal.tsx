@@ -36,7 +36,7 @@ const BookModal: React.FC = () => {
 
   return (
     <>
-      <div className="flex fixed inset-0 z-[1000] h-screen items-center justify-center p-5 md:scale-150  overflow-hidden bg-black bg-opacity-50">
+      <div className="flex fixed inset-0 z-[1000] h-screen items-center justify-center p-5 md:scale-[200%]  overflow-hidden bg-black bg-opacity-50">
         <HTMLFlipBook
           width={150}
           height={225}
@@ -105,7 +105,7 @@ const BookModal: React.FC = () => {
         </HTMLFlipBook>
       </div>
       <div
-        className="fixed md:top-[25%] xl:right-[35%] lg:right-[30%] md:right-[25%] sm:right-[20%] top-[25%] right-[15%] z-[1001]  cursor-pointer bg-primary-300 px-2 py-1 rounded-sm"
+        className="fixed lg:top-[15%]  xl:right-[30%] lg:right-[25%] md:right-[20%] sm:right-[15%] top-[25%] right-[10%] z-[1001]  cursor-pointer bg-primary-300 px-2 py-1 rounded-sm"
         style={{ pointerEvents: sponsorFlag ? "all" : "none" }}
         onClick={setSponsorFlag}
       >

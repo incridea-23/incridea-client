@@ -85,7 +85,7 @@ const Profile: NextPage = () => {
     <>
       <main ref={containerRef} className=" bg-[#140F34]">
         <div className="flex lg:flex-row flex-col-reverse py-[6rem] lg:pt-[8rem] min-h-screen gap-5 mx-5">
-          <div className=" bg-[#ababab]  bg-opacity-10 lg:w-[66.66%] w-full overflow-auto border-2 border-slate-400 rounded-xl">
+          <div className=" bg-white/10 lg:w-[66.66%] w-full overflow-auto rounded-xl">
             <UserEvents
               userId={user?.id!}
               name={user.name}
@@ -93,7 +93,7 @@ const Profile: NextPage = () => {
             />
           </div>
 
-          <div className="col-span-1 bg-[#ababab] bg-opacity-10 rounded-xl">
+          <div className="col-span-1 bg-white/10 rounded-xl">
             <ProfileInfo user={user} />
           </div>
         </div>

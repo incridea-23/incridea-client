@@ -15,7 +15,7 @@ interface DexProps {
   data?: Array<{ id: string; name: string; image: string }>;
 }
 
-const Pokedex: React.FC<DexProps>: React.FC<DexProps> = ({ data = [] }{ data = [] }) => {
+const Pokedex: React.FC<DexProps> = ({ data = [] }) => {
   const setEventDex = useStore((state) => state.setEventDex);
   const eventDex = useStore((state) => state.eventDex);
   const [fullyOpen, setFullyOpen] = useState(false);
