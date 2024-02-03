@@ -189,9 +189,9 @@ const ProfileInfo: FC<{
 
   const [showModal, setShowModal] = useState(false);
 
-  // if (user?.role === "USER") {
-  //   router.push("/register");
-  // }
+  if (user?.role === "USER") {
+    router.push("/register");
+  }
 
   //   return (
   //     <section className="text-white h-full flex pt-20 lg:w-full lg:pt-0 justify-center items-center">
