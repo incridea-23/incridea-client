@@ -19,6 +19,8 @@
     "@react-three/fiber": "^8.15.15",
     "@react-three/postprocessing": "^2.15.12",
     "@rive-app/react-canvas": "^3.0.38",
+    "@studio-freight/lenis": "^1.0.34",
+    "@studio-freight/react-lenis": "^0.0.43",
     "@theatre/core": "^0.7.0",
     "@theatre/r3f": "^0.7.0",
     "@theatre/studio": "^0.7.0",

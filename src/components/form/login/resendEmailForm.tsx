@@ -8,9 +8,10 @@ import { EmailVerificationDocument } from "@/src/generated/generated";
 
 type Props = {
   setWhichForm: (whichForm: "signIn" | "resetPassword" | "signUp") => void;
+  setGotDialogBox: (gotDialogBox: boolean) => void;
 };
 
-const ResendEmail = ({ setWhichForm }: Props) => {
+const ResendEmail = ({ setWhichForm, setGotDialogBox }: Props) => {
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
 
@@ -18,6 +19,8 @@ const ResendEmail = ({ setWhichForm }: Props) => {
     emailVerificationMutation,
     { data, loading, error: emailVerificationError },
   ] = useMutation(EmailVerificationDocument);
+
+  if (emailVerificationError) setGotDialogBox(true);
 
   const handleSubmit = async (e: any) => {
     setError(null);
@@ -31,6 +34,14 @@ const ResendEmail = ({ setWhichForm }: Props) => {
     }).then((res) => {
       if (res.data?.sendEmailVerification.__typename === "Error") {
         setError(res.data.sendEmailVerification.message);
+        setGotDialogBox(true);
+      }
+
+      if (
+        res.data?.sendEmailVerification.__typename ===
+        "MutationSendEmailVerificationSuccess"
+      ) {
+        setGotDialogBox(true);
       }
     });
   };
@@ -48,28 +59,26 @@ const ResendEmail = ({ setWhichForm }: Props) => {
         </h2>
         {data?.sendEmailVerification.__typename ===
         "MutationSendEmailVerificationSuccess" ? (
-          <>
-            <div className="flex flex-col gap-2 text-center items-center text-green-500 bg-green-100 font-semibold p-4 pb-2 rounded-md">
-              <BiCheckCircle size={"2rem"} />
-              <div className="bg-green-100 flex flex-col text-center mb-5 items-center gap-3 rounded-md font-semibold">
-                Verification email sent to {email}
-                <br />
-                Please check your inbox.
-                {/* <hr className="border-green-200 my-1" /> */}
-                <div className="text-sm font-normal">
-                  <p>Didn&apos;t recieve the email?</p>
-                  <p>Make sure to check your spam folder.</p>
-                  <button
-                    type="button"
-                    onClick={handleSubmit}
-                    className="font-normal underline text-sm transition-colors   text-green-500 hover:text-green-700"
-                  >
-                    Click here to resend it
-                  </button>
-                </div>
+          <div className="flex flex-col gap-2 text-center items-center text-[#d7037f] bg-secondary-300 font-semibold p-4 pb-2 rounded-md">
+            <BiCheckCircle size={"2rem"} />
+            <div className="bg-secondary-300 flex flex-col text-center mb-5 items-center gap-3 rounded-md font-semibold">
+              Verification email sent to {email}
+              <br />
+              Please check your inbox.
+              {/* <hr className="border-secondary-600 my-2 mx-3" /> */}
+              <div className="text-sm font-normal">
+                <p>Didn&apos;t recieve the email?</p>
+                <p>Make sure to check your spam folder.</p>
+                <button
+                  type="button"
+                  onClick={handleSubmit}
+                  className="font-normal underline text-sm transition-colors text-secondary-800 hover:font-medium"
+                >
+                  Click here to resend it
+                </button>
               </div>
             </div>
-          </>
+          </div>
         ) : (
           <>
             <h6 className="text-center mb-10 ">
