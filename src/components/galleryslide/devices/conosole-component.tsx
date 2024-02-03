@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import BlurImage from "../../blurImage";
 import Modal from "../gallery-modal";
 import PreviewComponent from "../previewComponent/preview-component";
+import styles from "../styles/shadow.module.css";
 import ToolTip from "./tool-tip";
 
 const Console = ({ imgArr }: { imgArr: string[] }) => {
@@ -14,11 +15,15 @@ const Console = ({ imgArr }: { imgArr: string[] }) => {
   return (
     <div
       id="animation"
-      className="relative flex justify-center items-center md:w-[50vw] md:h-[50vw] w-[80vw] h-[65vw] mx-auto md:scale-[105%] scale-[140%] font-VikingHell sm:top-10"
+      className="relative flex justify-center items-center md:w-[50vw] md:h-[50vw] w-[80vw] h-[65vw] mx-auto md:scale-[105%] scale-[140%] sm:top-20"
     >
-      <h1 className="font-bold text-2xl sm:text-6xl tracking-widest z-50 text-white absolute sm:top-16 -top-6">
-        Incridea{" "}
-        <span className="font-mono tracking-tight font-extrabold">23</span>
+      <h1
+        className={
+          styles["text-shadow"] +
+          ` text-2xl font-extrabold sm:text-5xl z-50 border-black text-white absolute sm:top-[5.5rem] -top-4`
+        }
+      >
+        INCRIDEA <span className="tracking-tight">23</span>
       </h1>
       <Image
         fill

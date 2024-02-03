@@ -7,19 +7,25 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import BlurImage from "../../blurImage";
 import Modal from "../gallery-modal";
 import PreviewComponent from "../previewComponent/preview-component";
+import styles from "../styles/shadow.module.css";
 import ToolTip from "./tool-tip";
 
 const RetroTV = ({ imgArr }: { imgArr: string[] }) => {
   const [activeModal, setActiveModal] = useState<boolean>(false);
   const swiperRef = useRef<SwiperType>();
+  // sm:top-20 lg:top-64 md:top-16 -top-6
   return (
     <div
       id="animation"
-      className="relative flex justify-center items-center md:w-[40vw] md:h-[60vw] w-[80vw] h-[65vw] mx-auto md:scale-[135%] scale-[140%] font-VikingHell"
+      className="relative flex justify-center top-6 items-center md:w-[40vw] md:h-[60vw] w-[80vw] h-[65vw] mx-auto md:scale-[135%] scale-[140%]"
     >
-      <h1 className="font-bold text-2xl sm:text-5xl tracking-widest text-white z-[10000] absolute sm:top-20 lg:top-64 md:top-16 -top-6 ">
-        Incridea{" "}
-        <span className="font-mono tracking-tight font-extrabold">22</span>
+      <h1
+        className={
+          styles["text-shadow"] +
+          ` text-2xl font-extrabold sm:text-4xl z-50 border-black text-white absolute sm:top-20 lg:top-72 md:top-16 -top-2`
+        }
+      >
+        INCRIDEA <span className="tracking-tight">22</span>
       </h1>
       <Image
         fill
@@ -72,21 +78,21 @@ const RetroTV = ({ imgArr }: { imgArr: string[] }) => {
 
         <button
           onClick={() => swiperRef.current?.slidePrev()}
-          className={`active:bg-gray-800 bg-black opacity-40 -translate-y-12 absolute w-[9vw] h-[9vw] top-[12vw] left-[41.5vw] md:top-[3.4vw] md:left-[43vw] md:w-[5vw] md:h-[5vw] rounded-full duration-300 transition-all ease-in-out animate-`}
+          className={`active:bg-gray-800 opacity-40 -translate-y-12 absolute w-[9vw] h-[9vw] top-[12vw] left-[41.5vw] md:top-[3.4vw] md:left-[43vw] md:w-[5vw] md:h-[5vw] rounded-full duration-300 transition-all ease-in-out animate-`}
         >
-          <ToolTip
-            classValue="text-xs border top-0 sm:text-base"
+          {/* <ToolTip
+            classValue="text-xs border top-0 sm:text-base bg-black"
             text="prev image"
-          ></ToolTip>
+          ></ToolTip> */}
         </button>
         <button
           onClick={() => swiperRef.current?.slideNext()}
-          className="active:bg-gray-800 bg-black opacity-40 -translate-y-12 absolute w-[9vw] h-[9vw] top-[22vw] left-[41.5vw] md:top-[9.5vw] md:left-[43vw] md:w-[5vw] md:h-[5vw] rounded-full duration-300 transition-all ease-in-out animate-"
+          className="active:bg-gray-800  opacity-40 -translate-y-12 absolute w-[9vw] h-[9vw] top-[22vw] left-[41.5vw] md:top-[9.5vw] md:left-[43vw] md:w-[5vw] md:h-[5vw] rounded-full duration-300 transition-all ease-in-out animate-"
         >
-          <ToolTip
-            classValue="text-xs border sm:text-base"
+          {/* <ToolTip
+            classValue="text-xs border sm:text-base bg-black"
             text="next image"
-          ></ToolTip>
+          ></ToolTip> */}
         </button>
       </div>
       <Modal

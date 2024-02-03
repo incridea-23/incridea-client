@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import BlurImage from "../../blurImage";
 import Modal from "../gallery-modal";
 import PreviewComponent from "../previewComponent/preview-component";
+import styles from "../styles/shadow.module.css";
 import ToolTip from "./tool-tip";
 
 const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
@@ -33,11 +34,15 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
   return (
     <div
       id="animation"
-      className="font-VikingHell relative rounded-[85px] flex justify-center items-center w-[85vw] h-[119vw] sm:w-[63.5vw] sm:h-[30vw] mx-auto top-10"
+      className="relative rounded-[85px] flex justify-center items-center w-[85vw] h-[119vw] sm:w-[63.5vw] sm:h-[30vw] mx-auto top-16"
     >
-      <h1 className="font-bold text-4xl sm:text-6xl tracking-widest z-50 text-white absolute sm:-top-32 -top-20">
-        Incridea{" "}
-        <span className="font-mono tracking-tight font-extrabold">19</span>
+      <h1
+        className={
+          styles["text-shadow"] +
+          ` text-4xl font-extrabold sm:text-5xl z-50 border-black text-white absolute sm:-top-24 -top-20`
+        }
+      >
+        INCRIDEA <span className="tracking-tight">19</span>
       </h1>
       <Image
         fill
@@ -64,7 +69,6 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
           autoplay={true}
           className="sm:w-[35.7vw] sm:h-[18vw] sm:-top-[.9vw] w-[58vw] h-[54vw] sm:left-[0] -top-[7vw] left-[-4vw] sm:z-50 sm:border-none relative sm:scale-125"
         >
-
           {imgArr.map((img, index) => {
             return (
               <SwiperSlide
@@ -98,10 +102,10 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
 
         <button
           onClick={() => swiperRef.current?.slidePrev()}
-          className={`active:bg-gray-800 sm:opacity-40 absolute top-[62.5vw] left-[-8vw] sm:-top-[2.2vw] sm:-left-[1vw] w-[8vw] h-[6vw] sm:h-[9vw] sm:w-[9vw] rounded-lg sm:rounded-full duration-300 transition-all ease-in-out sm:border-none animate-`}
+          className={`active:bg-gray-800 sm:opacity-40 absolute top-[62.5vw] left-[-8vw] sm:-top-[2.2vw] sm:-left-[1.4vw] w-[8vw] h-[6vw] sm:h-[9vw] sm:w-[9vw] rounded-lg sm:rounded-full duration-300 transition-all ease-in-out sm:border-none animate-`}
         >
           <ToolTip
-            classValue="top-[5vw] sm:right-[2vw] right-0 text-xs border sm:text-lg"
+            classValue="top-[5vw] sm:left-20 right-0 text-xs border sm:text-lg bg-black"
             text="prev image"
           ></ToolTip>
         </button>
@@ -110,7 +114,7 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
           className="active:bg-gray-800 sm:opacity-40 absolute top-[62.5vw] left-[4vw] sm:-top-[2.2vw] sm:left-[56vw] w-[8vw] h-[6vw] sm:h-[9vw] sm:w-[9vw] rounded-lg sm:rounded-full duration-300 transition-all ease-in-out sm:border-none animate-"
         >
           <ToolTip
-            classValue="top-[5vw] sm:right-[1vw] right-[-10vw] text-xs border sm:text-lg"
+            classValue="top-[5vw] sm:right-[1vw] right-[-10vw] bg-black text-xs border sm:text-lg"
             text="next image"
           ></ToolTip>
         </button>

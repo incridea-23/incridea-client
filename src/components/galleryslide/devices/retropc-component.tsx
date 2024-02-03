@@ -7,20 +7,46 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import BlurImage from "../../blurImage";
 import Modal from "../gallery-modal";
 import PreviewComponent from "../previewComponent/preview-component";
+import styles from "../styles/shadow.module.css";
 import ToolTip from "./tool-tip";
 
+interface RippleState {
+  x: number;
+  y: number;
+  active: boolean;
+}
+
 const RetroPC = ({ imgArr }: { imgArr: string[] }) => {
+  const [ripple, setRipple] = useState<RippleState>({
+    x: 0,
+    y: 0,
+    active: false,
+  });
   const [activeModal, setActiveModal] = useState<boolean>(false);
   const swiperRef = useRef<SwiperType>();
+
+  const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+
+    setRipple({ x, y, active: true });
+
+    setTimeout(() => setRipple({ x: 0, y: 0, active: false }), 800);
+  };
 
   return (
     <div
       id="animation"
-      className="relative rounded-[85px] flex justify-center items-center w-[40svw] h-[60svw] mx-auto md:scale-[105%] scale-[200%] top-0 sm:top-20 font-VikingHell"
+      className="relative rounded-[85px] flex justify-center items-center w-[40svw] h-[60svw] mx-auto md:scale-[105%] scale-[200%] top-0 sm:top-20"
     >
-      <h1 className="font-bold text-sm sm:text-6xl tracking-widest text-white z-50 absolute sm:top-24 top-2">
-        Incridea{" "}
-        <span className="font-mono tracking-tight font-extrabold">20</span>
+      <h1
+        className={
+          styles["text-shadow"] +
+          ` text-lg font-extrabold sm:text-5xl z-50 border-black text-white absolute sm:top-32 top-2`
+        }
+      >
+        INCRIDEA <span className="tracking-tight">20</span>
       </h1>
       <Image fill priority src={retroPCSVG} alt="svg" id="image"></Image>
       <div className="absolute w-[50svw] h-[23.6svw] right-[5svw] top-[19svw] z-10">
@@ -69,7 +95,7 @@ const RetroPC = ({ imgArr }: { imgArr: string[] }) => {
           className={`active:bg-gray-800 opacity-40 absolute top-[19.2svw] left-[svw] w-[4.2svw] h-[1.3svw] rounded-lg duration-300 transition-all ease-in-out animate-`}
         >
           <ToolTip
-            classValue="top-[2vw] sm:right-[0vw] text-xs border sm:text-base"
+            classValue="top-[2vw] bg-black sm:right-[0vw] text-xs border sm:text-base"
             text="prev image"
           ></ToolTip>
         </button>
@@ -78,7 +104,7 @@ const RetroPC = ({ imgArr }: { imgArr: string[] }) => {
           className="active:bg-gray-800 opacity-40 absolute top-[19.2svw] left-[40.7svw] w-[4.2svw] h-[1.3svw] rounded-lg duration-300 transition-all ease-in-out animate-"
         >
           <ToolTip
-            classValue="top-[2vw] sm:right-[0vw] text-xs right-0 border sm:text-base"
+            classValue="top-[2vw] bg-black sm:right-[0vw] text-xs right-0 border sm:text-base"
             text="next image"
           ></ToolTip>
         </button>
