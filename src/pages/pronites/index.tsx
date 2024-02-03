@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
   Reflector,
@@ -8,32 +8,67 @@ import {
   useGLTF,
   MeshReflectorMaterial,
 } from "@react-three/drei";
+import { IoMdMicrophone } from "react-icons/io";
+import Image from "next/image";
 
 export default function App() {
+  const dhvaniAudioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    dhvaniAudioRef.current?.play();
+  }, []);
+
   return (
-    <Canvas
-      style={{ height: "100vh", width: "100vw" }}
-      gl={{ alpha: false }}
-      camera={{ position: [0, 3, 100], fov: 15 }}
-    >
-      <color attach="background" args={["black"]} />
-      <fog attach="fog" args={["black", 15, 20]} />
-      <Suspense fallback={null}>
-        <group position={[0, -1, 0]}>
-          <Carla
-            rotation={[0, Math.PI - 0.4, 0]}
-            position={[-1.2, 0, 0.6]}
-            scale={[0.26, 0.26, 0.26]}
-          />
-          <VideoText position={[0, 1, -1]} />
-          <Ground />
-        </group>
-        <ambientLight intensity={0.5} />
-        <spotLight position={[0, 10, 0]} intensity={1} />
-        <directionalLight position={[-50, 0, -40]} intensity={5} />
-        <Intro />
-      </Suspense>
-    </Canvas>
+    <>
+      <div className="absolute text-white bottom-6 right-6 md:bottom-10 md:right-10 z-50 pointer-events-none rounded-[14px] ">
+        <Image
+          src="/assets/jpeg/DhvaniBhanushali.jpeg"
+          alt="Dhvani Bhanushali"
+          fill={true}
+          className="object-cover -z-50 rounded-[14px]"
+        />
+        <div className="absolute bg-gradient-to-tr from-[#bc43a2] to-[#e18472] h-full w-full opacity-70 -z-50 rounded-[14px]"></div>
+        <div className="p-2 md:p-3 z-50">
+          <div className="h-16 md:h-20 flex items-center opacity-90">
+            <IoMdMicrophone className="ml-2" size={"3rem"} />
+          </div>
+          <div className="flex flex-col p-2">
+            <div className="font-medium text-xl md:text-2xl">
+              Dhvani Bhanushali
+            </div>
+            <div className="opacity-70">23rd Feb @ 7:30PM</div>
+          </div>
+        </div>
+      </div>
+      <audio
+        ref={dhvaniAudioRef}
+        loop={true}
+        src="/assets/mp3/DhvaniBhanushali.mp3"
+      ></audio>
+      <Canvas
+        style={{ height: "100vh", width: "100vw" }}
+        gl={{ alpha: false }}
+        camera={{ position: [0, 3, 100], fov: 15 }}
+      >
+        <color attach="background" args={["black"]} />
+        <fog attach="fog" args={["black", 15, 20]} />
+        <Suspense fallback={null}>
+          <group position={[0, -1, 0]}>
+            <Carla
+              rotation={[0, Math.PI - 0.4, 0]}
+              position={[-1.2, 0, 0.6]}
+              scale={[0.26, 0.26, 0.26]}
+            />
+            <VideoText position={[0, 1, -1]} />
+            <Ground />
+          </group>
+          <ambientLight intensity={0.5} />
+          <spotLight position={[0, 10, 0]} intensity={1} />
+          <directionalLight position={[-50, 0, -40]} intensity={5} />
+          <Intro />
+        </Suspense>
+      </Canvas>
+    </>
   );
 }
 
@@ -49,17 +84,33 @@ function Carla(props: {
 function VideoText(props: { position: [x: number, y: number, z: number] }) {
   const [video] = useState(() =>
     Object.assign(document.createElement("video"), {
-      src: "/assets/pronite/textBg.mp4",
+      // src: "/assets/pronite/textBg.mp4",
+      src: "/assets/mp4/proniteVID2.mp4",
       crossOrigin: "Anonymous",
       loop: true,
       muted: true,
     })
   );
   useEffect(() => void video.play(), [video]);
+
+  const [size, setSize] = useState<{ height: number; width: number }>({
+    width: 0,
+    height: 0,
+  });
+
+  useEffect(() => {
+    setSize({ height: window.innerHeight, width: window.innerWidth });
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", () => {
+        setSize({ height: window.innerHeight, width: window.innerWidth });
+      });
+    }
+  }, []);
+
   return (
     <Text
       font="/font/Inter-Bold.woff"
-      fontSize={2}
+      fontSize={Math.min((size.width * (2 - 0.1)) / (1920 - 720), 2)}
       letterSpacing={-0.06}
       {...props}
     >
