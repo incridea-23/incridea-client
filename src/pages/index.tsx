@@ -7,10 +7,10 @@ import Link from "next/link";
 import { BsFillSuitHeartFill } from "react-icons/bs";
 import Parallax from "parallax-js";
 import Arcade from "../components/svg/arcade";
+import { VikingHell } from "./_app";
 
 export default function Landing() {
   const landingContainer = useRef(null);
-  const Logo = useRef(null);
   const [pageLoader, setPageLoader] = useState<boolean>(true);
 
   useGSAP(
@@ -38,7 +38,7 @@ export default function Landing() {
       {pageLoader && (
         <section
           ref={landingContainer}
-          className=" min-h-screen w-full flex justify-center items-center bg-black z-[999] absolute top-0 left-0"
+          className=" min-h-screen w-full flex justify-center items-center  z-[999] absolute top-0 left-0"
         >
           <Image
             src={"/assets/landing/lounge@2x.png"}
@@ -84,7 +84,8 @@ const Menu = () => {
     { href: "/events", target: "Events" },
     { href: "/pronite", target: "Pronite" },
     { href: "/gallery", target: "Gallery" },
-    { href: "/contact-us", target: "Contact Us" },
+    { href: "/about", target: "about" },
+    { href: "/sponsors", target: "Sponsors" },
   ];
 
   return (
@@ -106,7 +107,9 @@ const Menu = () => {
         </Button>
       </div>
       <div className="space-y-5 absolute flex flex-col w-fit h-fit -right-8 bottom-[15%]  lg:absolute ">
-        <h3 className="text-2xl hidden md:block  md:mb-5 sm:text-4xl  text-white font-VikingHell text-center ">
+        <h3
+          className={`text-2xl hidden md:block  md:mb-5 sm:text-4xl  text-white  tracking-widest text-center ${VikingHell.className} `}
+        >
           Menu
         </h3>
         {
@@ -148,7 +151,6 @@ const HomeUi = () => {
 
     let parallaxInstance = new Parallax(scene, {
       relativeInput: true,
-      clipRelativeInput: true,
     });
   });
   const Logo = useRef(null);

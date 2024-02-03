@@ -1,10 +1,11 @@
-import Image from 'next/image';
-import { FC, useEffect, useState } from 'react';
-import CharacterAnimation from '../animation/character';
-import TextAnimation from '../animation/text';
+import Image from "next/image";
+import { FC, useEffect, useState } from "react";
+import CharacterAnimation from "../animation/character";
+import TextAnimation from "../animation/text";
+import { VikingHell } from "@/src/pages/_app";
 
 const CountDown: FC = () => {
-  const endDate = new Date('2023-04-26');
+  const endDate = new Date("2023-04-26");
 
   const calculateCountdown = () => {
     const now = new Date();
@@ -28,7 +29,7 @@ const CountDown: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [rotation, setRotation] = useState('rotate-0');
+  const [rotation, setRotation] = useState("rotate-0");
 
   useEffect(() => {
     const rot = `${-(countdown.seconds * 6) % 360}deg`;
@@ -36,10 +37,10 @@ const CountDown: FC = () => {
   }, [countdown.seconds]);
 
   const countdownItems = [
-    { value: countdown.days, label: 'Days' },
-    { value: countdown.hours, label: 'Hours' },
-    { value: countdown.minutes, label: 'Minutes' },
-    { value: countdown.seconds, label: 'Seconds' },
+    { value: countdown.days, label: "Days" },
+    { value: countdown.hours, label: "Hours" },
+    { value: countdown.minutes, label: "Minutes" },
+    { value: countdown.seconds, label: "Seconds" },
   ];
 
   // if (
@@ -48,35 +49,35 @@ const CountDown: FC = () => {
   //   countdown.minutes === 0 &&
   //   countdown.seconds === 0
   // )
-    return (
-      <section
-        className={`text-white text-center titleFont  mb-28`}
-        style={{ willChange: 'transform' }}
-      >
-        <TextAnimation
-          text="The wait is over!"
-          marginRight='15px'
-          className="flex justify-center"
-          textStyle="text-3xl md:text-3xl font-semibold lg:text-6xl md:mt-10 z-10"
+  return (
+    <section
+      className={`text-white text-center ${VikingHell.className}  mb-28`}
+      style={{ willChange: "transform" }}
+    >
+      <TextAnimation
+        text="The wait is over!"
+        marginRight="15px"
+        className="flex justify-center"
+        textStyle="text-3xl md:text-3xl font-semibold lg:text-6xl md:mt-10 z-10"
+      />
+      <TextAnimation
+        text="Incridea is live!"
+        marginRight="15px"
+        className="flex justify-center"
+        textStyle="text-2xl md:text-3xl font-semibold lg:text-4xl md:mt-10 mt-4 z-10"
+      />
+      <div className="flex flex-row justify-center items-center sm:items-center gap-2 sm:gap-5 lg:gap-10 md:-mt-20 -mt-10 drop-shadow-xl relative">
+        <Image
+          src={"/assets/png/helm.png"}
+          width={400}
+          height={400}
+          alt="Ship Helm"
+          className="absolute opacity-[8%] -z-10"
+          style={{ transform: `rotate(${rotation})` }}
         />
-        <TextAnimation
-          text="Incridea is live!"
-          marginRight='15px'
-          className="flex justify-center"
-          textStyle="text-2xl md:text-3xl font-semibold lg:text-4xl md:mt-10 mt-4 z-10"
-        />
-        <div className="flex flex-row justify-center items-center sm:items-center gap-2 sm:gap-5 lg:gap-10 md:-mt-20 -mt-10 drop-shadow-xl relative">
-          <Image
-            src={'/assets/png/helm.png'}
-            width={400}
-            height={400}
-            alt="Ship Helm"
-            className="absolute opacity-[8%] -z-10"
-            style={{ transform: `rotate(${rotation})` }}
-          />
-        </div>
-      </section>
-    );
+      </div>
+    </section>
+  );
 
   // return (
   //   <section

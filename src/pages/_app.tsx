@@ -5,7 +5,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
-import Image from "next/image";
+
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
@@ -13,6 +13,12 @@ import Loader from "../components/Loader";
 const Navbar = dynamic(() => import("../components/navbar"), { ssr: false });
 import HeadComponent from "../components/head";
 import Footer from "../components/footer";
+import localFont from "@next/font/local";
+
+export const VikingHell = localFont({
+  src: "../font/Viking Hell.otf",
+  variable: "--font-viking-hell",
+});
 
 export default function App({
   Component,
@@ -22,21 +28,6 @@ export default function App({
   const [isLoading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
-  const variants = {
-    initialState: {
-      opacity: 0,
-      translateY: "100px",
-    },
-    animateState: {
-      opacity: 1,
-      translateY: "0%",
-    },
-    exitState: {
-      opacity: 0,
-      translateY: "-100px",
-    },
-  };
-
   if (
     router.pathname === "/theme" ||
     router.pathname === "/test" ||
@@ -45,23 +36,32 @@ export default function App({
   )
     return (
       <ApolloProvider client={apolloClient}>
-        <Component {...pageProps} />
+        <HeadComponent
+          title="Incridea"
+          description="Official Website of Incridea 2024, National level techno-cultural fest, NMAMIT, Nitte. Innovate. Create. Ideate."
+        />
+        <div className={`min-h-screen ${VikingHell.variable}`}>
+          <Component {...pageProps} />
+          <Toaster />
+        </div>
       </ApolloProvider>
     );
   return (
-    <ApolloProvider client={apolloClient}>
-      <HeadComponent
-        title="Incridea"
-        description="Official Website of Incridea 2023, National level techno-cultural fest, NMAMIT, Nitte. Innovate. Create. Ideate."
-      />
-      <Toaster />
-      <AnimatePresence>{isLoading && <Loader />}</AnimatePresence>
-      <div className=" ">
-        {!isLoading && <Navbar />}
-        <Component setLoading={setLoading} {...pageProps} />
-        <Footer />
-      </div>
-      {/* <Analytics /> */}
-    </ApolloProvider>
+    <>
+      <ApolloProvider client={apolloClient}>
+        <HeadComponent
+          title="Incridea"
+          description="Official Website of Incridea 2024, National level techno-cultural fest, NMAMIT, Nitte. Innovate. Create. Ideate."
+        />
+        <Toaster />
+        <AnimatePresence>{isLoading && <Loader />}</AnimatePresence>
+        <div className={`min-h-screen ${VikingHell.variable}`}>
+          {!isLoading && <Navbar />}
+          <Component setLoading={setLoading} {...pageProps} />
+          <Footer />
+        </div>
+      </ApolloProvider>
+      <Analytics />
+    </>
   );
 }

@@ -1,7 +1,8 @@
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { FC } from 'react';
-import { AiFillGithub, AiFillInstagram, AiFillLinkedin } from 'react-icons/ai';
+import { VikingHell } from "@/src/pages/_app";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { FC } from "react";
+import { AiFillGithub, AiFillInstagram, AiFillLinkedin } from "react-icons/ai";
 
 const TeamCard: FC<{
   name: string;
@@ -28,13 +29,15 @@ const TeamCard: FC<{
       </div>
 
       <div className="flex flex-col mt-5">
-        <h1 className="text-white font-bold text-2xl titleFont">{name}</h1>
+        <h1 className={`text-white font-bold text-2xl ${VikingHell.className}`}>
+          {name}
+        </h1>
         <p className="text-gray-200 text-md bodyFont">{role}</p>
       </div>
 
       <div className="flex gap-2 mt-2 justify-center">
         <a
-          href={'https://www.linkedin.com/in/' + linkedin}
+          href={"https://www.linkedin.com/in/" + linkedin}
           target="_blank"
           rel="noreferrer"
         >
@@ -43,7 +46,7 @@ const TeamCard: FC<{
         <a
           target="_blank"
           rel="noreferrer"
-          href={'https://github.com/' + github}
+          href={"https://github.com/" + github}
         >
           <AiFillGithub size={30} fill="#fff" className="cursor-pointer" />
         </a>
@@ -51,9 +54,9 @@ const TeamCard: FC<{
           target="_blank"
           rel="noreferrer"
           href={
-            instagram.startsWith('https://youtu.be/')
+            instagram.startsWith("https://youtu.be/")
               ? instagram
-              : 'https://www.instagram.com/' + instagram
+              : "https://www.instagram.com/" + instagram
           }
         >
           <AiFillInstagram size={30} fill="#fff" className="cursor-pointer" />
