@@ -15,14 +15,16 @@ interface AudioPlayerProps {
   mainTheme: string;
   isMuted: boolean;
   setIsMuted: Dispatch<SetStateAction<boolean>>;
+  mainThemeAudioRef: React.MutableRefObject<HTMLAudioElement | null>;
 }
 
 const AudioPlayer: React.FC<AudioPlayerProps> = ({
+  mainThemeAudioRef,
   mainTheme,
   isMuted,
   setIsMuted,
 }) => {
-  const mainThemeAudioRef = useRef<HTMLAudioElement | null>(null);
+  // const mainThemeAudioRef = useRef<HTMLAudioElement | null>(null);
   const [hasInteracted, setHasInteracted] = useState(false);
   const [modal, setModal] = useState<boolean>(true);
   const isMutedRef = useRef(isMuted);
