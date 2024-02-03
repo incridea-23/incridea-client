@@ -38,7 +38,7 @@ const Modal: FC<ModalProps> = ({
         </Transition.Child>
 
         <div
-          className={`fixed inset-0 z-10 h-full p-4 md:p-8 overflow-y-auto ${
+          className={`fixed inset-0 z-10 p-4 md:p-8 overflow-y-auto ${
             size === "small" && "w-80 mx-auto"
           }`}
         >
@@ -68,14 +68,14 @@ const Modal: FC<ModalProps> = ({
                   >
                     {title}
                   </h3>
-                  {size !== "small" && (
+                  {/* {size !== "small" && ( */}
                     <button
                       className="hover:text-white text-gray-400 transition-colors cursor-pointer z-[50000]"
                       onClick={onClose}
                     >
                       <IoClose size="1.4rem" />
                     </button>
-                  )}
+                  {/* )} */}
                 </Dialog.Title>
                 {size !== "small" && <hr className="opacity-30" />}
                 <div>{children}</div>

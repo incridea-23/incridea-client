@@ -15,13 +15,14 @@ const RoundsDone:FC<
         }
     });
 
-    let total = 0, done = 0;
+    let total = data?.roundsByEvent.length, done = 0;
+
+    {!loading && data?.roundsByEvent.map((round) => { //checks if the rounds are completed or not
+        round.completed ? done++ : done; 
+    }
+    )}
 
     return (<>
-        {data?.roundsByEvent.map((round) => { //checks if the rounds are completed or not
-            round.completed ? done++ : total++; 
-        }
-        )}
         <div className={`flex justify-center items-center ${done===total && done !== 0 ? "border-green-500 text-green-500" : ""}`}>
             {done===total && done !== 0 ? "Event has Ended" : done + " / " + total }
         </div>

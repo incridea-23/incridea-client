@@ -249,7 +249,7 @@ function event({ event, error }: { event: Event; error: String }) {
         <div className={`flex flex-col p-10 text-white justify-center gap-5 items-center h-screen`}>
           <h1 className={`text-3xl font-semibold `}>Oops!</h1>
           <div className={`text-center`}>
-            <p>Looks like you&apos;ve wandered too deep and gotten lost!</p>
+            <p>Looks like you&apos;ve glitched out and got lost in the pixels!</p>
             <p>
               Click{" "}
               <Link className={`underline`} href={"/events"}>
