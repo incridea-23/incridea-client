@@ -676,9 +676,11 @@ const ExploreGame = () => {
     };
   }, [scrollY]);
 
+  const mainThemeAudioRef = useRef<HTMLAudioElement | null>(null);
   return (
     <>
       <AudioPlayer
+        mainThemeAudioRef={mainThemeAudioRef}
         mainTheme="/audio/Level1MainTheme.mp3"
         isMuted={isMuted}
         setIsMuted={setIsMuted}
