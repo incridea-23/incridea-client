@@ -45,7 +45,9 @@ const FinalComponent = () => {
         width={50}
         height={50}
         className="origin-center mt-4 cursor-pointer hover:animate-shake"
-        onClick={() => {}}
+        onClick={() => {
+          handleAddXp;
+        }}
       ></Image>
     </div>
   );
