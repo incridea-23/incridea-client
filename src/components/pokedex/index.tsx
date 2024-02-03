@@ -7,7 +7,11 @@ import useStore from "../store/store";
 import Link from "next/link";
 import Button from "@/src/components/button";
 
-const Pokedex = () => {
+interface DexProps {
+  data?: Array<{ id: string; name: string; image: string }>;
+}
+
+const Pokedex: React.FC<DexProps> = ({ data = [] }) => {
   const setEventDex = useStore((state) => state.setEventDex);
   const eventDex = useStore((state) => state.eventDex);
   useEffect(() => {
@@ -15,14 +19,14 @@ const Pokedex = () => {
     const tl = gsap.timeline();
 
     // Initial state (closed)
-    tl.set(".animate-1", { y: 80 })
+    tl.set(".animate-1", { y: 100 })
       .set(".animate-3", { y: -80 })
       .set(".carousel-container", { opacity: 0 });
 
     // Opening animation
-    tl.to(".animate-1", { y: -20, duration: 2, delay: 1 })
-      .to(".animate-3", { y: 40, duration: 2 }, "<")
-      .to(".carousel-container", { opacity: 1, duration: 1, delay: 1 }, "<");
+    tl.to(".animate-1", { y: -20, duration: 1, delay: 0.1})
+      .to(".animate-3", { y: 40, duration: 1 }, "<")
+      .to(".carousel-container", { opacity: 1, duration: 3 }, "<");
   }, []);
 
   return (
@@ -54,13 +58,15 @@ const Pokedex = () => {
             <div className="md:w-80 w-full relative z-10 bg-[#B5FFF7] flex flex-col justify-center p-[10px] ">
               {/* Your carousel content goes here */}
               <div className="w-full h-full relative bg-blue-500 rounded-xl flex flex-col items-center carousel-container py-2">
-                <Carousel />
+                <Carousel events={data} />
                 {/* Dex button inside the carousel container */}
                 <Link
                   href={"/events"}
-                  className="flex w-full justify-center relative z-20 px-2 -bottom-1 mb-2"
+                  className="flex butanim w-full justify-center relative z-20 px-2 -bottom-1 mb-2"
                 >
-                  <Button className="rounded-xl h-full">View Events</Button>
+                  <Button className="font-VikingHell h-full">
+                    View Events
+                  </Button>
                 </Link>
               </div>
             </div>

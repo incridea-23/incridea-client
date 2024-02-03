@@ -4,6 +4,8 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Image from "next/image";
+import FallingItem from "../components/login/fallingItem";
+import EasterBomb from "../components/login/easterBomb";
 
 type CardStyle = {
   top: string;
@@ -13,6 +15,7 @@ type CardStyle = {
   transform: string;
 };
 
+// HACK: If "top" values are changed, please check LoginCard component logic once
 const CARD_SWITCH_DURATION: number = 1000;
 const CARD_TOP_STYLE: CardStyle = {
     top: "-50%",
@@ -46,7 +49,7 @@ const SignIn: NextPage = () => {
 
   const [whichForm, setWhichForm] = useState<
     "signIn" | "resetPassword" | "signUp" | "resendEmail"
-  >(query.whichForm || "signIn");
+  >(query.whichForm || "signUp");
 
   const [cardStyle, setCardStyle] = useState<{
     signIn: CardStyle;
@@ -94,8 +97,22 @@ const SignIn: NextPage = () => {
         priority
       />
       <div
-        className={`relative min-h-[93vh] flex flex-col justify-between [transform-style:preserve-3d] [perspective:500px] overflow-hidden`}>
+        className={`relative min-h-[93vh] flex flex-col justify-between [transform-style:preserve-3d] [perspective:500px] overflow-hidden`}
+      >
         <LoginPortal isTop={true} />
+
+        {/* TODO: Change the time delay here according to time delay set for free-fall animation in tailwind.config.js */}
+        <div className="absolute left-2/4 -translate-x-2/4 -top-[10vh] -z-40 h-0 w-[65vw] md:w-[440px]">
+          <FallingItem delay={0} />
+          <FallingItem delay={2000} />
+          <FallingItem delay={4000} />
+          <FallingItem delay={6000} />
+          <FallingItem delay={8000} />
+        </div>
+
+        <div className="absolute left-2/4 -translate-x-2/4 -top-[10vh] z-30 h-0 w-[65vw] md:w-[440px]">
+          <EasterBomb />
+        </div>
 
         <LoginCard
           whichForm="signIn"
