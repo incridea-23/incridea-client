@@ -1,23 +1,32 @@
 import retroTV from "@/public/assets/svg/retro-tv.svg";
 import { baseImageUrl } from "@/src/utils/url";
-import gsap from "gsap";
 import Image from "next/image";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Autoplay, Mousewheel, Navigation, Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import BlurImage from "../../blurImage";
 import Modal from "../gallery-modal";
 import PreviewComponent from "../previewComponent/preview-component";
+import styles from "../styles/shadow.module.css";
+import ToolTip from "./tool-tip";
 
 const RetroTV = ({ imgArr }: { imgArr: string[] }) => {
-  const [active, setActive] = useState<number>(0);
   const [activeModal, setActiveModal] = useState<boolean>(false);
   const swiperRef = useRef<SwiperType>();
+  // sm:top-20 lg:top-64 md:top-16 -top-6
   return (
     <div
       id="animation"
-      className="relative flex justify-center items-center md:w-[40vw] md:h-[60vw] w-[80vw] h-[65vw] mx-auto md:scale-[135%] scale-[140%]"
+      className="relative flex justify-center top-6 items-center md:w-[40vw] md:h-[60vw] w-[80vw] h-[65vw] mx-auto md:scale-[135%] scale-[140%]"
     >
+      <h1
+        className={
+          styles["text-shadow"] +
+          ` text-2xl font-extrabold sm:text-4xl z-50 border-black text-white absolute sm:top-20 lg:top-72 md:top-16 -top-2`
+        }
+      >
+        INCRIDEA <span className="tracking-tight">22</span>
+      </h1>
       <Image
         fill
         priority
@@ -43,6 +52,10 @@ const RetroTV = ({ imgArr }: { imgArr: string[] }) => {
                 className="flex justify-center items-center bg-white text-center cursor-pointer"
                 onClick={() => setActiveModal(true)}
               >
+                <ToolTip
+                  classValue="text-center text-xs border sm:text-lg"
+                  text="click to preview image"
+                ></ToolTip>
                 <div className="relative w-full h-full flex justify-center items-center">
                   <BlurImage
                     fill
@@ -65,12 +78,22 @@ const RetroTV = ({ imgArr }: { imgArr: string[] }) => {
 
         <button
           onClick={() => swiperRef.current?.slidePrev()}
-          className={`active:bg-gray-800 bg-black opacity-40 -translate-y-12 absolute w-[9vw] h-[9vw] top-[12vw] left-[41.5vw] md:top-[3.4vw] md:left-[43vw] md:w-[5vw] md:h-[5vw] rounded-full duration-300 transition-all ease-in-out animate-`}
-        ></button>
+          className={`active:bg-gray-800 opacity-40 -translate-y-12 absolute w-[9vw] h-[9vw] top-[12vw] left-[41.5vw] md:top-[3.4vw] md:left-[43vw] md:w-[5vw] md:h-[5vw] rounded-full duration-300 transition-all ease-in-out animate-`}
+        >
+          {/* <ToolTip
+            classValue="text-xs border top-0 sm:text-base bg-black"
+            text="prev image"
+          ></ToolTip> */}
+        </button>
         <button
           onClick={() => swiperRef.current?.slideNext()}
-          className="active:bg-gray-800 bg-black opacity-40 -translate-y-12 absolute w-[9vw] h-[9vw] top-[22vw] left-[41.5vw] md:top-[9.5vw] md:left-[43vw] md:w-[5vw] md:h-[5vw] rounded-full duration-300 transition-all ease-in-out animate-"
-        ></button>
+          className="active:bg-gray-800  opacity-40 -translate-y-12 absolute w-[9vw] h-[9vw] top-[22vw] left-[41.5vw] md:top-[9.5vw] md:left-[43vw] md:w-[5vw] md:h-[5vw] rounded-full duration-300 transition-all ease-in-out animate-"
+        >
+          {/* <ToolTip
+            classValue="text-xs border sm:text-base bg-black"
+            text="next image"
+          ></ToolTip> */}
+        </button>
       </div>
       <Modal
         showModal={activeModal}
