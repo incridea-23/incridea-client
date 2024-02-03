@@ -194,7 +194,12 @@ const Gallery: NextPage = () => {
                   width={50}
                   height={50}
                   className="rotate-180 w-12 h-12 md:w-20 md:h-20"
-                  style={{ filter: "drop-shadow(0px 0px 8px white)" }}
+                  style={{
+                    filter:
+                      "drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black)",
+                    WebkitFilter:
+                      "drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black)",
+                  }}
                 ></Image>
               </button>
               <button
@@ -222,8 +227,14 @@ const Gallery: NextPage = () => {
                   alt="arrow-next"
                   width={50}
                   height={50}
+                  //  -webkit-filter: drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black);filter: drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black);
                   className="w-12 h-12 md:w-20 md:h-20"
-                  style={{ filter: "drop-shadow(0px 0px 8px white)" }}
+                  style={{
+                    filter:
+                      "drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black)",
+                    WebkitFilter:
+                      "drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black)",
+                  }}
                 ></Image>
               </button>
             </div>
