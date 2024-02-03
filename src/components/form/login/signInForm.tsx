@@ -53,6 +53,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
       setError("");
       setGotDialogBox(false);
       setUserInfo({ email: "", password: "" });
+      // FIXME : Aaron XP code to be added
       router.push(redirectUrl ? decodeURIComponent(redirectUrl) : "/profile");
     }
   };

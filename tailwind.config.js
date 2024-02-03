@@ -36,7 +36,15 @@ module.exports = {
             transform: "translateY(-10vh) rotate(0deg)",
           },
           "100% ": {
-            transform: "translateY(110vh) rotate(360deg)",
+            transform: "translateY(110vh) rotate(120deg)",
+          },
+        },
+        "sun-gravity": {
+          "0%": {
+            transform: "translateY(-100vh) rotate(0deg)",
+          },
+          "100%": {
+            transform: "translateY(200vh) rotate(360deg)",
           },
         },
       },

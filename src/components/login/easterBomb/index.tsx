@@ -4,11 +4,6 @@ import Image from "next/image";
 const bombSrc: string = "/assets/png/bomb.png";
 const explodeGIFSrc: string = "/assets/gif/explodeGIF.gif";
 
-const getSize: () => { width: number; height: number } = () => {
-  let size = Math.floor(Math.random() * 20) + 40;
-  return { width: size, height: size };
-};
-
 const getPosition: () => number = () => {
   return Math.floor(Math.random() * 80) + 10;
 };
@@ -16,19 +11,18 @@ const getPosition: () => number = () => {
 const EasterBomb: FunctionComponent = () => {
   const [bombClicked, setBombClicked] = useState<boolean>(false);
   const [left, setLeft] = useState(getPosition());
-  const [size, setSize] = useState(getSize());
 
   const bombRef = useRef<{
     animationPlayState: "running" | "paused";
     src: string;
     pointerEvents: "auto" | "none";
-    display: "initial" | "none";
   }>({
     animationPlayState: "running",
     src: bombSrc,
     pointerEvents: "auto",
-    display: "initial",
   });
+
+  const parentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const bombClickedFromLS =
@@ -39,20 +33,16 @@ const EasterBomb: FunctionComponent = () => {
         animationPlayState: "paused",
         src: explodeGIFSrc,
         pointerEvents: "none",
-        display: "none",
       };
+      if (parentRef.current) parentRef.current.style.display = "none";
       setBombClicked(true);
     }
 
-    const intervalID = setInterval(() => {
-      setLeft(getPosition());
-      setSize(getSize());
-      // TODO: 100000 should be same as that in animation duration of free-fall in tailwind.config.js
-    }, 10000);
-
-    return () => {
-      clearInterval(intervalID);
-    };
+    setTimeout(() => {
+      setInterval(() => {
+        setLeft(getPosition());
+      }, 8000);
+    }, 15000);
   }, []);
 
   const handleOnClick: () => void = () => {
@@ -63,37 +53,35 @@ const EasterBomb: FunctionComponent = () => {
       animationPlayState: "paused",
       src: explodeGIFSrc,
       pointerEvents: "none",
-      display: "none",
     };
     localStorage.setItem("easterBombClicked", "true");
 
     setBombClicked(true);
+    setTimeout(() => {
+      if (parentRef.current) parentRef.current.style.display = "none";
+    }, 1000);
   };
 
   return (
     <>
+      {/* TODO: EasterBomb falls for the first time after 15 seconds of screen load, then if bomb not clicked every 5 seconds, if clicked then never again, given user does not clear local storage */}
       <div
         onClick={handleOnClick}
-        className={"absolute animate-free-fall pointer-events-auto"}
+        ref={parentRef}
+        className={
+          "absolute animate-[sun-gravity_8s_cubic-bezier(0.33333,0,0.66667,0.33333)_15s_infinite] pointer-events-auto"
+        }
         style={{
           top: "0px",
           left: `${left}%`,
-          width: `${size.width}`,
-          height: `${size.height}`,
+          width: "40px",
+          height: "40px",
           animationPlayState: bombRef.current.animationPlayState,
-          display: "initial",
         }}
       >
-        {/* <Image
-          src={bombRef.current.src}
-          alt={"easterBomb"}
-          width={size.width}
-          height={size.height}
-        /> */}
-
         <BombAsset
-          width={size.width}
-          height={size.height}
+          width={40}
+          height={40}
           src={!bombClicked ? bombSrc : explodeGIFSrc}
         />
       </div>
