@@ -35,8 +35,7 @@ const Profile: NextPage = () => {
     if (bombXp) {
       console.log("bombXp", bombXp);
       addXp().then((res) => {
-        if (res.data?.addXP.__typename !== "MutationAddXPSuccess") {
-        } else {
+        if (res.data?.addXP.__typename === "MutationAddXPSuccess") {
           toast.success(`Added ${res.data?.addXP.data.level.point} bomb Xp`, {
             position: "bottom-center",
             style:{

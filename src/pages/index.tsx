@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FC, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { FC, use, useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Button from "../components/button";
@@ -21,11 +21,13 @@ export default function Landing() {
   const [userId, setUserId] = useState<string>("");
   const { data:userXp, loading:userXpLoading } = useQuery(GetUserXpDocument,{})
   const [xp, setXp] = useState<number>(0);
-  const [userAuthStatus, setUserAuthStatus] = useState<boolean>(true);
+  const [userAuthStatus, setUserAuthStatus] = useState<boolean>(false);
 
   useEffect(() => {
-    if (user) {
+    console.log("user",user);
+    if (user && user.role !== "USER") {
       setUserId(user.id);
+      setUserAuthStatus(true);
     }else{
       setUserAuthStatus(false);
     }
@@ -215,6 +217,9 @@ const HomeUi:FC<
       relativeInput: true,
     });
   });
+  useEffect(() => {
+    console.log("userAuthStatus",userAuthStatus);
+  },[userAuthStatus]);
   const Logo = useRef(null);
   gsap.from(Logo.current, {
     delay: 0,
@@ -248,7 +253,7 @@ const HomeUi:FC<
           <div className="image02"></div>
         </div>
       </div>
-      {!userAuthStatus &&
+      {userAuthStatus &&
       <div>
         <div className="top-0 p-2">
           <h3 className={` text-lg md:text-2xl text-white tracking-widest z-10`}>
