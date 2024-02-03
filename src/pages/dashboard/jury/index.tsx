@@ -39,8 +39,8 @@ function Jury() {
     "BTE",
   ];
 
-  const dayFilters = ["ALL", "DAY 1", "DAY 2", "DAY 3", "DAY 4"];
-  const categoryFilters = ["ALL", "TECHNICAL", "NON_TECHNICAL", "CORE"];
+  const dayFilters = ["ALL", "DAY 1", "DAY 2", "DAY 3"];
+  const categoryFilters = ["ALL", "TECHNICAL", "NON_TECHNICAL", "CORE","SPECIAL"];
   const [currentBranchFilter, setCurrentBranchFilter] =
     useState<(typeof branchFilters)[number]>("ALL");
   const [currentDayFilter, setCurrentDayFilter] =
@@ -57,15 +57,23 @@ function Jury() {
       tempFilteredEvents = tempFilteredEvents?.filter(
         (event) => event.branch.name === currentBranchFilter
       );
-    if (currentDayFilter !== "ALL") {
+    // if (currentDayFilter !== "ALL") {
+    //   let filteredDay = new Date(
+    //     currentDayFilter === "DAY 1"
+    //       ? "2023-04-26"
+    //       : currentDayFilter === "DAY 2"
+    //       ? "2023-04-27"
+    //       : currentDayFilter === "DAY 3"
+    //       ? "2023-04-28"
+    //       : "2023-04-29"
+    //   ).getDate();
+    if (currentDayFilter !== "All") {
       let filteredDay = new Date(
         currentDayFilter === "DAY 1"
-          ? "2023-04-26"
+          ? "2024-02-22"
           : currentDayFilter === "DAY 2"
-          ? "2023-04-27"
-          : currentDayFilter === "DAY 3"
-          ? "2023-04-28"
-          : "2023-04-29"
+          ? "2024-02-23"
+          : "2024-02-24"
       ).getDate();
       tempFilteredEvents = tempFilteredEvents?.filter((event) =>
         event.rounds.some(

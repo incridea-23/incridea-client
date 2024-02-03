@@ -1,17 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { IoLocationOutline } from "react-icons/io5";
 import { RiNumbersLine } from "react-icons/ri";
 import { Team } from "./userTeams";
-import TeamCard from "./teamCard";
 import { QRCodeSVG } from "qrcode.react";
 import { idToPid, idToTeamId } from "@/src/utils/id";
-import { makeTeamPayment } from "@/src/utils/razorpay";
-import email from "next-auth/providers/email";
 import toast from "react-hot-toast";
-import Button from "../../button";
-import LeaveTeamModal from "./LeaveTeamModal";
 import ConfirmTeamModal from "./confirmTeam";
 import EditTeamModal from "./editTeam";
 import DeleteTeamModal from "./deleteTeam";
@@ -20,14 +15,11 @@ const EventCard: FC<{
   teams: any;
   event: any;
   userId: string;
-  name: string;
-  email: string;
-}> = ({ teams, event, userId, name, email }) => {
-  const [sdkLoading, setSdkLoading] = useState(false);
+}> = ({ teams, event, userId }) => {
   const solo =
     event.eventType === "INDIVIDUAL" ||
     event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY";
-  const changes = null;
+
   return (
     <Link
       href={`/event/${event.name.toLowerCase().replaceAll(" ", "-")}-${
@@ -94,48 +86,49 @@ const EventCard: FC<{
             ))}
           </div>
 
-          {teams?.map((team: Team) => (
-            <>
-              <div className="flex flex-col gap-2 justify-center items-center ">
-                <div className="titleFont text-white flex justify-center space-x-2">
-                  <span className="break-normal text-center">
-                    {solo ? idToPid(userId) : team.name.toUpperCase()}
-                  </span>
+          {teams?.map((team: Team, i: number) => (
+            <div
+              key={i}
+              className="flex flex-col gap-2 justify-center items-center "
+            >
+              <div className="titleFont text-white flex justify-center space-x-2">
+                <span className="break-normal text-center">
+                  {solo ? idToPid(userId) : team.name.toUpperCase()}
+                </span>
 
-                  <div className="flex items-start">
-                    {!team.confirmed && !solo && team.leaderId == userId && (
-                      <EditTeamModal userId={userId} team={team} />
-                    )}
-                    {!team.confirmed && solo && (
-                      <DeleteTeamModal teamId={team.id} solo={solo} />
-                    )}
-                  </div>
-                </div>
-                <div className="flex flex-col justify-center gap-y-2">
-                  <QRCodeSVG
-                    color="#ffffff"
-                    fgColor="#ffffff"
-                    value={solo ? idToPid(userId) : idToTeamId(team.id)}
-                    size={100}
-                    bgColor="transparent"
-                  />
-                  <button
-                    onClick={async (event) => {
-                      event.preventDefault();
-                      await navigator.clipboard.writeText(
-                        solo ? idToPid(userId) : idToTeamId(team.id)
-                      );
-                      toast.success("Copied to clipboard", {
-                        position: "bottom-center",
-                      });
-                    }}
-                    className="text-white text-xm cursor-pointer"
-                  >
-                    {solo ? idToPid(userId) : idToTeamId(team.id)}
-                  </button>
+                <div className="flex items-start">
+                  {!team.confirmed && !solo && team.leaderId == userId && (
+                    <EditTeamModal userId={userId} team={team} />
+                  )}
+                  {!team.confirmed && solo && (
+                    <DeleteTeamModal teamId={team.id} solo={solo} />
+                  )}
                 </div>
               </div>
-            </>
+              <div className="flex flex-col justify-center gap-y-2">
+                <QRCodeSVG
+                  color="#ffffff"
+                  fgColor="#ffffff"
+                  value={solo ? idToPid(userId) : idToTeamId(team.id)}
+                  size={100}
+                  bgColor="transparent"
+                />
+                <button
+                  onClick={async (event) => {
+                    event.preventDefault();
+                    await navigator.clipboard.writeText(
+                      solo ? idToPid(userId) : idToTeamId(team.id)
+                    );
+                    toast.success("Copied to clipboard", {
+                      position: "bottom-center",
+                    });
+                  }}
+                  className="text-white text-xm cursor-pointer"
+                >
+                  {solo ? idToPid(userId) : idToTeamId(team.id)}
+                </button>
+              </div>
+            </div>
           ))}
         </div>
       </div>

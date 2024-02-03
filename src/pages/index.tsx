@@ -9,9 +9,10 @@ import Parallax from "parallax-js";
 import Arcade from "../components/svg/arcade";
 import { VikingHell } from "./_app";
 import { NextRouter, useRouter } from "next/router";
-import { useAuth } from "../hooks/useAuth";
+import { AuthStatus, useAuth } from "../hooks/useAuth";
 import { useQuery } from "@apollo/client";
 import { GetUserXpDocument } from "../generated/generated";
+import { is } from "@react-three/fiber/dist/declarations/src/core/utils";
 
 export default function Landing() {
   const landingContainer = useRef(null);
@@ -101,7 +102,10 @@ export default function Landing() {
 
       <div className="absolute top-0">
         <HomeUi xp={xp} userAuthStatus={userAuthStatus} />
-        <Menu router={router} />
+        <Menu
+          router={router}
+          isAuthenticated={status === AuthStatus.AUTHENTICATED}
+        />
         <HomeFooter />
       </div>
     </main>
@@ -110,7 +114,7 @@ export default function Landing() {
 
 const HomeFooter = () => {
   return (
-    <footer className="absolute w-full text-gray-200 bottom-0">
+    <footer className="absolute w-full text-gray-200 bottom-0 ">
       <p className="text-center p-5 text-sm">
         <Link
           className="flex justify-center items-center tracking-normal transition-all hover:tracking-widest hover:text-gray-300"
@@ -126,7 +130,8 @@ const HomeFooter = () => {
 
 const Menu: FC<{
   router: NextRouter;
-}> = ({ router }) => {
+  isAuthenticated: boolean;
+}> = ({ router, isAuthenticated }) => {
   const navItems = [
     { href: "/events", target: "Events" },
     { href: "/pronite", target: "Pronite" },
@@ -138,16 +143,19 @@ const Menu: FC<{
   return (
     <div className="w-screen overflow-x-hidden flex flex-col absolute bottom-0 left-0 h-full justify-center items-center">
       <div className="lg:flex flex-col hidden  absolute bottom-10 items-center sm:flex-row  md:gap-10 my-24 gap-3  w-fit ">
-        <Button
-          intent={"primary"}
-          className="h-fit w-52  px-4 sm:px-12"
-          size={"xlarge"}
-          onClick={() => {
-            router.push("/login");
-          }}
-        >
-          Register
-        </Button>
+        <Link href="/login">
+          <Button
+            intent={"primary"}
+            className="h-fit w-52  px-4 sm:px-12"
+            size={"xlarge"}
+            onClick={() => {
+              isAuthenticated ? router.push("/profile") :
+              router.push("/login");
+            }}
+          >
+            {!isAuthenticated ? "Register" : "Profile"}
+          </Button>
+        </Link>
         <Button
           intent={"ghost"}
           className="h-fit w-52 px-4 sm:px-12"
@@ -167,16 +175,18 @@ const Menu: FC<{
         </h3>
         {
           <>
-            <Button
-              intent={"ghost"}
-              className="lg:hidden !bg-primary-800/70 block w-52 md:w-80 justify-center md:justify-end px-12 md:px-16"
-              size={"xlarge"}
-              onClick={() => {
-                router.push("/login");
-              }}
-            >
-              Register
-            </Button>
+            <Link href="/login">
+              <Button
+                intent={"ghost"}
+                className="lg:hidden !bg-primary-800/70 block w-52 md:w-80 justify-center md:justify-end px-12 md:px-16"
+                size={"xlarge"}
+                onClick={() => {
+                  router.push("/login");
+                }}
+              >
+                {!isAuthenticated ? "Register" : "Profile"}
+              </Button>
+            </Link>
             <Button
               intent={"ghost"}
               className="lg:hidden !bg-primary-800/70 block w-52 md:w-80 justify-center md:justify-end px-12 md:px-16"

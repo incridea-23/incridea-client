@@ -11,7 +11,11 @@ interface DexProps {
   data?: Array<{ id: string; name: string; image: string }>;
 }
 
-const Pokedex: React.FC<DexProps> = ({ data = [] }) => {
+interface DexProps {
+  data?: Array<{ id: string; name: string; image: string }>;
+}
+
+const Pokedex: React.FC<DexProps>: React.FC<DexProps> = ({ data = [] }{ data = [] }) => {
   const setEventDex = useStore((state) => state.setEventDex);
   const eventDex = useStore((state) => state.eventDex);
   const [fullyOpen, setFullyOpen] = useState(false);
@@ -23,7 +27,7 @@ const Pokedex: React.FC<DexProps> = ({ data = [] }) => {
     tl.call(() => {
       setFullyOpen(false);
     })
-      .set(".animate-1", { y: 80 })
+      .set(".animate-1", { y: 100 })
       .set(".animate-3", { y: -80 })
       .set(".carousel-container", { opacity: 0 });
 

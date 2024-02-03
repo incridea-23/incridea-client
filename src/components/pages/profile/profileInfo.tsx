@@ -336,10 +336,23 @@ const ProfileInfo: FC<{
   const [level, setLevel] = useState(0);
   const [xp, setXp] = useState(0);
   const [userId, setUser] = useState("");
+  const [userId, setUser] = useState("");
   const [rank, setRank] = useState(0);
 
-  const userXp = useQuery(GetUserXpDocument, {});
+  const userXp = useQuery(GetUserXpDocument,  {});
   useEffect(() => {
+    if (
+      userXp?.data &&
+      userXp.data.getUserXp.__typename === "QueryGetUserXpSuccess"
+    ) {
+      setLevel(userXp.data.getUserXp?.data?.length);
+      setXp(
+        userXp.data.getUserXp?.data?.reduce(
+          (acc, curr) => acc + curr.level.point,
+          0
+        )
+      );
+      setUser(userXp.data.getUserXp?.data[0]?.user.id);
     if (
       userXp?.data &&
       userXp.data.getUserXp.__typename === "QueryGetUserXpSuccess"
@@ -361,7 +374,24 @@ const ProfileInfo: FC<{
       name: string;
       count: number;
     };
+      levelPoints: number;
+      name: string;
+      count: number;
+    };
   }
+  const { data: Leaderboard, loading: leaderboardLoading } = useQuery(
+    GetXpLeaderboardDocument,
+    {}
+  );
+
+  const [sortedLeaderboard, setSortedLeaderboard] = useState<
+    {
+      levelPoints: number;
+      name: string;
+      userId: string;
+      count: number;
+    }[]
+  >([]);
   const { data: Leaderboard, loading: leaderboardLoading } = useQuery(
     GetXpLeaderboardDocument,
     {}
@@ -381,6 +411,11 @@ const ProfileInfo: FC<{
       Leaderboard?.getXpLeaderboard.__typename ===
       "QueryGetXpLeaderboardSuccess"
     ) {
+  useEffect(() => {
+    if (
+      Leaderboard?.getXpLeaderboard.__typename ===
+      "QueryGetXpLeaderboardSuccess"
+    ) {
       const userTotalPoints: UserTotalPoints = {};
 
       Leaderboard?.getXpLeaderboard.data.forEach((item) => {
@@ -394,8 +429,15 @@ const ProfileInfo: FC<{
           // If yes, add the level points to the existing total
           userTotalPoints[userId].levelPoints += levelPoints;
           userTotalPoints[userId].count += levelCount;
+          userTotalPoints[userId].levelPoints += levelPoints;
+          userTotalPoints[userId].count += levelCount;
         } else {
           // If no, create a new entry for the user ID
+          userTotalPoints[userId] = {
+            levelPoints,
+            name: userName,
+            count: 1,
+          };
           userTotalPoints[userId] = {
             levelPoints,
             name: userName,
@@ -410,7 +452,25 @@ const ProfileInfo: FC<{
           ...data,
         })
       );
+      // Convert userTotalPoints to an array of objects
+      const userTotalPointsArray = Object.entries(userTotalPoints).map(
+        ([userId, data]) => ({
+          userId,
+          ...data,
+        })
+      );
 
+      // Sort the array in descending order based on total points
+      userTotalPointsArray.sort((a, b) => b.levelPoints - a.levelPoints);
+      console.log(userTotalPointsArray);
+      // get current user's rank
+      const currentUserRank = userTotalPointsArray.findIndex(
+        (user) => user.userId === userId
+      );
+      console.log(currentUserRank);
+      setRank(currentUserRank + 1);
+    }
+  }, [Leaderboard, userId]);
       // Sort the array in descending order based on total points
       userTotalPointsArray.sort((a, b) => b.levelPoints - a.levelPoints);
       console.log(userTotalPointsArray);
@@ -493,7 +553,7 @@ const ProfileInfo: FC<{
 
         <div className="flex sm:flex-row flex-col-reverse gap-5 justify-between w-full items-center basis-1/2">
           <section className="flex flex-col gap-y-4 sm:items-start items-center justify-center w-full">
-            <p className="flex flex-col justify-center gap-y-4">
+            <div className="flex flex-col justify-center gap-y-4">
               <span className="sm:text-2xl text-xl text-center font-semibold">
                 Contact
               </span>
@@ -507,7 +567,7 @@ const ProfileInfo: FC<{
                   {user?.phoneNumber}
                 </span>
               </div>
-            </p>
+            </div>
             <div>
               <ViewUserAccommodation
                 showModal={showModal}
