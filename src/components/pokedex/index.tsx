@@ -1,19 +1,42 @@
-import { useEffect } from "react";
+import Button from "@/src/components/button";
+import Carousel from "@/src/components/slider";
 import gsap from "gsap";
 import Image from "next/image";
-import Carousel from "@/src/components/slider";
+import Link from "next/link";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
 import useStore from "../store/store";
-import Link from "next/link";
-import Button from "@/src/components/button";
 
 interface DexProps {
   data?: Array<{ id: string; name: string; image: string }>;
+  isMuted: boolean;
+  mainThemeAudioRef: React.MutableRefObject<HTMLAudioElement | null>;
 }
 
-const Pokedex: React.FC<DexProps> = ({ data = [] }) => {
+const Pokedex: React.FC<DexProps> = ({
+  data = [],
+  isMuted,
+  mainThemeAudioRef,
+}) => {
   const setEventDex = useStore((state) => state.setEventDex);
   const eventDex = useStore((state) => state.eventDex);
+
+  useEffect(() => {
+    const audio = new Audio("/audio/level2/pokemon.mp3");
+    audio.volume = 0.3;
+    let mainRef = mainThemeAudioRef;
+    if (isMuted) {
+      return;
+    } else if (!isMuted && eventDex) {
+      mainRef?.current?.pause();
+      audio.play();
+    }
+    return () => {
+      audio.pause();
+      mainRef?.current?.play();
+    };
+  }, [eventDex, isMuted, mainThemeAudioRef]);
+
   useEffect(() => {
     // Initialize GSAP
     const tl = gsap.timeline();
@@ -24,7 +47,7 @@ const Pokedex: React.FC<DexProps> = ({ data = [] }) => {
       .set(".carousel-container", { opacity: 0 });
 
     // Opening animation
-    tl.to(".animate-1", { y: -20, duration: 1, delay: 0.1})
+    tl.to(".animate-1", { y: -20, duration: 1, delay: 0.1 })
       .to(".animate-3", { y: 40, duration: 1 }, "<")
       .to(".carousel-container", { opacity: 1, duration: 3 }, "<");
   }, []);
