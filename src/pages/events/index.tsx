@@ -39,7 +39,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
   ];
 
   const dayFilters = ["All", "DAY 1", "DAY 2", "DAY 3"];
-  const categoryFilters = ["All", "TECHNICAL", "NON_TECHNICAL", "CORE"];
+  const categoryFilters = ["All", "TECHNICAL", "NON_TECHNICAL", "CORE","SPECIAL"];
   const [currentBranchFilter, setCurrentBranchFilter] =
     useState<(typeof branchFilters)[number]>("All");
   const [currentDayFilter, setCurrentDayFilter] =
