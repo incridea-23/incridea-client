@@ -84,11 +84,17 @@ const EasterBomb: FunctionComponent = () => {
           display: "initial",
         }}
       >
-        <Image
+        {/* <Image
           src={bombRef.current.src}
           alt={"easterBomb"}
           width={size.width}
           height={size.height}
+        /> */}
+
+        <BombAsset
+          width={size.width}
+          height={size.height}
+          src={!bombClicked ? bombSrc : explodeGIFSrc}
         />
       </div>
     </>
@@ -96,3 +102,11 @@ const EasterBomb: FunctionComponent = () => {
 };
 
 export default EasterBomb;
+
+const BombAsset: FunctionComponent<{
+  src: string;
+  width: number;
+  height: number;
+}> = ({ src, width, height }) => {
+  return <Image src={src} alt={"easterBomb"} width={width} height={height} />;
+};
