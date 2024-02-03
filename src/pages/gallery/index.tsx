@@ -1,6 +1,7 @@
 import { FooterBody } from "@/src/components/footer";
 import GallerySlide from "@/src/components/galleryslide";
 import ProgressBar from "@/src/components/galleryslide/progressBar/progress-bar";
+import styles from "@/src/components/galleryslide/styles/shadow.module.css";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import gsap from "gsap";
 import { NextPage } from "next";
@@ -110,6 +111,24 @@ const Gallery: NextPage = () => {
         ></motion.div>
         {/* Pc Section */}
         <div className="min-h-screen overflow-y-auto">
+          {years.map((year, index) => {
+            if (index === 4) return;
+            return (
+              <h1
+                key={year}
+                id="animation"
+                className={
+                  styles["text-shadow"] +
+                  ` absolute top-28 text-center w-full font-extrabold sm:text-6xl text-4xl z-50 border-black text-white ${
+                    activeYear === index ? "block" : "hidden"
+                  }`
+                }
+              >
+                INCRIDEA <span className="tracking-tight">{year}</span>
+              </h1>
+            );
+          })}
+
           {/* Slide Section */}
           <Swiper
             autoplay={false}
