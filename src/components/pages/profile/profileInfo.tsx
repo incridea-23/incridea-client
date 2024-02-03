@@ -341,9 +341,9 @@ const ProfileInfo: FC<{
   const userXp = useQuery(GetUserXpDocument,{});
   useEffect(() => {
     if (userXp?.data && userXp.data.getUserXp.__typename === "QueryGetUserXpSuccess") {
-      setLevel(userXp.data.getUserXp.data.length);
-      setXp(userXp.data.getUserXp.data.reduce((acc, curr) => acc + curr.level.point, 0));
-      setUser(userXp.data.getUserXp.data[0].user.id);
+      setLevel(userXp.data.getUserXp?.data?.length);
+      setXp(userXp.data.getUserXp?.data?.reduce((acc, curr) => acc + curr.level.point, 0));
+      setUser(userXp.data.getUserXp?.data[0]?.user.id);
     }
   }, [userXp.data]);
 

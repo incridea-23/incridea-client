@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useLayoutEffect, useRef, useState } from "react";
+import { FC, use, useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Button from "../components/button";
@@ -8,17 +8,50 @@ import { BsFillSuitHeartFill } from "react-icons/bs";
 import Parallax from "parallax-js";
 import Arcade from "../components/svg/arcade";
 import { VikingHell } from "./_app";
+import { NextRouter, useRouter } from "next/router";
+import { useAuth } from "../hooks/useAuth";
+import { useQuery } from "@apollo/client";
+import { GetUserXpDocument } from "../generated/generated";
 
 export default function Landing() {
   const landingContainer = useRef(null);
   const [pageLoader, setPageLoader] = useState<boolean>(true);
+  const router = useRouter();
+  const { user, loading, status } = useAuth();
+  const [userId, setUserId] = useState<string>("");
+  const { data: userXp, loading: userXpLoading } = useQuery(
+    GetUserXpDocument,
+    {}
+  );
+  const [xp, setXp] = useState<number>(0);
+  const [userAuthStatus, setUserAuthStatus] = useState<boolean>(false);
+
+  useEffect(() => {
+    console.log("user", user);
+    if (user && user.role !== "USER") {
+      setUserId(user.id);
+      setUserAuthStatus(true);
+    } else {
+      setUserAuthStatus(false);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (userXp?.getUserXp.__typename === "QueryGetUserXpSuccess") {
+      setXp(
+        userXp.getUserXp.data.reduce((acc, curr) => acc + curr.level.point, 0)
+      );
+    } else {
+      setXp(0);
+    }
+  }, [userXpLoading]);
 
   useGSAP(
     () => {
       gsap.to(landingContainer.current, {
         scale: 13,
-        translateY: 650,
-        translateX: 0,
+        translateY: 550,
+        translateX: 200,
         duration: 2,
         delay: 0.5,
         ease: "power2.in",
@@ -41,22 +74,34 @@ export default function Landing() {
           className=" min-h-screen w-full flex justify-center items-center  z-[999] absolute top-0 left-0"
         >
           <Image
-            src={"/assets/landing/lounge@2x.png"}
+            src={"/assets/landing/landing@2x.png"}
             alt="UI Incridea 2024"
             width={1920}
             height={1080}
             priority
             className="image w-full h-full object-cover object-center absolute top-0 left-0"
           />
-          <div className="absolute  translate-y-[18%]">
-            <Arcade />
+          <div className="aspect-video w-full relative h-screen min-w-max ">
+            <div className="absolute left-1/2 -translate-x-[60%] top-[39%] h-[12%] w-[8%]  ">
+              <Image
+                height={482}
+                width={256}
+                className="w-full h-full rounded-lg"
+                src="/assets/gif/nosignal.gif"
+                alt="no signal"
+                priority
+              />
+            </div>
           </div>
+          {/* <div className="absolute  translate-y-[18%]">
+            <Arcade />
+          </div> */}
         </section>
       )}
 
       <div className="absolute top-0">
-        <HomeUi />
-        <Menu />
+        <HomeUi xp={xp} userAuthStatus={userAuthStatus} />
+        <Menu router={router} />
         <HomeFooter />
       </div>
     </main>
@@ -79,7 +124,9 @@ const HomeFooter = () => {
   );
 };
 
-const Menu = () => {
+const Menu: FC<{
+  router: NextRouter;
+}> = ({ router }) => {
   const navItems = [
     { href: "/events", target: "Events" },
     { href: "/pronite", target: "Pronite" },
@@ -95,6 +142,9 @@ const Menu = () => {
           intent={"primary"}
           className="h-fit w-52  px-4 sm:px-12"
           size={"xlarge"}
+          onClick={() => {
+            router.push("/login");
+          }}
         >
           Register
         </Button></Link>
@@ -102,6 +152,9 @@ const Menu = () => {
           intent={"ghost"}
           className="h-fit w-52 px-4 sm:px-12"
           size={"xlarge"}
+          onClick={() => {
+            router.push("/explore/level1");
+          }}
         >
           Explore
         </Button>
@@ -118,6 +171,9 @@ const Menu = () => {
               intent={"ghost"}
               className="lg:hidden !bg-primary-800/70 block w-52 md:w-80 justify-center md:justify-end px-12 md:px-16"
               size={"xlarge"}
+              onClick={() => {
+                router.push("/login");
+              }}
             >
               Register
             </Button></Link>
@@ -125,6 +181,9 @@ const Menu = () => {
               intent={"ghost"}
               className="lg:hidden !bg-primary-800/70 block w-52 md:w-80 justify-center md:justify-end px-12 md:px-16"
               size={"xlarge"}
+              onClick={() => {
+                router.push("/explore/level1");
+              }}
             >
               Explore
             </Button>
@@ -145,7 +204,10 @@ const Menu = () => {
   );
 };
 
-const HomeUi = () => {
+const HomeUi: FC<{
+  xp: number;
+  userAuthStatus: boolean;
+}> = ({ xp, userAuthStatus }) => {
   useLayoutEffect(() => {
     const scene = document.getElementById("scene") as HTMLElement;
 
@@ -153,6 +215,9 @@ const HomeUi = () => {
       relativeInput: true,
     });
   });
+  useEffect(() => {
+    console.log("userAuthStatus", userAuthStatus);
+  }, [userAuthStatus]);
   const Logo = useRef(null);
   gsap.from(Logo.current, {
     delay: 0,
@@ -186,6 +251,30 @@ const HomeUi = () => {
           <div className="image02"></div>
         </div>
       </div>
+      {userAuthStatus && (
+        <div>
+          <div className="top-0 p-2">
+            <h3
+              className={` text-lg md:text-2xl text-white tracking-widest z-10`}
+            >
+              <div className="flex flex-row space-x-1 items-center titleFont">
+                <Image
+                  src={"/assets/png/XP.webp"}
+                  width={100}
+                  height={100}
+                  alt="map"
+                  className="sm:h-10 sm:w-10 h-8 w-8"
+                />
+
+                <div className="text-lg flex flex-col items-center justify-center">
+                  <p className={`${VikingHell.className}`}>XP</p>
+                  <p className="font-sans relative bottom-2">{xp}</p>
+                </div>
+              </div>
+            </h3>
+          </div>
+        </div>
+      )}
       <div data-depth="0.5" className="absolute  h-screen w-screen ">
         <div className="opacity-50 translate-y-16 h-[75vh] md:h-full absolute bottom-0 left-[50%] -translate-x-1/2 md:left-0 md:translate-x-0 md:w-full aspect-video  ">
           <Image
