@@ -39,7 +39,13 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
   ];
 
   const dayFilters = ["All", "DAY 1", "DAY 2", "DAY 3"];
-  const categoryFilters = ["All", "TECHNICAL", "NON_TECHNICAL", "CORE","SPECIAL"];
+  const categoryFilters = [
+    "All",
+    "TECHNICAL",
+    "NON_TECHNICAL",
+    "CORE",
+    "SPECIAL",
+  ];
   const [currentBranchFilter, setCurrentBranchFilter] =
     useState<(typeof branchFilters)[number]>("All");
   const [currentDayFilter, setCurrentDayFilter] =
@@ -197,7 +203,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
                     "inline-flex shrink-0 gap-2 text-sm md:text-lg whitespace-nowrap bg-black/30 border border-primary-200/80 items-center w-full justify-center rounded-full px-4 py-2 h-[40px] text-white"
                   }
                 >
-                  <IoTodayOutline size="16" className="hidden md:block" />
+                  <IoTodayOutline size="16" />
                   {currentDayFilter !== "All"
                     ? currentDayFilter
                         .toLowerCase()
@@ -251,7 +257,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
                     "inline-flex shrink-0 gap-2 text-sm md:text-lg whitespace-nowrap bg-black/30 border border-primary-200/80 items-center w-full justify-center rounded-full px-4 py-2 h-[40px] text-white"
                   }
                 >
-                  <BiCategory size="16" className="hidden md:block" />
+                  <BiCategory size="16" />
                   {currentCategoryFilter !== "All"
                     ? currentCategoryFilter
                         .toLowerCase()
@@ -292,14 +298,14 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
                 </Transition>
               </Menu>
             </div>
-            <div className="flex flex-col md:flex-row justify-center items-center gap-4">
+            {/* <div className="flex flex-col md:flex-row justify-center items-center gap-4">
               <Menu as={"div"} className={"relative w-full flex justify-end"}>
                 <Menu.Button
                   className={
                     "inline-flex shrink-0 gap-2 text-sm md:text-lg whitespace-nowrap bg-black/30 border border-primary-200/80 items-center w-full justify-center rounded-full px-4 py-2 h-[40px] text-white"
                   }
                 >
-                  <FaUniversity size="16" className="hidden md:block" />
+                  <FaUniversity size="16" />
                   {currentBranchFilter !== "All"
                     ? currentBranchFilter
                     : "Branch"}
@@ -333,7 +339,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
                   </Menu.Items>
                 </Transition>
               </Menu>
-            </div>
+            </div> */}
           </div>
         </div>
 
