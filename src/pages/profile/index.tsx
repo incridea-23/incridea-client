@@ -4,7 +4,7 @@ import "locomotive-scroll/dist/locomotive-scroll.css";
 import { useRef, useState } from "react";
 import ProfileInfo from "@/src/components/pages/profile/profileInfo";
 import UserEvents from "@/src/components/pages/profile/registeredEvents";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import Link from "next/link";
 import Button from "@/src/components/button";
 import Image from "next/image";
@@ -17,19 +17,19 @@ import { AddXpDocument } from "@/src/generated/generated";
 const Profile: NextPage = () => {
   const { error, user, loading } = useAuth();
   const containerRef = useRef(null);
-  const router = useRouter(); 
+  const router = useRouter();
   const [bombXp, setBombXp] = useState<Boolean>(false);
-  const [addXp] = useMutation(AddXpDocument,{
+  const [addXp] = useMutation(AddXpDocument, {
     variables: {
-        levelId: "2",
+      levelId: "2",
     },
   });
 
   useEffect(() => {
-    if(router.isReady){
+    if (router.isReady) {
       setBombXp(localStorage.getItem("bombClicked") === "true" ? true : false);
     }
-  },[router.isReady])
+  }, [router.isReady]);
 
   useEffect(() => {
     if (bombXp) {
@@ -38,10 +38,10 @@ const Profile: NextPage = () => {
         if (res.data?.addXP.__typename === "MutationAddXPSuccess") {
           toast.success(`Added ${res.data?.addXP.data.level.point} bomb Xp`, {
             position: "bottom-center",
-            style:{
+            style: {
               backgroundColor: "#7628D0",
-              color: "white"
-            }
+              color: "white",
+            },
           });
           localStorage.removeItem("bombClicked");
         }

@@ -5,7 +5,6 @@ import Link from "next/link";
 import Button from "../../button";
 import Spinner from "../../spinner";
 import EventCard from "./eventCard";
-import UserTeams from "./userTeams";
 import { FC } from "react";
 import { RegisterdEventsDocument } from "@/src/generated/generated";
 
@@ -56,14 +55,12 @@ const UserEvents: FC<{
                 <div className="grid  xl:grid-cols-2 grid-cols-1 gap-8 items-center justify-center">
                   {events?.registeredEvents.__typename ===
                     "QueryRegisteredEventsSuccess" &&
-                    events?.registeredEvents.data?.map((event) => (
+                    events?.registeredEvents.data?.map((event, i) => (
                       <EventCard
-                        key={event.id}
+                        key={i}
                         teams={event.teams}
                         event={event}
                         userId={userId}
-                        name={name}
-                        email={email}
                       />
                     ))}
                 </div>
