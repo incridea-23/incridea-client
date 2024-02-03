@@ -14,7 +14,7 @@ const Bomb: React.FC = () => {
     const intervalId = setInterval(() => {
       if (!isBombClicked) {
         setFallingElements((prev) => [
-          ...prev/* .slice(prev.length < 4 ? 0 : 1) */,
+          ...prev.slice(prev.length < 4 ? 0 : 1),
           <BombPng
             src="bomb.png"
             size={getSize()}
@@ -29,7 +29,7 @@ const Bomb: React.FC = () => {
     return () => {
       clearInterval(intervalId);
     };
-  }, [isBombClicked]); 
+  }, [isBombClicked]);
 
   return <>{fallingElements}</>;
 };

@@ -8,10 +8,12 @@ import Button from "../../button";
 
 type ResetPasswordFormProps = {
   setWhichForm: (whichForm: "signIn" | "resetPassword") => void;
+  setGotDialogBox: (gotDialogBox: boolean) => void;
 };
 
 const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
   setWhichForm,
+  setGotDialogBox,
 }) => {
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
@@ -19,6 +21,8 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
   const [resetMutation, { data, loading, error: mutationError }] = useMutation(
     ResetPasswordEmailDocument
   );
+
+  if (mutationError) setGotDialogBox(true);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     // add some client side validations like empty fields, password length, etc.
@@ -33,7 +37,14 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
     }).then((res) => {
       if (res.data?.sendPasswordResetEmail.__typename === "Error") {
         setError(res.data.sendPasswordResetEmail.message);
+        setGotDialogBox(true);
       }
+
+      if (
+        res.data?.sendPasswordResetEmail.__typename ===
+        "MutationSendPasswordResetEmailSuccess"
+      )
+        setGotDialogBox(true);
     });
   };
 
@@ -52,7 +63,7 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
         {data?.sendPasswordResetEmail.__typename ===
         "MutationSendPasswordResetEmailSuccess" ? (
           <>
-            <div className="flex flex-col gap-2 text-center items-center text-green-500 bg-green-100 font-semibold p-4 rounded-md">
+            <div className="flex flex-col gap-2 text-center items-center text-[#d7037f] bg-secondary-300 font-semibold p-4 rounded-md">
               <BiCheckCircle size={"2rem"} /> Reset link sent to your email.
               Please check your inbox.
             </div>

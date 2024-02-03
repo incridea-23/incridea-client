@@ -4,6 +4,24 @@
 
 
 
+/* Form autofill styling */
+input:autofill,
+input:autofill:hover,
+input:autofill:focus,
+input:autofill:active,
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  background-clip: text;
+  -webkit-background-clip: text;
+  /* text-accent-200 */
+  -webkit-text-fill-color: #cfeff7;;
+  transition: background-color 5000s ease-in-out 0s;
+  /* transparent */
+  box-shadow: inset 0 0 20px 20px #ffffff00;
+}
+
 /* create a youtube-like scrollbar */
 ::-webkit-scrollbar {
   width: 0.4rem;
