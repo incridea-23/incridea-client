@@ -37,7 +37,7 @@ const ToolTip = ({
       <p
         className={`${
           isVisible ? "visible" : "invisible"
-        } md:w-[130px] w-[60px] py-2 px-4 text-white bg-black rounded-md z-50 absolute ${classValue}`}
+        } md:w-[130px] w-[60px] py-2 px-4 text-white rounded-md z-50 absolute ${classValue}`}
         style={{
           top: "50%",
           left: "50%",
