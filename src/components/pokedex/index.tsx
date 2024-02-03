@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
 import Carousel from "@/src/components/slider";
@@ -10,35 +10,46 @@ import Button from "@/src/components/button";
 const Pokedex = () => {
   const setEventDex = useStore((state) => state.setEventDex);
   const eventDex = useStore((state) => state.eventDex);
+  const [fullyOpen, setFullyOpen] = useState(false);
   useEffect(() => {
     // Initialize GSAP
     const tl = gsap.timeline();
 
     // Initial state (closed)
-    tl.set(".animate-1", { y: 80 })
+    tl.call(() => {
+      setFullyOpen(false);
+    })
+      .set(".animate-1", { y: 80 })
       .set(".animate-3", { y: -80 })
       .set(".carousel-container", { opacity: 0 });
 
     // Opening animation
     tl.to(".animate-1", { y: -20, duration: 2, delay: 1 })
       .to(".animate-3", { y: 40, duration: 2 }, "<")
-      .to(".carousel-container", { opacity: 1, duration: 1, delay: 1 }, "<");
+      .to(".carousel-container", { opacity: 1, duration: 1, delay: 1 }, "<")
+      .call(() => {
+        setFullyOpen(true);
+      });
   }, []);
 
   return (
     <div className="fixed inset-0 z-[100] bg-black bg-opacity-50">
-      <div
-        className="absolute top-5 right-5 cursor-pointer bg-red-600 px-2 py-1 rounded-sm z-50"
-        style={{ pointerEvents: eventDex ? "all" : "none" }}
-        onClick={setEventDex}
-      >
-        <IoMdClose className="text-lg text-white" />
-      </div>
       <div className="page-container h-screen relative">
         {/* Pokedex background */}
+
         <div className="h-full w-full flex flex-col justify-center items-center relative animation-container z-0">
           {/* Top part of Pokedex */}
-          <div>
+          <div className="flex justify-end">
+            {fullyOpen ? (
+              <div
+                className="cursor-pointer absolute w-fit bg-primary-300 px-2 py-1 rounded-bl-full rounded-tr-sm  z-50"
+                style={{ pointerEvents: eventDex ? "all" : "none" }}
+                onClick={setEventDex}
+              >
+                <IoMdClose className="text-lg text-white" />
+              </div>
+            ) : null}
+
             <Image
               src="/assets/svg/dextop.svg"
               alt="dexmid"
