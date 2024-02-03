@@ -5,7 +5,8 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import gsap from "gsap";
 import { NextPage } from "next";
 import Image from "next/image";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 import { Autoplay, Navigation, Pagination, Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -35,6 +36,15 @@ const Gallery: NextPage = () => {
   };
   const x = useMotionValue(0.5);
   const y = useMotionValue(0.5);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      toast.success(
+        "Feel free to interact with the console, Swipe the screens etc to interact!",
+        { duration: 3000 }
+      );
+    }
+  }, []);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -219,8 +229,8 @@ const Gallery: NextPage = () => {
             </div>
           </Swiper>
         </div>
-        <ProgressBar year={activeYear}></ProgressBar>
       </section>
+      <ProgressBar year={activeYear}></ProgressBar>
       <FooterBody />
     </>
   );
