@@ -78,7 +78,7 @@ function event({ event, error }: { event: Event; error: String }) {
         height={1920}
         width={1080}
         priority
-        className={`w-screen h-screen object-cover object-center top-0 left-0 absolute -z-10`}
+        className={`w-screen h-screen object-cover object-center top-0 left-0 absolute`}
       />
       <div className={`absolute pointer-events-none h-full w-full opacity-90 bg-blue-600/30 backdrop-brightness-80 z-50 top-0 right-0`} />
       <Toaster/>
