@@ -128,13 +128,13 @@ const HomeFooter = () => {
   );
 };
 
-const Menu: FC<{
+export const Menu: FC<{
   router: NextRouter;
   isAuthenticated: boolean;
 }> = ({ router, isAuthenticated }) => {
   const navItems = [
     { href: "/events", target: "Events" },
-    { href: "/pronite", target: "Pronite" },
+    { href: "/pronites", target: "Pronite" },
     { href: "/gallery", target: "Gallery" },
     { href: "/about", target: "about" },
     { href: "/sponsors", target: "Sponsors" },
@@ -149,8 +149,7 @@ const Menu: FC<{
             className="h-fit w-52  px-4 sm:px-12"
             size={"xlarge"}
             onClick={() => {
-              isAuthenticated ? router.push("/profile") :
-              router.push("/login");
+              isAuthenticated ? router.push("/profile") : router.push("/login");
             }}
           >
             {!isAuthenticated ? "Register" : "Profile"}

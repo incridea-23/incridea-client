@@ -36,18 +36,18 @@ const BookModal: React.FC = () => {
 
   return (
     <>
-      <div className="flex fixed inset-0 z-[1000] h-screen items-center justify-center p-5  overflow-hidden bg-black bg-opacity-50">
+      <div className="flex fixed inset-0 z-[1000] h-screen items-center justify-center p-5 md:scale-[200%]  overflow-hidden bg-black bg-opacity-50">
         <HTMLFlipBook
-          width={300}
-          height={500}
+          width={150}
+          height={225}
           className=" "
           style={{}}
           startPage={0}
           size={"fixed"}
-          minWidth={300}
-          maxWidth={300}
-          minHeight={500}
-          maxHeight={500}
+          minWidth={150}
+          maxWidth={400}
+          minHeight={225}
+          maxHeight={600}
           drawShadow={true}
           flippingTime={500}
           usePortrait={true}
@@ -77,7 +77,7 @@ const BookModal: React.FC = () => {
                 className="bg-[url('/assets/png/pageTexture.jpg')] bg-center bg-cover flex flex-col justify-center items-center w-full"
                 key={index}
               >
-                <Image
+                {/* <Image
                   src={page.logo}
                   alt={page.name}
                   width={300}
@@ -89,7 +89,7 @@ const BookModal: React.FC = () => {
                 </p>
                 <p className="text-3xl text-white font-semibold text-center">
                   {page.name}
-                </p>
+                </p> */}
               </div>
             );
           })}
@@ -103,14 +103,13 @@ const BookModal: React.FC = () => {
             />
           </div>
         </HTMLFlipBook>
-
-        <div
-          className="absolute top-5 right-5 cursor-pointer bg-red-600 px-2 py-1 rounded-sm"
-          style={{ pointerEvents: sponsorFlag ? "all" : "none" }}
-          onClick={setSponsorFlag}
-        >
-          <IoMdClose className="text-lg text-white" />
-        </div>
+      </div>
+      <div
+        className="fixed lg:top-[15%]  xl:right-[30%] lg:right-[25%] md:right-[20%] sm:right-[15%] top-[25%] right-[10%] z-[1001]  cursor-pointer bg-primary-300 px-2 py-1 rounded-sm"
+        style={{ pointerEvents: sponsorFlag ? "all" : "none" }}
+        onClick={setSponsorFlag}
+      >
+        <IoMdClose className="text-lg text-white" />
       </div>
     </>
   );
