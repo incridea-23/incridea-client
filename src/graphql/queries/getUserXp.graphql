@@ -12,6 +12,12 @@ query GetUserXp {
           id
           point
         }
+        user {
+          id
+          name
+          email
+          phoneNumber
+        }
       }
     }
   }

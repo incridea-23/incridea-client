@@ -1,10 +1,13 @@
 import React from "react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 
 type srcProps = {
     src: string;
     size: { width: number; height: number };
+    setIsBombClicked:React.Dispatch<React.SetStateAction<boolean>>;
+    isBombClicked: boolean;
 };
 
 const getPosition: () => number = () => {
@@ -13,7 +16,7 @@ const getPosition: () => number = () => {
     return Math.floor(Math.random() * (60-40)) + 40;
 };
 
-const FallingElement: React.FC<srcProps> = ({ src, size }: srcProps) => {
+const BombPng: React.FC<srcProps> = ({ src, size, isBombClicked, setIsBombClicked }: srcProps) => {
     const [localSrc, setLocalSrc] = useState(src);
     const [left, setLeft] = useState<number>(0);
 
@@ -26,7 +29,18 @@ const FallingElement: React.FC<srcProps> = ({ src, size }: srcProps) => {
     return (
         <>
             <div
-                
+                onClick={() => { if (localSrc === "bomb.png") {
+                    setLocalSrc("explodeGif.gif");
+                    toast.success(`Congratulations!!! You have earned some Xp`, {
+                        position: "bottom-center",
+                        style:{
+                          backgroundColor: "#7628D0",
+                          color: "white"
+                        }
+                    });
+                    localStorage.setItem("bombClicked", "true");
+                    !isBombClicked ? setIsBombClicked(!isBombClicked) : null ;
+                  } }}
                 className={`absolute bottom-0 animate-free-fall ${localSrc === "bomb.png" ? "z-[900]": "z-50"}`}
                 style={{
                     
@@ -37,6 +51,7 @@ const FallingElement: React.FC<srcProps> = ({ src, size }: srcProps) => {
                  {localSrc != "" ? <Image 
                     src={`/assets/png/${localSrc}`}
                     alt={""}
+                    /* fill={true} */
                     width={localSrc !== "explodeGif.gif" ? size.width : 170}
                     height={localSrc !== "explodeGif.gif" ? size.height :170}
                 />: null}   
@@ -49,4 +64,4 @@ const FallingElement: React.FC<srcProps> = ({ src, size }: srcProps) => {
     );
 };
 
-export default FallingElement;
+export default BombPng;

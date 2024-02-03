@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import styles from "@/src/components/explore/audioPlayer.module.css";
 import { AddXpDocument } from "@/src/generated/generated";
 import { useMutation } from "@apollo/client";
 import Image from "next/image";
@@ -7,7 +8,9 @@ import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { MdArrowRightAlt } from "react-icons/md";
 import Typewriter from "typewriter-effect";
+import Button from "../button";
 import AudioPlayer from "../explore/AudioPlayer";
+import Modal from "../modal";
 import {
   SpriteDimensions,
   platformDimensions,
@@ -25,22 +28,22 @@ const ExploreGame = () => {
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const ctx = useRef<CanvasRenderingContext2D | null | undefined>(null);
   const lastExecutionTimeRef = useRef<number>(0);
-  const [movmute, setmovmute] = useState(true);
+  let audioElement: "ground" | "middle" | "left" | "right" | "jump" = "middle";
+  const [isMuted, setIsMuted] = useState(true);
+  let sfxMuted = true;
 
-  const movementSoundTrigger = (path: string, delay: number) => {
+  function movementSoundTrigger(path: string, delay: number) {
     const currentTime = Date.now();
     const elapsedTime = currentTime - lastExecutionTimeRef.current;
-    console.log(movmute);
+    console.log(isMuted);
 
-    if (!movmute) {
-      if (elapsedTime >= delay) {
-        const audio = new Audio(path);
-        audio.play();
+    if (elapsedTime >= delay) {
+      const audio = new Audio(path);
+      audio.play();
 
-        lastExecutionTimeRef.current = currentTime;
-      }
+      lastExecutionTimeRef.current = currentTime;
     }
-  };
+  }
 
   const [addXp] = useMutation(AddXpDocument, {
     variables: {
@@ -55,12 +58,23 @@ const ExploreGame = () => {
           `Opps!! You have already claimed your xp or not logged in`,
           {
             position: "bottom-center",
+            style: {
+              backgroundColor: "#7628D0",
+              color: "white",
+            },
           }
         );
       } else {
-        toast.success(`Added ${res.data?.addXP.data.level.point} Xp`, {
-          position: "bottom-center",
-        });
+        toast.success(
+          `Congratulations!!! You have found ${res.data?.addXP.data.level.point} Xp`,
+          {
+            position: "bottom-center",
+            style: {
+              backgroundColor: "#7628D0",
+              color: "white",
+            },
+          }
+        );
       }
     });
   };
@@ -139,6 +153,7 @@ const ExploreGame = () => {
   }
 
   function Jump() {
+    audioElement = "jump";
     if (isGrounded) {
       velocity.current.y = -Math.sqrt(
         window.innerHeight *
@@ -351,6 +366,10 @@ const ExploreGame = () => {
 
     if (player.current.y >= window.innerHeight * 1.62 - player.current.height) {
       // Standing on the ground
+      if (audioElement !== "ground") {
+        audioElement = "ground";
+        movementSoundTrigger("/audio/thud.mp3", 0);
+      }
       isGrounded = true;
       player.current.y = window.innerHeight * 1.62 - player.current.height;
       return;
@@ -374,6 +393,10 @@ const ExploreGame = () => {
     ) {
       // Standing on the left platform
       isGrounded = true;
+      if (audioElement !== "left") {
+        audioElement = "left";
+        movementSoundTrigger("/audio/thump.mp3", 250);
+      }
 
       if (showScheduleFlag) {
         setShowSchedule(true);
@@ -421,6 +444,10 @@ const ExploreGame = () => {
           player.current.width / 2
     ) {
       // Standing on the right platform
+      if (audioElement !== "right") {
+        audioElement = "right";
+        movementSoundTrigger("/audio/thump.mp3", 0);
+      }
       isGrounded = true;
       if (showRuleBookFlag) {
         setShowRuleBook(true);
@@ -467,6 +494,10 @@ const ExploreGame = () => {
           centralPlatformSpriteWidth
     ) {
       // Standing on the central platform
+      if (audioElement !== "middle") {
+        audioElement = "middle";
+        movementSoundTrigger("/audio/thump.mp3", 0);
+      }
       isGrounded = true;
       if (showAboutFlag) {
         setShowAbout(true);
@@ -495,7 +526,9 @@ const ExploreGame = () => {
       velocity.current.y = 0;
 
       /* ######### EASTER EGG GOES HERE ######### */
+      movementSoundTrigger("/audio/thud.mp3", 250);
       handleAddXp();
+      //replace with xp sound
       return;
     }
 
@@ -509,6 +542,7 @@ const ExploreGame = () => {
   };
 
   const animate = () => {
+    // console.log(isMuted);
     ctx.current?.clearRect(0, 0, window.innerWidth, window.innerHeight * 2);
 
     actionKeys.map((key) => {
@@ -635,29 +669,13 @@ const ExploreGame = () => {
 
   return (
     <>
-      {/* <div className=""/> */}
-
-      {/* </div/> */}
-
-      {/* movement audio mute */}
-      {/* <div
-        style={{ position: "sticky" }}
-        className="flex justify-end pr-4 py-6 bg-none"
-      >
-        <button
-          onClick={() => setmovmute(!movmute)}
-          className="text-white scale-125 hover:scale-150"
-          style={{
-            border: "none",
-            cursor: "pointer",
-          }}
-        >
-          {movmute ? <IoVolumeMute size={30} /> : <IoVolumeHigh size={30} />}
-        </button>
-      </div> */}
-      <div className="h-[200dvh] relative">
+      <AudioPlayer
+        mainTheme="/audio/Level1MainTheme.mp3"
+        isMuted={isMuted}
+        setIsMuted={setIsMuted}
+      ></AudioPlayer>
+      <div className="h-[200vh] relative">
         <div className="hidden">
-          {" "}
           <img
             src="/assets/spriteSheets/ryokoSpriteSheet.png"
             alt=""
@@ -674,7 +692,6 @@ const ExploreGame = () => {
             ref={platformSprite}
           />
         </div>
-        {/* <AudioPlayer mainTheme="/audio/Level1MainTheme.mp3"></AudioPlayer> */}
         <div className="flex w-full justify-center items-center">
           <div
             className="absolute bg-[#d64d00] z-50 h-max w-max top-[20%] text-[#fec3b5] pressStart text-center sm:p-12 border-l-4 border-t-4 border-white p-4 rounded-lg"
@@ -759,7 +776,7 @@ const ExploreGame = () => {
           </a>
         </div>
 
-        <div className="absolute sm:top-[57%] top-[75%] sm:right-12 right-2 z-50 text-white font-bold animate-pulse">
+        <div className="absolute sm:top-[57%] top-[75%] sm:right-12 right-2 z-50 text-white font-bold animate-pulse pointer-events-none">
           <MdArrowRightAlt
             size={80}
             className="text-white justify-center w-full flex"
@@ -792,7 +809,7 @@ const ExploreGame = () => {
               }}
               onTouchEnd={() => {
                 if (actionKeys.includes("ArrowRight")) {
-                  actionKeys.splice(actionKeys.indexOf("ArrowRight", 1));
+                  actionKeys.splice(actionKeys.indexOf("ArrowRight"), 1);
                 }
               }}
               onMouseDown={() => {
@@ -801,16 +818,12 @@ const ExploreGame = () => {
               }}
               onMouseUp={() => {
                 if (actionKeys.includes("ArrowRight")) {
-                  actionKeys.splice(actionKeys.indexOf("ArrowRight", 1));
+                  actionKeys.splice(actionKeys.indexOf("ArrowRight"), 1);
                 }
               }}
               className="pointer-events-auto"
             >
-              <g
-                id="Rectangle 6"
-                filter="url(#filter0_b_95_21)"
-                className="pointer-events-none"
-              >
+              <g id="Rectangle 6" filter="url(#filter0_b_95_21)">
                 <rect
                   x="808"
                   y="495"
@@ -841,7 +854,7 @@ const ExploreGame = () => {
               }}
               onTouchEnd={() => {
                 if (actionKeys.includes("ArrowUp")) {
-                  actionKeys.splice(actionKeys.indexOf("ArrowUp", 1));
+                  actionKeys.splice(actionKeys.indexOf("ArrowUp"), 1);
                 }
               }}
               onMouseDown={() => {
@@ -849,7 +862,7 @@ const ExploreGame = () => {
               }}
               onMouseUp={() => {
                 if (actionKeys.includes("ArrowUp")) {
-                  actionKeys.splice(actionKeys.indexOf("ArrowUp", 1));
+                  actionKeys.splice(actionKeys.indexOf("ArrowUp"), 1);
                 }
               }}
               className="pointer-events-auto"
@@ -888,7 +901,7 @@ const ExploreGame = () => {
               }}
               onTouchEnd={() => {
                 if (actionKeys.includes("ArrowLeft")) {
-                  actionKeys.splice(actionKeys.indexOf("ArrowLeft", 1));
+                  actionKeys.splice(actionKeys.indexOf("ArrowLeft"), 1);
                 }
               }}
               onMouseDown={() => {
@@ -897,7 +910,7 @@ const ExploreGame = () => {
               }}
               onMouseUp={() => {
                 if (actionKeys.includes("ArrowLeft")) {
-                  actionKeys.splice(actionKeys.indexOf("ArrowLeft", 1));
+                  actionKeys.splice(actionKeys.indexOf("ArrowLeft"), 1);
                 }
               }}
               className="pointer-events-auto"
