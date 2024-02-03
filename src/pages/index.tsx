@@ -12,6 +12,7 @@ import { NextRouter, useRouter } from "next/router";
 import { AuthStatus, useAuth } from "../hooks/useAuth";
 import { useQuery } from "@apollo/client";
 import { GetUserXpDocument } from "../generated/generated";
+import { is } from "@react-three/fiber/dist/declarations/src/core/utils";
 
 export default function Landing() {
   const landingContainer = useRef(null);
@@ -148,6 +149,7 @@ const Menu: FC<{
             className="h-fit w-52  px-4 sm:px-12"
             size={"xlarge"}
             onClick={() => {
+              isAuthenticated ? router.push("/profile") :
               router.push("/login");
             }}
           >
