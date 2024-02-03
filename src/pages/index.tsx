@@ -9,7 +9,7 @@ import Parallax from "parallax-js";
 import Arcade from "../components/svg/arcade";
 import { VikingHell } from "./_app";
 import { NextRouter, useRouter } from "next/router";
-import { useAuth } from "../hooks/useAuth";
+import { AuthStatus, useAuth } from "../hooks/useAuth";
 import { useQuery } from "@apollo/client";
 import { GetUserXpDocument } from "../generated/generated";
 
@@ -101,7 +101,10 @@ export default function Landing() {
 
       <div className="absolute top-0">
         <HomeUi xp={xp} userAuthStatus={userAuthStatus} />
-        <Menu router={router} />
+        <Menu
+          router={router}
+          isAuthenticated={status === AuthStatus.AUTHENTICATED}
+        />
         <HomeFooter />
       </div>
     </main>
@@ -126,7 +129,8 @@ const HomeFooter = () => {
 
 const Menu: FC<{
   router: NextRouter;
-}> = ({ router }) => {
+  isAuthenticated: boolean;
+}> = ({ router, isAuthenticated }) => {
   const navItems = [
     { href: "/events", target: "Events" },
     { href: "/pronite", target: "Pronite" },
@@ -146,7 +150,7 @@ const Menu: FC<{
             router.push("/login");
           }}
         >
-          Register
+          {!isAuthenticated ? "Register" : "Profile"}
         </Button>
         <Button
           intent={"ghost"}
@@ -175,7 +179,7 @@ const Menu: FC<{
                 router.push("/login");
               }}
             >
-              Register
+              {!isAuthenticated ? "Register" : "Profile"}
             </Button>
             <Button
               intent={"ghost"}
