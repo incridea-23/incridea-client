@@ -14,10 +14,19 @@ const Navbar = dynamic(() => import("../components/navbar"), { ssr: false });
 import HeadComponent from "../components/head";
 import Footer from "../components/footer";
 import localFont from "@next/font/local";
+import { Press_Start_2P } from "@next/font/google";
 
 export const VikingHell = localFont({
   src: "../font/Viking Hell.otf",
   variable: "--font-viking-hell",
+});
+
+export const pressStart = Press_Start_2P({
+  weight: ["400"],
+  subsets: ["latin"],
+  style: ["normal"],
+  display: "swap",
+  variable: "--font-Press_Start_2P",
 });
 
 export default function App({
@@ -40,7 +49,9 @@ export default function App({
           title="Incridea"
           description="Official Website of Incridea 2024, National level techno-cultural fest, NMAMIT, Nitte. Innovate. Create. Ideate."
         />
-        <div className={`min-h-screen ${VikingHell.variable}`}>
+        <div
+          className={`min-h-screen ${VikingHell.variable} ${pressStart.variable}`}
+        >
           <Component {...pageProps} />
           <Toaster />
         </div>
@@ -55,7 +66,9 @@ export default function App({
         />
         <Toaster />
         <AnimatePresence>{isLoading && <Loader />}</AnimatePresence>
-        <div className={`min-h-screen ${VikingHell.variable}`}>
+        <div
+          className={`min-h-screen ${VikingHell.variable} ${pressStart.className}`}
+        >
           {!isLoading && <Navbar />}
           <Component setLoading={setLoading} {...pageProps} />
           <Footer />
