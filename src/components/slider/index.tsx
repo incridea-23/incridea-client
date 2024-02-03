@@ -20,27 +20,12 @@ import "swiper/swiper-bundle.min.css";
 // Install Swiper modules
 SwiperCore.use([Navigation, Scrollbar, A11y]);
 
-const Carousel: React.FC = () => {
+interface CarouselProps {
+  events?: Array<{ id: string; name: string; image: string }>;
+}
+
+const Carousel: React.FC<CarouselProps> = ({ events = [] }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const {
-    data: eventsData,
-    loading: eventLoading,
-    error: eventError,
-  } = useQuery<PublishedEventsQuery>(PublishedEventsDocument);
-
-  let tempFilteredEvents = eventsData?.publishedEvents;
-
-  tempFilteredEvents = tempFilteredEvents?.filter(
-    (event) => event.category === "CORE"
-  );
-
-  const events: Array<{ id: string; name: string; image: string }> =
-    tempFilteredEvents?.map((event) => ({
-      id: event.id,
-      name: event.name || "",
-      image: event.image || "",
-    })) || [];
 
   const handleSlideChange = (swiper: any) => {
     setActiveIndex(swiper.realIndex);
@@ -50,7 +35,6 @@ const Carousel: React.FC = () => {
     <div className="w-[300%] flex justify-center items-center relative z-10">
       <div className={styles.carousel_container}>
         <Swiper
-          loop={true}
           navigation={{
             nextEl: `.${styles.swiper_button_next}`,
             prevEl: `.${styles.swiper_button_prev}`,
@@ -60,6 +44,7 @@ const Carousel: React.FC = () => {
           spaceBetween={40}
           slidesPerView={3}
           centeredSlides={true}
+          loop={true}
         >
           {events.map((data, index) => (
             <SwiperSlide
@@ -72,7 +57,6 @@ const Carousel: React.FC = () => {
                 <Link href={generateEventUrl(data.name, data.id)}>
                   {data.image && (
                     <Image
-                      // src={`https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg`}
                       src={data.image}
                       alt={"Image"}
                       width={300}

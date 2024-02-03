@@ -16,6 +16,7 @@ import {
   platformDimensions,
   platformSpriteDimensions,
 } from "./gameConstants";
+import { IoVolumeHigh, IoVolumeMute } from "react-icons/io5";
 
 const actionKeys: string[] = [];
 const ExploreGame = () => {
@@ -34,6 +35,7 @@ const ExploreGame = () => {
   function movementSoundTrigger(path: string, delay: number) {
     const currentTime = Date.now();
     const elapsedTime = currentTime - lastExecutionTimeRef.current;
+    console.log(isMuted);
 
     if (elapsedTime >= delay) {
       const audio = new Audio(path);
@@ -50,26 +52,32 @@ const ExploreGame = () => {
   });
 
   const handleAddXp = () => {
-      const promise = addXp().then((res) => {
-          if (res.data?.addXP.__typename !== "MutationAddXPSuccess") {
-              toast.error(`Opps!! You have already claimed your xp or not logged in`, {
-                  position: "bottom-center",
-                  style:{
-                    backgroundColor: "#7628D0",
-                    color: "white"
-                  }
-              });
-          } else {
-              toast.success(`Congratulations!!! You have found ${res.data?.addXP.data.level.point} Xp`, {
-                  position: "bottom-center",
-                  style:{
-                    backgroundColor: "#7628D0",
-                    color: "white"
-                  }
-              });
+    const promise = addXp().then((res) => {
+      if (res.data?.addXP.__typename !== "MutationAddXPSuccess") {
+        toast.error(
+          `Opps!! You have already claimed your xp or not logged in`,
+          {
+            position: "bottom-center",
+            style: {
+              backgroundColor: "#7628D0",
+              color: "white",
+            },
           }
-        });
+        );
+      } else {
+        toast.success(
+          `Congratulations!!! You have found ${res.data?.addXP.data.level.point} Xp`,
+          {
+            position: "bottom-center",
+            style: {
+              backgroundColor: "#7628D0",
+              color: "white",
+            },
+          }
+        );
       }
+    });
+  };
 
   const WINDOW_DIMENSION = {
     width: window.innerWidth,
@@ -659,8 +667,6 @@ const ExploreGame = () => {
     };
   }, [scrollY]);
 
-
-
   return (
     <>
       <AudioPlayer
@@ -668,7 +674,7 @@ const ExploreGame = () => {
         isMuted={isMuted}
         setIsMuted={setIsMuted}
       ></AudioPlayer>
-      <div className="h-[200dvh] relative">
+      <div className="h-[200vh] relative">
         <div className="hidden">
           <img
             src="/assets/spriteSheets/ryokoSpriteSheet.png"
@@ -770,7 +776,7 @@ const ExploreGame = () => {
           </a>
         </div>
 
-        <div className="absolute sm:top-[57%] top-[75%] sm:right-12 right-2 z-50 text-white font-bold animate-pulse">
+        <div className="absolute sm:top-[57%] top-[75%] sm:right-12 right-2 z-50 text-white font-bold animate-pulse pointer-events-none">
           <MdArrowRightAlt
             size={80}
             className="text-white justify-center w-full flex"
@@ -803,7 +809,7 @@ const ExploreGame = () => {
               }}
               onTouchEnd={() => {
                 if (actionKeys.includes("ArrowRight")) {
-                  actionKeys.splice(actionKeys.indexOf("ArrowRight", 1));
+                  actionKeys.splice(actionKeys.indexOf("ArrowRight"), 1);
                 }
               }}
               onMouseDown={() => {
@@ -812,16 +818,12 @@ const ExploreGame = () => {
               }}
               onMouseUp={() => {
                 if (actionKeys.includes("ArrowRight")) {
-                  actionKeys.splice(actionKeys.indexOf("ArrowRight", 1));
+                  actionKeys.splice(actionKeys.indexOf("ArrowRight"), 1);
                 }
               }}
               className="pointer-events-auto"
             >
-              <g
-                id="Rectangle 6"
-                filter="url(#filter0_b_95_21)"
-                className="pointer-events-none"
-              >
+              <g id="Rectangle 6" filter="url(#filter0_b_95_21)">
                 <rect
                   x="808"
                   y="495"
@@ -852,7 +854,7 @@ const ExploreGame = () => {
               }}
               onTouchEnd={() => {
                 if (actionKeys.includes("ArrowUp")) {
-                  actionKeys.splice(actionKeys.indexOf("ArrowUp", 1));
+                  actionKeys.splice(actionKeys.indexOf("ArrowUp"), 1);
                 }
               }}
               onMouseDown={() => {
@@ -860,7 +862,7 @@ const ExploreGame = () => {
               }}
               onMouseUp={() => {
                 if (actionKeys.includes("ArrowUp")) {
-                  actionKeys.splice(actionKeys.indexOf("ArrowUp", 1));
+                  actionKeys.splice(actionKeys.indexOf("ArrowUp"), 1);
                 }
               }}
               className="pointer-events-auto"
@@ -899,7 +901,7 @@ const ExploreGame = () => {
               }}
               onTouchEnd={() => {
                 if (actionKeys.includes("ArrowLeft")) {
-                  actionKeys.splice(actionKeys.indexOf("ArrowLeft", 1));
+                  actionKeys.splice(actionKeys.indexOf("ArrowLeft"), 1);
                 }
               }}
               onMouseDown={() => {
@@ -908,7 +910,7 @@ const ExploreGame = () => {
               }}
               onMouseUp={() => {
                 if (actionKeys.includes("ArrowLeft")) {
-                  actionKeys.splice(actionKeys.indexOf("ArrowLeft", 1));
+                  actionKeys.splice(actionKeys.indexOf("ArrowLeft"), 1);
                 }
               }}
               className="pointer-events-auto"
