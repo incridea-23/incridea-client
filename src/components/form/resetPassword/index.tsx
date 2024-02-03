@@ -59,14 +59,17 @@ const ResetPassword: FunctionComponent = () => {
     <>
       {data?.resetPassword.__typename === "MutationResetPasswordSuccess" ? (
         <div className="flex relative justify-center flex-col gap-4 min-h-full">
-          <div className="flex flex-col gap-2 text-center items-center text-green-500 bg-green-100 font-semibold p-4 pb-2 rounded-md">
+          <div className="flex flex-col gap-2 text-center items-center text-[#d7037f] bg-secondary-300 font-semibold p-4 pb-2 rounded-md">
             <BiCheckCircle size={"2rem"} />
-            <div className="bg-green-100 flex flex-col text-center mb-5 items-center gap-3 rounded-md font-semibold">
+            <div className="bg-secondary-300 flex flex-col text-center mb-5 items-center gap-3 rounded-md font-semibold">
               Password was reset successfully.
               <br />
               <div>
                 Please{" "}
-                <Link href="/login" className="underline hover:text-green-600">
+                <Link
+                  href="/login"
+                  className="underline text-secondary-800 hover:text-[#ee007d]"
+                >
                   login.
                 </Link>
               </div>
