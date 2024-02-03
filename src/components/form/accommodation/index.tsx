@@ -16,6 +16,7 @@ import { TbArrowBackUp } from "react-icons/tb";
 import { toISOStringWithTimezone } from "../../pages/dashboard/organizer/RoundsAddModal";
 import Spinner from "../../spinner";
 import { IoEye } from "react-icons/io5";
+import ViewUserAccommodation from "../../pages/profile/viewUserAccommodation";
 
 const AccommodationForm: FunctionComponent = () => {
   const [
@@ -70,6 +71,7 @@ const AccommodationForm: FunctionComponent = () => {
   const handleUpload = (file: File) => {
     const formData = new FormData();
     formData.append("image", file);
+    // FIXME: Change this url
     const url = `http://localhost:4000/id/upload`;
     setUploading(true);
     const promise = fetch(url, {
@@ -105,6 +107,13 @@ const AccommodationForm: FunctionComponent = () => {
 
   return (
     <>
+      {showModal && (
+        <ViewUserAccommodation
+          inAccommodation={true}
+          showModal={showModal}
+          setShowModal={setShowModal}
+        />
+      )}
       <div className="mt-10 mb-4 px-6 py-8 h-max max-w-[350px] md:max-w-[450px] bg-gradient-to-b from-[#1f2e97] to-[#090d4b] rounded-md text-accent-200">
         {accommodationLoading ? (
           <div className="flex flex-col md:flex-row w-full">
@@ -120,7 +129,8 @@ const AccommodationForm: FunctionComponent = () => {
                 router.push("/profile");
               }}
               size={"small"}
-              className="ml-3 w-max mt-3 md:mt-0">
+              className="ml-3 w-max mt-3 md:mt-0"
+            >
               <TbArrowBackUp />
               Go Back
             </Button>
@@ -136,7 +146,8 @@ const AccommodationForm: FunctionComponent = () => {
                 setShowModal(true);
               }}
               size={"small"}
-              className="ml-3 w-max mt-3 md:mt-0">
+              className="ml-3 w-max mt-3 md:mt-0 self-end"
+            >
               <IoEye />
               View Request
             </Button>
@@ -144,7 +155,8 @@ const AccommodationForm: FunctionComponent = () => {
         ) : (
           <form
             onSubmit={handleSubmit}
-            className={`flex relative justify-center min-h-full flex-col gap-5`}>
+            className={`flex relative justify-center min-h-full flex-col gap-5`}
+          >
             <p className="text-2xl text-center font-semibold mb-3">
               Accommodation Request
             </p>
@@ -156,7 +168,8 @@ const AccommodationForm: FunctionComponent = () => {
                   return { ...prev, gender: value.toUpperCase() };
                 });
                 setGender(value);
-              }}>
+              }}
+            >
               <div className="relative">
                 <div className="relative w-full md:focus-within:border-[#dd5c6e] md:focus:border-[#dd5c6e] border-gray-400 cursor-default overflow-hidden border-b ">
                   <Combobox.Input
@@ -180,7 +193,8 @@ const AccommodationForm: FunctionComponent = () => {
                   leave="transition ease-in duration-100"
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
-                  afterLeave={() => setGenderQuery("")}>
+                  afterLeave={() => setGenderQuery("")}
+                >
                   <Combobox.Options className="z-10 absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 border text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                     {filteredGenders?.length === 0 && genderQuery !== "" ? (
                       <div className="relative font-semibold md:text-base text-xs select-none py-2 px-4 text-gray-600">
@@ -197,7 +211,8 @@ const AccommodationForm: FunctionComponent = () => {
                             }`
                           }
                           key={gender}
-                          value={gender}>
+                          value={gender}
+                        >
                           {gender}
                         </Combobox.Option>
                       ))
@@ -217,7 +232,8 @@ const AccommodationForm: FunctionComponent = () => {
                   };
                 });
                 setHotel(hotels?.find((hotel) => hotel.id === id)?.name || "");
-              }}>
+              }}
+            >
               <div className="relative">
                 <div className="relative w-full md:focus-within:border-[#dd5c6e] md:focus:border-[#dd5c6e] border-gray-400 cursor-default overflow-hidden border-b ">
                   <Combobox.Input
@@ -238,14 +254,16 @@ const AccommodationForm: FunctionComponent = () => {
                   leave="transition ease-in duration-100"
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
-                  afterLeave={() => setHotelQuery("")}>
+                  afterLeave={() => setHotelQuery("")}
+                >
                   <Combobox.Options className="z-10 absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 border text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                     {filteredHotels?.length === 0 && hotelQuery !== "" ? (
                       <div className="relative font-semibold md:text-base text-xs select-none py-2 px-4 text-gray-600">
                         Hotel not found. Please{" "}
                         <Link
                           href="/contact"
-                          className="underline hover:text-gray-700 cursor-pointer">
+                          className="underline hover:text-gray-700 cursor-pointer"
+                        >
                           contact admin.
                         </Link>
                       </div>
@@ -260,7 +278,8 @@ const AccommodationForm: FunctionComponent = () => {
                             }`
                           }
                           key={hotel.id}
-                          value={hotel.id}>
+                          value={hotel.id}
+                        >
                           {hotel.name}
                         </Combobox.Option>
                       ))
@@ -361,7 +380,8 @@ const AccommodationForm: FunctionComponent = () => {
             <Button
               intent={"primary"}
               type="submit"
-              className="mt-4 flex justify-center">
+              className="mt-4 flex justify-center"
+            >
               <MdModeEditOutline />
               Submit
             </Button>

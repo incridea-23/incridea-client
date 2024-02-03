@@ -27,7 +27,7 @@ const Profile: NextPage = () => {
 
   useEffect(() => {
     if (router.isReady) {
-      setBombXp(localStorage.getItem("bombClicked") === "true" ? true : false);
+      setBombXp(localStorage.getItem("easterBombClicked") === "true");
     }
   }, [router.isReady]);
 
@@ -36,14 +36,14 @@ const Profile: NextPage = () => {
       console.log("bombXp", bombXp);
       addXp().then((res) => {
         if (res.data?.addXP.__typename === "MutationAddXPSuccess") {
-          toast.success(`Added ${res.data?.addXP.data.level.point} bomb Xp`, {
+          toast.success(`Added ${res.data?.addXP.data.level.point} bomb XP`, {
             position: "bottom-center",
             style: {
               backgroundColor: "#7628D0",
               color: "white",
             },
           });
-          localStorage.removeItem("bombClicked");
+          localStorage.removeItem("easterBombClicked");
         }
       });
     }
