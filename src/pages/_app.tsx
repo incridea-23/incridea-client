@@ -65,12 +65,21 @@ export default function App({
           description="Official Website of Incridea 2024, National level techno-cultural fest, NMAMIT, Nitte. Innovate. Create. Ideate."
         />
         <Toaster />
-        <AnimatePresence>{isLoading && <Loader />}</AnimatePresence>
+        <Loader/>
         <div
-          className={`min-h-screen ${VikingHell.variable} ${pressStart.variable}`}
+          className={`min-h-screen ${VikingHell.variable} ${pressStart.variable} bg-gradient-to-b from-primary-200 to-primary-400`}
         >
           {!isLoading && <Navbar />}
-          <Component setLoading={setLoading} {...pageProps} />
+          <AnimatePresence mode="wait">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8 }}
+              className="min-h-screen"
+            >
+              <Component setLoading={setLoading} {...pageProps} />
+            </motion.div>
+          </AnimatePresence>
           <Footer />
         </div>
       </ApolloProvider>
