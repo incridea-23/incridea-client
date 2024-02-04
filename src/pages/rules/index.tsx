@@ -1,38 +1,30 @@
-import { NextPage } from 'next';
-import Image from 'next/image';
+import { NextPage } from "next";
+import Image from "next/image";
 
 const Terms: NextPage = () => {
   return (
-    <div className="overflow-x-hidden overflow-y-auto bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6] text-gray-100 p-5 sm:p-10">
+    <div className="overflow-x-hidden overflow-y-auto bg-gradient-to-b from-primary-300 to-primary-500 text-gray-100 p-5 sm:p-10">
       <div className="w-full max-w-7xl mx-auto">
-        <Image
-          src="/assets/png/waterflare.png"
-          height={1000}
-          width={1000}
-          alt="flare"
-          className="absolute opacity-40 z-10 top-0 right-0"
-          priority
-        />
         <h1 className={`titleFont pt-24 text-5xl mb-3 text-center`}>
           Terms and Conditions
         </h1>
-        <div className='bodyFont'>
+        <div className="bodyFont">
           <h2 className="text-2xl my-6">OVERVIEW</h2>
           <p className="mt-2">
             This website is operated by NMAM Institute of Technology. Throughout
-            the site, the terms “we”, “us” and “our” refer to NMAM Institute of
-            Technology. NMAM Institute of Technology offers this website,
-            including all information, tools, and services available from this
-            site to you, the user, conditioned upon your acceptance of all
-            terms, conditions, policies, and notices stated here.
+            the site, the terms “we”, “us” and “our” refer to NMAM
+            Institute of Technology. NMAM Institute of Technology offers this
+            website, including all information, tools, and services available
+            from this site to you, the user, conditioned upon your acceptance of
+            all terms, conditions, policies, and notices stated here.
           </p>
           <p className="mt-2">
             By visiting our site and/or participating in our college fest
-            Incridea 2023, you engage in our “Service” and agree to be bound by
-            the following terms and conditions (“Terms of Service”, “Terms”),
-            including those additional terms and conditions and policies
-            referenced herein and/or available by hyperlink. These Terms of
-            Service apply to all users of the site, including, without
+            Incridea 2023, you engage in our “Service” and agree to be bound
+            by the following terms and conditions (“Terms of Service”,
+            “Terms”), including those additional terms and conditions and
+            policies referenced herein and/or available by hyperlink. These
+            Terms of Service apply to all users of the site, including, without
             limitation, students, college staff, and all other participants who
             browse the page.
           </p>
@@ -271,8 +263,8 @@ const Terms: NextPage = () => {
             edit, or remove content related to Incridea 2023 that we determine
             in our sole discretion are unlawful, offensive, threatening,
             libellous, defamatory, pornographic, obscene, or otherwise
-            objectionable or violates any party’s intellectual property or these
-            Terms of Service.
+            objectionable or violates any party’s intellectual property or
+            these Terms of Service.
           </p>
           <p className="mt-2">
             You agree that your comments related to Incridea 2023 will not
@@ -482,26 +474,10 @@ const Terms: NextPage = () => {
           </p>
           Email:
           <a href="mailto:incridea@nmamit.in" className="mt-2 hover:underline">
-            {' '}
+            {" "}
             incridea@nmamit.in
           </a>
           <p className="mt-2">Phone: +91 94488 15186 or +91 96207 88383</p>
-        </div>
-        <div className={`flex w-full -translate-x-10 translate-y-8 opacity-75`}>
-          <Image
-            src={'/assets/png/atlantis.png'}
-            width={750}
-            height={50}
-            className="object-center"
-            alt="atlantis"
-          />
-          <Image
-            src={'/assets/png/atlantis.png'}
-            width={750}
-            height={50}
-            className="object-center"
-            alt="atlantis"
-          />
         </div>
       </div>
     </div>

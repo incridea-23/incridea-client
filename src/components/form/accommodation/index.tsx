@@ -126,13 +126,14 @@ const AccommodationForm: FunctionComponent = () => {
 
   return (
     <>
+      {showModal && (
+        <ViewUserAccommodation
+          inAccommodation={true}
+          showModal={showModal}
+          setShowModal={setShowModal}
+        />
+      )}
       <div className="mt-10 mb-4 px-6 py-8 h-max max-w-[350px] md:max-w-[450px] bg-gradient-to-b from-[#1f2e97] to-[#090d4b] rounded-md text-accent-200">
-        {showModal && (
-          <ViewUserAccommodation
-            showModal={showModal}
-            setShowModal={setShowModal}
-          />
-        )}
         {accommodationLoading ? (
           <div className="flex flex-col md:flex-row w-full">
             <Spinner className="text-[#dd5c6e]" />
@@ -160,11 +161,10 @@ const AccommodationForm: FunctionComponent = () => {
             </div>
             <Button
               onClick={() => {
-                console.log(showModal);
                 setShowModal(true);
               }}
               size={"small"}
-              className="ml-3 w-max mt-3 md:mt-0"
+              className="ml-3 w-max mt-3 md:mt-0 self-end"
             >
               <IoEye />
               View Request

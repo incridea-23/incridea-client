@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from "react";
 import Image from "next/image";
-import Bomb from "../bomb";
 
 type LoginPortalProps = {
   isTop: boolean;
@@ -32,14 +31,6 @@ const LoginPortal: FunctionComponent<LoginPortalProps> = ({ isTop }) => {
           isTop ? "-top-[25px]" : "-bottom-[20px]"
         } -translate-x-2/4 z-40 h-[50px] w-[75vw] md:w-[450px] backdrop-blur-[100px] pointer-events-none`}
       ></div>
-
-      {/* {isTop && (
-        <>
-          <div className="absolute left-2/4 -translate-x-2/4 z-30 h-0 w-[65vw] md:w-[440px]">
-            <Bomb />
-          </div>
-        </>
-      )} */}
 
       <div
         className={`absolute pointer-events-none left-2/4 ${
