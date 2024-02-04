@@ -30,7 +30,7 @@ export default function ExploreNav() {
         {user ? (
           <div className="flex flex-row space-x-1 items-center titleFont text-white">
             <Image
-              src={"/assets/png/XP.webp"}
+              src={"/assets/png/XP.png"}
               width={100}
               height={100}
               alt="map"

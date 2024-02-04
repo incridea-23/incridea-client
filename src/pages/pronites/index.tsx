@@ -10,6 +10,7 @@ import {
 } from "@react-three/drei";
 import { IoMdMicrophone } from "react-icons/io";
 import Image from "next/image";
+import { SlVolume2, SlVolumeOff } from "react-icons/sl";
 import ProniteCard from "@/src/components/pronites/card";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -45,6 +46,7 @@ export default function App() {
 
   const [isArtist1, setIsArtist1] = useState(true);
   const angle = useRef<number>(0);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
 
   useEffect(() => {
     angle.current = angle.current + Math.PI;
@@ -79,6 +81,19 @@ export default function App() {
         isArtist={true}
       />
       {/* <ProniteCard artist={{ ...artists[1] }} isArtist={!isArtist1} /> */}
+      <button
+        onClick={() => {
+          if (audioRef.current) audioRef.current.muted = !isMuted;
+          setIsMuted(!isMuted);
+        }}
+        className="absolute text-white top-[72px] right-3 z-50 cursor-pointer"
+      >
+        {isMuted ? (
+          <SlVolumeOff className="w-8 h-8 transition-colors duration-150" />
+        ) : (
+          <SlVolume2 className="w-8 h-8 transition-colors duration-150" />
+        )}
+      </button>
       <audio ref={audioRef} loop={true}></audio>
       <Canvas
         style={{ height: "100vh", width: "100vw" }}

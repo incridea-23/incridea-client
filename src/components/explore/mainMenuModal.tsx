@@ -1,7 +1,16 @@
 import Modal from "@/src/components/modal";
 import Link from "next/link";
 import Button from "@/src/components/button";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import { useAuth, AuthStatus } from "@/src/hooks/useAuth";
+import Image from "next/image";
+import { useLayoutEffect, useEffect, useState, useRef } from "react";
+import { BsFillSuitHeartFill } from "react-icons/bs";
+import { VikingHell } from "../../pages/_app";
+import { NextRouter, useRouter } from "next/router";
+import { useQuery } from "@apollo/client";
+import GlitchAnimation from "../../components/animation/glitchAnimation";
 
 type Props = {
   showModal: boolean;
@@ -27,7 +36,7 @@ const MainMenuModal: React.FunctionComponent<Props> = ({
       size="small"
     >
       <div className="flex w-full rounded-lg items-center justify-center">
-        <div className="flex flex-col w-full items-stretch gap-5 justify-center px-8 pb-4">
+        <div className="flex flex-col w-full items-stretch gap-5 justify-center px-8 pb-8">
           {navItems.map((e, i) => (
             <>
               {e.target !== "Profile" ? (

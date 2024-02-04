@@ -42,11 +42,11 @@ const Gallery: NextPage = () => {
     if (typeof window !== "undefined") {
       toast.success(
         "Feel free to interact with the console, Swipe the screens etc to interact!",
-        { duration: 3000,
-          style:{
-            backgroundColor: "#7628D0",
-            color: "white",
-          }
+        {
+          duration: 3000,
+          style: {
+            color: "black",
+          },
         }
       );
     }
@@ -115,7 +115,7 @@ const Gallery: NextPage = () => {
           style={{ rotateY, rotateX }}
         ></motion.div>
         {/* Pc Section */}
-        <div className="min-h-screen overflow-y-auto">
+        <div className="min-h-screen overflow-y-auto z-0">
           {years.map((year, index) => {
             if (index === 4) return;
             return (
@@ -140,10 +140,6 @@ const Gallery: NextPage = () => {
             onBeforeInit={(swiper) => {
               swiperRef.current = swiper;
             }}
-            pagination={{
-              type: "progressbar",
-            }}
-            modules={[Pagination]}
             speed={900}
             spaceBetween={200}
             noSwiping={true}
@@ -191,7 +187,7 @@ const Gallery: NextPage = () => {
                 />
               </div>
             </SwiperSlide>
-            <div className="mx-auto flex gap-4 absolute bottom-[16%] justify-between px-20 w-full">
+            <div className="mx-auto z-20 flex gap-4 absolute sm:bottom-[16%] bottom-32 justify-between px-20 w-full">
               <button
                 id="float"
                 onClick={async () => {
@@ -210,14 +206,14 @@ const Gallery: NextPage = () => {
                   });
                   return swiperRef.current?.slidePrev();
                 }}
-                className={`h-6 w-auto z-10 duration-75 transition-all ease-in-out`}
+                className={`h-6 w-auto duration-75 transition-all ease-in-out z-20`}
               >
                 <Image
                   src="/assets/svg/8bitArrow.svg"
                   alt="arrow-previous"
                   width={50}
                   height={50}
-                  className="rotate-180 w-12 h-12 md:w-20 md:h-20"
+                  className="rotate-180 z-20 w-12 h-12 md:w-20 md:h-20"
                   style={{
                     filter:
                       "drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black)",
@@ -244,7 +240,7 @@ const Gallery: NextPage = () => {
                   });
                   return swiperRef.current?.slideNext();
                 }}
-                className="z-10 h-6 w-auto duration-75 transition-all ease-in-out"
+                className="z-[500] h-6 w-auto duration-75 transition-all ease-in-out"
               >
                 <Image
                   src="/assets/svg/8bitArrow.svg"
@@ -252,7 +248,7 @@ const Gallery: NextPage = () => {
                   width={50}
                   height={50}
                   //  -webkit-filter: drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black);filter: drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black);
-                  className="w-12 h-12 md:w-20 md:h-20"
+                  className="w-12 z-[500] h-12 md:w-20 md:h-20"
                   style={{
                     filter:
                       "drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black)",

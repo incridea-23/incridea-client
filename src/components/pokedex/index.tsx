@@ -123,7 +123,7 @@ const Pokedex: React.FC<DexProps> = ({
           <div className="flex justify-end">
             {fullyOpen ? (
               <div
-                className="cursor-pointer absolute w-fit bg-secondary-700 px-2 py-1 rounded-bl-full rounded-tr-sm  z-50"
+                className="cursor-pointer absolute w-fit bg-primary-300 px-4 py-4 rounded-bl-full rounded-tr-sm  z-50"
                 style={{ pointerEvents: eventDex ? "all" : "none" }}
                 onClick={setEventDex}
               >
