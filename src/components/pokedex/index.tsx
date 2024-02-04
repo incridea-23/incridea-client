@@ -6,6 +6,9 @@ import { IoMdClose } from "react-icons/io";
 import useStore from "../store/store";
 import Link from "next/link";
 import Button from "@/src/components/button";
+import toast from "react-hot-toast";
+import { useMutation } from "@apollo/client";
+import { AddXpDocument } from "@/src/generated/generated";
 
 interface DexProps {
   data?: Array<{ id: string; name: string; image: string }>;
@@ -19,6 +22,42 @@ const Pokedex: React.FC<DexProps> = ({ data = [] }) => {
   const setEventDex = useStore((state) => state.setEventDex);
   const eventDex = useStore((state) => state.eventDex);
   const [fullyOpen, setFullyOpen] = useState(false);
+  let mutationCalled = false;
+
+  const [addXp] = useMutation(AddXpDocument, {
+    variables: {
+      levelId: "4",
+    },
+  });
+
+  const handleAddXp = () => {
+    const promise = addXp().then((res) => {
+      if (res.data?.addXP.__typename !== "MutationAddXPSuccess") {
+        toast.error(
+          `Opps!! You have already claimed your xp or not logged in`,
+          {
+            position: "bottom-center",
+            style: {
+              backgroundColor: "#7628D0",
+              color: "white",
+            },
+          }
+        );
+      } else {
+        toast.success(
+          `Congratulations!!! You have found ${res.data?.addXP.data.level.point} Xp`,
+          {
+            position: "bottom-center",
+            style: {
+              backgroundColor: "#7628D0",
+              color: "white",
+            },
+          }
+        );
+      }
+    });
+  };
+
   useEffect(() => {
     // Initialize GSAP
     const tl = gsap.timeline();
@@ -36,7 +75,12 @@ const Pokedex: React.FC<DexProps> = ({ data = [] }) => {
       .to(".animate-3", { y: 40, duration: 2 }, "<")
       .to(".carousel-container", { opacity: 1, duration: 3 }, "<")
       .call(() => {
+        console.log("Fully open")
         setFullyOpen(true);
+        if(!mutationCalled){
+          mutationCalled = true;
+          handleAddXp();
+        }
       });
   }, []);
 
