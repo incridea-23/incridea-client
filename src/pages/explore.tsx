@@ -31,15 +31,16 @@ const Explore = () => {
 
   const opts: YouTubeProps["opts"] = {
     playerVars: {
+      autoplay: 1,
       showinfo: 0,
       controls: 0,
       modestbranding: 0,
-      autoplay: 1,
       disablekb: 1,
       fs: 0,
       loop: 0,
       playsinline: 0,
       rel: 0,
+      mute: 0,
     },
   };
 
@@ -56,7 +57,7 @@ const Explore = () => {
       onReady={onPlayerReady}
       onPlay={() => {}}
       onPause={(event) => {
-        // event.target.playVideo();
+        event.target.playVideo();
       }}
       onEnd={() => {
         router.push("/explore/level1");
