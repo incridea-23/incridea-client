@@ -20,6 +20,7 @@ import { useQuery } from "@apollo/client";
 import studio from "@theatre/studio";
 import dynamic from "next/dynamic";
 import scene1 from "../../../public/assets/3d/state4.json";
+import ExploreNav from "@/src/components/explore/exploreNav";
 
 const Scene1 = dynamic(() => import("@/src/components/scene/scene1"), {
   ssr: false,
@@ -70,6 +71,7 @@ const App = () => {
         isMuted={isMuted}
         setIsMuted={setIsMuted}
       ></AudioPlayer>
+      <ExploreNav />
       <Suspense>
         <Canvas
           gl={{

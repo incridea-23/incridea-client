@@ -138,7 +138,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
   return (
     <div
       style={{ willChange: "transform" }}
-      className="min-h-screen bg-gradient-to-b from-primary-300 to-primary-400 relative overflow-hidden"
+      className="min-h-screen flex justify-center bg-gradient-to-b from-primary-300 to-primary-400 relative overflow-hidden"
     >
       <div className={styles.area}>
         <ul className={styles.circles}>
@@ -155,7 +155,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
           ))}
         </ul>
       </div>
-      <div className="flex flex-col justify-center items-center mx-auto px-5 sm:px-7 lg:px-10 h-screen">
+      <div className="flex flex-col justify-center items-center mx-auto px-5 sm:px-7 lg:px-10">
         <div className="overflow-y-auto no-scrollbar">
           <div
             data-scroll-container
@@ -260,7 +260,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
                 <div className="flex flex-col md:flex-row justify-center items-center gap-4">
                   <Menu
                     as={"div"}
-                    className={"relative w-full flex justify-center"}
+                    className={"relative w-full flex justify-end"}
                   >
                     <Menu.Button
                       className={

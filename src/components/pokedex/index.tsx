@@ -1,11 +1,22 @@
 import Button from "@/src/components/button";
 import Carousel from "@/src/components/slider";
+import { useEffect, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
 import Link from "next/link";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
 import useStore from "../store/store";
+
+import Link from "next/link";
+import Button from "@/src/components/button";
+import toast from "react-hot-toast";
+import { useMutation } from "@apollo/client";
+import { AddXpDocument } from "@/src/generated/generated";
+
+interface DexProps {
+  data?: Array<{ id: string; name: string; image: string }>;
+}
 
 interface DexProps {
   data?: Array<{ id: string; name: string; image: string }>;
@@ -37,12 +48,48 @@ const Pokedex: React.FC<DexProps> = ({
     };
   }, [eventDex, isMuted, mainThemeAudioRef]);
 
+  const [fullyOpen, setFullyOpen] = useState(false);
+  const [calledXp, setCalledXp] = useState(false);
+  let mutationCalled = false;
+
+  const [addXp] = useMutation(AddXpDocument, {
+    variables: {
+      levelId: "4",
+    },
+    refetchQueries: ["GetUserXp"],
+    awaitRefetchQueries: true,
+  });
+
+  const handleAddXp = () => {
+    if (calledXp) {
+      return;
+    }
+    setCalledXp(true);
+    const promise = addXp().then((res) => {
+      if (res.data?.addXP.__typename === "MutationAddXPSuccess") {
+        toast.success(
+          `Congratulations!!! You have found ${res.data?.addXP.data.level.point} Xp`,
+          {
+            position: "bottom-center",
+            style: {
+              backgroundColor: "#7628D0",
+              color: "white",
+            },
+          }
+        );
+      }
+    });
+  };
+
   useEffect(() => {
     // Initialize GSAP
     const tl = gsap.timeline();
 
     // Initial state (closed)
-    tl.set(".animate-1", { y: 100 })
+    tl.call(() => {
+      setFullyOpen(false);
+    })
+      .set(".animate-1", { y: 100 })
       .set(".animate-3", { y: -80 })
       .set(".carousel-container", { opacity: 0 });
 
@@ -50,22 +97,34 @@ const Pokedex: React.FC<DexProps> = ({
     tl.to(".animate-1", { y: -20, duration: 1, delay: 0.1 })
       .to(".animate-3", { y: 40, duration: 1 }, "<")
       .to(".carousel-container", { opacity: 1, duration: 3 }, "<");
+      .call(() => {
+        console.log("Fully open")
+        setFullyOpen(true);
+        if(!mutationCalled){
+          mutationCalled = true;
+          handleAddXp();
+        }
+      });
   }, []);
 
   return (
     <div className="fixed inset-0 z-[100] bg-black bg-opacity-50">
-      <div
-        className="absolute top-5 right-5 cursor-pointer bg-red-600 px-2 py-1 rounded-sm z-50"
-        style={{ pointerEvents: eventDex ? "all" : "none" }}
-        onClick={setEventDex}
-      >
-        <IoMdClose className="text-lg text-white" />
-      </div>
       <div className="page-container h-screen relative">
         {/* Pokedex background */}
-        <div className="h-full w-full flex flex-col justify-center items-center relative animation-container z-0">
+
+        <div className="h-full w-full flex flex-col top-[5%] items-center relative animation-container z-0">
           {/* Top part of Pokedex */}
-          <div>
+          <div className="flex justify-end">
+            {fullyOpen ? (
+              <div
+                className="cursor-pointer absolute w-fit bg-secondary-700 px-2 py-1 rounded-bl-full rounded-tr-sm  z-50"
+                style={{ pointerEvents: eventDex ? "all" : "none" }}
+                onClick={setEventDex}
+              >
+                <IoMdClose className="text-lg text-white" />
+              </div>
+            ) : null}
+
             <Image
               src="/assets/svg/dextop.svg"
               alt="dexmid"
@@ -78,7 +137,7 @@ const Pokedex: React.FC<DexProps> = ({
           {/* Carousel at the center */}
           <div className="flex flex-col overflow-x-clip lg:overflow-x-visible justify-center items-center relative z-0 w-full">
             {/* Carousel */}
-            <div className="md:w-80 w-full relative z-10 bg-[#B5FFF7] flex flex-col justify-center p-[10px] ">
+            <div className="md:w-80 w-full relative z-10 bg-[#B5FFF7] flex flex-col justify-center p-[10px]">
               {/* Your carousel content goes here */}
               <div className="w-full h-full relative bg-blue-500 rounded-xl flex flex-col items-center carousel-container py-2">
                 <Carousel events={data} />

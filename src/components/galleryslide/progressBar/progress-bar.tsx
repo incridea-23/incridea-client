@@ -31,7 +31,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ year }) => {
           element,
           { opacity: 0, scale: 0.5 },
           { opacity: 1, scale: 1, duration: 0.5, ease: "sine.inOut" },
-          0 // This makes all animations start at the same time
+          0 
         );
 
         const elementRect = element.getBoundingClientRect();
@@ -62,8 +62,6 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ year }) => {
       }
     });
 
-    // You can adjust the duration of the timeline as needed
-    // and add other timeline configurations if required.
   }, [filledSteps, loadedSteps, year]);
 
   return (
@@ -73,7 +71,6 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ year }) => {
           {index < filledSteps && (
             <Image
               src={`/assets/png/${powerUpImages[index]}.png`}
-              // src={`/assets/png/${index + 1}.png`}
               alt={`Step ${index + 1}`}
               width={200}
               height={200}

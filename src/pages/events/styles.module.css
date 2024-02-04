@@ -43,7 +43,7 @@
 /* events page background */
 .area {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   position: absolute;
   text-align: center;
   background-attachment: fixed;
@@ -131,7 +131,7 @@
 
   100% {
     transform: translateY(-100vh) rotate(720deg);
-    opacity: 0;
+    opacity: 0.75;
     border-radius: 50%;
   }
 }

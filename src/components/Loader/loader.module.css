@@ -1,0 +1,173 @@
+.mountbl {
+    animation: animatebottomleft 3s;
+}
+
+@keyframes animatebottomleft {
+    0% {
+        transform: scale(2);
+        bottom: -50%;
+        left: -50%;
+    }
+
+    100% {
+        transform: scale(1);
+        bottom: 0%;
+        left: 0%;
+    }
+}
+
+.unmountbl {
+    animation: animatebottomleftreverse 3s;
+}
+
+@keyframes animatebottomleftreverse {
+    0% {
+        transform: scale(1);
+        bottom: 0%;
+        left: 0%;
+    }
+
+    100% {
+        transform: scale(2);
+        bottom: -50%;
+        left: -50%;
+    }
+}
+
+.mounttr {
+    animation: animatetopright 3s;
+}
+
+@keyframes animatetopright {
+    0% {
+        transform: scale(2);
+        top: -50%;
+        right: -50%;
+    }
+
+    100% {
+        transform: scale(1);
+        top: 0%;
+        right: 0%;
+    }
+}
+
+.unmounttr {
+    animation: animatetoprightreverse 3s;
+}
+
+@keyframes animatetoprightreverse {
+    0% {
+        transform: scale(1);
+        top: 0%;
+        right: 0%;
+    }
+
+    100% {
+        transform: scale(2);
+        top: -50%;
+        right: -50%;
+    }
+}
+
+.fadelogo{
+    animation: fade-out 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fade-out{
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0.5;
+    }
+    100%{
+        opacity: 0;
+        display: none;
+    }
+}
+
+.fadeinlogo {
+    opacity: 0;
+    animation: fade-in 1s ease-in forwards;
+  }
+  
+  @keyframes fade-in {
+    50% {
+      opacity: 0.5;
+    }
+    100%{
+        opacity: 1;
+    }
+  }
+
+.fadeloader {
+    animation: fadeloadpage 8s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeloadpage {
+    0%{
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 0;
+        display: none;
+        z-index: -9999;
+    }
+}
+
+.unmountblsecond {
+    animation: animatebottomleftrev 5s;
+}
+
+@keyframes animatebottomleftrev {
+    0% {
+        transform: scale(1);
+        bottom: 0%;
+        left: 0%;
+    }
+
+    100% {
+        transform: scale(2);
+        bottom: -50%;
+        left: -50%;
+    }
+}
+
+.unmounttrsecond {
+    animation: animatetoprightrev 5s;
+}
+
+@keyframes animatetoprightrev {
+    0% {
+        transform: scale(1);
+        top: 0%;
+        right: 0%;
+    }
+
+    100% {
+        transform: scale(2);
+        top: -50%;
+        right: -50%;
+    }
+}
+
+.animateMagnifier {
+    animation: circularMotion 5s infinite linear;
+}
+
+@keyframes circularMotion {
+    0% {
+        transform: rotate(0deg) translateX(100px) rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg) translateX(100px) rotate(-360deg);
+    }
+}

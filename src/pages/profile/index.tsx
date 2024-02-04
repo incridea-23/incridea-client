@@ -12,7 +12,7 @@ import Loader from "@/src/components/Loader";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
-import { AddXpDocument } from "@/src/generated/generated";
+import { AddXpDocument, GetUserXpDocument } from "@/src/generated/generated";
 
 const Profile: NextPage = () => {
   const { error, user, loading } = useAuth();
@@ -23,27 +23,31 @@ const Profile: NextPage = () => {
     variables: {
       levelId: "2",
     },
+    refetchQueries: [GetUserXpDocument],
+    awaitRefetchQueries: true,
   });
 
   useEffect(() => {
     if (router.isReady) {
-      setBombXp(localStorage.getItem("bombClicked") === "true" ? true : false);
+      setBombXp(localStorage.getItem("easterBombClicked") === "true");
     }
   }, [router.isReady]);
 
   useEffect(() => {
     if (bombXp) {
-      console.log("bombXp", bombXp);
       addXp().then((res) => {
         if (res.data?.addXP.__typename === "MutationAddXPSuccess") {
-          toast.success(`Added ${res.data?.addXP.data.level.point} bomb Xp`, {
-            position: "bottom-center",
-            style: {
-              backgroundColor: "#7628D0",
-              color: "white",
-            },
-          });
-          localStorage.removeItem("bombClicked");
+          toast.success(
+            `Added ${res.data?.addXP.data.level.point} Easter Bomb XP`,
+            {
+              position: "bottom-center",
+              style: {
+                backgroundColor: "#7628D0",
+                color: "white",
+              },
+            }
+          );
+          localStorage.removeItem("easterBombClicked");
         }
       });
     }
@@ -53,7 +57,7 @@ const Profile: NextPage = () => {
 
   if (!user)
     return (
-      <div className="flex flex-col text-center space-y-3 items-center justify-center h-screen bg-gradient-to-b from-slate-800  via-slate-600 to-slate-500">
+      <div className="flex flex-col text-center space-y-3 items-center justify-center h-screen bg-gradient-to-b from-primary-300 to-primary-500">
         {/* Todo: Any graphic to fill space */}
         <div className="flex z-10 justify-center items-center h-96 mt-8">
           <Image
@@ -74,7 +78,7 @@ const Profile: NextPage = () => {
 
   if (error)
     return (
-      <div className="flex items-center justify-center h-screen bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
+      <div className="flex items-center justify-center h-screen bg-gradient-to-b from-primary-300 to-primary-500">
         <h1 className="text-2xl font-bold text-white">
           Something went wrong. Please try again later.
         </h1>
@@ -83,17 +87,16 @@ const Profile: NextPage = () => {
 
   return (
     <>
-      <main ref={containerRef} className=" bg-[#140F34]">
-        <div className="flex lg:flex-row flex-col-reverse py-[6rem] lg:pt-[8rem] min-h-screen gap-5 mx-5">
-          <div className=" bg-[#ababab]  bg-opacity-10 lg:w-[66.66%] w-full overflow-auto border-2 border-slate-400 rounded-xl">
-            <UserEvents
-              userId={user?.id!}
-              name={user.name}
-              email={user.email}
-            />
+      <main
+        ref={containerRef}
+        className="bodyFont bg-gradient-to-b from-primary-300 to-primary-500 px-5 sm:px-7 lg:px-10"
+      >
+        <div className="flex lg:flex-row flex-col-reverse py-[5rem] lg:pt-[6rem] min-h-screen gap-5">
+          <div className="lg:w-[66.66%] w-full overflow-auto border border-primary-200/80 rounded-xl">
+            <UserEvents userId={user?.id!} />
           </div>
 
-          <div className="col-span-1 bg-[#ababab] bg-opacity-10 rounded-xl">
+          <div className="col-span-1 rounded-xl">
             <ProfileInfo user={user} />
           </div>
         </div>

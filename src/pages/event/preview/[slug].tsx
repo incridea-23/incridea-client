@@ -78,13 +78,12 @@ function event({ event, error }: { event: Event; error: String }) {
         height={1920}
         width={1080}
         priority
-        className={`w-screen h-screen object-cover object-center top-0 left-0 absolute -z-10`}
+        className={`w-screen h-screen object-cover object-center top-0 left-0 absolute`}
       />
-      <div className={`absolute pointer-events-none h-full w-full opacity-90 bg-blue-600/30 backdrop-brightness-80 z-50 top-0 right-0`} />
-      <Toaster/>
+      <Toaster />
       {event ? (
-        <section className={`flex lg:flex-row flex-col gap-5 pt-20 md:pt-24 max-w-7xl mx-auto text-amber-900 h-screen overflow-y-scroll no-scrollbar lg:overflow-y-hidden`}>
-          <div className={`overflow-x-visible lg:h-full lg:overflow-y-scroll lg:no-scrollbar px-3 lg:pb-8`}>
+        <section className={`brightness-75 flex lg:flex-row flex-col gap-5 max-w-7xl mx-auto text-amber-900 h-screen overflow-y-scroll no-scrollbar lg:overflow-y-hidden`}>
+          <div className={`overflow-x-visible lg:h-full lg:overflow-y-scroll lg:no-scrollbar px-3 pt-20 lg:pb-8`}>
             <div className={`${styles.main}`}>
               <div className={`${styles.parchment}`} />
               <div className={`${styles.contain}`}>
@@ -110,18 +109,19 @@ function event({ event, error }: { event: Event; error: String }) {
               </div>
             </div>
           </div>
-          <div className={`lg:h-full lg:overflow-y-scroll lg:no-scrollbar px-3 pb-8 w-auto shrink-0 flex flex-col gap-5 items-center rounded-md`}>
+          <div className={`lg:h-full lg:overflow-y-scroll lg:no-scrollbar px-3 lg:pt-20 pb-8 w-auto shrink-0 flex flex-col gap-5 items-center rounded-md`}>
             <div className={`${styles.main}`}>
               <div className={`${styles.parchment}`} />
               <div className={`${styles.contain}`}>
-                <div className={`space-y-1.5 order-2 max-w-2xl sm:w-[300px] ${styles.mapicon}`}>
+                <div className={`space-y-1.5 order-2 w-full ${styles.mapicon}`}>
+                  <hr className="w-48 h-1 mx-auto my-4 bg-amber-800 border-0 rounded " />
                   <h2 className={`font-VikingHell mb-2 text-2xl`}>Details</h2>
-                  <div className={`flex flex-wrap mt-2 gap-1.5  w-full bodyFont`}>
+                  <div className={`flex flex-wrap mt-2 gap-1.5 w-full bodyFont`}>
                     {getEventAttributes().map((attr) =>
                       attr.text ? (
                         <div
                           key={attr.name}
-                          className={`max-w-[100%] flex flex-wrap break-words text-semibold px-3 py-2 text-amber-900 font-medium bg-white/20 shrink-0 text-sm rounded-sm grow gap-1 items-center`}
+                          className={`w-full flex flex-wrap break-words text-semibold px-3 py-2 text-amber-900 font-medium bg-white/20 shrink-0 text-sm rounded-sm grow gap-1 items-center`}
                         >
                           {<attr.Icon />}
                           <p>
@@ -145,7 +145,7 @@ function event({ event, error }: { event: Event; error: String }) {
                             Round {round.roundNo}
                           </div>
                           <div className={`space-y-2`}>
-                            <p className={`flex gap-2 items-center`}>
+                            <p className={`flex gap-2 items-center`} suppressHydrationWarning>
                               <BsFillCalendar2WeekFill />
                               {round.date &&
                                 new Date(round.date).toLocaleDateString(
@@ -156,7 +156,7 @@ function event({ event, error }: { event: Event; error: String }) {
                                   }
                                 )}
                             </p>
-                            <p className={`flex gap-2 items-center`}>
+                            <p className={`flex gap-2 items-center`} suppressHydrationWarning>
                               <BiTimeFive />
                               {round.date &&
                                 new Date(round.date).toLocaleTimeString(
@@ -174,7 +174,7 @@ function event({ event, error }: { event: Event; error: String }) {
                     </div>
                   </div>
                 </div>
-                <div className={`w-full order-1`}>
+                <div className={`w-full flex justify-center order-1`}>
                   {event.name.toLowerCase() !== "lazzerena" ? (
                     <EventRegistration
                       fees={event.fees}
