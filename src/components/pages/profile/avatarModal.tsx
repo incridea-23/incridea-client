@@ -37,28 +37,29 @@ const AvatarModal: React.FunctionComponent<Props> = ({
       title={"Choose your avatar"}
       size="small"
     >
-      <div className="flex m-4 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg p-1 items-center justify-center gap-2.5 h-80">
-        <div className="flex flex-row flex-wrap gap-3 items-start justify-center m-4 text-lg">
+      <div className="w-full h-full flex justify-center">
+        <div className="w-fit h-full grid grid-cols-2 m-4 bg-white/10 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg p-2 items-center justify-center gap-2">
           {avatarList.map((avatar, index) => (
             <div
-              className="flex flex-col hover:bg-slate-500 hover:rounded"
+              className="rounded-xl border border-primary-200/30 items-stretch h-full p-2 hover:bg-primary-200/20 transition-colors duration-300"
               key={index}
-              onClick={() =>
+              onClick={() => {
                 updateAvatarMutation({
                   variables: {
                     imageURL: avatar.url,
                   },
-                })
-              }
+                });
+                setShowModal(false);
+              }}
             >
               <Image
                 src={avatar.url}
                 alt={avatar.name}
-                className="rounded-full h-20 w-20"
+                className="h-[100px] cursor-pointer"
                 width={100}
                 height={100}
               />
-              <div className="text-center">{avatar.name}</div>
+              {/* <div className="text-center">{avatar.name}</div> */}
             </div>
           ))}
         </div>

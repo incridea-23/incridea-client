@@ -24,7 +24,7 @@ const Modal: FC<ModalProps> = ({
 }) => {
   return (
     <Transition appear show={showModal} as={Fragment}>
-      <Dialog as="div" className="relative z-[900] " onClose={onClose}>
+      <Dialog as="div" className="relative z-[900]" onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -53,7 +53,7 @@ const Modal: FC<ModalProps> = ({
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel
-                className={`w-full max-w-6xl transform overflow-hidden rounded-${rounded} bg-gray-700/70 text-gray-100 backdrop-blur-xl text-left align-middle shadow-xl transition-all`}
+                className={`w-full max-w-6xl transform overflow-hidden rounded-${rounded} bg-primary-300/70 text-gray-100 backdrop-blur-xl text-left align-middle shadow-xl transition-all`}
               >
                 <Dialog.Title
                   as="div"
@@ -69,12 +69,12 @@ const Modal: FC<ModalProps> = ({
                     {title}
                   </h3>
                   {/* {size !== "small" && ( */}
-                    <button
-                      className="hover:text-white text-gray-400 transition-colors cursor-pointer z-[50000]"
-                      onClick={onClose}
-                    >
-                      <IoClose size="1.4rem" />
-                    </button>
+                  <button
+                    className="hover:text-white text-gray-400 transition-colors cursor-pointer z-[50000]"
+                    onClick={onClose}
+                  >
+                    <IoClose size="1.4rem" />
+                  </button>
                   {/* )} */}
                 </Dialog.Title>
                 {size !== "small" && <hr className="opacity-30" />}
