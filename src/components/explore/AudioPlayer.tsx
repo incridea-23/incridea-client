@@ -6,6 +6,7 @@ import React, {
   useState,
 } from "react";
 import { AiFillSound, AiOutlineSound } from "react-icons/ai";
+import { GiSoundOff, GiSoundOn } from "react-icons/gi";
 import Button from "../button";
 import Modal from "../modal";
 import styles from "./audioPlayer.module.css";
@@ -15,31 +16,24 @@ interface AudioPlayerProps {
   mainTheme: string;
   isMuted: boolean;
   setIsMuted: Dispatch<SetStateAction<boolean>>;
-  mainThemeAudioRef: React.MutableRefObject<HTMLAudioElement | null>;
 }
 
 const AudioPlayer: React.FC<AudioPlayerProps> = ({
-  mainThemeAudioRef,
   mainTheme,
   isMuted,
   setIsMuted,
 }) => {
-  // const mainThemeAudioRef = useRef<HTMLAudioElement | null>(null);
+  const mainThemeAudioRef = useRef<HTMLAudioElement | null>(null);
   const [hasInteracted, setHasInteracted] = useState(false);
   const [modal, setModal] = useState<boolean>(true);
-  const isMutedRef = useRef(isMuted);
-
-  useEffect(() => {
-    isMutedRef.current = isMuted;
-  }, [isMuted]);
 
   const handleTogglePlayback = () => {
     if (mainThemeAudioRef.current) {
       if (!hasInteracted) {
         setHasInteracted(true);
       }
-      mainThemeAudioRef.current.muted = !isMutedRef.current;
-      setIsMuted(!isMutedRef.current);
+      mainThemeAudioRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
     }
   };
 
@@ -100,7 +94,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
           <AiFillSound className="w-8 h-8 transition-colors duration-150" />
         )}
       </button>
-      {/* <div className={styles["audio-player-volume"]}>
+      <div className={styles["audio-player-volume"]}>
         <label htmlFor="volumeSlider"></label>
         <input
           id="volumeSlider"
@@ -111,7 +105,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
           onChange={handleVolumeChange}
           className="w-28"
         />
-      </div> */}
+      </div>
       <Modal
         size="small"
         title="Do you want audio?"
