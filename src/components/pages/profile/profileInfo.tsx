@@ -9,7 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { QRCodeSVG } from "qrcode.react";
 import { FC, useEffect, useState } from "react";
-import { FaSignOutAlt, FaDice } from "react-icons/fa";
+import { FaSignOutAlt, FaDice, FaAward } from "react-icons/fa";
 import { MdOutlineEmail, MdPhone } from "react-icons/md";
 import TextAnimation from "../../animation/text";
 import { idToPid } from "@/src/utils/id";
@@ -239,12 +239,20 @@ const ProfileInfo: FC<{
                   intent={"success"}
                   size={"large"}
                   onClick={() => router.push("/accommodation")}
-                  className="w-max mt-3 md:mt-2"
+                  className="w-full mt-3 md:mt-2"
                 >
                   Accommodation
                 </Button>
               )}
-
+              <Button
+                onClick={() => router.push("/leaderboard")}
+                className="mt-1 w-full"
+                intent={"info"}
+                size={"large"}
+              >
+                <FaAward className="inline-block mr-1" />
+                Leaderboard
+              </Button>
               <Button
                 onClick={() => signOut()}
                 className="mt-1 w-full"

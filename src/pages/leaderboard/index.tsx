@@ -111,7 +111,7 @@ const LeaderBoard : NextPage = () => {
                     </div>
                     )}
                     <div className='md:mx-36 mx-5 text-white text-center flex flex-col gap-2 bodyFont'>
-                        {false && sortedLeaderboard.map((user,i) => (
+                        {sortedLeaderboard.map((user,i) => (
                             <div key={user.userId}
                             className={`${getColor(i+1)} shadow-2xl rounded-lg flex flex-row items-center justify-center h-16 `}>
                                 <h1 className="basis-1/4 flex md:gap-1 justify-center items-center text-center text-base md:text-xl">
@@ -139,7 +139,7 @@ const LeaderBoard : NextPage = () => {
                             </div>
                         ))}
                         {
-                            sortedLeaderboard.length != 0 && !leaderboardLoading &&
+                            sortedLeaderboard.length === 0 && !leaderboardLoading &&
                             <div className="flex justify-center items-center mx-3 mt-2">
                                 <span className='text-gray-300 text-base md:text-xl'>
                                     The XP leaderboard is currently as empty as a blank canvas, waiting for the vibrant colors of your achievements to fill it up!
