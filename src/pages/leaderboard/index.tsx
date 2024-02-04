@@ -129,11 +129,11 @@ const LeaderBoard : NextPage = () => {
                                 <h1 className="basis-1/4 flex flex-row justify-center items-center text-center font-semibold text-sm md:text-xl">
                                     {user.levelPoints}
                                     <Image
-                                        src={`/assets/png/trophy.png`}
-                                        width={isMobile ? 20 : 50}
-                                        height={isMobile ? 20 : 50}
+                                        src={`/assets/png/XP.webp`}
+                                        width={isMobile ? 20 : 40}
+                                        height={isMobile ? 20 : 40}
                                         alt="medal"
-                                        className="text-5xl bg-transparent w-10 md:w-auto"
+                                        className="text-5xl bg-transparent w-10 md:w-10 ml-1"
                                     />
                                 </h1>
                             </div>

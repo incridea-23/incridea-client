@@ -41,8 +41,8 @@ const EasterBomb: FunctionComponent = () => {
     setTimeout(() => {
       setInterval(() => {
         setLeft(getPosition());
-      }, 8000);
-    }, 15000);
+      }, 15000);
+    }, 8000);
   }, []);
 
   const handleOnClick: () => void = () => {
@@ -64,12 +64,12 @@ const EasterBomb: FunctionComponent = () => {
 
   return (
     <>
-      {/* TODO: EasterBomb falls for the first time after 15 seconds of screen load, then if bomb not clicked every 5 seconds, if clicked then never again, given user does not clear local storage */}
+      {/* TODO: EasterBomb falls for the first time after 8 seconds of screen load, then if bomb not clicked every 5 seconds, if clicked then never again, given user does not clear local storage */}
       <div
         onClick={handleOnClick}
         ref={parentRef}
         className={
-          "absolute animate-[sun-gravity_8s_cubic-bezier(0.33333,0,0.66667,0.33333)_15s_infinite] pointer-events-auto"
+          "absolute animate-[sun-gravity_15s_cubic-bezier(0.33333,0,0.66667,0.33333)_15s_infinite] pointer-events-auto"
         }
         style={{
           top: "0px",
