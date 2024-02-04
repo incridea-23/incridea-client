@@ -155,7 +155,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
           ))}
         </ul>
       </div>
-      <div className="flex flex-col justify-center items-center mx-auto px-5 sm:px-7 lg:px-10 h-screen">
+      <div className="flex flex-col justify-center items-center mx-auto px-5 sm:px-7 lg:px-10">
         <div className="overflow-y-auto no-scrollbar">
           <div
             data-scroll-container

@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import styles from "@/src/components/explore/audioPlayer.module.css";
-import { AddXpDocument } from "@/src/generated/generated";
+import { AddXpDocument, GetUserXpDocument } from "@/src/generated/generated";
 import { useMutation } from "@apollo/client";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -25,6 +25,7 @@ const ExploreGame = () => {
   const router = useRouter();
   const [showSchedule, setShowSchedule] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  let calledXp = false;
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const ctx = useRef<CanvasRenderingContext2D | null | undefined>(null);
   const lastExecutionTimeRef = useRef<number>(0);
@@ -35,7 +36,7 @@ const ExploreGame = () => {
   function movementSoundTrigger(path: string, delay: number) {
     const currentTime = Date.now();
     const elapsedTime = currentTime - lastExecutionTimeRef.current;
-    console.log(isMuted);
+    // console.log(isMuted);
 
     if (elapsedTime >= delay) {
       const audio = new Audio(path);
@@ -49,9 +50,14 @@ const ExploreGame = () => {
     variables: {
       levelId: "1",
     },
+    refetchQueries: ["GetUserXp"],
+    awaitRefetchQueries: true,
   });
 
   const handleAddXp = () => {
+    console.log(calledXp);
+    if(calledXp) return;
+    calledXp = true;
     const promise = addXp().then((res) => {
       if (res.data?.addXP.__typename !== "MutationAddXPSuccess") {
         toast.error(

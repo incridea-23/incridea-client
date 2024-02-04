@@ -1,17 +1,25 @@
-import { AddXpDocument } from "@/src/generated/generated";
+import { AddXpDocument, GetUserXpDocument } from "@/src/generated/generated";
 import { useMutation } from "@apollo/client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 const FinalComponent = () => {
+  const [calledXp, setCalledXp] = useState(false);
+  
   const [addXp] = useMutation(AddXpDocument, {
     variables: {
       levelId: "3",
     },
+    refetchQueries: [GetUserXpDocument],
+    awaitRefetchQueries: true,
   });
 
   const handleAddXp = () => {
+    if (calledXp) {
+      return;
+    }
+    setCalledXp(true);
     const promise = addXp().then((res) => {
       if (res.data?.addXP.__typename !== "MutationAddXPSuccess") {
         toast.error(
@@ -25,7 +33,7 @@ const FinalComponent = () => {
           }
         );
       } else {
-        toast.success(`Added ${res.data?.addXP.data.level.point} Xp`, {
+        toast.success(`Congratulations!!! You have found ${res.data?.addXP.data.level.point} Xp`, {
           position: "bottom-center",
           style: {
             backgroundColor: "#7628D0",

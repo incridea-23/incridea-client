@@ -22,15 +22,22 @@ const Pokedex: React.FC<DexProps> = ({ data = [] }) => {
   const setEventDex = useStore((state) => state.setEventDex);
   const eventDex = useStore((state) => state.eventDex);
   const [fullyOpen, setFullyOpen] = useState(false);
+  const [calledXp, setCalledXp] = useState(false);
   let mutationCalled = false;
 
   const [addXp] = useMutation(AddXpDocument, {
     variables: {
       levelId: "4",
     },
+    refetchQueries: ["GetUserXp"],
+    awaitRefetchQueries: true,
   });
 
   const handleAddXp = () => {
+    if (calledXp) {
+      return;
+    }
+    setCalledXp(true);
     const promise = addXp().then((res) => {
       if (res.data?.addXP.__typename !== "MutationAddXPSuccess") {
         toast.error(
