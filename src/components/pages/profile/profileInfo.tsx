@@ -23,7 +23,7 @@ const ProfileInfo: FC<{
   user: User | null | undefined;
 }> = ({ user }) => {
   const router = useRouter();
-  const {
+  let {
     data: dataAccommodation,
     loading: loadingAccommodation,
     error: errorAccommodation,

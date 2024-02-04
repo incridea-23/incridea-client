@@ -3,7 +3,7 @@
   display: flex;
   /* border: 2px solid #3F3B3B; */
   aspect-ratio: 16/10;
-  overflow: hidden;
+  overflow: auto;
   position: relative;
   z-index: 10;
   margin: auto;
@@ -119,7 +119,7 @@
 /* events page card*/
 .card {
   width: 100%;
-  overflow: hidden;
+  overflow: auto;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px;
   transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -136,22 +136,21 @@
   position: relative;
 }
 
-@media screen and (max-width: 768px) {
-  .card .top_section {
-    margin-left: 6px;
-    margin-right: 6px;
-  }
-}
-
 .card .top_section .borderCard {
   border-bottom-right-radius: 10px;
   height: 30px;
-  width: 130px;
+  width: 50%;
   background: white;
-  background: #551D96;
+  background: #551d96;
   position: relative;
   transform: skew(-40deg);
-  box-shadow: -10px -10px 0 0 #551D96;
+  box-shadow: -10px -10px 0 0 #551d96;
+}
+
+@media screen and (max-width: 768px) {
+  .card .top_section .borderCard {
+    width: 80%;
+  }
 }
 
 .card .top_section .borderCard::before {
@@ -163,7 +162,7 @@
   right: -15px;
   background: rgba(255, 255, 255, 0);
   border-top-left-radius: 10px;
-  box-shadow: -5px -5px 0 2px #551D96;
+  box-shadow: -5px -5px 0 2px #551d96;
 }
 
 .card .top_section::before {
@@ -175,7 +174,7 @@
   height: 15px;
   width: 15px;
   border-top-left-radius: 15px;
-  box-shadow: -5px -5px 0 2px #551D96;
+  box-shadow: -5px -5px 0 2px #551d96;
 }
 
 .card .top_section .icons {
@@ -200,7 +199,7 @@
 
 .card .top_section .icons .social_media .svg {
   height: 100%;
-  fill: #551D96;
+  fill: #551d96;
 }
 
 .card .top_section .icons .social_media .svg:hover {

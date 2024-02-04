@@ -5,7 +5,7 @@ import { VikingHell } from "../_app";
 
 const Team: NextPage = () => {
   return (
-    <div className="pt-28 pb-10 min-h-screen bg-gradient-to-bl from-[#41acc9]  via-[#075985] to-[#2d6aa6]">
+    <div className="pt-28 pb-10 min-h-screen bg-[#7628d0]">
       <div className="px-4">
         <h1
           className={`text-3xl lg:text-5xl font-bold text-white text-center ${VikingHell.className}`}

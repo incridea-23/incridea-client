@@ -10,6 +10,7 @@ import { MdVolumeOff, MdVolumeUp } from "react-icons/md";
 import Button from "../button";
 import Modal from "../modal";
 import styles from "./audioPlayer.module.css";
+import Image from "next/image";
 // Adjust the path accordingly
 
 interface AudioPlayerProps {
@@ -113,24 +114,33 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
         />
       </div> */}
       <Modal
-        size="small"
+        size="md"
         title="Do you want audio?"
         showModal={modal}
         onClose={() => setModal(false)}
       >
-        <div className="flex justify-center gap-x-4 py-4">
-          <Button
-            size={"small"}
-            onClick={() => {
-              handleYes();
-            }}
-          >
-            Yes
-          </Button>
+        <div className="flex flex-col justify-center">
+          <div className="flex justify-center gap-x-4 py-4">
+            <Button
+              size={"medium"}
+              onClick={() => {
+                handleYes();
+              }}
+            >
+              Yes
+            </Button>
 
-          <Button size={"small"} onClick={() => handleNo()}>
-            No
-          </Button>
+            <Button size={"medium"} onClick={() => handleNo()}>
+              No
+            </Button>
+          </div>
+          <Image
+            src={"/assets/png/toolTip.png"}
+            alt="toolTip"
+            width={500}
+            height={500}
+            className="md:w-[30rem] w-[20rem]"
+          />
         </div>
       </Modal>
     </div>
