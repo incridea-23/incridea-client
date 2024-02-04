@@ -257,6 +257,17 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
                     </Transition>
                   </Menu>
                 </div>
+
+                <div>
+                  <a
+                    href="https://drive.google.com/file/d/1Dd1obJ2hfoY7x1H-06isz6VP2xHdnYDH/view?usp=drive_link"
+                    download
+                  >
+                    <button className="inline-flex shrink-0 gap-2 text-sm md:text-lg whitespace-nowrap bg-black/30 border border-primary-200/80 items-center w-full justify-center rounded-full px-4 py-2 h-[40px] text-white">
+                      Rule Book
+                    </button>
+                  </a>
+                </div>
                 <div className="flex flex-col md:flex-row justify-center items-center gap-4">
                   <Menu
                     as={"div"}
@@ -319,7 +330,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
               data-scroll-speed="0.7"
               className={
                 filteredEvents.length > 0
-                  ? `max-w-7xl w-full h-full mx-auto grid justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 mb-20`
+                  ? `max-w-7xl w-full h-full mx-auto grid justify-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 mb-20`
                   : "flex justify-center items-center w-full h-full"
               }
             >

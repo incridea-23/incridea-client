@@ -829,8 +829,8 @@ const ExploreGame = () => {
 
         <div
           style={{
-            opacity: scrollY > 450 && showAbout ? 1 : 0,
-            pointerEvents: scrollY > 450 && showAbout ? "all" : "none",
+            opacity: scrollY > 400 && showAbout ? 1 : 0,
+            pointerEvents: scrollY > 400 && showAbout ? "all" : "none",
             transition: "opacity 0.5s ease-in-out",
           }}
           className="absolute z-50  h-[20rem] md:h-[24rem] sm:h-[20rem] sm:w-[32rem] sm:text-xs sm:top-[35%]  md:w-[36rem] md:text-sm w-[22rem] text-[0.6rem]  top-[30%] mx-4 text-opacity-80  bg-[#86d6e9]/30 p-6 xl:top-[45%] xl:left-6 xl:max-w-xl xl:text-base xl:h-[28rem]  text-white font-PressStart justify-evenly text-justify space-y-4 rounded-lg transition-all duration-300 ease-in-out"
@@ -854,9 +854,9 @@ const ExploreGame = () => {
 
         <div
           style={{
-            opacity: (scrollY > 450 && showRuleBook) || showSchedule ? 1 : 0,
+            opacity: (scrollY > 400 && showRuleBook) || showSchedule ? 1 : 0,
             pointerEvents:
-              (scrollY > 450 && showRuleBook) || showSchedule ? "all" : "none",
+              (scrollY > 400 && showRuleBook) || showSchedule ? "all" : "none",
             transition: "opacity 0.5s ease-in-out",
           }}
           className="absolute z-50 h-max sm:max-w-lg sm:text-xs sm:top-[35%] md:max-w-xl md:text-sm max-w-md text-xs top-[30%] mx-4 text-opacity-80  bg-[#86d6e9]/30 p-6 xl:top-[45%] xl:left-6 left-12 xl:max-w-xl xl:text-base  text-white font-PressStart justify-evenly text-justify space-y-4 rounded-lg transition-all duration-300 ease-in-out"
