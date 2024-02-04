@@ -41,7 +41,12 @@ const Gallery: NextPage = () => {
     if (typeof window !== "undefined") {
       toast.success(
         "Feel free to interact with the console, Swipe the screens etc to interact!",
-        { duration: 3000 }
+        { duration: 3000,
+          style:{
+            backgroundColor: "#7628D0",
+            color: "white",
+          }
+        }
       );
     }
   }, []);
