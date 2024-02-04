@@ -142,7 +142,6 @@ const AccommodationForm: FunctionComponent = () => {
             </div>
             <Button
               onClick={() => {
-                console.log(showModal);
                 setShowModal(true);
               }}
               size={"small"}
