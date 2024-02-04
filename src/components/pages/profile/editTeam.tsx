@@ -29,7 +29,7 @@ const EditTeamModal: FC<{
           setShowModal(true);
         }}
         size={"small"}
-        className="bodyFont rounded-full !skew-x-0 !justify-center"
+        className="bodyFont rounded-full !skew-x-0 !justify-center !tracking-normal"
         fullWidth
       >
         Edit <BiEditAlt />
