@@ -2,6 +2,7 @@ import retroPCSVG from "@/public/assets/svg/retro-pc.svg";
 import { baseImageUrl } from "@/src/utils/url";
 import Image from "next/image";
 import { useRef, useState } from "react";
+import YouTube, { YouTubeProps } from "react-youtube";
 import { Autoplay, Mousewheel, Navigation, Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import BlurImage from "../../blurImage";
@@ -17,6 +18,22 @@ interface RippleState {
 }
 
 const RetroPC = ({ imgArr }: { imgArr: string[] }) => {
+  const [isAnimatingRight, setAnimatingRight] = useState(false);
+  const [isAnimatingLeft, setAnimatingLeft] = useState(false);
+  const handleButtonClickPrev = () => {
+    setAnimatingLeft(true);
+    swiperRef.current?.slidePrev();
+    setTimeout(() => {
+      setAnimatingLeft(false);
+    }, 400);
+  };
+  const handleButtonClickNext = () => {
+    setAnimatingRight(true);
+    swiperRef.current?.slideNext();
+    setTimeout(() => {
+      setAnimatingRight(false);
+    }, 400);
+  };
   const [ripple, setRipple] = useState<RippleState>({
     x: 0,
     y: 0,
@@ -34,7 +51,26 @@ const RetroPC = ({ imgArr }: { imgArr: string[] }) => {
 
     setTimeout(() => setRipple({ x: 0, y: 0, active: false }), 800);
   };
+  const [activeIndex, setActiveIndex] = useState(0);
+  let thumbnailSrc = "/thumbnails/incridea20.jpg";
+  const opts: YouTubeProps["opts"] = {
+    height: "100%",
+    width: "100%",
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 0,
+      controls: 1,
+      fs: 1,
+    },
+  };
 
+  const youtubePlayerRef = useRef<YouTube | null>(null);
+
+  const handlePlay = (event: any) => {
+    event.target.pauseVideo();
+    setActiveIndex(imgArr.length);
+    setActiveModal(true);
+  };
   return (
     <div className="flex flex-col relative">
       {/* <h1
@@ -74,7 +110,10 @@ const RetroPC = ({ imgArr }: { imgArr: string[] }) => {
                 <SwiperSlide
                   key={index}
                   className="flex justify-center items-center bg-white text-center cursor-pointer"
-                  onClick={() => setActiveModal(true)}
+                  onClick={() => {
+                    setActiveModal(true);
+                    setActiveIndex(index);
+                  }}
                 >
                   <ToolTip
                     classValue="top-[0] text-center bg-black/60 sm:right-[10vw] right-0 text-xs border sm:text-lg"
@@ -98,23 +137,66 @@ const RetroPC = ({ imgArr }: { imgArr: string[] }) => {
                 </SwiperSlide>
               );
             })}
+            <SwiperSlide
+              className="flex justify-center items-center bg-white text-center cursor-pointer"
+              onClick={() => {
+                setActiveIndex(imgArr.length);
+                setActiveModal(true);
+              }}
+            >
+              {/* <ToolTip
+                classValue="top-[0] text-center bg-black/60 sm:right-[12vw] right-0 text-xs border sm:text-lg"
+                text="click to watch aftermovie"
+              ></ToolTip> */}
+              <div className="relative w-full h-full flex justify-center items-center">
+                <BlurImage
+                  fill
+                  alt="Blurred Image"
+                  src={thumbnailSrc}
+                  className="object-cover blur-xl"
+                />
+                <Image
+                  fill
+                  src={thumbnailSrc}
+                  alt="incridea"
+                  className={`object-cover z-10`}
+                  priority
+                />
+              </div>
+              <button
+                onClick={() => {
+                  setActiveIndex(imgArr.length);
+                  setActiveModal(true);
+                }}
+                className={
+                  styles["text-shadow"] +
+                  ` text-base p-2 h-full md:text-lg md:font-extrabold bg-transparent text-white absolute z-50 top-0 left-0 text-center w-full`
+                }
+              >
+                Click to Watch After Movie
+              </button>
+            </SwiperSlide>
           </Swiper>
 
           <button
-            onClick={() => swiperRef.current?.slidePrev()}
-            className={`active:bg-gray-800 opacity-40 absolute top-[19.2svw] left-[svw] w-[4.2svw] h-[1.3svw] rounded-lg duration-300 transition-all ease-in-out animate-`}
+            onClick={() => handleButtonClickPrev()}
+            className={`absolute top-[19.2svw] left-[svw] w-[4.2svw] h-[1.3svw] rounded-lg duration-300 transition-all ease-in-out border-white ${
+              isAnimatingLeft ? " sm:border-4 border-2 animate-ping" : ""
+            }`}
           >
             <ToolTip
-              classValue="top-[2vw] bg-black sm:right-[0vw] text-xs border sm:text-base"
+              classValue="top-[2vw] bg-black/50 sm:right-[0vw] text-xs border sm:text-base"
               text="prev image"
             ></ToolTip>
           </button>
           <button
-            onClick={() => swiperRef.current?.slideNext()}
-            className="active:bg-gray-800 opacity-40 absolute top-[19.2svw] left-[40.7svw] w-[4.2svw] h-[1.3svw] rounded-lg duration-300 transition-all ease-in-out animate-"
+            onClick={() => handleButtonClickNext()}
+            className={`absolute top-[19.2svw] left-[40.7svw] w-[4.2svw] h-[1.3svw] rounded-lg duration-300 transition-all ease-in-out border-white ${
+              isAnimatingRight ? " sm:border-4 border-2 animate-ping" : ""
+            }`}
           >
             <ToolTip
-              classValue="top-[2vw] bg-black sm:right-[0vw] text-xs right-0 border sm:text-base"
+              classValue="top-[2vw] bg-black/50 sm:right-[0vw] text-xs right-0 border sm:text-base"
               text="next image"
             ></ToolTip>
           </button>
@@ -124,7 +206,12 @@ const RetroPC = ({ imgArr }: { imgArr: string[] }) => {
           title="test"
           onClose={() => setActiveModal(false)}
         >
-          <PreviewComponent imgArr={imgArr} />
+          <PreviewComponent
+            thumbnailSrc={thumbnailSrc}
+            imgArr={imgArr}
+            index={activeIndex}
+            afterMovieLink="w0phDNAnUgA"
+          />
         </Modal>
       </div>
     </div>

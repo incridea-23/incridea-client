@@ -12,10 +12,10 @@
 .progress-step {
   width: 2vw;
   height: 2vw;
-  background-color: #cbc747;
+  background-color: #FF40B1;
   border-radius: 50%;
   position: relative;
-  opacity: 0.4 !important;
+  opacity: 0.5 !important;
   /* border: black solid 1px; */
 }
 
