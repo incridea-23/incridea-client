@@ -22,7 +22,7 @@ const ProfileInfo: FC<{
   user: User | null | undefined;
 }> = ({ user }) => {
   const router = useRouter();
-  const {
+  let {
     data: dataAccommodation,
     loading: loadingAccommodation,
     error: errorAccommodation,
@@ -131,8 +131,8 @@ const ProfileInfo: FC<{
 
   return (
     <>
-      <div className="bg-primary-500 text-white flex flex-col justify-between items-center h-full px-4 md:px-8 py-4 md:py-8 gap-y-8 border border-primary-200/80 rounded-xl">
-        <div className="flex gap-5 flex-col">
+      <div className="text-white page-container flex flex-col justify-between items-center h-full px-8 py-16 gap-y-8 font-mono ">
+        <div className="flex gap-5">
           <div
             className="justify-center items-start flex"
             onClick={() => setAvatarModal(true)}
@@ -175,7 +175,7 @@ const ProfileInfo: FC<{
               width={100}
               height={100}
               alt="map"
-              className="sm:h-16 sm:w-16 h-12 w-12"
+              className="h-12 w-12"
             />
 
             <div className="">
@@ -186,11 +186,11 @@ const ProfileInfo: FC<{
 
           <div className="flex flex-row space-x-2 items-center ">
             <Image
-              src={"/assets/png/XP.webp"}
+              src={"/assets/png/XP.png"}
               width={100}
               height={100}
               alt="map"
-              className="sm:h-16 sm:w-16 h-12 w-12"
+              className="h-12 w-12"
             />
 
             <div className="text-lg">
@@ -205,7 +205,7 @@ const ProfileInfo: FC<{
               width={100}
               height={100}
               alt="map"
-              className="sm:h-16 sm:w-16 h-12 w-12"
+              className="h-12 w-12"
             />
 
             <div className="lg">
@@ -294,7 +294,7 @@ const ProfileInfo: FC<{
               fgColor="#ffffff"
               className="h-44 w-44"
             />
-            <span className={`text-[#fff] sm:text-xl text-md`}>
+            <span className={`font-mono text-[#fff] sm:text-xl text-md`}>
               {idToPid(user?.id!)}
             </span>
           </div>

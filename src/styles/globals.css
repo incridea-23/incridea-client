@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 /* Form autofill styling */
 input:autofill,
 input:autofill:hover,
@@ -16,21 +14,21 @@ input:-webkit-autofill:active {
   background-clip: text;
   -webkit-background-clip: text;
   /* text-accent-200 */
-  -webkit-text-fill-color: #cfeff7;;
+  -webkit-text-fill-color: #cfeff7;
   transition: background-color 5000s ease-in-out 0s;
   /* transparent */
   box-shadow: inset 0 0 20px 20px #ffffff00;
 }
 
-body{
+body {
   width: 100vw;
   overflow-x: hidden;
 }
 
-.remove-scrolling { 
-  height: 100%; 
-  overflow: hidden; 
-} 
+.remove-scrolling {
+  height: 100%;
+  overflow: hidden;
+}
 
 /* create a youtube-like scrollbar */
 ::-webkit-scrollbar {
@@ -267,8 +265,6 @@ body{
   transition: all 4000ms ease-in-out;
 }
 
-
-
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,
@@ -286,15 +282,14 @@ body{
 @layer utilities {
   /* Hide scrollbar for Chrome, Safari, and Opera */
   .no-scrollbar::-webkit-scrollbar {
-  display: none;
+    display: none;
   }
   /* Hide scrollbar for IE, Edge, and Firefox */
   .no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 }
-
 
 /* fog */
 .fogwrapper {
@@ -626,5 +621,5 @@ body{
 }
 
 .titleFont {
-  @apply !font-VikingHell
+  @apply !font-VikingHell;
 }
