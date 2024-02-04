@@ -46,7 +46,6 @@ const ProfileInfo: FC<{
       userXp?.data &&
       userXp.data.getUserXp.__typename === "QueryGetUserXpSuccess"
     ) {
-      setLevel(userXp.data.getUserXp?.data?.length);
       setXp(
         userXp.data.getUserXp?.data?.reduce(
           (acc, curr) => acc + curr.level.point,
@@ -56,6 +55,11 @@ const ProfileInfo: FC<{
       setUser(userXp.data.getUserXp?.data[0]?.user.id);
     }
   }, [userXp.data]);
+
+  useEffect(() => {
+    const lev = Math.floor(xp / 10);
+    setLevel(lev);
+  }, [xp]);
 
   interface UserTotalPoints {
     [userId: string]: {
