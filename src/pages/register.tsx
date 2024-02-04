@@ -28,10 +28,11 @@ const Register: NextPage = (props: Props) => {
 
   if (userLoading) return <Loader />;
   if (!user) router.push("/login");
+  console.log(user);
   if (user && user?.role !== "USER") router.push("/profile");
 
   return (
-    <div className="px-4 md:px-6 pt-32 pb-10 min-h-screen text-white bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
+    <div className="px-4 md:px-6 pt-32 pb-10 min-h-screen text-white bg-gradient-to-b from-primary-300 to-primary-500">
       <ViewUserAccommodation
         showModal={showModal}
         setShowModal={setShowModal}

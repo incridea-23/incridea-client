@@ -15,18 +15,9 @@ const Accommodation: NextPage = () => {
   if (loading) return <Loader />;
   if (!user) router.push("/login");
 
-  if (error)
-    return (
-      <div className="flex items-center justify-center h-screen bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
-        <h1 className="text-2xl font-bold text-white">
-          Something went wrong. Please try again later.
-        </h1>
-      </div>
-    );
-
   return (
     <>
-      <div className="px-4 md:px-6 pt-32 pb-10 min-h-screen text-white bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
+      <div className="px-4 md:px-6 pt-32 pb-10 min-h-screen text-white bg-gradient-to-b from-primary-300 to-primary-500">
         <div className="mx-auto max-w-4xl">
           <div className="p-4">
             <Button
