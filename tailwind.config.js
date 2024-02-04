@@ -54,6 +54,7 @@ module.exports = {
       fontFamily: {
         VikingHell: "var(--font-viking-hell)",
         PressStart: "var(--font-Press_Start_2P)",
+        Garet: "var(--font-Garet)",
       },
 
       colors: {
