@@ -19,6 +19,7 @@ import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import Spinner from "../../spinner";
 import ViewUserAccommodation from "./viewUserAccommodation";
+import AvatarModal from "./avatarModal";
 // import { GiShipWheel } from 'react-icons/gi';
 
 const ProfileInfo: FC<{
@@ -32,6 +33,7 @@ const ProfileInfo: FC<{
   } = useQuery(AccommodationRequestsByUserDocument);
 
   const [showModal, setShowModal] = useState(false);
+  const [avatarModal, setAvatarModal] = useState(false);
 
   if (user?.role === "USER") {
     router.push("/register");
@@ -129,15 +131,24 @@ const ProfileInfo: FC<{
 
   return (
     <>
-      <div className="text-white flex flex-col justify-between items-center h-full px-8 py-16 gap-y-8 font-mono ">
+      <div className="text-white flex flex-col justify-between items-center h-full px-8 py-16 gap-y-8 border border-primary-200/80 rounded-xl">
         <div className="flex gap-5">
-          <Image
-            src={"/assets/png/avatar.png"}
-            width={200}
-            height={200}
-            alt="avatar"
-            className="lg:h-48 lg:w-48 md:h-36 md:w-36 w-28 h-28  rounded-full"
-          />
+          <div
+            className="justify-center items-start flex"
+            onClick={() => setAvatarModal(true)}
+          >
+            <AvatarModal
+              showModal={avatarModal}
+              setShowModal={setAvatarModal}
+            />
+            <Image
+              src={user?.profileImage || ""}
+              width={200}
+              height={200}
+              alt="avatar"
+              className="lg:h-48 lg:w-48 md:h-36 md:w-36 w-28 h-28  rounded-full"
+            />
+          </div>
           <section className="flex flex-col text-center h-full items-center justify-center space-y-4">
             <span className="font-mono lg:text-[2.5rem] sm:text-3xl text-2xl  font-bold">
               {user?.name}

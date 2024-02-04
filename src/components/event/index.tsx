@@ -96,7 +96,7 @@ const Event = ({
               />
             </div>
             <div
-              className={`${styles.social_media} font-VikingHell tracking-wider text-sm uppercase font-bold items-center text-center text-secondary-900`}
+              className={`${styles.social_media} text-sm uppercase font-bold items-center text-center text-secondary-900`}
             >
               {data.category?.toLowerCase() === "non_technical"
                 ? "Non-Tech"
@@ -123,7 +123,7 @@ const Event = ({
         className={`pt-3 flex flex-col justify-center gap-3 items-center w-full`}
       >
         <span
-          className={`font-VikingHell tracking-widest font-bold text-white flex justify-center items-center text-center text-xl w-fit px-2`}
+          className={`font-bold text-white flex justify-center items-center text-center text-xl w-fit px-2`}
         >
           {data.name.toUpperCase()}
         </span>
@@ -146,7 +146,7 @@ const Event = ({
         </div>
         <div className="w-full">
           <Link href={generateEventUrl(data.name, data.id)}>
-            <button className="font-VikingHell tracking-wider mt-1 text-lg text-white capitalize shrink-0 w-full py-2 flex gap-2 items-center justify-center rounded-full bg-gradient-to-tr from-secondary-800 to-secondary-600 hover:brightness-125 hover:scale-[1.02] transition-all duration-300">
+            <button className="mt-1 text-lg text-white capitalize shrink-0 w-full py-2 flex gap-2 items-center justify-center rounded-full bg-gradient-to-tr from-secondary-800 to-secondary-600 hover:brightness-125 hover:scale-[1.02] transition-all duration-300">
               <IoIosPlayCircle />
               Play
             </button>
