@@ -10,56 +10,97 @@ import {
 } from "@react-three/drei";
 import { IoMdMicrophone } from "react-icons/io";
 import Image from "next/image";
+import ProniteCard from "@/src/components/pronites/card";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import Dhvani from "@/src/components/pronites/dhvani";
+
+// import studio from "@theatre/studio";
+// import extension from "@theatre/r3f/dist/extension";
+// import { PerspectiveCamera, SheetProvider, editable as e } from "@theatre/r3f";
+// import { getProject } from "@theatre/core";
+
+// studio.extend(extension);
+// studio.initialize();
+
+// const demoSheet = getProject("Scene 1").sheet("Scene 1");
+
+const artists = [
+  {
+    name: "Dhvani Bhanushali",
+    time: "23rd Feb @ 7:30PM",
+    imageSrc: "/assets/jpeg/DhvaniBhanushali.jpeg",
+    audioSrc: "/assets/mp3/DhvaniBhanushali.mp3",
+  },
+  {
+    name: "Artist 2",
+    time: "24th Feb @ 7:30PM",
+    imageSrc: "/assets/jpeg/DhvaniBhanushali.jpeg",
+    audioSrc: "/assets/mp3/DhvaniBhanushali.mp3",
+  },
+];
 
 export default function App() {
-  const dhvaniAudioRef = useRef<HTMLAudioElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  const [isArtist1, setIsArtist1] = useState(true);
+  const angle = useRef<number>(0);
 
   useEffect(() => {
-    dhvaniAudioRef.current?.play();
-  }, []);
+    angle.current = angle.current + Math.PI;
+    audioRef.current &&
+      (audioRef.current.src = artists[isArtist1 ? 0 : 1].audioSrc);
+    audioRef.current && (audioRef.current.currentTime = 0);
+    audioRef.current?.play();
+    console.log(audioRef.current?.paused);
+  }, [isArtist1]);
+
+  const artistGroup = useRef<THREE.Group | null>(null);
+  const nameGroup = useRef<THREE.Group | null>(null);
+
+  // useGSAP(() => {
+  //   if (artistGroup.current && nameGroup.current) {
+  //     gsap.to(artistGroup.current.rotation, {
+  //       y: angle.current,
+  //       duration: 1,
+  //     });
+  //     gsap.to(nameGroup.current.rotation, {
+  //       y: -angle.current,
+  //       duration: 1,
+  //     });
+  //   }
+  // }, [isArtist1]);
 
   return (
     <>
-      <div className="absolute text-white bottom-6 right-6 md:bottom-10 md:right-10 z-50 pointer-events-none rounded-[14px] ">
-        <Image
-          src="/assets/jpeg/DhvaniBhanushali.jpeg"
-          alt="Dhvani Bhanushali"
-          fill={true}
-          className="object-cover -z-50 rounded-[14px]"
-        />
-        <div className="absolute bg-gradient-to-tr from-[#bc43a2] to-[#e18472] h-full w-full opacity-70 -z-50 rounded-[14px]"></div>
-        <div className="p-2 md:p-3 z-50">
-          <div className="h-16 md:h-20 flex items-center opacity-90">
-            <IoMdMicrophone className="ml-2" size={"3rem"} />
-          </div>
-          <div className="flex flex-col p-2">
-            <div className="font-medium text-xl md:text-2xl">
-              Dhvani Bhanushali
-            </div>
-            <div className="opacity-70">23rd Feb @ 7:30PM</div>
-          </div>
-        </div>
-      </div>
-      <audio
-        ref={dhvaniAudioRef}
-        loop={true}
-        src="/assets/mp3/DhvaniBhanushali.mp3"
-      ></audio>
+      <ProniteCard
+        artist={{ ...artists[0] }}
+        // isArtist={isArtist1}
+        isArtist={true}
+      />
+      {/* <ProniteCard artist={{ ...artists[1] }} isArtist={!isArtist1} /> */}
+      <audio ref={audioRef} loop={true}></audio>
       <Canvas
         style={{ height: "100vh", width: "100vw" }}
         gl={{ alpha: false }}
         camera={{ position: [0, 3, 100], fov: 15 }}
+        onClick={() => setIsArtist1(!isArtist1)}
       >
         <color attach="background" args={["black"]} />
         <fog attach="fog" args={["black", 15, 20]} />
         <Suspense fallback={null}>
           <group position={[0, -1, 0]}>
-            <Carla
-              rotation={[0, Math.PI - 0.4, 0]}
-              position={[-1.2, 0, 0.6]}
-              scale={[0.26, 0.26, 0.26]}
-            />
-            <VideoText position={[0, 1, -1]} />
+            <group ref={artistGroup}>
+              <Dhvani position={[0, 0, 1]} scale={1} rotation={[0, 0, 0]} />
+              {/* <Dhvani
+                position={[0, 0, 0]}
+                scale={1}
+                rotation={[0, Math.PI, 0]}
+              /> */}
+            </group>
+            <group ref={nameGroup}>
+              <VideoText position={[0, 1, -1]} />
+            </group>
             <Ground />
           </group>
           <ambientLight intensity={0.5} />
