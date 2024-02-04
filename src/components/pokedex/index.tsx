@@ -96,7 +96,7 @@ const Pokedex: React.FC<DexProps> = ({ data = [] }) => {
       <div className="page-container h-screen relative">
         {/* Pokedex background */}
 
-        <div className="h-full w-full flex flex-col justify-center items-center relative animation-container z-0">
+        <div className="h-full w-full flex flex-col top-[8%] items-center relative animation-container z-0">
           {/* Top part of Pokedex */}
           <div className="flex justify-end">
             {fullyOpen ? (
