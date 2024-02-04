@@ -19,14 +19,14 @@ const RetroTV = ({ imgArr }: { imgArr: string[] }) => {
       id="animation"
       className="relative flex justify-center top-6 items-center md:w-[40vw] md:h-[60vw] w-[80vw] h-[65vw] mx-auto md:scale-[135%] scale-[140%]"
     >
-      <h1
+      {/* <h1
         className={
           styles["text-shadow"] +
           ` text-2xl font-extrabold sm:text-4xl z-50 border-black text-white absolute sm:top-20 lg:top-72 md:top-16 -top-2`
         }
       >
         INCRIDEA <span className="tracking-tight">22</span>
-      </h1>
+      </h1> */}
       <Image
         fill
         priority
@@ -53,7 +53,7 @@ const RetroTV = ({ imgArr }: { imgArr: string[] }) => {
                 onClick={() => setActiveModal(true)}
               >
                 <ToolTip
-                  classValue="text-center text-xs border sm:text-lg"
+                  classValue="text-center bg-black/60 text-xs border sm:text-lg"
                   text="click to preview image"
                 ></ToolTip>
                 <div className="relative w-full h-full flex justify-center items-center">

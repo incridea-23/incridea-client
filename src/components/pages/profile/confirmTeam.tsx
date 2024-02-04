@@ -6,6 +6,7 @@ import { ConfirmTeamDocument } from "@/src/generated/generated";
 import { useMutation } from "@apollo/client";
 import React, { FC, useState } from "react";
 import { toast } from "react-hot-toast";
+import { GoVerified } from "react-icons/go";
 
 const ConfirmTeamModal: FC<{
   teamId: string;
@@ -44,7 +45,8 @@ const ConfirmTeamModal: FC<{
     <>
       <Button
         size={"medium"}
-        className="mt-3 w-fit"
+        className="mt-3 rounded-full justify-center !skew-x-0 bodyFont !tracking-normal"
+        fullWidth
         onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
           e.preventDefault();
           e.stopPropagation();
@@ -52,6 +54,7 @@ const ConfirmTeamModal: FC<{
         }}
         intent={"primary"}
       >
+        <GoVerified />
         Confirm
       </Button>
       <Modal

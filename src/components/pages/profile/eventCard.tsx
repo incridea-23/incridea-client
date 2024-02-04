@@ -15,10 +15,9 @@ const EventCard: FC<{
   event: any;
   userId: string;
 }> = ({ teams, event, userId }) => {
-  console.log(event);
+  const eventType = event.teams.map((team: Team) => team.event.eventType)[0];
   const solo =
-    event.eventType === "INDIVIDUAL" ||
-    event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY";
+    eventType === "INDIVIDUAL" || eventType === "INDIVIDUAL_MULTIPLE_ENTRY";
 
   const router = useRouter();
 
@@ -30,26 +29,33 @@ const EventCard: FC<{
         )
       }
       key={event.id}
-      className="bg-primary-500 border border-primary-200/70 flex justify-evenly items-center w-full h-full rounded-lg p-5 cursor-pointer hover:scale-[1.01] transition-transform duration-300"
+      className="w-[300px] md:w-[350px] bg-primary-400 border border-primary-200/70 flex justify-evenly items-start -full rounded-lg p-5 cursor-pointer hover:scale-[1.01] transition-transform duration-300"
     >
       <div className="flex flex-col justify-center items-center">
-        <Image
-          src={`https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg`}
-          // src={event.image}
-          alt={event.name}
-          height={300}
-          width={300}
-          className="rounded-xl"
-        />
+        <div className="relative">
+          <Image
+            src={`https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg`}
+            // src={event.image}
+            alt={event.name}
+            height={300}
+            width={300}
+            className="rounded-xl"
+          />
+          <h1 className="absolute bottom-0 text-center w-full pb-3 text-sm md:text-xl font-bold rounded-xl text-white bg-gradient-to-t from-black to-transparent">
+            {event.name}
+          </h1>
+        </div>
         <div className="mt-4 flex flex-col items-center w-full justify-end px-5">
           <div className="flex flex-wrap justify-between gap-2 text-gray-200">
             <div className="w-full justify-center flex items-center border border-secondary-400/40 gap-2 text-left bg-primary-200/30 py-1 rounded-full px-3">
               <IoLocationOutline />
-              <p className="text-sm font-medium">{event?.venue}</p>
+              <p className="text-xs md:text-sm font-medium truncate">
+                {event?.venue}
+              </p>
             </div>
             <div className="w-full justify-center flex items-center border border-secondary-400/40 gap-2 text-left bg-primary-200/30 py-1 rounded-full px-3">
               <RiNumbersLine />
-              <p className="text-sm font-medium text-center">
+              <p className="text-xs md:text-sm font-medium text-center">
                 {event?.rounds.length} Round{event?.rounds.length > 1 && "s"}
               </p>
             </div>
@@ -69,7 +75,7 @@ const EventCard: FC<{
                   bgColor="transparent"
                 />
                 <div className="text-white flex flex-col justify-between gap-2">
-                  <p className="text-white text-xm cursor-pointer font-bold">
+                  <p className="text-white text-sm lg:text-lg cursor-pointer font-bold">
                     {solo ? idToPid(userId) : idToTeamId(team.id)}
                   </p>
 

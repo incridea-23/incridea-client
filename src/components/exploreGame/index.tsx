@@ -6,6 +6,8 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
+import { AiFillSound, AiOutlineSound } from "react-icons/ai";
+import { IoVolumeHigh, IoVolumeMute } from "react-icons/io5";
 import { MdArrowRightAlt } from "react-icons/md";
 import Typewriter from "typewriter-effect";
 import Button from "../button";
@@ -16,9 +18,10 @@ import {
   platformDimensions,
   platformSpriteDimensions,
 } from "./gameConstants";
-import { IoVolumeHigh, IoVolumeMute } from "react-icons/io5";
 
+const fps: number = 60;
 const actionKeys: string[] = [];
+
 const ExploreGame = () => {
   const [showAbout, setShowAbout] = useState(false);
   const [showRuleBook, setShowRuleBook] = useState(false);
@@ -31,9 +34,21 @@ const ExploreGame = () => {
   const lastExecutionTimeRef = useRef<number>(0);
   let audioElement: "ground" | "middle" | "left" | "right" | "jump" = "middle";
   const [isMuted, setIsMuted] = useState(true);
-  let sfxMuted = true;
+  const isMutedRef = useRef(isMuted);
+  const mainThemeAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    isMutedRef.current = isMuted;
+  }, [isMuted]);
 
   function movementSoundTrigger(path: string, delay: number) {
+    if (isMutedRef.current) {
+      return;
+    }
+    const isJump = path === "/audio/jump.mp3" ? true : false;
+    if (isJump && audioElement === "jump") {
+      return;
+    }
     const currentTime = Date.now();
     const elapsedTime = currentTime - lastExecutionTimeRef.current;
     // console.log(isMuted);
@@ -56,21 +71,10 @@ const ExploreGame = () => {
 
   const handleAddXp = () => {
     console.log(calledXp);
-    if(calledXp) return;
+    if (calledXp) return;
     calledXp = true;
     const promise = addXp().then((res) => {
-      if (res.data?.addXP.__typename !== "MutationAddXPSuccess") {
-        toast.error(
-          `Opps!! You have already claimed your xp or not logged in`,
-          {
-            position: "bottom-center",
-            style: {
-              backgroundColor: "#7628D0",
-              color: "white",
-            },
-          }
-        );
-      } else {
+      if (res.data?.addXP.__typename === "MutationAddXPSuccess") {
         toast.success(
           `Congratulations!!! You have found ${res.data?.addXP.data.level.point} Xp`,
           {
@@ -117,6 +121,15 @@ const ExploreGame = () => {
   let showRuleBookFlag = true;
   let showScheduleFlag = true;
 
+  const [rightPlatformY, setRightPlatformY] = useState<number>(0);
+  const [leftPlatformY, setLeftPlatformY] = useState<number>(0);
+  const [rightPlatformX, setRightPlatformX] = useState<number>(0);
+  const [leftPlatformX, setLeftPlatformX] = useState<number>(0);
+  const [rightPlatformHeight, setRightPlatformHeight] = useState<number>(0);
+  const [rightPlatformWidth, setRightPlatformWidth] = useState<number>(0);
+  const [leftPlatformHeight, setLeftPlatformHeight] = useState<number>(0);
+  const [leftPlatformWidth, setLeftPlatformWidth] = useState<number>(0);
+
   const resizeCanvas = () => {
     if (canvas.current) {
       player.current.x =
@@ -127,6 +140,42 @@ const ExploreGame = () => {
       WINDOW_DIMENSION.height = window.innerHeight;
       canvas.current.height = window.innerHeight * 2;
       boundary.right = window.innerWidth;
+
+      const leftPlatformSpriteHeight =
+        window.innerHeight * platformDimensions.left.heightPercentage;
+      const leftPlatformSpriteWidth = Math.ceil(
+        leftPlatformSpriteHeight * platformDimensions.left.aspectRatio
+      );
+
+      setLeftPlatformX(
+        window.innerWidth * 0.5 -
+          leftPlatformSpriteWidth * platformDimensions.left.xPercentage
+      );
+
+      setLeftPlatformY(
+        window.innerHeight * platformDimensions.left.yPercentage
+      );
+
+      setLeftPlatformHeight(leftPlatformSpriteHeight);
+      setLeftPlatformWidth(leftPlatformSpriteWidth);
+
+      const rightPlatformSpriteHeight =
+        window.innerHeight * platformDimensions.right.heightPercentage;
+      const rightPlatformSpriteWidth = Math.ceil(
+        leftPlatformSpriteHeight * platformDimensions.right.aspectRatio
+      );
+
+      setRightPlatformX(
+        window.innerWidth * 0.5 -
+          rightPlatformSpriteWidth * platformDimensions.right.xPercentage
+      );
+
+      setRightPlatformY(
+        window.innerHeight * platformDimensions.right.yPercentage
+      );
+
+      setRightPlatformHeight(rightPlatformSpriteHeight);
+      setRightPlatformWidth(rightPlatformSpriteWidth);
     }
   };
 
@@ -159,6 +208,7 @@ const ExploreGame = () => {
   }
 
   function Jump() {
+    movementSoundTrigger("/audio/jump.mp3", 250);
     audioElement = "jump";
     if (isGrounded) {
       velocity.current.y = -Math.sqrt(
@@ -169,7 +219,6 @@ const ExploreGame = () => {
       );
       isGrounded = false;
     }
-    movementSoundTrigger("/audio/jump.mp3", 250);
   }
 
   const keyboardDownEventHandler = (e: KeyboardEvent) => {
@@ -290,6 +339,19 @@ const ExploreGame = () => {
       const leftPlatformSpriteWidth = Math.ceil(
         leftPlatformSpriteHeight * platformDimensions.left.aspectRatio
       );
+
+      setLeftPlatformX(
+        window.innerWidth * 0.5 -
+          leftPlatformSpriteWidth * platformDimensions.left.xPercentage
+      );
+
+      setLeftPlatformY(
+        window.innerHeight * platformDimensions.left.yPercentage
+      );
+
+      setLeftPlatformHeight(leftPlatformSpriteHeight);
+      setLeftPlatformWidth(leftPlatformSpriteWidth);
+
       ctx.drawImage(
         platformSprite,
         platformSpriteDimensions.left.x,
@@ -309,6 +371,19 @@ const ExploreGame = () => {
       const rightPlatformSpriteWidth = Math.ceil(
         leftPlatformSpriteHeight * platformDimensions.right.aspectRatio
       );
+
+      setRightPlatformX(
+        window.innerWidth * 0.5 -
+          rightPlatformSpriteWidth * platformDimensions.right.xPercentage
+      );
+
+      setRightPlatformY(
+        window.innerHeight * platformDimensions.right.yPercentage
+      );
+
+      setRightPlatformHeight(rightPlatformSpriteHeight);
+      setRightPlatformWidth(rightPlatformSpriteWidth);
+
       ctx.drawImage(
         platformSprite,
         platformSpriteDimensions.right.x,
@@ -374,7 +449,7 @@ const ExploreGame = () => {
       // Standing on the ground
       if (audioElement !== "ground") {
         audioElement = "ground";
-        movementSoundTrigger("/audio/thud.mp3", 0);
+        movementSoundTrigger("/audio/thud.mp3", 300);
       }
       isGrounded = true;
       player.current.y = window.innerHeight * 1.62 - player.current.height;
@@ -401,7 +476,7 @@ const ExploreGame = () => {
       isGrounded = true;
       if (audioElement !== "left") {
         audioElement = "left";
-        movementSoundTrigger("/audio/thump.mp3", 250);
+        movementSoundTrigger("/audio/thump.mp3", 300);
       }
 
       if (showScheduleFlag) {
@@ -452,7 +527,7 @@ const ExploreGame = () => {
       // Standing on the right platform
       if (audioElement !== "right") {
         audioElement = "right";
-        movementSoundTrigger("/audio/thump.mp3", 0);
+        movementSoundTrigger("/audio/thump.mp3", 300);
       }
       isGrounded = true;
       if (showRuleBookFlag) {
@@ -502,7 +577,7 @@ const ExploreGame = () => {
       // Standing on the central platform
       if (audioElement !== "middle") {
         audioElement = "middle";
-        movementSoundTrigger("/audio/thump.mp3", 0);
+        movementSoundTrigger("/audio/thump.mp3", 300);
       }
       isGrounded = true;
       if (showAboutFlag) {
@@ -532,7 +607,7 @@ const ExploreGame = () => {
       velocity.current.y = 0;
 
       /* ######### EASTER EGG GOES HERE ######### */
-      movementSoundTrigger("/audio/thud.mp3", 250);
+      movementSoundTrigger("/audio/thud.mp3", 300);
       handleAddXp();
       //replace with xp sound
       return;
@@ -607,34 +682,32 @@ const ExploreGame = () => {
     } else {
       velocity.current.y = 0;
     }
-    ctx.current?.drawImage(
-      ryokoSprite.current as HTMLImageElement,
-      currentSpriteState.x,
-      currentSpriteState.y,
-      currentSpriteState.width,
-      currentSpriteState.height,
-      player.current.x,
-      player.current.y,
-      player.current.width,
-      player.current.height
-    );
+
+    if (ctx) {
+      ctx.current?.drawImage(
+        ryokoSprite.current as HTMLImageElement,
+        currentSpriteState.x,
+        currentSpriteState.y,
+        currentSpriteState.width,
+        currentSpriteState.height,
+        player.current.x,
+        player.current.y,
+        player.current.width,
+        player.current.height
+      );
+    }
 
     prevPos.current.x = player.current.x;
     prevPos.current.y = player.current.y;
 
     frameCount = (frameCount + 1) % 5;
 
-    const fps = 60;
-
-    setTimeout(() => {
-      requestAnimationFrame(animate);
-    }, 1000 / fps);
+    requestAnimationFrame(animate);
   };
 
   useEffect(() => {
     resizeCanvas();
     ctx.current = canvas.current?.getContext("2d");
-    // console.log(canvas.current);
     window.addEventListener("resize", resizeCanvas);
     window.addEventListener("keydown", (event) =>
       keyboardDownEventHandler(event)
@@ -677,11 +750,12 @@ const ExploreGame = () => {
     <>
       <ExploreNav />
       <AudioPlayer
+        mainThemeAudioRef={mainThemeAudioRef}
         mainTheme="/audio/Level1MainTheme.mp3"
         isMuted={isMuted}
         setIsMuted={setIsMuted}
       ></AudioPlayer>
-      <div className="h-[200vh] relative">
+      <div className="h-[200vh] relative w-full overflow-clip">
         <div className="hidden">
           <img
             src="/assets/spriteSheets/ryokoSpriteSheet.png"
@@ -719,6 +793,39 @@ const ExploreGame = () => {
             </span>
           </div>
         </div>
+
+        <a
+          href={
+            showRuleBook
+              ? "/assets/images/ruleBook.png"
+              : "/assets/images/rulebook.png"
+          }
+          style={{
+            position: "absolute",
+            top: `${leftPlatformY}px`,
+            left: `${leftPlatformX}px`,
+            height: `${leftPlatformHeight}px`,
+            width: `${leftPlatformWidth}px`,
+          }}
+          download
+          className="bg-transparent z-[1]"
+        ></a>
+        <a
+          style={{
+            position: "absolute",
+            top: `${rightPlatformY}px`,
+            left: `${rightPlatformX}px`,
+            height: `${rightPlatformHeight}px`,
+            width: `${rightPlatformWidth}px`,
+          }}
+          href={
+            showRuleBook
+              ? "/assets/images/ruleBook.png"
+              : "/assets/images/rulebook.png"
+          }
+          download
+          className="bg-transparent z-[1]"
+        ></a>
 
         <div
           style={{

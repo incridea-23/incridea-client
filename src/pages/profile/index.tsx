@@ -86,22 +86,20 @@ const Profile: NextPage = () => {
     ); // Error page here
 
   return (
-    <>
-      <main
-        ref={containerRef}
-        className="bodyFont bg-gradient-to-b from-primary-300 to-primary-500 px-5 sm:px-7 lg:px-10"
-      >
-        <div className="flex lg:flex-row flex-col-reverse py-[5rem] lg:pt-[6rem] min-h-screen gap-5">
-          <div className="lg:w-[66.66%] w-full overflow-auto border border-primary-200/80 rounded-xl">
-            <UserEvents userId={user?.id!} />
-          </div>
-
-          <div className="col-span-1 rounded-xl">
-            <ProfileInfo user={user} />
-          </div>
+    <main
+      ref={containerRef}
+      className="bodyFont bg-gradient-to-b from-primary-300 to-primary-500 px-5 sm:px-7 lg:px-10"
+    >
+      <div className="flex lg:flex-row flex-col-reverse py-[5rem] lg:pt-[6rem] min-h-screen gap-5">
+        <div className="lg:w-[66.66%] w-full overflow-auto border border-primary-200/80 rounded-xl h-screen">
+          <UserEvents userId={user?.id!} />
         </div>
-      </main>
-    </>
+
+        <div className="col-span-1 rounded-xl h-screen">
+          <ProfileInfo user={user} />
+        </div>
+      </div>
+    </main>
   );
 };
 

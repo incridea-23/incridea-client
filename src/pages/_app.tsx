@@ -22,7 +22,6 @@ export const VikingHell = localFont({
 });
 
 export const garetFont = localFont({
-
   src: "../font/Garet-Book.otf",
   variable: "--font-Garet",
 });
@@ -71,7 +70,7 @@ export default function App({
           description="Official Website of Incridea 2024, National level techno-cultural fest, NMAMIT, Nitte. Innovate. Create. Ideate."
         />
         <Toaster />
-        <Loader/>
+        <Loader />
         <div
           className={`min-h-screen ${VikingHell.variable} ${pressStart.variable} bg-gradient-to-b ${garetFont.variable} from-primary-200 to-primary-400`}
         >
