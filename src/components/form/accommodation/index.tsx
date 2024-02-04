@@ -13,7 +13,6 @@ import { BsChevronExpand } from "react-icons/bs";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { TbArrowBackUp } from "react-icons/tb";
-import { toISOStringWithTimezone } from "../../pages/dashboard/organizer/RoundsAddModal";
 import Spinner from "../../spinner";
 import { IoEye } from "react-icons/io5";
 import ViewUserAccommodation from "../../pages/profile/viewUserAccommodation";
@@ -60,6 +59,27 @@ const AccommodationForm: FunctionComponent = () => {
   // FIXME: No AC rooms??
   // const [AC, setAC] = useState<boolean>(false);
 
+  const toISOStringWithTimezone = (date: Date) => {
+    const tzOffset = -date.getTimezoneOffset();
+    const diff = tzOffset >= 0 ? "+" : "-";
+    const pad = (n: number) => `${Math.floor(Math.abs(n))}`.padStart(2, "0");
+    return (
+      date.getFullYear() +
+      "-" +
+      pad(date.getMonth()) +
+      "-" +
+      pad(date.getDate()) +
+      "T" +
+      pad(date.getHours()) +
+      ":" +
+      pad(date.getMinutes()) +
+      ":" +
+      pad(date.getSeconds()) +
+      diff +
+      pad(tzOffset / 60) +
+      pad(tzOffset % 60)
+    );
+  };
   const [AccommodationInfo, setAccommodationInfo] = useState({
     hotelId: -1,
     gender: "",
@@ -71,8 +91,7 @@ const AccommodationForm: FunctionComponent = () => {
   const handleUpload = (file: File) => {
     const formData = new FormData();
     formData.append("image", file);
-    // FIXME: Change this url
-    const url = `http://localhost:4000/id/upload`;
+    const url = `https://incridea-pai3.onrender.com/id/upload`;
     setUploading(true);
     const promise = fetch(url, {
       method: "POST",

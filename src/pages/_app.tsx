@@ -21,6 +21,12 @@ export const VikingHell = localFont({
   variable: "--font-viking-hell",
 });
 
+export const garetFont = localFont({
+
+  src: "../font/Garet-Book.otf",
+  variable: "--font-Garet",
+});
+
 export const pressStart = Press_Start_2P({
   weight: ["400"],
   subsets: ["latin"],
@@ -50,7 +56,7 @@ export default function App({
           description="Official Website of Incridea 2024, National level techno-cultural fest, NMAMIT, Nitte. Innovate. Create. Ideate."
         />
         <div
-          className={`min-h-screen ${VikingHell.variable} ${pressStart.variable}`}
+          className={`min-h-screen ${VikingHell.variable} ${pressStart.variable} ${garetFont.variable}`}
         >
           <Component {...pageProps} />
           <Toaster />
@@ -67,7 +73,7 @@ export default function App({
         <Toaster />
         <Loader/>
         <div
-          className={`min-h-screen ${VikingHell.variable} ${pressStart.variable} bg-gradient-to-b from-primary-200 to-primary-400`}
+          className={`min-h-screen ${VikingHell.variable} ${pressStart.variable} bg-gradient-to-b ${garetFont.variable} from-primary-200 to-primary-400`}
         >
           {!isLoading && <Navbar />}
           <AnimatePresence mode="wait">

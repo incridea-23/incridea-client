@@ -91,12 +91,12 @@ const LeaderBoard : NextPage = () => {
                     <div key={i} className={`${styles.confetti}`}></div>
                 ))}
             </div>}
-            <div className="bg-gradient-to-b from-primary-300 to-primary-500 min-h-screen relative">
+            <div className="bg-gradient-to-b from-primary-300 to-primary-400 min-h-screen relative">
                 <div className=" bg-gradient-to-bl bg-white min-h-screen relative py-32">
                     <h1 className={`text-white text-5xl md:text-5xl text-center font-VikingHell`}>
                         XP Leaderboard
                     </h1>
-                    <h3 className="my-6 mx-2 md:mx-0 text-white text-2xl md:text-3xl text-center">
+                    <h3 className="my-6 mx-2 md:mx-0 text-white text-xl md:text-3xl text-center">
                         Embark on an XP Quest: Uncover Hidden Easter Eggs and Level Up Your Experience!
                     </h3>
                     <div className="flex mb-2 md:mx-36 mx-5 mt-10 md:mt-7 font-bold bg-primary-500 border border-primary-200/80 rounded-lg text-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-t-lg p-1 items-center justify-evenly text-sm md:text-2xl  h-16">
@@ -129,19 +129,19 @@ const LeaderBoard : NextPage = () => {
                                 <h1 className="basis-1/4 flex flex-row justify-center items-center text-center font-semibold text-sm md:text-xl">
                                     {user.levelPoints}
                                     <Image
-                                        src={`/assets/png/trophy.png`}
-                                        width={isMobile ? 20 : 50}
-                                        height={isMobile ? 20 : 50}
+                                        src={`/assets/png/XP.webp`}
+                                        width={isMobile ? 20 : 40}
+                                        height={isMobile ? 20 : 40}
                                         alt="medal"
-                                        className="text-5xl bg-transparent w-10 md:w-auto"
+                                        className="text-5xl bg-transparent w-10 md:w-10 ml-1"
                                     />
                                 </h1>
                             </div>
                         ))}
                         {
                             sortedLeaderboard.length === 0 && !leaderboardLoading &&
-                            <div className="flex justify-center items-center">
-                                <span className='text-gray-300 text-xl'>
+                            <div className="flex justify-center items-center mx-3 mt-2">
+                                <span className='text-gray-300 text-base md:text-xl'>
                                     The XP leaderboard is currently as empty as a blank canvas, waiting for the vibrant colors of your achievements to fill it up!
                                 </span>
                             </div>
