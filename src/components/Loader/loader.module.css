@@ -70,6 +70,37 @@
     }
 }
 
+.fadelogo{
+    animation: fade-out 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fade-out{
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0.5;
+    }
+    100%{
+        opacity: 0;
+        display: none;
+    }
+}
+
+.fadeinlogo {
+    opacity: 0;
+    animation: fade-in 1s ease-in forwards;
+  }
+  
+  @keyframes fade-in {
+    50% {
+      opacity: 0.5;
+    }
+    100%{
+        opacity: 1;
+    }
+  }
 
 .fadeloader {
     animation: fadeloadpage 8s;
@@ -77,6 +108,9 @@
 }
 
 @keyframes fadeloadpage {
+    0%{
+        opacity: 1;
+    }
     50% {
         opacity: 0.5;
     }
