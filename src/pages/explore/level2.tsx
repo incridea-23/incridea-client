@@ -1,20 +1,25 @@
-import React, { Suspense, useRef } from "react";
+import React, { Suspense, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { getProject } from "@theatre/core";
-import { SheetProvider, editable as e, PerspectiveCamera } from "@theatre/r3f";
+// import studio from "@theatre/studio";
+import { PerspectiveCamera, SheetProvider, editable as e } from "@theatre/r3f";
+import extension from "@theatre/r3f/dist/extension";
+// import dynamic from "next/dynamic";
 import { ScrollControls } from "@react-three/drei";
-import scene1 from "../../../public/assets/3d/state4.json";
-import dynamic from "next/dynamic";
-import useStore from "@/src/components/store/store";
 import BookModal from "@/src/components/explore/BookModal";
+import ExploreNav from "@/src/components/explore/exploreNav";
 import Pokedex from "@/src/components/pokedex";
+import useStore from "@/src/components/store/store";
 import {
   PublishedEventsDocument,
   PublishedEventsQuery,
 } from "@/src/generated/generated";
 import { client } from "@/src/lib/apollo";
 import { useQuery } from "@apollo/client";
-import ExploreNav from "@/src/components/explore/exploreNav";
+import studio from "@theatre/studio";
+import dynamic from "next/dynamic";
+import scene1 from "../../../public/assets/3d/state4.json";
+import AudioPlayer from "@/src/components/explore/AudioPlayer";
 
 const Scene1 = dynamic(() => import("@/src/components/scene1"), {
   ssr: false,
@@ -51,8 +56,22 @@ const App = () => {
   const eventDex = useStore((state) => state.eventDex);
   const sponsor = useStore((state) => state.sponsor);
 
+  const [isMuted, setIsMuted] = useState(true);
+  const mainThemeAudioRef = useRef<HTMLAudioElement | null>(null);
+  // useEffect(() => {
+  //   demoSheet.project.ready.then(() =>
+  //     demoSheet.sequence.play({ iterationCount: Infinity, range: [0, 1] })
+  //   );
+  // }, []);
+
   return (
     <div className="w-full h-screen">
+      <AudioPlayer
+        mainThemeAudioRef={mainThemeAudioRef}
+        mainTheme="/audio/level2/main.mp3"
+        isMuted={isMuted}
+        setIsMuted={setIsMuted}
+      ></AudioPlayer>
       <ExploreNav />
       <Suspense>
         <Canvas
@@ -90,10 +109,18 @@ const App = () => {
         </Canvas>
       </Suspense>
       <div className="" ref={modalRef}>
-        {eventDex && <Pokedex data={events} />}
+        {eventDex && (
+          <Pokedex
+            isMuted={isMuted}
+            mainThemeAudioRef={mainThemeAudioRef}
+            data={events}
+          />
+        )}
       </div>
       <div className="" ref={sponsorBookRef}>
-        {sponsor && <BookModal />}
+        {sponsor && (
+          <BookModal isMuted={isMuted} mainThemeAudioRef={mainThemeAudioRef} />
+        )}
       </div>
     </div>
   );
