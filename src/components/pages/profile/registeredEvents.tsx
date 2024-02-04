@@ -13,8 +13,8 @@ const UserEvents: FC<{
   const { data: events, loading, error } = useQuery(RegisterdEventsDocument);
 
   return (
-    <section className="h-full">
-      <div className="titleFont text-center rounded-t-xl text-white text-5xl mt-5">
+    <section className="h-full bg-primary-500 pt-5">
+      <div className="titleFont text-center rounded-t-xl text-white text-5xl">
         My Quests
       </div>
 
@@ -42,14 +42,14 @@ const UserEvents: FC<{
             </Link>
           </div>
         ) : null}
-        
+
         {!loading &&
           !error &&
           events?.registeredEvents.__typename ===
             "QueryRegisteredEventsSuccess" &&
           events.registeredEvents.data.length !== 0 && (
             <div className="space-y-2 h-screen">
-              <div className="mx-auto space-y-4 px-5">
+              <div className="mx-auto space-y-4 px-5 bg-primary-500">
                 <div className="text-white px-3 z-1 text-center font-bold w-full flex justify-center mb-5">
                   <p className="border rounded-full w-fit px-3 py-1 border-primary-200/80">
                     You have entered{" "}
