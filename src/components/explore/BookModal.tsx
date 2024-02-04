@@ -1,13 +1,18 @@
-import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import styles from "./bookModal.module.css";
-import useStore from "../store/store";
-import { IoMdClose } from "react-icons/io";
-import Image from "next/image";
-import HTMLFlipBook from "react-pageflip";
 import Sponsors from "@/src/pages/sponsors";
+import { gsap } from "gsap";
+import Image from "next/image";
+import React, { useEffect, useRef } from "react";
+import { IoMdClose } from "react-icons/io";
+import HTMLFlipBook from "react-pageflip";
+import useStore from "../store/store";
+import styles from "./bookModal.module.css";
 
-const BookModal: React.FC = () => {
+interface BookModalType {
+  isMuted: boolean;
+  mainThemeAudioRef: React.MutableRefObject<HTMLAudioElement | null>;
+}
+
+const BookModal: React.FC<BookModalType> = ({ isMuted, mainThemeAudioRef }) => {
   const sponsors = [
     {
       logo: "/assets/png/ryoko.png",
@@ -33,6 +38,22 @@ const BookModal: React.FC = () => {
 
   const setSponsorFlag = useStore((state) => state.setSponsor);
   const sponsorFlag = useStore((state) => state.sponsor);
+
+  useEffect(() => {
+    const audio = new Audio("/audio/level2/pirates.mp3");
+    audio.volume = 0.3;
+    let mainRef = mainThemeAudioRef;
+    if (isMuted) {
+      return;
+    } else if (!isMuted && sponsorFlag) {
+      mainRef?.current?.pause();
+      audio.play();
+    }
+    return () => {
+      audio.pause();
+      mainRef?.current?.play();
+    };
+  }, [sponsorFlag, isMuted, mainThemeAudioRef]);
 
   return (
     <>
