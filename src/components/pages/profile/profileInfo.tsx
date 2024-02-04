@@ -148,7 +148,7 @@ const ProfileInfo: FC<{
           </section>
         </div>
 
-        <div className="flex justify-evenly w-full font-mono basis-1/3  flex-wrap font-mono">
+        <div className="flex justify-evenly w-full font-mono basis-1/3 flex-wrap">
           <div className="flex flex-row items-center space-x-2">
             <Image
               src={"/assets/png/trophy.png"}
