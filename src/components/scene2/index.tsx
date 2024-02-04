@@ -6,19 +6,10 @@ import {
   useAnimations,
   useScroll,
   useFBX,
+  Float,
 } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 import { useFrame } from "@react-three/fiber";
-
-// import { getProject } from "@theatre/core";
-// import { editable as e, SheetProvider } from "@theatre/r3f";
-// import studio from "@theatre/studio";
-// import extension from "@theatre/r3f/dist/extension";
-
-// studio.extend(extension);
-// studio.initialize();
-
-// const demoSheet = getProject("Scene 1").sheet("Scene 1");
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -139,7 +130,6 @@ export default function Scene2(props: JSX.IntrinsicElements["group"]) {
 
   return (
     <group ref={group} {...props} dispose={null}>
-      {/* <SheetProvider sheet={demoSheet}> */}
       <group name="Scene">
         <PerspectiveCamera
           name="Camera"
@@ -255,22 +245,24 @@ export default function Scene2(props: JSX.IntrinsicElements["group"]) {
           material={materials["Woosh.012"]}
           position={[-18.755, -3.637, 5.211]}
         />
-        <group name="mask001" position={[-18.487, -4.377, 5.52]}>
-          <mesh
-            name="Plane001"
-            castShadow
-            receiveShadow
-            geometry={nodes.Plane001.geometry}
-            material={materials["Cloth3.002"]}
-          />
-          <mesh
-            name="Plane001_1"
-            castShadow
-            receiveShadow
-            geometry={nodes.Plane001_1.geometry}
-            material={materials["Cloth3.003"]}
-          />
-        </group>
+        <Float>
+          <group name="mask001" position={[-18.487, -4.377, 5.52]}>
+            <mesh
+              name="Plane001"
+              castShadow
+              receiveShadow
+              geometry={nodes.Plane001.geometry}
+              material={materials["Cloth3.002"]}
+            />
+            <mesh
+              name="Plane001_1"
+              castShadow
+              receiveShadow
+              geometry={nodes.Plane001_1.geometry}
+              material={materials["Cloth3.003"]}
+            />
+          </group>
+        </Float>
         <group>
           <mesh
             name="mask_acc_2"
@@ -394,7 +386,6 @@ export default function Scene2(props: JSX.IntrinsicElements["group"]) {
           />
         </group>
         <group
-          // theatreKey="assassin"
           name="Altar+Ibn-La'Ahad+(Assassin's+Creed)objcleanergles"
           position={[-15.304, -6.251, 8.785]}
           rotation={[0, (-Math.PI * 150) / 180, 0]}
@@ -404,7 +395,6 @@ export default function Scene2(props: JSX.IntrinsicElements["group"]) {
         </group>
         <group
           rotation={[0, (-Math.PI * 150) / 180, 0]}
-          // theatreKey="armature"
           name="Armature"
           position={[-15.07, -6.587, 8.863]}
           scale={0.000387}
@@ -502,7 +492,6 @@ export default function Scene2(props: JSX.IntrinsicElements["group"]) {
           <primitive object={nodes.mixamorigHips} />
         </group>
       </group>
-      {/* </SheetProvider> */}
     </group>
   );
 }

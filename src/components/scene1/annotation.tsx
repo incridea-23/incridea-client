@@ -16,7 +16,6 @@ const Annotation = () => {
 
   useFrame(() => {
     if (scrollChangeFlag.current !== scroll.visible(0.35, 0.6)) {
-      // console.log(scrollChangeFlag.current);
       scrollChangeFlag.current = !scrollChangeFlag.current;
       setScrollData(scrollChangeFlag.current);
     }
