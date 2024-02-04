@@ -24,9 +24,13 @@ const Explore = () => {
       <button
         onClick={() => {
           if (!YTPlayerRef.current) return;
-          if (YTPlayerRef.current.isMuted()) YTPlayerRef.current.unMute();
-          else YTPlayerRef.current.mute();
-          setIsMuted(YTPlayerRef.current.isMuted());
+          if (YTPlayerRef.current.isMuted()) {
+            YTPlayerRef.current.unMute();
+            setIsMuted(false);
+          } else {
+            setIsMuted(true);
+            YTPlayerRef.current.mute();
+          }
         }}
         className="absolute text-white top-[3vh] right-[2vw] z-50 cursor-pointer"
       >
@@ -86,9 +90,13 @@ const Explore = () => {
           e.target.playVideo();
         }}
         onEnd={(e) => {
+          if (blackScreenRef.current)
+            blackScreenRef.current.style.display = "initial";
           router.push("/explore/level1");
         }}
         onError={(e) => {
+          if (blackScreenRef.current)
+            blackScreenRef.current.style.display = "initial";
           router.push("/explore/level1");
         }}
         onStateChange={(e) => {}}
