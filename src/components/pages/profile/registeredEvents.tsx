@@ -60,7 +60,7 @@ const UserEvents: FC<{
                   </p>
                 </div>
 
-                <div className="pb-5 grid xl:grid-cols-2 grid-cols-1 gap-5">
+                <div className="pb-5 flex flex-wrap justify-center items-stretch gap-5">
                   {events?.registeredEvents.__typename ===
                     "QueryRegisteredEventsSuccess" &&
                     events?.registeredEvents.data?.map((event, i) => (

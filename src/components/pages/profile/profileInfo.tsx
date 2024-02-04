@@ -39,27 +39,47 @@ const ProfileInfo: FC<{
   const [xp, setXp] = useState(0);
   const [userId, setUser] = useState("");
   const [rank, setRank] = useState(0);
+  const [progress, setProgress] = useState(0);
 
   const userXp = useQuery(GetUserXpDocument, {});
+
   useEffect(() => {
     if (
       userXp?.data &&
       userXp.data.getUserXp.__typename === "QueryGetUserXpSuccess"
     ) {
-      setXp(
-        userXp.data.getUserXp?.data?.reduce(
-          (acc, curr) => acc + curr.level.point,
-          0
-        )
+      const totalXp = userXp.data.getUserXp?.data?.reduce(
+        (acc, curr) => acc + curr.level.point,
+        0
       );
+
+      // Calculate the level thresholds dynamically
+      const levels = userXp.data.getUserXp?.data?.length || 0;
+      const newLevelThresholds = Array.from(
+        { length: levels + 1 },
+        (_, i) => (i + 1) * 10
+      );
+
+      // Calculate the user's current level based on the thresholds
+      let level = 0;
+      let totalPoints = 0;
+      for (let i = 0; i < newLevelThresholds.length; i++) {
+        if (totalXp >= totalPoints + newLevelThresholds[i]) {
+          level++;
+          totalPoints += newLevelThresholds[i];
+        } else {
+          break;
+        }
+      }
+
+      setLevel(level);
+      setXp(totalXp);
       setUser(userXp.data.getUserXp?.data[0]?.user.id);
+      const xpNext = newLevelThresholds.reduce((acc, curr) => acc + curr, 0);
+      console.log(xpNext, totalXp, newLevelThresholds);
+      setProgress(100 - ((xpNext - totalXp) / xpNext) * 100);
     }
   }, [userXp.data]);
-
-  useEffect(() => {
-    const lev = Math.floor(xp / 10);
-    setLevel(lev);
-  }, [xp]);
 
   interface UserTotalPoints {
     [userId: string]: {
@@ -158,14 +178,15 @@ const ProfileInfo: FC<{
             <span className="text-2xl lg:text-3xl font-bold">{user?.name}</span>
             <span className="bodyFont">{user?.college?.name || "-"}</span>
           </div>
-          {/* <div className="relative mb-5 pt-1">
+          <div className="relative mb-5 pt-1">
             <div className="mb-4 flex overflow-hidden rounded-full bg-gray-100 text-xs h-3">
               <div
-                style={{ width: "70%" }}
+                style={{ width: `${progress}%` }}
                 className="bg-secondary-700 border border-white rounded-full"
               ></div>
             </div>
-          </div> */}
+            {progress}
+          </div>
         </div>
 
         <div className="flex justify-evenly w-full basis-1/3 flex-wrap">
