@@ -78,7 +78,7 @@ const Profile: NextPage = () => {
 
   if (error)
     return (
-      <div className="flex items-center justify-center h-screen bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
+      <div className="flex items-center justify-center h-screen bg-gradient-to-b from-primary-300 to-primary-500">
         <h1 className="text-2xl font-bold text-white">
           Something went wrong. Please try again later.
         </h1>
@@ -87,17 +87,16 @@ const Profile: NextPage = () => {
 
   return (
     <>
-      <main ref={containerRef} className=" bg-[#140F34]">
-        <div className="flex lg:flex-row flex-col-reverse py-[6rem] lg:pt-[8rem] min-h-screen gap-5 mx-5">
-          <div className=" bg-white/10 lg:w-[66.66%] w-full overflow-auto rounded-xl">
-            <UserEvents
-              userId={user?.id!}
-              name={user.name}
-              email={user.email}
-            />
+      <main
+        ref={containerRef}
+        className="bodyFont bg-gradient-to-b from-primary-300 to-primary-500 px-5 sm:px-7 lg:px-10"
+      >
+        <div className="flex lg:flex-row flex-col-reverse py-[5rem] lg:pt-[6rem] min-h-screen gap-5">
+          <div className="lg:w-[66.66%] w-full overflow-auto border border-primary-200/80 rounded-xl">
+            <UserEvents userId={user?.id!} />
           </div>
 
-          <div className="col-span-1 bg-white/10 rounded-xl">
+          <div className="col-span-1 rounded-xl">
             <ProfileInfo user={user} />
           </div>
         </div>

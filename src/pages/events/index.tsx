@@ -138,7 +138,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
   return (
     <div
       style={{ willChange: "transform" }}
-      className="min-h-screen bg-gradient-to-b from-primary-300 to-primary-400 relative overflow-hidden"
+      className="min-h-screen flex justify-center bg-gradient-to-b from-primary-300 to-primary-400 relative overflow-hidden"
     >
       <div className={styles.area}>
         <ul className={styles.circles}>
@@ -201,7 +201,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
                 data-scroll
                 className="flex flex-row justify-between md:justify-evenly items-center py-4 w-full text-lg md:text-xl"
               >
-                <div className="flex flex-col md:flex-row justify-center items-center gap-4 font-VikingHell">
+                <div className="flex flex-col md:flex-row justify-center items-center gap-4">
                   <Menu
                     as={"div"}
                     className={"relative w-full flex justify-start"}
@@ -260,7 +260,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
                 <div className="flex flex-col md:flex-row justify-center items-center gap-4">
                   <Menu
                     as={"div"}
-                    className={"relative w-full flex justify-center"}
+                    className={"relative w-full flex justify-end"}
                   >
                     <Menu.Button
                       className={
@@ -330,7 +330,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
               ) : (
                 <div
                   data-scroll
-                  className={`w-full flex flex-col bg-black/30 p-10 rounded-xl gap-5 justify-center items-center text-center text-white text-xl border border-primary-200/80 font-VikingHell`}
+                  className={`w-full flex flex-col bg-black/30 p-10 rounded-xl gap-5 justify-center items-center text-center text-white text-xl border border-primary-200/80`}
                 >
                   <CiWarning size={50} />
                   No events found
