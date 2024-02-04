@@ -28,10 +28,11 @@ const Register: NextPage = (props: Props) => {
 
   if (userLoading) return <Loader />;
   if (!user) router.push("/login");
-  if (user?.role !== "USER") router.push("/profile");
+  console.log(user);
+  if (user && user?.role !== "USER") router.push("/profile");
 
   return (
-    <div className="px-4 md:px-6 pt-32 pb-10 min-h-screen text-white bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
+    <div className="px-4 md:px-6 pt-32 pb-10 min-h-screen text-white bg-gradient-to-b from-primary-300 to-primary-500">
       <ViewUserAccommodation
         showModal={showModal}
         setShowModal={setShowModal}
@@ -57,18 +58,18 @@ const Register: NextPage = (props: Props) => {
                 </div>
                 <Button
                   onClick={() => {
-                    console.log(showModal);
                     setShowModal(true);
                   }}
                   size={"small"}
-                  className="w-max mt-3 md:mt-0">
+                  className="w-max mt-3 md:mt-0 self-end"
+                >
                   <IoEye />
                   View Request
                 </Button>
               </div>
             </div>
           ) : (
-            <div className="px-4 flex flex-row justify-between">
+            <div className="px-4 flex flex-col md:flex-row justify-between">
               <div className="flex justify-center text-md">
                 We provide accommodation for participants and non-participants
               </div>
@@ -76,7 +77,9 @@ const Register: NextPage = (props: Props) => {
                 onClick={() => {
                   router.push("/accommodation");
                 }}
-                size={"small"}>
+                size={"small"}
+                className="w-max mt-3 md:mt-0 self-end"
+              >
                 Accommodate Me
               </Button>
             </div>
@@ -117,7 +120,8 @@ const Register: NextPage = (props: Props) => {
           <div className="mt-2">
             <Link
               className="hover:text-gray-300 underline"
-              href={"/guidelines"}>
+              href={"/guidelines"}
+            >
               Read More
             </Link>{" "}
             about the guidelines and regulations
@@ -125,7 +129,8 @@ const Register: NextPage = (props: Props) => {
           <Button
             disabled={true}
             onClick={() => makePayment(setLoading)}
-            className="flex gap-2 mt-8 ">
+            className="flex gap-2 mt-8 "
+          >
             Registrations Closed
             {loading && (
               <Spinner className="w-fit" size={"small"} intent={"white"} />

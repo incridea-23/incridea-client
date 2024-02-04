@@ -8,53 +8,21 @@ type Sponsor = {
 
 const sponsors: Sponsor[] = [
     {
-        "name": "lorem ipsum dolor",
-        "tier": "lorem ipsum, dolor",
-        // "desc":
-        //     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum eos quaerat aliquid laudantium nemo, at quisquam ducimus, natus doloribus repellat, accusantium soluta possimus. Sapiente eligendi dolores magni cumque doloremque dolorem nobis aliquid?",
-        "websiteURL": "https://www.yakshagavishti.in/sponsors",
+        "name": "Centro",
+        "tier": "Official Fashion Partners",
+        "desc": "--------",
+        "websiteURL": "https://google.com",
         "imageURL": "/assets/jpeg/download.jpeg"
     },
     {
-        "name": "lorem ipsum dolor",
-        "tier": "lorem ipsum, dolor",
-        "desc":
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum eos quaerat aliquid laudantium nemo, at quisquam ducimus, natus doloribus repellat, accusantium soluta possimus. Sapiente eligendi dolores magni cumque doloremque dolorem nobis aliquid?",
-        "websiteURL": "https://www.yakshagavishti.in/sponsors",
-        "imageURL": "/assets/jpeg/download (1).jpeg"
-    },
-    {
-        "name": "lorem ipsum dolor",
-        "tier": "lorem ipsum, dolor",
-        "desc":
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum eos quaerat aliquid laudantium nemo, at quisquam ducimus, natus doloribus repellat, accusantium soluta possimus. Sapiente eligendi dolores magni cumque doloremque dolorem nobis aliquid?",
-        "websiteURL": "https://www.yakshagavishti.in/sponsors",
+        "name": "Zeus Fitness Club",
+        "tier": "Official Fitness Partners",
+        "desc": "--------",
+        "websiteURL": "https://google.com",
         "imageURL": "/assets/jpeg/download.jpeg"
-    },
-    {
-        "name": "lorem ipsum dolor",
-        "tier": "lorem ipsum, dolor",
-        "desc":
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum eos quaerat aliquid laudantium nemo, at quisquam ducimus, natus doloribus repellat, accusantium soluta possimus. Sapiente eligendi dolores magni cumque doloremque dolorem nobis aliquid?",
-        "websiteURL": "https://www.yakshagavishti.in/sponsors",
-        "imageURL": "/assets/jpeg/download (1).jpeg"
-    },
-    {
-        "name": "lorem ipsum dolor",
-        "tier": "lorem ipsum, dolor",
-        "desc":
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum eos quaerat aliquid laudantium nemo, at quisquam ducimus, natus doloribus repellat, accusantium soluta possimus. Sapiente eligendi dolores magni cumque doloremque dolorem nobis aliquid?",
-        "websiteURL": "https://www.yakshagavishti.in/sponsors",
-        "imageURL": "/assets/jpeg/download.jpeg"
-    },
-    {
-        "name": "lorem ipsum dolor",
-        "tier": "lorem ipsum, dolor",
-        "desc":
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum eos quaerat aliquid laudantium nemo, at quisquam ducimus, natus doloribus repellat, accusantium soluta possimus. Sapiente eligendi dolores magni cumque doloremque dolorem nobis aliquid?",
-        "websiteURL": "https://www.yakshagavishti.in/sponsors",
-        "imageURL": "/assets/jpeg/download (1).jpeg"
-    },
+    }
+
+
 ]
 
 export default sponsors;

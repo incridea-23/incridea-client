@@ -19,6 +19,7 @@ import {
 } from "@/src/generated/generated";
 import { client } from "@/src/lib/apollo";
 import { useQuery } from "@apollo/client";
+import ExploreNav from "@/src/components/explore/exploreNav";
 
 const Scene1 = dynamic(() => import("@/src/components/scene/scene1"), {
   ssr: false,
@@ -29,7 +30,6 @@ const Scene1 = dynamic(() => import("@/src/components/scene/scene1"), {
 
 const demoSheet = getProject("Scene 1", { state: scene1 }).sheet("Scene 1");
 const App = () => {
-
   const {
     data: eventsData,
     loading: eventLoading,
@@ -48,8 +48,6 @@ const App = () => {
       name: event.name || "",
       image: event.image || "",
     })) || [];
-  
-
 
   const modalRef = useRef(null);
   const sponsorBookRef = useRef(null);
@@ -63,6 +61,7 @@ const App = () => {
 
   return (
     <div className="w-full h-screen">
+      <ExploreNav />
       <Suspense>
         <Canvas
           gl={{
@@ -99,7 +98,7 @@ const App = () => {
         </Canvas>
       </Suspense>
       <div className="" ref={modalRef}>
-        {eventDex && <Pokedex data={events}/>}
+        {eventDex && <Pokedex data={events} />}
       </div>
       <div className="" ref={sponsorBookRef}>
         {sponsor && <BookModal />}

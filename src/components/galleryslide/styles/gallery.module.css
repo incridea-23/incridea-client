@@ -24,6 +24,10 @@
     width: 8vw;
     height: 8vw;
   }
+
+  .progress-bar {
+    bottom: 8vw;
+  }
 }
 
 .filled {

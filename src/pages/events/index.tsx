@@ -201,7 +201,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
                 data-scroll
                 className="flex flex-row justify-between md:justify-evenly items-center py-4 w-full text-lg md:text-xl"
               >
-                <div className="flex flex-col md:flex-row justify-center items-center gap-4">
+                <div className="flex flex-col md:flex-row justify-center items-center gap-4 font-VikingHell">
                   <Menu
                     as={"div"}
                     className={"relative w-full flex justify-start"}
@@ -330,7 +330,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
               ) : (
                 <div
                   data-scroll
-                  className={`w-full flex flex-col bg-black/30 p-10 rounded-xl gap-5 justify-center items-center text-center text-white text-xl border border-primary-200/80`}
+                  className={`w-full flex flex-col bg-black/30 p-10 rounded-xl gap-5 justify-center items-center text-center text-white text-xl border border-primary-200/80 font-VikingHell`}
                 >
                   <CiWarning size={50} />
                   No events found

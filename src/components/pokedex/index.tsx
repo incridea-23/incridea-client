@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
 import Carousel from "@/src/components/slider";
@@ -6,6 +6,13 @@ import { IoMdClose } from "react-icons/io";
 import useStore from "../store/store";
 import Link from "next/link";
 import Button from "@/src/components/button";
+import toast from "react-hot-toast";
+import { useMutation } from "@apollo/client";
+import { AddXpDocument } from "@/src/generated/generated";
+
+interface DexProps {
+  data?: Array<{ id: string; name: string; image: string }>;
+}
 
 interface DexProps {
   data?: Array<{ id: string; name: string; image: string }>;
@@ -14,35 +21,87 @@ interface DexProps {
 const Pokedex: React.FC<DexProps> = ({ data = [] }) => {
   const setEventDex = useStore((state) => state.setEventDex);
   const eventDex = useStore((state) => state.eventDex);
+  const [fullyOpen, setFullyOpen] = useState(false);
+  let mutationCalled = false;
+
+  const [addXp] = useMutation(AddXpDocument, {
+    variables: {
+      levelId: "4",
+    },
+  });
+
+  const handleAddXp = () => {
+    const promise = addXp().then((res) => {
+      if (res.data?.addXP.__typename !== "MutationAddXPSuccess") {
+        toast.error(
+          `Opps!! You have already claimed your xp or not logged in`,
+          {
+            position: "bottom-center",
+            style: {
+              backgroundColor: "#7628D0",
+              color: "white",
+            },
+          }
+        );
+      } else {
+        toast.success(
+          `Congratulations!!! You have found ${res.data?.addXP.data.level.point} Xp`,
+          {
+            position: "bottom-center",
+            style: {
+              backgroundColor: "#7628D0",
+              color: "white",
+            },
+          }
+        );
+      }
+    });
+  };
+
   useEffect(() => {
     // Initialize GSAP
     const tl = gsap.timeline();
 
     // Initial state (closed)
-    tl.set(".animate-1", { y: 100 })
+    tl.call(() => {
+      setFullyOpen(false);
+    })
+      .set(".animate-1", { y: 100 })
       .set(".animate-3", { y: -80 })
       .set(".carousel-container", { opacity: 0 });
 
     // Opening animation
-    tl.to(".animate-1", { y: -20, duration: 1, delay: 0.1})
-      .to(".animate-3", { y: 40, duration: 1 }, "<")
-      .to(".carousel-container", { opacity: 1, duration: 3 }, "<");
+    tl.to(".animate-1", { y: -20, duration: 2, delay: 1 })
+      .to(".animate-3", { y: 40, duration: 2 }, "<")
+      .to(".carousel-container", { opacity: 1, duration: 3 }, "<")
+      .call(() => {
+        console.log("Fully open")
+        setFullyOpen(true);
+        if(!mutationCalled){
+          mutationCalled = true;
+          handleAddXp();
+        }
+      });
   }, []);
 
   return (
     <div className="fixed inset-0 z-[100] bg-black bg-opacity-50">
-      <div
-        className="absolute top-5 right-5 cursor-pointer bg-red-600 px-2 py-1 rounded-sm z-50"
-        style={{ pointerEvents: eventDex ? "all" : "none" }}
-        onClick={setEventDex}
-      >
-        <IoMdClose className="text-lg text-white" />
-      </div>
       <div className="page-container h-screen relative">
         {/* Pokedex background */}
+
         <div className="h-full w-full flex flex-col justify-center items-center relative animation-container z-0">
           {/* Top part of Pokedex */}
-          <div>
+          <div className="flex justify-end">
+            {fullyOpen ? (
+              <div
+                className="cursor-pointer absolute w-fit bg-primary-300 px-2 py-1 rounded-bl-full rounded-tr-sm  z-50"
+                style={{ pointerEvents: eventDex ? "all" : "none" }}
+                onClick={setEventDex}
+              >
+                <IoMdClose className="text-lg text-white" />
+              </div>
+            ) : null}
+
             <Image
               src="/assets/svg/dextop.svg"
               alt="dexmid"
