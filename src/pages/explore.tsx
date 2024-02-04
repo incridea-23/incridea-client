@@ -1,90 +1,95 @@
 import { useRouter } from "next/router";
-import React from "react";
-import YouTube, { YouTubeProps } from "react-youtube";
+import React, { useRef, useState } from "react";
+import YouTube from "react-youtube";
+import Button from "../components/button";
+import { IoIosSkipForward } from "react-icons/io";
+import { SlVolumeOff, SlVolume2 } from "react-icons/sl";
 
 const Explore = () => {
-  // const ifrmRef = useRef<HTMLIFrameElement | null>(null);
-  // useEffect(() => {
-  //   var player;
-  //   ()=>{t}ion onYouTubeIframeAPIReady() {
-  //     player = new YT.Player("player", {
-  //       height: "390",
-  //       width: "640",
-  //       videoId: "M7lc1UVf-VE",
-  //       playerVars: {
-  //         playsinline: 1,
-  //       },
-  //       events: {
-  //         onReady: onPlayerReady,
-  //         onStateChange: onPlayerStateChange,
-  //       },
-  //     });
-  //   }
-  //   if (ifrmRef.current) ifrmRef.current.addEventListener("", () => {});
-  // });
-
   const router = useRouter();
 
-  const onPlayerReady: YouTubeProps["onReady"] = (event) => {
-    console.log(event.target.getPlayerState());
-  };
-
-  const opts: YouTubeProps["opts"] = {
-    playerVars: {
-      autoplay: 1,
-      showinfo: 0,
-      controls: 0,
-      modestbranding: 0,
-      disablekb: 1,
-      fs: 0,
-      loop: 0,
-      playsinline: 0,
-      rel: 0,
-      mute: 0,
-    },
-  };
+  // FIXME: Just a fallback feature if autoplay doesn't work
+  const [clickThru, setClickThru] = useState<boolean>(true);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
+  const blackScreenRef = useRef<HTMLDivElement>(null);
 
   return (
-    <YouTube
-      videoId="CN_43nWXebo?si=PGZh5VT92HoLDme_"
-      id="exploreVideo"
-      className="relative h-screen w-screen overflow-clip"
-      iframeClassName="absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 w-[115%] h-[115%]"
-      style={{}}
-      title={"exploreVideo"}
-      loading="eager"
-      opts={opts}
-      onReady={onPlayerReady}
-      onPlay={() => {}}
-      onPause={(event) => {
-        event.target.playVideo();
-      }}
-      onEnd={() => {
-        router.push("/explore/level1");
-      }}
-      onError={() => {}}
-      onStateChange={() => {}}
-      onPlaybackRateChange={() => {}}
-      onPlaybackQualityChange={() => {
-        console.log("quality chenaged??");
-      }}
-    />
+    <div className="absolute w-screen h-screen bg-black overflow-hidden">
+      <div
+        className={`absolute w-screen h-screen z-40 ${
+          clickThru ? "pointer-events-none" : "pointer-events-auto"
+        }`}
+      ></div>
+      <button
+        onClick={() => {
+          setIsMuted(!isMuted);
+        }}
+        className="absolute text-white top-[3vh] right-[2vw] z-50 cursor-pointer"
+      >
+        {isMuted ? (
+          <SlVolumeOff className="w-8 h-8 transition-colors duration-150" />
+        ) : (
+          <SlVolume2 className="w-8 h-8 transition-colors duration-150" />
+        )}
+      </button>
+      <div
+        ref={blackScreenRef}
+        className="w-screen bg-black h-screen absolute z-40"
+      ></div>
+      <Button
+        onClick={() => {
+          router.push("/explore/level1");
+        }}
+        size={"large"}
+        className="absolute -right-1 bottom-[10vh] z-50"
+      >
+        Skip <IoIosSkipForward />
+      </Button>
+      <YouTube
+        videoId="CN_43nWXebo?si=PGZh5VT92HoLDme_"
+        className="relative h-screen w-screen overflow-clip"
+        iframeClassName="absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 w-[115vw] h-[115vh]"
+        style={{}}
+        title={"exploreIntro"}
+        loading="eager"
+        opts={{
+          playerVars: {
+            autoplay: 1,
+            showinfo: 0,
+            controls: 0,
+            modestbranding: 0,
+            disablekb: 1,
+            fs: 0,
+            loop: 0,
+            playsinline: 0,
+            rel: 0,
+            mute: 1,
+          },
+        }}
+        onReady={(e) => {
+          e.target.playVideo();
+        }}
+        onPlay={(e) => {
+          if (blackScreenRef.current)
+            blackScreenRef.current.style.display = "none";
+          setClickThru(false);
+          e.target.unMute();
+        }}
+        onPause={(e) => {
+          e.target.playVideo();
+        }}
+        onEnd={(e) => {
+          router.push("/explore/level1");
+        }}
+        onError={(e) => {
+          router.push("/explore/level1");
+        }}
+        onStateChange={(e) => {}}
+        onPlaybackRateChange={(e) => {}}
+        onPlaybackQualityChange={(e) => {}}
+      />
+    </div>
   );
-
-  // return (
-  //   <div className="relative w-screen h-screen overflow-clip">
-  //     <iframe
-  //       ref={ifrmRef}
-  //       width="100%"
-  //       height="100%"
-  //       src="https://www.youtube-nocookie.com/embed/CN_43nWXebo?si=PGZh5VT92HoLDme_&amp;showinfo=0&amp;controls=0&amp;modestbranding=0&amp;autoplay=1&amp;disablekb=1&amp;fs=0&amp;loop=0&amp;playsinline=0&amp;rel=0"
-  //       title=""
-  //       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  //       allowFullScreen
-  //       className="absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 "
-  //     ></iframe>
-  //   </div>
-  // );
 };
 
 export default Explore;

@@ -42,7 +42,7 @@ export default function App() {
       </div>
       <audio
         ref={dhvaniAudioRef}
-        loop={true}
+        loop={false}
         src="/assets/mp3/DhvaniBhanushali.mp3"
       ></audio>
       <Canvas
