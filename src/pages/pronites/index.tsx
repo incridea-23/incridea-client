@@ -55,7 +55,8 @@ export default function App() {
     audioRef.current && (audioRef.current.currentTime = 0);
     audioRef.current?.play();
     console.log(audioRef.current?.paused);
-  }, [isArtist1]);
+    // }, [isArtist1]);
+  }, []);
 
   const artistGroup = useRef<THREE.Group | null>(null);
   const nameGroup = useRef<THREE.Group | null>(null);
