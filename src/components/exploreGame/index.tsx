@@ -10,7 +10,7 @@ import { MdArrowRightAlt } from "react-icons/md";
 import Typewriter from "typewriter-effect";
 import Button from "../button";
 import AudioPlayer from "../explore/AudioPlayer";
-import Modal from "../modal";
+import ExploreNav from "../explore/exploreNav";
 import {
   SpriteDimensions,
   platformDimensions,
@@ -669,6 +669,7 @@ const ExploreGame = () => {
 
   return (
     <>
+      <ExploreNav />
       <AudioPlayer
         mainTheme="/audio/Level1MainTheme.mp3"
         isMuted={isMuted}
@@ -694,7 +695,7 @@ const ExploreGame = () => {
         </div>
         <div className="flex w-full justify-center items-center">
           <div
-            className="absolute bg-[#d64d00] z-50 h-max w-max top-[20%] text-[#fec3b5] pressStart text-center sm:p-12 border-l-4 border-t-4 border-white p-4 rounded-lg"
+            className="absolute bg-[#d64d00] z-50 h-max w-max top-[20%] text-[#fec3b5] font-PressStart text-center sm:p-12 border-l-4 border-t-4 border-white p-4 rounded-lg"
             style={{ borderStyle: "outset" }}
           >
             <h1 className="lg:text-8xl md:text-7xl sm:text-6xl text-4xl">
@@ -719,7 +720,7 @@ const ExploreGame = () => {
             pointerEvents: scrollY > 450 && showAbout ? "all" : "none",
             transition: "opacity 0.5s ease-in-out",
           }}
-          className="absolute z-50  h-[20rem] md:h-[24rem] sm:h-[20rem] sm:w-[32rem] sm:text-xs sm:top-[35%]  md:w-[36rem] md:text-sm w-[22rem] text-[0.6rem]  top-[30%] mx-4 text-opacity-80  bg-[#86d6e9]/30 p-6 xl:top-[45%] xl:left-6 xl:max-w-xl xl:text-base xl:h-[28rem]  text-white pressStart justify-evenly text-justify space-y-4 rounded-lg transition-all duration-300 ease-in-out"
+          className="absolute z-50  h-[20rem] md:h-[24rem] sm:h-[20rem] sm:w-[32rem] sm:text-xs sm:top-[35%]  md:w-[36rem] md:text-sm w-[22rem] text-[0.6rem]  top-[30%] mx-4 text-opacity-80  bg-[#86d6e9]/30 p-6 xl:top-[45%] xl:left-6 xl:max-w-xl xl:text-base xl:h-[28rem]  text-white font-PressStart justify-evenly text-justify space-y-4 rounded-lg transition-all duration-300 ease-in-out"
         >
           <Typewriter
             onInit={(typewriter) => {
@@ -745,7 +746,7 @@ const ExploreGame = () => {
               (scrollY > 450 && showRuleBook) || showSchedule ? "all" : "none",
             transition: "opacity 0.5s ease-in-out",
           }}
-          className="absolute z-50 h-max sm:max-w-lg sm:text-xs sm:top-[35%] md:max-w-xl md:text-sm max-w-md text-xs top-[30%] mx-4 text-opacity-80  bg-[#86d6e9]/30 p-6 xl:top-[45%] xl:left-6 left-12 xl:max-w-xl xl:text-base  text-white pressStart justify-evenly text-justify space-y-4 rounded-lg transition-all duration-300 ease-in-out"
+          className="absolute z-50 h-max sm:max-w-lg sm:text-xs sm:top-[35%] md:max-w-xl md:text-sm max-w-md text-xs top-[30%] mx-4 text-opacity-80  bg-[#86d6e9]/30 p-6 xl:top-[45%] xl:left-6 left-12 xl:max-w-xl xl:text-base  text-white font-PressStart justify-evenly text-justify space-y-4 rounded-lg transition-all duration-300 ease-in-out"
         >
           {/* <p>Jello</p> */}
           <div className="flex w-full justify-center">
