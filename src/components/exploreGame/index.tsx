@@ -204,7 +204,7 @@ const ExploreGame = () => {
       const imgWidth = Math.ceil((imgHeight * 2) / 7); // 1000 is the width of the background image, 3500 is the height of the background image
       const repeatCount = Math.ceil(window.innerWidth / imgWidth);
       for (let i = 0; i < repeatCount; i++) {
-        ctx.drawImage(background, i * imgWidth, 0, imgWidth, imgHeight);
+        ctx?.drawImage(background, i * imgWidth, 0, imgWidth, imgHeight);
       }
     }
   }

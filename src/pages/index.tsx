@@ -143,18 +143,16 @@ export const Menu: FC<{
   return (
     <div className="w-screen overflow-x-hidden flex flex-col absolute bottom-0 left-0 h-full justify-center items-center">
       <div className="lg:flex flex-col hidden  absolute bottom-10 items-center sm:flex-row  md:gap-10 my-24 gap-3  w-fit ">
-        <Link href="/login">
-          <Button
-            intent={"primary"}
-            className="h-fit w-52  px-4 sm:px-12"
-            size={"xlarge"}
-            onClick={() => {
-              isAuthenticated ? router.push("/profile") : router.push("/login");
-            }}
-          >
-            {!isAuthenticated ? "Register" : "Profile"}
-          </Button>
-        </Link>
+        <Button
+          intent={"primary"}
+          className="h-fit w-52  px-4 sm:px-12"
+          size={"xlarge"}
+          onClick={() => {
+            isAuthenticated ? router.push("/profile") : router.push("/login");
+          }}
+        >
+          {!isAuthenticated ? "Register" : "Profile"}
+        </Button>
         <Button
           intent={"ghost"}
           className="h-fit w-52 px-4 sm:px-12"
@@ -174,18 +172,18 @@ export const Menu: FC<{
         </h3>
         {
           <>
-            <Link href="/login">
-              <Button
-                intent={"ghost"}
-                className="lg:hidden !bg-primary-800/70 block w-52 md:w-80 justify-center md:justify-end px-12 md:px-16"
-                size={"xlarge"}
-                onClick={() => {
-                  router.push("/login");
-                }}
-              >
-                {!isAuthenticated ? "Register" : "Profile"}
-              </Button>
-            </Link>
+            <Button
+              intent={"ghost"}
+              className="lg:hidden !bg-primary-800/70 block w-52 md:w-80 justify-center md:justify-end px-12 md:px-16"
+              size={"xlarge"}
+              onClick={() => {
+                isAuthenticated
+                  ? router.push("/profile")
+                  : router.push("/login");
+              }}
+            >
+              {!isAuthenticated ? "Register" : "Profile"}
+            </Button>
             <Button
               intent={"ghost"}
               className="lg:hidden !bg-primary-800/70 block w-52 md:w-80 justify-center md:justify-end px-12 md:px-16"

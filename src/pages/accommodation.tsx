@@ -4,27 +4,36 @@ import Button from "../components/button";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { TbArrowBackUp } from "react-icons/tb";
+import { useAuth } from "../hooks/useAuth";
+import { NextPage } from "next";
+import Loader from "../components/Loader";
 
-const Accommodation = () => {
+const Accommodation: NextPage = () => {
   const router = useRouter();
+  const { error, user, loading } = useAuth();
+
+  if (loading) return <Loader />;
+  if (!user) router.push("/login");
 
   return (
     <>
-      <div className="px-4 md:px-6 pt-32 pb-10 min-h-screen text-white bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
+      <div className="px-4 md:px-6 pt-32 pb-10 min-h-screen text-white bg-gradient-to-b from-primary-300 to-primary-500">
         <div className="mx-auto max-w-4xl">
           <div className="p-4">
             <Button
               onClick={() => {
                 router.push("/profile");
               }}
-              size={"small"}>
+              size={"small"}
+            >
               <TbArrowBackUp />
               Go Back
             </Button>
           </div>
 
           <h2
-            className={`titleFont text-white text-center text-4xl md:text-5xl`}>
+            className={`titleFont text-white text-center text-4xl md:text-5xl`}
+          >
             Accommodation
           </h2>
           <h5 className="bodyFont text-center mt-5 md:mt-7 text-base md:text-xl max-w-7xl mx-auto">
@@ -87,7 +96,8 @@ const Accommodation = () => {
             <div className="mt-2">
               <Link
                 className="hover:text-gray-300 underline"
-                href={"/guidelines"}>
+                href={"/guidelines"}
+              >
                 Read More
               </Link>{" "}
               about the guidelines and regulations

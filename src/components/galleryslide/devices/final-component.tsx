@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 const FinalComponent = () => {
   const [addXp] = useMutation(AddXpDocument, {
     variables: {
-      levelId: "1",
+      levelId: "3",
     },
   });
 
@@ -18,11 +18,19 @@ const FinalComponent = () => {
           `Opps!! You have already claimed your xp or not logged in`,
           {
             position: "bottom-center",
+            style: {
+              backgroundColor: "#7628D0",
+              color: "white",
+            },
           }
         );
       } else {
         toast.success(`Added ${res.data?.addXP.data.level.point} Xp`, {
           position: "bottom-center",
+          style: {
+            backgroundColor: "#7628D0",
+            color: "white",
+          },
         });
       }
     });

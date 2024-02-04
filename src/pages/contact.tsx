@@ -1,9 +1,9 @@
-import { NextPage } from 'next';
-import { MdCall, MdMail } from 'react-icons/md';
+import { NextPage } from "next";
+import { MdCall, MdMail } from "react-icons/md";
 
 const Contact: NextPage = () => {
   return (
-    <div className="px-4 md:px-6 pt-32 min-h-screen text-white bg-gradient-to-b from-[#46aacf]  via-[#075985] to-[#2d6aa6]">
+    <div className="px-4 md:px-6 pt-32 min-h-screen text-white bg-gradient-to-b from-primary-300 to-primary-500">
       <div className="mx-auto max-w-4xl">
         <h2 className={`titleFont text-white text-center text-4xl md:text-5xl`}>
           Contact Us
@@ -22,7 +22,7 @@ const Contact: NextPage = () => {
               href="mailto:incridea@nmamit.in"
               className="mt-2 hover:underline"
             >
-              {' '}
+              {" "}
               incridea@nmamit.in
             </a>
           </p>
@@ -31,11 +31,11 @@ const Contact: NextPage = () => {
             <a>Phone Numbers</a>
           </div>
           <p className="mt-2">
-            Phone: +91{' '}
+            Phone: +91{" "}
             <a href="tel:9448815186" className="hover:underline">
               94488 15186
-            </a>{' '}
-            or +91{' '}
+            </a>{" "}
+            or +91{" "}
             <a href="tel:9620788383" className="hover:underline">
               96207 88383
             </a>

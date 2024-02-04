@@ -30,7 +30,10 @@ const EventCard: FC<{
     >
       <div className="flex justify-center items-center flex-col gap-5">
         <Image
-          src={event.image}
+          src={
+            event.image ||
+            "https://res.cloudinary.com/dh1bowbbe/image/upload/v1707034237/diceofdestinylogo_oojey6.png"
+          }
           alt={event.name}
           height={300}
           width={300}
