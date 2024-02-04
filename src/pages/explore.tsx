@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useRef, useState } from "react";
-import YouTube from "react-youtube";
+import YouTube, { YouTubePlayer } from "react-youtube";
 import Button from "../components/button";
 import { IoIosSkipForward } from "react-icons/io";
 import { SlVolumeOff, SlVolume2 } from "react-icons/sl";
@@ -12,6 +12,7 @@ const Explore = () => {
   const [clickThru, setClickThru] = useState<boolean>(true);
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const blackScreenRef = useRef<HTMLDivElement>(null);
+  const YTPlayerRef = useRef<YouTubePlayer>(null);
 
   return (
     <div className="absolute w-screen h-screen bg-black overflow-hidden">
@@ -22,7 +23,10 @@ const Explore = () => {
       ></div>
       <button
         onClick={() => {
-          setIsMuted(!isMuted);
+          if (!YTPlayerRef.current) return;
+          if (YTPlayerRef.current.isMuted()) YTPlayerRef.current.unMute();
+          else YTPlayerRef.current.mute();
+          setIsMuted(YTPlayerRef.current.isMuted());
         }}
         className="absolute text-white top-[3vh] right-[2vw] z-50 cursor-pointer"
       >
@@ -67,9 +71,11 @@ const Explore = () => {
           },
         }}
         onReady={(e) => {
+          YTPlayerRef.current = e.target;
           e.target.playVideo();
         }}
         onPlay={(e) => {
+          console.log(YTPlayerRef.current);
           if (blackScreenRef.current)
             blackScreenRef.current.style.display = "none";
           setClickThru(false);
