@@ -1,21 +1,18 @@
-import React, { Suspense, useEffect, useRef } from "react";
+import React, { Suspense, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { getProject } from "@theatre/core";
-// import studio from "@theatre/studio";
-import extension from "@theatre/r3f/dist/extension";
 import { SheetProvider, editable as e, PerspectiveCamera } from "@theatre/r3f";
-// import dynamic from "next/dynamic";
 import { ScrollControls } from "@react-three/drei";
-// import { Scene1 } from "@/src/components/scene/scene1";
 import scene1 from "../../../public/assets/3d/state4.json";
-import studio from "@theatre/studio";
 import dynamic from "next/dynamic";
 import useStore from "@/src/components/store/store";
 import BookModal from "@/src/components/explore/BookModal";
 import Pokedex from "@/src/components/pokedex";
-const Scene1 = dynamic(() => import("@/src/components/scene/scene1"), {
+const Scene1 = dynamic(() => import("@/src/components/scene1"), {
   ssr: false,
 });
+// import studio from "@theatre/studio";
+// import extension from "@theatre/r3f/dist/extension";
 
 // studio.extend(extension);
 // studio.initialize();
@@ -26,11 +23,6 @@ const App = () => {
   const sponsorBookRef = useRef(null);
   const eventDex = useStore((state) => state.eventDex);
   const sponsor = useStore((state) => state.sponsor);
-  // useEffect(() => {
-  //   demoSheet.project.ready.then(() =>
-  //     demoSheet.sequence.play({ iterationCount: Infinity, range: [0, 1] })
-  //   );
-  // }, []);
 
   return (
     <div className="w-full h-screen">

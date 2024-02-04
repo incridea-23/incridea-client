@@ -42,9 +42,12 @@ export default function App({
   if (
     router.pathname === "/theme" ||
     router.pathname === "/landing" ||
-    router.pathname === "/explore/level2" ||
     router.pathname === "/test" ||
-    router.pathname === "/landing2"
+    router.pathname === "/landing2" ||
+    router.pathname === "/explore" ||
+    router.pathname === "/explore/level1" ||
+    router.pathname === "/explore/level2" ||
+    router.pathname === "/explore/level3"
   )
     return (
       <ApolloProvider client={apolloClient}>
