@@ -42,7 +42,7 @@ const EasterBomb: FunctionComponent = () => {
       setInterval(() => {
         setLeft(getPosition());
       }, 15000);
-    }, 8000);
+    }, 15000);
   }, []);
 
   const handleOnClick: () => void = () => {
