@@ -95,7 +95,7 @@ export function FooterBody() {
                         Made with <BsFillSuitHeartFill className="mx-2" /> by
                         Technical Team
                     </Link>
-                    © Incridea 2023
+                    © Incridea 2024
                 </p>
             </div>
         </div>
