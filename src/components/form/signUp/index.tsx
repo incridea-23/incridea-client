@@ -189,6 +189,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({
               "MutationSendEmailVerificationSuccess"
             ) {
               setEmailSuccess(true);
+              setGotDialogBox(true);
             }
           });
         }
@@ -398,14 +399,14 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({
                 I agree to all the{" "}
                 <Link
                   href="/rules"
-                  className="underline hover:text-gray-700 cursor-pointer"
+                  className="underline hover:text-slate-100 cursor-pointer"
                 >
                   T&C
                 </Link>{" "}
                 and{" "}
                 <Link
                   href="/guidelines"
-                  className="underline hover:text-gray-700 cursor-pointer"
+                  className="underline hover:text-slate-100 cursor-pointer"
                 >
                   Guidelines
                 </Link>{" "}

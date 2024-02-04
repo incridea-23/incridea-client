@@ -84,8 +84,8 @@ function Carla(props: {
 function VideoText(props: { position: [x: number, y: number, z: number] }) {
   const [video] = useState(() =>
     Object.assign(document.createElement("video"), {
-      // src: "/assets/pronite/textBg.mp4",
       src: "/assets/mp4/proniteVID2.mp4",
+      // src: "/assets/mp4/DhvaniBhanushali.mp4",
       crossOrigin: "Anonymous",
       loop: true,
       muted: true,

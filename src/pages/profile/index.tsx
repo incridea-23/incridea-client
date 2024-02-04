@@ -29,7 +29,7 @@ const Profile: NextPage = () => {
 
   useEffect(() => {
     if (router.isReady) {
-      setBombXp(localStorage.getItem("easterBombClicked") === "true" ? true : false);
+      setBombXp(localStorage.getItem("easterBombClicked") === "true");
     }
   }, [router.isReady]);
 
@@ -37,15 +37,18 @@ const Profile: NextPage = () => {
     if (bombXp) {
       addXp().then((res) => {
         if (res.data?.addXP.__typename === "MutationAddXPSuccess") {
-          toast.success(`Added ${res.data?.addXP.data.level.point} Easter Bomb Xp`, {
-            position: "bottom-center",
-            style: {
-              backgroundColor: "#7628D0",
-              color: "white",
-            },
-          });
+          toast.success(
+            `Added ${res.data?.addXP.data.level.point} Easter Bomb XP`,
+            {
+              position: "bottom-center",
+              style: {
+                backgroundColor: "#7628D0",
+                color: "white",
+              },
+            }
+          );
+          localStorage.removeItem("easterBombClicked");
         }
-        localStorage.removeItem("easterBombClicked");
       });
     }
   }, [bombXp]);
@@ -54,7 +57,7 @@ const Profile: NextPage = () => {
 
   if (!user)
     return (
-      <div className="flex flex-col text-center space-y-3 items-center justify-center h-screen bg-gradient-to-b from-slate-800  via-slate-600 to-slate-500">
+      <div className="flex flex-col text-center space-y-3 items-center justify-center h-screen bg-gradient-to-b from-primary-300 to-primary-500">
         {/* Todo: Any graphic to fill space */}
         <div className="flex z-10 justify-center items-center h-96 mt-8">
           <Image
