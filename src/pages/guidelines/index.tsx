@@ -4,7 +4,7 @@ import { VikingHell } from "../_app";
 
 const Guidelines: NextPage = () => {
   return (
-    <div className="overflow-x-hidden overflow-y-auto bg-gradient-to-b from-primary-300 to-primary-500 text-gray-100 p-5 sm:p-10">
+    <div className="overflow-x-hidden overflow-y-auto text-gray-100 p-5 sm:p-10">
       <div className="w-full max-w-7xl mx-auto">
         <h1
           className={`${VikingHell.className} pt-24 text-5xl mb-3 text-center`}
