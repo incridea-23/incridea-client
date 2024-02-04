@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import Button from "@/src/components/button";
+import Carousel from "@/src/components/slider";
+import { AddXpDocument } from "@/src/generated/generated";
+import { useMutation } from "@apollo/client";
 import gsap from "gsap";
 import Image from "next/image";
-import Carousel from "@/src/components/slider";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
 import useStore from "../store/store";
-import Link from "next/link";
-import Button from "@/src/components/button";
-import toast from "react-hot-toast";
-import { useMutation } from "@apollo/client";
-import { AddXpDocument } from "@/src/generated/generated";
 
 interface DexProps {
   data?: Array<{ id: string; name: string; image: string }>;
@@ -16,9 +16,15 @@ interface DexProps {
 
 interface DexProps {
   data?: Array<{ id: string; name: string; image: string }>;
+  isMuted: boolean;
+  mainThemeAudioRef: React.MutableRefObject<HTMLAudioElement | null>;
 }
 
-const Pokedex: React.FC<DexProps> = ({ data = [] }) => {
+const Pokedex: React.FC<DexProps> = ({
+  data = [],
+  isMuted,
+  mainThemeAudioRef,
+}) => {
   const setEventDex = useStore((state) => state.setEventDex);
   const eventDex = useStore((state) => state.eventDex);
   const [fullyOpen, setFullyOpen] = useState(false);
@@ -66,6 +72,22 @@ const Pokedex: React.FC<DexProps> = ({ data = [] }) => {
   };
 
   useEffect(() => {
+    const audio = new Audio("/audio/level2/pokemon.mp3");
+    audio.volume = 0.3;
+    let mainRef = mainThemeAudioRef;
+    if (isMuted) {
+      return;
+    } else if (!isMuted && eventDex) {
+      mainRef?.current?.pause();
+      audio.play();
+    }
+    return () => {
+      audio.pause();
+      mainRef?.current?.play();
+    };
+  }, [eventDex, isMuted, mainThemeAudioRef]);
+
+  useEffect(() => {
     // Initialize GSAP
     const tl = gsap.timeline();
 
@@ -82,9 +104,9 @@ const Pokedex: React.FC<DexProps> = ({ data = [] }) => {
       .to(".animate-3", { y: 40, duration: 2 }, "<")
       .to(".carousel-container", { opacity: 1, duration: 3 }, "<")
       .call(() => {
-        console.log("Fully open")
+        console.log("Fully open");
         setFullyOpen(true);
-        if(!mutationCalled){
+        if (!mutationCalled) {
           mutationCalled = true;
           handleAddXp();
         }
