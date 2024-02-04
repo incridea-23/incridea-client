@@ -32,6 +32,7 @@
 .mapicon::before {
     content: "";
     background-image: url('/assets/eventSlug/map.svg');
+    pointer-events: none;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;

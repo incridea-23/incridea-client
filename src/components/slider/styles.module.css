@@ -37,7 +37,7 @@
   bottom: 70px; /* Adjust the distance from the bottom */
   width: 70px;
   height: 70px;
-  background-color: #333; /* Button background color */
+  background-color: #D6007D; /* Button background color */
   color: #fff; /* Button text color */
   display: flex;
   align-items: center;
@@ -48,11 +48,9 @@
 }
 
 /* .swiper_button_next {
-  right: 10rem;
-  border-radius: 50%;
+bottom: 1%;
 }
 
 .swiper_button_prev {
-  left: 20px;
-  border-radius: 50%;
+  bottom: 1%;
 } */

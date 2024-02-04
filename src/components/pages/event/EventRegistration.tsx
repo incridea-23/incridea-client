@@ -37,10 +37,10 @@ function EventRegistration({
         <Link
           as={"/login"}
           href={`/login?redirectUrl=${encodeURIComponent(`/event/${slug}`)}`}
-          className="w-full">
-          <Button fullWidth intent={"primary"}>
+          className="w-fit lg:w-full">
+          <button className="mt-1 text-lg text-white capitalize shrink-0 px-4 w-full py-2 flex gap-2 items-center justify-center rounded-full bg-gradient-to-tr from-secondary-800 to-secondary-600 brightness-100 hover:brightness-125 hover:scale-[1.02] transition-all duration-300">
             Login to Register
-          </Button>
+          </button>
         </Link>
       ) : (
         <EventRegistrationButton

@@ -12,6 +12,7 @@ const Sponsor = () => {
   const scroll = useScroll();
   const setSponsorFlag = useStore((state) => state.setSponsor);
   const [scrollData, setScrollData] = useState(false);
+  const [calledXp, setCalledXp] = useState(false);
   let scrollChangeFlag = useRef(false);
   // const sponsor = useStore((state) => state.sponsor);
 
@@ -19,9 +20,15 @@ const Sponsor = () => {
     variables: {
       levelId: "5",
     },
+    refetchQueries: ["GetUserXp"],
+    awaitRefetchQueries: true,
   });
 
   const handleAddXp = () => {
+    if (calledXp) {
+      return;
+    }
+    setCalledXp(true);
     const promise = addXp().then((res) => {
       if (res.data?.addXP.__typename !== "MutationAddXPSuccess") {
         toast.error(

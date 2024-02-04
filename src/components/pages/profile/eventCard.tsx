@@ -1,62 +1,90 @@
 import Image from "next/image";
-import Link from "next/link";
 import React, { FC } from "react";
 import { IoLocationOutline } from "react-icons/io5";
 import { RiNumbersLine } from "react-icons/ri";
 import { Team } from "./userTeams";
 import { QRCodeSVG } from "qrcode.react";
 import { idToPid, idToTeamId } from "@/src/utils/id";
-import toast from "react-hot-toast";
 import ConfirmTeamModal from "./confirmTeam";
 import EditTeamModal from "./editTeam";
 import DeleteTeamModal from "./deleteTeam";
+import { useRouter } from "next/router";
 
 const EventCard: FC<{
   teams: any;
   event: any;
   userId: string;
 }> = ({ teams, event, userId }) => {
+  console.log(event);
   const solo =
     event.eventType === "INDIVIDUAL" ||
     event.eventType === "INDIVIDUAL_MULTIPLE_ENTRY";
 
+  const router = useRouter();
+
   return (
-    <Link
-      href={`/event/${event.name.toLowerCase().replaceAll(" ", "-")}-${
-        event.id
-      }`}
+    <div
+      onClick={() =>
+        router.push(
+          `/event/${event.name.toLowerCase().replaceAll(" ", "-")}-${event.id}`
+        )
+      }
       key={event.id}
-      className="bg-white/10 flex justify-evenly items-center w-full h-full  rounded-lg p-5  cursor-pointer hover:scale-[1.02] transition-transform duration-300"
+      className="bg-primary-500 border border-primary-200/70 flex justify-evenly items-center w-full h-full rounded-lg p-5 cursor-pointer hover:scale-[1.01] transition-transform duration-300"
     >
-      <div className="flex justify-center items-center flex-col gap-5">
+      <div className="flex flex-col justify-center items-center">
         <Image
-          src={event.image}
+          src={`https://res.cloudinary.com/dqy4wpxhn/image/upload/v1682653090/Events/VOCAL_TWIST_%28WESTERN%29_1682653088345.jpg`}
+          // src={event.image}
           alt={event.name}
           height={300}
           width={300}
-          className="w-72 rounded-xl"
+          className="rounded-xl"
         />
-        <div className="flex items-center w-full justify-end">
-          <div className="flex flex-col  justify-start gap-4 text-gray-200">
-            <div>
-              <div className="flex items-center justify-start gap-1 w-max">
-                <div className="w-5">
-                  <IoLocationOutline />
-                </div>
-                <p className="text-sm font-medium">{event?.venue}</p>
-              </div>
-              <div className="flex items-center justify-start gap-1 w-max">
-                <div className="w-5">
-                  <RiNumbersLine />
-                </div>
-                <p className="text-sm font-medium text-center">
-                  {event?.rounds.length} Round{event?.rounds.length > 1 && "s"}
-                </p>
-              </div>
+        <div className="mt-4 flex flex-col items-center w-full justify-end px-5">
+          <div className="flex flex-wrap justify-between gap-2 text-gray-200">
+            <div className="w-full justify-center flex items-center border border-secondary-400/40 gap-2 text-left bg-primary-200/30 py-1 rounded-full px-3">
+              <IoLocationOutline />
+              <p className="text-sm font-medium">{event?.venue}</p>
             </div>
+            <div className="w-full justify-center flex items-center border border-secondary-400/40 gap-2 text-left bg-primary-200/30 py-1 rounded-full px-3">
+              <RiNumbersLine />
+              <p className="text-sm font-medium text-center">
+                {event?.rounds.length} Round{event?.rounds.length > 1 && "s"}
+              </p>
+            </div>
+          </div>
 
-            {teams?.map((team: Team, index: number) => (
-              <div className="flex flex-col-reverse" key={index}>
+          {teams?.map((team: Team, i: number) => (
+            <div
+              key={i}
+              className="mt-5 flex flex-col gap-2 justify-center items-center border border-primary-200/80 rounded-xl w-full p-3"
+            >
+              <div className="flex gap-5 items-center">
+                <QRCodeSVG
+                  color="#ffffff"
+                  fgColor="#ffffff"
+                  value={solo ? idToPid(userId) : idToTeamId(team.id)}
+                  size={75}
+                  bgColor="transparent"
+                />
+                <div className="text-white flex flex-col justify-between gap-2">
+                  <p className="text-white text-xm cursor-pointer font-bold">
+                    {solo ? idToPid(userId) : idToTeamId(team.id)}
+                  </p>
+
+                  {!team.confirmed && (
+                    <div className="flex items-start">
+                      {!solo && team.leaderId == userId && (
+                        <EditTeamModal userId={userId} team={team} />
+                      )}
+                      {solo && <DeleteTeamModal teamId={team.id} solo={solo} />}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex flex-col-reverse">
                 <div className="flex justify-start">
                   {!team.confirmed &&
                     Number(team.leaderId) === Number(userId) && (
@@ -69,70 +97,21 @@ const EventCard: FC<{
                       />
                     )}
                 </div>
-                <div className=" text-ellipsis overflow-hidden w-2/3 text-md">
+                <div className="text-ellipsis overflow-hidden text-sm text-white text-center border rounded-full w-fit px-3 py-1 border-primary-200/80 mt-1">
                   {team.confirmed ? (
-                    <p>
-                      {solo ? "You are " : "Your team is "} confirmed and ready
-                      to play!
-                    </p>
+                    <p>{solo ? "You are " : "Your team is "} confirmed!</p>
                   ) : (
                     <p>
-                      Hey, {solo ? "You are " : "Your team is "} not confirmed
-                      yet.
+                      {solo ? "You are " : "Your team is "} not confirmed yet.
                     </p>
                   )}
                 </div>
-              </div>
-            ))}
-          </div>
-
-          {teams?.map((team: Team, i: number) => (
-            <div
-              key={i}
-              className="flex flex-col gap-2 justify-center items-center "
-            >
-              <div className="titleFont text-white flex justify-center space-x-2">
-                <span className="break-normal text-center">
-                  {solo ? idToPid(userId) : team.name.toUpperCase()}
-                </span>
-
-                <div className="flex items-start">
-                  {!team.confirmed && !solo && team.leaderId == userId && (
-                    <EditTeamModal userId={userId} team={team} />
-                  )}
-                  {!team.confirmed && solo && (
-                    <DeleteTeamModal teamId={team.id} solo={solo} />
-                  )}
-                </div>
-              </div>
-              <div className="flex flex-col justify-center gap-y-2">
-                <QRCodeSVG
-                  color="#ffffff"
-                  fgColor="#ffffff"
-                  value={solo ? idToPid(userId) : idToTeamId(team.id)}
-                  size={100}
-                  bgColor="transparent"
-                />
-                <button
-                  onClick={async (event) => {
-                    event.preventDefault();
-                    await navigator.clipboard.writeText(
-                      solo ? idToPid(userId) : idToTeamId(team.id)
-                    );
-                    toast.success("Copied to clipboard", {
-                      position: "bottom-center",
-                    });
-                  }}
-                  className="text-white text-xm cursor-pointer"
-                >
-                  {solo ? idToPid(userId) : idToTeamId(team.id)}
-                </button>
               </div>
             </div>
           ))}
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 
