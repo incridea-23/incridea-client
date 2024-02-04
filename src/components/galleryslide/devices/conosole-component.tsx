@@ -11,6 +11,8 @@ import ToolTip from "./tool-tip";
 
 const Console = ({ imgArr }: { imgArr: string[] }) => {
   const [activeModal, setActiveModal] = useState<boolean>(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  let thumbnailSrc = "/thumbnails/incridea23.jpg";
   const swiperRef = useRef<SwiperType>();
   return (
     <>
@@ -49,7 +51,10 @@ const Console = ({ imgArr }: { imgArr: string[] }) => {
                 <SwiperSlide
                   key={index}
                   className="flex justify-center items-center text-center cursor-pointer"
-                  onClick={() => setActiveModal(true)}
+                  onClick={() => {
+                    setActiveModal(true);
+                    setActiveIndex(index);
+                  }}
                 >
                   <ToolTip
                     classValue="top-[0] text-center sm:right-[14vw] bg-black/60 right-0 text-xs border sm:text-lg"
@@ -73,25 +78,64 @@ const Console = ({ imgArr }: { imgArr: string[] }) => {
                 </SwiperSlide>
               );
             })}
+            <SwiperSlide
+              className="flex justify-center items-center bg-white text-center cursor-pointer"
+              onClick={() => {
+                setActiveIndex(imgArr.length);
+                setActiveModal(true);
+              }}
+            >
+              {/* <ToolTip
+                classValue="top-[0] text-center bg-black/60 sm:right-[12vw] right-0 text-xs border sm:text-lg"
+                text="click to watch aftermovie"
+              ></ToolTip> */}
+              <div className="relative w-full h-full flex justify-center items-center">
+                <BlurImage
+                  fill
+                  alt="Blurred Image"
+                  src={thumbnailSrc}
+                  className="object-cover blur-xl"
+                />
+                <Image
+                  fill
+                  src={thumbnailSrc}
+                  alt="incridea"
+                  className={`object-cover z-10`}
+                  priority
+                />
+              </div>
+              <button
+                onClick={() => {
+                  setActiveIndex(imgArr.length);
+                  setActiveModal(true);
+                }}
+                className={
+                  styles["text-shadow"] +
+                  ` text-base p-2 md:text-lg md:font-extrabold bg-transparent text-white absolute z-50 top-0 left-0 text-center w-full`
+                }
+              >
+                Click to Watch After Movie
+              </button>
+            </SwiperSlide>
           </Swiper>
 
           <button
             onClick={() => swiperRef.current?.slidePrev()}
             className={`active:bg-gray-800 opacity-40 absolute w-[9vw] h-[9vw] top-[12vw] left-[41.5vw] md:top-[18.5vw] md:left-[18.5vw] md:w-[1.5vw] md:h-[1.5vw] rounded-full duration-300 transition-all ease-in-out animate-`}
           >
-            <ToolTip
+            {/* <ToolTip
               classValue="top-[-1vw] sm:right-[3vw] text-xs right-0 border sm:text-base"
               text="prev image"
-            ></ToolTip>
+            ></ToolTip> */}
           </button>
           <button
             onClick={() => swiperRef.current?.slideNext()}
             className="active:bg-gray-800 opacity-40 absolute w-[9vw] h-[9vw] top-[22vw] left-[41.5vw] md:top-[18.5vw] md:left-[20.5vw] md:w-[1.5vw] md:h-[1.5vw] rounded-full duration-300 transition-all ease-in-out animate-"
           >
-            <ToolTip
+            {/* <ToolTip
               classValue="top-[-6vw] sm:right-[-1.5vw] text-xs right-0 border sm:text-base"
               text="next image"
-            ></ToolTip>
+            ></ToolTip> */}
           </button>
         </div>
         <Modal
@@ -99,7 +143,12 @@ const Console = ({ imgArr }: { imgArr: string[] }) => {
           title="test"
           onClose={() => setActiveModal(false)}
         >
-          <PreviewComponent imgArr={imgArr} />
+          <PreviewComponent
+            imgArr={imgArr}
+            index={activeIndex}
+            afterMovieLink="8Veb3u0xEoE"
+            thumbnailSrc={thumbnailSrc}
+          />
         </Modal>
       </div>
     </>
