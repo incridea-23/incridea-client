@@ -3,10 +3,10 @@ import Image from "next/image";
 
 const Privacy: NextPage = () => {
   return (
-    <div className="relative min-h-screen overflow-x-hidden overflow-y-auto bg-gradient-to-b from-primary-300 to-primary-500 text-gray-100 p-5 sm:p-10">
+    <div className="relative min-h-screen overflow-x-hidden overflow-y-auto text-gray-100 p-5 sm:p-10">
       <div className="w-full max-w-7xl mx-auto">
         <h1 className={`titleFont text-5xl mb-3 pt-24 text-center`}>
-          Incridea Privacy Policy
+          Incridea 2024 Privacy Policy
         </h1>
         <div className="bodyFont mt-10">
           <p>
@@ -44,11 +44,14 @@ const Privacy: NextPage = () => {
             of these communications at any time by contacting us using the email
             address or phone number provided on our website. We will not use
             your contact information for any other purpose without your explicit
-            consent. We will delete all personally identifiable information
-            collected during the registration process after 7 days of login
-            unless we are required by law to retain it for a longer period. This
-            includes all data provided by the user, such as name, email address,
-            phone number, date of birth, and financial information.
+            consent.
+          </p>
+          <p className="mt-2">
+            We will delete all personally identifiable information collected
+            during the registration process after 7 days of login unless we are
+            required by law to retain it for a longer period. This includes all
+            data provided by the user, such as name, email address, phone
+            number, date of birth, and financial information.
           </p>
 
           <h2 className="text-2xl mt-4">Sharing of Information</h2>
@@ -72,14 +75,18 @@ const Privacy: NextPage = () => {
             privacy policies for purchase-related transactions, such as payment
             gateways and processors. It is recommended that you review their
             policies to understand how they handle your personal information.
+          </p>
+          <p className="mt-2">
             It&apos;s important to note that some providers may be located in a
             different jurisdiction than you or us. If you proceed with a
             transaction that involves a third-party service provider, your
             information may be subject to the laws of the jurisdiction(s) in
-            which the provider or its facilities are located. Please be aware
-            that once you leave our website or are redirected to a third-party
-            website or application, this Privacy Policy and our website&apos;s
-            Terms of Service no longer apply.
+            which the provider or its facilities are located.
+          </p>
+          <p className="mt-2">
+            Please be aware that once you leave our website or are redirected to
+            a third-party website or application, this Privacy Policy and our
+            website&apos;s Terms of Service no longer apply.
           </p>
           <h2 className="text-2xl mt-4">Your Control Over Information</h2>
           <p className="mt-2">
@@ -121,13 +128,19 @@ const Privacy: NextPage = () => {
             payment gateway partner, Razorpay. As mentioned earlier, your card
             data is not stored on our or Razorpay&apos;s servers, and all
             purchase transaction data is only used to complete your purchase and
-            will not be saved. Our payment gateway follows the PCI-DSS standards
-            set by the PCI Security Standards Council, which includes leading
-            credit and debit card brands like Visa, Mastercard, American
-            Express, and Discover, ensuring the secure handling of payment
-            information by our store and its service providers. For more
-            information on Razorpay&apos;s terms and conditions and their secure
-            handling of payment information, please refer to their website at{" "}
+            will not be saved.
+          </p>
+          <p className="mt-2">
+            Our payment gateway follows the PCI-DSS standards set by the PCI
+            Security Standards Council, which includes leading credit and debit
+            card brands like Visa, Mastercard, American Express, and Discover,
+            ensuring the secure handling of payment information by our store and
+            its service providers.
+          </p>
+          <p className="mt-2">
+            For more information on Razorpay&apos;s terms and conditions and
+            their secure handling of payment information, please refer to their
+            website at{" "}
             <a href="https://razorpay.com" target="_blank" rel="noreferrer">
               https://razorpay.com
             </a>

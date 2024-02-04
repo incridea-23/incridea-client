@@ -31,7 +31,7 @@ export function FooterBody() {
         <div
             id="footer"
             style={{ willChange: "transform" }}
-            className={`snap-start relative titleFont tracking-wider`}>
+            className={`snap-start relative tracking-wider`}>
             <div className="-mt-1 flex flex-col gap-5 md:flex-row bg-[#131e28] text-gray-100 p-5 items-center justify-between">
                 <div className="md:basis-1/5">
                     <Image

@@ -1,9 +1,8 @@
 import { NextPage } from "next";
-import Image from "next/image";
 
 const Refund: NextPage = () => {
   return (
-    <div className="relative min-h-screen overflow-y-hidden overflow-x-hidden bg-gradient-to-b from-primary-300 to-primary-500 text-gray-100 p-5 sm:p-10">
+    <div className="relative min-h-screen overflow-y-hidden overflow-x-hidden text-gray-100 p-5 sm:p-10">
       <div className="w-full max-w-7xl mx-auto">
         <h1 className={`titleFont text-5xl mb-3 pt-24 text-center`}>
           Refund Policy
@@ -24,6 +23,7 @@ const Refund: NextPage = () => {
             will be redirected to Razorpay&apos;s secure payment gateway to
             complete the payment process.
           </p>
+
           <h2 className="text-2xl mt-4">Refund Policy</h2>
           <p className="mt-2">
             We understand that sometimes processing errors or technical glitches
@@ -51,6 +51,7 @@ const Refund: NextPage = () => {
             encryption. You can be confident that your payment information is
             safe when you use our website for registration.
           </p>
+
           <h2 className="text-2xl mt-4">Contact Information</h2>
           <p className="mt-2">
             If you have any questions or concerns about our refund policy or
@@ -62,15 +63,8 @@ const Refund: NextPage = () => {
             >
               incridea@nmamit.in
             </a>{" "}
-            or contact
-            <span className="inline-block mr-1">
-              +91 9620788383 (Technical committte)
-            </span>
-            or
-            <span className="inline-block ml-1">
-              +91 7348896751 (Finance committte)
-            </span>
-            , and we will be happy to assist you.
+            <span className="inline-block mr-1">+91 63641 72219</span>, and we
+            will be happy to assist you.
           </p>
         </div>
       </div>
