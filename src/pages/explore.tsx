@@ -50,6 +50,7 @@ const Explore = () => {
         Skip <IoIosSkipForward />
       </Button>
       <YouTube
+        // TODO: VIDEO ID from youtube embed link
         videoId="CN_43nWXebo?si=PGZh5VT92HoLDme_"
         className="relative h-screen w-screen overflow-clip"
         iframeClassName="absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 w-[115vw] h-[115vh]"

@@ -80,6 +80,7 @@ const AccommodationForm: FunctionComponent = () => {
       pad(tzOffset % 60)
     );
   };
+
   const [AccommodationInfo, setAccommodationInfo] = useState({
     hotelId: -1,
     gender: "",
