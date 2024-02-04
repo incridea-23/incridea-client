@@ -17,6 +17,7 @@ import { useQuery } from "@apollo/client";
 import Spinner from "../../spinner";
 import ViewUserAccommodation from "./viewUserAccommodation";
 import AvatarModal from "./avatarModal";
+import { RiHotelBedLine } from "react-icons/ri";
 
 const ProfileInfo: FC<{
   user: User | null | undefined;
@@ -40,6 +41,7 @@ const ProfileInfo: FC<{
   const [userId, setUser] = useState("");
   const [rank, setRank] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [needMore, setNeedMore] = useState(0);
 
   const userXp = useQuery(GetUserXpDocument, {});
 
@@ -76,7 +78,7 @@ const ProfileInfo: FC<{
       setXp(totalXp);
       setUser(userXp.data.getUserXp?.data[0]?.user.id);
       const xpNext = newLevelThresholds.reduce((acc, curr) => acc + curr, 0);
-      console.log(xpNext, totalXp, newLevelThresholds);
+      setNeedMore(xpNext - totalXp);
       setProgress(100 - ((xpNext - totalXp) / xpNext) * 100);
     }
   }, [userXp.data]);
@@ -151,7 +153,7 @@ const ProfileInfo: FC<{
 
   return (
     <>
-      <div className="bg-primary-500 text-white flex flex-col justify-between items-center h-full px-4 md:px-8 py-4 md:py-8 gap-y-8 border border-primary-200/80 rounded-xl">
+      <div className="bg-primary-500 text-white flex flex-col justify-between items-center h-full px-4 md:px-8 py-4 md:py-8 border border-primary-200/80 rounded-xl">
         <div className="flex gap-5 flex-col">
           <div
             className="justify-center items-start flex"
@@ -179,18 +181,38 @@ const ProfileInfo: FC<{
             <span className="bodyFont">{user?.college?.name || "-"}</span>
           </div>
           <div className="relative mb-5 pt-1">
-            <div className="mb-4 flex overflow-hidden rounded-full bg-gray-100 text-xs h-3">
+            <div className="mb-4 flex rounded-full bg-gray-100 text-xs h-3">
               <div
                 style={{ width: `${progress}%` }}
                 className="bg-secondary-700 border border-white rounded-full"
               ></div>
             </div>
-            {progress}
+            <div className="flex justify-between items-center text-lg">
+              <div className="flex flex-row space-x-2 items-center ">
+                <Image
+                  src={"/assets/png/XP.webp"}
+                  width={20}
+                  height={20}
+                  alt="map"
+                />
+                <p>{xp} XP</p>
+              </div>
+
+              <div className="flex flex-row space-x-1 items-center">
+                <p>Level {level}</p>
+                <Image
+                  src={"/assets/png/level.png"}
+                  width={25}
+                  height={25}
+                  alt="map"
+                />
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="flex justify-evenly w-full basis-1/3 flex-wrap">
-          <div className="flex flex-row items-center space-x-2">
+        <div className="text-xs md:text-lg flex flex-row items-center justify-between space-x-2 border border-primary-200/30 rounded-full w-full px-5 py-1">
+          <div className="flex items-center gap-2">
             <Image
               src={"/assets/png/trophy.png"}
               width={100}
@@ -199,50 +221,35 @@ const ProfileInfo: FC<{
               className="sm:h-16 sm:w-16 h-12 w-12"
             />
 
-            <div className="">
+            <div>
               <p className="">Leaderboard</p>
-              <p>{rank}</p>
+              <p className="text-secondary-600 font-bold">Rank {rank}</p>
             </div>
           </div>
 
-          <div className="flex flex-row space-x-2 items-center ">
-            <Image
-              src={"/assets/png/XP.webp"}
-              width={100}
-              height={100}
-              alt="map"
-              className="sm:h-16 sm:w-16 h-12 w-12"
-            />
-
-            <div className="text-lg">
-              <p className="">XP</p>
-              <p>{xp}</p>
-            </div>
-          </div>
-
-          <div className="flex flex-row space-x-1 items-center">
-            <Image
-              src={"/assets/png/level.png"}
-              width={100}
-              height={100}
-              alt="map"
-              className="sm:h-16 sm:w-16 h-12 w-12"
-            />
-
-            <div className="lg">
-              <p className="">Level</p>
-              <p>{level}</p>
-            </div>
-          </div>
+          <p className="text-center">
+            You need <br />
+            <span className="text-secondary-600 font-bold">
+              {needMore} XP
+            </span>{" "}
+            to level up!
+          </p>
         </div>
 
-        <div className="flex sm:flex-row flex-col-reverse gap-5 justify-between w-full items-center basis-1/2">
+        <div className="flex sm:flex-row flex-col-reverse gap-5 justify-between w-full items-center border rounded-xl p-3 mt-3 border-primary-200/30">
           <section className="flex flex-col gap-y-4 sm:items-start items-center justify-center w-full">
-            <div className="flex flex-col justify-center gap-y-4">
-              <span className="sm:text-2xl text-xl sm:text-left text-center font-semibold">
-                Contact
-              </span>
-              <div className="flex flex-col gap-y-2 sm:text-lg text-md">
+            <div className="flex w-full justify-between h-full items-center ">
+              <QRCodeSVG
+                value={idToPid(user?.id!)}
+                size={100}
+                bgColor="transparent"
+                color="#ffffff"
+                fgColor="#ffffff"
+              />
+              <div>
+                <span className={`text-[#fff] sm:text-xl text-md`}>
+                  {idToPid(user?.id!)}
+                </span>
                 <span className="flex gap-x-2 items-center">
                   <MdOutlineEmail />
                   {user?.email}
@@ -253,50 +260,56 @@ const ProfileInfo: FC<{
                 </span>
               </div>
             </div>
-            <div>
-              <ViewUserAccommodation
-                showModal={showModal}
-                setShowModal={setShowModal}
-              />
-              {loadingAccommodation ? (
+
+            <div className="space-y-2 w-full">
+              <div className="flex items-center justify-between">
+                <ViewUserAccommodation
+                  showModal={showModal}
+                  setShowModal={setShowModal}
+                />
+                {loadingAccommodation ? (
+                  <Button
+                    size={"large"}
+                    onClick={() => setShowModal(true)}
+                    className="w-max !rounded-full bodyFont !tracking-normal !text-sm justify-center"
+                  >
+                    <Spinner size={"small"} className="text-[#dd5c6e]" />
+                  </Button>
+                ) : dataAccommodation?.accommodationRequestsByUser[0]
+                    ?.status ? (
+                  <Button
+                    intent={"info"}
+                    size={"large"}
+                    onClick={() => setShowModal(true)}
+                    className="w-max !rounded-full bodyFont !tracking-normal !text-sm justify-center"
+                  >
+                    <RiHotelBedLine className="inline-block mr-1" />
+                    View Request
+                  </Button>
+                ) : (
+                  <Button
+                    intent={"success"}
+                    size={"large"}
+                    onClick={() => router.push("/accommodation")}
+                    className="!rounded-full bodyFont !tracking-normal !text-sm justify-center"
+                  >
+                    <RiHotelBedLine className="inline-block mr-1" />
+                    Accommodation
+                  </Button>
+                )}
                 <Button
-                  size={"large"}
-                  onClick={() => setShowModal(true)}
-                  className="w-max mt-3 md:mt-2"
-                >
-                  <Spinner size={"small"} className="text-[#dd5c6e]" />
-                </Button>
-              ) : dataAccommodation?.accommodationRequestsByUser[0]?.status ? (
-                <Button
+                  onClick={() => router.push("/leaderboard")}
+                  className="!rounded-full bodyFont !tracking-normal !text-sm justify-center"
                   intent={"info"}
                   size={"large"}
-                  onClick={() => setShowModal(true)}
-                  className="w-max mt-3 md:mt-2"
                 >
-                  View Request
+                  <FaAward className="inline-block mr-1" />
+                  Leaderboard
                 </Button>
-              ) : (
-                <Button
-                  intent={"success"}
-                  size={"large"}
-                  onClick={() => router.push("/accommodation")}
-                  className="w-full mt-3 md:mt-2"
-                >
-                  Accommodation
-                </Button>
-              )}
-              <Button
-                onClick={() => router.push("/leaderboard")}
-                className="mt-1 w-full"
-                intent={"info"}
-                size={"large"}
-              >
-                <FaAward className="inline-block mr-1" />
-                Leaderboard
-              </Button>
+              </div>
               <Button
                 onClick={() => signOut()}
-                className="mt-1 w-full"
+                className="w-full !rounded-full bodyFont !tracking-normal !text-sm justify-center"
                 intent={"danger"}
                 size={"large"}
               >
@@ -305,20 +318,6 @@ const ProfileInfo: FC<{
               </Button>
             </div>
           </section>
-
-          <div className="flex flex-col w-full justify-center h-full items-center gap-y-3 ">
-            <QRCodeSVG
-              value={idToPid(user?.id!)}
-              size={100}
-              bgColor="transparent"
-              color="#ffffff"
-              fgColor="#ffffff"
-              className="h-44 w-44"
-            />
-            <span className={`text-[#fff] sm:text-xl text-md`}>
-              {idToPid(user?.id!)}
-            </span>
-          </div>
         </div>
       </div>
     </>
