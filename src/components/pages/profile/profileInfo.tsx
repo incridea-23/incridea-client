@@ -4,14 +4,11 @@ import {
   GetXpLeaderboardDocument,
   User,
 } from "@/src/generated/generated";
-import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
 import { QRCodeSVG } from "qrcode.react";
 import { FC, useEffect, useState } from "react";
-import { FaSignOutAlt, FaDice, FaAward } from "react-icons/fa";
-import { MdOutlineEmail, MdPhone } from "react-icons/md";
-import TextAnimation from "../../animation/text";
+import { FaSignOutAlt, FaAward } from "react-icons/fa";
+import { MdAddAPhoto, MdOutlineEmail, MdPhone } from "react-icons/md";
 import { idToPid } from "@/src/utils/id";
 import Button from "../../button";
 import { signOut } from "next-auth/react";
@@ -20,7 +17,6 @@ import { useQuery } from "@apollo/client";
 import Spinner from "../../spinner";
 import ViewUserAccommodation from "./viewUserAccommodation";
 import AvatarModal from "./avatarModal";
-// import { GiShipWheel } from 'react-icons/gi';
 
 const ProfileInfo: FC<{
   user: User | null | undefined;
@@ -50,7 +46,6 @@ const ProfileInfo: FC<{
       userXp?.data &&
       userXp.data.getUserXp.__typename === "QueryGetUserXpSuccess"
     ) {
-      setLevel(userXp.data.getUserXp?.data?.length);
       setXp(
         userXp.data.getUserXp?.data?.reduce(
           (acc, curr) => acc + curr.level.point,
@@ -60,6 +55,11 @@ const ProfileInfo: FC<{
       setUser(userXp.data.getUserXp?.data[0]?.user.id);
     }
   }, [userXp.data]);
+
+  useEffect(() => {
+    const lev = Math.floor(xp / 10);
+    setLevel(lev);
+  }, [xp]);
 
   interface UserTotalPoints {
     [userId: string]: {
@@ -131,8 +131,8 @@ const ProfileInfo: FC<{
 
   return (
     <>
-      <div className="text-white flex flex-col justify-between items-center h-full px-8 py-16 gap-y-8 border border-primary-200/80 rounded-xl">
-        <div className="flex gap-5">
+      <div className="bg-primary-500 text-white flex flex-col justify-between items-center h-full px-4 md:px-8 py-4 md:py-8 gap-y-8 border border-primary-200/80 rounded-xl">
+        <div className="flex gap-5 flex-col">
           <div
             className="justify-center items-start flex"
             onClick={() => setAvatarModal(true)}
@@ -141,25 +141,34 @@ const ProfileInfo: FC<{
               showModal={avatarModal}
               setShowModal={setAvatarModal}
             />
-            <Image
-              src={user?.profileImage || ""}
-              width={200}
-              height={200}
-              alt="avatar"
-              className="lg:h-48 lg:w-48 md:h-36 md:w-36 w-28 h-28  rounded-full"
-            />
+            <div className="relative group">
+              <Image
+                src={user?.profileImage || ""}
+                width={180}
+                height={180}
+                alt="avatar"
+                className="p-3 rounded-xl border hover:border-4 transition-all duration-300 cursor-pointer hover:border-primary-100/50 border-primary-100/30"
+              />
+              <div className="absolute bottom-3 right-3 p-2 bg-secondary-700 rounded-full scale-0 group-hover:scale-100 transition-all duration-300">
+                <MdAddAPhoto />
+              </div>
+            </div>
           </div>
-          <section className="flex flex-col text-center h-full items-center justify-center space-y-4">
-            <span className="font-mono lg:text-[2.5rem] sm:text-3xl text-2xl  font-bold">
-              {user?.name}
-            </span>
-            <span className="bodyFont sm:text-xl text-md">
-              {user?.college?.name || "-"}
-            </span>
-          </section>
+          <div className="flex flex-col text-center h-full items-center justify-center space-y-1">
+            <span className="text-2xl lg:text-3xl font-bold">{user?.name}</span>
+            <span className="bodyFont">{user?.college?.name || "-"}</span>
+          </div>
+          {/* <div className="relative mb-5 pt-1">
+            <div className="mb-4 flex overflow-hidden rounded-full bg-gray-100 text-xs h-3">
+              <div
+                style={{ width: "70%" }}
+                className="bg-secondary-700 border border-white rounded-full"
+              ></div>
+            </div>
+          </div> */}
         </div>
 
-        <div className="flex justify-evenly w-full font-mono basis-1/3 flex-wrap">
+        <div className="flex justify-evenly w-full basis-1/3 flex-wrap">
           <div className="flex flex-row items-center space-x-2">
             <Image
               src={"/assets/png/trophy.png"}
@@ -285,7 +294,7 @@ const ProfileInfo: FC<{
               fgColor="#ffffff"
               className="h-44 w-44"
             />
-            <span className={`font-mono text-[#fff] sm:text-xl text-md`}>
+            <span className={`text-[#fff] sm:text-xl text-md`}>
               {idToPid(user?.id!)}
             </span>
           </div>
