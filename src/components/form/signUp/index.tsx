@@ -21,9 +21,13 @@ type SignUpFormProps = {
   setWhichForm: (
     whichForm: "signIn" | "resetPassword" | "signUp" | "resendEmail"
   ) => void;
+  setGotDialogBox: (gotDialogBox: boolean) => void;
 };
 
-const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
+const SignUpForm: FunctionComponent<SignUpFormProps> = ({
+  setWhichForm,
+  setGotDialogBox,
+}) => {
   const [userInfo, setUserInfo] = useState({
     name: "",
     college: "",
@@ -41,16 +45,22 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
   const [signUpMutation, { loading, error: mutationError }] =
     useMutation(SignUpDocument);
 
+  if (mutationError) setGotDialogBox(false);
+
   const [
     emailVerificationMutation,
     { data, loading: emailVerificationLoading, error: emailVerificationError },
   ] = useMutation(EmailVerificationDocument);
+
+  if (emailVerificationError) setGotDialogBox(true);
 
   const {
     data: collegeData,
     loading: collegesLoading,
     error: collegesError,
   } = useQuery(CollegesDocument);
+
+  if (emailVerificationError) setGotDialogBox(true);
 
   const sortColleges = () => {
     const nmamit = collegeData?.colleges.find(
@@ -103,8 +113,10 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
     }).then((res) => {
       if (res.data?.sendEmailVerification.__typename === "Error") {
         setError(res.data.sendEmailVerification.message);
+        setGotDialogBox(true);
       } else {
         setEmailSuccess(true);
+        setGotDialogBox(true);
       }
     });
   };
@@ -169,8 +181,15 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
           }).then((res) => {
             if (res.data?.sendEmailVerification.__typename === "Error") {
               setError(res.data.sendEmailVerification.message);
-            } else {
+              setGotDialogBox(true);
+            }
+
+            if (
+              res.data?.sendEmailVerification.__typename ===
+              "MutationSendEmailVerificationSuccess"
+            ) {
               setEmailSuccess(true);
+              setGotDialogBox(true);
             }
           });
         }
@@ -178,6 +197,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         if (res.data?.signUp.__typename === "Error") {
           setError(res.data.signUp.message);
           if (res.data.signUp.message.includes("verify")) setVerifyError(true);
+          setGotDialogBox(true);
         }
       })
       .catch((err) => {
@@ -202,7 +222,7 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
         loading && "cursor-not-allowed pointer-events-none"
       }`}
     >
-      <p className="text-2xl text-center font-semibold mb-3">Welcome Player</p>
+      <p className="text-2xl text-center font-semibold mb-2">Welcome Player</p>
 
       {!emailSuccess && (
         <>
@@ -379,14 +399,14 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
                 I agree to all the{" "}
                 <Link
                   href="/rules"
-                  className="underline hover:text-gray-700 cursor-pointer"
+                  className="underline hover:text-slate-100 cursor-pointer"
                 >
                   T&C
                 </Link>{" "}
                 and{" "}
                 <Link
                   href="/guidelines"
-                  className="underline hover:text-gray-700 cursor-pointer"
+                  className="underline hover:text-slate-100 cursor-pointer"
                 >
                   Guidelines
                 </Link>{" "}
@@ -417,21 +437,21 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({ setWhichForm }) => {
       )}
 
       {emailSuccess && (
-        <div className="bg-green-100 p-4 flex flex-col text-center  items-center gap-3 rounded-md font-semibold text-green-500">
+        <div className="bg-secondary-300 p-4 flex flex-col text-center  items-center gap-3 rounded-md font-semibold text-[#d7037f]">
           <div>
             Verification email sent to {userInfo.email}
             {selectedCollege.name === "N.M.A.M. Institute of Technology" &&
               "@nmamit.in"}
             <br />
             Please check your inbox.
-            <hr className="border-green-300 mx-3 my-2" />
+            <hr className="border-secondary-600 mx-3 my-2" />
             <div className="text-sm font-normal">
               <p>Didn&apos;t receive the email?</p>
               <p>Make sure to check your spam folder.</p>
               <button
                 type="button"
                 onClick={resendEmail}
-                className="font-normal underline text-sm transition-colors  text-green-500 hover:text-green-700"
+                className="font-normal underline text-sm transition-colors text-secondary-800 hover:font-medium"
               >
                 Click here to resend it
               </button>

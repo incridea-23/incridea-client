@@ -7,7 +7,6 @@ import {
   FreeMode,
   Mousewheel,
   Navigation,
-  Swiper as SwiperType,
   Thumbs,
 } from "swiper";
 import "swiper/css";
@@ -20,40 +19,6 @@ const PreviewComponent = ({ imgArr }: { imgArr: string[] }) => {
   const isMediumScreen = useMediaQuery({ query: "(min-width: 800px)" });
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   return (
-    // <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 p-20 gap-6 border-black">
-    //   {/* <div key={imgArr[0]}>
-    //     <Image
-    //       width={400}
-    //       height={400}
-    //       src={baseImageUrl + imgArr[0]}
-    //       alt="incridea"
-    //       className={`object-cover z-10`}
-    //       priority
-    //     />
-    //   </div>
-    //   <div key={imgArr[1]}>
-    //     <Image
-    //       width={400}
-    //       height={400}
-    //       src={baseImageUrl + imgArr[1]}
-    //       alt="incridea"
-    //       className={`object-cover z-10`}
-    //       priority
-    //     />
-    //   </div> */}
-    //   {imgArr.map((img) => (
-    //     <div key={img} className="col-span-1 row-span-1">
-    //       <Image
-    //         width={500}
-    //         height={250}
-    //         src={baseImageUrl + img}
-    //         alt="incridea"
-    //         className={`object-cover z-10 w-full h-full`}
-    //         priority
-    //       />
-    //     </div>
-    //   ))}
-    // </div>
     <>
       <Swiper
         style={{

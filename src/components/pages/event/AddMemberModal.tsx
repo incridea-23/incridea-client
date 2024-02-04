@@ -19,7 +19,7 @@ const AddMemberModal: FC<{
 
   const url = `Join my team for ${
     team.event.name
-  } event at Incridea 2023! Here's the link: https://incridea.in${generateEventUrl(
+  } event at Incridea 2024! Here's the link: https://incridea.in${generateEventUrl(
     team.event.name,
     team.event.id
   )}?jointeam=${idToTeamId(team.id)}`;

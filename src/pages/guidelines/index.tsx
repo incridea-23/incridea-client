@@ -1,22 +1,17 @@
-import { NextPage } from 'next';
-import Image from 'next/image';
+import { NextPage } from "next";
+import Image from "next/image";
+import { VikingHell } from "../_app";
 
 const Guidelines: NextPage = () => {
   return (
-    <div className="overflow-x-hidden overflow-y-auto bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6] text-gray-100 p-5 sm:p-10">
+    <div className="overflow-x-hidden overflow-y-auto bg-gradient-to-b from-primary-300 to-primary-500 text-gray-100 p-5 sm:p-10">
       <div className="w-full max-w-7xl mx-auto">
-        <Image
-          src="/assets/png/waterflare.png"
-          height={1000}
-          width={1000}
-          alt="flare"
-          className="absolute opacity-40 z-10 top-0 right-0"
-          priority
-        />
-        <h1 className={`titleFont pt-24 text-5xl mb-3 text-center`}>
+        <h1
+          className={`${VikingHell.className} pt-24 text-5xl mb-3 text-center`}
+        >
           Guidelines
         </h1>
-        <div className='bodyFont'>
+        <div className="bodyFont">
           <h2 className="text-2xl my-6">OVERVIEW</h2>
           <p className="mt-2">
             Incridea is a national-level techno-cultural festival that offers a
@@ -65,7 +60,7 @@ const Guidelines: NextPage = () => {
               ineligible to participate in the event.
             </li>
           </ul>
-         {/* <h2 className="text-2xl my-6">Event Scoring:</h2>
+          {/* <h2 className="text-2xl my-6">Event Scoring:</h2>
           <p className="mt-2">
             Every event included in Incridea counts towards the overall
             championship, with the following weightage:
@@ -133,25 +128,25 @@ const Guidelines: NextPage = () => {
           </p>
           <ol className="mt-2 list-decimal pl-4">
             <li>
-              {' '}
+              {" "}
               NMAM Institute of Technology students who pay ₹200 will have
               access to all events and pronites
             </li>
             <li>
-              {' '}
-              Engineering college students, other than NMAMIT, who pay ₹300 will
-              have access to all events and pronites.
+              {" "}
+              Engineering college students, other than NMAMIT, who pay ₹300
+              will have access to all events and pronites.
             </li>
             <li>
               Non-engineering college and Nitte sister college students who pay
               ₹300 will have access only to Core Events and pronites.
             </li>
             <li>
-              {' '}
-              Invite-only participants who pay ₹150 will have access to the one
-              core event they were invited to. If the invite-only participant is
-              a college student and wants to attend pronite, they will have to
-              register as given in point 3.
+              {" "}
+              Invite-only participants who pay ₹150 will have access to the
+              one core event they were invited to. If the invite-only
+              participant is a college student and wants to attend pronite, they
+              will have to register as given in point 3.
             </li>
           </ol>
           <p className="mt-2">
@@ -162,22 +157,6 @@ const Guidelines: NextPage = () => {
             penalized appropriately. NMAMIT & NITTE University reserve the right
             to take any appropriate legal actions in any case that requires it.
           </p>
-        </div>
-        <div className={`flex w-full -translate-x-10 translate-y-8 opacity-75`}>
-          <Image
-            src={'/assets/png/atlantis.png'}
-            width={750}
-            height={50}
-            className="object-center"
-            alt="atlantis"
-          />
-          <Image
-            src={'/assets/png/atlantis.png'}
-            width={750}
-            height={50}
-            className="object-center"
-            alt="atlantis"
-          />
         </div>
       </div>
     </div>

@@ -10,11 +10,13 @@ type SignInFormProps = {
   setWhichForm: (
     whichForm: "signIn" | "resetPassword" | "signUp" | "resendEmail"
   ) => void;
+  setGotDialogBox: (gotDialogBox: boolean) => void;
   redirectUrl?: string;
 };
 
 const SignInForm: FunctionComponent<SignInFormProps> = ({
   setWhichForm,
+  setGotDialogBox,
   redirectUrl,
 }) => {
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
@@ -30,6 +32,7 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
     e.preventDefault();
     setError("");
     setLoading(true);
+
     const res = await signIn("credentials", {
       email: userInfo.email,
       password: userInfo.password,
@@ -43,10 +46,12 @@ const SignInForm: FunctionComponent<SignInFormProps> = ({
       setLoading(false);
       if (res.error.includes("verify")) setVerifyError(true);
       setError(res.error);
+      setGotDialogBox(true);
     }
 
     if (res?.ok) {
       setError("");
+      setGotDialogBox(false);
       setUserInfo({ email: "", password: "" });
       router.push(redirectUrl ? decodeURIComponent(redirectUrl) : "/profile");
     }

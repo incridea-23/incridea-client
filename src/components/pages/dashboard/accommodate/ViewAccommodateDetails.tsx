@@ -8,6 +8,7 @@ import Modal from "@/src/components/modal";
 import { AccommodationRequestsByUserIdDocument } from "@/src/generated/generated";
 import { useQuery } from "@apollo/client";
 import Spinner from "@/src/components/spinner";
+import Image from "next/image";
 
 const ViewAccommodateDetails: FC<{
   accId: String;
@@ -32,7 +33,8 @@ const ViewAccommodateDetails: FC<{
         intent={"info"}
         className="flex gap-2 items-center justify-center"
         size={"medium"}
-        onClick={() => setShowModal(true)}>
+        onClick={() => setShowModal(true)}
+      >
         <IoEye />
         View
       </Button>
@@ -41,7 +43,8 @@ const ViewAccommodateDetails: FC<{
         showModal={showModal}
         onClose={() => setShowModal(false)}
         title={"View User Details"}
-        size="medium">
+        size="medium"
+      >
         <div className="flex m-4 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-t-lg p-1 items-center justify-center gap-2.5 h-80">
           <div className="flex flex-row gap-3 items-start justify-center m-4 text-lg">
             <div className="flex flex-col text-lg font-bold">
@@ -53,8 +56,6 @@ const ViewAccommodateDetails: FC<{
               <div>Room</div>
               <div>CheckIn</div>
               <div>CheckOut</div>
-              <div>AC</div>
-              <div>Id</div>
             </div>
             <div className="flex flex-col text-lg font-semibold">
               <div>{user?.accommodationRequestsByUserId[0]?.user?.name}</div>
@@ -64,11 +65,38 @@ const ViewAccommodateDetails: FC<{
               </div>
               <div>{user?.accommodationRequestsByUserId[0]?.gender}</div>
               <div>{user?.accommodationRequestsByUserId[0]?.hotel?.name}</div>
-              <div>{user?.accommodationRequestsByUserId[0]?.room}</div>
-              <div>{user?.accommodationRequestsByUserId[0]?.checkIn}</div>
-              <div>{user?.accommodationRequestsByUserId[0]?.checkOut}</div>
-              <div>{user?.accommodationRequestsByUserId[0]?.ac}</div>
-              <div>{user?.accommodationRequestsByUserId[0]?.IdCard}</div>
+              <div>
+                {user?.accommodationRequestsByUserId[0]?.room || "Pending"}
+              </div>
+              <div>
+                {user?.accommodationRequestsByUserId[0].checkIn
+                  ? new Date(
+                      Date.parse(user?.accommodationRequestsByUserId[0].checkIn)
+                    ).toLocaleString("en-IN", {
+                      timeZone: "Asia/Kolkata",
+                    })
+                  : "Not Available"}
+              </div>
+              <div>
+                {user?.accommodationRequestsByUserId[0].checkOut
+                  ? new Date(
+                      Date.parse(
+                        user?.accommodationRequestsByUserId[0].checkOut
+                      )
+                    ).toLocaleString("en-IN", {
+                      timeZone: "Asia/Kolkata",
+                    })
+                  : "Not Available"}
+              </div>
+            </div>
+            <div className="text-center">
+              <Image
+                src={user?.accommodationRequestsByUserId[0]?.IdCard || ""}
+                alt="ID card"
+                width={200}
+                height={200}
+              ></Image>
+              ID
             </div>
           </div>
         </div>

@@ -1,14 +1,14 @@
-import { idToTeamId } from '@/src/utils/id';
-import Button from '@/src/components/button';
-import Modal from '@/src/components/modal';
-import React, { FC, useState } from 'react';
-import { BiEditAlt } from 'react-icons/bi';
-import DeleteTeamMember from './deleteMember';
-import AddMemberModal from './addMember';
-import { Team } from './userTeams';
-import DeleteTeamModal from './deleteTeam';
+import { idToTeamId } from "@/src/utils/id";
+import Button from "@/src/components/button";
+import Modal from "@/src/components/modal";
+import React, { FC, useState } from "react";
+import { BiEditAlt } from "react-icons/bi";
+import DeleteTeamMember from "./deleteMember";
+import AddMemberModal from "./addMember";
+import { Team } from "./userTeams";
+import DeleteTeamModal from "./deleteTeam";
 
-import Badge from '../../badge';
+import Badge from "../../badge";
 
 const EditTeamModal: FC<{
   team: Team;
@@ -22,16 +22,23 @@ const EditTeamModal: FC<{
 
   return (
     <>
-      <Button onClick={(e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-                  e.preventDefault();
-                  e.stopPropagation(); setShowModal(true)}} size={'small'}>
-        <BiEditAlt />
+      <Button
+        onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+          e.preventDefault();
+          e.stopPropagation();
+          setShowModal(true);
+        }}
+        size={"small"}
+        className="bodyFont rounded-full !skew-x-0 !justify-center !tracking-normal"
+        fullWidth
+      >
+        Edit <BiEditAlt />
       </Button>
       <Modal
         title={`${team.name}`}
         showModal={showModal}
         onClose={handleCloseModal}
-        size={'medium'}
+        size={"medium"}
       >
         <div className="w-full p-5">
           <div className="text-center">
@@ -49,12 +56,12 @@ const EditTeamModal: FC<{
               className="flex gap-2 items-center my-2 justify-between bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-2 rounded-sm"
               key={member.user.id}
             >
-              <h1 className="w-full text-center">{member.user.name}</h1>{' '}
+              <h1 className="w-full text-center">{member.user.name}</h1>{" "}
               <div className="w-full text-center">
                 <Badge
-                  color={member.user.id == team.leaderId ? 'success' : 'info'}
+                  color={member.user.id == team.leaderId ? "success" : "info"}
                 >
-                  {member.user.id == team.leaderId ? 'Leader' : 'Member'}
+                  {member.user.id == team.leaderId ? "Leader" : "Member"}
                 </Badge>
               </div>
               {!team.confirmed && team.leaderId == userId && (

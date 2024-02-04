@@ -8,6 +8,14 @@ import dynamic from "next/dynamic";
 import useStore from "@/src/components/store/store";
 import BookModal from "@/src/components/explore/BookModal";
 import Pokedex from "@/src/components/pokedex";
+import {
+  PublishedEventsDocument,
+  PublishedEventsQuery,
+} from "@/src/generated/generated";
+import { client } from "@/src/lib/apollo";
+import { useQuery } from "@apollo/client";
+import ExploreNav from "@/src/components/explore/exploreNav";
+
 const Scene1 = dynamic(() => import("@/src/components/scene1"), {
   ssr: false,
 });
@@ -19,6 +27,25 @@ const Scene1 = dynamic(() => import("@/src/components/scene1"), {
 
 const demoSheet = getProject("Scene 1", { state: scene1 }).sheet("Scene 1");
 const App = () => {
+  const {
+    data: eventsData,
+    loading: eventLoading,
+    error: eventError,
+  } = useQuery<PublishedEventsQuery>(PublishedEventsDocument);
+
+  let tempFilteredEvents = eventsData?.publishedEvents;
+
+  tempFilteredEvents = tempFilteredEvents?.filter(
+    (event) => event.category === "CORE"
+  );
+
+  const events: Array<{ id: string; name: string; image: string }> =
+    tempFilteredEvents?.map((event) => ({
+      id: event.id,
+      name: event.name || "",
+      image: event.image || "",
+    })) || [];
+
   const modalRef = useRef(null);
   const sponsorBookRef = useRef(null);
   const eventDex = useStore((state) => state.eventDex);
@@ -26,6 +53,7 @@ const App = () => {
 
   return (
     <div className="w-full h-screen">
+      <ExploreNav />
       <Suspense>
         <Canvas
           gl={{
@@ -62,7 +90,7 @@ const App = () => {
         </Canvas>
       </Suspense>
       <div className="" ref={modalRef}>
-        {eventDex && <Pokedex />}
+        {eventDex && <Pokedex data={events} />}
       </div>
       <div className="" ref={sponsorBookRef}>
         {sponsor && <BookModal />}

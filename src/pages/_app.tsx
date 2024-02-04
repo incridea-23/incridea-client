@@ -1,20 +1,38 @@
 import { useApollo } from "@/src/lib/apollo";
 import "@/src/styles/globals.css";
 import { ApolloProvider } from "@apollo/client";
-import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas";
 import { Analytics } from "@vercel/analytics/react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
-import Image from "next/image";
+
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import Loader from "../components/Loader";
 const Navbar = dynamic(() => import("../components/navbar"), { ssr: false });
-import ExploreGame from "../components/exploreGame";
 import HeadComponent from "../components/head";
 import Footer from "../components/footer";
+import localFont from "@next/font/local";
+import { Press_Start_2P } from "@next/font/google";
+
+export const VikingHell = localFont({
+  src: "../font/Viking Hell.otf",
+  variable: "--font-viking-hell",
+});
+
+export const garetFont = localFont({
+  src: "../font/Garet-Book.otf",
+  variable: "--font-Garet",
+});
+
+export const pressStart = Press_Start_2P({
+  weight: ["400"],
+  subsets: ["latin"],
+  style: ["normal"],
+  display: "swap",
+  variable: "--font-Press_Start_2P",
+});
 
 export default function App({
   Component,
@@ -24,69 +42,40 @@ export default function App({
   const [isLoading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
-  const variants = {
-    initialState: {
-      opacity: 0,
-      translateY: "100px",
-    },
-    animateState: {
-      opacity: 1,
-      translateY: "0%",
-    },
-    exitState: {
-      opacity: 0,
-      translateY: "-100px",
-    },
-  };
-
   if (
     router.pathname === "/theme" ||
-    router.pathname === "/landing" ||
     router.pathname === "/test" ||
-    router.pathname === "/landing2" ||
-    router.pathname === "/explore" ||
-    router.pathname === "/explore/level1" ||
-    router.pathname === "/explore/level2" ||
-    router.pathname === "/explore/level3"
+    router.pathname === "/" ||
+    router.pathname.startsWith("/explore")
   )
     return (
       <ApolloProvider client={apolloClient}>
-        <Component {...pageProps} />
+        <HeadComponent
+          title="Incridea"
+          description="Official Website of Incridea 2024, National level techno-cultural fest, NMAMIT, Nitte. Innovate. Create. Ideate."
+        />
+        <div
+          className={`min-h-screen ${VikingHell.variable} ${pressStart.variable} ${garetFont.variable}`}
+        >
+          <Component {...pageProps} />
+          <Toaster />
+        </div>
       </ApolloProvider>
     );
   return (
-    <ApolloProvider client={apolloClient}>
-      <HeadComponent
-        title="Incridea"
-        description="Official Website of Incridea 2023, National level techno-cultural fest, NMAMIT, Nitte. Innovate. Create. Ideate."
-      />
-      <Toaster />
-      <AnimatePresence>{isLoading && <Loader />}</AnimatePresence>
-      <div className="bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6]">
-        {
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white">
-            <Image
-              src={"/assets/png/logo.png"}
-              alt="loader"
-              width={300}
-              height={300}
-              priority
-            />
-            <h1 className={`titleFont text-xl md:text-3xl text-center`}>
-              Tides of Change
-            </h1>
-          </div>
-        }
-        {!isLoading && <Navbar />}
-        <AnimatePresence mode="wait">
-          <motion.main
-            key={router.route}
-            initial="intialState"
-            animate="animateState"
-            exit="exitState"
-            transition={{ duration: 0.8 }}
-            variants={variants}
-          >
+    <>
+      <ApolloProvider client={apolloClient}>
+        <HeadComponent
+          title="Incridea"
+          description="Official Website of Incridea 2024, National level techno-cultural fest, NMAMIT, Nitte. Innovate. Create. Ideate."
+        />
+        <Toaster />
+        <Loader />
+        <div
+          className={`min-h-screen ${VikingHell.variable} ${pressStart.variable} bg-gradient-to-b ${garetFont.variable} from-primary-200 to-primary-400`}
+        >
+          {!isLoading && <Navbar />}
+          <AnimatePresence mode="wait">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -95,11 +84,11 @@ export default function App({
             >
               <Component setLoading={setLoading} {...pageProps} />
             </motion.div>
-          </motion.main>
-        </AnimatePresence>
-        <Footer />
-      </div>
-      {/* <Analytics /> */}
-    </ApolloProvider>
+          </AnimatePresence>
+          <Footer />
+        </div>
+      </ApolloProvider>
+      <Analytics />
+    </>
   );
 }

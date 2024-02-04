@@ -1,19 +1,60 @@
 import { Html, Plane, useScroll } from "@react-three/drei";
-import { editable as e } from "@theatre/r3f";
 import styles from "./sponsorAnnotation.module.css";
 import useStore from "../store/store";
 import { useFrame } from "@react-three/fiber";
 import { useRef, useState } from "react";
+import toast from "react-hot-toast";
+import { AddXpDocument } from "@/src/generated/generated";
+import { useMutation } from "@apollo/client";
 
 const Sponsor = () => {
   const scroll = useScroll();
   const setSponsorFlag = useStore((state) => state.setSponsor);
   const [scrollData, setScrollData] = useState(false);
+  const [calledXp, setCalledXp] = useState(false);
   let scrollChangeFlag = useRef(false);
-  // const sponsor = useStore((state) => state.sponsor);
+
+  const [addXp] = useMutation(AddXpDocument, {
+    variables: {
+      levelId: "5",
+    },
+    refetchQueries: ["GetUserXp"],
+    awaitRefetchQueries: true,
+  });
+
+  const handleAddXp = () => {
+    if (calledXp) {
+      return;
+    }
+    setCalledXp(true);
+    const promise = addXp().then((res) => {
+      if (res.data?.addXP.__typename !== "MutationAddXPSuccess") {
+        toast.error(
+          `Opps!! You have already claimed your xp or not logged in`,
+          {
+            position: "bottom-center",
+            style: {
+              backgroundColor: "#7628D0",
+              color: "white",
+            },
+          }
+        );
+      } else {
+        toast.success(
+          `Congratulations!!! You have found ${res.data?.addXP.data.level.point} Xp`,
+          {
+            position: "bottom-center",
+            style: {
+              backgroundColor: "#7628D0",
+              color: "white",
+            },
+          }
+        );
+      }
+    });
+  };
 
   useFrame(() => {
-    // console.log(scroll.offset);
     if (scrollChangeFlag.current !== scroll.visible(0.774, 0.912)) {
       scrollChangeFlag.current = !scrollChangeFlag.current;
       setScrollData(scrollChangeFlag.current);
@@ -21,7 +62,7 @@ const Sponsor = () => {
   });
 
   return (
-    <e.group theatreKey={`Sponsor`}>
+    <group>
       <Html
         transform
         occlude="blending"
@@ -31,10 +72,7 @@ const Sponsor = () => {
         zIndexRange={[0, 50]}
         geometry={
           <Plane args={[5, 1]} position={[0, 0, 0]}>
-            <meshStandardMaterial
-            // color={"white"}
-            // transparent opacity={0}
-            />
+            <meshStandardMaterial />
           </Plane>
         }
         center
@@ -45,6 +83,7 @@ const Sponsor = () => {
           onClick={() => {
             setSponsorFlag();
             console.log("Clicked");
+            handleAddXp();
           }}
         >
           <div
@@ -58,7 +97,7 @@ const Sponsor = () => {
           </div>
         </div>
       </Html>
-    </e.group>
+    </group>
   );
 };
 
