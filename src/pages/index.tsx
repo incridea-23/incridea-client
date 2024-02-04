@@ -137,7 +137,7 @@ export const Menu: FC<{
     { href: "/pronites", target: "Pronite" },
     { href: "/gallery", target: "Gallery" },
     { href: "/about", target: "about" },
-    { href: "/sponsors", target: "Sponsors" },
+    // { href: "/sponsors", target: "Sponsors" },
   ];
 
   return (
