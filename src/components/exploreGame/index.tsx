@@ -33,6 +33,7 @@ const ExploreGame = () => {
   let audioElement: "ground" | "middle" | "left" | "right" | "jump" = "middle";
   const [isMuted, setIsMuted] = useState(true);
   const isMutedRef = useRef(isMuted);
+  const mainThemeAudioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     isMutedRef.current = isMuted;
@@ -689,6 +690,7 @@ const ExploreGame = () => {
     <>
       <ExploreNav />
       <AudioPlayer
+        mainThemeAudioRef={mainThemeAudioRef}
         mainTheme="/audio/Level1MainTheme.mp3"
         isMuted={isMuted}
         setIsMuted={setIsMuted}
