@@ -15,8 +15,8 @@ const SponsorCard: React.FunctionComponent<SponsorCardProps> = ({
 }) => {
   return (
     <div
-      className={`w-full md:w-[700px] md:max-w-full p-6 md:p-7 bg-primary-600 min-h-[300px] mt-3 flex flex-col md:flex-row gap-5 justify-between items-center rounded-3xl text-white ${
-        isEven ? "self-start" : "self-end"
+      className={`w-full md:w-[700px] md:max-w-full p-6 md:p-7 from-[#bc43a2] to-[#e18472] opacity-90 min-h-[300px] mt-3 flex flex-col md:flex-row gap-5 justify-between items-center rounded-3xl text-white ${
+        isEven ? "self-start bg-gradient-to-tr" : "self-end bg-gradient-to-tl"
       }`}
     >
       <div className="relative h-52 w-52 aspect-square flex justify-center items-center">
