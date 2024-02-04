@@ -1,18 +1,10 @@
-import { NextPage } from 'next';
-import Image from 'next/image';
+import { NextPage } from "next";
+import Image from "next/image";
 
 const Refund: NextPage = () => {
   return (
-    <div className="relative min-h-screen overflow-y-hidden overflow-x-hidden bg-gradient-to-bl  from-[#41acc9]  via-[#075985] to-[#2d6aa6] text-gray-100 p-5 sm:p-10">
+    <div className="relative min-h-screen overflow-y-hidden overflow-x-hidden bg-gradient-to-b from-primary-300 to-primary-500 text-gray-100 p-5 sm:p-10">
       <div className="w-full max-w-7xl mx-auto">
-        <Image
-          src="/assets/png/waterflare.png"
-          height={1000}
-          width={1000}
-          alt="flare"
-          className="absolute opacity-40 z-10 top-0 right-0"
-          priority
-        />
         <h1 className={`titleFont text-5xl mb-3 pt-24 text-center`}>
           Refund Policy
         </h1>
@@ -63,13 +55,13 @@ const Refund: NextPage = () => {
           <p className="mt-2">
             If you have any questions or concerns about our refund policy or
             payment process, please do not hesitate to contact our team. You can
-            reach us at{' '}
+            reach us at{" "}
             <a
               href="mailto:incridea@nmamit.in"
               className="cursor-pointer text-semibold underline"
             >
               incridea@nmamit.in
-            </a>{' '}
+            </a>{" "}
             or contact
             <span className="inline-block mr-1">
               +91 9620788383 (Technical committte)
@@ -81,7 +73,6 @@ const Refund: NextPage = () => {
             , and we will be happy to assist you.
           </p>
         </div>
-
       </div>
     </div>
   );
