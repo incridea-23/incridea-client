@@ -21,7 +21,9 @@ const AccommodationForm: FunctionComponent = () => {
   const [
     addAccommodation,
     { data, loading: emailVerificationLoading, error: emailVerificationError },
-  ] = useMutation(AddAccommodationRequestDocument);
+  ] = useMutation(AddAccommodationRequestDocument, {
+    refetchQueries: [AccommodationRequestsByUserDocument],
+  });
 
   const router = useRouter();
 

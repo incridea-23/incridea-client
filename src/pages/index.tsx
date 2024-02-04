@@ -12,7 +12,7 @@ import { NextRouter, useRouter } from "next/router";
 import { AuthStatus, useAuth } from "../hooks/useAuth";
 import { useQuery } from "@apollo/client";
 import { GetUserXpDocument } from "../generated/generated";
-import { is } from "@react-three/fiber/dist/declarations/src/core/utils";
+import GlitchAnimation from "../components/animation/glitchAnimation";
 
 export default function Landing() {
   const landingContainer = useRef(null);
@@ -239,38 +239,59 @@ const HomeUi: FC<{
     opacity: 1,
   });
 
+  const [time, setTime] = useState<{
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+  }>({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  function getRemaingTime() {
+    const eventDate = new Date("2024-02-22T09:00:00").getTime();
+    const currentDate = new Date().getTime();
+    const remainingTime = eventDate - currentDate;
+
+    const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor(
+      (remainingTime % (1000 * 60 * 60)) / (1000 * 60)
+    );
+    const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+    setTime({ days, hours, minutes, seconds });
+  }
+
+  useEffect(() => {
+    getRemaingTime();
+    const interval = setInterval(() => {
+      getRemaingTime();
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section
-      id="scene"
-      className="relative bg-gradient-to-b min-h-screen from-[#00002a] via-[#1c23bb] to-pink-800/50"
-    >
-      <div className="h-screen w-screen absolute">
-        <div id="foglayer_01" className="fog">
-          <div className="image01"></div>
-          <div className="image02"></div>
-        </div>
-        <div id="foglayer_02" className="fog">
-          <div className="image01"></div>
-          <div className="image02"></div>
-        </div>
-        <div id="foglayer_03" className="fog">
-          <div className="image01"></div>
-          <div className="image02"></div>
-        </div>
-      </div>
-      {userAuthStatus && (
-        <div>
-          <div className="top-0 p-2">
+    <>
+      <div className="flex fixed w-full z-50 justify-between md:p-4 p-2 items-start">
+        {userAuthStatus ? (
+          <div>
             <h3
               className={` text-lg md:text-2xl text-white tracking-widest z-10`}
             >
               <div className="flex flex-row space-x-1 items-center titleFont">
                 <Image
-                  src={"/assets/png/XP.webp"}
+                  src={"/assets/png/XP.png"}
                   width={100}
                   height={100}
                   alt="map"
-                  className="sm:h-10 sm:w-10 h-8 w-8"
+                  className="sm:h-12 sm:w-10 h-10 w-8"
                 />
 
                 <div className="text-lg flex flex-col items-center justify-center">
@@ -280,66 +301,98 @@ const HomeUi: FC<{
               </div>
             </h3>
           </div>
+        ) : (
+          <div></div>
+        )}
+
+        <div className="flex flex-col text-white justify-center items-center">
+          {/* <GlitchAnimation text={"GAME BEGINS IN"} /> */}
+          <GlitchAnimation
+            text={`${time.days < 10 ? `0${time.days}` : time.days} :${" "}
+            ${time.hours < 10 ? `0${time.hours}` : time.hours} :${" "}
+            ${time.minutes < 10 ? `0${time.minutes}` : time.minutes} :${" "}
+            ${time.seconds < 10 ? `0${time.seconds}` : time.seconds}`}
+          />
         </div>
-      )}
-      <div data-depth="0.5" className="absolute  h-screen w-screen ">
-        <div className="opacity-50 translate-y-16 h-[75vh] md:h-full absolute bottom-0 left-[50%] -translate-x-1/2 md:left-0 md:translate-x-0 md:w-full aspect-video  ">
+      </div>
+      <section
+        id="scene"
+        className="relative bg-gradient-to-b min-h-screen from-[#00002a] via-[#1c23bb] to-pink-800/50"
+      >
+        <div className="h-screen w-screen absolute">
+          <div id="foglayer_01" className="fog">
+            <div className="image01"></div>
+            <div className="image02"></div>
+          </div>
+          <div id="foglayer_02" className="fog">
+            <div className="image01"></div>
+            <div className="image02"></div>
+          </div>
+          <div id="foglayer_03" className="fog">
+            <div className="image01"></div>
+            <div className="image02"></div>
+          </div>
+        </div>
+
+        <div data-depth="0.5" className="absolute  h-screen w-screen ">
+          <div className="opacity-50 translate-y-16 h-[75vh] md:h-full absolute bottom-0 left-[50%] -translate-x-1/2 md:left-0 md:translate-x-0 md:w-full aspect-video  ">
+            <Image
+              src={"/assets/home/moon.png"}
+              alt="Gradient"
+              width={1920}
+              height={1080}
+              className="object-bottom  h-full w-full object-contain"
+            />
+          </div>
+        </div>
+        <div data-depth="0.4" className="h-screen w-screen absolute">
           <Image
-            src={"/assets/home/moon.png"}
+            src={"/assets/home/stars.png"}
             alt="Gradient"
             width={1920}
             height={1080}
-            className="object-bottom  h-full w-full object-contain"
+            className="w-full h-full object-center object-cover absolute "
           />
         </div>
-      </div>
-      <div data-depth="0.4" className="h-screen w-screen absolute">
-        <Image
-          src={"/assets/home/stars.png"}
-          alt="Gradient"
-          width={1920}
-          height={1080}
-          className="w-full h-full object-center object-cover absolute "
-        />
-      </div>
 
-      <div data-depth="0.3" className="absolute h-screen w-screen">
-        <div className="h-full absolute aspect-video right-0  translate-x-[18%]  sm:translate-x-[12%] md:translate-x-[10%] bottom-0 lg:translate-x-[4%] translate-y-[3%]">
-          <Image
-            src={"/assets/home/portal.png"}
-            alt="Portal"
-            width={2050}
-            height={1080}
-            className="w-full h-full object-cover object-right-bottom  "
-          />
+        <div data-depth="0.3" className="absolute h-screen w-screen">
+          <div className="h-full absolute aspect-video right-0  translate-x-[18%]  sm:translate-x-[12%] md:translate-x-[10%] bottom-0 lg:translate-x-[4%] translate-y-[3%]">
+            <Image
+              src={"/assets/home/portal.png"}
+              alt="Portal"
+              width={2050}
+              height={1080}
+              className="w-full h-full object-cover object-right-bottom  "
+            />
+          </div>
         </div>
-      </div>
-      <div
-        data-depth="0.2"
-        className="absolute flex  items-center  justify-center h-screen w-screen"
-      >
-        <div className="w-fit mx-auto p-5 mt-[3%]" ref={Logo}>
-          <Image
-            src={"/assets/home/DoD.png"}
-            width={640}
-            height={640}
-            alt="Dice of Destiny"
-            className="object-center max-w-xl w-full h-fit object-contain"
-          />
+        <div
+          data-depth="0.2"
+          className="absolute flex  items-center  justify-center h-screen w-screen"
+        >
+          <div className="w-fit mx-auto p-5 mt-[3%]" ref={Logo}>
+            <Image
+              src={"/assets/home/DoD.png"}
+              width={640}
+              height={640}
+              alt="Dice of Destiny"
+              className="object-center max-w-xl w-full h-fit object-contain"
+            />
+          </div>
         </div>
-      </div>
-      <div data-depth="0.1" className="absolute h-screen w-screen">
-        <div className="h-full absolute aspect-video left-0 -translate-x-[20%] sm:-translate-x-[18%]  md:-translate-x-[12%] bottom-0 lg:-translate-x-[10%] translate-y-[3%]   ">
-          <Image
-            src={"/assets/home/ryoko.png"}
-            id="Ryoko"
-            alt="Ryoko looking at portal"
-            width={1920}
-            height={1080}
-            className="w-full h-full object-cover object-left-bottom"
-          />
+        <div data-depth="0.1" className="absolute h-screen w-screen">
+          <div className="h-full absolute aspect-video left-0 -translate-x-[20%] sm:-translate-x-[18%]  md:-translate-x-[12%] bottom-0 lg:-translate-x-[10%] translate-y-[3%]   ">
+            <Image
+              src={"/assets/home/ryoko.png"}
+              id="Ryoko"
+              alt="Ryoko looking at portal"
+              width={1920}
+              height={1080}
+              className="w-full h-full object-cover object-left-bottom"
+            />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };

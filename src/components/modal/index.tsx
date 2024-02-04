@@ -8,7 +8,7 @@ type ModalProps = {
   /**
    * size = 'small' is suited for confirmation modals with just a title and footer buttons. Caps width at 20rem
    */
-  size?: "small" | "medium";
+  size?: "small" | "medium" | "md";
   onClose: () => void;
   showModal: boolean;
   rounded?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "full";
@@ -39,8 +39,8 @@ const Modal: FC<ModalProps> = ({
 
         <div
           className={`fixed inset-0 z-10 p-4 md:p-8 overflow-y-auto ${
-            size === "small" && "w-80 mx-auto"
-          }`}
+            size === "small" && "md:w-80 w-64 mx-auto"
+          } ${size === "md" && `md:w-[30rem] w-[16rem] mx-auto `}`}
         >
           <div className="flex min-h-full items-center justify-center text-center py-5 md:py-7">
             <Transition.Child
@@ -69,12 +69,12 @@ const Modal: FC<ModalProps> = ({
                     {title}
                   </h3>
                   {/* {size !== "small" && ( */}
-                    <button
-                      className="hover:text-white text-gray-400 transition-colors cursor-pointer z-[50000]"
-                      onClick={onClose}
-                    >
-                      <IoClose size="1.4rem" />
-                    </button>
+                  <button
+                    className="hover:text-white text-gray-400 transition-colors cursor-pointer z-[50000]"
+                    onClick={onClose}
+                  >
+                    <IoClose size="1.4rem" />
+                  </button>
                   {/* )} */}
                 </Dialog.Title>
                 {size !== "small" && <hr className="opacity-30" />}
