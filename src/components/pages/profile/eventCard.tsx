@@ -29,7 +29,7 @@ const EventCard: FC<{
         )
       }
       key={event.id}
-      className="bg-primary-500 border border-primary-200/70 flex justify-evenly items-start w-full h-full rounded-lg p-5 cursor-pointer hover:scale-[1.01] transition-transform duration-300"
+      className="bg-primary-400 border border-primary-200/70 flex justify-evenly items-start w-full h-full rounded-lg p-5 cursor-pointer hover:scale-[1.01] transition-transform duration-300"
     >
       <div className="flex flex-col justify-center items-center">
         <div className="relative">
@@ -41,7 +41,7 @@ const EventCard: FC<{
             width={300}
             className="rounded-xl"
           />
-          <h1 className="absolute bottom-0 text-center w-full pb-3 text-xl font-bold rounded-xl text-white bg-gradient-to-t from-black to-transparent">
+          <h1 className="absolute bottom-0 text-center w-full pb-3 text-sm md:text-xl font-bold rounded-xl text-white bg-gradient-to-t from-black to-transparent">
             {event.name}
           </h1>
         </div>
@@ -49,13 +49,13 @@ const EventCard: FC<{
           <div className="flex flex-wrap justify-between gap-2 text-gray-200">
             <div className="w-full justify-center flex items-center border border-secondary-400/40 gap-2 text-left bg-primary-200/30 py-1 rounded-full px-3">
               <IoLocationOutline />
-              <p className="text-sm font-medium text-ellipsis overflow-hidden">
+              <p className="text-xs md:text-sm font-medium truncate">
                 {event?.venue}
               </p>
             </div>
             <div className="w-full justify-center flex items-center border border-secondary-400/40 gap-2 text-left bg-primary-200/30 py-1 rounded-full px-3">
               <RiNumbersLine />
-              <p className="text-sm font-medium text-center">
+              <p className="text-xs md:text-sm font-medium text-center">
                 {event?.rounds.length} Round{event?.rounds.length > 1 && "s"}
               </p>
             </div>
