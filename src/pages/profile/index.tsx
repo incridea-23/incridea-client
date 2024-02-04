@@ -53,7 +53,7 @@ const Profile: NextPage = () => {
 
   if (!user)
     return (
-      <div className="flex flex-col text-center space-y-3 items-center justify-center h-screen bg-gradient-to-b from-slate-800  via-slate-600 to-slate-500">
+      <div className="flex flex-col text-center space-y-3 items-center justify-center h-screen bg-gradient-to-b from-primary-300 to-primary-500">
         {/* Todo: Any graphic to fill space */}
         <div className="flex z-10 justify-center items-center h-96 mt-8">
           <Image
