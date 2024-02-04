@@ -122,7 +122,7 @@ const HomeFooter = () => {
         >
           Made with <BsFillSuitHeartFill className="mx-2" /> by Technical Team
         </Link>
-        © Incridea 2023
+        © Incridea 2024
       </p>
     </footer>
   );
@@ -137,7 +137,7 @@ export const Menu: FC<{
     { href: "/pronites", target: "Pronite" },
     { href: "/gallery", target: "Gallery" },
     { href: "/about", target: "about" },
-    { href: "/sponsors", target: "Sponsors" },
+    // { href: "/sponsors", target: "Sponsors" },
   ];
 
   return (

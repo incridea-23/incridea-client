@@ -37,7 +37,7 @@ const RoundAddModal: FC<{
   // console.log(data, error);
   const closeModal = () => {
     setIsOpen(false);
-    setDateTime(new Date(2023, 3, 26, 14, 30));
+    setDateTime(new Date(2024, 2, 22, 14, 30));
   };
 
   const openModal = () => {

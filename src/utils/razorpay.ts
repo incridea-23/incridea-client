@@ -34,11 +34,11 @@ export const makePayment = async (setSDKLoading?: (arg1: any) => void) => {
   ) {
     const options = {
       key: process.env.RAZORPAY_KEY,
-      name: "Incridea 2023",
+      name: "Incridea 2024",
       currency: "INR",
       amount: data.createPaymentOrder.data.amount,
       order_id: data.createPaymentOrder.data.orderId,
-      description: "Incridea 2023 Registration",
+      description: "Incridea 2024 Registration",
       image: "/logo.png",
       handler: function (response: any) {
         client.refetchQueries({
@@ -84,7 +84,7 @@ export const makeTeamPayment = async (
   ) {
     const options = {
       key: process.env.RAZORPAY_KEY,
-      name: "Incridea 2023",
+      name: "Incridea 2024",
       currency: "INR",
       amount: data.eventPaymentOrder.data.amount,
       order_id: data.eventPaymentOrder.data.orderId,
