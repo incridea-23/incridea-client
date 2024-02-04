@@ -49,7 +49,8 @@ const AccommodateTab: FC = () => {
                   (acc, idx) => (
                     <div
                       key={acc?.id}
-                      className={`bg-white/10 md:rounded-none rounded-lg md:p-4 ml-2 p-3 flex flex-col md:flex-row md:items-center items-start md:justify-center  mb-3 md:my-0`}>
+                      className={`bg-white/10 md:rounded-none rounded-lg md:p-4 ml-2 p-3 flex flex-col md:flex-row md:items-center items-start md:justify-center  mb-3 md:my-0`}
+                    >
                       <h1 className="basis-1/6 flex justify-start py-0.5 text-start text-lg">
                         {acc?.user?.name}
                       </h1>
@@ -58,12 +59,22 @@ const AccommodateTab: FC = () => {
                       </h1>
                       <h1 className="basis-1/6 flex justify-center py-0.5 text-center text-sm">
                         {acc?.checkIn
-                          ? new Date(Date.parse(acc?.checkIn)).toString()
+                          ? new Date(Date.parse(acc?.checkIn)).toLocaleString(
+                              "en-IN",
+                              {
+                                timeZone: "Asia/Kolkata",
+                              }
+                            )
                           : "Not Available"}
                       </h1>
                       <h1 className="basis-1/6 flex justify-center py-0.5 text-center text-sm">
-                        {acc?.checkOut
-                          ? new Date(Date.parse(acc?.checkOut)).toString()
+                        {acc?.checkIn
+                          ? new Date(Date.parse(acc?.checkOut)).toLocaleString(
+                              "en-IN",
+                              {
+                                timeZone: "Asia/Kolkata",
+                              }
+                            )
                           : "Not Available"}
                       </h1>
                       <h1 className="basis-1/6 flex justify-center py-0.5 text-center text-lg">
@@ -77,7 +88,8 @@ const AccommodateTab: FC = () => {
                           acc?.status == "CONFIRMED"
                             ? "border-green-500 text-green-500"
                             : "border-red-500 text-red-500"
-                        }`}>
+                        }`}
+                      >
                         {acc?.status}
                       </h1>
                       <h1 className="basis-1/6 py-0.5 flex text-center justify-center bg-slate text-lg">

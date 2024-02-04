@@ -8,8 +8,6 @@ import AccommodateTab from "@/src/components/pages/dashboard/accommodate/Accomod
 import { AccommodationRequestsDocument } from "@/src/generated/generated";
 import { useQuery } from "@apollo/client";
 
-
-
 const Accommodate: NextPage = () => {
   const router = useRouter();
   const { user, loading } = useAuth();
@@ -20,7 +18,6 @@ const Accommodate: NextPage = () => {
     error,
     refetch: submissionsRefetch,
   } = useQuery(AccommodationRequestsDocument);
-
 
   if (loading)
     return (
@@ -38,7 +35,8 @@ const Accommodate: NextPage = () => {
   // 2. Redirect to profile if user is not a admin
   // if (user && user.role !== 'ADMIN') router.push('/profile');
   // 2. Redirect to profile if user is not a accommodation committee member
-  if (data?.accommodationRequests.__typename === "Error") router.push("/profile");
+  if (data?.accommodationRequests.__typename === "Error")
+    router.push("/profile");
   return (
     <Dashboard>
       <Toaster />
