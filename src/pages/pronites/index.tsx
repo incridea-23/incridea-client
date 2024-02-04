@@ -10,9 +10,11 @@ import {
 } from "@react-three/drei";
 import { IoMdMicrophone } from "react-icons/io";
 import Image from "next/image";
+import { SlVolume2, SlVolumeOff } from "react-icons/sl";
 
 export default function App() {
   const dhvaniAudioRef = useRef<HTMLAudioElement>(null);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
 
   useEffect(() => {
     dhvaniAudioRef.current?.play();
@@ -40,11 +42,27 @@ export default function App() {
           </div>
         </div>
       </div>
+
+      <button
+        onClick={() => {
+          if (dhvaniAudioRef.current) dhvaniAudioRef.current.muted = !isMuted;
+          setIsMuted(!isMuted);
+        }}
+        className="absolute text-white top-[72px] right-3 z-50 cursor-pointer"
+      >
+        {isMuted ? (
+          <SlVolumeOff className="w-8 h-8 transition-colors duration-150" />
+        ) : (
+          <SlVolume2 className="w-8 h-8 transition-colors duration-150" />
+        )}
+      </button>
+
       <audio
         ref={dhvaniAudioRef}
         loop={true}
         src="/assets/mp3/DhvaniBhanushali.mp3"
       ></audio>
+
       <Canvas
         style={{ height: "100vh", width: "100vw" }}
         gl={{ alpha: false }}
