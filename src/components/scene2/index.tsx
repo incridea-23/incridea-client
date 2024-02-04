@@ -6,10 +6,10 @@ import {
   useAnimations,
   useScroll,
   useFBX,
-  Float,
 } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 import { useFrame } from "@react-three/fiber";
+import ProniteAnnotation from "./proniteAnnotation";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -212,7 +212,9 @@ export default function Scene2(props: JSX.IntrinsicElements["group"]) {
           geometry={nodes.ground2.geometry}
           material={materials.final_C}
           position={[-10.205, -5.532, 5.841]}
-        />
+        >
+          <ProniteAnnotation />
+        </mesh>
         <mesh
           name="ground3"
           castShadow
@@ -245,24 +247,22 @@ export default function Scene2(props: JSX.IntrinsicElements["group"]) {
           material={materials["Woosh.012"]}
           position={[-18.755, -3.637, 5.211]}
         />
-        <Float>
-          <group name="mask001" position={[-18.487, -4.377, 5.52]}>
-            <mesh
-              name="Plane001"
-              castShadow
-              receiveShadow
-              geometry={nodes.Plane001.geometry}
-              material={materials["Cloth3.002"]}
-            />
-            <mesh
-              name="Plane001_1"
-              castShadow
-              receiveShadow
-              geometry={nodes.Plane001_1.geometry}
-              material={materials["Cloth3.003"]}
-            />
-          </group>
-        </Float>
+        <group name="mask001" position={[-18.487, -4.377, 5.52]}>
+          <mesh
+            name="Plane001"
+            castShadow
+            receiveShadow
+            geometry={nodes.Plane001.geometry}
+            material={materials["Cloth3.002"]}
+          />
+          <mesh
+            name="Plane001_1"
+            castShadow
+            receiveShadow
+            geometry={nodes.Plane001_1.geometry}
+            material={materials["Cloth3.003"]}
+          />
+        </group>
         <group>
           <mesh
             name="mask_acc_2"
