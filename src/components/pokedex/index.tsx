@@ -1,13 +1,9 @@
-import Button from "@/src/components/button";
-import Carousel from "@/src/components/slider";
 import { useEffect, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
-import Link from "next/link";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import Carousel from "@/src/components/slider";
 import { IoMdClose } from "react-icons/io";
 import useStore from "../store/store";
-
 import Link from "next/link";
 import Button from "@/src/components/button";
 import toast from "react-hot-toast";
@@ -20,34 +16,11 @@ interface DexProps {
 
 interface DexProps {
   data?: Array<{ id: string; name: string; image: string }>;
-  isMuted: boolean;
-  mainThemeAudioRef: React.MutableRefObject<HTMLAudioElement | null>;
 }
 
-const Pokedex: React.FC<DexProps> = ({
-  data = [],
-  isMuted,
-  mainThemeAudioRef,
-}) => {
+const Pokedex: React.FC<DexProps> = ({ data = [] }) => {
   const setEventDex = useStore((state) => state.setEventDex);
   const eventDex = useStore((state) => state.eventDex);
-
-  useEffect(() => {
-    const audio = new Audio("/audio/level2/pokemon.mp3");
-    audio.volume = 0.3;
-    let mainRef = mainThemeAudioRef;
-    if (isMuted) {
-      return;
-    } else if (!isMuted && eventDex) {
-      mainRef?.current?.pause();
-      audio.play();
-    }
-    return () => {
-      audio.pause();
-      mainRef?.current?.play();
-    };
-  }, [eventDex, isMuted, mainThemeAudioRef]);
-
   const [fullyOpen, setFullyOpen] = useState(false);
   const [calledXp, setCalledXp] = useState(false);
   let mutationCalled = false;
@@ -66,7 +39,18 @@ const Pokedex: React.FC<DexProps> = ({
     }
     setCalledXp(true);
     const promise = addXp().then((res) => {
-      if (res.data?.addXP.__typename === "MutationAddXPSuccess") {
+      if (res.data?.addXP.__typename !== "MutationAddXPSuccess") {
+        toast.error(
+          `Opps!! You have already claimed your xp or not logged in`,
+          {
+            position: "bottom-center",
+            style: {
+              backgroundColor: "#7628D0",
+              color: "white",
+            },
+          }
+        );
+      } else {
         toast.success(
           `Congratulations!!! You have found ${res.data?.addXP.data.level.point} Xp`,
           {
@@ -94,9 +78,9 @@ const Pokedex: React.FC<DexProps> = ({
       .set(".carousel-container", { opacity: 0 });
 
     // Opening animation
-    tl.to(".animate-1", { y: -20, duration: 1, delay: 0.1 })
-      .to(".animate-3", { y: 40, duration: 1 }, "<")
-      .to(".carousel-container", { opacity: 1, duration: 3 }, "<");
+    tl.to(".animate-1", { y: -20, duration: 2, delay: 1 })
+      .to(".animate-3", { y: 40, duration: 2 }, "<")
+      .to(".carousel-container", { opacity: 1, duration: 3 }, "<")
       .call(() => {
         console.log("Fully open")
         setFullyOpen(true);

@@ -6,8 +6,6 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { AiFillSound, AiOutlineSound } from "react-icons/ai";
-import { IoVolumeHigh, IoVolumeMute } from "react-icons/io5";
 import { MdArrowRightAlt } from "react-icons/md";
 import Typewriter from "typewriter-effect";
 import Button from "../button";
@@ -18,6 +16,7 @@ import {
   platformDimensions,
   platformSpriteDimensions,
 } from "./gameConstants";
+import { IoVolumeHigh, IoVolumeMute } from "react-icons/io5";
 
 const actionKeys: string[] = [];
 const ExploreGame = () => {
@@ -32,26 +31,17 @@ const ExploreGame = () => {
   const lastExecutionTimeRef = useRef<number>(0);
   let audioElement: "ground" | "middle" | "left" | "right" | "jump" = "middle";
   const [isMuted, setIsMuted] = useState(true);
-  const isMutedRef = useRef(isMuted);
-
-  useEffect(() => {
-    isMutedRef.current = isMuted;
-  }, [isMuted]);
+  let sfxMuted = true;
 
   function movementSoundTrigger(path: string, delay: number) {
-    if (isMutedRef.current) {
-      return;
-    }
     const currentTime = Date.now();
     const elapsedTime = currentTime - lastExecutionTimeRef.current;
-    const isJump = path === "/audio/jump.mp3" ? true : false;
+    // console.log(isMuted);
 
     if (elapsedTime >= delay) {
-      if (isJump && audioElement === "jump") {
-        return;
-      }
       const audio = new Audio(path);
       audio.play();
+
       lastExecutionTimeRef.current = currentTime;
     }
   }
@@ -169,7 +159,6 @@ const ExploreGame = () => {
   }
 
   function Jump() {
-    movementSoundTrigger("/audio/jump.mp3", 250);
     audioElement = "jump";
     if (isGrounded) {
       velocity.current.y = -Math.sqrt(
@@ -180,6 +169,7 @@ const ExploreGame = () => {
       );
       isGrounded = false;
     }
+    movementSoundTrigger("/audio/jump.mp3", 250);
   }
 
   const keyboardDownEventHandler = (e: KeyboardEvent) => {
@@ -384,7 +374,7 @@ const ExploreGame = () => {
       // Standing on the ground
       if (audioElement !== "ground") {
         audioElement = "ground";
-        movementSoundTrigger("/audio/thud.mp3", 300);
+        movementSoundTrigger("/audio/thud.mp3", 0);
       }
       isGrounded = true;
       player.current.y = window.innerHeight * 1.62 - player.current.height;
@@ -411,7 +401,7 @@ const ExploreGame = () => {
       isGrounded = true;
       if (audioElement !== "left") {
         audioElement = "left";
-        movementSoundTrigger("/audio/thump.mp3", 300);
+        movementSoundTrigger("/audio/thump.mp3", 250);
       }
 
       if (showScheduleFlag) {
@@ -462,7 +452,7 @@ const ExploreGame = () => {
       // Standing on the right platform
       if (audioElement !== "right") {
         audioElement = "right";
-        movementSoundTrigger("/audio/thump.mp3", 300);
+        movementSoundTrigger("/audio/thump.mp3", 0);
       }
       isGrounded = true;
       if (showRuleBookFlag) {
@@ -512,7 +502,7 @@ const ExploreGame = () => {
       // Standing on the central platform
       if (audioElement !== "middle") {
         audioElement = "middle";
-        movementSoundTrigger("/audio/thump.mp3", 300);
+        movementSoundTrigger("/audio/thump.mp3", 0);
       }
       isGrounded = true;
       if (showAboutFlag) {
@@ -542,7 +532,7 @@ const ExploreGame = () => {
       velocity.current.y = 0;
 
       /* ######### EASTER EGG GOES HERE ######### */
-      movementSoundTrigger("/audio/thud.mp3", 300);
+      movementSoundTrigger("/audio/thud.mp3", 250);
       handleAddXp();
       //replace with xp sound
       return;
@@ -683,73 +673,14 @@ const ExploreGame = () => {
     };
   }, [scrollY]);
 
-  const mainThemeAudioRef = useRef<HTMLAudioElement | null>(null);
   return (
     <>
       <ExploreNav />
       <AudioPlayer
-        mainThemeAudioRef={mainThemeAudioRef}
         mainTheme="/audio/Level1MainTheme.mp3"
         isMuted={isMuted}
         setIsMuted={setIsMuted}
       ></AudioPlayer>
-      {/* <div className={"sticky h-0 top-20 z-[60]"}>
-        <audio
-          ref={mainThemeAudioRef}
-          loop
-          muted={isMuted}
-          autoPlay
-          playsInline
-        >
-          <source src={"/audio/Level1MainTheme.mp3"} type="audio/mp3" />
-          Your browser does not support the audio element.
-        </audio>
-
-        <button
-          onClick={handleTogglePlayback}
-          className={styles["audio-player-button"]}
-        >
-          {isMuted && (
-            <AiOutlineSound className="w-8 h-8 transition-colors duration-150" />
-          )}
-          {!isMuted && (
-            <AiFillSound className="w-8 h-8 transition-colors duration-150" />
-          )}
-        </button>
-        <div className={styles["audio-player-volume"]}>
-          <label htmlFor="volumeSlider"></label>
-          <input
-            id="volumeSlider"
-            type="range"
-            min="0"
-            max="100"
-            value={volume}
-            onChange={handleVolumeChange}
-            className="w-28"
-          />
-        </div>
-        <Modal
-          size="small"
-          title="Do you want audio?"
-          showModal={modal}
-          onClose={() => setModal(false)}
-        >
-          <div className="flex justify-center gap-x-4 py-4">
-            <Button
-              size={"small"}
-              onClick={() => {
-                handleYes();
-              }}
-            >
-              Yes
-            </Button>
-
-            <Button size={"small"} onClick={() => handleNo()}>
-              No
-            </Button>
-          </div>
-        </Modal>
-      </div> */}
       <div className="h-[200vh] relative">
         <div className="hidden">
           <img
