@@ -87,31 +87,21 @@ const Register: NextPage = () => {
             Terms and Conditions
           </h2>
           <p className="mt-2">
-            Four different categories of participants are permitted to
-            participate:
+          Two different categories of participants are permitted to participate:
           </p>
           <ol className="mt-2 list-decimal pl-4">
             <li>
               {" "}
-              NMAM Institute of Technology students who pay ₹200 will have
-              access to all events and pronites
+              Students of NMAM Institute of Technology, who pays ₹250 will have access to all events and
+ pronites
+
             </li>
             <li>
               {" "}
-              Engineering college students, other than NMAMIT, who pay ₹300 will
-              have access to all events and pronites.
+              Students of external engineering and sister Nitte colleges, who pays ₹350 will have access to all
+ events and pronites.
             </li>
-            <li>
-              Non-engineering college and Nitte sister college students who pay
-              ₹300 will have access only to Core Events and pronites.
-            </li>
-            <li>
-              {" "}
-              Invite-only participants who pay ₹150 will have access to the one
-              core event they were invited to. If the invite-only participant is
-              a college student and wants to attend pronite, they will have to
-              register as given in point 3.
-            </li>
+            
           </ol>
           <div className="mt-2">
             <Link
