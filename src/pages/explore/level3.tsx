@@ -1,10 +1,12 @@
 import Scene2 from "@/src/components/scene2";
 import { ScrollControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import ExploreNav from "@/src/components/explore/exploreNav";
 
 export default function Level3() {
   return (
     <div className="w-full h-screen">
+      <ExploreNav />
       <Canvas>
         <directionalLight
           color={"#ffb647"}

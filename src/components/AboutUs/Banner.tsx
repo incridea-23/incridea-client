@@ -26,7 +26,7 @@ const Banner: React.FC<BannerProps> = ({ photo, text, video, credits }) => {
         </div>
       )}
       {video && (
-        <div className="absolute w-full h-full md:h-screen lg:h-screen xl:h-screen md:min-h-[396px] md:max-h-[525px] lg:min-h-[620px] lg:max-h-[640px] xl:min-h-[720px] xl:max-h-[780px] 2xl:h-[800px] flex justify-stretch">
+        <div className="absolute w-full h-full justify-center items-center md:h-screen lg:h-screen xl:h-screen md:min-h-[396px] md:max-h-[525px] lg:min-h-[620px] lg:max-h-[640px] xl:min-h-[720px] xl:max-h-[780px] 2xl:h-[800px] flex justify-stretch">
           <ReactPlayer
             url={video}
             playing

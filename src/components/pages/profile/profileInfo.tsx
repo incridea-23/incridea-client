@@ -32,7 +32,7 @@ const ProfileInfo: FC<{
   const [showModal, setShowModal] = useState(false);
   const [avatarModal, setAvatarModal] = useState(false);
 
-  if (user?.role === "USER") {
+  if (user && user.role === "USER") {
     router.push("/register");
   }
 
@@ -152,7 +152,7 @@ const ProfileInfo: FC<{
   }, [Leaderboard, userId]);
 
   return (
-    <div className="bg-primary-500 text-white flex flex-col justify-between items-center h-full px-4 md:px-8 py-4 md:py-8 border border-primary-200/80 rounded-xl">
+    <div className="bg-primary-500 text-white flex flex-col justify-between items-center min-h-screen px-4 md:px-8 py-4 md:py-8 border border-primary-200/80 rounded-xl">
       <div className="flex gap-5 flex-col">
         <div
           className="justify-center items-start flex"
