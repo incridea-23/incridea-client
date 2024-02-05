@@ -118,11 +118,11 @@ const HomeFooter = () => {
       <p className="text-center p-5 text-sm">
         <Link
           className="flex justify-center items-center tracking-normal transition-all hover:tracking-widest hover:text-gray-300"
-          href="/team"
+          href="/"
         >
           Made with <BsFillSuitHeartFill className="mx-2" /> by Technical Team
         </Link>
-        Â© Incridea 2024
+        © Incridea 2024
       </p>
     </footer>
   );
