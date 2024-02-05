@@ -25,7 +25,7 @@ const MainMenuModal: React.FunctionComponent<Props> = ({
   const navItems = [
     { href: "/profile", target: "Profile" },
     { href: "/events", target: "Events" },
-    { href: "/pronites", target: "Pronite" },
+    { href: "/pronites", target: "Pronites" },
     { href: "/", target: "Exit" },
   ];
   return (
