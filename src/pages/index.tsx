@@ -189,7 +189,7 @@ export const Menu: FC<{
               className="lg:hidden !bg-primary-800/70 block w-52 md:w-80 justify-center md:justify-end px-12 md:px-16"
               size={"xlarge"}
               onClick={() => {
-                router.push("/explore/level1");
+                router.push("/explore");
               }}
             >
               Explore
