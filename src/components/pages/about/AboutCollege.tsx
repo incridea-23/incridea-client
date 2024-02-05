@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { FC } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { baseImageUrl } from "@/src/utils/url";
 
 const AboutCollege: FC = () => {
   let { scrollYProgress } = useScroll();
@@ -10,7 +11,7 @@ const AboutCollege: FC = () => {
       <div className="relative h-96 w-full overflow-hidden">
         <motion.div style={{ y }} className="relative w-full h-full">
           <Image
-            src="/assets/png/collegeAbout.png"
+            src={`${baseImageUrl}/assets/png/collegeAbout.png`}
             alt="college Banner"
             width={500}
             height={500}
@@ -27,7 +28,7 @@ const AboutCollege: FC = () => {
 
       <div className="flex flex-col lg:flex-row justify-center items-center gap-10 lg:gap-20 lg:p-10 p-5 basis-1/2 my-5">
         <Image
-          src="/assets/png/nitteLogoWhite.png"
+          src={`${baseImageUrl}/assets/png/nitteLogoWhite.png`}
           alt="Incridea Logo"
           width={600}
           height={600}

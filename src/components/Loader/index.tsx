@@ -2,6 +2,7 @@ import { useEffect, useState, type FC } from "react";
 import Image from "next/image";
 import styles from "./loader.module.css";
 import { useRouter } from "next/router";
+import { baseImageUrl } from "@/src/utils/url";
 
 const Loader: FC = () => {
   const router = useRouter();
@@ -49,7 +50,7 @@ const Loader: FC = () => {
             className={`${
               open ? styles.mountbl : styles.unmountbl
             } absolute object-cover h-screen w-full object-center `}
-            src={`/assets/loader/cloudbl.png`}
+            src={`${baseImageUrl}/assets/loader/cloudbl.png`}
             alt="cloud-bg"
             height={1080}
             width={1920}
@@ -58,7 +59,7 @@ const Loader: FC = () => {
             className={`${
               open ? styles.mounttr : styles.unmounttr
             } absolute object-cover h-screen w-full object-center `}
-            src={`/assets/loader/cloudtr.png`}
+            src={`${baseImageUrl}/assets/loader/cloudtr.png`}
             alt="cloud-bg"
             height={1080}
             width={1920}
@@ -66,14 +67,14 @@ const Loader: FC = () => {
           <div className="h-screen w-full flex flex-col justify-center items-center">
             <Image
               className={`${styles.fadeinlogo} animate-pulse w-44 h-auto`}
-              src={"/assets/png/logo-black.png"}
+              src={`${baseImageUrl}/assets/png/logo-black.png`}
               alt="logo"
               height={250}
               width={250}
             />
             <Image
               className={`${styles.fadeinlogo} animate-pulse w-auto h-auto`}
-              src={"/assets/loader/dodLogo.png"}
+              src={`${baseImageUrl}/assets/loader/dodLogo.png`}
               alt="logo"
               height={250}
               width={250}
@@ -82,7 +83,7 @@ const Loader: FC = () => {
           <div className="absolute top-0 left-0  h-screen w-full px-4 flex items-center justify-center ">
             <div className={`pointer-events-none ${styles.animateMagnifier}`}>
               <Image
-                src={`/assets/loader/magnifier.png`}
+                src={`${baseImageUrl}/assets/loader/magnifier.png`}
                 className="w-16 h-auto"
                 height={100}
                 width={100}
@@ -97,14 +98,14 @@ const Loader: FC = () => {
         >
           <Image
             className={`${styles.unmountblsecond} absolute object-cover h-screen w-screen object-center `}
-            src={`/assets/loader/cloudbl.png`}
+            src={`${baseImageUrl}/assets/loader/cloudbl.png`}
             alt="cloud-bg"
             height={1000}
             width={1000}
           />
           <Image
             className={`${styles.unmounttrsecond} absolute object-cover h-screen w-screen object-center `}
-            src={`/assets/loader/cloudtr.png`}
+            src={`${baseImageUrl}/assets/loader/cloudtr.png`}
             alt="cloud-bg"
             height={1000}
             width={1000}
@@ -114,14 +115,14 @@ const Loader: FC = () => {
           >
             <Image
               className={`${styles.fadelogo} w-44 h-auto`}
-              src={"/assets/png/logo-black.png"}
+              src={`${baseImageUrl}/assets/png/logo-black.png`}
               alt="logo"
               height={250}
               width={250}
             />
             <Image
               className={`${styles.fadelogo} w-auto h-auto`}
-              src={"/assets/loader/dodLogo.png"}
+              src={`${baseImageUrl}/assets/loader/dodLogo.png`}
               alt="logo"
               height={250}
               width={250}
@@ -132,7 +133,7 @@ const Loader: FC = () => {
           >
             <div className={`pointer-events-none ${styles.animateMagnifier}`}>
               <Image
-                src={`/assets/loader/magnifier.png`}
+                src={`${baseImageUrl}/assets/loader/magnifier.png`}
                 className="w-16 h-auto"
                 height={100}
                 width={100}

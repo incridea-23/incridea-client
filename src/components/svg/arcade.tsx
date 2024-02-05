@@ -1,3 +1,4 @@
+import { baseImageUrl } from "@/src/utils/url";
 import Image from "next/image";
 import React from "react";
 
@@ -18,7 +19,7 @@ function Arcade() {
           height={482}
           width={256}
           className="w-full h-full rounded-lg"
-          src="/assets/gif/nosignal.gif"
+          src={`${baseImageUrl}/assets/gif/nosignal.gif`}
           alt="no signal"
           priority
         />

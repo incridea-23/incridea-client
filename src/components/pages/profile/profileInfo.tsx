@@ -18,6 +18,7 @@ import Spinner from "../../spinner";
 import ViewUserAccommodation from "./viewUserAccommodation";
 import AvatarModal from "./avatarModal";
 import { RiHotelBedLine } from "react-icons/ri";
+import { baseImageUrl } from "@/src/utils/url";
 
 const ProfileInfo: FC<{
   user: User | null | undefined;
@@ -186,7 +187,7 @@ const ProfileInfo: FC<{
           <div className="flex justify-between items-center text-lg">
             <div className="flex flex-row space-x-2 items-center ">
               <Image
-                src={"/assets/png/XP.webp"}
+                src={`${baseImageUrl}/assets/png/XP.webp`}
                 width={20}
                 height={20}
                 alt="map"
@@ -197,7 +198,7 @@ const ProfileInfo: FC<{
             <div className="flex flex-row space-x-1 items-center">
               <p>Level {level}</p>
               <Image
-                src={"/assets/png/level.png"}
+                src={`${baseImageUrl}/assets/png/level.png`}
                 width={25}
                 height={25}
                 alt="map"
@@ -210,7 +211,7 @@ const ProfileInfo: FC<{
       <div className="text-xs md:text-lg flex flex-row items-center justify-between space-x-2 border border-primary-200/30 rounded-full w-full px-5 py-1">
         <div className="flex items-center gap-2">
           <Image
-            src={"/assets/png/trophy.png"}
+            src={`${baseImageUrl}/assets/png/trophy.png`}
             width={100}
             height={100}
             alt="map"

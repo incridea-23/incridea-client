@@ -6,6 +6,7 @@ import { useState } from "react";
 import Image from "next/image";
 import FallingItem from "../components/login/fallingItem";
 import EasterBomb from "../components/login/easterBomb";
+import { baseImageUrl } from "../utils/url";
 
 type CardStyle = {
   top: string;
@@ -91,7 +92,7 @@ const SignIn: NextPage = () => {
       <Image
         fill={true}
         className="object-cover mt-16"
-        src={"/assets/svg/loginBG.svg"}
+        src={`${baseImageUrl}/assets/svg/loginBG.svg`}
         alt={"loginBG"}
         quality={100}
         priority

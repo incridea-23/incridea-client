@@ -2,6 +2,7 @@ import LoginPortal from "@/src/components/login/portal";
 import ResetPassword from "../../components/form/resetPassword";
 import { NextPage } from "next";
 import Image from "next/image";
+import { baseImageUrl } from "@/src/utils/url";
 
 const Reset: NextPage = () => {
   return (
@@ -11,7 +12,7 @@ const Reset: NextPage = () => {
       <Image
         fill={true}
         className="object-cover mt-16"
-        src={"/assets/svg/loginBG.svg"}
+        src={`${baseImageUrl}/assets/svg/loginBG.svg`}
         alt={"loginBG"}
         quality={100}
         priority

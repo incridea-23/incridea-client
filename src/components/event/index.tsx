@@ -7,7 +7,7 @@ import {
   IoPeopleOutline,
   IoPersonOutline,
 } from "react-icons/io5";
-import { generateEventUrl } from "@/src/utils/url";
+import { baseImageUrl, generateEventUrl } from "@/src/utils/url";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { IoIosPlayCircle } from "react-icons/io";
@@ -85,7 +85,7 @@ const Event = ({
           <div className="w-full">
             <div className="-skew-x-[40deg] py-[0.015rem] bg-primary-500 absolute rounded-bl-3xl rounded-br-xl left-0 w-1/2 flex justify-start px-4 -translate-y-1">
               <Image
-                src="/assets/png/logo.png"
+                src={`${baseImageUrl}/assets/png/logo.png`}
                 alt={"Incridea Logo"}
                 width={550}
                 height={550}

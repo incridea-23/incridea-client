@@ -2,6 +2,7 @@ import { FooterBody } from "@/src/components/footer";
 import GallerySlide from "@/src/components/galleryslide";
 import ProgressBar from "@/src/components/galleryslide/progressBar/progress-bar";
 import styles from "@/src/components/galleryslide/styles/shadow.module.css";
+import { baseImageUrl } from "@/src/utils/url";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import gsap from "gsap";
 import { NextPage } from "next";
@@ -202,7 +203,7 @@ const Gallery: NextPage = () => {
                 className={`h-6 w-auto duration-75 transition-all ease-in-out z-20`}
               >
                 <Image
-                  src="/assets/svg/8bitArrow.svg"
+                  src={`${baseImageUrl}/assets/svg/8bitArrow.svg`}
                   alt="arrow-previous"
                   width={50}
                   height={50}
@@ -236,7 +237,7 @@ const Gallery: NextPage = () => {
                 className="z-[500] h-6 w-auto duration-75 transition-all ease-in-out"
               >
                 <Image
-                  src="/assets/svg/8bitArrow.svg"
+                  src={`${baseImageUrl}/assets/svg/8bitArrow.svg`}
                   alt="arrow-next"
                   width={50}
                   height={50}

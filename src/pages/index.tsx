@@ -15,6 +15,7 @@ import { GetUserXpDocument } from "../generated/generated";
 import CountDown from "../components/pages/countdown";
 import Spinner from "../components/spinner";
 import ArcadeLoader from "../components/Loader/arcadeLoader";
+import { baseImageUrl } from "../utils/url";
 
 export default function Landing() {
   const landingContainer = useRef(null);
@@ -223,7 +224,7 @@ export const HomeUi: FC<{
         <div data-depth="0.5" className="absolute  h-screen w-screen ">
           <div className="opacity-50 translate-y-16 h-[75vh] md:h-full absolute bottom-0 left-[50%] -translate-x-1/2 md:left-0 md:translate-x-0 md:w-full aspect-video  ">
             <Image
-              src={"/assets/home/moon.png"}
+              src={`${baseImageUrl}/assets/home/moon.png`}
               alt="Gradient"
               width={1920}
               height={1080}
@@ -233,7 +234,7 @@ export const HomeUi: FC<{
         </div>
         <div data-depth="0.4" className="h-screen w-screen absolute">
           <Image
-            src={"/assets/home/stars.png"}
+            src={`${baseImageUrl}/assets/home/stars.png`}
             alt="Gradient"
             width={1920}
             height={1080}
@@ -244,7 +245,7 @@ export const HomeUi: FC<{
         <div data-depth="0.3" className="absolute h-screen w-screen">
           <div className="h-full absolute aspect-video right-0  translate-x-[18%]  sm:translate-x-[12%] md:translate-x-[10%] bottom-0 lg:translate-x-[4%] translate-y-[3%]">
             <Image
-              src={"/assets/home/portal.png"}
+              src={`${baseImageUrl}/assets/home/portal.png`}
               alt="Portal"
               width={2050}
               height={1080}
@@ -258,7 +259,7 @@ export const HomeUi: FC<{
         >
           <div className="w-fit mx-auto p-5 mt-[3%]" ref={Logo}>
             <Image
-              src={"/assets/home/DoD.png"}
+              src={`${baseImageUrl}/assets/home/DoD.png`}
               width={640}
               height={640}
               alt="Dice of Destiny"
@@ -269,7 +270,7 @@ export const HomeUi: FC<{
         <div data-depth="0.1" className="absolute h-screen w-screen">
           <div className="h-full absolute aspect-video left-0 -translate-x-[20%] sm:-translate-x-[18%]  md:-translate-x-[12%] bottom-0 lg:-translate-x-[10%] translate-y-[3%]   ">
             <Image
-              src={"/assets/home/ryoko.png"}
+              src={`${baseImageUrl}/assets/home/ryoko.png`}
               id="Ryoko"
               alt="Ryoko looking at portal"
               width={1920}

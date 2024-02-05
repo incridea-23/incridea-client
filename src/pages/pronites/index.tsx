@@ -16,6 +16,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Dhvani from "@/src/components/pronites/dhvani";
 import Nakash from "@/src/components/pronites/naakash";
+import { baseImageUrl } from "@/src/utils/url";
 
 // import studio from "@theatre/studio";
 // import extension from "@theatre/r3f/dist/extension";
@@ -31,13 +32,13 @@ const artists = [
   {
     name: "Dhvani Bhanushali",
     time: "23rd Feb @ 7:30PM",
-    imageSrc: "/assets/jpeg/DhvaniBhanushali.jpeg",
+    imageSrc: `${baseImageUrl}/assets/jpeg/DhvaniBhanushali.jpeg`,
     audioSrc: "/assets/mp3/DhvaniBhanushali.mp3",
   },
   {
     name: "Nakash Aziz",
     time: "24th Feb @ 7:30PM",
-    imageSrc: "/assets/jpeg/DhvaniBhanushali.jpeg",
+    imageSrc: `${baseImageUrl}/assets/jpeg/DhvaniBhanushali.jpeg`,
     audioSrc: "/assets/mp3/DhvaniBhanushali.mp3",
   },
 ];

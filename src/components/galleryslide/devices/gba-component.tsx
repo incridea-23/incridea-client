@@ -107,14 +107,14 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
       >
         <Image
           fill
-          src={"/assets/svg/gba-vertical.svg"}
+          src={`${baseImageUrl}/assets/svg/gba-vertical.svg`}
           alt="incridea"
           className="sm:hidden object-center scale-110"
           priority
         />
         <Image
           fill
-          src={"/assets/svg/gba-horizontal.svg"}
+          src={`${baseImageUrl}/assets/svg/gba-horizontal.svg`}
           alt="incridea"
           className="hidden sm:block scale-[120%]"
           priority

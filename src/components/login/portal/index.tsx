@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from "react";
 import Image from "next/image";
+import { baseImageUrl } from "@/src/utils/url";
 
 type LoginPortalProps = {
   isTop: boolean;
@@ -17,8 +18,8 @@ const LoginPortal: FunctionComponent<LoginPortalProps> = ({ isTop }) => {
           fill={true}
           src={
             isTop
-              ? "/assets/png/loginPortalT.png"
-              : "/assets/png/loginPortalB.png"
+              ? `${baseImageUrl}/assets/png/loginPortalT.png`
+              : `${baseImageUrl}/assets/png/loginPortalB.png`
           }
           alt={"portal"}
           className="pointer-events-none"

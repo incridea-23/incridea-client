@@ -48,7 +48,7 @@ const Console = ({ imgArr }: { imgArr: string[] }) => {
         <Image
           fill
           priority
-          src={"/assets/svg/controller-tv.svg"}
+          src={`${baseImageUrl}/assets/svg/controller-tv.svg`}
           alt="svg"
           id="image"
           className=""

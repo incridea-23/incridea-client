@@ -5,6 +5,7 @@ import { useAuth } from "@/src/hooks/useAuth";
 import { useQuery } from "@apollo/client";
 import { GetUserXpDocument } from "@/src/generated/generated";
 import { VikingHell } from "@/src/pages/_app";
+import { baseImageUrl } from "@/src/utils/url";
 export default function CountDown() {
   const { user, loading, status } = useAuth();
   const [userId, setUserId] = useState<string>("");
@@ -80,7 +81,7 @@ export default function CountDown() {
           >
             <div className="flex flex-row space-x-2 items-center titleFont">
               <Image
-                src={"/assets/png/XP.png"}
+                src={`${baseImageUrl}/assets/png/XP.png`}
                 width={100}
                 height={100}
                 alt="map"
