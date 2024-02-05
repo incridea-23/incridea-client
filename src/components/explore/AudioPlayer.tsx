@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, {
   Dispatch,
   SetStateAction,
@@ -10,7 +11,6 @@ import { MdVolumeOff, MdVolumeUp } from "react-icons/md";
 import Button from "../button";
 import Modal from "../modal";
 import styles from "./audioPlayer.module.css";
-import Image from "next/image";
 // Adjust the path accordingly
 
 interface AudioPlayerProps {
