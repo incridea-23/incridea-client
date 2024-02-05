@@ -1,17 +1,17 @@
-import { idToTeamId } from '@/src/utils/id';
-import Button from '@/src/components/button';
-import Modal from '@/src/components/modal';
-import React, { FC, useState } from 'react';
-import { BiEditAlt } from 'react-icons/bi';
+import { idToTeamId } from "@/src/utils/id";
+import Button from "@/src/components/button";
+import Modal from "@/src/components/modal";
+import React, { FC, useState } from "react";
+import { BiEditAlt } from "react-icons/bi";
 
-import Badge from '../../badge';
-import { QueryMyTeamSuccess } from '@/src/generated/generated';
-import DeleteTeamMember from '../profile/deleteMember';
-import DeleteTeamModal from '../profile/deleteTeam';
-import AddMemberModal from './AddMemberModal';
+import Badge from "../../badge";
+import { QueryMyTeamSuccess } from "@/src/generated/generated";
+import DeleteTeamMember from "../profile/deleteMember";
+import DeleteTeamModal from "../profile/deleteTeam";
+import AddMemberModal from "./AddMemberModal";
 
 const EditTeamModal: FC<{
-  team: QueryMyTeamSuccess['data'];
+  team: QueryMyTeamSuccess["data"];
   userId: string;
 }> = ({ team, userId }) => {
   const [showModal, setShowModal] = useState(false);
@@ -24,8 +24,9 @@ const EditTeamModal: FC<{
     <>
       <Button
         onClick={() => setShowModal(true)}
-        intent={'primary'}
-        size={'small'}
+        intent={"primary"}
+        className="bodyFont rounded-full !skew-x-0 !justify-center !tracking-normal"
+        size={"small"}
       >
         <BiEditAlt />
       </Button>
@@ -33,7 +34,7 @@ const EditTeamModal: FC<{
         title={`${team.name}`}
         showModal={showModal}
         onClose={handleCloseModal}
-        size={'medium'}
+        size={"medium"}
       >
         <div className="w-full p-5">
           <div className="text-center">
@@ -49,16 +50,16 @@ const EditTeamModal: FC<{
           {team?.members?.map((member: any, index) => (
             <div
               className={`flex gap-2 items-center mt-0.5 justify-between bg-white/20 backdrop-filter backdrop-blur-lg p-2 rounded-sm bodyFont ${
-                index === team.members.length - 1 ? 'rounded-b-lg' : ''
-                }`}
+                index === team.members.length - 1 ? "rounded-b-lg" : ""
+              }`}
               key={member.user.id}
             >
-              <h1 className="w-full text-center">{member.user.name}</h1>{' '}
+              <h1 className="w-full text-center">{member.user.name}</h1>{" "}
               <div className="w-full text-center">
                 <Badge
-                  color={member.user.id == team.leaderId ? 'success' : 'info'}
+                  color={member.user.id == team.leaderId ? "success" : "info"}
                 >
-                  {member.user.id == team.leaderId ? 'Leader' : 'Member'}
+                  {member.user.id == team.leaderId ? "Leader" : "Member"}
                 </Badge>
               </div>
               {!team.confirmed && team.leaderId?.toString() == userId && (

@@ -95,6 +95,7 @@ function event({ event, error }: { event: Event; error: String }) {
                 {event.image && (
                   <Image
                     src={event.image as string}
+                    // src="https://res.cloudinary.com/dg1941jdi/image/upload/v1706863440/Events/Usaravalli_1706863437635.png"
                     className={`relative w-full sm:rounded-md rounded-t-md z-10`}
                     alt={event.name}
                     width={1000}
@@ -131,7 +132,7 @@ function event({ event, error }: { event: Event; error: String }) {
                       attr.text ? (
                         <div
                           key={attr.name}
-                          className={`w-full flex items-center border border-secondary-400/40 gap-2 text-left bg-primary-200/30 p-1 rounded-full px-2`}
+                          className={`text-sm md:text-md w-full flex items-center border border-secondary-400/40 gap-2 text-left bg-primary-200/30 p-1 rounded-full px-2`}
                         >
                           {<attr.Icon />}
                           <p>
@@ -145,11 +146,11 @@ function event({ event, error }: { event: Event; error: String }) {
                     )}
                   </div>
                   <div className={`text-sm`}>
-                    <div className={`grid grid-cols-1 gap-1.5`}>
+                    <div className={`grid grid-cols-1 gap-2`}>
                       {event.rounds.map((round) => (
                         <div
                           key={round.roundNo}
-                          className={`py-2 text-white rounded-sm bg-white/20 space-y-2 px-3 items-center bodyFont`}
+                          className={`py-2 text-white bg-primary-200/30 space-y-2 px-3 items-center bodyFont border border-secondary-400/40 rounded-xl`}
                         >
                           <div className={` font-semibold `}>
                             Round {round.roundNo}
@@ -190,7 +191,7 @@ function event({ event, error }: { event: Event; error: String }) {
                     </div>
                   </div>
                 </div>
-                <div className={`w-full flex justify-center order-1`}>
+                <div className={`w-full flex justify-center order-1 mt-3`}>
                   {event.name.toLowerCase() !== "lazzerena" ? (
                     <EventRegistration
                       fees={event.fees}

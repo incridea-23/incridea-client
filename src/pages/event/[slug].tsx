@@ -98,6 +98,7 @@ function event({ event, error }: { event: Event; error: String }) {
                 {event.image && (
                   <Image
                     src={event.image as string}
+                    // src="https://res.cloudinary.com/dg1941jdi/image/upload/v1706863440/Events/Usaravalli_1706863437635.png"
                     className={`relative w-full sm:rounded-md rounded-t-md z-10`}
                     alt={event.name}
                     width={1000}
@@ -134,7 +135,7 @@ function event({ event, error }: { event: Event; error: String }) {
                       attr.text ? (
                         <div
                           key={attr.name}
-                          className={`w-full flex items-center border border-secondary-400/40 gap-2 text-left bg-primary-200/30 p-1 rounded-full px-2`}
+                          className={`text-sm md:text-md w-full flex items-center border border-secondary-400/40 gap-2 text-left bg-primary-200/30 p-1 rounded-full px-2`}
                         >
                           {<attr.Icon />}
                           <p>

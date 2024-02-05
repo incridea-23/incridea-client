@@ -1,16 +1,16 @@
-import Button from '../../button';
-import { toast } from 'react-hot-toast';
-import { FC, useState } from 'react';
-import Modal from '../../modal';
-import { AiOutlineCopy, AiOutlineUserAdd } from 'react-icons/ai';
-import { BsWhatsapp } from 'react-icons/bs';
-import Link from 'next/link';
-import { QueryMyTeamSuccess } from '@/src/generated/generated';
-import { generateEventUrl } from '@/src/utils/url';
-import { idToTeamId } from '@/src/utils/id';
+import Button from "../../button";
+import { toast } from "react-hot-toast";
+import { FC, useState } from "react";
+import Modal from "../../modal";
+import { AiOutlineCopy, AiOutlineUserAdd } from "react-icons/ai";
+import { BsWhatsapp } from "react-icons/bs";
+import Link from "next/link";
+import { QueryMyTeamSuccess } from "@/src/generated/generated";
+import { generateEventUrl } from "@/src/utils/url";
+import { idToTeamId } from "@/src/utils/id";
 
 const AddMemberModal: FC<{
-  team: QueryMyTeamSuccess['data'];
+  team: QueryMyTeamSuccess["data"];
 }> = ({ team }) => {
   const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => {
@@ -25,8 +25,8 @@ const AddMemberModal: FC<{
   )}?jointeam=${idToTeamId(team.id)}`;
   const copyUrl = async () => {
     await navigator.clipboard.writeText(url);
-    toast.success('Copied to clipboard!', {
-      position: 'bottom-center',
+    toast.success("Copied to clipboard!", {
+      position: "bottom-center",
     });
   };
 
@@ -36,7 +36,7 @@ const AddMemberModal: FC<{
         onClick={() => {
           setShowModal(true);
         }}
-        className="mt-5"
+        className="mt-5 rounded-full justify-center !skew-x-0 bodyFont !tracking-normal"
       >
         <AiOutlineUserAdd size={20} /> Add More
       </Button>
@@ -46,7 +46,7 @@ const AddMemberModal: FC<{
         } more crewmates!`}
         showModal={showModal}
         onClose={handleCloseModal}
-        size={'small'}
+        size={"small"}
       >
         <div className="p-5 text-center flex flex-col justify-center">
           <p className="text-xs bodyFont">

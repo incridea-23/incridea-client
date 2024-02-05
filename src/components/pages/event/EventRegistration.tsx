@@ -84,6 +84,7 @@ function EventRegistrationButton({
       eventId: eventId,
     },
   });
+
   const [sdkLoaded, setSdkLoaded] = useState(false);
   const [registerSoloEvent, { loading: regLoading, data: regData }] =
     useMutation(RegisterSoloEventDocument, {
@@ -112,6 +113,7 @@ function EventRegistrationButton({
     });
     createToast(promise, "Registering...");
   };
+
   if (loading)
     return (
       <div className="w-full h-20 flex justify-center items-center">
