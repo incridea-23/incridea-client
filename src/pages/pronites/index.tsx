@@ -15,6 +15,7 @@ import ProniteCard from "@/src/components/pronites/card";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Dhvani from "@/src/components/pronites/dhvani";
+import Nakash from "@/src/components/pronites/naakash";
 
 // import studio from "@theatre/studio";
 // import extension from "@theatre/r3f/dist/extension";
@@ -34,7 +35,7 @@ const artists = [
     audioSrc: "/assets/mp3/DhvaniBhanushali.mp3",
   },
   {
-    name: "Artist 2",
+    name: "Nakash Aziz",
     time: "24th Feb @ 7:30PM",
     imageSrc: "/assets/jpeg/DhvaniBhanushali.jpeg",
     audioSrc: "/assets/mp3/DhvaniBhanushali.mp3",
@@ -55,33 +56,28 @@ export default function App() {
     audioRef.current && (audioRef.current.currentTime = 0);
     audioRef.current?.play();
     console.log(audioRef.current?.paused);
-    // }, [isArtist1]);
-  }, []);
+  }, [isArtist1]);
 
   const artistGroup = useRef<THREE.Group | null>(null);
   const nameGroup = useRef<THREE.Group | null>(null);
 
-  // useGSAP(() => {
-  //   if (artistGroup.current && nameGroup.current) {
-  //     gsap.to(artistGroup.current.rotation, {
-  //       y: angle.current,
-  //       duration: 1,
-  //     });
-  //     gsap.to(nameGroup.current.rotation, {
-  //       y: -angle.current,
-  //       duration: 1,
-  //     });
-  //   }
-  // }, [isArtist1]);
+  useGSAP(() => {
+    if (artistGroup.current && nameGroup.current) {
+      gsap.to(artistGroup.current.rotation, {
+        y: -angle.current,
+        duration: 1,
+      });
+      gsap.to(nameGroup.current.rotation, {
+        y: angle.current,
+        duration: 1,
+      });
+    }
+  }, [isArtist1]);
 
   return (
     <>
-      <ProniteCard
-        artist={{ ...artists[0] }}
-        // isArtist={isArtist1}
-        isArtist={true}
-      />
-      {/* <ProniteCard artist={{ ...artists[1] }} isArtist={!isArtist1} /> */}
+      <ProniteCard artist={{ ...artists[0] }} isArtist={isArtist1} />
+      <ProniteCard artist={{ ...artists[1] }} isArtist={!isArtist1} />
       <button
         onClick={() => {
           if (audioRef.current) audioRef.current.muted = !isMuted;
@@ -107,15 +103,16 @@ export default function App() {
         <Suspense fallback={null}>
           <group position={[0, -1, 0]}>
             <group ref={artistGroup}>
-              <Dhvani position={[0, 0, 1]} scale={1} rotation={[0, 0, 0]} />
-              {/* <Dhvani
+              <Dhvani position={[0, 0, 1]} scale={0.85} rotation={[0, 0, 0]} />
+              <Nakash
                 position={[0, 0, 0]}
                 scale={1}
                 rotation={[0, Math.PI, 0]}
-              /> */}
+              />
             </group>
-            <group ref={nameGroup}>
-              <VideoText position={[0, 1, -1]} />
+            <group ref={nameGroup} position={[0, 0, 6]}>
+              <DhvaniText position={[0, 1, -8]} />
+              <NakashText position={[0, 1, 8]} />
             </group>
             <Ground />
           </group>
@@ -138,7 +135,7 @@ function Carla(props: {
   return <primitive object={scene} {...props} />;
 }
 
-function VideoText(props: { position: [x: number, y: number, z: number] }) {
+function DhvaniText(props: { position: [x: number, y: number, z: number] }) {
   const [video] = useState(() =>
     Object.assign(document.createElement("video"), {
       src: "/assets/mp4/proniteVID2.mp4",
@@ -172,6 +169,51 @@ function VideoText(props: { position: [x: number, y: number, z: number] }) {
       {...props}
     >
       Dhvani
+      <meshBasicMaterial toneMapped={false}>
+        <videoTexture
+          attach="map"
+          args={[video]}
+          colorSpace={THREE.SRGBColorSpace}
+        />
+      </meshBasicMaterial>
+    </Text>
+  );
+}
+
+function NakashText(props: { position: [x: number, y: number, z: number] }) {
+  const [video] = useState(() =>
+    Object.assign(document.createElement("video"), {
+      src: "/assets/mp4/proniteVID2.mp4",
+      crossOrigin: "Anonymous",
+      loop: true,
+      muted: true,
+    })
+  );
+  useEffect(() => void video.play(), [video]);
+
+  const [size, setSize] = useState<{ height: number; width: number }>({
+    width: 0,
+    height: 0,
+  });
+
+  useEffect(() => {
+    setSize({ height: window.innerHeight, width: window.innerWidth });
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", () => {
+        setSize({ height: window.innerHeight, width: window.innerWidth });
+      });
+    }
+  }, []);
+
+  return (
+    <Text
+      font="/font/Inter-Bold.woff"
+      fontSize={Math.min((size.width * (2 - 0.1)) / (1920 - 720), 2)}
+      letterSpacing={-0.06}
+      {...props}
+      rotation={[0, Math.PI, 0]}
+    >
+      Nakash
       <meshBasicMaterial toneMapped={false}>
         <videoTexture
           attach="map"
