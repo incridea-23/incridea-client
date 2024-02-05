@@ -6,8 +6,6 @@ import {
   PublishedEventsSlugDocument,
 } from "@/src/generated/generated";
 import { client } from "@/src/lib/apollo";
-import styles from "./eventSlug.module.css";
-
 import Image from "next/image";
 import Link from "next/link";
 import { Toaster } from "react-hot-toast";
@@ -76,7 +74,7 @@ function event({ event, error }: { event: Event; error: String }) {
   };
 
   return (
-    <div className={`relative`}>
+    <div className={`relative flex justify-center items-center`}>
       <Image
         alt="events-bg"
         src="/assets/eventSlug/cover.svg"
@@ -85,48 +83,58 @@ function event({ event, error }: { event: Event; error: String }) {
         priority
         className={`w-screen h-screen object-cover object-center top-0 left-0 absolute`}
       />
-      <Toaster/>
+      <Toaster />
       {event ? (
-        <section className={`brightness-75 flex lg:flex-row flex-col gap-5 max-w-7xl mx-auto text-amber-900 h-screen overflow-y-scroll no-scrollbar lg:overflow-y-hidden`}>
-          <div className={`overflow-x-visible lg:h-full lg:overflow-y-scroll lg:no-scrollbar px-3 pt-20 lg:pb-8`}>
-            <div className={`${styles.main}`}>
-              <div className={`${styles.parchment}`} />
-              <div className={`${styles.contain}`}>
-                <div className={` grow-0 space-y-4 sm:space-y-10 rounded-md ${styles.mapicon}`}>
-                  {event.image && (
-                    <Image
-                      src={event.image as string}
-                      className={`relative w-full sm:rounded-md rounded-t-md z-10`}
-                      alt={event.name}
-                      width={1000}
-                      height={1000}
-                    />
-                  )}
-                  <h1
-                    className={`font-VikingHell capitalize text-2xl sm:text-4xl px-4 pb-0 sm:p-0 font-bold`}
-                  >
-                    {event.name}
-                  </h1>
-                  <div className={`px-4 pb-4 sm:p-0`}>
-                    <EventDetails details={event.description as string} />
-                  </div>
+        <section
+          className={`brightness-75 flex lg:flex-row flex-col gap-5 max-w-7xl mx-auto text-white h-screen overflow-y-scroll no-scrollbar lg:overflow-y-hidden`}
+        >
+          <div
+            className={`overflow-x-visible lg:h-full lg:overflow-y-scroll lg:no-scrollbar px-3 pt-20 lg:pb-8`}
+          >
+            <div
+              className={`bg-gradient-to-tr from-primary-500 via-primary-300 to-primary-500 border border-primary-200/80 p-5 rounded-xl basis-1/3`}
+            >
+              <div className={`grow-0 space-y-4 sm:space-y-10 rounded-md`}>
+                {event.image && (
+                  <Image
+                    src={event.image as string}
+                    className={`relative w-full sm:rounded-md rounded-t-md z-10`}
+                    alt={event.name}
+                    width={1000}
+                    height={1000}
+                  />
+                )}
+                <h1
+                  className={`font-VikingHell capitalize text-center text-3xl md:text-6xl tracking-wider px-4 pb-0 sm:p-0 font-bold`}
+                >
+                  {event.name}
+                </h1>
+                <div className={`px-4 pb-4 sm:p-0`}>
+                  <EventDetails details={event.description as string} />
                 </div>
               </div>
             </div>
           </div>
-          <div className={`lg:h-full lg:overflow-y-scroll lg:no-scrollbar px-3 lg:pt-20 pb-8 w-auto shrink-0 flex flex-col gap-5 items-center rounded-md`}>
-            <div className={`${styles.main}`}>
-              <div className={`${styles.parchment}`} />
-              <div className={`${styles.contain}`}>
-                <div className={`space-y-1.5 order-2 w-full ${styles.mapicon}`}>
-                <hr className="w-48 h-1 mx-auto my-4 bg-amber-800 border-0 rounded "/>
-                  <h2 className={`font-VikingHell mb-2 text-2xl`}>Details</h2>
-                  <div className={`flex flex-wrap mt-2 gap-1.5 w-full bodyFont`}>
+          <div
+            className={`basis-1/3 lg:h-full lg:overflow-y-scroll lg:no-scrollbar px-3 lg:pt-20 pb-8 w-full shrink-0 flex flex-col gap-5 items-center rounded-md`}
+          >
+            <div
+              className={`bg-gradient-to-tr from-primary-500 via-primary-300 to-primary-500 border border-primary-200/80 w-full p-5 rounded-xl`}
+            >
+              <div>
+                <div className={`space-y-1.5 order-2 w-full`}>
+                  {/* <hr className="w-48 h-1 mx-auto my-4 bg-secondary-800 border-0 rounded " /> */}
+                  <h2
+                    className={`font-VikingHell tracking-wider mb-2 text-2xl md:text-4xl`}
+                  >
+                    Details
+                  </h2>
+                  <div className={`flex flex-wrap mt-2 gap-2 w-full bodyFont`}>
                     {getEventAttributes().map((attr) =>
                       attr.text ? (
                         <div
                           key={attr.name}
-                          className={`w-full flex flex-wrap break-words text-semibold px-3 py-2 text-amber-900 font-medium bg-white/20 shrink-0 text-sm rounded-sm grow gap-1 items-center`}
+                          className={`w-full flex items-center border border-secondary-400/40 gap-2 text-left bg-primary-200/30 p-1 rounded-full px-2`}
                         >
                           {<attr.Icon />}
                           <p>
@@ -140,17 +148,20 @@ function event({ event, error }: { event: Event; error: String }) {
                     )}
                   </div>
                   <div className={`text-sm`}>
-                    <div className={`grid grid-cols-1 gap-1.5`}>
+                    <div className={`grid grid-cols-1 gap-2`}>
                       {event.rounds.map((round) => (
                         <div
                           key={round.roundNo}
-                          className={`py-2 text-amber-900 rounded-sm bg-white/20 space-y-2 px-3 items-center bodyFont`}
+                          className={`py-2 text-white bg-primary-200/30 space-y-2 px-3 items-center bodyFont border border-secondary-400/40 rounded-xl`}
                         >
                           <div className={` font-semibold `}>
                             Round {round.roundNo}
                           </div>
                           <div className={`space-y-2`}>
-                            <p className={`flex gap-2 items-center`} suppressHydrationWarning>
+                            <p
+                              className={`flex gap-2 items-center`}
+                              suppressHydrationWarning
+                            >
                               <BsFillCalendar2WeekFill />
                               {round.date &&
                                 new Date(round.date).toLocaleDateString(
@@ -161,7 +172,10 @@ function event({ event, error }: { event: Event; error: String }) {
                                   }
                                 )}
                             </p>
-                            <p className={`flex gap-2 items-center`} suppressHydrationWarning>
+                            <p
+                              className={`flex gap-2 items-center`}
+                              suppressHydrationWarning
+                            >
                               <BiTimeFive />
                               {round.date &&
                                 new Date(round.date).toLocaleTimeString(
@@ -179,7 +193,7 @@ function event({ event, error }: { event: Event; error: String }) {
                     </div>
                   </div>
                 </div>
-                <div className={`w-full flex justify-center order-1`}>
+                <div className={`w-full flex justify-center order-1 mt-3`}>
                   {event.name.toLowerCase() !== "lazzerena" ? (
                     <EventRegistration
                       fees={event.fees}
@@ -187,47 +201,52 @@ function event({ event, error }: { event: Event; error: String }) {
                       type={event.eventType}
                     />
                   ) : (
-                    <div className={`bg-black/20 px-3 p-2.5 font-semibold italic text-white/60 rounded-sm `}>
+                    <div
+                      className={`bg-black/20 px-3 p-2.5 font-semibold italic text-white/60 rounded-sm `}
+                    >
                       On-spot registrations only
                     </div>
                   )}
                 </div>
               </div>
             </div>
-            <div className={`${styles.main}`}>
-              <div className={`${styles.parchment}`} />
-              <div className={`${styles.contain}`}>
+            <div
+              className={`bg-gradient-to-b from-primary-300 to-primary-400 border border-primary-200/80 p-5 rounded-xl w-full`}
+            >
+              <div className={``}>
                 <div className={`w-full order-3`}>
-                  <h2 className={`font-VikingHell mb-2 text-2xl`}>
+                  <h2
+                    className={`font-VikingHell mb-2 text-2xl md:text-4xl tracking-wider`}
+                  >
                     Organizers
                   </h2>
-                  <div className={`space-y-1.5 w-full bodyFont`}>
+                  <div className={`space-y-2 w-full bodyFont`}>
                     {event.organizers.map((organizer) => (
                       <div
                         key={organizer.user.id}
-                        className={`text-amber-900 w-full p-2.5 rounded-sm bg-gray-300/20 px-3  text-md   `}
+                        className={`text-white w-full p-3 rounded-xl text-md border border-secondary-400/40 bg-primary-200/30`}
                       >
                         <h3 className={`text-lg font-semibold mb-2`}>
                           {organizer.user.name}
                         </h3>
-                        <div className={`flex gap-1 flex-col`}>
+                        <div className={`flex gap-2 flex-col`}>
                           {organizer.user.email && (
-                            <Link
+                            <a
                               href={`mailto:${organizer.user.email}`}
-                              className={`text-sm inline-flex overflow-x-auto items-center gap-2`}
+                              className={`text-sm inline-flex overflow-x-auto items-center gap-2 hover:underline hover:underline-offset-4`}
                             >
                               <MdOutlineMailOutline className={`text-lg`} />{" "}
                               {organizer.user.email}
-                            </Link>
+                            </a>
                           )}
                           {organizer.user.phoneNumber && (
-                            <Link
+                            <a
                               href={`tel:${organizer.user.phoneNumber}`}
-                              className={`text-sm inline-flex items-center gap-2`}
+                              className={`text-sm inline-flex items-center gap-2 hover:underline hover:underline-offset-4`}
                             >
                               <BsFillTelephoneFill className={`text-lg`} />{" "}
                               {organizer.user.phoneNumber}
-                            </Link>
+                            </a>
                           )}
                         </div>
                       </div>
@@ -236,25 +255,17 @@ function event({ event, error }: { event: Event; error: String }) {
                 </div>
               </div>
             </div>
-            <svg className={`invisible pointer-events-none h-0`}>
-              <filter id="wavy2">
-                <feTurbulence
-                  x="0"
-                  y="0"
-                  baseFrequency="0.02"
-                  numOctaves="5"
-                  seed="1"
-                />
-                <feDisplacementMap in="SourceGraphic" scale="20" />
-              </filter>
-            </svg>
           </div>
         </section>
       ) : (
-        <div className={`flex flex-col p-10 text-white justify-center gap-5 items-center h-screen`}>
+        <div
+          className={`absolute inset-0 flex flex-col p-10 text-white justify-center gap-5 items-center h-screen`}
+        >
           <h1 className={`text-3xl font-semibold `}>Oops!</h1>
           <div className={`text-center`}>
-            <p>Looks like you&apos;ve glitched out and got lost in the pixels!</p>
+            <p>
+              Looks like you&apos;ve glitched out and got lost in the pixels!
+            </p>
             <p>
               Click{" "}
               <Link className={`underline`} href={"/events"}>
@@ -263,7 +274,9 @@ function event({ event, error }: { event: Event; error: String }) {
               to head back to the events page
             </p>
           </div>
-          <p className={`px-4 py-2 rounded-md bg-red-200 text-red-800`}>
+          <p
+            className={`px-4 text-center py-2 rounded-md bg-red-200 text-red-800`}
+          >
             <b>Error message:</b> {error}
           </p>
         </div>

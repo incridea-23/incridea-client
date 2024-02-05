@@ -16,6 +16,7 @@ import TeamCard from "./TeamCard";
 import CreateTeamModal from "./CreateTeamModal";
 import JoinTeamModal from "./JoinTeamModal";
 import { useRouter } from "next/router";
+import { CiLogin } from "react-icons/ci";
 
 function EventRegistration({
   eventId,
@@ -29,7 +30,7 @@ function EventRegistration({
   const { loading, user, status } = useAuth();
   const router = useRouter();
   const { slug } = router.query;
-  
+
   if (loading) return null;
   return (
     <>
@@ -37,8 +38,10 @@ function EventRegistration({
         <Link
           as={"/login"}
           href={`/login?redirectUrl=${encodeURIComponent(`/event/${slug}`)}`}
-          className="w-fit lg:w-full">
-          <button className="mt-1 text-lg text-white capitalize shrink-0 px-4 w-full py-2 flex gap-2 items-center justify-center rounded-full bg-gradient-to-tr from-secondary-800 to-secondary-600 brightness-100 hover:brightness-125 hover:scale-[1.02] transition-all duration-300">
+          className="w-fit lg:w-full"
+        >
+          <button className="mt-1 text-white capitalize shrink-0 px-5 w-fit py-1 flex gap-2 items-center justify-center rounded-full bg-gradient-to-tr from-secondary-800 to-secondary-600 brightness-100 hover:brightness-125 hover:scale-[1.02] transition-all duration-300">
+            <CiLogin />
             Login to Register
           </button>
         </Link>
@@ -82,12 +85,10 @@ function EventRegistrationButton({
     },
   });
   const [sdkLoaded, setSdkLoaded] = useState(false);
-  const [registerSoloEvent, { loading: regLoading, data: regData }] = useMutation(
-    RegisterSoloEventDocument,
-    {
+  const [registerSoloEvent, { loading: regLoading, data: regData }] =
+    useMutation(RegisterSoloEventDocument, {
       refetchQueries: ["MyTeam"],
-    }
-  );
+    });
 
   const handleSoloRegister = async () => {
     let promise = registerSoloEvent({
@@ -95,9 +96,17 @@ function EventRegistrationButton({
         eventId: eventId,
       },
     }).then((res) => {
-      if (res.data?.registerSoloEvent.__typename === "MutationRegisterSoloEventSuccess") {
+      if (
+        res.data?.registerSoloEvent.__typename ===
+        "MutationRegisterSoloEventSuccess"
+      ) {
         if (fees !== 0) {
-          makeTeamPayment(res.data?.registerSoloEvent.data.id, name, email, setSdkLoaded);
+          makeTeamPayment(
+            res.data?.registerSoloEvent.data.id,
+            name,
+            email,
+            setSdkLoaded
+          );
         }
       }
     });
@@ -113,13 +122,24 @@ function EventRegistrationButton({
   if (!registered) {
     return (
       <div className="w-full h-20 flex justify-center items-center flex-col space-y-2">
-        <p className="text-white bodyFont">You need to register to join events!</p>
+        <p className="text-white bodyFont">
+          You need to register to join events!
+        </p>
         <Link href={"/register"}>
-          <Button intent={"primary"}>Register Now</Button>
+          <Button
+            className="!skew-x-0 !rounded-full !bodyFont"
+            intent={"primary"}
+            noScaleOnHover
+          >
+            Register Now
+          </Button>
         </Link>
       </div>
     );
-  } else if (data?.myTeam.__typename === "QueryMyTeamSuccess" && data.myTeam.data) {
+  } else if (
+    data?.myTeam.__typename === "QueryMyTeamSuccess" &&
+    data.myTeam.data
+  ) {
     return (
       <TeamCard
         userId={userId}
@@ -132,7 +152,13 @@ function EventRegistrationButton({
     if (type === "INDIVIDUAL" || type === "INDIVIDUAL_MULTIPLE_ENTRY") {
       if (fees === 0) {
         return (
-          <Button onClick={handleSoloRegister} fullWidth intent={"primary"}>
+          <Button
+            noScaleOnHover
+            className="!skew-x-0 !rounded-full justify-center !text-xl"
+            onClick={handleSoloRegister}
+            fullWidth
+            intent={"primary"}
+          >
             Register Now
           </Button>
         );
@@ -142,7 +168,10 @@ function EventRegistrationButton({
             disabled={regLoading || sdkLoaded}
             onClick={handleSoloRegister}
             fullWidth
-            intent={"primary"}>
+            intent={"primary"}
+            noScaleOnHover
+            className="!skew-x-0 !rounded-full justify-center"
+          >
             Pay ₹{fees} and Register
           </Button>
         );
