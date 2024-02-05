@@ -12,7 +12,8 @@ const TeamCard: FC<{
   instagram: string;
   github: string;
   quote: string;
-}> = ({ name, role, linkedin, github, quote, instagram, image }) => {
+  avatar: string;
+}> = ({ name, role, linkedin, github, quote, instagram, image, avatar }) => {
   return (
     <motion.div
       whileHover={{ scale: 1.03 }}
@@ -20,7 +21,7 @@ const TeamCard: FC<{
     >
       <div className="h-80 flex gap-5">
         <Image
-          src={"/assets/png/nandan.jpg"}
+          src={image}
           alt={name}
           width={500}
           height={500}
