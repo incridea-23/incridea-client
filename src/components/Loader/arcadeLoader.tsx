@@ -17,6 +17,10 @@ export default function ArcadeLoader() {
           gsap.to(landingContainer.current, { opacity: 0, duration: 1 });
           setTimeout(() => {
             // setPageLoader(false);
+            if (landingContainer.current) {
+              (landingContainer.current as HTMLElement).style.pointerEvents =
+                "none";
+            }
             sessionStorage.setItem("arcadeLoader", "false");
           }, 1000);
         },

@@ -9,7 +9,6 @@ import {
 } from "react-icons/io5";
 import { generateEventUrl } from "@/src/utils/url";
 import Image from "next/image";
-import styles from "./styles.module.css";
 import { useRouter } from "next/router";
 import { IoIosPlayCircle } from "react-icons/io";
 import { VikingHell, pressStart } from "@/src/pages/_app";

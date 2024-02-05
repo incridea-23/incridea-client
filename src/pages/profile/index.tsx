@@ -38,7 +38,7 @@ const Profile: NextPage = () => {
       addXp().then((res) => {
         if (res.data?.addXP.__typename === "MutationAddXPSuccess") {
           toast.success(
-            `Added ${res.data?.addXP.data.level.point} Easter Bomb XP`,
+            `Congratulations!! Added ${res.data?.addXP.data.level.point} Easter Bomb XP`,
             {
               position: "bottom-center",
               style: {
@@ -91,11 +91,11 @@ const Profile: NextPage = () => {
       className="bodyFont bg-gradient-to-b from-primary-300 to-primary-500 px-5 sm:px-7 lg:px-10"
     >
       <div className="flex lg:flex-row flex-col-reverse py-[5rem] lg:pt-[6rem] min-h-screen gap-5">
-        <div className="lg:w-[66.66%] w-full overflow-auto border border-primary-200/80 rounded-xl h-screen">
+        <div className="lg:w-[66.66%] w-full overflow-auto border border-primary-200/80 rounded-xl min-h-screen">
           <UserEvents userId={user?.id!} />
         </div>
 
-        <div className="col-span-1 rounded-xl h-screen">
+        <div className="col-span-1 rounded-xl min-h-screen">
           <ProfileInfo user={user} />
         </div>
       </div>

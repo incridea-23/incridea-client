@@ -13,7 +13,7 @@ const UserEvents: FC<{
   const { data: events, loading, error } = useQuery(RegisterdEventsDocument);
 
   return (
-    <section className="h-full bg-primary-500 pt-5">
+    <section className="min-h-screen bg-primary-500 pt-5">
       <div className="titleFont text-center rounded-t-xl text-white text-5xl">
         My Quests
       </div>

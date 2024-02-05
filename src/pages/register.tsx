@@ -98,8 +98,8 @@ const Register: NextPage = () => {
             </li>
             <li>
               {" "}
-              Engineering college students, other than NMAMIT, who pay ₹300
-              will have access to all events and pronites.
+              Engineering college students, other than NMAMIT, who pay ₹300 will
+              have access to all events and pronites.
             </li>
             <li>
               Non-engineering college and Nitte sister college students who pay
@@ -107,10 +107,10 @@ const Register: NextPage = () => {
             </li>
             <li>
               {" "}
-              Invite-only participants who pay ₹150 will have access to the
-              one core event they were invited to. If the invite-only
-              participant is a college student and wants to attend pronite, they
-              will have to register as given in point 3.
+              Invite-only participants who pay ₹150 will have access to the one
+              core event they were invited to. If the invite-only participant is
+              a college student and wants to attend pronite, they will have to
+              register as given in point 3.
             </li>
           </ol>
           <div className="mt-2">
@@ -123,11 +123,10 @@ const Register: NextPage = () => {
             about the guidelines and regulations
           </div>
           <Button
-            disabled={true}
             onClick={() => makePayment(setLoading)}
             className="flex gap-2 mt-8 "
           >
-            Registrations Closed
+            Register Now
             {loading && (
               <Spinner
                 className="w-fit text-[#dd5c6e]"

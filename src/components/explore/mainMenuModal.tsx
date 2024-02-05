@@ -42,7 +42,11 @@ const MainMenuModal: React.FunctionComponent<Props> = ({
         </Button>
         <div className="absolute -translate-x-2/4 -translate-y-2/4 top-2/4 left-2/4 z-[9999] bg-blue-400 h-[85%] w-[85%] overflow-clip">
           <HomeUi />
-          <Menu router={router} />
+          <Menu
+            router={router}
+            setShowModal={setShowModal}
+            showModal={showModal}
+          />
           <HomeFooter />
         </div>
       </div>
@@ -160,8 +164,10 @@ const HomeUi: React.FunctionComponent = () => {
 };
 
 const Menu: React.FunctionComponent<{
+  showModal: boolean;
+  setShowModal: (showModal: boolean) => void;
   router: NextRouter;
-}> = ({ router }) => {
+}> = ({ showModal, setShowModal, router }) => {
   const navItems = [
     { href: "/events", target: "Events" },
     { href: "/pronites", target: "Pronite" },
@@ -175,36 +181,33 @@ const Menu: React.FunctionComponent<{
   return (
     <div className="w-full overflow-x-hidden flex flex-col absolute bottom-0 left-0 h-full justify-center items-center">
       <div className="lg:flex flex-col hidden absolute bottom-10 items-center sm:flex-row  md:gap-10 my-24 gap-3  w-fit ">
-        <Button
-          intent={"primary"}
-          className="h-fit w-40  px-4 sm:px-12"
-          size={"large"}
-          onClick={() => {
-            loading
-              ? null
-              : user
-              ? router.push("/profile")
-              : router.push("/login");
-          }}
+        <Link
+          href={loading ? "" : user ? "/profile" : "/login"}
+          target="_blank"
         >
-          {loading ? (
-            <Spinner size="small" className="py-[2px]" />
-          ) : user ? (
-            "Profile"
-          ) : (
-            "Register"
-          )}
-        </Button>
-        <Button
-          intent={"ghost"}
-          className="h-fit w-40 px-4 sm:px-12"
-          size={"large"}
-          onClick={() => {
-            router.push("/");
-          }}
-        >
-          Exit
-        </Button>
+          <Button
+            intent={"primary"}
+            className="h-fit w-40  px-4 sm:px-12"
+            size={"large"}
+          >
+            {loading ? (
+              <Spinner size="small" className="py-[2px]" />
+            ) : user ? (
+              "Profile"
+            ) : (
+              "Register"
+            )}
+          </Button>
+        </Link>
+        <Link href="/">
+          <Button
+            intent={"ghost"}
+            className="h-fit w-40 px-4 sm:px-12"
+            size={"large"}
+          >
+            Exit
+          </Button>
+        </Link>
       </div>
       <div className="space-y-5 absolute flex flex-col w-fit h-fit -right-8 bottom-[15%]  lg:absolute ">
         <h3
@@ -213,8 +216,17 @@ const Menu: React.FunctionComponent<{
           Menu
         </h3>
 
+        <Button
+          className="w-40 md:w-64 justify-center md:justify-end px-12 md:px-16"
+          size={"large"}
+          onClick={() => {
+            setShowModal(false);
+          }}
+        >
+          Resume
+        </Button>
         {navItems.map((e, i) => (
-          <Link key={i} href={e.href}>
+          <Link key={i} href={e.href} target="_blank">
             <Button
               className="w-40 md:w-64 justify-center md:justify-end px-12 md:px-16"
               size={"large"}
@@ -225,32 +237,30 @@ const Menu: React.FunctionComponent<{
         ))}
         {
           <>
-            <Button
-              intent={"ghost"}
-              className="lg:hidden !bg-primary-800/70 block w-40 md:w-64 justify-center md:justify-end px-12 md:px-16"
-              size={"large"}
-              onClick={() => {
-                loading
-                  ? null
-                  : user
-                  ? router.push("/profile")
-                  : router.push("/login");
-              }}
+            <Link
+              href={loading ? "" : user ? "/profile" : "/login"}
+              target="_blank"
             >
-              {loading ? (
-                <Spinner size="small" className="py-[2px]" />
-              ) : user ? (
-                "Profile"
-              ) : (
-                "Register"
-              )}
-            </Button>
+              <Button
+                intent={"ghost"}
+                className="lg:hidden !bg-primary-800/70 block w-40 md:w-64 justify-center md:justify-end px-12 md:px-16"
+                size={"large"}
+              >
+                {loading ? (
+                  <Spinner size="small" className="py-[2px]" />
+                ) : user ? (
+                  "Profile"
+                ) : (
+                  "Register"
+                )}
+              </Button>
+            </Link>
             <Button
               intent={"ghost"}
               className="lg:hidden !bg-primary-800/70 block w-40 md:w-64 justify-center md:justify-end px-12 md:px-16"
               size={"large"}
               onClick={() => {
-                router.push("/explore/level1");
+                router.push("/explore");
               }}
             >
               Exit

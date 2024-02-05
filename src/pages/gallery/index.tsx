@@ -41,7 +41,8 @@ const Gallery: NextPage = () => {
         {
           duration: 3000,
           style: {
-            color: "black",
+            backgroundColor: "#7628D0",
+            color: "white",
           },
         }
       );
