@@ -12,9 +12,7 @@ import { useQuery } from "@apollo/client";
 import ViewUserAccommodation from "../components/pages/profile/viewUserAccommodation";
 import { IoEye } from "react-icons/io5";
 
-type Props = {};
-
-const Register: NextPage = (props: Props) => {
+const Register: NextPage = () => {
   const { error, user, loading: userLoading } = useAuth();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -28,7 +26,6 @@ const Register: NextPage = (props: Props) => {
 
   if (userLoading) return <Loader />;
   if (!user) router.push("/login");
-  console.log(user);
   if (user && user?.role !== "USER") router.push("/profile");
 
   return (
@@ -49,7 +46,7 @@ const Register: NextPage = (props: Props) => {
 
         <div className="bodyFont md:px-10 px-5 md:mt-8 mt-6 max-w-7xl mx-auto bg-white/20 rounded-sm md:py-7 py-4">
           {loadingAccommodation ? (
-            <Spinner className="text-[#dd5c6e]" />
+            <Spinner className="text-[#dd5c6e]" intent={"white"} />
           ) : userDetails?.accommodationRequestsByUser[0]?.status ? (
             <div>
               <div className="px-4 flex flex-col md:flex-row justify-between">
@@ -73,15 +70,14 @@ const Register: NextPage = (props: Props) => {
               <div className="flex justify-center text-md">
                 We provide accommodation for participants and non-participants
               </div>
-              <Button
-                onClick={() => {
-                  router.push("/accommodation");
-                }}
-                size={"small"}
-                className="w-max mt-3 md:mt-0 self-end"
+              <Link
+                href={"/accommodation"}
+                className="flex justify-center items-center"
               >
-                Accommodate Me
-              </Button>
+                <Button size={"small"} className="w-max mt-3 md:mt-0">
+                  Accommodate Me
+                </Button>
+              </Link>
             </div>
           )}
         </div>
@@ -133,7 +129,11 @@ const Register: NextPage = (props: Props) => {
           >
             Registrations Closed
             {loading && (
-              <Spinner className="w-fit" size={"small"} intent={"white"} />
+              <Spinner
+                className="w-fit text-[#dd5c6e]"
+                size={"small"}
+                intent={"white"}
+              />
             )}{" "}
           </Button>
           <h1 className="text-xs md:text-sm mt-2 text-gray-100">
