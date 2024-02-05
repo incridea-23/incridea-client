@@ -4,16 +4,6 @@ import { useRef, useState } from "react";
 import styles from "./annotation.module.css";
 import Link from "next/link";
 
-import studio from "@theatre/studio";
-import { editable as e, SheetProvider } from "@theatre/r3f";
-import { getProject } from "@theatre/core";
-import extension from "@theatre/r3f/dist/extension";
-
-// studio.extend(extension);
-// studio.initialize();
-
-// const demoSheet = getProject("Scene 1").sheet("Scene 1");
-
 export default function ProniteAnnotation() {
   const scroll = useScroll();
   const [scrollData, setScrollData] = useState(false);
@@ -28,12 +18,7 @@ export default function ProniteAnnotation() {
   });
 
   return (
-    // <SheetProvider sheet={demoSheet}>
-    <group
-      // theatreKey="group"
-      rotation={[0, -Math.PI / 2, 0]}
-      position={[4, 1.2, 1]}
-    >
+    <group rotation={[0, -Math.PI / 2, 0]} position={[4, 1.2, 1]}>
       <Html
         transform
         occlude="blending"
@@ -67,6 +52,5 @@ export default function ProniteAnnotation() {
         </Link>
       </Html>
     </group>
-    // </SheetProvider>
   );
 }

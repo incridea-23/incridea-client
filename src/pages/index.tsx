@@ -12,7 +12,7 @@ import { NextRouter, useRouter } from "next/router";
 import { AuthStatus, useAuth } from "../hooks/useAuth";
 import { useQuery } from "@apollo/client";
 import { GetUserXpDocument } from "../generated/generated";
-import GlitchAnimation from "../components/animation/glitchAnimation";
+import CountDown from "../components/pages/countdown";
 
 export default function Landing() {
   const landingContainer = useRef(null);
@@ -122,7 +122,7 @@ const HomeFooter = () => {
         >
           Made with <BsFillSuitHeartFill className="mx-2" /> by Technical Team
         </Link>
-        © Incridea 2024
+        Â© Incridea 2024
       </p>
     </footer>
   );
@@ -158,7 +158,7 @@ export const Menu: FC<{
           className="h-fit w-52 px-4 sm:px-12"
           size={"xlarge"}
           onClick={() => {
-            router.push("/explore/level1");
+            router.push("/explore");
           }}
         >
           Explore
@@ -239,82 +239,9 @@ const HomeUi: FC<{
     opacity: 1,
   });
 
-  const [time, setTime] = useState<{
-    days: number;
-    hours: number;
-    minutes: number;
-    seconds: number;
-  }>({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
-
-  function getRemaingTime() {
-    const eventDate = new Date("2024-02-22T09:00:00").getTime();
-    const currentDate = new Date().getTime();
-    const remainingTime = eventDate - currentDate;
-
-    const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
-    const hours = Math.floor(
-      (remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    );
-    const minutes = Math.floor(
-      (remainingTime % (1000 * 60 * 60)) / (1000 * 60)
-    );
-    const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
-
-    setTime({ days, hours, minutes, seconds });
-  }
-
-  useEffect(() => {
-    getRemaingTime();
-    const interval = setInterval(() => {
-      getRemaingTime();
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <>
-      <div className="flex fixed w-full z-50 justify-between md:p-4 p-2 items-start">
-        {userAuthStatus ? (
-          <div>
-            <h3
-              className={` text-lg md:text-2xl text-white tracking-widest z-10`}
-            >
-              <div className="flex flex-row space-x-1 items-center titleFont">
-                <Image
-                  src={"/assets/png/XP.png"}
-                  width={100}
-                  height={100}
-                  alt="map"
-                  className="sm:h-12 sm:w-10 h-10 w-8"
-                />
-
-                <div className="text-lg flex flex-col items-center justify-center">
-                  <p className={`${VikingHell.className}`}>XP</p>
-                  <p className="font-sans relative bottom-2">{xp}</p>
-                </div>
-              </div>
-            </h3>
-          </div>
-        ) : (
-          <div></div>
-        )}
-
-        <div className="flex flex-col text-white justify-center items-center">
-          {/* <GlitchAnimation text={"GAME BEGINS IN"} /> */}
-          <GlitchAnimation
-            text={`${time.days < 10 ? `0${time.days}` : time.days} :${" "}
-            ${time.hours < 10 ? `0${time.hours}` : time.hours} :${" "}
-            ${time.minutes < 10 ? `0${time.minutes}` : time.minutes} :${" "}
-            ${time.seconds < 10 ? `0${time.seconds}` : time.seconds}`}
-          />
-        </div>
-      </div>
+      <CountDown />
       <section
         id="scene"
         className="relative bg-gradient-to-b min-h-screen from-[#00002a] via-[#1c23bb] to-pink-800/50"

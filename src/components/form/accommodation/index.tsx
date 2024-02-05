@@ -82,6 +82,7 @@ const AccommodationForm: FunctionComponent = () => {
       pad(tzOffset % 60)
     );
   };
+
   const [AccommodationInfo, setAccommodationInfo] = useState({
     hotelId: -1,
     gender: "",
@@ -135,10 +136,14 @@ const AccommodationForm: FunctionComponent = () => {
           setShowModal={setShowModal}
         />
       )}
-      <div className="mt-10 mb-4 px-6 py-8 h-max max-w-[350px] md:max-w-[450px] bg-gradient-to-b from-[#1f2e97] to-[#090d4b] rounded-md text-accent-200">
-        {accommodationLoading ? (
+      <div className="mt-10 mb-4 px-6 py-8 h-max min-w-[350px] md:min-w-[450px] max-w-[350px] md:max-w-[450px] bg-gradient-to-b from-[#561e98] to-[#561e98] rounded-md text-accent-200">
+        {emailVerificationLoading ? (
           <div className="flex flex-col md:flex-row w-full">
-            <Spinner className="text-[#dd5c6e]" />
+            <Spinner className="text-[#dd5c6e]" intent={"white"} />
+          </div>
+        ) : accommodationLoading ? (
+          <div className="flex flex-col md:flex-row w-full">
+            <Spinner className="text-[#dd5c6e]" intent={"white"} />
           </div>
         ) : formSubmitted ? (
           <div className="flex flex-col md:flex-row">
