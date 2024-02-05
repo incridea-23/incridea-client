@@ -1,3 +1,35 @@
+.fadeInBg {
+    animation: animateInBg 3s;
+}
+
+@keyframes animateInBg {
+    0% {
+        opacity: 0%;
+    }
+    20% {
+        opacity: 100%;
+    }
+    100% {
+        opacity: 100%;
+    }
+}
+
+.fadeOutBg {
+    animation: animateOutBg 3s;
+}
+
+@keyframes animateOutBg {
+    0% {
+        opacity: 100%;
+    }
+    20% {
+        opacity: 0%;
+    }
+    100% {
+        opacity: 0%;
+    }
+}
+
 .mountbl {
     animation: animatebottomleft 3s;
 }
@@ -119,13 +151,14 @@
 }
 
 .fadeloader {
-    animation: fadeloadpage 8s;
+    animation: fadeloadpage 4s;
     animation-fill-mode: forwards;
 }
 
 @keyframes fadeloadpage {
     0% {
         opacity: 1;
+        z-index: 9999;
     }
 
     50% {

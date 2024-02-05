@@ -14,7 +14,7 @@ const Loader: FC = () => {
         setIsLoading(false);
         setTimeout(() => {
           document.body.classList.remove("remove-scrolling");
-        }, 1000);
+        }, 10);
       }, 3000);
     }
 
@@ -33,6 +33,7 @@ const Loader: FC = () => {
     router.events.on("routeChangeError", () => {
       startTimer();
     });
+
     return () => {
       setIsLoading(false);
       setOpen(false);
@@ -45,7 +46,9 @@ const Loader: FC = () => {
         <div
           className={`absolute h-full w-fh-full overflow-hidden no-scrollbar z-[9999]`}
         >
-          <div className="fixed h-screen w-screen">
+          <div
+            className={`fixed h-screen w-screen bg-primary-300 ${styles.fadeInBg}`}
+          >
             <Image
               className={`${
                 open ? styles.mountbl : styles.unmountbl
@@ -95,9 +98,12 @@ const Loader: FC = () => {
         </div>
       ) : (
         <div
-          className={`absolute h-full w-full bg-transparent overflow-hidden no-scrollbar z-[9999] ${styles.fadeloader}`}
+          className={`absolute h-full w-full overflow-hidden no-scrollbar ${styles.fadeloader}`}
         >
-          <div className="fixed h-screen w-screen">
+          {/* FIXME: Dont know if fadeOutBg is working or not */}
+          <div
+            className={`fixed h-screen w-screen bg-primary-300 ${styles.fadeOutBg}`}
+          >
             <Image
               className={`${styles.unmountblsecond} absolute object-cover h-screen w-screen object-center `}
               src={`/assets/loader/cloudbl.png`}
