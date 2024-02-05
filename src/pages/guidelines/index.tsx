@@ -7,7 +7,7 @@ const Guidelines: NextPage = () => {
     <div className="overflow-x-hidden overflow-y-auto text-gray-100 p-5 sm:p-10">
       <div className="w-full max-w-7xl mx-auto">
         <h1
-          className={`${VikingHell.className} pt-24 text-5xl mb-3 text-center`}
+          className={`font-extrabold tracking-tight  pt-24 text-5xl mb-3 text-center`}
         >
           Guidelines and Regulations for Participating in Incridea 2024
         </h1>

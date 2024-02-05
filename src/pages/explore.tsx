@@ -1,9 +1,10 @@
 import { useRouter } from "next/router";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import YouTube, { YouTubePlayer } from "react-youtube";
 import Button from "../components/button";
 import { IoIosSkipForward } from "react-icons/io";
 import { SlVolumeOff, SlVolume2 } from "react-icons/sl";
+import Image from "next/image";
 
 const Explore = () => {
   const router = useRouter();
@@ -13,6 +14,13 @@ const Explore = () => {
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const blackScreenRef = useRef<HTMLDivElement>(null);
   const YTPlayerRef = useRef<YouTubePlayer>(null);
+  const skipRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (skipRef.current) skipRef.current.style.transform = "translateX(0%)";
+    }, 3000);
+  }, []);
 
   return (
     <div className="absolute w-screen h-screen bg-black overflow-hidden">
@@ -42,17 +50,29 @@ const Explore = () => {
       </button>
       <div
         ref={blackScreenRef}
-        className="w-screen bg-black h-screen absolute z-40"
-      ></div>
-      <Button
-        onClick={() => {
-          router.push("/explore/level1");
-        }}
-        size={"large"}
-        className="absolute -right-1 bottom-[10vh] z-50"
+        className="w-screen bg-black h-screen absolute z-40 flex justify-center items-center"
       >
-        Skip <IoIosSkipForward />
-      </Button>
+        <Image
+          src="/assets/loader/dodLogo.png"
+          alt=""
+          height={180}
+          width={180}
+          className="opacity-80 animate-pulse"
+        />
+      </div>
+      <div
+        ref={skipRef}
+        className="absolute -right-1 bottom-[10vh] z-50 transition-all ease-in hover:scale-110 translate-x-[110%] duration-[400]"
+      >
+        <Button
+          onClick={() => {
+            router.push("/explore/level1");
+          }}
+          size={"large"}
+        >
+          Skip <IoIosSkipForward />
+        </Button>
+      </div>
       <YouTube
         // TODO: VIDEO ID from youtube embed link
         videoId="CN_43nWXebo?si=PGZh5VT92HoLDme_"
