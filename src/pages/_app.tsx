@@ -72,7 +72,7 @@ export default function App({
         <Toaster />
         <Loader />
         <div
-          className={`min-h-screen ${VikingHell.variable} ${pressStart.variable} bg-gradient-to-b ${garetFont.variable} from-primary-200 to-primary-400`}
+          className={`min-h-screen ${VikingHell.variable} ${pressStart.variable} bg-[#7528cf] ${garetFont.variable}`}
         >
           {!isLoading && <Navbar />}
           <AnimatePresence mode="wait">

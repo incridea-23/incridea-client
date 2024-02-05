@@ -31,9 +31,15 @@ export function FooterBody() {
     <div
       id="footer"
       style={{ willChange: "transform" }}
+<<<<<<< Updated upstream
       className={`bodyFont snap-start relative`}
     >
       <div className="-mt-1 flex flex-col gap-5 md:flex-row bg-primary-700 text-gray-100 p-5 items-center justify-between">
+=======
+      className={`snap-start relative tracking-wider`}
+    >
+      <div className="-mt-1 flex flex-col gap-5 md:flex-row bg-[#131e28] text-gray-100 p-5 items-center justify-between">
+>>>>>>> Stashed changes
         <div className="md:basis-1/5">
           <Image
             src="/assets/png/logo-black.png"
@@ -45,6 +51,7 @@ export function FooterBody() {
         </div>
         <div className="md:basis-3/5">
           <ul className="flex flex-wrap whitespace-nowrap flex-row flex-1 gap-2 md:gap-5 justify-center text-sm sm:text-sm items-center ">
+<<<<<<< Updated upstream
             <li className="text-white hover:text-gray-300 transition-colors duration-300">
               <Link href="/privacy">Privacy Policy</Link>
             </li>
@@ -58,6 +65,21 @@ export function FooterBody() {
             </li>
             |
             <li className="text-white hover:text-gray-300 transition-colors duration-300">
+=======
+            <li className=" text-gray-300 hover:text-gray-100">
+              <Link href="/privacy">Privacy Policy</Link>
+            </li>
+            |
+            <li className="text-gray-300 hover:text-gray-100">
+              <Link href="/rules">Terms & Conditions</Link>
+            </li>
+            |
+            <li className="text-gray-300 hover:text-gray-100">
+              <Link href="/guidelines">Guidelines</Link>
+            </li>
+            |
+            <li className="text-gray-300 hover:text-gray-100">
+>>>>>>> Stashed changes
               <Link href="/refund">Refund Policy</Link>
             </li>
             {/* |
@@ -68,7 +90,11 @@ export function FooterBody() {
         </div>
         <div className="md:basis-1/5">
           <ul className="flex flex-1 gap-4 justify-center text-2xl items-center ">
+<<<<<<< Updated upstream
             <li className="text-white hover:text-gray-300 transition-colors duration-300">
+=======
+            <li className="text-gray-300 hover:text-gray-100">
+>>>>>>> Stashed changes
               <a
                 target="_blank"
                 href="https://www.instagram.com/incridea/"
@@ -77,7 +103,11 @@ export function FooterBody() {
                 <BsInstagram />
               </a>
             </li>
+<<<<<<< Updated upstream
             <li className="text-white hover:text-gray-300 transition-colors duration-300">
+=======
+            <li className="text-gray-300 hover:text-gray-100">
+>>>>>>> Stashed changes
               <a
                 target="_blank"
                 className="text-3xl"
@@ -90,15 +120,26 @@ export function FooterBody() {
           </ul>
         </div>
       </div>
+<<<<<<< Updated upstream
       <div className="bg-primary-800">
         <p className="text-center p-5 text-gray-200 text-sm">
           <Link
             className="flex justify-center items-center tracking-normal transition-all hover:tracking-widest hover:text-gray-300 duration-300"
+=======
+      <div className="bg-[#0f1821]">
+        <p className="text-center p-5 text-gray-200 text-sm">
+          <Link
+            className="flex justify-center items-center tracking-normal transition-all hover:tracking-widest hover:text-gray-300"
+>>>>>>> Stashed changes
             href="/team"
           >
             Made with <BsFillSuitHeartFill className="mx-2" /> by Technical Team
           </Link>
+<<<<<<< Updated upstream
           <span className="font-semibold mt-1 block">© Incridea 2024</span>
+=======
+          © Incridea 2024
+>>>>>>> Stashed changes
         </p>
       </div>
     </div>
