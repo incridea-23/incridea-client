@@ -12,6 +12,7 @@ import Image from "next/image";
 import styles from "./styles.module.css";
 import { useRouter } from "next/router";
 import { IoIosPlayCircle } from "react-icons/io";
+import { VikingHell, pressStart } from "@/src/pages/_app";
 
 const Event = ({
   data,
@@ -83,9 +84,9 @@ const Event = ({
       <div>
         <div className="bg-[#f648ae] rounded-t-xl">
           <div className="w-full">
-            <div className="-skew-x-[40deg] bg-[#551d96] absolute rounded-bl-3xl rounded-br-xl left-0 w-1/2 flex justify-start px-4 -translate-y-1">
+            <div className="-skew-x-[40deg] bg-[#551d96] absolute rounded-bl-3xl rounded-br-xl left-0 w-1/2 flex justify-start px-4 py-[0.015rem] -translate-y-1">
               <Image
-                src="/assets/png/incridealogo.png"
+                src="/assets/png/logo.png"
                 alt={"Incridea Logo"}
                 width={550}
                 height={550}
@@ -93,7 +94,7 @@ const Event = ({
               />
             </div>
             <div
-              className={` tracking-wider uppercase font-bold flex justify-end pt-1 pr-2 text-secondary-900`}
+              className={` tracking-wider uppercase font-extrabold flex justify-end pt-1 pr-2 text-secondary-900`}
             >
               {data.category?.toLowerCase() === "non_technical"
                 ? "Non Tech"
@@ -115,6 +116,9 @@ const Event = ({
             )}
           </div>
         </div>
+      </div>
+      <div className="text-2xl text-white text-center font-VikingHell">
+        {data.name}
       </div>
       <div className="flex flex-col w-full gap-2 text-white px-1 py-3 justify-center items-start md:w-full h-[9rem]">
         {getEventAttributes().map((attr, i) =>

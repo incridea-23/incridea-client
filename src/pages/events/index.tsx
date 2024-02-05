@@ -260,7 +260,7 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
 
                 <div>
                   <a
-                    href="https://drive.google.com/file/d/1Dd1obJ2hfoY7x1H-06isz6VP2xHdnYDH/view?usp=drive_link"
+                    href="https://drive.google.com/file/d/1H43LJXI4E-HELku71b9NLOBRoDpmxuHk/view?usp=drive_link"
                     download
                   >
                     <button className="inline-flex shrink-0 gap-2 text-sm md:text-lg whitespace-nowrap bg-black/30 border border-primary-200/80 items-center w-full justify-center rounded-full px-4 py-2 h-[40px] text-white">

@@ -13,7 +13,7 @@ import { AuthStatus, useAuth } from "../hooks/useAuth";
 import { useQuery } from "@apollo/client";
 import { GetUserXpDocument } from "../generated/generated";
 import CountDown from "../components/pages/countdown";
-
+import ArcadeLoader from "../components/Loader/arcadeLoader";
 export default function Landing() {
   const landingContainer = useRef(null);
   const [pageLoader, setPageLoader] = useState<boolean>(true);
@@ -47,29 +47,29 @@ export default function Landing() {
     }
   }, [userXpLoading]);
 
-  useGSAP(
-    () => {
-      gsap.to(landingContainer.current, {
-        scale: 13,
-        translateY: 550,
-        translateX: 200,
-        duration: 2,
-        delay: 0.5,
-        ease: "power2.in",
-        onComplete() {
-          gsap.to(landingContainer.current, { opacity: 0, duration: 1 });
-          setTimeout(() => {
-            setPageLoader(false);
-          }, 1000);
-        },
-      });
-    },
-    { scope: landingContainer }
-  );
+  // useGSAP(
+  //   () => {
+  //     gsap.to(landingContainer.current, {
+  //       scale: 13,
+  //       translateY: 550,
+  //       translateX: 200,
+  //       duration: 2,
+  //       delay: 0.5,
+  //       ease: "power2.in",
+  //       onComplete() {
+  //         gsap.to(landingContainer.current, { opacity: 0, duration: 1 });
+  //         setTimeout(() => {
+  //           setPageLoader(false);
+  //         }, 1000);
+  //       },
+  //     });
+  //   },
+  //   { scope: landingContainer }
+  // );
 
   return (
     <main className="h-screen relative overflow-hidden">
-      {pageLoader && (
+      {/* {pageLoader && (
         <section
           ref={landingContainer}
           className=" min-h-screen w-full flex justify-center items-center  z-[999] absolute top-0 left-0"
@@ -94,12 +94,15 @@ export default function Landing() {
               />
             </div>
           </div>
-          {/* <div className="absolute  translate-y-[18%]">
-            <Arcade />
-          </div> */}
         </section>
+      )} */}
+      {typeof window !== "undefined" && (
+        <>
+          {window.sessionStorage.getItem("arcadeLoader") ? null : (
+            <ArcadeLoader />
+          )}
+        </>
       )}
-
       <div className="absolute top-0">
         <HomeUi xp={xp} userAuthStatus={userAuthStatus} />
         <Menu

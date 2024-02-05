@@ -114,7 +114,7 @@ const Loader: FC = () => {
           >
             <Image
               className={`${styles.fadelogo} w-44 h-auto`}
-              src={"/assets/png/logo.png"}
+              src={"/assets/png/logo-black.png"}
               alt="logo"
               height={250}
               width={250}
