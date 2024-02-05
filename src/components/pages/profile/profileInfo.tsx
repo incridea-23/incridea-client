@@ -32,7 +32,7 @@ const ProfileInfo: FC<{
   const [showModal, setShowModal] = useState(false);
   const [avatarModal, setAvatarModal] = useState(false);
 
-  if (user?.role === "USER") {
+  if (user && user.role === "USER") {
     router.push("/register");
   }
 

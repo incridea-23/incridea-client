@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FC, use, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { FC, useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Button from "../components/button";
@@ -9,33 +9,22 @@ import Parallax from "parallax-js";
 import Arcade from "../components/svg/arcade";
 import { VikingHell } from "./_app";
 import { NextRouter, useRouter } from "next/router";
-import { AuthStatus, useAuth } from "../hooks/useAuth";
+import { useAuth } from "../hooks/useAuth";
 import { useQuery } from "@apollo/client";
 import { GetUserXpDocument } from "../generated/generated";
 import CountDown from "../components/pages/countdown";
+import Spinner from "../components/spinner";
 import ArcadeLoader from "../components/Loader/arcadeLoader";
+
 export default function Landing() {
   const landingContainer = useRef(null);
   const [pageLoader, setPageLoader] = useState<boolean>(true);
   const router = useRouter();
-  const { user, loading, status } = useAuth();
-  const [userId, setUserId] = useState<string>("");
   const { data: userXp, loading: userXpLoading } = useQuery(
     GetUserXpDocument,
     {}
   );
   const [xp, setXp] = useState<number>(0);
-  const [userAuthStatus, setUserAuthStatus] = useState<boolean>(false);
-
-  useEffect(() => {
-    console.log("user", user);
-    if (user && user.role !== "USER") {
-      setUserId(user.id);
-      setUserAuthStatus(true);
-    } else {
-      setUserAuthStatus(false);
-    }
-  }, [user]);
 
   useEffect(() => {
     if (userXp?.getUserXp.__typename === "QueryGetUserXpSuccess") {
@@ -104,18 +93,15 @@ export default function Landing() {
         </>
       )}
       <div className="absolute top-0">
-        <HomeUi xp={xp} userAuthStatus={userAuthStatus} />
-        <Menu
-          router={router}
-          isAuthenticated={status === AuthStatus.AUTHENTICATED}
-        />
+        <HomeUi xp={xp} />
+        <Menu router={router} />
         <HomeFooter />
       </div>
     </main>
   );
 }
 
-const HomeFooter = () => {
+export const HomeFooter = () => {
   return (
     <footer className="absolute w-full text-gray-200 bottom-0 ">
       <p className="text-center p-5 text-sm">
@@ -133,15 +119,17 @@ const HomeFooter = () => {
 
 export const Menu: FC<{
   router: NextRouter;
-  isAuthenticated: boolean;
-}> = ({ router, isAuthenticated }) => {
+}> = ({ router }) => {
   const navItems = [
     { href: "/events", target: "Events" },
     { href: "/pronites", target: "Pronite" },
     { href: "/gallery", target: "Gallery" },
-    { href: "/about", target: "about" },
+    { href: "/about", target: "About" },
+    // TODO: remember to change in mainMenuModal.tsx
     // { href: "/sponsors", target: "Sponsors" },
   ];
+
+  const { user, loading, error } = useAuth();
 
   return (
     <div className="w-screen overflow-x-hidden flex flex-col absolute bottom-0 left-0 h-full justify-center items-center">
@@ -151,10 +139,20 @@ export const Menu: FC<{
           className="h-fit w-52  px-4 sm:px-12"
           size={"xlarge"}
           onClick={() => {
-            isAuthenticated ? router.push("/profile") : router.push("/login");
+            loading
+              ? null
+              : user
+              ? router.push("/profile")
+              : router.push("/login");
           }}
         >
-          {!isAuthenticated ? "Register" : "Profile"}
+          {loading ? (
+            <Spinner size="small" className="py-[2px]" />
+          ) : user ? (
+            "Profile"
+          ) : (
+            "Register"
+          )}
         </Button>
         <Button
           intent={"ghost"}
@@ -180,12 +178,20 @@ export const Menu: FC<{
               className="lg:hidden !bg-primary-800/70 block w-52 md:w-80 justify-center md:justify-end px-12 md:px-16"
               size={"xlarge"}
               onClick={() => {
-                isAuthenticated
+                loading
+                  ? null
+                  : user
                   ? router.push("/profile")
                   : router.push("/login");
               }}
             >
-              {!isAuthenticated ? "Register" : "Profile"}
+              {loading ? (
+                <Spinner size="small" className="py-[2px]" />
+              ) : user ? (
+                "Profile"
+              ) : (
+                "Register"
+              )}
             </Button>
             <Button
               intent={"ghost"}
@@ -214,10 +220,9 @@ export const Menu: FC<{
   );
 };
 
-const HomeUi: FC<{
-  xp: number;
-  userAuthStatus: boolean;
-}> = ({ xp, userAuthStatus }) => {
+export const HomeUi: FC<{
+  xp?: number;
+}> = ({ xp }) => {
   useLayoutEffect(() => {
     const scene = document.getElementById("scene") as HTMLElement;
 
@@ -225,9 +230,7 @@ const HomeUi: FC<{
       relativeInput: true,
     });
   });
-  useEffect(() => {
-    console.log("userAuthStatus", userAuthStatus);
-  }, [userAuthStatus]);
+
   const Logo = useRef(null);
   gsap.from(Logo.current, {
     delay: 0,

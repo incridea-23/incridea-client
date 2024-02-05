@@ -90,8 +90,8 @@ const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = ({
             </Button>
 
             {loading && (
-              <div className="absolute h-full w-full bg-gradient-to-b from-[#1f2e97] to-[#090d4b] opacity-60 inset-0 cursor-not-allowed z-50 rounded-lg">
-                <Spinner className="text-[#dd5c6e]" />
+              <div className="absolute h-full w-full bg-gradient-to-b from-[#1f2e97] to-[#090d4b] opacity-60 inset-0 cursor-not-allowed z-10 rounded-lg">
+                <Spinner className="text-[#dd5c6e]" intent={"white"} />
               </div>
             )}
 

@@ -14,6 +14,18 @@ export default function ExploreNav() {
     {}
   );
   const [xp, setXp] = useState<number>(0);
+
+  const handleOnEscapeDown = (e: KeyboardEvent) => {
+    if (e.code === "Escape") setShowModal(!showModal);
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleOnEscapeDown);
+    return () => {
+      window.removeEventListener("keydown", handleOnEscapeDown);
+    };
+  }, [showModal]);
+
   useEffect(() => {
     if (userXp?.getUserXp.__typename === "QueryGetUserXpSuccess") {
       setXp(
