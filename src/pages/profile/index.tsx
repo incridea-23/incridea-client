@@ -38,7 +38,7 @@ const Profile: NextPage = () => {
       addXp().then((res) => {
         if (res.data?.addXP.__typename === "MutationAddXPSuccess") {
           toast.success(
-            `Added ${res.data?.addXP.data.level.point} Easter Bomb XP`,
+            `Congratulations!! Added ${res.data?.addXP.data.level.point} Easter Bomb XP`,
             {
               position: "bottom-center",
               style: {

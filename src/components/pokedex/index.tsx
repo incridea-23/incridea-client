@@ -45,18 +45,7 @@ const Pokedex: React.FC<DexProps> = ({
     }
     setCalledXp(true);
     const promise = addXp().then((res) => {
-      if (res.data?.addXP.__typename !== "MutationAddXPSuccess") {
-        toast.error(
-          `Opps!! You have already claimed your xp or not logged in`,
-          {
-            position: "bottom-center",
-            style: {
-              backgroundColor: "#7628D0",
-              color: "white",
-            },
-          }
-        );
-      } else {
+      if (res.data?.addXP.__typename === "MutationAddXPSuccess") {
         toast.success(
           `Congratulations!!! You have found ${res.data?.addXP.data.level.point} Xp`,
           {
