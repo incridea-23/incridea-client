@@ -4,13 +4,8 @@ import Banner from "../../components/AboutUs/Banner";
 
 const About = () => {
   return (
-<<<<<<< Updated upstream
-    <div className="page-container flex flex-col md:gap-16 gap-8 bg-gradient-to-b from-primary-300 to-primary-500">
-      <div className="min-h-screen flex flex-col md:gap-16 gap-8">
-=======
     <div className="page-container flex flex-col md:gap-16 gap-y-2">
       <div className="min-h-screen flex flex-col md:gap-16 gap-y-2">
->>>>>>> Stashed changes
         <Banner
           video={"https://vimeo.com/883551016?share=copy"}
           text=""
@@ -63,12 +58,7 @@ const About = () => {
         text=""
         credits=""
       />
-<<<<<<< Updated upstream
-
-      <span className="text-base md:text-lg xl:text-xl text-secondary-100 mb-10">
-=======
       <span className="text-base md:text-lg xl:text-xl text-secondary-100">
->>>>>>> Stashed changes
         <div className="flex md:flex-row flex-col justify-between items-center gap-8">
           <Image
             src="/assets/png/logo-black.png"
