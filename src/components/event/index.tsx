@@ -9,7 +9,6 @@ import {
 } from "react-icons/io5";
 import { generateEventUrl } from "@/src/utils/url";
 import Image from "next/image";
-import styles from "./styles.module.css";
 import { useRouter } from "next/router";
 import { IoIosPlayCircle } from "react-icons/io";
 
@@ -78,12 +77,12 @@ const Event = ({
     <div
       data-scroll
       onClick={() => router.push(generateEventUrl(data.name, data.id))}
-      className={`relative bg-[#551d96] border border-[#294558] px-2 rounded-2xl flex flex-col gap-2 w-full mx-auto py-2`}
+      className={`relative bg-[#551d96] hover:scale-105 border border-[#294558] px-2 rounded-2xl flex flex-col gap-2 w-full mx-auto py-2`}
     >
       <div>
         <div className="bg-[#f648ae] rounded-t-xl">
           <div className="w-full">
-            <div className="-skew-x-[40deg] bg-[#551d96] absolute rounded-bl-3xl rounded-br-xl left-0 w-1/2 flex justify-start px-4 -translate-y-1">
+            <div className="-skew-x-[40deg] bg-[#551d96] absolute rounded-bl-3xl rounded-br-xl  left-0 w-1/2 flex justify-start px-4 -translate-y-1">
               <Image
                 src="/assets/png/incridealogo.png"
                 alt={"Incridea Logo"}

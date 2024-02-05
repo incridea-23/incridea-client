@@ -27,7 +27,8 @@ const FinalComponent = () => {
           {
             position: "bottom-center",
             style: {
-              color: "black",
+              backgroundColor: "#7628D0",
+              color: "white",
             },
           }
         );
@@ -35,7 +36,8 @@ const FinalComponent = () => {
         toast.success(`Congratulations!!! You have found ${res.data?.addXP.data.level.point} Xp`, {
           position: "bottom-center",
           style: {
-            color: "black",
+            backgroundColor: "#7628D0",
+            color: "white",
           },
         });
       }
