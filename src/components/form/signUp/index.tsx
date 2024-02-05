@@ -273,8 +273,12 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({
               >
                 <Combobox.Options className="z-10 absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 border text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                   {collegesLoading ? (
-                    <div className="select-none text-center py-2 px-4 italic text-gray-500">
-                      <Spinner className="text-gray-400" size={"small"} />
+                    <div className="select-none text-center py-2 px-4 italic">
+                      <Spinner
+                        className="text-[#dd5c6e]"
+                        size={"small"}
+                        intent={"white"}
+                      />
                     </div>
                   ) : filteredColleges?.length === 0 && query !== "" ? (
                     //FIXME no need to touch
@@ -478,8 +482,8 @@ const SignUpForm: FunctionComponent<SignUpFormProps> = ({
       </div>
 
       {(loading || emailVerificationLoading) && (
-        <div className="absolute h-full w-full bg-gradient-to-b from-[#1f2e97] to-[#090d4b] opacity-60 inset-0 cursor-not-allowed z-50 flex flex-col items-center justify-center gap-4 rounded-lg">
-          <Spinner className="h-fit my-0 text-[#dd5c6e]" />
+        <div className="absolute h-full w-full bg-gradient-to-b from-[#1f2e97] to-[#090d4b] opacity-60 inset-0 cursor-not-allowed z-10 flex flex-col items-center justify-center gap-4 rounded-lg">
+          <Spinner className="h-fit my-0 text-[#dd5c6e]" intent={"white"} />
           {emailVerificationLoading && (
             <p className="font-semibold">Sending Verification Email</p>
           )}

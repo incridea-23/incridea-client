@@ -18,7 +18,7 @@ const Gallery: NextPage = () => {
   const [activeYear, setActiveYear] = useState<number>(0);
   const swiperRef = useRef<SwiperType>();
   const years = [2019, 2020, 2022, 2023, 2024];
-  const imageCounts = [25, 2, 18, 20, 0];
+  const imageCounts = [31, 12, 26, 26, 0];
 
   const generateImagePaths = (
     year: number,
@@ -27,11 +27,7 @@ const Gallery: NextPage = () => {
   ) => {
     const imagePaths = [];
     for (let i = 1; i <= count; i++) {
-      if (year === years[2] && i > 9) {
-        imagePaths.push(`${year}/${i}.JPG`);
-      } else {
-        imagePaths.push(`${year}/${i}.${extension}`);
-      }
+      imagePaths.push(`gallery/${year}/${i}.${extension}`);
     }
     return imagePaths;
   };
@@ -149,13 +145,13 @@ const Gallery: NextPage = () => {
           >
             <SwiperSlide className="flex justify-center items-center text-center">
               <div className="relative w-full h-full flex justify-center items-center">
-                <GallerySlide title={"2019"} imgArr={img2019} emulator="gba" />
+                <GallerySlide title={2019} imgArr={img2019} emulator="gba" />
               </div>
             </SwiperSlide>
             <SwiperSlide className="flex justify-center items-center text-center">
               <div className="relative w-full h-full flex justify-center items-center">
                 <GallerySlide
-                  title={"2020"}
+                  title={2020}
                   imgArr={img2020}
                   emulator="retroPC"
                 />
@@ -164,7 +160,7 @@ const Gallery: NextPage = () => {
             <SwiperSlide className="flex justify-center items-center text-center">
               <div className="relative w-full h-full flex justify-center items-center">
                 <GallerySlide
-                  title={"2022"}
+                  title={2022}
                   imgArr={img2022}
                   emulator="retroTV"
                 />
@@ -173,7 +169,7 @@ const Gallery: NextPage = () => {
             <SwiperSlide className="flex justify-center items-center text-center">
               <div className="relative w-full h-full flex justify-center items-center">
                 <GallerySlide
-                  title={"2023"}
+                  title={2023}
                   imgArr={img2023}
                   emulator="console"
                 />
@@ -181,11 +177,7 @@ const Gallery: NextPage = () => {
             </SwiperSlide>
             <SwiperSlide className="flex justify-center items-center text-center">
               <div className="relative w-full h-full flex justify-center items-center">
-                <GallerySlide
-                  title={"2024"}
-                  imgArr={img2024}
-                  emulator="final"
-                />
+                <GallerySlide title={2024} imgArr={img2024} emulator="final" />
               </div>
             </SwiperSlide>
             <div className="mx-auto z-20 flex gap-4 absolute sm:bottom-[16%] bottom-32 justify-between px-20 w-full">

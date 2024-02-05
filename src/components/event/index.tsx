@@ -11,6 +11,7 @@ import { generateEventUrl } from "@/src/utils/url";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { IoIosPlayCircle } from "react-icons/io";
+import { VikingHell, pressStart } from "@/src/pages/_app";
 
 const Event = ({
   data,
@@ -77,22 +78,22 @@ const Event = ({
     <div
       data-scroll
       onClick={() => router.push(generateEventUrl(data.name, data.id))}
-      className={`relative bg-[#551d96] hover:scale-105 border border-[#294558] px-2 rounded-2xl flex flex-col gap-2 w-full mx-auto py-2`}
+      className={`relative hover:scale-[1.02] transition-transform duration-300 cursor-pointer bg-primary-500 border border-primary-200/70 px-2 rounded-2xl flex flex-col gap-2 w-full mx-auto py-2`}
     >
       <div>
         <div className="bg-[#f648ae] rounded-t-xl">
           <div className="w-full">
-            <div className="-skew-x-[40deg] bg-[#551d96] absolute rounded-bl-3xl rounded-br-xl  left-0 w-1/2 flex justify-start px-4 -translate-y-1">
+            <div className="-skew-x-[40deg] py-[0.015rem] bg-primary-500 absolute rounded-bl-3xl rounded-br-xl left-0 w-1/2 flex justify-start px-4 -translate-y-1">
               <Image
-                src="/assets/png/incridealogo.png"
+                src="/assets/png/logo.png"
                 alt={"Incridea Logo"}
                 width={550}
                 height={550}
-                className="object-fill h-8 w-16 z-0  text-white skew-x-[40deg] "
+                className="object-fill h-8 w-16 z-0 text-white skew-x-[40deg] "
               />
             </div>
             <div
-              className={` tracking-wider uppercase font-bold flex justify-end pt-1 pr-2 text-secondary-900`}
+              className={` tracking-wider uppercase font-extrabold flex justify-end pt-1 pr-2 text-secondary-900`}
             >
               {data.category?.toLowerCase() === "non_technical"
                 ? "Non Tech"
@@ -114,6 +115,9 @@ const Event = ({
             )}
           </div>
         </div>
+      </div>
+      <div className="text-2xl text-white text-center font-VikingHell">
+        {data.name}
       </div>
       <div className="flex flex-col w-full gap-2 text-white px-1 py-3 justify-center items-start md:w-full h-[9rem]">
         {getEventAttributes().map((attr, i) =>

@@ -26,6 +26,9 @@ const Pokedex: React.FC<DexProps> = ({
   mainThemeAudioRef,
 }) => {
   const setEventDex = useStore((state) => state.setEventDex);
+  // useEffect(() => {
+  //   setEventDex();
+  // }, []);
   const eventDex = useStore((state) => state.eventDex);
   const [fullyOpen, setFullyOpen] = useState(false);
   const [calledXp, setCalledXp] = useState(false);
@@ -45,18 +48,7 @@ const Pokedex: React.FC<DexProps> = ({
     }
     setCalledXp(true);
     const promise = addXp().then((res) => {
-      if (res.data?.addXP.__typename !== "MutationAddXPSuccess") {
-        toast.error(
-          `Opps!! You have already claimed your xp or not logged in`,
-          {
-            position: "bottom-center",
-            style: {
-              backgroundColor: "#7628D0",
-              color: "white",
-            },
-          }
-        );
-      } else {
+      if (res.data?.addXP.__typename === "MutationAddXPSuccess") {
         toast.success(
           `Congratulations!!! You have found ${res.data?.addXP.data.level.point} Xp`,
           {
@@ -123,7 +115,7 @@ const Pokedex: React.FC<DexProps> = ({
           <div className="flex justify-end">
             {fullyOpen ? (
               <div
-                className="cursor-pointer absolute w-fit bg-primary-300 px-4 py-4 rounded-bl-full rounded-tr-sm  z-50"
+                className="cursor-pointer absolute w-fit bg-[#3d0a10] px-4 py-4 rounded-bl-full rounded-tr-lg  z-50"
                 style={{ pointerEvents: eventDex ? "all" : "none" }}
                 onClick={setEventDex}
               >
