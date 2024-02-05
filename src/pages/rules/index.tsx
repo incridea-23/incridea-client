@@ -5,7 +5,9 @@ const Terms: NextPage = () => {
   return (
     <div className="overflow-x-hidden overflow-y-auto text-gray-100 p-5 sm:p-10">
       <div className="w-full max-w-7xl mx-auto">
-        <h1 className={`titleFont pt-24 text-5xl mb-3 text-center`}>
+        <h1
+          className={`font-extrabold tracking-tight  pt-24 text-5xl mb-3 text-center`}
+        >
           Terms and Conditions
         </h1>
         <div className="bodyFont">
