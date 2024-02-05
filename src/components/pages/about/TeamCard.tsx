@@ -4,6 +4,7 @@ import Image from "next/image";
 import { FC } from "react";
 import { AiFillGithub, AiFillInstagram, AiFillLinkedin } from "react-icons/ai";
 import styles from "./flipCard.module.css";
+import { baseImageUrl } from "@/src/utils/url";
 const TeamCard: FC<{
   name: string;
   role: string;
@@ -21,7 +22,7 @@ const TeamCard: FC<{
     >
       <div className="h-80 flex gap-5">
         <Image
-          src={image}
+          src={`${baseImageUrl}/` + image}
           alt={name}
           width={500}
           height={500}
