@@ -78,18 +78,18 @@ const Event = ({
     <div
       data-scroll
       onClick={() => router.push(generateEventUrl(data.name, data.id))}
-      className={`relative bg-[#551d96] border border-[#294558] px-2 rounded-2xl flex flex-col gap-2 w-full mx-auto py-2`}
+      className={`relative hover:scale-[1.02] transition-transform duration-300 cursor-pointer bg-primary-500 border border-primary-200/70 px-2 rounded-2xl flex flex-col gap-2 w-full mx-auto py-2`}
     >
       <div>
         <div className="bg-[#f648ae] rounded-t-xl">
           <div className="w-full">
-            <div className="-skew-x-[40deg] bg-[#551d96] absolute rounded-bl-3xl rounded-br-xl left-0 w-1/2 flex justify-start px-4 -translate-y-1">
+            <div className="-skew-x-[40deg] bg-primary-500 absolute rounded-bl-3xl rounded-br-xl left-0 w-1/2 flex justify-start px-4 -translate-y-1">
               <Image
                 src="/assets/png/incridealogo.png"
                 alt={"Incridea Logo"}
                 width={550}
                 height={550}
-                className="object-fill h-8 w-16 z-0  text-white skew-x-[40deg] "
+                className="object-fill h-8 w-16 z-0 text-white skew-x-[40deg] "
               />
             </div>
             <div
