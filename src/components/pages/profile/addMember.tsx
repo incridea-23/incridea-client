@@ -37,7 +37,7 @@ const AddMemberModal: FC<{
         onClick={() => {
           setShowModal(true);
         }}
-        className="mt-5"
+        className="mt-5 rounded-full justify-center !skew-x-0 bodyFont !tracking-normal"
       >
         <AiOutlineUserAdd size={20} /> Add More
       </Button>

@@ -144,6 +144,7 @@ const Pokedex: React.FC<DexProps> = ({
                 <Link
                   href={"/events"}
                   className="flex butanim w-full justify-center relative z-20 px-2 -bottom-1 mb-2"
+                  target="_blank"
                 >
                   <Button className="font-VikingHell h-full">
                     View Events
