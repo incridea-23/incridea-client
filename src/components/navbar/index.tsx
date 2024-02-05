@@ -10,7 +10,6 @@ import AuthenticatedButtons from "./authenticatedButtons";
 
 import CharacterAnimation from "../animation/character";
 import { useRouter } from "next/router";
-import { VikingHell } from "@/src/pages/_app";
 
 const Navbar = () => {
   const links = [
