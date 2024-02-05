@@ -25,8 +25,8 @@ const MainMenuModal: React.FunctionComponent<Props> = ({
   const navItems = [
     { href: "/profile", target: "Profile" },
     { href: "/events", target: "Events" },
-    { href: "/pronites", target: "Pronite" },
-    { href: "/", target: "Quit" },
+    { href: "/pronites", target: "Pronites" },
+    { href: "/", target: "Exit" },
   ];
   return (
     <Modal
@@ -36,7 +36,7 @@ const MainMenuModal: React.FunctionComponent<Props> = ({
       size="small"
     >
       <div className="flex w-full rounded-lg items-center justify-center">
-        <div className="flex flex-col w-full items-stretch gap-5 justify-center px-8 pb-8">
+        <div className="flex flex-col w-full items-stretch gap-5 justify-center px-10 pb-8">
           {navItems.map((e, i) => (
             <>
               {e.target !== "Profile" ? (

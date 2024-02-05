@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { FC } from "react";
 import { AiFillGithub, AiFillInstagram, AiFillLinkedin } from "react-icons/ai";
-
+import styles from "./flipCard.module.css";
 const TeamCard: FC<{
   name: string;
   role: string;
@@ -18,49 +18,46 @@ const TeamCard: FC<{
       whileHover={{ scale: 1.03 }}
       className="bg-black/20 bg-opacity-30 rounded-md p-5 text-center w-full max-w-sm"
     >
-      <div className="h-72">
+      <div className="h-80 flex gap-5">
         <Image
-          src={image}
+          src={"/assets/png/nandan.jpg"}
           alt={name}
-          width={250}
-          height={250}
-          className="rounded-md w-full h-full object-cover"
+          width={500}
+          height={500}
+          className="rounded-lg"
         />
+        <div className="flex flex-col items-center gap-8 mt-2 justify-evenly ">
+          <a
+            href={"https://www.linkedin.com/in/" + linkedin}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <AiFillLinkedin size={40} fill="#fff" className="cursor-pointer" />
+          </a>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href={"https://github.com/" + github}
+          >
+            <AiFillGithub size={40} fill="#fff" className="cursor-pointer" />
+          </a>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href={
+              instagram.startsWith("https://youtu.be/")
+                ? instagram
+                : "https://www.instagram.com/" + instagram
+            }
+          >
+            <AiFillInstagram size={40} fill="#fff" className="cursor-pointer" />
+          </a>
+        </div>
       </div>
 
       <div className="flex flex-col mt-5">
-        <h1 className={`text-white font-bold text-2xl ${VikingHell.className}`}>
-          {name}
-        </h1>
+        <h1 className={`text-white font-bold text-2xl `}>{name}</h1>
         <p className="text-gray-200 text-md bodyFont">{role}</p>
-      </div>
-
-      <div className="flex gap-2 mt-2 justify-center">
-        <a
-          href={"https://www.linkedin.com/in/" + linkedin}
-          target="_blank"
-          rel="noreferrer"
-        >
-          <AiFillLinkedin size={30} fill="#fff" className="cursor-pointer" />
-        </a>
-        <a
-          target="_blank"
-          rel="noreferrer"
-          href={"https://github.com/" + github}
-        >
-          <AiFillGithub size={30} fill="#fff" className="cursor-pointer" />
-        </a>
-        <a
-          target="_blank"
-          rel="noreferrer"
-          href={
-            instagram.startsWith("https://youtu.be/")
-              ? instagram
-              : "https://www.instagram.com/" + instagram
-          }
-        >
-          <AiFillInstagram size={30} fill="#fff" className="cursor-pointer" />
-        </a>
       </div>
 
       <hr className="border-white/40 my-5" />
