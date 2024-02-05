@@ -14,6 +14,23 @@ const Console = ({ imgArr }: { imgArr: string[] }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   let thumbnailSrc = "/thumbnails/incridea23.jpg";
   const swiperRef = useRef<SwiperType>();
+
+  const [portraitImages, setPortraitImages] = useState<{
+    [key: number]: boolean;
+  }>({});
+
+  const handleImageLoad = (
+    index: number,
+    event: React.SyntheticEvent<HTMLImageElement>
+  ) => {
+    const { naturalWidth, naturalHeight } = event.currentTarget;
+    const isPortrait = naturalHeight > naturalWidth;
+
+    setPortraitImages((prev) => ({
+      ...prev,
+      [index]: isPortrait,
+    }));
+  };
   return (
     <>
       {/* <h1
@@ -56,10 +73,12 @@ const Console = ({ imgArr }: { imgArr: string[] }) => {
                     setActiveIndex(index);
                   }}
                 >
-                  <ToolTip
-                    classValue="top-[0] text-center sm:right-[14vw] bg-black/60 right-0 text-xs border sm:text-lg"
-                    text="click to preview image"
-                  ></ToolTip>
+                  {index === 0 && (
+                    <ToolTip
+                      classValue="top-[0] text-center sm:right-[14vw] bg-black/60 right-0 text-xs border sm:text-lg cursor-pointer"
+                      text="click to preview image"
+                    ></ToolTip>
+                  )}
                   <div className="relative w-full h-full flex justify-center items-center">
                     <BlurImage
                       fill
@@ -71,8 +90,11 @@ const Console = ({ imgArr }: { imgArr: string[] }) => {
                       fill
                       src={baseImageUrl + img}
                       alt="incridea"
-                      className={`object-cover z-10`}
+                      className={`object-cover z-10 ${
+                        portraitImages[index] ? "object-scale-down" : ""
+                      }`}
                       priority
+                      onLoad={(e) => handleImageLoad(index, e)}
                     />
                   </div>
                 </SwiperSlide>

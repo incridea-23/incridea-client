@@ -1,4 +1,10 @@
-import { useState, FunctionComponent, FormEventHandler, Fragment } from "react";
+import {
+  useState,
+  FunctionComponent,
+  FormEventHandler,
+  Fragment,
+  useRef,
+} from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import {
   AddAccommodationRequestDocument,
@@ -11,7 +17,6 @@ import createToast from "../../toast";
 import { Combobox, Transition, Switch } from "@headlessui/react";
 import { BsChevronExpand } from "react-icons/bs";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { TbArrowBackUp } from "react-icons/tb";
 import Spinner from "../../spinner";
 import { IoEye } from "react-icons/io5";
@@ -24,8 +29,6 @@ const AccommodationForm: FunctionComponent = () => {
   ] = useMutation(AddAccommodationRequestDocument, {
     refetchQueries: [AccommodationRequestsByUserDocument],
   });
-
-  const router = useRouter();
 
   const { data: allHotels } = useQuery(GetAllHotelsDocument);
   const {
@@ -83,6 +86,8 @@ const AccommodationForm: FunctionComponent = () => {
     );
   };
 
+  const checkOutTimeRef = useRef<HTMLInputElement>(null);
+
   const [AccommodationInfo, setAccommodationInfo] = useState({
     hotelId: -1,
     gender: "",
@@ -113,13 +118,11 @@ const AccommodationForm: FunctionComponent = () => {
       })
       .catch((err) => {
         setUploading(false);
-        console.log(err);
       });
     createToast(promise, "Uploading image...");
   };
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-    console.log(AccommodationInfo);
     e.preventDefault();
     addAccommodation({
       variables: AccommodationInfo,
@@ -136,12 +139,8 @@ const AccommodationForm: FunctionComponent = () => {
           setShowModal={setShowModal}
         />
       )}
-      <div className="mt-10 mb-4 px-6 py-8 h-max min-w-[350px] md:min-w-[450px] max-w-[350px] md:max-w-[450px] bg-gradient-to-b from-[#561e98] to-[#561e98] rounded-md text-accent-200">
-        {emailVerificationLoading ? (
-          <div className="flex flex-col md:flex-row w-full">
-            <Spinner className="text-[#dd5c6e]" intent={"white"} />
-          </div>
-        ) : accommodationLoading ? (
+      <div className="mt-10 mb-4 px-6 py-8 h-max min-w-[350px] md:min-w-[450px] max-w-[350px] md:max-w-[450px] bg-[#561e98] rounded-md text-accent-200 ease-suck-in transition-all">
+        {accommodationLoading ? (
           <div className="flex flex-col md:flex-row w-full">
             <Spinner className="text-[#dd5c6e]" intent={"white"} />
           </div>
@@ -150,16 +149,15 @@ const AccommodationForm: FunctionComponent = () => {
             <div className="flex justify-center">
               We will get back to you within 2 working days.
             </div>
-            <Button
-              onClick={() => {
-                router.push("/profile");
-              }}
-              size={"small"}
-              className="ml-3 w-max mt-3 md:mt-0"
+            <Link
+              href="/profile"
+              className="flex justify-center items-center w-full"
             >
-              <TbArrowBackUp />
-              Go Back
-            </Button>
+              <Button size={"small"} className="w-max mt-3 md:mt-0">
+                <TbArrowBackUp />
+                Go Back
+              </Button>
+            </Link>
           </div>
         ) : accommodationData?.accommodationRequestsByUser[0]?.status ? (
           <div className="flex flex-col md:flex-row">
@@ -171,7 +169,7 @@ const AccommodationForm: FunctionComponent = () => {
                 setShowModal(true);
               }}
               size={"small"}
-              className="ml-3 w-max mt-3 md:mt-0 self-end"
+              className="ml-3 w-max mt-3 md:mt-0 self-center"
             >
               <IoEye />
               View Request
@@ -180,12 +178,16 @@ const AccommodationForm: FunctionComponent = () => {
         ) : (
           <form
             onSubmit={handleSubmit}
-            className={`flex relative justify-center min-h-full flex-col gap-5`}
+            className={`flex py-3 px-3 relative justify-center min-h-full flex-col gap-5`}
           >
+            {(uploading || emailVerificationLoading) && (
+              <div className="absolute bg-[#561e98]/80 flex flex-col md:flex-row h-full w-full inset-0 cursor-not-allowed z-10 rounded-lg">
+                <Spinner className="text-[#dd5c6e]" intent={"white"} />
+              </div>
+            )}
             <p className="text-2xl text-center font-semibold mb-3">
               Accommodation Request
             </p>
-
             <Combobox
               value={gender}
               onChange={(value) => {
@@ -246,7 +248,6 @@ const AccommodationForm: FunctionComponent = () => {
                 </Transition>
               </div>
             </Combobox>
-
             <Combobox
               value={hotel}
               onChange={(id: string) => {
@@ -313,7 +314,6 @@ const AccommodationForm: FunctionComponent = () => {
                 </Transition>
               </div>
             </Combobox>
-
             {/* FIXME: No AC rooms??*/}
             {/* <Switch.Group>
             <div className="flex items-center">
@@ -345,7 +345,6 @@ const AccommodationForm: FunctionComponent = () => {
               <Switch.Label className="ml-4">AC</Switch.Label>
             </div>
           </Switch.Group> */}
-
             <div className="w-full">
               <label htmlFor="checkInTime" className="mb-2 text-sm block">
                 From Date
@@ -359,6 +358,8 @@ const AccommodationForm: FunctionComponent = () => {
                   new Date(AccommodationInfo.checkInTime)
                 ).slice(0, 16)}
                 onChange={(e) => {
+                  if (checkOutTimeRef.current)
+                    checkOutTimeRef.current.min = e.target.value;
                   setAccommodationInfo((prevValue) => {
                     return {
                       ...prevValue,
@@ -373,6 +374,7 @@ const AccommodationForm: FunctionComponent = () => {
                 To Date
               </label>
               <input
+                ref={checkOutTimeRef}
                 required
                 type="datetime-local"
                 id="checkOutTime"
@@ -390,7 +392,6 @@ const AccommodationForm: FunctionComponent = () => {
                 }
               />
             </div>
-
             <div>
               <label className="block mb-2 text-sm text-white">Upload ID</label>
               <input
@@ -401,7 +402,6 @@ const AccommodationForm: FunctionComponent = () => {
                 onChange={(e) => handleUpload(e.target.files![0])}
               />
             </div>
-
             <Button
               intent={"primary"}
               type="submit"
@@ -410,7 +410,6 @@ const AccommodationForm: FunctionComponent = () => {
               <MdModeEditOutline />
               Submit
             </Button>
-
             <h1 className="text-xs md:text-sm text-gray-100">
               By clicking the above button, you agree to the mentioned terms and
               conditions

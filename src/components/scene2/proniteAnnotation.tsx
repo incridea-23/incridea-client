@@ -47,7 +47,7 @@ export default function ProniteAnnotation() {
             }}
             className={styles.annotation}
           >
-            Sponsor
+            Pronites
           </div>
         </Link>
       </Html>

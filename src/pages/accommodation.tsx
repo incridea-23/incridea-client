@@ -20,15 +20,12 @@ const Accommodation: NextPage = () => {
       <div className="px-4 md:px-6 pt-32 pb-10 min-h-screen text-white bg-gradient-to-b from-primary-300 to-primary-500">
         <div className="mx-auto max-w-4xl">
           <div className="p-4">
-            <Button
-              onClick={() => {
-                router.push("/profile");
-              }}
-              size={"small"}
-            >
-              <TbArrowBackUp />
-              Go Back
-            </Button>
+            <Link href="/profile">
+              <Button size={"small"}>
+                <TbArrowBackUp />
+                Go Back
+              </Button>
+            </Link>
           </div>
 
           <h2

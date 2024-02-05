@@ -17,7 +17,7 @@ import RetroPC from "./devices/retropc-component";
 import RetroTV from "./devices/retrotv-component";
 
 type GalleryProps = {
-  title: string;
+  title: number;
   imgArr: string[];
   emulator: "gba" | "retroPC" | "console" | "retroTV" | "final";
 };

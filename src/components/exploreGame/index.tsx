@@ -51,7 +51,6 @@ const ExploreGame = () => {
     }
     const currentTime = Date.now();
     const elapsedTime = currentTime - lastExecutionTimeRef.current;
-    // console.log(isMuted);
 
     if (elapsedTime >= delay) {
       const audio = new Audio(path);
@@ -70,7 +69,6 @@ const ExploreGame = () => {
   });
 
   const handleAddXp = () => {
-    console.log(calledXp);
     if (calledXp) return;
     calledXp = true;
     const promise = addXp().then((res) => {
@@ -623,7 +621,6 @@ const ExploreGame = () => {
   };
 
   const animate = () => {
-    // console.log(isMuted);
     ctx.current?.clearRect(0, 0, window.innerWidth, window.innerHeight * 2);
 
     actionKeys.map((key) => {
@@ -870,16 +867,16 @@ const ExploreGame = () => {
                   : "/assets/png/rulebook.png"
               }
               alt="RuleBook"
-              width={100}
-              height={100}
+              width={500}
+              height={500}
               className="w-[10rem] h-[15rem] sm:w-[12rem] sm:h-[18rem] md:w-[14rem] md:h-[21rem] xl:w-[20rem] xl:h-[30rem]"
             />
           </div>
           <a
             href={
               showRuleBook
-                ? "/assets/images/ruleBook.png"
-                : "/assets/images/rulebook.png"
+                ? "https://drive.google.com/file/d/1H43LJXI4E-HELku71b9NLOBRoDpmxuHk/view?usp=drive_link"
+                : ""
             }
             className="flex w-full justify-center py-4 bg-orange-500 rounded-xl"
             download
