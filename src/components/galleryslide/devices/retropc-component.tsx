@@ -63,7 +63,22 @@ const RetroPC = ({ imgArr }: { imgArr: string[] }) => {
       fs: 1,
     },
   };
+  const [portraitImages, setPortraitImages] = useState<{
+    [key: number]: boolean;
+  }>({});
 
+  const handleImageLoad = (
+    index: number,
+    event: React.SyntheticEvent<HTMLImageElement>
+  ) => {
+    const { naturalWidth, naturalHeight } = event.currentTarget;
+    const isPortrait = naturalHeight > naturalWidth;
+
+    setPortraitImages((prev) => ({
+      ...prev,
+      [index]: isPortrait,
+    }));
+  };
   const youtubePlayerRef = useRef<YouTube | null>(null);
 
   const handlePlay = (event: any) => {
@@ -115,10 +130,13 @@ const RetroPC = ({ imgArr }: { imgArr: string[] }) => {
                     setActiveIndex(index);
                   }}
                 >
-                  <ToolTip
-                    classValue="top-[0] text-center bg-black/60 sm:right-[10vw] right-0 text-xs border sm:text-lg"
-                    text="click to preview image"
-                  ></ToolTip>
+                  {index === 0 && (
+                    <ToolTip
+                      classValue="top-[0] text-center bg-black/60 sm:right-[10vw] right-0 text-xs border sm:text-lg"
+                      text="click to preview image"
+                    ></ToolTip>
+                  )}
+
                   <div className="relative w-full h-full flex justify-center items-center">
                     <BlurImage
                       fill
@@ -130,8 +148,11 @@ const RetroPC = ({ imgArr }: { imgArr: string[] }) => {
                       fill
                       src={baseImageUrl + img}
                       alt="incridea"
-                      className={`object-cover z-10`}
+                      className={`object-cover z-10 ${
+                        portraitImages[index] ? "object-scale-down" : ""
+                      }`}
                       priority
+                      onLoad={(e) => handleImageLoad(index, e)}
                     />
                   </div>
                 </SwiperSlide>

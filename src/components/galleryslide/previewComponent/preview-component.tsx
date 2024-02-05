@@ -8,6 +8,7 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { Swiper, SwiperSlide } from "swiper/react";
+import BlurImage from "../../blurImage";
 
 const PreviewComponent = ({
   imgArr,
@@ -22,6 +23,22 @@ const PreviewComponent = ({
 }) => {
   const isMediumScreen = useMediaQuery({ query: "(min-width: 800px)" });
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [portraitImages, setPortraitImages] = useState<{
+    [key: number]: boolean;
+  }>({});
+
+  const handleImageLoad = (
+    index: number,
+    event: React.SyntheticEvent<HTMLImageElement>
+  ) => {
+    const { naturalWidth, naturalHeight } = event.currentTarget;
+    const isPortrait = naturalHeight > naturalWidth;
+
+    setPortraitImages((prev) => ({
+      ...prev,
+      [index]: isPortrait,
+    }));
+  };
   return (
     <>
       <Swiper
@@ -48,18 +65,21 @@ const PreviewComponent = ({
               className="flex justify-center items-center bg-white text-center"
             >
               <div className="w-full h-full flex justify-center items-center">
-                {/* <BlurImage
-                    fill
-                    alt="Blurred Image"
-                    src={baseImageUrl+img}
-                    className="object-cover blur-xl"
-                  /> */}
+                <BlurImage
+                  fill
+                  alt="Blurred Image"
+                  src={baseImageUrl + img}
+                  className="object-cover blur-xl"
+                />
                 <Image
                   fill
                   src={baseImageUrl + img}
                   alt="incridea"
-                  className={`object-cover z-10`}
+                  className={`object-cover z-10 ${
+                    portraitImages[index] ? "object-scale-down" : ""
+                  }`}
                   priority
+                  onLoad={(e) => handleImageLoad(index, e)}
                 />
               </div>
             </SwiperSlide>

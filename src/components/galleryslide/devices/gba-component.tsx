@@ -17,7 +17,7 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
   const [activeModal, setActiveModal] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   let thumbnailSrc = "/thumbnails/incridea19.jpg";
-  
+
   const [isAnimatingRight, setAnimatingRight] = useState(false);
   const [isAnimatingLeft, setAnimatingLeft] = useState(false);
   const handleButtonClickPrev = () => {
@@ -33,6 +33,23 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
     setTimeout(() => {
       setAnimatingRight(false);
     }, 400);
+  };
+
+  const [portraitImages, setPortraitImages] = useState<{
+    [key: number]: boolean;
+  }>({});
+
+  const handleImageLoad = (
+    index: number,
+    event: React.SyntheticEvent<HTMLImageElement>
+  ) => {
+    const { naturalWidth, naturalHeight } = event.currentTarget;
+    const isPortrait = naturalHeight > naturalWidth;
+
+    setPortraitImages((prev) => ({
+      ...prev,
+      [index]: isPortrait,
+    }));
   };
 
   const swiperRef = useRef<SwiperType>();
@@ -110,7 +127,8 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
             }}
             mousewheel={true}
             modules={[Navigation, Autoplay, Mousewheel]}
-            autoplay={true}
+            autoplay={{ delay: 5000 }}
+            speed={500}
             className="sm:w-[35.7vw] sm:h-[18vw] sm:-top-[.9vw] w-[58vw] h-[54vw] sm:left-[0] -top-[7vw] left-[-4vw] sm:z-50 sm:border-none relative sm:scale-125"
           >
             {imgArr.map((img, index) => {
@@ -123,10 +141,13 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
                     setActiveIndex(index);
                   }}
                 >
-                  <ToolTip
-                    classValue="top-[0] text-center bg-black/60 sm:right-[12vw] right-0 text-xs border sm:text-lg"
-                    text="click to preview image"
-                  ></ToolTip>
+                  {index === 0 && (
+                    <ToolTip
+                      classValue="top-[0] text-center bg-black/60 sm:right-[12vw] right-0 text-xs border sm:text-lg"
+                      text="click to preview image"
+                    ></ToolTip>
+                  )}
+
                   <div className="relative w-full h-full flex justify-center items-center">
                     <BlurImage
                       fill
@@ -138,8 +159,11 @@ const GbaComponent = ({ imgArr }: { imgArr: string[] }) => {
                       fill
                       src={baseImageUrl + img}
                       alt="incridea"
-                      className={`object-cover z-10`}
+                      className={`object-cover z-10 ${
+                        portraitImages[index] ? "object-scale-down" : ""
+                      }`}
                       priority
+                      onLoad={(e) => handleImageLoad(index, e)}
                     />
                   </div>
                 </SwiperSlide>
