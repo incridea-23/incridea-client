@@ -117,7 +117,7 @@ export default function Scene2(props: JSX.IntrinsicElements["group"]) {
   useEffect(() => {
     if (fbxAnimationClips.actions["mixamo.com"])
       fbxAnimationClips.actions["mixamo.com"].reset().play();
-  });
+  }, [fbxAnimationClips]);
 
   useFrame(() => {
     if (actions.CameraAction) {

@@ -1,44 +1,26 @@
 import * as THREE from "three";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import {
-  Reflector,
-  Text,
-  useTexture,
-  useGLTF,
-  MeshReflectorMaterial,
-} from "@react-three/drei";
-import { IoMdMicrophone } from "react-icons/io";
-import Image from "next/image";
+import { Text, useTexture, MeshReflectorMaterial } from "@react-three/drei";
 import { SlVolume2, SlVolumeOff } from "react-icons/sl";
 import ProniteCard from "@/src/components/pronites/card";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Dhvani from "@/src/components/pronites/dhvani";
-import Nakash from "@/src/components/pronites/naakash";
-
-// import studio from "@theatre/studio";
-// import extension from "@theatre/r3f/dist/extension";
-// import { PerspectiveCamera, SheetProvider, editable as e } from "@theatre/r3f";
-// import { getProject } from "@theatre/core";
-
-// studio.extend(extension);
-// studio.initialize();
-
-// const demoSheet = getProject("Scene 1").sheet("Scene 1");
+import Nakash from "@/src/components/pronites/nakash";
 
 const artists = [
   {
     name: "Dhvani Bhanushali",
-    time: "23rd Feb @ 7:30PM",
+    time: "23rd Feb @ 7PM",
     imageSrc: "/assets/jpeg/DhvaniBhanushali.jpeg",
     audioSrc: "/assets/mp3/DhvaniBhanushali.mp3",
   },
   {
     name: "Nakash Aziz",
-    time: "24th Feb @ 7:30PM",
-    imageSrc: "/assets/jpeg/DhvaniBhanushali.jpeg",
-    audioSrc: "/assets/mp3/DhvaniBhanushali.mp3",
+    time: "24th Feb @ 7PM",
+    imageSrc: "/assets/jpeg/Nakash.jpeg",
+    audioSrc: "/assets/mp3/NakashAziz.mp3",
   },
 ];
 
@@ -47,15 +29,29 @@ export default function App() {
 
   const [isArtist1, setIsArtist1] = useState(true);
   const angle = useRef<number>(0);
-  const [isMuted, setIsMuted] = useState<boolean>(false);
+  const [isMuted, setIsMuted] = useState<boolean>(true);
+  const timeRef = useRef<NodeJS.Timer | null>(null);
+
+  const [instruction, setInstruction] = useState<boolean>(true);
 
   useEffect(() => {
-    angle.current = angle.current + Math.PI;
     audioRef.current &&
       (audioRef.current.src = artists[isArtist1 ? 0 : 1].audioSrc);
     audioRef.current && (audioRef.current.currentTime = 0);
     audioRef.current?.play();
-    console.log(audioRef.current?.paused);
+
+    if (timeRef.current) {
+      clearTimeout(timeRef.current);
+      timeRef.current = setTimeout(() => {
+        setIsArtist1(!isArtist1);
+        angle.current = angle.current + Math.PI;
+      }, 15000);
+    } else {
+      timeRef.current = setTimeout(() => {
+        setIsArtist1(!isArtist1);
+        angle.current = angle.current + Math.PI;
+      }, 15000);
+    }
   }, [isArtist1]);
 
   const artistGroup = useRef<THREE.Group | null>(null);
@@ -69,15 +65,23 @@ export default function App() {
       });
       gsap.to(nameGroup.current.rotation, {
         y: angle.current,
-        duration: 1,
+        duration: 1.5,
       });
     }
   }, [isArtist1]);
 
   return (
     <>
-      <ProniteCard artist={{ ...artists[0] }} isArtist={isArtist1} />
-      <ProniteCard artist={{ ...artists[1] }} isArtist={!isArtist1} />
+      <ProniteCard
+        artist={{ ...artists[0] }}
+        isArtist={isArtist1}
+        gradient="pink"
+      />
+      <ProniteCard
+        artist={{ ...artists[1] }}
+        isArtist={!isArtist1}
+        gradient="blue"
+      />
       <button
         onClick={() => {
           if (audioRef.current) audioRef.current.muted = !isMuted;
@@ -91,19 +95,28 @@ export default function App() {
           <SlVolume2 className="w-8 h-8 transition-colors duration-150" />
         )}
       </button>
-      <audio ref={audioRef} loop={true}></audio>
+      <audio ref={audioRef} loop={true} muted={isMuted}></audio>
+      {instruction && (
+        <div className="animate-pulse absolute bottom-48 md:bottom-56 lg:bottom-10 opacity-65 text-gray-400 left-1/2 -translate-x-1/2 z-50 text-base md:text-lg xl:text-xl">
+          Click to see next artist
+        </div>
+      )}
       <Canvas
         style={{ height: "100vh", width: "100vw" }}
         gl={{ alpha: false }}
         camera={{ position: [0, 3, 100], fov: 15 }}
-        onClick={() => setIsArtist1(!isArtist1)}
+        onClick={() => {
+          angle.current = angle.current + Math.PI;
+          setIsArtist1(!isArtist1);
+          setInstruction(false);
+        }}
       >
-        <color attach="background" args={["black"]} />
-        <fog attach="fog" args={["black", 15, 20]} />
+        <color attach="background" args={["#050505"]} />
+        <fog attach="fog" args={["#050505", 15, 20]} />
         <Suspense fallback={null}>
           <group position={[0, -1, 0]}>
             <group ref={artistGroup}>
-              <Dhvani position={[0, 0, 1]} scale={0.85} rotation={[0, 0, 0]} />
+              <Dhvani position={[0, 0, 1]} scale={0.9} rotation={[0, 0, 0]} />
               <Nakash
                 position={[0, 0, 0]}
                 scale={1}
@@ -126,20 +139,10 @@ export default function App() {
   );
 }
 
-function Carla(props: {
-  scale: number[];
-  position: number[];
-  rotation: number[];
-}) {
-  const { scene } = useGLTF("/assets/pronite/carla-draco.glb");
-  return <primitive object={scene} {...props} />;
-}
-
 function DhvaniText(props: { position: [x: number, y: number, z: number] }) {
   const [video] = useState(() =>
     Object.assign(document.createElement("video"), {
       src: "/assets/mp4/proniteVID2.mp4",
-      // src: "/assets/mp4/DhvaniBhanushali.mp4",
       crossOrigin: "Anonymous",
       loop: true,
       muted: true,

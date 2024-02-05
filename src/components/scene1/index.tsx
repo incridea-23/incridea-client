@@ -1,6 +1,6 @@
 import * as THREE from "three";
-import React, { useEffect, useRef } from "react";
-import { useAnimations, useGLTF, useScroll } from "@react-three/drei";
+import React, { useRef } from "react";
+import { useGLTF, useScroll } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 import { useCurrentSheet } from "@theatre/r3f";
 import { useFrame } from "@react-three/fiber";
@@ -58,30 +58,16 @@ type GLTFResult = GLTF & {
 
 export default function Scene1(props: JSX.IntrinsicElements["group"]) {
   const group = useRef<THREE.Group>(null);
-  const { nodes, materials, animations, scene } = useGLTF(
+  const { nodes, materials } = useGLTF(
     "/assets/3d/level2-sponsorBook4.glb",
     true
   ) as GLTFResult;
-  // const gltf = useGLTF("/assets/3d/level2-sponsorBook4.glb") as GLTFResult;
-  // const { clips, names } = useAnimations(animations);
   const sheet = useCurrentSheet();
   const scroll = useScroll();
-  // console.log(useAnimations(animations));
-  // useEffect(() => {
-  //   clips[0]?.tracks[0].;
-  //   console.log(actions[names[0]]?.isRunning());
-  // }, [clips, names]);
-
-  // const { clips, mixer } = useAnimations(animations, group);
-  // useEffect(() => {
-  // mixer.clipAction(clips[0]).play()
-  //   mixer.clipAction(clips[0]).play().setLoop(THREE.LoopRepeat, Infinity);
-  // }, [mixer, clips]);
 
   useFrame((state, delta) => {
     const sequenceLength = val((sheet as ISheet).sequence.pointer.length);
     sheet && (sheet.sequence.position = scroll.offset * sequenceLength);
-    // mixer.update(delta);
   });
   return (
     <>

@@ -39,6 +39,7 @@ export default function ProniteAnnotation() {
           onClick={() => {
             console.log("Clicked");
           }}
+          target="_blank"
         >
           <div
             style={{

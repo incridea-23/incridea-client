@@ -13,7 +13,7 @@ export default function Level3() {
         />
         <color args={["#333"]} attach={"background"} />
         <ambientLight intensity={0.5} />
-        <ScrollControls damping={0.3} pages={5}>
+        <ScrollControls maxSpeed={0.25} pages={5}>
           <Scene2 />
         </ScrollControls>
       </Canvas>
