@@ -9,6 +9,7 @@ import { NextRouter, useRouter } from "next/router";
 import Parallax from "parallax-js";
 import { IoClose } from "react-icons/io5";
 import Spinner from "../spinner";
+import { baseImageUrl } from "@/src/utils/url";
 
 type Props = {
   showModal: boolean;
@@ -103,7 +104,7 @@ const HomeUi: React.FunctionComponent = () => {
         <div data-depth="0.5" className="absolute  h-full w-full ">
           <div className="opacity-50 translate-y-16 h-[75vh] md:h-full absolute bottom-0 left-[50%] -translate-x-1/2 md:left-0 md:translate-x-0 md:w-full aspect-video  ">
             <Image
-              src={"/assets/home/moon.png"}
+              src={`${baseImageUrl}/assets/home/moon.png`}
               alt="Gradient"
               width={1920}
               height={1080}
@@ -113,7 +114,7 @@ const HomeUi: React.FunctionComponent = () => {
         </div>
         <div data-depth="0.4" className="h-full w-full absolute">
           <Image
-            src={"/assets/home/stars.png"}
+            src={`${baseImageUrl}/assets/home/stars.png`}
             alt="Gradient"
             width={1920}
             height={1080}
@@ -124,7 +125,7 @@ const HomeUi: React.FunctionComponent = () => {
         <div data-depth="0.3" className="absolute h-full w-full">
           <div className="h-full absolute aspect-video right-0  translate-x-[18%]  sm:translate-x-[12%] md:translate-x-[10%] bottom-0 lg:translate-x-[4.1%] translate-y-[4.1%]">
             <Image
-              src={"/assets/home/portal.png"}
+              src={`${baseImageUrl}/assets/home/portal.png`}
               alt="Portal"
               width={2050}
               height={1080}
@@ -138,7 +139,7 @@ const HomeUi: React.FunctionComponent = () => {
         >
           <div className="w-fit mx-auto p-5 mt-[3%]" ref={Logo}>
             <Image
-              src={"/assets/home/DoD.png"}
+              src={`${baseImageUrl}/assets/home/DoD.png`}
               width={640}
               height={640}
               alt="Dice of Destiny"
@@ -149,7 +150,7 @@ const HomeUi: React.FunctionComponent = () => {
         <div data-depth="0.1" className="absolute h-full w-full">
           <div className="h-full absolute aspect-video left-0 -translate-x-[20%] sm:-translate-x-[18%]  md:-translate-x-[12%] bottom-0 lg:-translate-x-[10%] translate-y-[3%]   ">
             <Image
-              src={"/assets/home/ryoko.png"}
+              src={`${baseImageUrl}/assets/home/ryoko.png`}
               id="Ryoko"
               alt="Ryoko looking at portal"
               width={1920}

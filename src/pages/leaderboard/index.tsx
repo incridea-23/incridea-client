@@ -7,6 +7,7 @@ import { idToPid } from "@/src/utils/id";
 import Image from "next/image";
 import { NextPage } from "next";
 import styles from "@/src/components/event/styles.module.css";
+import { baseImageUrl } from "@/src/utils/url";
 
 const LeaderBoard: NextPage = () => {
   interface UserTotalPoints {
@@ -133,12 +134,12 @@ const LeaderBoard: NextPage = () => {
                   <Image
                     src={
                       i + 1 === 1
-                        ? `/assets/png/level3.png`
+                        ? `${baseImageUrl}/assets/png/level3.png`
                         : i + 1 === 2
-                        ? `/assets/png/level2.png`
+                        ? `${baseImageUrl}/assets/png/level2.png`
                         : i + 1 === 3
-                        ? `/assets/png/level1.png`
-                        : "/assets/png/level4.png"
+                        ? `${baseImageUrl}/assets/png/level1.png`
+                        : `${baseImageUrl}/assets/png/level4.png`
                     }
                     width={isMobile ? 20 : 50}
                     height={isMobile ? 20 : 50}
@@ -155,7 +156,7 @@ const LeaderBoard: NextPage = () => {
                 <h1 className="basis-1/4 flex flex-row justify-center items-center text-center font-semibold text-sm md:text-xl">
                   {user.levelPoints}
                   <Image
-                    src={`/assets/png/XP.png`}
+                    src={`${baseImageUrl}/assets/png/XP.png`}
                     width={isMobile ? 20 : 40}
                     height={isMobile ? 20 : 40}
                     alt="medal"

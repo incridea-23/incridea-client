@@ -1,5 +1,6 @@
 // React component
 import styles from "@/src/components/galleryslide/styles/gallery.module.css";
+import { baseImageUrl } from "@/src/utils/url";
 import gsap from "gsap";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
@@ -70,7 +71,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ year }) => {
         <div key={index} className={styles["progress-step"]}>
           {index < filledSteps && (
             <Image
-              src={`/assets/png/${powerUpImages[index]}.png`}
+              src={`${baseImageUrl}/assets/png/${powerUpImages[index]}.png`}
               alt={`Step ${index + 1}`}
               width={200}
               height={200}
@@ -82,7 +83,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ year }) => {
       ))}
       {/* Character SVG */}
       <Image
-        src="/assets/svg/character.svg"
+        src={`${baseImageUrl}/assets/svg/character.svg`}
         alt="Character"
         width={50}
         height={50}

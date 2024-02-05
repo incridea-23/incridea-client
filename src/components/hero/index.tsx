@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import React from 'react';
 import TextAnimation from '../animation/text';
 import Image from 'next/image';
+import { baseImageUrl } from '@/src/utils/url';
 
 const Hero: React.FC = () => {
   const { RiveComponent: LandingBg } = useRive({
@@ -37,7 +38,7 @@ const Hero: React.FC = () => {
         className="hidden md:block absolute  top-0 right-0 z-50 "
         data-scroll
         data-scroll-speed="2"
-        src="/assets/png/lensflare.webp"
+        src={`${baseImageUrl}/assets/png/lensflare.webp`}
         width={1000}
         height={1000}
         alt="flare"
@@ -60,7 +61,7 @@ const Hero: React.FC = () => {
       >
         <Image
           className="w-full max-w-lg px-10 h-fit"
-          src="/assets/png/logo.png"
+          src={`${baseImageUrl}/assets/png/logo.png`}
           priority
           width={500}
           height={500}

@@ -6,6 +6,7 @@ import { IoMdClose } from "react-icons/io";
 import HTMLFlipBook from "react-pageflip";
 import useStore from "../store/store";
 import styles from "./bookModal.module.css";
+import { baseImageUrl } from "@/src/utils/url";
 interface BookModalType {
   isMuted: boolean;
   mainThemeAudioRef: React.MutableRefObject<HTMLAudioElement | null>;
@@ -14,22 +15,22 @@ interface BookModalType {
 const BookModal: React.FC<BookModalType> = ({ isMuted, mainThemeAudioRef }) => {
   const sponsors = [
     {
-      logo: "/assets/png/ryoko.png",
+      logo: `${baseImageUrl}/assets/png/ryoko.png`,
       name: "Paramvah Studios",
       title: "Sponsor Sponsor Sponsor",
     },
     {
-      logo: "/assets/png/ryoko.png",
+      logo: `${baseImageUrl}/assets/png/ryoko.png`,
       name: "Paramvah Studios 2",
       title: "Sponsor Sponsor Sponsor",
     },
     {
-      logo: "/assets/png/ryoko.png",
+      logo: `${baseImageUrl}/assets/png/ryoko.png`,
       name: "Paramvah Studios 3",
       title: "Sponsor Sponsor Sponsor",
     },
     {
-      logo: "/assets/png/ryoko.png",
+      logo: `${baseImageUrl}/assets/png/ryoko.png`,
       name: "Paramvah Studios 4",
       title: "Sponsor Sponsor Sponsor",
     },
@@ -84,7 +85,7 @@ const BookModal: React.FC<BookModalType> = ({ isMuted, mainThemeAudioRef }) => {
         >
           <div className="">
             <Image
-              src="/assets/png/bookCoverTexture.jpg"
+              src={`${baseImageUrl}/assets/png/bookCoverTexture.jpg`}
               alt="cover"
               width={100}
               height={100}
@@ -115,7 +116,7 @@ const BookModal: React.FC<BookModalType> = ({ isMuted, mainThemeAudioRef }) => {
           })}
           <div className="">
             <Image
-              src="/assets/png/bookCoverTexture.jpg"
+              src={`${baseImageUrl}/assets/png/bookCoverTexture.jpg`}
               alt="cover"
               width={100}
               height={100}

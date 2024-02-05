@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from "react";
 import CharacterAnimation from "../animation/character";
 import TextAnimation from "../animation/text";
 import { VikingHell } from "@/src/pages/_app";
+import { baseImageUrl } from "@/src/utils/url";
 
 const CountDown: FC = () => {
   const endDate = new Date("2023-04-26");
@@ -68,7 +69,7 @@ const CountDown: FC = () => {
       />
       <div className="flex flex-row justify-center items-center sm:items-center gap-2 sm:gap-5 lg:gap-10 md:-mt-20 -mt-10 drop-shadow-xl relative">
         <Image
-          src={"/assets/png/helm.png"}
+          src={`${baseImageUrl}/assets/png/helm.png`}
           width={400}
           height={400}
           alt="Ship Helm"

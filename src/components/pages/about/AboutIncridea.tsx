@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { FC } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { baseImageUrl } from "@/src/utils/url";
 
 const AboutIncridea: FC = () => {
   let { scrollYProgress } = useScroll();
@@ -10,7 +11,7 @@ const AboutIncridea: FC = () => {
       <div className="relative h-96 w-full overflow-hidden">
         <motion.div style={{y}} className='relative w-full h-full'>
         <Image
-          src="/assets/png/incrediaAbout.png"
+          src={`${baseImageUrl}/assets/png/incrediaAbout.png`}
           alt="Incridea Banner"
           width={500}
           height={500}
@@ -27,7 +28,7 @@ const AboutIncridea: FC = () => {
 
       <div className="flex flex-col lg:flex-row-reverse justify-center items-center gap-10 lg:gap-20 lg:p-10 p-5 basis-1/2">
         <Image
-          src="/assets/png/logo-black.png"
+          src={`${baseImageUrl}/assets/png/logo-black.png`}
           alt="Incridea Logo"
           width={500}
           height={500}

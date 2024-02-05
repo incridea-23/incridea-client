@@ -8,19 +8,30 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Dhvani from "@/src/components/pronites/dhvani";
 import Nakash from "@/src/components/pronites/nakash";
+import { baseImageUrl } from "@/src/utils/url";
+
+// import studio from "@theatre/studio";
+// import extension from "@theatre/r3f/dist/extension";
+// import { PerspectiveCamera, SheetProvider, editable as e } from "@theatre/r3f";
+// import { getProject } from "@theatre/core";
+
+// studio.extend(extension);
+// studio.initialize();
+
+// const demoSheet = getProject("Scene 1").sheet("Scene 1");
 
 const artists = [
   {
     name: "Dhvani Bhanushali",
-    time: "23rd Feb @ 7PM",
-    imageSrc: "/assets/jpeg/DhvaniBhanushali.jpeg",
+    time: "23rd Feb @ 7:30PM",
+    imageSrc: `${baseImageUrl}/assets/jpeg/DhvaniBhanushali.jpeg`,
     audioSrc: "/assets/mp3/DhvaniBhanushali.mp3",
   },
   {
     name: "Nakash Aziz",
-    time: "24th Feb @ 7PM",
-    imageSrc: "/assets/jpeg/Nakash.jpeg",
-    audioSrc: "/assets/mp3/NakashAziz.mp3",
+    time: "24th Feb @ 7:30PM",
+    imageSrc: `${baseImageUrl}/assets/jpeg/DhvaniBhanushali.jpeg`,
+    audioSrc: "/assets/mp3/DhvaniBhanushali.mp3",
   },
 ];
 

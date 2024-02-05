@@ -10,6 +10,7 @@ import AuthenticatedButtons from "./authenticatedButtons";
 
 import CharacterAnimation from "../animation/character";
 import { useRouter } from "next/router";
+import { baseImageUrl } from "@/src/utils/url";
 
 const Navbar = () => {
   const links = [
@@ -50,7 +51,7 @@ const Navbar = () => {
           >
             <Image
               className="w-24"
-              src="/assets/png/logo.png"
+              src={`${baseImageUrl}/assets/png/logo.png`}
               alt="Logo"
               width={100}
               height={80}

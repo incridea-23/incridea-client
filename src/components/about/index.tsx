@@ -3,6 +3,7 @@ import TextAnimation from "../animation/text";
 import Image from "next/image";
 import { BiDownload } from "react-icons/bi";
 import { VikingHell } from "@/src/pages/_app";
+import { baseImageUrl } from "@/src/utils/url";
 
 const About: FC = () => {
   const handleDownload = (path: string, name: string) => {
@@ -52,7 +53,7 @@ const About: FC = () => {
         <div className="mx-auto">
           <div className="text-center w-fit relative">
             <Image
-              src="/assets/png/emblem.png"
+              src={`${baseImageUrl}/assets/png/emblem.png`}
               width={300}
               height={300}
               className={
@@ -61,8 +62,7 @@ const About: FC = () => {
               alt="Incridea Emblem"
             />
             <Image
-              src="/assets/png/ryoko.png"
-              width={300}
+              src={`${baseImageUrl}/assets/png/ryoko.png`}              width={300}
               height={300}
               className="absolute w-auto bottom-0 group-hover:scale-105 group-hover:-translate-y-2 transform transition-all duration-500"
               alt="Incridea Ryoko"
@@ -73,7 +73,7 @@ const About: FC = () => {
           >
             <a
               onClick={() =>
-                handleDownload("/assets/pdf/rulebook.pdf", "Rulebook.pdf")
+                handleDownload(`${baseImageUrl}/assets/pdf/rulebook.pdf`, `${baseImageUrl}/Rulebook.pdf`)
               }
               className="cursor-pointer px-3 flex items-center gap-2 py-2 text-md md:text-lg lg:text-xl font-semibold text-center text-white transition duration-300 rounded-bl-xl rounded-tr-xl bg-white/30 hover:bg-white/40"
             >
@@ -83,7 +83,7 @@ const About: FC = () => {
               onClick={() =>
                 handleDownload(
                   "https://drive.google.com/file/d/1mglh-NsLE_AOjY969olQNppZcQyr5p4F/view?usp=sharing",
-                  "schedule.pdf"
+                  `${baseImageUrl}/schedule.pdf`
                 )
               }
               className="cursor-pointer px-3 flex items-center gap-2 py-2 text-md md:text-lg lg:text-xl font-semibold text-center text-white transition duration-300 rounded-bl-xl rounded-tr-xl bg-white/30 hover:bg-white/40"

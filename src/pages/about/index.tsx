@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React, { useEffect, useRef } from "react";
 import Banner from "../../components/AboutUs/Banner";
+import { baseImageUrl } from "@/src/utils/url";
 
 const About = () => {
   return (
@@ -15,7 +16,7 @@ const About = () => {
         <span className="text-base md:text-lg xl:text-xl text-secondary-100">
           <div className="flex md:flex-row flex-col justify-between items-center gap-8">
             <Image
-              src="/assets/png/nitteLogoWhite.png"
+              src={`${baseImageUrl}/assets/png/nitteLogoWhite.png`}
               alt="image"
               loading="lazy"
               className="object-contain h-full object-center top-0 md:w-1/3 w-3/4"
@@ -61,7 +62,7 @@ const About = () => {
       <span className="text-base md:text-lg xl:text-xl text-secondary-100">
         <div className="flex md:flex-row flex-col justify-between items-center gap-8">
           <Image
-            src="/assets/png/logo-rim-white.png"
+            src={`${baseImageUrl}/assets/png/logo-rim-white.png`}
             alt="image"
             loading="lazy"
             className="object-contain md:h-[32rem] h-[15rem] object-center top-0 md:w-1/3 w-3/4"
