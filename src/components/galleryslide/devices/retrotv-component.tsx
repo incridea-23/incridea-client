@@ -15,6 +15,22 @@ const RetroTV = ({ imgArr }: { imgArr: string[] }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimatingRight, setAnimatingRight] = useState(false);
   const [isAnimatingLeft, setAnimatingLeft] = useState(false);
+  const [portraitImages, setPortraitImages] = useState<{
+    [key: number]: boolean;
+  }>({});
+
+  const handleImageLoad = (
+    index: number,
+    event: React.SyntheticEvent<HTMLImageElement>
+  ) => {
+    const { naturalWidth, naturalHeight } = event.currentTarget;
+    const isPortrait = naturalHeight > naturalWidth;
+
+    setPortraitImages((prev) => ({
+      ...prev,
+      [index]: isPortrait,
+    }));
+  };
   const handleButtonClickPrev = () => {
     setAnimatingLeft(true);
     swiperRef.current?.slidePrev();
@@ -73,10 +89,13 @@ const RetroTV = ({ imgArr }: { imgArr: string[] }) => {
                   setActiveIndex(index);
                 }}
               >
-                <ToolTip
-                  classValue="text-center bg-black/60 text-xs border sm:text-lg"
-                  text="click to preview image"
-                ></ToolTip>
+                {index === 0 && (
+                  <ToolTip
+                    classValue="text-center bg-black/60 text-xs border sm:text-lg"
+                    text="click to preview image"
+                  ></ToolTip>
+                )}
+
                 <div className="relative w-full h-full flex justify-center items-center">
                   <BlurImage
                     fill
@@ -88,8 +107,11 @@ const RetroTV = ({ imgArr }: { imgArr: string[] }) => {
                     fill
                     src={baseImageUrl + img}
                     alt="incridea"
-                    className={`object-cover z-10`}
+                    className={`object-cover z-10 ${
+                      portraitImages[index] ? "object-scale-down" : ""
+                    }`}
                     priority
+                    onLoad={(e) => handleImageLoad(index, e)}
                   />
                 </div>
               </SwiperSlide>
@@ -150,9 +172,7 @@ const RetroTV = ({ imgArr }: { imgArr: string[] }) => {
         <button
           onClick={() => handleButtonClickNext()}
           className={`absolute w-[9vw] h-[9vw] top-[22vw] left-[41.5vw] md:top-[9.5vw] md:left-[43vw] md:w-[5vw] md:h-[5vw] rounded-full duration-300 transition-all ease-in-out border-white ${
-            isAnimatingRight
-              ? "sm:border-8 border-2 animate-ping"
-              : ""
+            isAnimatingRight ? "sm:border-8 border-2 animate-ping" : ""
           }`}
         >
           <ToolTip

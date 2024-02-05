@@ -22,7 +22,7 @@ const About = () => {
               height={500}
               width={500}
             />
-            <div className="max-w-3xl">
+            <div className="max-w-3xl text-justify">
               Nitte Mahalinga Adyantaya Memorial Institute of Technology
               (NMAMIT), Nitte, established in 1986 and recognized by the
               All-India Council for Technical Education, New Delhi, has been a
@@ -61,14 +61,14 @@ const About = () => {
       <span className="text-base md:text-lg xl:text-xl text-secondary-100">
         <div className="flex md:flex-row flex-col justify-between items-center gap-8">
           <Image
-            src="/assets/png/logo-black.png"
+            src="/assets/png/logo-rim-white.png"
             alt="image"
             loading="lazy"
-            className="object-contain h-full object-center top-0 md:w-1/3 w-3/4"
-            height={500}
-            width={500}
+            className="object-contain md:h-[32rem] h-[15rem] object-center top-0 md:w-1/3 w-3/4"
+            height={400}
+            width={400}
           />
-          <div className="max-w-3xl">
+          <div className="max-w-3xl text-justify">
             Incridea is a colossal national-level techno-cultural fest with an
             audience pool spread among{" "}
             <span className="font-bold">200 colleges</span> all across India.

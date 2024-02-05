@@ -29,7 +29,9 @@ const ToolTip = ({
 
   return (
     <div
-      className="absolute w-full h-full group top-0 z-[50] tracking-wide flex justify-center items-center"
+      className={`absolute w-full h-full group top-0 z-50 tracking-wide flex justify-center items-center         
+          ${isVisible ? "invisible" : ""}
+        `}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
