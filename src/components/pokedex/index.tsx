@@ -26,6 +26,9 @@ const Pokedex: React.FC<DexProps> = ({
   mainThemeAudioRef,
 }) => {
   const setEventDex = useStore((state) => state.setEventDex);
+  useEffect(() => {
+    setEventDex();
+  }, []);
   const eventDex = useStore((state) => state.eventDex);
   const [fullyOpen, setFullyOpen] = useState(false);
   const [calledXp, setCalledXp] = useState(false);
