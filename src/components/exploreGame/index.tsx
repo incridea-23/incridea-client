@@ -51,7 +51,6 @@ const ExploreGame = () => {
     }
     const currentTime = Date.now();
     const elapsedTime = currentTime - lastExecutionTimeRef.current;
-    // console.log(isMuted);
 
     if (elapsedTime >= delay) {
       const audio = new Audio(path);
@@ -70,7 +69,6 @@ const ExploreGame = () => {
   });
 
   const handleAddXp = () => {
-    console.log(calledXp);
     if (calledXp) return;
     calledXp = true;
     const promise = addXp().then((res) => {
@@ -623,7 +621,6 @@ const ExploreGame = () => {
   };
 
   const animate = () => {
-    // console.log(isMuted);
     ctx.current?.clearRect(0, 0, window.innerWidth, window.innerHeight * 2);
 
     actionKeys.map((key) => {
