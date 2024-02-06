@@ -92,7 +92,7 @@ const TeamMembers = [
   },
   {
     name: "Aaron Jevil Nazareth",
-    role: "Backend",
+    role: "Full Stack",
     instagram:
       "https://www.instagram.com/aaron_naz25?igsh=MTB3dHlvZGE5OHl4bQ==",
     github: "https://github.com/jevil25",
