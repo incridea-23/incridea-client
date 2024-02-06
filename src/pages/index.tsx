@@ -101,7 +101,7 @@ export const Menu: FC<{
           }}
         >
           {loading ? (
-            <Spinner size="small" className="py-[2px]" />
+            <Spinner size="small" className="py-[2px]" intent={'white'} />
           ) : user ? (
             "Profile"
           ) : (
