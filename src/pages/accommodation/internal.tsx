@@ -1,12 +1,12 @@
 import React from "react";
-import AccommodationForm from "../components/form/accommodation";
-import Button from "../components/button";
+import AccommodationForm from "../../components/form/accommodation";
+import Button from "../../components/button";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { TbArrowBackUp } from "react-icons/tb";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 import { NextPage } from "next";
-import Loader from "../components/Loader";
+import Loader from "../../components/Loader";
 
 const Accommodation: NextPage = () => {
   const router = useRouter();
@@ -20,7 +20,7 @@ const Accommodation: NextPage = () => {
       <div className="px-4 md:px-6 pt-32 pb-10 min-h-screen text-white bg-gradient-to-b from-primary-300 to-primary-500">
         <div className="mx-auto max-w-4xl">
           <div className="p-4">
-            <Link href="/profile">
+            <Link href="/accommodation">
               <Button size={"small"}>
                 <TbArrowBackUp />
                 Go Back
@@ -31,11 +31,11 @@ const Accommodation: NextPage = () => {
           <h2
             className={`titleFont text-white text-center text-4xl md:text-5xl`}
           >
-            Accommodation
+            Internal Accommodation
           </h2>
           <h5 className="bodyFont text-center mt-5 md:mt-7 text-base md:text-xl max-w-7xl mx-auto">
             Before you dive in, read through the list of T&C, and register
-            yourself for the fest by clicking the button below.
+            yourself for the internal accommodation by filling the form below.
           </h5>
 
           <div className="bodyFont md:px-10 px-5 md:mt-8 mt-6 max-w-7xl mx-auto bg-white/20 rounded-sm md:py-7 py-4">
@@ -47,17 +47,20 @@ const Accommodation: NextPage = () => {
               Rules to be followed by external students (Boys)
             </h3>
             <ol className="mt-2 list-decimal pl-4">
-              <li>
-                You have been allocated PG Boys Hostel which will be closed
+            <li>
+                PG Boys Hostel is assinged for boys, which will be closed
                 within half an hour from the time the programs end at Night.
+              </li>
+            <li>
+                Rooms provided will be of 4-sharing system. Per head charges for the same is ₹150 per day.
               </li>
               <li>
                 Consumption of alcohol or any similar substances is strictly
-                prohibited and will result in severe consequences being taken.
+                prohibited and strict action will be taken if found guilty of the same.
               </li>
               <li>
-                Do not damage the resources provided from college. If found
-                guilty, strict action will be taken.
+                If found guilty of damaging any of the resources or property of college
+                strict action will be taken.
               </li>
               <li>Do not litter the rooms provided.</li>
             </ol>
@@ -66,9 +69,15 @@ const Accommodation: NextPage = () => {
               Rules to be followed by external students (Girls)
             </h3>
             <ol className="mt-2 list-decimal pl-4">
-              <li>
-                You have been allocated EDC Dormitory which will be closed
+            <li>
+                EDC Block is assinged for girls, which will be closed
                 within half an hour from the time the programs end at Night.
+              </li>
+            <li>
+                Rooms provided will be of 3-sharing system; er head charges for the same is ₹150 per day.
+              </li>
+              <li>
+                A dormitory is also available with a capcacity of 17; per head charges for the same is ₹150 per day.
               </li>
               <li>
                 Consumption of alcohol or any similar substances is strictly

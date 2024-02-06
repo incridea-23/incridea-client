@@ -17,7 +17,7 @@ const TeamCard: FC<{
   avatar: string;
 }> = ({ name, role, linkedin, github, quote, instagram, image, avatar }) => {
   return (
-    <div className="hover:scale-[1.02] w-[20rem] bg-primary-500 border border-primary-200/70 p-5 rounded-xl flex gap-4 duration-200">
+    <div className="hover:scale-[1.02] w-[20rem] bg-primary-500 border border-primary-200/70 px-5 pt-5 rounded-xl flex gap-4 duration-200">
       <div className="flex flex-col gap-4 w-full h-full">
         <Image
           src={`${baseImageUrl}/` + image}
@@ -40,25 +40,25 @@ const TeamCard: FC<{
             href={github}
             target="_blank"
             rel="noreferrer"
-            className="bg-[#f648ae]/20 rounded-full p-2 hover:scale-110 duration-300 "
+            className="bg-primary-300 rounded-full p-2 hover:scale-105 duration-300 "
           >
-            <AiFillGithub className=" text-white" size={40} />
+            <AiFillGithub className=" text-white" size={20} />
           </a>
           <a
             href={instagram}
             target="_blank"
             rel="noreferrer"
-            className="bg-[#f648ae]/20 rounded-full p-2 hover:scale-110 duration-300"
+            className="bg-primary-300 rounded-full p-2 hover:scale-105 duration-300"
           >
-            <AiFillInstagram className="text-white" size={40} />
+            <AiFillInstagram className="text-white" size={20} />
           </a>
           <a
             href={linkedin}
             target="_blank"
             rel="noreferrer"
-            className="bg-[#f648ae]/20 rounded-full p-2 hover:scale-110 duration-300"
+            className="bg-primary-300 rounded-full p-2 hover:scale-105 duration-300"
           >
-            <RiLinkedinFill className="text-white" size={40} />
+            <RiLinkedinFill className="text-white" size={20} />
           </a>
         </div>
 
