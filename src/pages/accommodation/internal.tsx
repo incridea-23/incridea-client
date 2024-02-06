@@ -47,20 +47,22 @@ const Accommodation: NextPage = () => {
               Rules to be followed by external students (Boys)
             </h3>
             <ol className="mt-2 list-decimal pl-4">
-            <li>
-                PG Boys Hostel is assinged for boys, which will be closed
-                within half an hour from the time the programs end at Night.
+              <li>
+                PG Boys Hostel is assinged for boys, which will be closed within
+                half an hour from the time the programs end at Night.
               </li>
-            <li>
-                Rooms provided will be of 4-sharing system. Per head charges for the same is ₹150 per day.
+              <li>
+                Rooms provided will be of 4-sharing system. Per head charges for
+                the same is ₹150 per day.
               </li>
               <li>
                 Consumption of alcohol or any similar substances is strictly
-                prohibited and strict action will be taken if found guilty of the same.
+                prohibited and strict action will be taken if found guilty of
+                the same.
               </li>
               <li>
-                If found guilty of damaging any of the resources or property of college
-                strict action will be taken.
+                If found guilty of damaging any of the resources or property of
+                college strict action will be taken.
               </li>
               <li>Do not litter the rooms provided.</li>
             </ol>
@@ -69,15 +71,17 @@ const Accommodation: NextPage = () => {
               Rules to be followed by external students (Girls)
             </h3>
             <ol className="mt-2 list-decimal pl-4">
-            <li>
-                EDC Block is assinged for girls, which will be closed
-                within half an hour from the time the programs end at Night.
-              </li>
-            <li>
-                Rooms provided will be of 3-sharing system; er head charges for the same is ₹150 per day.
+              <li>
+                EDC Block is assinged for girls, which will be closed within
+                half an hour from the time the programs end at Night.
               </li>
               <li>
-                A dormitory is also available with a capcacity of 17; per head charges for the same is ₹150 per day.
+                Rooms provided will be of 3-sharing system. Per head charges for
+                the same is ₹150 per day.
+              </li>
+              <li>
+                A dormitory is also available with a capcacity of 17. Per head
+                charges for the same is ₹150 per day.
               </li>
               <li>
                 Consumption of alcohol or any similar substances is strictly
