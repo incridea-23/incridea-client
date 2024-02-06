@@ -26,6 +26,33 @@ export const garetFont = localFont({
   variable: "--font-Garet",
 });
 
+export const gilroy = localFont({
+  src: [
+    {
+      path: "../font/Gilroy-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../font/Gilroy-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../font/Gilroy-ExtraBold.ttf",
+      weight: "800",
+      style: "normal",
+    },
+    {
+      path: "../font/Gilroy-SemiBold.ttf",
+      weight: "500",
+      style: "normal",
+    },
+  ],
+  variable: "--font-gilroy",
+  display: "swap",
+});
+
 export const pressStart = Press_Start_2P({
   weight: ["400"],
   subsets: ["latin"],
@@ -45,8 +72,7 @@ export default function App({
   if (
     router.pathname === "/theme" ||
     router.pathname === "/test" ||
-    router.pathname === "/" ||
-    router.pathname.startsWith("/explore")
+    router.pathname === "/"
   )
     return (
       <ApolloProvider client={apolloClient}>
@@ -54,6 +80,22 @@ export default function App({
           title="Incridea"
           description="Official Website of Incridea 2024, National level techno-cultural fest, NMAMIT, Nitte. Innovate. Create. Ideate."
         />
+        <div
+          className={`min-h-screen ${VikingHell.variable} ${pressStart.variable} ${garetFont.variable} ${gilroy.variable}`}
+        >
+          <Component {...pageProps} />
+          <Toaster />
+        </div>
+      </ApolloProvider>
+    );
+  if (router.pathname.startsWith("/explore"))
+    return (
+      <ApolloProvider client={apolloClient}>
+        <HeadComponent
+          title="Incridea"
+          description="Official Website of Incridea 2024, National level techno-cultural fest, NMAMIT, Nitte. Innovate. Create. Ideate."
+        />
+        <Loader />
         <div
           className={`min-h-screen ${VikingHell.variable} ${pressStart.variable} ${garetFont.variable}`}
         >

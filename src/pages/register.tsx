@@ -75,7 +75,7 @@ const Register: NextPage = () => {
                 className="flex justify-center items-center"
               >
                 <Button size={"small"} className="w-max mt-3 md:mt-0">
-                  Accommodate Me
+                  Accommodate
                 </Button>
               </Link>
             </div>
@@ -87,21 +87,20 @@ const Register: NextPage = () => {
             Terms and Conditions
           </h2>
           <p className="mt-2">
-          Two different categories of participants are permitted to participate:
+            Two different categories of participants are permitted to
+            participate:
           </p>
           <ol className="mt-2 list-decimal pl-4">
             <li>
               {" "}
-              Students of NMAM Institute of Technology, who pays ₹250 will have access to all events and
- pronites
-
+              Students of NMAM Institute of Technology, who pays ₹250 will have
+              access to all events and pronites
             </li>
             <li>
               {" "}
-              Students of external engineering and sister Nitte colleges, who pays ₹350 will have access to all
- events and pronites.
+              Students of external engineering and sister Nitte colleges, who
+              pays ₹350 will have access to all events and pronites.
             </li>
-            
           </ol>
           <div className="mt-2">
             <Link
