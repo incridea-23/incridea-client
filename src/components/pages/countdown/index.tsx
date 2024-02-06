@@ -100,12 +100,12 @@ export default function CountDown() {
       )}
 
       <div className="flex flex-col text-white justify-center items-center">
-        <GlitchAnimation text="SEASON 6 BEGINS IN" />
+        <GlitchAnimation text="" />
         <GlitchAnimation
-          text={`${time.days < 10 ? `0${time.days}` : time.days} :${" "}
-            ${time.hours < 10 ? `0${time.hours}` : time.hours} :${" "}
-            ${time.minutes < 10 ? `0${time.minutes}` : time.minutes} :${" "}
-            ${time.seconds < 10 ? `0${time.seconds}` : time.seconds}`}
+          text={`${time.days < 10 ? `0${time.days}` : time.days}d :${" "}
+            ${time.hours < 10 ? `0${time.hours}` : time.hours}h :${" "}
+            ${time.minutes < 10 ? `0${time.minutes}` : time.minutes}m :${" "}
+            ${time.seconds < 10 ? `0${time.seconds}` : time.seconds}s`}
         />
       </div>
     </div>

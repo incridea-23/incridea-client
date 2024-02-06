@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import React, { useRef } from "react";
+import React, { Dispatch, useRef } from "react";
 import { useGLTF, useScroll } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 import { useCurrentSheet } from "@theatre/r3f";
@@ -56,7 +56,11 @@ type GLTFResult = GLTF & {
   };
 };
 
-export default function Scene1(props: JSX.IntrinsicElements["group"]) {
+export default function Scene1({
+  setInstruction,
+}: {
+  setInstruction: Dispatch<boolean>;
+}) {
   const group = useRef<THREE.Group>(null);
   const { nodes, materials } = useGLTF(
     "/assets/3d/level2-sponsorBook4.glb",
@@ -65,13 +69,18 @@ export default function Scene1(props: JSX.IntrinsicElements["group"]) {
   const sheet = useCurrentSheet();
   const scroll = useScroll();
 
-  useFrame((state, delta) => {
+  useFrame(() => {
     const sequenceLength = val((sheet as ISheet).sequence.pointer.length);
     sheet && (sheet.sequence.position = scroll.offset * sequenceLength);
+    if (scroll.offset > 0.01) {
+      setInstruction(false);
+    } else {
+      setInstruction(true);
+    }
   });
   return (
     <>
-      <group {...props} dispose={null}>
+      <group dispose={null}>
         <group name="Scene">
           <group
             name="Sketchfab_model"
