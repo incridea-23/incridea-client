@@ -15,6 +15,7 @@ const LeaderBoard: NextPage = () => {
       levelPoints: number;
       name: string;
       count: number;
+      createdAt: string;
     };
   }
   const { data: Leaderboard, loading: leaderboardLoading } = useQuery(
@@ -43,18 +44,24 @@ const LeaderBoard: NextPage = () => {
         const levelPoints: number = item.level.point;
         const userName: string = item.user.name;
         const levelCount: number = 1;
+        const createdAt: string = item.createdAt;
 
         // Check if the user ID is already in the userTotalPoints object
         if (userTotalPoints[userId]) {
           // If yes, add the level points to the existing total
           userTotalPoints[userId].levelPoints += levelPoints;
           userTotalPoints[userId].count += levelCount;
+          //store only the latest date
+          if (createdAt > userTotalPoints[userId].createdAt) {
+            userTotalPoints[userId].createdAt = createdAt;
+          }
         } else {
           // If no, create a new entry for the user ID
           userTotalPoints[userId] = {
             levelPoints,
             name: userName,
             count: 1,
+            createdAt: createdAt,
           };
         }
       });
@@ -69,6 +76,13 @@ const LeaderBoard: NextPage = () => {
       // Sort the array in descending order based on total points
       userTotalPointsArray.sort((a, b) => b.levelPoints - a.levelPoints);
 
+      //also sort based on the latest date but points should be primary
+      userTotalPointsArray.sort((a, b) => {
+        if (a.levelPoints === b.levelPoints) {
+          return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+        }
+        return b.levelPoints - a.levelPoints;
+      });
       // Limit to the top 100 entries
       const top15Users = userTotalPointsArray.slice(0, 15);
       setSortedLeaderboard(top15Users);
