@@ -7,7 +7,7 @@ import {
   useScroll,
 } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import React, { useEffect, useRef } from "react";
+import React, { Dispatch, useEffect, useRef } from "react";
 import * as THREE from "three";
 import { GLTF } from "three-stdlib";
 import ProniteAnnotation from "./proniteAnnotation";
@@ -103,9 +103,15 @@ type GLTFActions = Record<ActionName, THREE.AnimationAction>;
 interface Scene2Props {
   isMuted: boolean;
   setIsMuted: React.Dispatch<React.SetStateAction<boolean>>;
+  setInstruction: Dispatch<boolean>;
 }
 
-const Scene2: React.FC<Scene2Props> = ({ isMuted, setIsMuted, ...props }) => {
+const Scene2: React.FC<Scene2Props> = ({
+  isMuted,
+  setIsMuted,
+  setInstruction,
+  ...props
+}) => {
   const scroll = useScroll();
   const group = useRef<THREE.Group>(null);
   const fbx = useFBX("/assets/3d/ryokoAnimation.fbx") as THREE.Object3D;
@@ -132,6 +138,11 @@ const Scene2: React.FC<Scene2Props> = ({ isMuted, setIsMuted, ...props }) => {
     const normalizedScroll = scroll.offset;
     if (normalizedScroll > 0.7 && !playedSecondAudioRef.current) {
       playSecondAudio();
+    }
+    if (scroll.offset > 0.01) {
+      setInstruction(false);
+    } else {
+      setInstruction(true);
     }
   });
 

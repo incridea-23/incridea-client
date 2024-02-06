@@ -87,7 +87,7 @@ const Button = ({
       className={`${
         noScaleOnHover
           ? "hover:scale-100"
-          : "transition-transform duration-300 ease-in-out hover:scale-105"
+          : "transition-transform duration-300 ease-in-out hover:scale-[1.03]"
       } ${className + " active:scale-90 "} ${buttonStyles({
         intent,
         size,

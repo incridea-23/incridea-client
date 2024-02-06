@@ -11,6 +11,7 @@ import Nakash from "@/src/components/pronites/nakash";
 import { baseImageUrl } from "@/src/utils/url";
 import Loader from "@/src/components/pronite/loader";
 import { useProgress } from "@react-three/drei";
+import Info from "@/src/components/pronites/info";
 
 const artists = [
   {
@@ -86,6 +87,8 @@ export default function App() {
     }
   }, [isArtist1]);
 
+  // const [showModal, setShowModal] = useState(false);
+
   return (
     <>
       <ProniteCard
@@ -98,6 +101,7 @@ export default function App() {
         isArtist={!isArtist1}
         gradient="blue"
       />
+      <Info />
       <button
         onClick={() => {
           if (audioRef.current) audioRef.current.muted = !isMuted;

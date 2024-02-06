@@ -5,14 +5,14 @@ import { VikingHell, pressStart } from "../_app";
 
 const Team: NextPage = () => {
   return (
-    <div className="pt-28 pb-10 min-h-screen bg-[#7628d0] flex flex-col gap-y-8">
+    <div className="pt-32 pb-10 min-h-screen bg-[#7628d0] flex flex-col gap-y-8">
       <div className="px-4">
         <h1
           className={`text-2xl lg:text-4xl font-bold text-white text-center font-PressStart`}
         >
           Incridea&apos;s Technical Team
         </h1>
-        <p className="text-lg lg:text-2xl font-bold text-white text-center bodyFont mb-10">
+        <p className="text-lg lg:text-2xl font-bold text-white text-center bodyFont mt-5">
           Meet the developers
         </p>
       </div>
