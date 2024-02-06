@@ -1,19 +1,20 @@
-import { JoinTeamDocument } from '@/src/generated/generated';
-import { teamIdToId } from '@/src/utils/id';
-import { useMutation } from '@apollo/client';
-import { useEffect, useState } from 'react';
-import createToast from '../../toast';
-import { useRouter } from 'next/router';
-import Button from '../../button';
-import Modal from '../../modal';
+import { JoinTeamDocument } from "@/src/generated/generated";
+import { teamIdToId } from "@/src/utils/id";
+import { useMutation } from "@apollo/client";
+import { useEffect, useState } from "react";
+import createToast from "../../toast";
+import { useRouter } from "next/router";
+import Button from "../../button";
+import Modal from "../../modal";
+import { AiOutlineTeam } from "react-icons/ai";
 
 const JoinTeamModal = () => {
   const [open, setOpen] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [joinTeam, { loading, error: mutationError }] = useMutation(
     JoinTeamDocument,
     {
-      refetchQueries: ['MyTeam'],
+      refetchQueries: ["MyTeam"],
     }
   );
   const handleJoinTeam = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -23,16 +24,16 @@ const JoinTeamModal = () => {
         teamId: teamIdToId(teamId),
       },
     }).then((res) => {
-      if (res.data?.joinTeam.__typename === 'Error') {
+      if (res.data?.joinTeam.__typename === "Error") {
         setError(res.data.joinTeam.message);
       } else {
-        setError('');
+        setError("");
         setOpen(false);
       }
     });
-    await createToast(promise, 'Joining Team');
+    await createToast(promise, "Joining Team");
   };
-  const [teamId, setTeamId] = useState('');
+  const [teamId, setTeamId] = useState("");
   const router = useRouter();
   const { jointeam } = router.query;
 
@@ -46,11 +47,12 @@ const JoinTeamModal = () => {
   return (
     <>
       <Button
-        className="w-full"
+        className="w-full !skew-x-0 !justify-center !tracking-normal rounded-full bodyFont items-center"
         disabled={loading}
         onClick={() => setOpen(true)}
-        intent={'ghost'}
+        intent={"ghost"}
       >
+        <AiOutlineTeam />
         Join Team
       </Button>
       <Modal
@@ -66,7 +68,7 @@ const JoinTeamModal = () => {
         >
           <div className="flex flex-col gap-2">
             <label htmlFor="teamName" className="text-gray-300 font-semibod">
-              Team Id
+              Team ID
             </label>
             <input
               type="text"
@@ -76,10 +78,15 @@ const JoinTeamModal = () => {
               id="teamName"
               placeholder="T23-10902"
               required
-              className="w-full bg-gray-800 rounded-sm px-2 py-1 focus:outline-none focus:ring ring-gray-500"
+              className="w-full bg-primary-600 px-2 py-1 focus:outline-none focus:ring ring-primary-200/40 rounded-full"
             />
           </div>
-          <Button disabled={loading} type="submit" intent="success">
+          <Button
+            className="w-full !skew-x-0 !justify-center !tracking-normal rounded-full bodyFont items-center"
+            disabled={loading}
+            type="submit"
+            intent="success"
+          >
             Join Team
           </Button>
           {error && (

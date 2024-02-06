@@ -1,21 +1,22 @@
-import { CreateTeamDocument, Event } from '@/src/generated/generated';
-import { useMutation } from '@apollo/client';
-import { useState } from 'react';
-import createToast from '../../toast';
-import Button from '../../button';
-import Modal from '../../modal';
+import { CreateTeamDocument, Event } from "@/src/generated/generated";
+import { useMutation } from "@apollo/client";
+import { useState } from "react";
+import createToast from "../../toast";
+import Button from "../../button";
+import Modal from "../../modal";
+import { IoCreateOutline } from "react-icons/io5";
 
-const CreateTeamModal = ({ eventId }: { eventId: Event['id'] }) => {
+const CreateTeamModal = ({ eventId }: { eventId: Event["id"] }) => {
   const [open, setOpen] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [createTeam, { loading, error: mutationError }] = useMutation(
     CreateTeamDocument,
     {
-      refetchQueries: ['MyTeam'],
+      refetchQueries: ["MyTeam"],
     }
   );
 
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const handleCreateTeam = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const promise = createTeam({
@@ -23,28 +24,29 @@ const CreateTeamModal = ({ eventId }: { eventId: Event['id'] }) => {
         eventId: eventId,
         name: name,
       },
-      refetchQueries: ['MyTeam'],
+      refetchQueries: ["MyTeam"],
     }).then((res) => {
-      if (res.data?.createTeam.__typename === 'Error') {
+      if (res.data?.createTeam.__typename === "Error") {
         setError(res.data.createTeam.message);
       } else setOpen(false);
     });
-    await createToast(promise, 'Creating Team');
+    await createToast(promise, "Creating Team");
   };
 
   return (
     <>
       <Button
-        className="w-full"
+        className="w-full !skew-x-0 !justify-center !tracking-normal rounded-full bodyFont items-center"
         onClick={() => setOpen(true)}
-        intent={'primary'}
+        intent={"primary"}
       >
+        <IoCreateOutline />
         Create Team
       </Button>
       <Modal
         onClose={() => {
           setOpen(false);
-          setError('');
+          setError("");
         }}
         showModal={open}
         size="small"
@@ -66,10 +68,14 @@ const CreateTeamModal = ({ eventId }: { eventId: Event['id'] }) => {
               name="teamName"
               id="teamName"
               required
-              className="w-full bg-gray-800 rounded-sm px-2 py-1 focus:outline-none focus:ring ring-gray-500"
+              className="w-full bg-primary-600 px-2 py-1 focus:outline-none focus:ring ring-primary-200/40 rounded-full"
             />
           </div>
-          <Button type="submit" intent="success">
+          <Button
+            className="w-full !skew-x-0 !justify-center !tracking-normal rounded-full bodyFont items-center"
+            type="submit"
+            intent="success"
+          >
             Create Team
           </Button>
           {error && (

@@ -4,21 +4,21 @@ import { VikingHell } from "../_app";
 
 const Guidelines: NextPage = () => {
   return (
-    <div className="overflow-x-hidden overflow-y-auto text-gray-100 p-5 sm:p-10">
+    <div className="overflow-x-hidden overflow-y-auto text-gray-100 p-5 sm:p-10 font-gilroy">
       <div className="w-full max-w-7xl mx-auto">
         <h1
           className={`font-extrabold tracking-tight  pt-24 text-5xl mb-3 text-center`}
         >
           Guidelines and Regulations for Participating in Incridea 2024
         </h1>
-        <div className="bodyFont">
+        <div className="">
           <p className="mt-2 text-center">
             The fest is open to all students from engineering as well as Nitte
             sister institutions. This article outlines the guidelines and
             regulations that participants need to follow.
           </p>
 
-          <h2 className="text-2xl my-6 font-bold">
+          <h2 className="text-2xl my-6 font-semibold ">
             Participant Registration, Entry, Identification and Access
           </h2>
           <ul className="mt-2 list-disc pl-4">
@@ -66,7 +66,7 @@ const Guidelines: NextPage = () => {
             </li>
           </ul>
 
-          <h2 className="text-2xl my-6 font-bold">Event Rules</h2>
+          <h2 className="text-2xl my-6 font-semibold ">Event Rules</h2>
           <ul className="mt-2 list-disc pl-4">
             <li>
               The organisers of any event hold the right to change the rules of
@@ -84,7 +84,7 @@ const Guidelines: NextPage = () => {
             </li>
           </ul>
 
-          <h2 className="text-2xl my-6 font-bold">Championship Rules</h2>
+          <h2 className="text-2xl my-6 font-semibold ">Championship Rules</h2>
           <ul className="mt-2 list-disc pl-4">
             <li>
               <p className="font-semibold">
@@ -130,7 +130,7 @@ const Guidelines: NextPage = () => {
             <li>The point system does not apply to special events.</li>
           </ul>
 
-          <h2 className="text-2xl my-6 font-bold">Prohibited Conduct</h2>
+          <h2 className="text-2xl my-6 font-semibold ">Prohibited Conduct</h2>
           <ul className="mt-2 list-disc pl-4">
             <li>
               The consumption of alcoholic drinks, use of tobacco products,
@@ -143,7 +143,7 @@ const Guidelines: NextPage = () => {
             </li>
           </ul>
 
-          <h2 className="text-2xl my-6 font-bold">
+          <h2 className="text-2xl my-6 font-semibold ">
             Accommodation for external engineering students
           </h2>
           <ul className="mt-2 list-disc pl-4">
@@ -193,7 +193,7 @@ const Guidelines: NextPage = () => {
             </li>
           </ul>
 
-          <h2 className="text-2xl my-6 font-bold">
+          <h2 className="text-2xl my-6 font-semibold ">
             Campus Rules and Regulations
           </h2>
           <ul className="mt-2 list-disc pl-4">
