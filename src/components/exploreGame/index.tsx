@@ -832,7 +832,7 @@ const ExploreGame = () => {
               typewriter
                 .changeDelay(30)
                 .typeString(
-                  "Incridea, a three-day National-Level extravaganza will play host to over 60 events, spanning the technical, non-technical, and cultural spheres, replete with cultural soirées and pronites, promising to be an experience of a lifetime.<br/><br/>The stunning marine world, with all its wonders and marvels, will be unveiled before your very eyes, as you revel in the vivacity of these momentous days, forging memories that shall be etched in your minds forevermore."
+                  "Incridea, the national level techno-cultural fest of NMAM Institute of Technology, Nitte, is a vibrant celebration of technical, literary, and cultural activities, spanning over three days and 40+ events to find new horizons.<br/><br/> Now it's time to make your move, as you enter the game world of board and pixels, where you will be met with labyrinths of games and wonders. Roll the Dice, your Destiny Awaits!"
                 )
 
                 .start();
