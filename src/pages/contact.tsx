@@ -36,8 +36,8 @@ const Contact: NextPage = () => {
               94488 15186
             </a>{" "}
             or +91{" "}
-            <a href="tel:9620788383" className="hover:underline">
-              96207 88383
+            <a href="tel:96863 56123" className="hover:underline">
+              96863 56123
             </a>
           </p>
         </div>
