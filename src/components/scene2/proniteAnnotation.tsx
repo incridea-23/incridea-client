@@ -10,7 +10,6 @@ export default function ProniteAnnotation() {
   let scrollChangeFlag = useRef(false);
 
   useFrame(() => {
-    console.log(scroll.offset);
     if (scrollChangeFlag.current !== scroll.visible(0.22, 0.435)) {
       scrollChangeFlag.current = !scrollChangeFlag.current;
       setScrollData(scrollChangeFlag.current);

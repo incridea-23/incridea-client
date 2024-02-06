@@ -1,5 +1,6 @@
 import {
   PerspectiveCamera,
+  Text,
   useAnimations,
   useFBX,
   useGLTF,
@@ -10,6 +11,7 @@ import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { GLTF } from "three-stdlib";
 import ProniteAnnotation from "./proniteAnnotation";
+import Timer from "./timer";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -165,7 +167,7 @@ const Scene2: React.FC<Scene2Props> = ({ isMuted, setIsMuted, ...props }) => {
           makeDefault={true}
           far={10000}
           near={0.1}
-          fov={28.206}
+          fov={30}
           position={[-5.115, -9.236, 24.65]}
           rotation={[0.042, 0.022, 0.013]}
           scale={0.004}
@@ -210,6 +212,7 @@ const Scene2: React.FC<Scene2Props> = ({ isMuted, setIsMuted, ...props }) => {
           material={materials.Tree}
           position={[-21.183, -3.707, 4.183]}
         />
+        <Timer position={[-17.75, 1.1, 2.5]} rotation={[0, 0, 0]} />
         <mesh
           name="dice1"
           castShadow
