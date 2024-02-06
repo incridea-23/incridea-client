@@ -160,7 +160,10 @@ const ProfileInfo: FC<{
           onClick={() => setAvatarModal(true)}
         >
           <div className="overflow-hidden">
-          <AvatarModal showModal={avatarModal} setShowModal={setAvatarModal} />
+            <AvatarModal
+              showModal={avatarModal}
+              setShowModal={setAvatarModal}
+            />
           </div>
           <div className="relative group">
             <Image
