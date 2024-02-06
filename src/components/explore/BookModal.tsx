@@ -125,7 +125,7 @@ const BookModal: React.FC<BookModalType> = ({ isMuted, mainThemeAudioRef }) => {
               className="h-full w-full"
             />
             <Image
-              src={"/assets/home/DOD.png"}
+              src={`${baseImageUrl}/assets/home/DOD.png`}
               alt="Dice of Destiny"
               width={300}
               height={300}
