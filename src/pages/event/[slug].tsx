@@ -211,51 +211,53 @@ function event({ event, error }: { event: Event; error: String }) {
                 </div>
               </div>
             </div>
-            <div
-              className={`bg-gradient-to-b from-primary-300 to-primary-400 border border-primary-200/80 p-5 rounded-xl w-full`}
-            >
-              <div className={``}>
-                <div className={`w-full order-3`}>
-                  <h2
-                    className={`font-VikingHell mb-2 text-2xl md:text-4xl tracking-wider`}
-                  >
-                    Organizers
-                  </h2>
-                  <div className={`space-y-2 w-full bodyFont`}>
-                    {event.organizers.map((organizer) => (
-                      <div
-                        key={organizer.user.id}
-                        className={`text-white w-full p-3 rounded-xl text-md border border-secondary-400/40 bg-primary-200/30`}
-                      >
-                        <h3 className={`text-lg font-semibold mb-2`}>
-                          {organizer.user.name}
-                        </h3>
-                        <div className={`flex gap-2 flex-col`}>
-                          {organizer.user.email && (
-                            <a
-                              href={`mailto:${organizer.user.email}`}
-                              className={`text-sm inline-flex overflow-x-auto items-center gap-2 hover:underline hover:underline-offset-4`}
-                            >
-                              <MdOutlineMailOutline className={`text-lg`} />{" "}
-                              {organizer.user.email}
-                            </a>
-                          )}
-                          {organizer.user.phoneNumber && (
-                            <a
-                              href={`tel:${organizer.user.phoneNumber}`}
-                              className={`text-sm inline-flex items-center gap-2 hover:underline hover:underline-offset-4`}
-                            >
-                              <BsFillTelephoneFill className={`text-lg`} />{" "}
-                              {organizer.user.phoneNumber}
-                            </a>
-                          )}
+            {event.organizers.length > 0 && (
+              <div
+                className={`bg-gradient-to-tr from-primary-500 via-primary-300 border border-primary-200/80 p-5 rounded-xl w-full`}
+              >
+                <div className={``}>
+                  <div className={`w-full order-3`}>
+                    <h2
+                      className={`font-VikingHell mb-2 text-2xl md:text-4xl tracking-wider`}
+                    >
+                      Organizers
+                    </h2>
+                    <div className={`space-y-2 w-full bodyFont`}>
+                      {event.organizers.map((organizer) => (
+                        <div
+                          key={organizer.user.id}
+                          className={`text-white w-full p-3 rounded-xl text-md border border-secondary-400/40 bg-primary-200/30`}
+                        >
+                          <h3 className={`text-lg font-semibold mb-2`}>
+                            {organizer.user.name}
+                          </h3>
+                          <div className={`flex gap-2 flex-col`}>
+                            {organizer.user.email && (
+                              <a
+                                href={`mailto:${organizer.user.email}`}
+                                className={`text-sm inline-flex overflow-x-auto items-center gap-2 hover:underline hover:underline-offset-4`}
+                              >
+                                <MdOutlineMailOutline className={`text-lg`} />{" "}
+                                {organizer.user.email}
+                              </a>
+                            )}
+                            {organizer.user.phoneNumber && (
+                              <a
+                                href={`tel:${organizer.user.phoneNumber}`}
+                                className={`text-sm inline-flex items-center gap-2 hover:underline hover:underline-offset-4`}
+                              >
+                                <BsFillTelephoneFill className={`text-lg`} />{" "}
+                                {organizer.user.phoneNumber}
+                              </a>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </section>
       ) : (

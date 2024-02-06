@@ -7,7 +7,6 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { AiFillSound, AiOutlineSound } from "react-icons/ai";
 import { MdVolumeOff, MdVolumeUp } from "react-icons/md";
 import Button from "../button";
 import Modal from "../modal";
@@ -124,27 +123,34 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
           onClose={() => setModal(false)}
         >
           <div className="flex flex-col justify-center">
-            <div className="flex justify-center gap-x-4 py-4">
+            <div className="flex justify-center gap-x-4 mt-5 lg:mb-0 mb-5">
               <Button
                 size={"medium"}
                 onClick={() => {
                   handleYes();
                 }}
+                className="!px-5"
               >
                 Yes
               </Button>
 
-              <Button size={"medium"} onClick={() => handleNo()}>
+              <Button
+                className="!px-5"
+                size={"medium"}
+                onClick={() => handleNo()}
+              >
                 No
               </Button>
             </div>
-            <Image
-              src={"/assets/png/toolTip.png"}
-              alt="toolTip"
-              width={500}
-              height={500}
-              className="md:w-[30rem] w-[20rem]"
-            />
+            <div className="hidden lg:block rounded-xl bg-primary-300/30 border border-secondary-400/40 p-2 lg:p-5 m-2 lg:m-5">
+              <p className="text-center font-bold">How to Play?</p>
+              <Image
+                src={"/assets/png/toolTip.png"}
+                alt="toolTip"
+                width={500}
+                height={500}
+              />
+            </div>
           </div>
         </Modal>
       )}
