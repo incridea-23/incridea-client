@@ -38,7 +38,7 @@ const AvatarModal: React.FunctionComponent<Props> = ({
       size="small"
     >
       <div className="w-full h-full flex justify-center">
-        <div className="w-fit h-full grid grid-cols-2 m-4 bg-white/10 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg p-2 items-center justify-center gap-2">
+        <div className="max-h-[40vh] w-fit grid grid-cols-2 m-4 bg-white/10 backdrop-filter backdrop-blur-lg bg-clip-padding rounded-lg p-2 items-center justify-center gap-2 overflow-y-scroll">
           {avatarList.map((avatar, index) => (
             <div
               className="rounded-xl border border-primary-200/30 items-stretch h-full p-2 hover:bg-primary-200/20 transition-colors duration-300"

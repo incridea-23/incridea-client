@@ -10,6 +10,8 @@ export default function Level3() {
   const secondAudioRef = useRef<HTMLAudioElement>(null);
   const [muted, setIsMuted] = useState(true);
 
+  const [instruction, setInstruction] = useState<boolean>(true);
+
   return (
     <div className="w-full h-screen overflow-y-scroll">
       <AudioPlayer
@@ -28,9 +30,18 @@ export default function Level3() {
         <color args={["#333"]} attach={"background"} />
         <ambientLight intensity={0.5} />
         <ScrollControls maxSpeed={0.25} pages={5}>
-          <Scene2 isMuted={muted} setIsMuted={setIsMuted} />
+          <Scene2
+            isMuted={muted}
+            setIsMuted={setIsMuted}
+            setInstruction={setInstruction}
+          />
         </ScrollControls>
       </Canvas>
+      {instruction && (
+        <div className="absolute z-[100] text-white transition-all pointer-events-none duration-300 bottom-20 left-1/2 -translate-x-1/2 text-base md:text-lg 2xl:text-xl animate-pulse font-semibold">
+          Scroll down to explore
+        </div>
+      )}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { Suspense, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { getProject } from "@theatre/core";
 // import studio from "@theatre/studio";
@@ -32,6 +32,7 @@ const Scene1 = dynamic(() => import("@/src/components/scene1"), {
 
 const demoSheet = getProject("Scene 1", { state: scene1 }).sheet("Scene 1");
 const App = () => {
+  const [instruction, setInstruction] = useState<boolean>(true);
   const {
     data: eventsData,
     loading: eventLoading,
@@ -97,7 +98,7 @@ const App = () => {
                   position={[0, 100, -100]}
                   intensity={0.5}
                 />
-                <Scene1 />
+                <Scene1 setInstruction={setInstruction} />
               </>
             </ScrollControls>
           </SheetProvider>
@@ -117,6 +118,11 @@ const App = () => {
           <BookModal isMuted={isMuted} mainThemeAudioRef={mainThemeAudioRef} />
         )}
       </div>
+      {instruction && (
+        <div className="absolute z-[100] text-white transition-all pointer-events-none duration-300 bottom-20 left-1/2 -translate-x-1/2 text-base md:text-lg 2xl:text-xl animate-pulse font-semibold">
+          Scroll down to explore
+        </div>
+      )}
     </div>
   );
 };
