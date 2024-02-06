@@ -49,7 +49,7 @@ const VerifyEmailComponent: FunctionComponent = () => {
           <h1>Your email has been verified.</h1>
           <p>You can now login to your account.</p>
           <Link
-            href={"/login"}
+            href={"/login?verify=true"}
             className="underline text-secondary-800 hover:text-[#ee007d]"
           >
             Click here to login
