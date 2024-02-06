@@ -159,7 +159,9 @@ const ProfileInfo: FC<{
           className="justify-center items-start flex"
           onClick={() => setAvatarModal(true)}
         >
+          <div className="overflow-hidden">
           <AvatarModal showModal={avatarModal} setShowModal={setAvatarModal} />
+          </div>
           <div className="relative group">
             <Image
               src={user?.profileImage || ""}
