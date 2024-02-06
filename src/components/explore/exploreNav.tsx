@@ -5,6 +5,7 @@ import MainMenuModal from "./mainMenuModal";
 import { useAuth } from "@/src/hooks/useAuth";
 import { GetUserXpDocument } from "../../generated/generated";
 import Image from "next/image";
+import Link from "next/link";
 import { VikingHell } from "../../pages/_app";
 export default function ExploreNav() {
   const [showModal, setShowModal] = useState(false);
@@ -40,7 +41,7 @@ export default function ExploreNav() {
     <>
       <div className="fixed w-full flex justify-between items-center z-[1000] p-4">
         {user ? (
-          <div className="flex flex-row space-x-1 items-center titleFont text-white">
+          <div className="flex flex-row space-x-1 items-center titleFont text-white ">
             <Image
               src={"/assets/png/XP.png"}
               width={100}
@@ -49,10 +50,7 @@ export default function ExploreNav() {
               className="sm:h-10 sm:w-10 h-8 w-8"
             />
 
-            <div className="text-lg flex flex-col items-center justify-center">
-              <p className={`${VikingHell.className}`}>XP</p>
-              <p className="font-sans relative bottom-2">{xp}</p>
-            </div>
+            <p className="font-sans relative text-xl">{xp}</p>
           </div>
         ) : (
           <div></div>

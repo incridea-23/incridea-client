@@ -18,6 +18,7 @@ const Navbar = () => {
     { label: "Events", url: "/events" },
     { label: "Pronites", url: "/pronites" },
     { label: "Gallery", url: "/gallery" },
+    { label: "Explore", url: "/explore" },
     { label: "About", url: "/about" },
   ];
 

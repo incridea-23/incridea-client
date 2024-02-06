@@ -153,7 +153,7 @@ const ProfileInfo: FC<{
   }, [Leaderboard, userId]);
 
   return (
-    <div className="bg-primary-500 text-white flex flex-col justify-between items-center min-h-screen px-4 md:px-8 py-4 md:py-8 border border-primary-200/80 rounded-xl">
+    <div className="bg-primary-500 text-white flex flex-col gap-5 items-center px-4 md:px-8 py-4 md:py-8 border border-primary-200/80 rounded-xl">
       <div className="flex gap-5 flex-col">
         <div
           className="justify-center items-start flex"
@@ -187,7 +187,7 @@ const ProfileInfo: FC<{
           <div className="flex justify-between items-center text-lg">
             <div className="flex flex-row space-x-2 items-center ">
               <Image
-                src={`${baseImageUrl}/assets/png/XP.webp`}
+                src={`${baseImageUrl}/assets/png/XP.png`}
                 width={20}
                 height={20}
                 alt="map"
@@ -232,75 +232,72 @@ const ProfileInfo: FC<{
       </div>
 
       <div className="flex sm:flex-row flex-col-reverse gap-5 justify-between w-full items-center border rounded-xl p-3 mt-3 border-primary-200/30">
-        <section className="flex flex-col gap-y-4 sm:items-start items-center justify-center w-full">
-          <div className="flex w-full justify-between h-full items-center ">
+        <div className="flex xl:flex-row lg:flex-col sm:flex-row flex-col gap-5 w-full justify-between h-full items-center ">
+          <div className="flex flex-col justify-center items-center space-y-2">
             <QRCodeSVG
               value={idToPid(user?.id!)}
-              size={100}
+              size={130}
               bgColor="transparent"
               color="#ffffff"
               fgColor="#ffffff"
+              className="w-32 h-32"
             />
-            <div>
-              <span className={`text-[#fff] sm:text-xl text-md`}>
-                {idToPid(user?.id!)}
-              </span>
-              <span className="flex gap-x-2 items-center">
-                <MdOutlineEmail />
-                {user?.email}
-              </span>
-              <span className="flex gap-x-2 items-center justify-center sm:justify-start">
-                <MdPhone />
-                {user?.phoneNumber}
-              </span>
-            </div>
-          </div>
+            <span className={`text-[#fff] sm:text-2xl text-xl`}>
+              {idToPid(user?.id!)}
+            </span>
 
-          <div className="space-y-2 w-full">
-            <div className="flex items-center justify-between">
-              <ViewUserAccommodation
-                showModal={showModal}
-                setShowModal={setShowModal}
-              />
-              {loadingAccommodation ? (
-                <Button
-                  size={"large"}
-                  onClick={() => setShowModal(true)}
-                  className="w-max !rounded-full bodyFont !tracking-normal !text-sm justify-center"
-                >
-                  <Spinner size={"small"} className="text-[#dd5c6e]" />
-                </Button>
-              ) : dataAccommodation?.accommodationRequestsByUser[0]?.status ? (
-                <Button
-                  intent={"info"}
-                  size={"large"}
-                  onClick={() => setShowModal(true)}
-                  className="w-max !rounded-full bodyFont !tracking-normal !text-sm justify-center"
-                >
-                  <RiHotelBedLine className="inline-block mr-1" />
-                  View Request
-                </Button>
-              ) : (
-                <Button
-                  intent={"success"}
-                  size={"large"}
-                  onClick={() => router.push("/accommodation")}
-                  className="!rounded-full bodyFont !tracking-normal !text-sm justify-center"
-                >
-                  <RiHotelBedLine className="inline-block mr-1" />
-                  Accommodation
-                </Button>
-              )}
+            <span className="flex gap-x-2 items-center">
+              <MdOutlineEmail />
+              {user?.email}
+            </span>
+            <span className="flex gap-x-2 items-center justify-center sm:justify-start">
+              <MdPhone />
+              {user?.phoneNumber}
+            </span>
+          </div>
+          <div className="space-y-2 ">
+            <ViewUserAccommodation
+              showModal={showModal}
+              setShowModal={setShowModal}
+            />
+            {loadingAccommodation ? (
               <Button
-                onClick={() => router.push("/leaderboard")}
-                className="!rounded-full bodyFont !tracking-normal !text-sm justify-center"
+                size={"large"}
+                onClick={() => setShowModal(true)}
+                className="w-full !rounded-full bodyFont !tracking-normal !text-sm justify-center"
+              >
+                <Spinner size={"small"} className="text-[#dd5c6e]" />
+              </Button>
+            ) : dataAccommodation?.accommodationRequestsByUser[0]?.status ? (
+              <Button
                 intent={"info"}
                 size={"large"}
+                onClick={() => setShowModal(true)}
+                className="w-full !rounded-full bodyFont !tracking-normal !text-sm justify-center"
               >
-                <FaAward className="inline-block mr-1" />
-                Leaderboard
+                <RiHotelBedLine className="inline-block mr-1" />
+                View Request
               </Button>
-            </div>
+            ) : (
+              <Button
+                intent={"success"}
+                size={"large"}
+                onClick={() => router.push("/accommodation")}
+                className="!rounded-full w-full bodyFont !tracking-normal !text-sm justify-center"
+              >
+                <RiHotelBedLine className="inline-block mr-1" />
+                Accommodation
+              </Button>
+            )}
+            <Button
+              onClick={() => router.push("/leaderboard")}
+              className="!rounded-full w-full bodyFont !tracking-normal !text-sm justify-center"
+              intent={"info"}
+              size={"large"}
+            >
+              <FaAward className="inline-block mr-1" />
+              Leaderboard
+            </Button>
             <Button
               onClick={() => signOut()}
               className="w-full !rounded-full bodyFont !tracking-normal !text-sm justify-center"
@@ -311,7 +308,7 @@ const ProfileInfo: FC<{
               Sign Out
             </Button>
           </div>
-        </section>
+        </div>
       </div>
     </div>
   );
