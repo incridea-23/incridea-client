@@ -1,14 +1,14 @@
-import * as THREE from "three";
-import React, { useEffect, useRef } from "react";
 import {
-  useGLTF,
   PerspectiveCamera,
   useAnimations,
-  useScroll,
   useFBX,
+  useGLTF,
+  useScroll,
 } from "@react-three/drei";
-import { GLTF } from "three-stdlib";
 import { useFrame } from "@react-three/fiber";
+import React, { useEffect, useRef } from "react";
+import * as THREE from "three";
+import { GLTF } from "three-stdlib";
 import ProniteAnnotation from "./proniteAnnotation";
 
 type GLTFResult = GLTF & {
@@ -98,8 +98,12 @@ type GLTFResult = GLTF & {
 
 type ActionName = "CameraAction";
 type GLTFActions = Record<ActionName, THREE.AnimationAction>;
+interface Scene2Props {
+  isMuted: boolean;
+  setIsMuted: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-export default function Scene2(props: JSX.IntrinsicElements["group"]) {
+const Scene2: React.FC<Scene2Props> = ({ isMuted, setIsMuted, ...props }) => {
   const scroll = useScroll();
   const group = useRef<THREE.Group>(null);
   const fbx = useFBX("/assets/3d/ryokoAnimation.fbx") as THREE.Object3D;
@@ -109,6 +113,31 @@ export default function Scene2(props: JSX.IntrinsicElements["group"]) {
   ) as GLTFResult;
   const { actions, names } = useAnimations(animations, group);
   const fbxAnimationClips = useAnimations(fbxAnimation, group);
+
+  const playedSecondAudioRef = useRef(false);
+  const netherSound = useRef<HTMLAudioElement | null>(null);
+
+  const playSecondAudio = () => {
+    if (!isMuted) {
+      netherSound.current = new Audio("/audio/level3/nether.mp3");
+      netherSound.current.volume = 0.5;
+      netherSound.current.play();
+      playedSecondAudioRef.current = true;
+    }
+  };
+
+  useFrame(() => {
+    const normalizedScroll = scroll.offset;
+    if (normalizedScroll > 0.7 && !playedSecondAudioRef.current) {
+      playSecondAudio();
+    }
+  });
+
+  useEffect(() => {
+    if (netherSound.current) {
+      netherSound.current.muted = isMuted;
+    }
+  }, [isMuted]);
 
   useEffect(() => {
     if (actions.CameraAction) actions.CameraAction.reset().paused = true;
@@ -494,6 +523,8 @@ export default function Scene2(props: JSX.IntrinsicElements["group"]) {
       </group>
     </group>
   );
-}
+};
 
 useGLTF.preload("/assets/3d/level3.glb");
+
+export default Scene2;
