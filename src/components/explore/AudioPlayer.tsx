@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React, {
   Dispatch,
   SetStateAction,
@@ -11,7 +12,6 @@ import { MdVolumeOff, MdVolumeUp } from "react-icons/md";
 import Button from "../button";
 import Modal from "../modal";
 import styles from "./audioPlayer.module.css";
-import { useRouter } from "next/router";
 // Adjust the path accordingly
 
 interface AudioPlayerProps {
@@ -67,7 +67,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     }
   }
 
-  const [volume, setVolume] = useState(30);
+  const [volume, setVolume] = useState(60);
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newVolume = parseInt(event.target.value);
     setVolume(newVolume);
@@ -82,7 +82,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
       mainThemeAudioRef.current.play();
       mainThemeAudioRef.current.volume = volume / 100;
     }
-  }, [hasInteracted]);
+  }, [hasInteracted, mainThemeAudioRef, volume]);
 
   const router = useRouter();
 
