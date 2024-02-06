@@ -39,6 +39,7 @@ const TeamCard: FC<{
           <a
             href={github}
             target="_blank"
+            rel="noreferrer"
             className="bg-[#f648ae]/20 rounded-full p-2 hover:scale-110 duration-300 "
           >
             <AiFillGithub className=" text-white" size={40} />
@@ -46,6 +47,7 @@ const TeamCard: FC<{
           <a
             href={instagram}
             target="_blank"
+            rel="noreferrer"
             className="bg-[#f648ae]/20 rounded-full p-2 hover:scale-110 duration-300"
           >
             <AiFillInstagram className="text-white" size={40} />
@@ -53,6 +55,7 @@ const TeamCard: FC<{
           <a
             href={linkedin}
             target="_blank"
+            rel="noreferrer"
             className="bg-[#f648ae]/20 rounded-full p-2 hover:scale-110 duration-300"
           >
             <RiLinkedinFill className="text-white" size={40} />
