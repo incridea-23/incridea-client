@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 
 const FinalComponent = () => {
   const [calledXp, setCalledXp] = useState(false);
-  
+
   const [addXp] = useMutation(AddXpDocument, {
     variables: {
       levelId: "3",
@@ -23,13 +23,16 @@ const FinalComponent = () => {
     setCalledXp(true);
     const promise = addXp().then((res) => {
       if (res.data?.addXP.__typename === "MutationAddXPSuccess") {
-        toast.success(`Congratulations!!! You have found ${res.data?.addXP.data.level.point} Xp`, {
-          position: "bottom-center",
-          style: {
-            backgroundColor: "#7628D0",
-            color: "white",
-          },
-        });
+        toast.success(
+          `Congratulations!!! You have found ${res.data?.addXP.data.level.point} Xp`,
+          {
+            position: "bottom-center",
+            style: {
+              backgroundColor: "#7628D0",
+              color: "white",
+            },
+          }
+        );
       }
     });
   };
@@ -38,7 +41,7 @@ const FinalComponent = () => {
       className="w-full text-white flex flex-col items-center gap-y-4"
       id="animation"
     >
-      <h1 className="font-extrabold text-5xl md:text-6xl">Incridea 24`</h1>
+      <h1 className="font-extrabold text-5xl md:text-6xl">Incridea '24</h1>
       <p className="text-sm md:text-xl tracking-wider">
         Its your time to create great memories
       </p>

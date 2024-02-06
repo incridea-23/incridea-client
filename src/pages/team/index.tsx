@@ -161,7 +161,7 @@ const TeamMembers = [
     github: "https://github.com/Athena-2003",
     linkedin: "https://www.linkedin.com/in/shashank-b-n-947978173/",
     image: "/team/shashank.jpg",
-    quote: "I love PDF files",
+    quote: "Arch btw, Vim btw, Skill issues 420/69",
     avatar: "",
   },
   {
