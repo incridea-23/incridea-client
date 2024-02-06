@@ -30,7 +30,7 @@ export default function App() {
 
   const [isArtist1, setIsArtist1] = useState(true);
   const angle = useRef<number>(0);
-  const [isMuted, setIsMuted] = useState<boolean>(true);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
   const timeRef = useRef<NodeJS.Timer | null>(null);
 
   const [instruction, setInstruction] = useState<boolean>(true);
@@ -66,7 +66,7 @@ export default function App() {
       });
       gsap.to(nameGroup.current.rotation, {
         y: angle.current,
-        duration: 1.5,
+        duration: 1,
       });
     }
   }, [isArtist1]);

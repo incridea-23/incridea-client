@@ -802,7 +802,7 @@ const ExploreGame = () => {
             width: `${leftPlatformWidth}px`,
           }}
           download
-          className="bg-transparent z-[1]"
+          className="bg-transparent"
         ></a>
         <a
           style={{
@@ -816,7 +816,7 @@ const ExploreGame = () => {
             "https://drive.google.com/file/d/1H43LJXI4E-HELku71b9NLOBRoDpmxuHk/view?usp=drive_link"
           }
           download
-          className="bg-transparent z-[1]"
+          className="bg-transparent"
         ></a>
 
         <div
@@ -896,7 +896,7 @@ const ExploreGame = () => {
           style={{
             opacity: scrollY > window.innerHeight * 0.5 ? 0.5 : 0,
             pointerEvents: scrollY > window.innerHeight * 0.5 ? "all" : "none",
-            transition: "opacity 0.5s ease-in-out",
+            transition: "opacity 0.5s ease-in-out z-10",
           }}
         >
           <svg
@@ -927,7 +927,7 @@ const ExploreGame = () => {
                   actionKeys.splice(actionKeys.indexOf("ArrowRight"), 1);
                 }
               }}
-              className="pointer-events-auto"
+              className="pointer-events-auto select-none z-10"
             >
               <g id="Rectangle 6" filter="url(#filter0_b_95_21)">
                 <rect
@@ -971,7 +971,7 @@ const ExploreGame = () => {
                   actionKeys.splice(actionKeys.indexOf("ArrowUp"), 1);
                 }
               }}
-              className="pointer-events-auto"
+              className="pointer-events-auto select-none z-10"
             >
               <g id="Rectangle 6_2" filter="url(#filter1_b_95_21)">
                 <rect
@@ -1019,7 +1019,7 @@ const ExploreGame = () => {
                   actionKeys.splice(actionKeys.indexOf("ArrowLeft"), 1);
                 }
               }}
-              className="pointer-events-auto"
+              className="pointer-events-auto select-none z-10"
             >
               <g id="Rectangle 7" filter="url(#filter2_b_95_21)">
                 <rect
