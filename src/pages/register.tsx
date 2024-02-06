@@ -68,13 +68,13 @@ const Register: NextPage = () => {
           ) : (
             <div className="px-4 flex flex-col md:flex-row justify-between">
               <div className="flex justify-center text-md">
-                We provide accommodation for participants
+                We provide accommodation for external participants
               </div>
               <Link
                 href={"/accommodation"}
                 className="flex justify-center items-center"
               >
-                <Button size={"small"} className="w-max mt-3 md:mt-0">
+                <Button size={"medium"} className="w-max mt-3 md:mt-0">
                   Accommodate
                 </Button>
               </Link>

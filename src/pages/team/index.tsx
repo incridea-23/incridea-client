@@ -45,7 +45,7 @@ const TeamMembers = [
     github: "https://github.com/swasthikshetty10/",
     linkedin: "https://www.linkedin.com/in/swasthikshetty10/",
     image: "/team/swasthik.jpg",
-    quote: "",
+    quote: "My code is broke? or am I?",
     avatar: "",
   },
   {
@@ -258,6 +258,16 @@ const TeamMembers = [
     linkedin: "https://www.linkedin.com/in/m-sayeem-ahmed-651a7b254/",
     image: "/team/sayeem.jpg",
     quote: "Damn, Block theory of time is quite scary!",
+    avatar: "",
+  },
+  {
+    name: "Sourav Bangera",
+    role: "Video Editor",
+    instagram: "https://www.instagram.com/souravbangera_/",
+    github: "https://www.youtube.com/watch?v=wh9QLjk3M2k&t=380s",
+    linkedin: "https://www.linkedin.com/in/sourav-bangera-278a45227/",
+    image: "/team/sourav.jpg",
+    quote: "Should have taken arts",
     avatar: "",
   },
 ];
