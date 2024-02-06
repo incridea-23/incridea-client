@@ -41,7 +41,7 @@ const FinalComponent = () => {
       className="w-full text-white flex flex-col items-center gap-y-4"
       id="animation"
     >
-      <h1 className="font-extrabold text-5xl md:text-6xl">Incridea '24</h1>
+      <h1 className="font-extrabold text-5xl md:text-6xl">Incridea &apos;24</h1>
       <p className="text-sm md:text-xl tracking-wider">
         Its your time to create great memories
       </p>
