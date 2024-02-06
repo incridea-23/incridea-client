@@ -62,12 +62,12 @@ const ProfileInfo: FC<{
         { length: levels + 1 },
         (_, i) => (i + 1) * 10
       );
-
+      console.log(newLevelThresholds);
       // Calculate the user's current level based on the thresholds
       let level = 0;
       let totalPoints = 0;
       for (let i = 0; i < newLevelThresholds.length; i++) {
-        if (totalXp >= totalPoints + newLevelThresholds[i]) {
+        if (totalXp >= totalPoints) {
           level++;
           totalPoints += newLevelThresholds[i];
         } else {
@@ -75,12 +75,11 @@ const ProfileInfo: FC<{
         }
       }
 
-      setLevel(level);
+      setLevel(level-1);
       setXp(totalXp);
       setUser(userXp.data.getUserXp?.data[0]?.user.id);
-      const xpNext = newLevelThresholds.reduce((acc, curr) => acc + curr, 0);
-      setNeedMore(xpNext - totalXp);
-      setProgress(100 - ((xpNext - totalXp) / xpNext) * 100);
+      setNeedMore(totalPoints - totalXp);
+      setProgress(100 - ((totalPoints - totalXp) / totalPoints) * 100);
     }
   }, [userXp.data]);
 
