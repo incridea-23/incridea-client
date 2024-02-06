@@ -55,6 +55,7 @@ module.exports = {
         VikingHell: "var(--font-viking-hell)",
         PressStart: "var(--font-Press_Start_2P)",
         Garet: "var(--font-Garet)",
+        gilroy: "var(--font-gilroy)",
       },
 
       colors: {

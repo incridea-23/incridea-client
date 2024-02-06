@@ -135,7 +135,7 @@ const TeamMembers = [
   },
   {
     name: "KEERTHAN NS",
-    role: "Full Stac",
+    role: "Full Stack",
     instagram: "https://www.instagram.com/keerthan_ns",
     github: "https://github.com/keerthan-ns",
     linkedin: "https://www.linkedin.com/in/keerthan-n-s/",

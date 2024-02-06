@@ -74,7 +74,7 @@ export default function CountDown() {
     return () => clearInterval(interval);
   }, []);
   return (
-    <div className="flex fixed w-full z-50 justify-between md:p-4 p-2 items-start">
+    <div className="flex fixed w-full z-50 justify-between md:p-4 p-2 items-center">
       {userAuthStatus ? (
         <div>
           <Link href="/leaderboard">
@@ -100,6 +100,7 @@ export default function CountDown() {
       )}
 
       <div className="flex flex-col text-white justify-center items-center">
+        <GlitchAnimation text="SEASON 6 BEGINS IN" />
         <GlitchAnimation
           text={`${time.days < 10 ? `0${time.days}` : time.days} :${" "}
             ${time.hours < 10 ? `0${time.hours}` : time.hours} :${" "}
