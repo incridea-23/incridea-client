@@ -4,6 +4,7 @@ import SignInForm from "../../form/login/signInForm";
 import ResetPasswordForm from "../../form/login/resetPasswordForm";
 import SignUpForm from "../../form/signUp";
 import ResendEmail from "../../form/login/resendEmailForm";
+import { useRouter } from "next/router";
 
 type LoginCardProps = {
   whichForm: "signIn" | "resetPassword" | "signUp" | "resendEmail";
@@ -31,6 +32,15 @@ const LoginCard: FunctionComponent<LoginCardProps> = ({
       setGotDialogBox(false);
     }
   }, [cardStyle.top, gotDialogBox]);
+
+  const router = useRouter();
+  const { verify } = router.query;
+
+  useEffect(() => {
+    if (verify) {
+      setWhichForm("signIn");
+    }
+  }, [verify]);
 
   return (
     // HACK: Please update anything here or in children also in auth/reset-password.tsx
