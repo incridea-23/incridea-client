@@ -89,7 +89,7 @@ const AccommodationForm: FunctionComponent = () => {
   const checkOutTimeRef = useRef<HTMLInputElement>(null);
 
   const [AccommodationInfo, setAccommodationInfo] = useState({
-    hotelId: -1,
+    hotelId: 1,
     gender: "",
     checkInTime: new Date(2024, 2, 22, 9, 30).toString(),
     checkOutTime: new Date(2024, 2, 24, 22, 30).toString(),
@@ -248,7 +248,7 @@ const AccommodationForm: FunctionComponent = () => {
                 </Transition>
               </div>
             </Combobox>
-            <Combobox
+            {/* <Combobox
               value={hotel}
               onChange={(id: string) => {
                 setAccommodationInfo((prev) => {
@@ -313,7 +313,7 @@ const AccommodationForm: FunctionComponent = () => {
                   </Combobox.Options>
                 </Transition>
               </div>
-            </Combobox>
+            </Combobox> */}
             {/* FIXME: No AC rooms??*/}
             {/* <Switch.Group>
             <div className="flex items-center">
