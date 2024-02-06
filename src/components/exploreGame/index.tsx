@@ -793,11 +793,7 @@ const ExploreGame = () => {
         </div>
 
         <a
-          href={
-            showRuleBook
-              ? `${baseImageUrl}/assets/images/ruleBook.png`
-              : `${baseImageUrl}/assets/images/rulebook.png`
-          }
+          href={""}
           style={{
             position: "absolute",
             top: `${leftPlatformY}px`,
@@ -817,9 +813,7 @@ const ExploreGame = () => {
             width: `${rightPlatformWidth}px`,
           }}
           href={
-            showRuleBook
-              ? `${baseImageUrl}/assets/images/ruleBook.png`
-              : `${baseImageUrl}/assets/images/rulebook.png`
+            "https://drive.google.com/file/d/1H43LJXI4E-HELku71b9NLOBRoDpmxuHk/view?usp=drive_link"
           }
           download
           className="bg-transparent z-[1]"

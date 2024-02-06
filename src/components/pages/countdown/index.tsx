@@ -5,6 +5,7 @@ import { useAuth } from "@/src/hooks/useAuth";
 import { useQuery } from "@apollo/client";
 import { GetUserXpDocument } from "@/src/generated/generated";
 import { VikingHell } from "@/src/pages/_app";
+import Link from "next/link";
 import { baseImageUrl } from "@/src/utils/url";
 export default function CountDown() {
   const { user, loading, status } = useAuth();
@@ -76,21 +77,23 @@ export default function CountDown() {
     <div className="flex fixed w-full z-50 justify-between md:p-4 p-2 items-start">
       {userAuthStatus ? (
         <div>
-          <h3
-            className={` text-lg md:text-2xl text-white tracking-widest z-10`}
-          >
-            <div className="flex flex-row space-x-2 items-center titleFont">
-              <Image
-                src={`${baseImageUrl}/assets/png/XP.png`}
-                width={100}
-                height={100}
-                alt="map"
-                className="sm:h-12 sm:w-10 h-10 w-8"
-              />
+          <Link href="/leaderboard">
+            <h3
+              className={` text-lg md:text-2xl text-white tracking-widest z-10`}
+            >
+              <div className="flex flex-row space-x-2 items-center titleFont">
+                <Image
+                  src={`${baseImageUrl}/assets/png/XP.png`}
+                  width={100}
+                  height={100}
+                  alt="map"
+                  className="sm:h-12 sm:w-10 h-10 w-8"
+                />
 
-              <p className="font-sans relative">{xp}</p>
-            </div>
-          </h3>
+                <p className="font-sans relative">{xp}</p>
+              </div>
+            </h3>
+          </Link>
         </div>
       ) : (
         <div></div>

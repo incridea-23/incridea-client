@@ -83,13 +83,13 @@ const Event = ({
       <div>
         <div className="bg-[#f648ae] rounded-t-xl">
           <div className="w-full">
-            <div className="-skew-x-[40deg] py-[0.015rem] bg-primary-500 absolute rounded-bl-3xl rounded-br-xl left-0 w-1/2 flex justify-start px-4 -translate-y-1">
+            <div className="-skew-x-[37deg] py-[0.015rem] bg-primary-500 absolute rounded-bl-3xl rounded-br-xl left-0 w-1/2 flex justify-start px-4 -translate-y-1">
               <Image
                 src={`${baseImageUrl}/assets/png/logo.png`}
                 alt={"Incridea Logo"}
                 width={550}
                 height={550}
-                className="object-fill h-8 w-16 z-0 text-white skew-x-[40deg] "
+                className="object-fill h-8 w-16 z-0 text-white skew-x-[37deg] "
               />
             </div>
             <div
