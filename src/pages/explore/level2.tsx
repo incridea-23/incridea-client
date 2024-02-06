@@ -58,11 +58,6 @@ const App = () => {
 
   const [isMuted, setIsMuted] = useState(true);
   const mainThemeAudioRef = useRef<HTMLAudioElement | null>(null);
-  // useEffect(() => {
-  //   demoSheet.project.ready.then(() =>
-  //     demoSheet.sequence.play({ iterationCount: Infinity, range: [0, 1] })
-  //   );
-  // }, []);
 
   return (
     <div className="w-full h-screen">
@@ -82,7 +77,7 @@ const App = () => {
         >
           <SheetProvider sheet={demoSheet}>
             <color attach={"background"} args={["#87CEEB"]} />
-            <ScrollControls pages={6} damping={0.5}>
+            <ScrollControls pages={6} maxSpeed={0.5}>
               <>
                 <e.group theatreKey="cameraContainer" position={[0, 10, 0]}>
                   <PerspectiveCamera

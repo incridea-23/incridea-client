@@ -11,6 +11,7 @@ import { MdVolumeOff, MdVolumeUp } from "react-icons/md";
 import Button from "../button";
 import Modal from "../modal";
 import styles from "./audioPlayer.module.css";
+import { useRouter } from "next/router";
 // Adjust the path accordingly
 
 interface AudioPlayerProps {
@@ -83,6 +84,8 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     }
   }, [hasInteracted]);
 
+  const router = useRouter();
+
   return (
     <div className={"sticky h-0 top-20 z-[60]"}>
       <audio ref={mainThemeAudioRef} loop muted={isMuted} autoPlay playsInline>
@@ -113,36 +116,38 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
           className="w-28"
         />
       </div> */}
-      <Modal
-        size="md"
-        title="Do you want audio?"
-        showModal={modal}
-        onClose={() => setModal(false)}
-      >
-        <div className="flex flex-col justify-center">
-          <div className="flex justify-center gap-x-4 py-4">
-            <Button
-              size={"medium"}
-              onClick={() => {
-                handleYes();
-              }}
-            >
-              Yes
-            </Button>
+      {router.pathname === "/explore/level1" && (
+        <Modal
+          size="md"
+          title="Do you want audio?"
+          showModal={modal}
+          onClose={() => setModal(false)}
+        >
+          <div className="flex flex-col justify-center">
+            <div className="flex justify-center gap-x-4 py-4">
+              <Button
+                size={"medium"}
+                onClick={() => {
+                  handleYes();
+                }}
+              >
+                Yes
+              </Button>
 
-            <Button size={"medium"} onClick={() => handleNo()}>
-              No
-            </Button>
+              <Button size={"medium"} onClick={() => handleNo()}>
+                No
+              </Button>
+            </div>
+            <Image
+              src={"/assets/png/toolTip.png"}
+              alt="toolTip"
+              width={500}
+              height={500}
+              className="md:w-[30rem] w-[20rem]"
+            />
           </div>
-          <Image
-            src={"/assets/png/toolTip.png"}
-            alt="toolTip"
-            width={500}
-            height={500}
-            className="md:w-[30rem] w-[20rem]"
-          />
-        </div>
-      </Modal>
+        </Modal>
+      )}
     </div>
     // </div>
   );

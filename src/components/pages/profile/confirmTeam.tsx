@@ -63,7 +63,7 @@ const ConfirmTeamModal: FC<{
         onClose={handleCloseModal}
         size={"small"}
       >
-        <div className="text-sm text-center p-5 bodyFont">
+        <div className="text-sm text-center px-5 mt-2 bodyFont">
           You won&apos;t be able to make changes to your team after confirming.
         </div>
         <div className="flex justify-center gap-3 my-5">
@@ -82,6 +82,7 @@ const ConfirmTeamModal: FC<{
                   );
             }}
             disabled={confirmTeamLoading}
+            className="rounded-full justify-center !skew-x-0 bodyFont !tracking-normal"
           >
             {confirmTeamLoading ? (
               <Spinner intent={"white"} size={"small"} />
@@ -90,6 +91,7 @@ const ConfirmTeamModal: FC<{
             )}
           </Button>
           <Button
+            className="rounded-full justify-center !skew-x-0 bodyFont !tracking-normal"
             size={"small"}
             intent={"ghost"}
             onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

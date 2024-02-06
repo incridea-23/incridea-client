@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
 import { AddXpDocument, GetUserXpDocument } from "@/src/generated/generated";
+import { baseImageUrl } from "@/src/utils/url";
 
 const Profile: NextPage = () => {
   const { error, user, loading } = useAuth();
@@ -61,7 +62,7 @@ const Profile: NextPage = () => {
         {/* Todo: Any graphic to fill space */}
         <div className="flex z-10 justify-center items-center h-96 mt-8">
           <Image
-            src={"/assets/png/gamer.png"}
+            src={`${baseImageUrl}/assets/png/gamer.png`}
             alt="404"
             width={400}
             height={400}

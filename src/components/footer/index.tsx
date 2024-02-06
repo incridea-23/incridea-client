@@ -1,5 +1,6 @@
 // @refresh reset
 
+import { baseImageUrl } from "@/src/utils/url";
 import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas";
 import Image from "next/image";
 import Link from "next/link";
@@ -36,7 +37,7 @@ export function FooterBody() {
       <div className="-mt-1 flex flex-col gap-5 md:flex-row bg-primary-700 text-gray-100 p-5 items-center justify-between">
         <div className="md:basis-1/5">
           <Image
-            src="/assets/png/logo-black.png"
+            src={`${baseImageUrl}/assets/png/logo-black.png`}
             width={150}
             height={100}
             alt="Incridea Logo"

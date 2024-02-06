@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Confetti from "react-dom-confetti";
 import Loader from "../components/Loader";
+import { baseImageUrl } from "../utils/url";
 
 function Theme() {
   // redirect to youtube
@@ -14,7 +15,7 @@ function Theme() {
   return (
     <div className="h-screen w-screen bg-black flex justify-center items-center">
       <Image
-        src={"/assets/png/logo.png"}
+        src={`${baseImageUrl}/assets/png/logo.png`}
         className="animate-pulse"
         alt="logo"
         width={300}

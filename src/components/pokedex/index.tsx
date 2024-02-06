@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
 import useStore from "../store/store";
+import { baseImageUrl } from "@/src/utils/url";
 
 interface DexProps {
   data?: Array<{ id: string; name: string; image: string }>;
@@ -124,7 +125,7 @@ const Pokedex: React.FC<DexProps> = ({
             ) : null}
 
             <Image
-              src="/assets/svg/dextop.svg"
+              src={`${baseImageUrl}/assets/svg/dextop.svg`}
               alt="dexmid"
               width={2491}
               height={1082}
@@ -143,6 +144,7 @@ const Pokedex: React.FC<DexProps> = ({
                 <Link
                   href={"/events"}
                   className="flex butanim w-full justify-center relative z-20 px-2 -bottom-1 mb-2"
+                  target="_blank"
                 >
                   <Button className="font-VikingHell h-full">
                     View Events
@@ -155,7 +157,7 @@ const Pokedex: React.FC<DexProps> = ({
           {/* Bottom part of Pokedex */}
           <div>
             <Image
-              src="/assets/svg/dexbot.svg"
+              src={`${baseImageUrl}/assets/svg/dexbot.svg`}
               alt="dexmid"
               width={2491}
               height={1082}

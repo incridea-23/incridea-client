@@ -146,7 +146,7 @@ const Scene2: React.FC<Scene2Props> = ({ isMuted, setIsMuted, ...props }) => {
   useEffect(() => {
     if (fbxAnimationClips.actions["mixamo.com"])
       fbxAnimationClips.actions["mixamo.com"].reset().play();
-  });
+  }, [fbxAnimationClips]);
 
   useFrame(() => {
     if (actions.CameraAction) {

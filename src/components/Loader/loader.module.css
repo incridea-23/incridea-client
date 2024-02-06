@@ -1,3 +1,35 @@
+.fadeInBg {
+    animation: animateInBg 3s;
+}
+
+@keyframes animateInBg {
+    0% {
+        opacity: 0%;
+    }
+    20% {
+        opacity: 100%;
+    }
+    100% {
+        opacity: 100%;
+    }
+}
+
+.fadeOutBg {
+    animation: animateOutBg 3s;
+}
+
+@keyframes animateOutBg {
+    0% {
+        opacity: 100%;
+    }
+    20% {
+        opacity: 0%;
+    }
+    100% {
+        opacity: 0%;
+    }
+}
+
 .mountbl {
     animation: animatebottomleft 3s;
 }
@@ -7,12 +39,14 @@
         transform: scale(2);
         bottom: -50%;
         left: -50%;
+        opacity: 0%;
     }
 
     100% {
         transform: scale(1);
         bottom: 0%;
         left: 0%;
+        opacity: 100%;
     }
 }
 
@@ -25,12 +59,18 @@
         transform: scale(1);
         bottom: 0%;
         left: 0%;
+        opacity: 100%;
+    }
+
+    90% {
+        opacity: 0%;
     }
 
     100% {
         transform: scale(2);
         bottom: -50%;
         left: -50%;
+        opacity: 0%;
     }
 }
 
@@ -43,12 +83,14 @@
         transform: scale(2);
         top: -50%;
         right: -50%;
+        opacity: 0%;
     }
 
     100% {
         transform: scale(1);
         top: 0%;
         right: 0%;
+        opacity: 100%;
     }
 }
 
@@ -61,28 +103,34 @@
         transform: scale(1);
         top: 0%;
         right: 0%;
+        opacity: 100%;
+    }
+
+    90% {
+        opacity: 0%;
     }
 
     100% {
         transform: scale(2);
         top: -50%;
         right: -50%;
+        opacity: 0%;
     }
 }
 
-.fadelogo{
+.fadelogo {
     animation: fade-out 1s;
     animation-fill-mode: forwards;
 }
 
-@keyframes fade-out{
-    0%{
+@keyframes fade-out {
+    0% {
         opacity: 1;
     }
-    50%{
+    50% {
         opacity: 0.5;
     }
-    100%{
+    100% {
         opacity: 0;
         display: none;
     }
@@ -91,26 +139,28 @@
 .fadeinlogo {
     opacity: 0;
     animation: fade-in 1s ease-in forwards;
-  }
-  
-  @keyframes fade-in {
+}
+
+@keyframes fade-in {
     50% {
-      opacity: 0.5;
+        opacity: 0.5;
     }
-    100%{
+    100% {
         opacity: 1;
     }
-  }
+}
 
 .fadeloader {
-    animation: fadeloadpage 8s;
+    animation: fadeloadpage 4s;
     animation-fill-mode: forwards;
 }
 
 @keyframes fadeloadpage {
-    0%{
+    0% {
         opacity: 1;
+        z-index: 9999;
     }
+
     50% {
         opacity: 0.5;
     }
@@ -123,7 +173,7 @@
 }
 
 .unmountblsecond {
-    animation: animatebottomleftrev 5s;
+    animation: animatebottomleftrev 3s;
 }
 
 @keyframes animatebottomleftrev {
@@ -131,17 +181,23 @@
         transform: scale(1);
         bottom: 0%;
         left: 0%;
+        opacity: 100%;
+    }
+
+    90% {
+        opacity: 0%;
     }
 
     100% {
         transform: scale(2);
         bottom: -50%;
         left: -50%;
+        opacity: 0%;
     }
 }
 
 .unmounttrsecond {
-    animation: animatetoprightrev 5s;
+    animation: animatetoprightrev 3s;
 }
 
 @keyframes animatetoprightrev {
@@ -149,12 +205,18 @@
         transform: scale(1);
         top: 0%;
         right: 0%;
+        opacity: 100%;
+    }
+
+    90% {
+        opacity: 0%;
     }
 
     100% {
         transform: scale(2);
         top: -50%;
         right: -50%;
+        opacity: 0%;
     }
 }
 

@@ -18,6 +18,7 @@ import {
   platformDimensions,
   platformSpriteDimensions,
 } from "./gameConstants";
+import { baseImageUrl } from "@/src/utils/url";
 
 const fps: number = 60;
 const actionKeys: string[] = [];
@@ -755,17 +756,17 @@ const ExploreGame = () => {
       <div className="h-[200vh] relative w-full overflow-clip">
         <div className="hidden">
           <img
-            src="/assets/spriteSheets/ryokoSpriteSheet.png"
+            src={`${baseImageUrl}/assets/spriteSheets/ryokoSpriteSheet.png`}
             alt=""
             ref={ryokoSprite}
           />
           <img
-            src="/assets/spriteSheets/background.png"
+            src={`${baseImageUrl}/assets/spriteSheets/background.png`}
             alt=""
             ref={background}
           />
           <img
-            src="/assets/spriteSheets/platformSprite2.png"
+            src={`${baseImageUrl}/assets/spriteSheets/platformSprite2.png`}
             alt=""
             ref={platformSprite}
           />
@@ -794,8 +795,8 @@ const ExploreGame = () => {
         <a
           href={
             showRuleBook
-              ? "/assets/images/ruleBook.png"
-              : "/assets/images/rulebook.png"
+              ? `${baseImageUrl}/assets/images/ruleBook.png`
+              : `${baseImageUrl}/assets/images/rulebook.png`
           }
           style={{
             position: "absolute",
@@ -817,8 +818,8 @@ const ExploreGame = () => {
           }}
           href={
             showRuleBook
-              ? "/assets/images/ruleBook.png"
-              : "/assets/images/rulebook.png"
+              ? `${baseImageUrl}/assets/images/ruleBook.png`
+              : `${baseImageUrl}/assets/images/rulebook.png`
           }
           download
           className="bg-transparent z-[1]"
@@ -863,8 +864,8 @@ const ExploreGame = () => {
             <Image
               src={
                 showRuleBook
-                  ? "/assets/png/ruleBook.png"
-                  : "/assets/png/rulebook.png"
+                  ? `${baseImageUrl}/assets/png/ruleBook.png`
+                  : `${baseImageUrl}/assets/png/rulebook.png`
               }
               alt="RuleBook"
               width={500}

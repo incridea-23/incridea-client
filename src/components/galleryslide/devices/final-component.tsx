@@ -1,4 +1,5 @@
 import { AddXpDocument, GetUserXpDocument } from "@/src/generated/generated";
+import { baseImageUrl } from "@/src/utils/url";
 import { useMutation } from "@apollo/client";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -42,7 +43,7 @@ const FinalComponent = () => {
         Its your time to create great memories
       </p>
       <Image
-        src={"/assets/png/dice.png"}
+        src={`${baseImageUrl}/assets/png/dice.png`}
         alt="dice"
         width={50}
         height={50}

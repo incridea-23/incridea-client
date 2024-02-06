@@ -1,11 +1,11 @@
-import Button from '@/src/components/button';
-import Modal from '@/src/components/modal';
-import Spinner from '@/src/components/spinner';
-import createToast from '@/src/components/toast';
-import { RemoveTeamMemberDocument } from '@/src/generated/generated';
-import { useMutation } from '@apollo/client';
-import React, { FC, useState } from 'react';
-import { BiTrashAlt } from 'react-icons/bi';
+import Button from "@/src/components/button";
+import Modal from "@/src/components/modal";
+import Spinner from "@/src/components/spinner";
+import createToast from "@/src/components/toast";
+import { RemoveTeamMemberDocument } from "@/src/generated/generated";
+import { useMutation } from "@apollo/client";
+import React, { FC, useState } from "react";
+import { BiTrashAlt } from "react-icons/bi";
 
 const DeleteTeamMember: FC<{
   teamId: string;
@@ -18,7 +18,7 @@ const DeleteTeamMember: FC<{
   const [deleteTeamMember, { loading: deleteMemberLoading }] = useMutation(
     RemoveTeamMemberDocument,
     {
-      refetchQueries: ['RegisterdEvents'],
+      refetchQueries: ["RegisterdEvents"],
       awaitRefetchQueries: true,
     }
   );
@@ -37,23 +37,24 @@ const DeleteTeamMember: FC<{
     }).then((res) => {
       if (
         res?.data?.removeTeamMember.__typename !==
-        'MutationRemoveTeamMemberSuccess'
+        "MutationRemoveTeamMemberSuccess"
       ) {
-        return Promise.reject('Error removing member');
+        return Promise.reject("Error removing member");
       }
     });
-    createToast(promise, 'Removing');
+    createToast(promise, "Removing");
   };
 
   return (
     <>
       <div className="w-full flex justify-center">
         <Button
-          size={'small'}
+          size={"small"}
           onClick={() => {
             setShowModal(true);
           }}
           disabled={deleteMemberLoading || !editable}
+          className="rounded-full justify-center !skew-x-0"
         >
           <BiTrashAlt />
         </Button>
@@ -62,26 +63,28 @@ const DeleteTeamMember: FC<{
         title={`Are you sure you want to remove ${name}?`}
         showModal={showModal}
         onClose={handleCloseModal}
-        size={'small'}
+        size={"small"}
       >
-        <div className="text-sm text-center bodyFont">This action cannot be undone.</div>
+        <div className="text-sm text-center bodyFont">
+          This action cannot be undone.
+        </div>
         <div className="flex justify-center gap-3 my-5">
           <Button
-            size={'small'}
+            size={"small"}
             onClick={() => {
               handleDelete(teamId as string);
             }}
             disabled={deleteMemberLoading}
           >
             {deleteMemberLoading ? (
-              <Spinner intent={'white'} size={'small'} />
+              <Spinner intent={"white"} size={"small"} />
             ) : (
-              'Remove'
+              "Remove"
             )}
           </Button>
           <Button
-            size={'small'}
-            intent={'ghost'}
+            size={"small"}
+            intent={"ghost"}
             onClick={() => handleCloseModal()}
           >
             Cancel
