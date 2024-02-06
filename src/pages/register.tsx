@@ -118,7 +118,7 @@ const Register: NextPage = () => {
             Register Now
             {loading && (
               <Spinner
-                className="w-fit text-[#dd5c6e]"
+                className="w-fit"
                 size={"small"}
                 intent={"white"}
               />

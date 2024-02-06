@@ -19,7 +19,7 @@ const Gallery: NextPage = () => {
   const [activeYear, setActiveYear] = useState<number>(0);
   const swiperRef = useRef<SwiperType>();
   const years = [2019, 2020, 2022, 2023, 2024];
-  const imageCounts = [31, 12, 26, 26, 0];
+  const imageCounts = [29, 12, 26, 26, 0];
 
   const generateImagePaths = (
     year: number,
