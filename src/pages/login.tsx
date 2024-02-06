@@ -111,9 +111,9 @@ const SignIn: NextPage = () => {
           <FallingItem delay={8000} />
         </div>
 
-        {/* <div className="absolute left-2/4 -translate-x-2/4 -top-[10vh] z-30 h-0 w-[65vw] md:w-[440px]">
+        <div className="absolute left-2/4 -translate-x-2/4 -top-[10vh] z-30 h-0 w-[65vw] md:w-[440px]">
           <EasterBomb />
-        </div> */}
+        </div>
 
         <LoginCard
           whichForm="signIn"
