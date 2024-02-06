@@ -6,7 +6,9 @@ interface glitchProps {
 export default function GlitchAnimation({ text }: glitchProps) {
   return (
     <>
-      <p className={`${styles.glitch} lg:text-3xl md:text-2xl text-lg`}>
+      <p
+        className={`${styles.glitch} lg:text-3xl md:text-2xl sm:text-lg text-md`}
+      >
         <span aria-hidden="true">{text}</span>
         {text}
         <span aria-hidden="true">{text}</span>

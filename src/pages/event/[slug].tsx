@@ -86,13 +86,13 @@ function event({ event, error }: { event: Event; error: String }) {
       <Toaster />
       {event ? (
         <section
-          className={`brightness-75 flex lg:flex-row flex-col gap-5 max-w-7xl mx-auto text-white h-screen overflow-y-scroll no-scrollbar lg:overflow-y-hidden`}
+          className={`flex lg:flex-row flex-col gap-5 max-w-7xl mx-auto text-white h-screen overflow-y-scroll no-scrollbar lg:overflow-y-hidden`}
         >
           <div
             className={`overflow-x-visible lg:h-full lg:overflow-y-scroll lg:no-scrollbar px-3 pt-20 lg:pb-8`}
           >
             <div
-              className={`bg-gradient-to-tr from-primary-500 via-primary-300 to-primary-500 border border-primary-200/80 p-5 rounded-xl basis-1/3`}
+              className={`bg-primary-300/50 backdrop-filter backdrop-blur-xl border border-primary-200/80 p-5 rounded-xl basis-1/3`}
             >
               <div className={`grow-0 space-y-4 sm:space-y-10 rounded-md`}>
                 {event.image && (
@@ -120,7 +120,7 @@ function event({ event, error }: { event: Event; error: String }) {
             className={`basis-1/3 lg:h-full lg:overflow-y-scroll lg:no-scrollbar px-3 lg:pt-20 pb-8 w-full shrink-0 flex flex-col gap-5 items-center rounded-md`}
           >
             <div
-              className={`bg-gradient-to-tr from-primary-500 via-primary-300 to-primary-500 border border-primary-200/80 w-full p-5 rounded-xl`}
+              className={`bg-primary-300/50 backdrop-filter backdrop-blur-xl border border-primary-200/80 w-full p-5 rounded-xl`}
             >
               <div>
                 <div className={`space-y-1.5 order-2 w-full`}>
@@ -213,47 +213,45 @@ function event({ event, error }: { event: Event; error: String }) {
             </div>
             {event.organizers.length > 0 && (
               <div
-                className={`bg-gradient-to-tr from-primary-500 via-primary-300 border border-primary-200/80 p-5 rounded-xl w-full`}
+                className={`bg-primary-300/50 backdrop-filter backdrop-blur-xl border border-primary-200/80 p-5 rounded-xl w-full`}
               >
-                <div className={``}>
-                  <div className={`w-full order-3`}>
-                    <h2
-                      className={`font-VikingHell mb-2 text-2xl md:text-4xl tracking-wider`}
-                    >
-                      Organizers
-                    </h2>
-                    <div className={`space-y-2 w-full bodyFont`}>
-                      {event.organizers.map((organizer) => (
-                        <div
-                          key={organizer.user.id}
-                          className={`text-white w-full p-3 rounded-xl text-md border border-secondary-400/40 bg-primary-200/30`}
-                        >
-                          <h3 className={`text-lg font-semibold mb-2`}>
-                            {organizer.user.name}
-                          </h3>
-                          <div className={`flex gap-2 flex-col`}>
-                            {organizer.user.email && (
-                              <a
-                                href={`mailto:${organizer.user.email}`}
-                                className={`text-sm inline-flex overflow-x-auto items-center gap-2 hover:underline hover:underline-offset-4`}
-                              >
-                                <MdOutlineMailOutline className={`text-lg`} />{" "}
-                                {organizer.user.email}
-                              </a>
-                            )}
-                            {organizer.user.phoneNumber && (
-                              <a
-                                href={`tel:${organizer.user.phoneNumber}`}
-                                className={`text-sm inline-flex items-center gap-2 hover:underline hover:underline-offset-4`}
-                              >
-                                <BsFillTelephoneFill className={`text-lg`} />{" "}
-                                {organizer.user.phoneNumber}
-                              </a>
-                            )}
-                          </div>
+                <div className={`w-full order-3`}>
+                  <h2
+                    className={`font-VikingHell mb-2 text-2xl md:text-4xl tracking-wider`}
+                  >
+                    Organizers
+                  </h2>
+                  <div className={`space-y-2 w-full bodyFont`}>
+                    {event.organizers.map((organizer) => (
+                      <div
+                        key={organizer.user.id}
+                        className={`text-white w-full p-3 rounded-xl text-md border border-secondary-400/40 bg-primary-200/30`}
+                      >
+                        <h3 className={`text-lg font-semibold mb-2`}>
+                          {organizer.user.name}
+                        </h3>
+                        <div className={`flex gap-2 flex-col`}>
+                          {organizer.user.email && (
+                            <a
+                              href={`mailto:${organizer.user.email}`}
+                              className={`text-sm inline-flex overflow-x-auto items-center gap-2 hover:underline hover:underline-offset-4`}
+                            >
+                              <MdOutlineMailOutline className={`text-lg`} />{" "}
+                              {organizer.user.email}
+                            </a>
+                          )}
+                          {organizer.user.phoneNumber && (
+                            <a
+                              href={`tel:${organizer.user.phoneNumber}`}
+                              className={`text-sm inline-flex items-center gap-2 hover:underline hover:underline-offset-4`}
+                            >
+                              <BsFillTelephoneFill className={`text-lg`} />{" "}
+                              {organizer.user.phoneNumber}
+                            </a>
+                          )}
                         </div>
-                      ))}
-                    </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>

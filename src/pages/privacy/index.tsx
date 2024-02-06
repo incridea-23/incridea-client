@@ -1,12 +1,14 @@
 import { NextPage } from "next";
 import Image from "next/image";
-
+import { gilroy } from "../_app";
 const Privacy: NextPage = () => {
   return (
-    <div className="relative min-h-screen overflow-x-hidden overflow-y-auto text-gray-100 p-5 sm:p-10">
+    <div
+      className={`relative min-h-screen overflow-x-hidden overflow-y-auto text-gray-100 p-5 sm:p-10 `}
+    >
       <div className="w-full max-w-7xl mx-auto">
         <h1
-          className={`font-extrabold tracking-tight text-5xl mb-3 pt-24 text-center`}
+          className={`font-gilroy font-bold tracking-tight text-5xl mb-3 pt-24 text-center `}
         >
           Incridea 2024 Privacy Policy
         </h1>
@@ -18,7 +20,7 @@ const Privacy: NextPage = () => {
             festival competition, you agree to the terms of this privacy policy.
           </p>
 
-          <h2 className="text-2xl mt-4">Consent</h2>
+          <h2 className="text-2xl mt-4 font-semibold">Consent</h2>
           <p className="mt-2">
             By registering and submitting your personal information, you are
             indicating your consent to the collection, utilization, and sharing
@@ -28,7 +30,9 @@ const Privacy: NextPage = () => {
             participating in our festival competition.
           </p>
 
-          <h2 className="text-2xl mt-4">Information Collection</h2>
+          <h2 className="text-2xl mt-4 font-semibold">
+            Information Collection
+          </h2>
           <p className="mt-2">
             We collect personally identifiable information from you when you
             voluntarily provide it to us through the festival registration form.
@@ -37,7 +41,7 @@ const Privacy: NextPage = () => {
             credit card number and expiration date, debit card information and
             UPI ID.
           </p>
-          <h2 className="text-2xl mt-4">Use of Information</h2>
+          <h2 className="text-2xl mt-4 font-semibold">Use of Information</h2>
           <p className="mt-2">
             We will use the information collected during the registration
             process to communicate with you about festival events and services,
@@ -56,7 +60,9 @@ const Privacy: NextPage = () => {
             number, date of birth, and financial information.
           </p>
 
-          <h2 className="text-2xl mt-4">Sharing of Information</h2>
+          <h2 className="text-2xl mt-4 font-semibold">
+            Sharing of Information
+          </h2>
           <p className="mt-2">
             We do not sell or rent your personal information to any third party.
             We may share your personal data with partners, vendors, or service
@@ -69,7 +75,7 @@ const Privacy: NextPage = () => {
             or to protect our rights or the rights of others.
           </p>
 
-          <h2 className="text-2xl mt-4">Third-party services</h2>
+          <h2 className="text-2xl mt-4 font-semibold">Third-party services</h2>
           <p className="mt-2">
             We only allow third-party providers to collect, use, and disclose
             your information to the extent necessary for them to provide the
@@ -90,14 +96,16 @@ const Privacy: NextPage = () => {
             a third-party website or application, this Privacy Policy and our
             website&apos;s Terms of Service no longer apply.
           </p>
-          <h2 className="text-2xl mt-4">Your Control Over Information</h2>
+          <h2 className="text-2xl mt-4 font-semibold">
+            Your Control Over Information
+          </h2>
           <p className="mt-2">
             You have the right to access, correct, or delete your personal
             information at any time. You may also opt-out of receiving future
             communications from us by contacting us through the email address or
             phone number provided on our website.
           </p>
-          <h2 className="text-2xl mt-4">Cookies</h2>
+          <h2 className="text-2xl mt-4 font-semibold">Cookies</h2>
           <p className="mt-2">
             We use cookies to maintain your session and to personalize your
             experience on our website. We do not use cookies to collect
@@ -105,7 +113,7 @@ const Privacy: NextPage = () => {
             other websites.
           </p>
 
-          <h2 className="text-2xl mt-4">Security Measures</h2>
+          <h2 className="text-2xl mt-4 font-semibold">Security Measures</h2>
           <p className="mt-2">
             Our website is secured with SSL encryption, and we use
             industry-standard security measures to protect your personal
@@ -115,14 +123,16 @@ const Privacy: NextPage = () => {
             only to employees who need it to perform their job duties.
           </p>
 
-          <h2 className="text-2xl mt-4">Registrations</h2>
+          <h2 className="text-2xl mt-4 font-semibold">Registrations</h2>
           <p className="mt-2">
             When you register for our festival competition, we collect your
             contact and financial information to process your payment and fulfil
             your registration. We use this information only for billing purposes
             and to communicate with you about your registration.
           </p>
-          <h2 className="text-2xl mt-4">Payment Processing and Security</h2>
+          <h2 className="text-2xl mt-4 font-semibold">
+            Payment Processing and Security
+          </h2>
           <p className="mt-2">
             We offer multiple modes of payment on our website, including debit
             card, UPI ID, and other digital payment options. All payment details
@@ -148,14 +158,16 @@ const Privacy: NextPage = () => {
             </a>
             .
           </p>
-          <h2 className="text-2xl mt-4">Links to Other Sites</h2>
+          <h2 className="text-2xl mt-4 font-semibold">Links to Other Sites</h2>
           <p className="mt-2">
             Our website may contain links to other sites that are not owned or
             operated by us. We are not responsible for the privacy practices or
             content of those sites, and we encourage you to review their privacy
             policies before providing any personal information.
           </p>
-          <h2 className="text-2xl mt-4">Changes to privacy policy</h2>
+          <h2 className="text-2xl mt-4 font-semibold">
+            Changes to privacy policy
+          </h2>
           <p className="mt-2">
             We reserve the right to modify this privacy policy at any time, and
             we encourage you to review it frequently. Any changes or
@@ -178,7 +190,7 @@ const Privacy: NextPage = () => {
             We value your trust and remain dedicated to ensuring the highest
             standards of data protection and privacy.
           </p>
-          <p className="text-lg mt-4 font-semibold">
+          <p className="text-lg mt-4 font-bold ">
             For inquiries or clarifications on our privacy policy or personal
             data handling, you may reach us at{" "}
             <a href="mailto:incridea@nmamit.in" className="hover:underline">

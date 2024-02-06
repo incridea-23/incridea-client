@@ -33,14 +33,6 @@ const MainMenuModal: React.FunctionComponent<Props> = ({
       className="w-screen h-screen fixed z-[9999] backdrop-blur-sm inset-0"
     >
       <div className="relative w-full h-full">
-        {/* <Button
-          onClick={() => {
-            setShowModal(false);
-          }}
-          className="absolute right-3 top-6"
-        >
-          <IoClose size="1.4rem" />
-        </Button> */}
         <div className="absolute -translate-x-2/4 -translate-y-2/4 top-2/4 left-2/4 z-[9999] bg-blue-400 h-[85%] w-[85%] overflow-clip rounded-xl">
           <HomeUi />
           <Menu
@@ -182,24 +174,15 @@ const Menu: React.FunctionComponent<{
   return (
     <div className="w-full overflow-x-hidden flex flex-col absolute bottom-0 left-0 h-full justify-center items-center">
       <div className="lg:flex flex-col hidden absolute bottom-10 items-center sm:flex-row  md:gap-10 my-24 gap-3  w-fit ">
-        <Link
-          href={loading ? "" : user ? "/profile" : "/login"}
-          target="_blank"
+        <Button
+          className="h-fit w-40  px-4 sm:px-12"
+          size={"large"}
+          onClick={() => {
+            setShowModal(false);
+          }}
         >
-          <Button
-            intent={"primary"}
-            className="h-fit w-40  px-4 sm:px-12"
-            size={"large"}
-          >
-            {loading ? (
-              <Spinner size="small" className="py-[2px]" />
-            ) : user ? (
-              "Profile"
-            ) : (
-              "Register"
-            )}
-          </Button>
-        </Link>
+          Resume
+        </Button>
         <Link href="/">
           <Button
             intent={"ghost"}
@@ -218,7 +201,7 @@ const Menu: React.FunctionComponent<{
         </h3>
 
         <Button
-          className="w-40 md:w-64 justify-center md:justify-end px-12 md:px-16"
+          className="w-40 md:w-64 justify-center md:justify-end px-12 md:px-16 lg:hidden"
           size={"large"}
           onClick={() => {
             setShowModal(false);
@@ -226,6 +209,25 @@ const Menu: React.FunctionComponent<{
         >
           Resume
         </Button>
+
+        <Link
+          href={loading ? "" : user ? "/profile" : "/login"}
+          target="_blank"
+        >
+          <Button
+            intent={"primary"}
+            className="w-40 md:w-64 justify-center md:justify-end px-12 md:px-16 hidden lg:flex"
+            size={"large"}
+          >
+            {loading ? (
+              <Spinner size="small" className="py-[2px]" />
+            ) : user ? (
+              "Profile"
+            ) : (
+              "Register"
+            )}
+          </Button>
+        </Link>
         {navItems.map((e, i) => (
           <Link key={i} href={e.href} target="_blank">
             <Button
@@ -256,16 +258,15 @@ const Menu: React.FunctionComponent<{
                 )}
               </Button>
             </Link>
-            <Button
-              intent={"ghost"}
-              className="lg:hidden !bg-primary-800/70 block w-40 md:w-64 justify-center md:justify-end px-12 md:px-16"
-              size={"large"}
-              onClick={() => {
-                router.push("/explore");
-              }}
-            >
-              Exit
-            </Button>
+            <Link href="/">
+              <Button
+                intent={"ghost"}
+                className="lg:hidden !bg-primary-800/70 block w-40 md:w-64 justify-center md:justify-end px-12 md:px-16"
+                size={"large"}
+              >
+                Exit
+              </Button>
+            </Link>
           </>
         }
       </div>

@@ -9,6 +9,8 @@ import { useGSAP } from "@gsap/react";
 import Dhvani from "@/src/components/pronites/dhvani";
 import Nakash from "@/src/components/pronites/nakash";
 import { baseImageUrl } from "@/src/utils/url";
+import Loader from "@/src/components/pronite/loader";
+import { useProgress } from "@react-three/drei";
 
 const artists = [
   {
@@ -30,30 +32,43 @@ export default function App() {
 
   const [isArtist1, setIsArtist1] = useState(true);
   const angle = useRef<number>(0);
-  const [isMuted, setIsMuted] = useState<boolean>(true);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
   const timeRef = useRef<NodeJS.Timer | null>(null);
 
   const [instruction, setInstruction] = useState<boolean>(true);
 
-  useEffect(() => {
-    audioRef.current &&
-      (audioRef.current.src = artists[isArtist1 ? 0 : 1].audioSrc);
-    audioRef.current && (audioRef.current.currentTime = 0);
-    audioRef.current?.play();
+  const { progress, total, loaded } = useProgress();
+  const [loading, setLoading] = useState<boolean>(true);
 
-    if (timeRef.current) {
-      clearTimeout(timeRef.current);
-      timeRef.current = setTimeout(() => {
-        setIsArtist1(!isArtist1);
-        angle.current = angle.current + Math.PI;
-      }, 15000);
-    } else {
-      timeRef.current = setTimeout(() => {
-        setIsArtist1(!isArtist1);
-        angle.current = angle.current + Math.PI;
-      }, 15000);
+  useEffect(() => {
+    if (progress === 100 && loaded === total) {
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     }
-  }, [isArtist1]);
+  }, [progress, loaded, total]);
+
+  useEffect(() => {
+    if (!loading) {
+      audioRef.current &&
+        (audioRef.current.src = artists[isArtist1 ? 0 : 1].audioSrc);
+      audioRef.current && (audioRef.current.currentTime = 0);
+      audioRef.current?.play();
+
+      if (timeRef.current) {
+        clearTimeout(timeRef.current);
+        timeRef.current = setTimeout(() => {
+          setIsArtist1(!isArtist1);
+          angle.current = angle.current + Math.PI;
+        }, 15000);
+      } else {
+        timeRef.current = setTimeout(() => {
+          setIsArtist1(!isArtist1);
+          angle.current = angle.current + Math.PI;
+        }, 15000);
+      }
+    }
+  }, [isArtist1, loading]);
 
   const artistGroup = useRef<THREE.Group | null>(null);
   const nameGroup = useRef<THREE.Group | null>(null);
@@ -66,7 +81,7 @@ export default function App() {
       });
       gsap.to(nameGroup.current.rotation, {
         y: angle.current,
-        duration: 1.5,
+        duration: 1,
       });
     }
   }, [isArtist1]);
@@ -97,7 +112,7 @@ export default function App() {
         )}
       </button>
       <audio ref={audioRef} loop={true} muted={isMuted}></audio>
-      {instruction && (
+      {instruction && !loading && (
         <div className="animate-pulse absolute bottom-48 md:bottom-56 lg:bottom-10 opacity-65 text-gray-400 left-1/2 -translate-x-1/2 z-50 text-base md:text-lg xl:text-xl">
           Click to see next artist
         </div>
@@ -136,6 +151,7 @@ export default function App() {
           <Intro />
         </Suspense>
       </Canvas>
+      <Loader loading={loading} />
     </>
   );
 }
