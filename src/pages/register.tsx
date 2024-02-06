@@ -93,13 +93,20 @@ const Register: NextPage = () => {
           <ol className="mt-2 list-decimal pl-4">
             <li>
               {" "}
-              Students of NMAM Institute of Technology, who pays ₹250 will have
-              access to all events and pronites
+              Students of NMAM Institute of Technology, who pays{" "}
+              <span className="font-semibold">
+                ₹250 (+ 2% platform fee)
+              </span>{" "}
+              will have access to all events and pronites
             </li>
             <li>
               {" "}
               Students of external engineering and sister Nitte colleges, who
-              pays ₹350 will have access to all events and pronites.
+              pays{" "}
+              <span className="font-semibold">
+                ₹350 (+ 2% platform fee)
+              </span>{" "}
+              will have access to all events and pronites.
             </li>
           </ol>
           <div className="mt-2">

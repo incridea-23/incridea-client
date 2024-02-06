@@ -45,7 +45,7 @@ const TeamMembers = [
     github: "https://github.com/swasthikshetty10/",
     linkedin: "https://www.linkedin.com/in/swasthikshetty10/",
     image: "/team/swasthik.jpg",
-    quote: "I know I am cute 💖",
+    quote: "",
     avatar: "",
   },
   {
