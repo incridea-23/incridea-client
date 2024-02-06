@@ -68,7 +68,7 @@ const Register: NextPage = () => {
           ) : (
             <div className="px-4 flex flex-col md:flex-row justify-between">
               <div className="flex justify-center text-md">
-                We provide accommodation for participants and non-participants
+                We provide accommodation for participants
               </div>
               <Link
                 href={"/accommodation"}
@@ -117,11 +117,7 @@ const Register: NextPage = () => {
           >
             Register Now
             {loading && (
-              <Spinner
-                className="w-fit"
-                size={"small"}
-                intent={"white"}
-              />
+              <Spinner className="w-fit" size={"small"} intent={"white"} />
             )}{" "}
           </Button>
           <h1 className="text-xs md:text-sm mt-2 text-gray-100">
