@@ -8,6 +8,7 @@ query GetXpLeaderboard {
       __typename
       data {
         id
+        createdAt
         level {
           id
           point
