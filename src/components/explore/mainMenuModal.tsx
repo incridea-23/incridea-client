@@ -33,15 +33,15 @@ const MainMenuModal: React.FunctionComponent<Props> = ({
       className="w-screen h-screen fixed z-[9999] backdrop-blur-sm inset-0"
     >
       <div className="relative w-full h-full">
-        <Button
+        {/* <Button
           onClick={() => {
             setShowModal(false);
           }}
           className="absolute right-3 top-6"
         >
           <IoClose size="1.4rem" />
-        </Button>
-        <div className="absolute -translate-x-2/4 -translate-y-2/4 top-2/4 left-2/4 z-[9999] bg-blue-400 h-[85%] w-[85%] overflow-clip">
+        </Button> */}
+        <div className="absolute -translate-x-2/4 -translate-y-2/4 top-2/4 left-2/4 z-[9999] bg-blue-400 h-[85%] w-[85%] overflow-clip rounded-xl">
           <HomeUi />
           <Menu
             router={router}

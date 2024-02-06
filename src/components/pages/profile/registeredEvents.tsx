@@ -13,12 +13,12 @@ const UserEvents: FC<{
   const { data: events, loading, error } = useQuery(RegisterdEventsDocument);
 
   return (
-    <section className="min-h-screen bg-primary-500 pt-5">
-      <div className="titleFont text-center rounded-t-xl text-white text-5xl">
+    <section className="h-full border border-primary-200/80 rounded-xl bg-primary-500">
+      <div className="titleFont text-center text-white text-5xl py-5">
         My Quests
       </div>
 
-      <div className="flex justify-center items-center mt-2">
+      <div className="flex justify-center items-center mt-2 ">
         {loading ? (
           <div className="flex items-center justify-center h-full">
             <Spinner size={"medium"} intent={"white"} />
@@ -48,8 +48,8 @@ const UserEvents: FC<{
           events?.registeredEvents.__typename ===
             "QueryRegisteredEventsSuccess" &&
           events.registeredEvents.data.length !== 0 && (
-            <div className="space-y-2 h-screen">
-              <div className="mx-auto space-y-4 px-5 bg-primary-500">
+            <div className="space-y-2 h-[80dvh]">
+              <div className="mx-auto w-full space-y-4 px-5 bg-primary-500">
                 <div className="text-white px-3 z-1 text-center font-bold w-full flex justify-center mb-5">
                   <p className="border rounded-full w-fit px-3 py-1 border-primary-200/80">
                     You have entered{" "}

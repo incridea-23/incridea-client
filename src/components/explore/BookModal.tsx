@@ -7,6 +7,7 @@ import HTMLFlipBook from "react-pageflip";
 import useStore from "../store/store";
 import styles from "./bookModal.module.css";
 import { baseImageUrl } from "@/src/utils/url";
+import { VikingHell } from "@/src/pages/_app";
 interface BookModalType {
   isMuted: boolean;
   mainThemeAudioRef: React.MutableRefObject<HTMLAudioElement | null>;
@@ -15,24 +16,14 @@ interface BookModalType {
 const BookModal: React.FC<BookModalType> = ({ isMuted, mainThemeAudioRef }) => {
   const sponsors = [
     {
-      logo: `${baseImageUrl}/assets/png/ryoko.png`,
-      name: "Paramvah Studios",
-      title: "Sponsor Sponsor Sponsor",
+      logo: `/sponsors/centro.jpg`,
+      name: "Centro",
+      title: "Official Fashion Partners",
     },
     {
-      logo: `${baseImageUrl}/assets/png/ryoko.png`,
-      name: "Paramvah Studios 2",
-      title: "Sponsor Sponsor Sponsor",
-    },
-    {
-      logo: `${baseImageUrl}/assets/png/ryoko.png`,
-      name: "Paramvah Studios 3",
-      title: "Sponsor Sponsor Sponsor",
-    },
-    {
-      logo: `${baseImageUrl}/assets/png/ryoko.png`,
-      name: "Paramvah Studios 4",
-      title: "Sponsor Sponsor Sponsor",
+      logo: `/sponsors/zeus.jpg`,
+      name: "Zeus Fitness Club",
+      title: "Official Fitness Partners",
     },
   ];
 
@@ -83,7 +74,7 @@ const BookModal: React.FC<BookModalType> = ({ isMuted, mainThemeAudioRef }) => {
           showPageCorners={true}
           disableFlipByClick={false}
         >
-          <div className="">
+          <div className="relative">
             <Image
               src={`${baseImageUrl}/assets/png/bookCoverTexture.jpg`}
               alt="cover"
@@ -91,36 +82,54 @@ const BookModal: React.FC<BookModalType> = ({ isMuted, mainThemeAudioRef }) => {
               height={100}
               className="h-full w-full"
             />
+            <Image
+              src={"/assets/home/DOD.png"}
+              alt="Dice of Destiny"
+              width={300}
+              height={300}
+              className="absolute top-[25%]"
+            />
           </div>
           {sponsors.map((page, index) => {
             return (
               <div
-                className="bg-[url('/assets/png/pageTexture.jpg')] bg-center bg-cover flex flex-col justify-center items-center w-full"
+                className="bg-[url('/assets/png/pageTexture.jpg')] bg-center bg-cover "
                 key={index}
               >
-                {/* <Image
-                  src={page.logo}
-                  alt={page.name}
-                  width={300}
-                  height={300}
-                  className="h-64 w-64 rounded-lg "
-                />
-                <p className="text-xl text-amber-900 font-semibold text-center">
-                  {page.title}
-                </p>
-                <p className="text-3xl text-white font-semibold text-center">
-                  {page.name}
-                </p> */}
+                <div className="flex flex-col gap-2 w-full h-full justify-center items-center">
+                  <Image
+                    src={page.logo}
+                    alt={page.name}
+                    width={300}
+                    height={300}
+                    className="w-24 h-24"
+                  />
+                  <div className="flex flex-col text-center">
+                    <span className="text-[0.6rem] font-semibold text-amber-800">
+                      {page.title}
+                    </span>
+                    <span className="text-white font-VikingHell tracking-wide">
+                      {page.name}
+                    </span>
+                  </div>
+                </div>
               </div>
             );
           })}
-          <div className="">
+          <div className="relative">
             <Image
               src={`${baseImageUrl}/assets/png/bookCoverTexture.jpg`}
               alt="cover"
               width={100}
               height={100}
               className="h-full w-full"
+            />
+            <Image
+              src={"/assets/home/DOD.png"}
+              alt="Dice of Destiny"
+              width={300}
+              height={300}
+              className="absolute top-[25%]"
             />
           </div>
         </HTMLFlipBook>
