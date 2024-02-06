@@ -114,7 +114,7 @@ const TeamMembers = [
     avatar: "",
   },
   {
-    name: "Prabhu Omkar A",
+    name: "Prabhu Omkar",
     role: "Frontend",
     instagram: "https://www.youtube.com/watch?v=wh9QLjk3M2k&t=380s",
     github: "https://github.com/Prabhuomkar9",

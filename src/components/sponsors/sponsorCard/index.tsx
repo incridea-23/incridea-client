@@ -15,8 +15,8 @@ const SponsorCard: React.FunctionComponent<SponsorCardProps> = ({
 }) => {
   return (
     <div
-      className={`w-full md:w-[700px] md:max-w-full p-6 md:p-7 from-[#da0983] to-[#6b24bc] opacity-[0.98] min-h-[300px] mt-3 flex flex-col md:flex-row gap-5 justify-between items-center rounded-3xl text-white ${
-        isEven ? "self-start bg-gradient-to-tr" : "self-end bg-gradient-to-tl"
+      className={`w-full md:w-[700px] md:max-w-full p-6 md:p-7 bg-primary-500 border border-primary-200/70 opacity-[0.98] min-h-[300px] mt-3 flex flex-col md:flex-row gap-5 justify-between items-center rounded-2xl text-white ${
+        isEven ? "self-start" : "self-end"
       }`}
     >
       <div className="relative h-52 w-52 aspect-square flex justify-center items-center">
@@ -24,7 +24,7 @@ const SponsorCard: React.FunctionComponent<SponsorCardProps> = ({
           src={sponsor?.imageURL}
           fill={true}
           alt={sponsor?.name + " logo"}
-          className="rounded-full object-cover"
+          className="rounded-2xl object-cover"
         />
       </div>
       <div className="flex flex-col items-center justify-between gap-7 w-full h-full">
