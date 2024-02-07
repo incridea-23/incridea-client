@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Link from "next/link";
 
 const Refund: NextPage = () => {
   return (
@@ -34,7 +35,7 @@ const Refund: NextPage = () => {
             back to your account automatically within 5-7 business days. Please
             note that this refund is only applicable in the case of an
             unsuccessful transaction due to processing errors and not for any
-            other reasons.
+            other reasons. Please fill out the form : <Link href="https://forms.gle/t1cELV9MBEmMENms8" className="underline" target="_blank">https://forms.gle/t1cELV9MBEmMENms8</Link>
           </p>
 
           <h2 className="text-2xl mt-4 font-semibold">
