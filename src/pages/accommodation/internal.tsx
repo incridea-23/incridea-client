@@ -48,7 +48,7 @@ const Accommodation: NextPage = () => {
             </h3>
             <ol className="mt-2 list-decimal pl-4">
               <li>
-                PG Boys Hostel is assinged for boys, which will be closed within
+                PG Boys Hostel is assigned for boys, which will be closed within
                 half an hour from the time the programs end at Night.
               </li>
               <li>
@@ -72,7 +72,7 @@ const Accommodation: NextPage = () => {
             </h3>
             <ol className="mt-2 list-decimal pl-4">
               <li>
-                EDC Block is assinged for girls, which will be closed within
+                EDC Block is assigned for girls, which will be closed within
                 half an hour from the time the programs end at Night.
               </li>
               <li>
@@ -80,7 +80,7 @@ const Accommodation: NextPage = () => {
                 the same is ₹150 per day.
               </li>
               <li>
-                A dormitory is also available with a capcacity of 17. Per head
+                A dormitory is also available with a capacity of 17. Per head
                 charges for the same is ₹150 per day.
               </li>
               <li>
