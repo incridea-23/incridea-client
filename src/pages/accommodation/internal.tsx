@@ -80,7 +80,7 @@ const Accommodation: NextPage = () => {
                 the same is ₹150 per day.
               </li>
               <li>
-                A dormitory is also available with a capcacity of 17. Per head
+                A dormitory is also available with a capacity of 17. Per head
                 charges for the same is ₹150 per day.
               </li>
               <li>
