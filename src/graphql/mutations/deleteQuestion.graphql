@@ -1,0 +1,16 @@
+mutation DeleteQuestion($id: String = "") {
+  deleteQuestion(id: $id) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationDeleteQuestionSuccess {
+      __typename
+      data {
+        id
+        quizId
+        question
+      }
+    }
+  }
+}

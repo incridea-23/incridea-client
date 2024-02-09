@@ -1,0 +1,20 @@
+mutation CreateOption(
+  $isAnswer: Boolean!
+  $questionId: String!
+  $value: String!
+) {
+  createOption(isAnswer: $isAnswer, questionId: $questionId, value: $value) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationCreateOptionSuccess {
+      __typename
+      data {
+        id
+        value
+        isAnswer
+      }
+    }
+  }
+}

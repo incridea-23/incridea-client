@@ -1,0 +1,15 @@
+mutation DeleteOption($id: String = "") {
+  deleteOption(id: $id) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationDeleteOptionSuccess {
+      __typename
+      data {
+        id
+        questionId
+      }
+    }
+  }
+}

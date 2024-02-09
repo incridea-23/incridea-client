@@ -5,6 +5,7 @@ query GetQuizByEvent($eventId: Int!) {
       data {
         name
         questions {
+          id
           image
           negativePoint
           point

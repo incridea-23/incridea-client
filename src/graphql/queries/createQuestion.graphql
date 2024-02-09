@@ -1,0 +1,33 @@
+mutation CreateQuestion(
+  $image: String!
+  $negativePoint: Int!
+  $points: Int!
+  $question: String!
+  $quizId: String!
+  $questionType: String!
+) {
+  createQuestion(
+    points: $points
+    question: $question
+    quizId: $quizId
+    questionType: $questionType
+    negativePoint: $negativePoint
+    image: $image
+  ) {
+    ... on MutationCreateQuestionSuccess {
+      __typename
+      data {
+        id
+        image
+        point
+        question
+        questionType
+        negativePoint
+      }
+    }
+    ... on Error {
+      __typename
+      message
+    }
+  }
+}

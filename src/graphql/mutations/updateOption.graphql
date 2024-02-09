@@ -1,0 +1,16 @@
+mutation UpdateOption($id: String!, $isAnswer: Boolean, $value: String) {
+  updateOption(id: $id, isAnswer: $isAnswer, value: $value) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationUpdateOptionSuccess {
+      __typename
+      data {
+        isAnswer
+        value
+        id
+      }
+    }
+  }
+}

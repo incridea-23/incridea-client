@@ -1,0 +1,34 @@
+mutation UpdateQuestion(
+  $id: String!
+  $image: String
+  $negativePoint: Int
+  $points: Int
+  $question: String
+  $questionType: String
+) {
+  updateQuestion(
+    id: $id
+    image: $image
+    points: $points
+    question: $question
+    questionType: $questionType
+    negativePoint: $negativePoint
+  ) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationUpdateQuestionSuccess {
+      __typename
+      data {
+        id
+        image
+        point
+        question
+        questionType
+        quizId
+        negativePoint
+      }
+    }
+  }
+}
