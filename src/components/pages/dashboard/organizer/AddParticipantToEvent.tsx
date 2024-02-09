@@ -22,7 +22,7 @@ const AddParticipantToEvent: FC<{
           register({
             variables: {
               eventId,
-              userId: userId.startsWith('INC23-') ? pidToId(userId) : userId,
+              userId: userId.startsWith('INC24-') ? pidToId(userId) : userId,
             },
           }).then((res) => {
             if (res.data?.organizerRegisterSolo.__typename === 'Error') {
