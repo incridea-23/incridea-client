@@ -4,6 +4,7 @@ import {
   GetXpLeaderboardDocument,
   User,
 } from "@/src/generated/generated";
+import Link from "next/link";
 import Image from "next/image";
 import { QRCodeSVG } from "qrcode.react";
 import { FC, useEffect, useState } from "react";
@@ -62,12 +63,12 @@ const ProfileInfo: FC<{
         { length: levels + 1 },
         (_, i) => (i + 1) * 10
       );
-
+      console.log(newLevelThresholds);
       // Calculate the user's current level based on the thresholds
       let level = 0;
       let totalPoints = 0;
       for (let i = 0; i < newLevelThresholds.length; i++) {
-        if (totalXp >= totalPoints + newLevelThresholds[i]) {
+        if (totalXp >= totalPoints) {
           level++;
           totalPoints += newLevelThresholds[i];
         } else {
@@ -75,12 +76,11 @@ const ProfileInfo: FC<{
         }
       }
 
-      setLevel(level);
+      setLevel(level-1);
       setXp(totalXp);
       setUser(userXp.data.getUserXp?.data[0]?.user.id);
-      const xpNext = newLevelThresholds.reduce((acc, curr) => acc + curr, 0);
-      setNeedMore(xpNext - totalXp);
-      setProgress(100 - ((xpNext - totalXp) / xpNext) * 100);
+      setNeedMore(totalPoints - totalXp);
+      setProgress(100 - ((totalPoints - totalXp) / totalPoints) * 100);
     }
   }, [userXp.data]);
 
@@ -160,7 +160,10 @@ const ProfileInfo: FC<{
           onClick={() => setAvatarModal(true)}
         >
           <div className="overflow-hidden">
-          <AvatarModal showModal={avatarModal} setShowModal={setAvatarModal} />
+            <AvatarModal
+              showModal={avatarModal}
+              setShowModal={setAvatarModal}
+            />
           </div>
           <div className="relative group">
             <Image
@@ -170,7 +173,7 @@ const ProfileInfo: FC<{
               alt="avatar"
               className="p-3 rounded-xl border hover:border-4 transition-all duration-300 cursor-pointer hover:border-primary-100/50 border-primary-100/30"
             />
-            <div className="absolute bottom-3 right-3 p-2 bg-secondary-700 rounded-full scale-0 group-hover:scale-100 transition-all duration-300">
+            <div className="absolute bottom-3 right-3 p-2 bg-secondary-700 rounded-full transition-all duration-300">
               <MdAddAPhoto />
             </div>
           </div>
@@ -220,10 +223,12 @@ const ProfileInfo: FC<{
             className="sm:h-16 sm:w-16 h-12 w-12"
           />
 
-          <div>
-            <p className="">Leaderboard</p>
-            <p className="text-secondary-600 font-bold">Rank {rank}</p>
-          </div>
+          <Link href="/leaderboard">
+            <div>
+              <p className="">Leaderboard</p>
+              <p className="text-secondary-600 font-bold">Rank {rank}</p>
+            </div>
+          </Link>
         </div>
 
         <p className="text-center">
@@ -262,35 +267,37 @@ const ProfileInfo: FC<{
               showModal={showModal}
               setShowModal={setShowModal}
             />
-            {loadingAccommodation ? (
-              <Button
-                size={"large"}
-                onClick={() => setShowModal(true)}
-                className="w-full !rounded-full bodyFont !tracking-normal !text-sm justify-center"
-              >
-                <Spinner size={"small"} className="text-[#dd5c6e]" />
-              </Button>
-            ) : dataAccommodation?.accommodationRequestsByUser[0]?.status ? (
-              <Button
-                intent={"info"}
-                size={"large"}
-                onClick={() => setShowModal(true)}
-                className="w-full !rounded-full bodyFont !tracking-normal !text-sm justify-center"
-              >
-                <RiHotelBedLine className="inline-block mr-1" />
-                View Request
-              </Button>
-            ) : (
-              <Button
-                intent={"success"}
-                size={"large"}
-                onClick={() => router.push("/accommodation")}
-                className="!rounded-full w-full bodyFont !tracking-normal !text-sm justify-center"
-              >
-                <RiHotelBedLine className="inline-block mr-1" />
-                Accommodation
-              </Button>
-            )}
+            {user?.college?.id !== "1" ? (
+              loadingAccommodation ? (
+                <Button
+                  size={"large"}
+                  onClick={() => setShowModal(true)}
+                  className="w-full !rounded-full bodyFont !tracking-normal !text-sm justify-center"
+                >
+                  <Spinner size={"small"} className="text-[#dd5c6e]" />
+                </Button>
+              ) : dataAccommodation?.accommodationRequestsByUser[0]?.status ? (
+                <Button
+                  intent={"info"}
+                  size={"large"}
+                  onClick={() => setShowModal(true)}
+                  className="w-full !rounded-full bodyFont !tracking-normal !text-sm justify-center"
+                >
+                  <RiHotelBedLine className="inline-block mr-1" />
+                  View Request
+                </Button>
+              ) : (
+                <Button
+                  intent={"success"}
+                  size={"large"}
+                  onClick={() => router.push("/accommodation")}
+                  className="!rounded-full w-full bodyFont !tracking-normal !text-sm justify-center"
+                >
+                  <RiHotelBedLine className="inline-block mr-1" />
+                  Accommodation
+                </Button>
+              )
+            ) : null}
             <Button
               onClick={() => router.push("/leaderboard")}
               className="!rounded-full w-full bodyFont !tracking-normal !text-sm justify-center"

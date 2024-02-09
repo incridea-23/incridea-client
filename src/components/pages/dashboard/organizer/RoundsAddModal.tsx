@@ -19,8 +19,7 @@ const RoundAddModal: FC<{
 }> = ({ eventID, roundNo, published }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dateTime, setDateTime] = useState(
-    // 26th April 9:00 AM IST
-    new Date(new Date(2024, 2, 22, 9, 30))
+    new Date(new Date(2024, 1, 22, 9, 30))
   );
   const [createRound, { loading, data, error }] = useMutation(
     CreateRoundDocument,
@@ -37,7 +36,7 @@ const RoundAddModal: FC<{
   // console.log(data, error);
   const closeModal = () => {
     setIsOpen(false);
-    setDateTime(new Date(2024, 2, 22, 14, 30));
+    setDateTime(new Date(2024, 1, 22, 14, 30));
   };
 
   const openModal = () => {

@@ -40,11 +40,11 @@ const Register: NextPage = () => {
         </h2>
 
         <h5 className="bodyFont text-center mt-5 md:mt-7 text-base md:text-xl max-w-7xl mx-auto">
-          Before you dive in, read through the list of T&C, and register
+          Before you roll the dice, read through the list of T&C, and register
           yourself for the fest by clicking the button below.
         </h5>
 
-        <div className="bodyFont md:px-10 px-5 md:mt-8 mt-6 max-w-7xl mx-auto bg-white/20 rounded-sm md:py-7 py-4">
+        {user?.college?.id !== "1" && <div className="bodyFont md:px-10 px-5 md:mt-8 mt-6 max-w-7xl mx-auto bg-white/20 rounded-sm md:py-7 py-4">
           {loadingAccommodation ? (
             <Spinner className="text-[#dd5c6e]" intent={"white"} />
           ) : userDetails?.accommodationRequestsByUser[0]?.status ? (
@@ -66,21 +66,27 @@ const Register: NextPage = () => {
               </div>
             </div>
           ) : (
-            <div className="px-4 flex flex-col md:flex-row justify-between">
-              <div className="flex justify-center text-md">
-                We provide accommodation for participants and non-participants
+            <>
+              {
+                user?.college?.id !== "1" && (
+                  <div className="px-4 flex flex-col md:flex-row justify-between">
+              <div className="flex items-center justify-center text-center text-md">
+                We provide accommodation for external participants {"("}Deadline: 16th February 2024{")"}
               </div>
               <Link
                 href={"/accommodation"}
                 className="flex justify-center items-center"
               >
-                <Button size={"small"} className="w-max mt-3 md:mt-0">
+                <Button size={"medium"} className="w-max mt-3 md:mt-0">
                   Accommodate
                 </Button>
               </Link>
             </div>
+                )
+              }
+            </>
           )}
-        </div>
+        </div>}
 
         <div className="bodyFont md:px-10 px-5 md:mt-8 mt-6 max-w-7xl mx-auto bg-white/20 rounded-sm md:py-7 py-4">
           <h2 className="font-semibold md:text-2xl text-base">
@@ -93,13 +99,20 @@ const Register: NextPage = () => {
           <ol className="mt-2 list-decimal pl-4">
             <li>
               {" "}
-              Students of NMAM Institute of Technology, who pays ₹250 will have
-              access to all events and pronites
+              Students of NMAM Institute of Technology, who pays{" "}
+              <span className="font-semibold">
+                ₹250 (+ 2% platform fee)
+              </span>{" "}
+              will have access to all events and pronites
             </li>
             <li>
               {" "}
               Students of external engineering and sister Nitte colleges, who
-              pays ₹350 will have access to all events and pronites.
+              pays{" "}
+              <span className="font-semibold">
+                ₹350 (+ 2% platform fee)
+              </span>{" "}
+              will have access to all events and pronites.
             </li>
           </ol>
           <div className="mt-2">
@@ -113,15 +126,11 @@ const Register: NextPage = () => {
           </div>
           <Button
             onClick={() => makePayment(setLoading)}
-            className="flex gap-2 mt-8 "
+            className="flex gap-2 mt-8 mb-4"
           >
             Register Now
             {loading && (
-              <Spinner
-                className="w-fit"
-                size={"small"}
-                intent={"white"}
-              />
+              <Spinner className="w-fit" size={"small"} intent={"white"} />
             )}{" "}
           </Button>
           <h1 className="text-xs md:text-sm mt-2 text-gray-100">

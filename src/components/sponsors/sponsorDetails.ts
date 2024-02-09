@@ -10,16 +10,16 @@ const sponsors: Sponsor[] = [
     {
         "name": "Centro",
         "tier": "Official Fashion Partners",
-        "desc": "--------",
-        "websiteURL": "https://google.com",
-        "imageURL": "/assets/jpeg/download.jpeg"
+        "desc": "",
+        "websiteURL": "https://www.reliancecentro.store/",
+        "imageURL": "/sponsors/centro.jpg"
     },
     {
         "name": "Zeus Fitness Club",
         "tier": "Official Fitness Partners",
-        "desc": "--------",
-        "websiteURL": "https://google.com",
-        "imageURL": "/assets/jpeg/download.jpeg"
+        "desc": "",
+        "websiteURL": "https://www.zeusfitnessclub.com/",
+        "imageURL": "/sponsors/zeus.jpg"
     }
 
 

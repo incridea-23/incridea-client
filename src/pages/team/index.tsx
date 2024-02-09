@@ -45,7 +45,7 @@ const TeamMembers = [
     github: "https://github.com/swasthikshetty10/",
     linkedin: "https://www.linkedin.com/in/swasthikshetty10/",
     image: "/team/swasthik.jpg",
-    quote: "I know I am cute 💖",
+    quote: "My code is broke? or am I?",
     avatar: "",
   },
   {
@@ -71,8 +71,8 @@ const TeamMembers = [
   {
     name: "Satwik Prabhu",
     role: "Full Stack",
-    instagram: "www.instagram.com/satwikprabhu",
-    github: "www.github.com/satwikrprabhu",
+    instagram: "https://www.instagram.com/satwikprabhu",
+    github: "https://github.com/satwikrprabhu",
     linkedin: "https://www.linkedin.com/in/satwikprabhu",
     image: "/team/satwik.jpg",
     quote: "I stalk you know!",
@@ -114,7 +114,7 @@ const TeamMembers = [
     avatar: "",
   },
   {
-    name: "Prabhu Omkar A",
+    name: "Prabhu Omkar",
     role: "Frontend",
     instagram: "https://www.youtube.com/watch?v=wh9QLjk3M2k&t=380s",
     github: "https://github.com/Prabhuomkar9",
@@ -134,7 +134,7 @@ const TeamMembers = [
     avatar: "",
   },
   {
-    name: "KEERTHAN NS",
+    name: "Keethan NS",
     role: "Full Stack",
     instagram: "https://www.instagram.com/keerthan_ns",
     github: "https://github.com/keerthan-ns",
@@ -160,8 +160,8 @@ const TeamMembers = [
     instagram: "https://www.youtube.com/watch?v=wh9QLjk3M2k&t=380s",
     github: "https://github.com/Athena-2003",
     linkedin: "https://www.linkedin.com/in/shashank-b-n-947978173/",
-    image: "/team/shashank.jpg",
-    quote: "I love PDF files",
+    image: "/team/shashank2.jpg",
+    quote: "Arch btw, Vim btw, Skill issues 420/69",
     avatar: "",
   },
   {
@@ -222,7 +222,7 @@ const TeamMembers = [
     role: "Frontend",
     instagram: "https://www.instagram.com/bhv_nayak?igsh=MXBueW1nY2oxMjgwNA==",
     github: "https://github.com/BhavyaNayak04",
-    linkedin: "www.linkedin.com/in/bhavya-nayak-b52a7a27a",
+    linkedin: "https://www.linkedin.com/in/bhavya-nayak-b52a7a27a",
     image: "/team/bhavya.jpg",
     quote: "Hello World!!!",
     avatar: "",
@@ -230,9 +230,9 @@ const TeamMembers = [
   {
     name: "Varun Pai M D",
     role: "Frontend",
-    instagram: "varunpai7",
-    github: "github.com/varunpai314",
-    linkedin: "linkedin.com/in/varunpaimd",
+    instagram: "https://www.instagram.com/varunpai7",
+    github: "https://www.github.com/varunpai314",
+    linkedin: "https://www.linkedin.com/in/varunpaimd",
     image: "/team/varun.jpg",
     quote:
       "Do not go gentle into that good night; Old age should burn and rave at close of day. Rage, rage against the dying of the light.",
@@ -258,6 +258,16 @@ const TeamMembers = [
     linkedin: "https://www.linkedin.com/in/m-sayeem-ahmed-651a7b254/",
     image: "/team/sayeem.jpg",
     quote: "Damn, Block theory of time is quite scary!",
+    avatar: "",
+  },
+  {
+    name: "Sourav Bangera",
+    role: "Video Editor",
+    instagram: "https://www.instagram.com/souravbangera_/",
+    github: "https://www.youtube.com/watch?v=wh9QLjk3M2k&t=380s",
+    linkedin: "https://www.linkedin.com/in/sourav-bangera-278a45227/",
+    image: "/team/sourav.jpg",
+    quote: "Should have taken arts",
     avatar: "",
   },
 ];

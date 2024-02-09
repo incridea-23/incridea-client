@@ -154,15 +154,27 @@ function EventRegistrationButton({
     if (type === "INDIVIDUAL" || type === "INDIVIDUAL_MULTIPLE_ENTRY") {
       if (fees === 0) {
         return (
-          <Button
-            noScaleOnHover
-            className="!skew-x-0 !rounded-full justify-center !text-xl"
-            onClick={handleSoloRegister}
-            fullWidth
-            intent={"primary"}
-          >
-            Register Now
-          </Button>
+          <>
+            {eventId !== "29" && eventId !== '50'  ? (
+              <Button
+                noScaleOnHover
+                className="!skew-x-0 !rounded-full justify-center !text-xl"
+                onClick={handleSoloRegister}
+                fullWidth
+                intent={"primary"}
+              >
+                Register Now
+              </Button>
+            ) : (
+              <>
+                <div className="bg-green-500/30 border border-green-500 backdrop-blur-3xl w-full flex justify-center p-1 rounded-full">
+                  {
+                    eventId === '29' ? 'Event is open on all 3 days' : 'Event is only open for N.M.A.M.I.T faculties'
+                  }
+                </div>
+              </>
+            )}
+          </>
         );
       } else {
         return (
@@ -179,6 +191,16 @@ function EventRegistrationButton({
         );
       }
     } else {
+      if (eventId === "36") {
+        return (
+          <>
+            <div className="bg-green-500/30 border border-green-500 backdrop-blur-3xl w-full flex justify-center p-1 rounded-full">
+              Event is open on all 3 days
+            </div>
+          </>
+        );
+      }
+      
       return (
         <div className="w-full space-y-2">
           <CreateTeamModal eventId={eventId} />

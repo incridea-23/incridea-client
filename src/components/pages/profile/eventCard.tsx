@@ -29,7 +29,7 @@ const EventCard: FC<{
         )
       }
       key={event.id}
-      className="w-[22rem] bg-primary-400 border border-primary-200/70 flex justify-evenly items-start rounded-lg p-5 cursor-pointer hover:scale-[1.02] transition-transform duration-300"
+      className="w-[19rem] bg-primary-400 border border-primary-200/70 flex justify-evenly items-start rounded-lg p-5 cursor-pointer hover:scale-[1.02] transition-transform duration-300"
     >
       <div className="flex flex-col justify-center items-center">
         <div className="relative">

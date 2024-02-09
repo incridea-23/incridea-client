@@ -80,8 +80,8 @@ const EasterBomb: FunctionComponent = () => {
         }}
       >
         <BombAsset
-          width={40}
-          height={40}
+          width={!bombClicked ? 40 : 80}
+          height={!bombClicked ? 40 : 80}
           src={!bombClicked ? bombSrc : explodeGIFSrc}
         />
       </div>

@@ -9,7 +9,7 @@ export default function Info() {
     <>
       <Button
         onClick={() => setShowModal(true)}
-        className="absolute text-white top-[74px] left-4 z-50 "
+        className="absolute text-white top-[100px] left-4 z-10"
       >
         <FaInfo />
       </Button>

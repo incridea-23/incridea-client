@@ -50,7 +50,7 @@ const UserEvents: FC<{
           events.registeredEvents.data.length !== 0 && (
             <div className="space-y-2 h-[80dvh]">
               <div className="mx-auto w-full space-y-4 px-5 bg-primary-500">
-                <div className="text-white px-3 z-1 text-center font-bold w-full flex justify-center mb-5">
+                <div className="text-white  z-1 text-center font-bold w-full flex justify-center mb-5">
                   <p className="border rounded-full w-fit px-3 py-1 border-primary-200/80">
                     You have entered{" "}
                     <span className="text-secondary-500">

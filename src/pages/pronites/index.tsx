@@ -107,7 +107,7 @@ export default function App() {
           if (audioRef.current) audioRef.current.muted = !isMuted;
           setIsMuted(!isMuted);
         }}
-        className="absolute text-white top-[72px] right-3 z-50 cursor-pointer"
+        className="absolute text-white top-[95px] right-3 z-50 cursor-pointer"
       >
         {isMuted ? (
           <SlVolumeOff className="w-8 h-8 transition-colors duration-150" />
