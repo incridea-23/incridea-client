@@ -57,8 +57,29 @@ export default function Landing() {
 
 export const HomeFooter = () => {
   return (
-    <footer className="absolute w-full text-gray-200 bottom-0 ">
-      <p className="text-center p-5 text-sm">
+    <footer className="absolute w-full text-gray-200 bottom-0 flex flex-col gap-2 md:gap-4">
+      <ul className="flex flex-wrap whitespace-nowrap flex-row flex-1 gap-2 md:gap-5 justify-center text-xs sm:text-xs items-center ">
+        <li className="text-white hover:text-gray-300 transition-colors duration-300">
+          <Link href="/privacy">Privacy Policy</Link>
+        </li>
+        |
+        <li className="text-white hover:text-gray-300 transition-colors duration-300">
+          <Link href="/rules">Terms & Conditions</Link>
+        </li>
+        |
+        <li className="text-white hover:text-gray-300 transition-colors duration-300">
+          <Link href="/guidelines">Guidelines</Link>
+        </li>
+        |
+        <li className="text-white hover:text-gray-300 transition-colors duration-300">
+          <Link href="/refund">Refund Policy</Link>
+        </li>
+        {/* |
+            <li className="text-gray-300 hover:text-gray-100">
+              <Link href="/about">About</Link>
+            </li> */}
+      </ul>
+      <p className="text-center text-xs pb-3">
         <Link
           className="flex justify-center items-center tracking-normal transition-all hover:tracking-widest hover:text-gray-300"
           href="/team"
@@ -101,7 +122,7 @@ export const Menu: FC<{
           }}
         >
           {loading ? (
-            <Spinner size="small" className="py-[2px]" intent={'white'} />
+            <Spinner size="small" className="py-[2px]" intent={"white"} />
           ) : user ? (
             "Profile"
           ) : (
