@@ -1,19 +1,19 @@
-import Button from '@/src/components/button';
-import Modal from '@/src/components/modal';
-import { FC, useState } from 'react';
-import { BiPlus } from 'react-icons/bi';
-import { MdOutlineDeleteOutline, MdOutlineQrCodeScanner } from 'react-icons/md';
-import { QRCodeScanner } from './QRCodeScanner';
-import { useMutation } from '@apollo/client';
-import Spinner from '@/src/components/spinner';
-import { idToPid, pidToId } from '@/src/utils/id';
-import createToast from '@/src/components/toast';
+import Button from "@/src/components/button";
+import Modal from "@/src/components/modal";
+import { FC, useState } from "react";
+import { BiPlus } from "react-icons/bi";
+import { MdOutlineDeleteOutline, MdOutlineQrCodeScanner } from "react-icons/md";
+import { QRCodeScanner } from "./QRCodeScanner";
+import { useMutation } from "@apollo/client";
+import Spinner from "@/src/components/spinner";
+import { idToPid, pidToId } from "@/src/utils/id";
+import createToast from "@/src/components/toast";
 import {
   OrganizerAddTeamMemberDocument,
   OrganizerDeleteTeamMemberDocument,
   TeamDetailsDocument,
-} from '@/src/generated/generated';
-import { useQuery } from '@apollo/client';
+} from "@/src/generated/generated";
+import { useQuery } from "@apollo/client";
 
 const AddTeamMember: FC<{
   teamId: string;
@@ -21,12 +21,12 @@ const AddTeamMember: FC<{
 }> = ({ teamId, teamName }) => {
   const [showModal, setShowModal] = useState(false);
   const [scanModalOpen, setScanModalOpen] = useState(false);
-  const [userId, setUserId] = useState<string>('');
+  const [userId, setUserId] = useState<string>("");
 
   const [organizerAddParticipantToTeam, { data, loading, error }] = useMutation(
     OrganizerAddTeamMemberDocument,
     {
-      refetchQueries: ['TeamDetails'],
+      refetchQueries: ["TeamDetails"],
     }
   );
   const {
@@ -41,7 +41,7 @@ const AddTeamMember: FC<{
   const [organizerDeleteTeamMember, _] = useMutation(
     OrganizerDeleteTeamMemberDocument,
     {
-      refetchQueries: ['TeamDetails'],
+      refetchQueries: ["TeamDetails"],
     }
   );
   const removeHandler = (userId: string) => {
@@ -53,43 +53,51 @@ const AddTeamMember: FC<{
     }).then((res) => {
       if (
         res.data?.organizerDeleteTeamMember.__typename ===
-        'MutationOrganizerDeleteTeamMemberSuccess'
+        "MutationOrganizerDeleteTeamMemberSuccess"
       ) {
-        setUserId('');
+        setUserId("");
       } else {
         if (res.data) {
-          createToast(Promise.reject(promise), res.data.organizerDeleteTeamMember.message);
+          createToast(
+            Promise.reject(promise),
+            res.data.organizerDeleteTeamMember.message
+          );
         } else {
-          throw new Error('Error removing member from team');
+          throw new Error("Error removing member from team");
         }
       }
     });
-    createToast(promise, 'Removing Participant...');
+    createToast(promise, "Removing Participant...");
   };
   const addHandler = () => {
     if (!userId) return;
     let promise = organizerAddParticipantToTeam({
       variables: {
         teamId,
-        userId: userId.startsWith('INC23-') ? pidToId(userId) : userId,
+        userId: userId.startsWith("INC24-") ? pidToId(userId) : userId,
       },
-    }).then((res) => {
-      if (
-        res.data?.organizerAddTeamMember.__typename ===
-        'MutationOrganizerAddTeamMemberSuccess'
-      ) {
-        setUserId('');
-      } else {
-        if (res.data) {
-          console.log(res.data);
-          createToast(Promise.reject(promise), res.data.organizerAddTeamMember.message);
-          throw new Error('Error adding member to team');
+    })
+      .then((res) => {
+        if (
+          res.data?.organizerAddTeamMember.__typename ===
+          "MutationOrganizerAddTeamMemberSuccess"
+        ) {
+          setUserId("");
+        } else {
+          if (res.data) {
+            console.log(res.data);
+            createToast(
+              Promise.reject(promise),
+              res.data.organizerAddTeamMember.message
+            );
+            throw new Error("Error adding member to team");
+          }
         }
-      }
-    }).catch((error) => {
-      throw new Error(`Error: ${error.message}`); 
-    }); 
-    createToast(promise, 'Adding Participant...');
+      })
+      .catch((error) => {
+        throw new Error(`Error: ${error.message}`);
+      });
+    createToast(promise, "Adding Participant...");
   };
 
   return (
@@ -106,7 +114,7 @@ const AddTeamMember: FC<{
       <Modal
         showModal={showModal}
         onClose={() => setShowModal(false)}
-        title={'Add Participant'}
+        title={"Add Participant"}
       >
         <div className="flex md:flex-row flex-wrap md:p-6 p-5 gap-10">
           <div className="w-full md:w-fit space-y-5">
@@ -119,13 +127,13 @@ const AddTeamMember: FC<{
                 Scan Participant ID
               </label>
               <Button
-                intent={'primary'}
+                intent={"primary"}
                 className=" w-full"
                 outline
-                size={'large'}
+                size={"large"}
                 onClick={() => setScanModalOpen(true)}
               >
-                Scan{' '}
+                Scan{" "}
                 <MdOutlineQrCodeScanner className="inline-block text-2xl" />
               </Button>
               <Modal
@@ -149,15 +157,15 @@ const AddTeamMember: FC<{
               <input
                 type="text"
                 className=" border w-full    rounded-lg   block p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
-                placeholder="INC23-0069"
+                placeholder="INC24-0069"
                 value={userId}
                 onChange={(e) => setUserId(e.target.value)}
               />
             </div>
             <Button
-              intent={'info'}
+              intent={"info"}
               outline
-              size={'large'}
+              size={"large"}
               onClick={addHandler}
               className="w-full  whitespace-nowrap rounded-lg"
             >
@@ -169,7 +177,7 @@ const AddTeamMember: FC<{
 
             <div>
               {teamData &&
-              teamData.teamDetails.__typename === 'QueryTeamDetailsSuccess' ? (
+              teamData.teamDetails.__typename === "QueryTeamDetailsSuccess" ? (
                 <div className="space-y-2 w-auto">
                   {teamData.teamDetails.data.members.map((member) => (
                     <div
@@ -186,14 +194,14 @@ const AddTeamMember: FC<{
                           </p>
                           <p
                             className="text-gray-400 text-xs md:text-sm flex basis-1/2 md:w-[14vw] w-20 "
-                            style={{ wordBreak: 'break-word' }}
+                            style={{ wordBreak: "break-word" }}
                           >
                             {member.user.email}
                           </p>
                         </div>
                       </div>
                       <Button
-                        intent={'danger'}
+                        intent={"danger"}
                         onClick={() => removeHandler(member.user.id)}
                         outline
                         className=" text-xl"

@@ -1,18 +1,18 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   OrganizerAddTeamMemberDocument,
   OrganizerDeleteTeamMemberDocument,
   TeamDetailsDocument,
-} from '@/src/generated/generated';
+} from "@/src/generated/generated";
 
-import { useMutation, useQuery } from '@apollo/client';
-import Spinner from '@/src/components/spinner';
-import Modal from '@/src/components/modal';
-import createToast from '@/src/components/toast';
-import { MdOutlineDeleteOutline, MdOutlineQrCodeScanner } from 'react-icons/md';
-import Button from '@/src/components/button';
-import { QRCodeScanner } from './QRCodeScanner';
-import { idToPid, pidToId } from '@/src/utils/id';
+import { useMutation, useQuery } from "@apollo/client";
+import Spinner from "@/src/components/spinner";
+import Modal from "@/src/components/modal";
+import createToast from "@/src/components/toast";
+import { MdOutlineDeleteOutline, MdOutlineQrCodeScanner } from "react-icons/md";
+import Button from "@/src/components/button";
+import { QRCodeScanner } from "./QRCodeScanner";
+import { idToPid, pidToId } from "@/src/utils/id";
 
 export default function AddParticipantToTeam({
   isOpen,
@@ -28,7 +28,7 @@ export default function AddParticipantToTeam({
   const [organizerAddParticipantToTeam, { data, loading, error }] = useMutation(
     OrganizerAddTeamMemberDocument,
     {
-      refetchQueries: ['TeamDetails'],
+      refetchQueries: ["TeamDetails"],
     }
   );
   const {
@@ -43,54 +43,54 @@ export default function AddParticipantToTeam({
   const [organizerDeleteTeamMember, _] = useMutation(
     OrganizerDeleteTeamMemberDocument,
     {
-      refetchQueries: ['TeamDetails'],
+      refetchQueries: ["TeamDetails"],
     }
   );
-  const [userId, setUserId] = useState<string>('');
+  const [userId, setUserId] = useState<string>("");
   const removeHandler = (userId: string) => {
     let promise = organizerDeleteTeamMember({
       variables: {
         teamId,
-        userId 
+        userId,
       },
     }).then((res) => {
       if (
         res.data?.organizerDeleteTeamMember.__typename ===
-        'MutationOrganizerDeleteTeamMemberSuccess'
+        "MutationOrganizerDeleteTeamMemberSuccess"
       ) {
-        setUserId('');
+        setUserId("");
       } else {
         if (res.errors) {
           throw new Error(res.errors[0].toString());
         } else {
-          throw new Error('Error adding member to team');
+          throw new Error("Error adding member to team");
         }
       }
     });
-    createToast(promise, 'Removing Participant...');
+    createToast(promise, "Removing Participant...");
   };
   const addHandler = () => {
     if (!userId) return;
     let promise = organizerAddParticipantToTeam({
       variables: {
         teamId,
-        userId: userId.startsWith('INC23-') ? pidToId(userId) : userId,
+        userId: userId.startsWith("INC24-") ? pidToId(userId) : userId,
       },
     }).then((res) => {
       if (
         res.data?.organizerAddTeamMember.__typename ===
-        'MutationOrganizerAddTeamMemberSuccess'
+        "MutationOrganizerAddTeamMemberSuccess"
       ) {
-        setUserId('');
+        setUserId("");
       } else {
         if (res.errors) {
           throw new Error(res.errors[0].message);
         } else {
-          throw new Error('Error adding member to team');
+          throw new Error("Error adding member to team");
         }
       }
     });
-    createToast(promise, 'Adding Participant...');
+    createToast(promise, "Adding Participant...");
   };
 
   const [scanModalOpen, setScanModalOpen] = useState<boolean>(false);
@@ -99,7 +99,7 @@ export default function AddParticipantToTeam({
     <Modal
       showModal={isOpen}
       onClose={() => setIsOpen(false)}
-      title={'Add Participant'}
+      title={"Add Participant"}
     >
       <div className="flex flex-wrap md:p-6 p-5 gap-10">
         <div className="w-full md:w-fit space-y-5">
@@ -112,10 +112,10 @@ export default function AddParticipantToTeam({
               Scan Participant ID
             </label>
             <Button
-              intent={'primary'}
+              intent={"primary"}
               className=" w-full"
               outline
-              size={'large'}
+              size={"large"}
               onClick={() => setScanModalOpen(true)}
             >
               Scan <MdOutlineQrCodeScanner className="inline-block text-2xl" />
@@ -141,15 +141,15 @@ export default function AddParticipantToTeam({
             <input
               type="text"
               className=" border w-full    rounded-lg   block p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
-              placeholder="INC23-0069"
+              placeholder="INC24-0069"
               value={userId}
               onChange={(e) => setUserId(e.target.value)}
             />
           </div>
           <Button
-            intent={'info'}
+            intent={"info"}
             outline
-            size={'large'}
+            size={"large"}
             onClick={addHandler}
             className="w-full  whitespace-nowrap rounded-lg"
           >
@@ -161,7 +161,7 @@ export default function AddParticipantToTeam({
 
           <div>
             {teamData &&
-            teamData.teamDetails.__typename === 'QueryTeamDetailsSuccess' ? (
+            teamData.teamDetails.__typename === "QueryTeamDetailsSuccess" ? (
               <div className="space-y-2">
                 {teamData.teamDetails.data.members.map((member) => (
                   <div
@@ -182,7 +182,7 @@ export default function AddParticipantToTeam({
                       </div>
                     </div>
                     <Button
-                      intent={'danger'}
+                      intent={"danger"}
                       onClick={() => removeHandler(member.user.id)}
                       outline
                       className=" text-xl"

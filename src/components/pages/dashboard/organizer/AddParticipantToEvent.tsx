@@ -1,16 +1,16 @@
-import { OrganizerRegisterSoloDocument } from '@/src/generated/generated';
-import { useMutation } from '@apollo/client';
-import { FC } from 'react';
-import { toast, Toaster } from 'react-hot-toast';
-import Button from '@/src/components/button';
-import { pidToId } from '@/src/utils/id';
+import { OrganizerRegisterSoloDocument } from "@/src/generated/generated";
+import { useMutation } from "@apollo/client";
+import { FC } from "react";
+import { toast, Toaster } from "react-hot-toast";
+import Button from "@/src/components/button";
+import { pidToId } from "@/src/utils/id";
 
 const AddParticipantToEvent: FC<{
   userId: string;
   eventId: string;
 }> = ({ userId, eventId }) => {
   const [register, { loading }] = useMutation(OrganizerRegisterSoloDocument, {
-    refetchQueries: ['TeamsByRound'],
+    refetchQueries: ["TeamsByRound"],
     awaitRefetchQueries: true,
   });
 
@@ -22,24 +22,24 @@ const AddParticipantToEvent: FC<{
           register({
             variables: {
               eventId,
-              userId: userId.startsWith('INC23-') ? pidToId(userId) : userId,
+              userId: userId.startsWith("INC24-") ? pidToId(userId) : userId,
             },
           }).then((res) => {
-            if (res.data?.organizerRegisterSolo.__typename === 'Error') {
-              toast.error('Not a valid PID');
+            if (res.data?.organizerRegisterSolo.__typename === "Error") {
+              toast.error("Not a valid PID");
             }
             if (
               res.data?.organizerRegisterSolo.__typename ===
-              'MutationOrganizerRegisterSoloSuccess'
+              "MutationOrganizerRegisterSoloSuccess"
             ) {
-              toast.success('Registered!',{
-                position: 'bottom-center',
+              toast.success("Registered!", {
+                position: "bottom-center",
               });
             }
           });
         }}
         disabled={loading}
-        intent={'primary'}
+        intent={"primary"}
         className="mt-2"
       >
         Add Participant
