@@ -313,11 +313,7 @@ const Quiz = ({ id }: { id: string }) => {
 
   return (
     <Dashboard>
-      {!Loading &&
-        Questions?.map((question, index) => {
-          return (
-            <div key={index} className="flex flex-col px-2">
-              <input
+      <input
                 className="text-xl font-medium mt-4 w-60 rounded-2xl bg-gray-900/80 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-30 outline-none p-3 px-4"
                 placeholder="Enter quiz title"
                 defaultValue={
@@ -327,9 +323,14 @@ const Quiz = ({ id }: { id: string }) => {
                     : ""
                 }
               />
-              <div className="flex flex-col md:flex-row py-4 p-8 gap-4">
-                <div className="flex flex-col items-start rounded-3xl bg-gray-900/60 w-full h-full md:p-2 px-8">
-                  <h1 className="text-xl font-medium mt-6 font-gilroy">
+      {!Loading &&
+        Questions?.map((question, index) => {
+          return (
+            <div key={index} className="flex flex-col px-4">
+              
+              <div className="flex flex-col md:flex-row py-4 gap-4">
+                <div className="flex flex-col items-start rounded-3xl bg-gray-900/60 w-full h-full md:p-4 px-8">
+                  <h1 className="text-xl font-medium mt-6 font-gilroy ">
                     Enter the Question
                   </h1>
 
