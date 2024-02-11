@@ -313,11 +313,7 @@ const Quiz = ({ id }: { id: string }) => {
 
   return (
     <Dashboard>
-      {!Loading &&
-        Questions?.map((question, index) => {
-          return (
-            <div key={index} className="flex flex-col">
-              <input
+      <input
                 className="text-xl font-medium mt-4 w-60 rounded-2xl bg-gray-900/80 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-30 outline-none p-3 px-4"
                 placeholder="Enter quiz title"
                 defaultValue={
@@ -327,16 +323,23 @@ const Quiz = ({ id }: { id: string }) => {
                     : ""
                 }
               />
-              <div className="flex flex-row py-8">
-                <div className="flex flex-col items-start rounded-3xl bg-gray-900/60 w-full h-full mx-4 p-2 px-8">
-                  <h1 className="text-xl font-medium mt-6 font-gilroy">
+      {!Loading &&
+        Questions?.map((question, index) => {
+          return (
+            <div key={index} className="flex flex-col px-4">
+              
+              <div className="flex flex-col md:flex-row py-4 gap-4">
+                <div className="flex flex-col items-start rounded-3xl bg-gray-900/60 w-full h-full md:p-4 px-8">
+                  <h1 className="text-xl font-medium mt-6 font-gilroy ">
                     Enter the Question
                   </h1>
 
-                  <div className="flex flex-row list-disc items-center w-full">
+                  <div className="flex flex-col md:flex-row list-disc justify-between items-center mt-4 w-full gap-8">
+                    <div className="flex flex-row w-full">
                     <input
+                      placeholder="enter the question..."
                       defaultValue={question.question}
-                      className="w-[1000px] h-20 rounded-3xl px-4 mt-4 bg-slate-600 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
+                      className="w-full h-20 rounded-3xl px-4 bg-slate-600 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
                       type="text"
                       onChange={(e) =>
                         setQuestion((prev) => {
@@ -348,16 +351,12 @@ const Quiz = ({ id }: { id: string }) => {
                       onBlur={() => {
                         createQuestion(question.id ? question.id : null);
                       }}
-                    ></input>
-                    <label
-                      htmlFor="points"
-                      className="w-full py-4 ms-2 text-lg font-semibold text-gray-900 dark:text-gray-300"
-                    >
-                      Points
-                    </label>
+                    />
+                    </div>
+                    <div className="flex flex-row items-center gap-8">
                     <input
                       defaultValue={0}
-                      className="w-[1000px] h-20 rounded-3xl px-4 mt-4 bg-slate-600 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
+                      className=" h-12 w-12 text-center rounded-3xl bg-slate-600 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
                       type="text"
                       onChange={(e) =>
                         setQuestion((prev) => {
@@ -367,16 +366,15 @@ const Quiz = ({ id }: { id: string }) => {
                         })
                       }
                       name="points"
-                    ></input>
-                    <label
-                      htmlFor="negativePoints"
-                      className="w-full py-4 ms-2 text-lg font-semibold text-gray-900 dark:text-gray-300"
-                    >
-                      Negative Points
-                    </label>
+                    /><label
+                    htmlFor="points"
+                    className="ms-2 text-sm font-semibold text-gray-900 dark:text-gray-300"
+                   >
+                    Points
+                   </label>
                     <input
                       defaultValue={0}
-                      className="w-[1000px] h-20 rounded-3xl px-4 mt-4 bg-slate-600 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
+                      className="h-12 text-center w-12 rounded-3xl px-2 bg-slate-600 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
                       type="text"
                       onChange={(e) =>
                         setQuestion((prev) => {
@@ -389,8 +387,13 @@ const Quiz = ({ id }: { id: string }) => {
                         })
                       }
                       name="negativePoints"
-                    ></input>
-                    <CiImageOn className="text-3xl mx-8" />
+                    /><label
+                    htmlFor="negativePoints"
+                    className="ms-2 text-sm font-semibold text-gray-900 dark:text-gray-300"
+                   >
+                    Negative Points
+                   </label>
+                    <CiImageOn className="text-5xl"/>
                     <select
                       name="type"
                       className="border-0 text-sm rounded-lg block  px-8 py-2 bg-slate-700 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-60 border-gray-900 placeholder-gray-800 text-white focus:outline-none focus:ring-2 ring-gray-500"
@@ -414,19 +417,20 @@ const Quiz = ({ id }: { id: string }) => {
                         }
                       )}
                     </select>
-                  </div>
-                  <div className="flex flex-col items-center justify-center gap-3 mt-4 ">
+                    </div>
+                  </div> 
+                  <div className="flex flex-col gap-3 mt-4 w-full">
                     {question.options.map((option, index) => {
                       return (
                         <div
-                          className="flex flex-row items-center justify-center gap-4"
+                          className="flex flex-row items-center  gap-4"
                           key={index}
                         >
-                          <div className="flex flex-row items-center justify-center gap-4">
+                          <div className="flex flex-row items-center justify-center gap-8 w-full">
                             <ImRadioUnchecked className="text-lg" />
                             <input
                               defaultValue={option.value}
-                              className="w-[1000px] h-12 rounded-3xl px-4 mt-4 bg-slate-600 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
+                              className="w-full h-12 rounded-3xl px-4 bg-slate-600 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
                               onChange={(e) =>
                                 setOption((prev) => {
                                   if (prev)
@@ -478,7 +482,7 @@ const Quiz = ({ id }: { id: string }) => {
                       );
                     })}
                     <Button
-                      className="my-4 rounded-md"
+                      className="my-4 rounded-md w-fit"
                       intent={"secondary"}
                       size={"small"}
                       onClick={() => addOption(question.id)}
@@ -487,18 +491,18 @@ const Quiz = ({ id }: { id: string }) => {
                     </Button>
                   </div>
                 </div>
-                <div className="flex flex-col justify-around items-center w-20 rounded-2xl bg-gray-900/60">
+                <div className="flex flex-row  md:flex-col justify-around items-center p-4 rounded-2xl bg-gray-900/60">
                   <CiCirclePlus
                     onClick={addQuestion}
                     className="text-3xl hover:bg-slate-800 hover:rounded-lg"
                   />
                   <HiOutlineDuplicate
                     onClick={() => duplicate(index)}
-                    className="text-3xl hover:bg-slate-800 hover:rounded-lg"
+                    className="text-2xl hover:bg-slate-800 hover:rounded-lg"
                   />
                   <MdDeleteOutline
                     onClick={() => remove(question.id ? question.id : null)}
-                    className="text-3xl hover:bg-slate-800 hover:rounded-lg"
+                    className="text-2xl hover:bg-slate-800 hover:rounded-lg"
                   />
                 </div>
               </div>
@@ -506,7 +510,7 @@ const Quiz = ({ id }: { id: string }) => {
           );
         })}
       <div onClick={addQuestion} className="cursor-pointer">
-        <CiCirclePlus className="text-3xl hover:bg-slate-800 hover:rounded-lg" />
+        <CiCirclePlus className="text-2xl hover:bg-slate-800 hover:rounded-lg" />
       </div>
     </Dashboard>
   );

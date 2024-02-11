@@ -34,8 +34,8 @@ export default function AttemptQuiz({
     setQuestionId(
       (QuestionIds?.getQuizByEvent.__typename ===
         "QueryGetQuizByEventSuccess" &&
-        QuestionIds?.getQuizByEvent?.data[0].questions &&
-        QuestionIds.getQuizByEvent.data[0].questions[0].id) ||
+        QuestionIds?.getQuizByEvent?.data[0]?.questions &&
+        QuestionIds.getQuizByEvent.data[0]?.questions[0]?.id) ||
         ""
     );
   }, [QuestionIds]);
@@ -134,7 +134,7 @@ export default function AttemptQuiz({
           <div className="border rounded min-w-[75%]">
             <div>
               <p>Question:</p>
-              <p>{question.getQuestionById.data.question}</p>
+              <p>{question?.getQuestionById?.data?.question}</p>
               <div>
                 {question.getQuestionById.__typename ===
                   "QueryGetQuestionByIdSuccess" &&
