@@ -130,7 +130,10 @@ export default function AttemptQuiz({
         "QueryGetQuestionByIdSuccess" && (
         <div className="min-h-[50vh] max-h-[50vh] overflow-y-scroll self-center justify-between px-9 w-screen flex">
           {/* question side */}
-          {loadingIds || (loadingQuestion && <p>Loading...</p>)}
+          {(loadingIds ||
+            loadingQuestion ||
+            loadingMCQSub ||
+            loadingFITBSub) && <div>Loading...</div>}
           <div className="border rounded min-w-[75%]">
             <div>
               <p>Question:</p>
