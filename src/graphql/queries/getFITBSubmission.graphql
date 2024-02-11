@@ -1,0 +1,14 @@
+query GetFITBSubmissionByTeamId($questionId: String!, $teamId: String!) {
+  getFITBSubmissionByTeamId(questionId: $questionId, teamId: $teamId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on QueryGetFITBSubmissionByTeamIdSuccess {
+      __typename
+      data {
+        value
+      }
+    }
+  }
+}

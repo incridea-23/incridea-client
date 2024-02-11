@@ -45,17 +45,14 @@ const Quiz = ({ id }: { id: string }) => {
   const [Questions, setQuestions] = useState<questionsType>([]);
   const [Loading, setLoading] = useState(false);
 
-  const [Question, setQuestion] = useState<
-    | {
-        question: string;
-        questionType: string;
-        points: number;
-        negativePoint: number;
-        image: string;
-        quizId: string;
-      }
-    | undefined
-  >(undefined);
+  const [Question, setQuestion] = useState<{
+    question: string;
+    questionType: string;
+    points: number;
+    negativePoint: number;
+    image: string;
+    quizId: string;
+  }>();
 
   const [Option, setOption] = useState<{
     value: string;
@@ -188,6 +185,7 @@ const Quiz = ({ id }: { id: string }) => {
             },
           ]);
         }
+        setQuestion(undefined);
         // show success toast
       })
       .catch((error) => {
@@ -197,7 +195,7 @@ const Quiz = ({ id }: { id: string }) => {
 
   const addQuestion = () => {
     console.log(Question);
-    if (Question !== undefined) {
+    if (!Question) {
       setQuestions((prev) => [
         ...prev,
         {
@@ -309,39 +307,8 @@ const Quiz = ({ id }: { id: string }) => {
   const deleteOption = (id: string) => {
     deleteOptionMutation({
       variables: { id },
-    })
-      .then((res) => {
-        if (
-          res.data?.deleteOption.__typename === "MutationDeleteOptionSuccess"
-        ) {
-          const data = res.data.deleteOption.data;
-          setLoading(true);
-          setQuestions((prev) => {
-            return prev.map((question) => {
-              if (question.id === data.questionId) {
-                console.log({
-                  ...question,
-                  options: question.options.filter(
-                    (option) => option.id !== data.id
-                  ),
-                });
-                return {
-                  ...question,
-                  options: question.options.filter(
-                    (option) => option.id !== data.id
-                  ),
-                };
-              }
-              return question;
-            });
-          });
-          setLoading(false);
-        }
-        // show success toast
-      })
-      .catch((error) => {
-        // handle error
-      });
+      refetchQueries: [GetQuizByEventDocument],
+    });
   };
 
   return (
@@ -442,7 +409,7 @@ const Quiz = ({ id }: { id: string }) => {
                       {Array.from(["MCQ", "MMCQ", "FITB"]).map(
                         (type, index) => {
                           return (
-                            <option value="MCQ" key={index}>
+                            <option value={type} key={index}>
                               {type}
                             </option>
                           );

@@ -1,0 +1,25 @@
+query GetQuestionById($questionId: String!) {
+  getQuestionById(questionId: $questionId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on QueryGetQuestionByIdSuccess {
+      __typename
+      data {
+        id
+        image
+        negativePoint
+        point
+        question
+        questionType
+        quizId
+        options {
+          id
+          value
+          isAnswer
+        }
+      }
+    }
+  }
+}

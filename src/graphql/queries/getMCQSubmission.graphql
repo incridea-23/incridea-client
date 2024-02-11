@@ -1,0 +1,19 @@
+query GetMCQSubmissionByTeamId(
+  $questionId: String!
+  $teamId: String!
+  $questionId1: String!
+  $teamId1: String!
+) {
+  getMCQSubmissionByTeamId(questionId: $questionId1, teamId: $teamId1) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on QueryGetMCQSubmissionByTeamIdSuccess {
+      __typename
+      data {
+        OptionId
+      }
+    }
+  }
+}

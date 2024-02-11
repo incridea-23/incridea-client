@@ -1,0 +1,22 @@
+mutation CreateMCQSubmission(
+  $optionId: String!
+  $questionId: String!
+  $teamId: String!
+) {
+  createMCQSubmission(
+    optionId: $optionId
+    questionId: $questionId
+    teamId: $teamId
+  ) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationCreateMCQSubmissionSuccess {
+      __typename
+      data {
+        id
+      }
+    }
+  }
+}

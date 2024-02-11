@@ -1,0 +1,22 @@
+mutation CreateFTIBSubmission(
+  $questionId: String!
+  $teamId: String!
+  $value: String!
+) {
+  createFTIBSubmission(
+    questionId: $questionId
+    teamId: $teamId
+    value: $value
+  ) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationCreateFTIBSubmissionSuccess {
+      __typename
+      data {
+        id
+      }
+    }
+  }
+}
