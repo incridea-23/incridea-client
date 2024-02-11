@@ -262,7 +262,7 @@ const Quiz = ({ id }: { id: string }) => {
           if (
             res.data?.updateOption.__typename === "MutationUpdateOptionSuccess"
           ) {
-            return setOption(undefined);
+            setOption(undefined);
             // show success toast
           }
         })
@@ -296,7 +296,7 @@ const Quiz = ({ id }: { id: string }) => {
               // [op1, ]
             });
           });
-          return setOption(undefined);
+          setOption(undefined);
           // show success toast
         }
       })
@@ -314,20 +314,18 @@ const Quiz = ({ id }: { id: string }) => {
   return (
     <Dashboard>
       <input
-                className="text-xl font-medium mt-4 w-60 rounded-2xl bg-gray-900/80 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-30 outline-none p-3 px-4"
-                placeholder="Enter quiz title"
-                defaultValue={
-                  QuizData?.getQuizByEvent.__typename ===
-                  "QueryGetQuizByEventSuccess"
-                    ? QuizData.getQuizByEvent.data[0].name
-                    : ""
-                }
-              />
+        className="text-xl font-medium mt-4 w-60 rounded-2xl bg-gray-900/80 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-30 outline-none p-3 px-4"
+        placeholder="Enter quiz title"
+        defaultValue={
+          QuizData?.getQuizByEvent.__typename === "QueryGetQuizByEventSuccess"
+            ? QuizData.getQuizByEvent.data[0].name
+            : ""
+        }
+      />
       {!Loading &&
         Questions?.map((question, index) => {
           return (
             <div key={index} className="flex flex-col px-4">
-              
               <div className="flex flex-col md:flex-row py-4 gap-4">
                 <div className="flex flex-col items-start rounded-3xl bg-gray-900/60 w-full h-full md:p-4 px-8">
                   <h1 className="text-xl font-medium mt-6 font-gilroy ">
@@ -336,89 +334,94 @@ const Quiz = ({ id }: { id: string }) => {
 
                   <div className="flex flex-col md:flex-row list-disc justify-between items-center mt-4 w-full gap-8">
                     <div className="flex flex-row w-full">
-                    <input
-                      placeholder="enter the question..."
-                      defaultValue={question.question}
-                      className="w-full h-20 rounded-3xl px-4 bg-slate-600 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
-                      type="text"
-                      onChange={(e) =>
-                        setQuestion((prev) => {
-                          if (prev)
-                            return { ...prev, question: e.target.value };
-                          return prev;
-                        })
-                      }
-                      onBlur={() => {
-                        createQuestion(question.id ? question.id : null);
-                      }}
-                    />
+                      <input
+                        placeholder="enter the question..."
+                        defaultValue={question.question}
+                        className="w-full h-20 rounded-3xl px-4 bg-slate-600 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
+                        type="text"
+                        onChange={(e) =>
+                          setQuestion((prev) => {
+                            if (prev)
+                              return { ...prev, question: e.target.value };
+                            return prev;
+                          })
+                        }
+                        onBlur={() => {
+                          createQuestion(question.id ? question.id : null);
+                        }}
+                      />
                     </div>
                     <div className="flex flex-row items-center gap-8">
-                    <input
-                      defaultValue={0}
-                      className=" h-12 w-12 text-center rounded-3xl bg-slate-600 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
-                      type="text"
-                      onChange={(e) =>
-                        setQuestion((prev) => {
-                          if (prev)
-                            return { ...prev, points: Number(e.target.value) };
-                          return prev;
-                        })
-                      }
-                      name="points"
-                    /><label
-                    htmlFor="points"
-                    className="ms-2 text-sm font-semibold text-gray-900 dark:text-gray-300"
-                   >
-                    Points
-                   </label>
-                    <input
-                      defaultValue={0}
-                      className="h-12 text-center w-12 rounded-3xl px-2 bg-slate-600 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
-                      type="text"
-                      onChange={(e) =>
-                        setQuestion((prev) => {
-                          if (prev)
-                            return {
-                              ...prev,
-                              negativePoint: Number(e.target.value),
-                            };
-                          return prev;
-                        })
-                      }
-                      name="negativePoints"
-                    /><label
-                    htmlFor="negativePoints"
-                    className="ms-2 text-sm font-semibold text-gray-900 dark:text-gray-300"
-                   >
-                    Negative Points
-                   </label>
-                    <CiImageOn className="text-5xl"/>
-                    <select
-                      name="type"
-                      className="border-0 text-sm rounded-lg block  px-8 py-2 bg-slate-700 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-60 border-gray-900 placeholder-gray-800 text-white focus:outline-none focus:ring-2 ring-gray-500"
-                      id=""
-                      defaultValue={question.questionType}
-                      onChange={(e) =>
-                        setQuestion((prev) => {
-                          if (prev)
-                            return { ...prev, questionType: e.target.value };
-                          return prev;
-                        })
-                      }
-                    >
-                      {Array.from(["MCQ", "MMCQ", "FITB"]).map(
-                        (type, index) => {
-                          return (
-                            <option value={type} key={index}>
-                              {type}
-                            </option>
-                          );
+                      <input
+                        defaultValue={0}
+                        className=" h-12 w-12 text-center rounded-3xl bg-slate-600 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
+                        type="text"
+                        onChange={(e) =>
+                          setQuestion((prev) => {
+                            if (prev)
+                              return {
+                                ...prev,
+                                points: Number(e.target.value),
+                              };
+                            return prev;
+                          })
                         }
-                      )}
-                    </select>
+                        name="points"
+                      />
+                      <label
+                        htmlFor="points"
+                        className="ms-2 text-sm font-semibold text-gray-900 dark:text-gray-300"
+                      >
+                        Points
+                      </label>
+                      <input
+                        defaultValue={0}
+                        className="h-12 text-center w-12 rounded-3xl px-2 bg-slate-600 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
+                        type="text"
+                        onChange={(e) =>
+                          setQuestion((prev) => {
+                            if (prev)
+                              return {
+                                ...prev,
+                                negativePoint: Number(e.target.value),
+                              };
+                            return prev;
+                          })
+                        }
+                        name="negativePoints"
+                      />
+                      <label
+                        htmlFor="negativePoints"
+                        className="ms-2 text-sm font-semibold text-gray-900 dark:text-gray-300"
+                      >
+                        Negative Points
+                      </label>
+                      <CiImageOn className="text-5xl" />
+                      <select
+                        name="type"
+                        className="border-0 text-sm rounded-lg block  px-8 py-2 bg-slate-700 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-60 border-gray-900 placeholder-gray-800 text-white focus:outline-none focus:ring-2 ring-gray-500"
+                        id=""
+                        defaultValue={question.questionType}
+                        onChange={(e) =>
+                          setQuestion((prev) => {
+                            if (prev)
+                              return { ...prev, questionType: e.target.value };
+                            return prev;
+                          })
+                        }
+                      >
+                        {Array.from(["MCQ", "MMCQ", "FITB"]).map(
+                          (type, index) => {
+                            return (
+                              <option value={type} key={index}>
+                                {type}
+                              </option>
+                            );
+                          }
+                        )}
+                      </select>
                     </div>
-                  </div> 
+                  </div>
                   <div className="flex flex-col gap-3 mt-4 w-full">
                     {question.options.map((option, index) => {
                       return (

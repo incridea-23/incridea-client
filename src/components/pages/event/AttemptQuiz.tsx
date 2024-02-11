@@ -102,7 +102,7 @@ export default function AttemptQuiz({
     )
       createOrUpdateMcqSubmission()
         .then((res) => {
-          document.getElementById("q" + nextQue)?.click();
+          if (nextQue === -1) document.getElementById("q" + nextQue)?.click();
           //click next question
         })
         .catch((err) => {
@@ -115,7 +115,7 @@ export default function AttemptQuiz({
     )
       createOrUpdateFitbSubmission()
         .then((res) => {
-          document.getElementById("q" + nextQue)?.click();
+          if (nextQue === -1) document.getElementById("q" + nextQue)?.click();
           //click next question
         })
         .catch((err) => {
@@ -179,15 +179,15 @@ export default function AttemptQuiz({
                   ))
                 )}
               </div>
-              {QuestionIds?.getQuizByEvent.__typename ===
-                "QueryGetQuizByEventSuccess" &&
+              <button onClick={() => handleNext(questionNo + 1)}>
+                {QuestionIds?.getQuizByEvent.__typename ===
+                  "QueryGetQuizByEventSuccess" &&
                 QuestionIds.getQuizByEvent.data[0].questions &&
                 QuestionIds.getQuizByEvent.data[0]?.questions?.length >
-                  questionNo && (
-                  <button onClick={() => handleNext(questionNo + 1)}>
-                    next
-                  </button>
-                )}
+                  questionNo
+                  ? "Next"
+                  : "Submit"}
+              </button>
             </div>
           </div>
 
