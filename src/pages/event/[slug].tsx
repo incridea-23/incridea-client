@@ -195,19 +195,11 @@ function event({ event, error }: { event: Event; error: String }) {
                   </div>
                 </div>
                 <div className={`w-full flex justify-center order-1 mt-3`}>
-                  {event.name.toLowerCase() !== "lazzerena" ? (
-                    <EventRegistration
-                      fees={event.fees}
-                      eventId={event.id}
-                      type={event.eventType}
-                    />
-                  ) : (
-                    <div
-                      className={`bg-black/20 px-3 p-2.5 font-semibold italic text-white/60 rounded-sm `}
-                    >
-                      On-spot registrations only
-                    </div>
-                  )}
+                  <EventRegistration
+                    fees={event.fees}
+                    eventId={event.id}
+                    type={event.eventType}
+                  />
                 </div>
               </div>
             </div>
