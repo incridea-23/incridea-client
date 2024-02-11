@@ -12,7 +12,7 @@ import * as THREE from "three";
 import { GLTF } from "three-stdlib";
 import ProniteAnnotation from "./proniteAnnotation";
 import Timer from "./timer";
-import { baseAudioUrl } from "@/src/utils/url";
+import { baseAudioUrl, baseImageUrl } from "@/src/utils/url";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -115,10 +115,10 @@ const Scene2: React.FC<Scene2Props> = ({
 }) => {
   const scroll = useScroll();
   const group = useRef<THREE.Group>(null);
-  const fbx = useFBX("/assets/3d/ryokoAnimation.fbx") as THREE.Object3D;
+  const fbx = useFBX(`/assets/3d/ryokoAnimation.fbx`) as THREE.Object3D;
   const fbxAnimation = fbx.animations;
   const { nodes, materials, animations } = useGLTF(
-    "/assets/3d/level3.glb"
+    `${baseImageUrl}/assets/3d/level3.glb`
   ) as GLTFResult;
   const { actions, names } = useAnimations(animations, group);
   const fbxAnimationClips = useAnimations(fbxAnimation, group);
@@ -542,6 +542,6 @@ const Scene2: React.FC<Scene2Props> = ({
   );
 };
 
-useGLTF.preload("/assets/3d/level3.glb");
+useGLTF.preload(`${baseImageUrl}/assets/3d/level3.glb`);
 
 export default Scene2;

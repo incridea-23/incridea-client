@@ -8,6 +8,7 @@ import { ISheet, val } from "@theatre/core";
 import Annotation from "./annotation";
 import Sponsor from "./sponsor";
 import Level3 from "./level3Button";
+import { baseImageUrl } from "@/src/utils/url";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -63,7 +64,7 @@ export default function Scene1({
 }) {
   const group = useRef<THREE.Group>(null);
   const { nodes, materials } = useGLTF(
-    "/assets/3d/level2-sponsorBook4.glb",
+    `${baseImageUrl}/assets/3d/level2-sponsorBook4.glb`,
     true
   ) as GLTFResult;
   const sheet = useCurrentSheet();
@@ -490,4 +491,4 @@ export default function Scene1({
   );
 }
 
-useGLTF.preload("/assets/3d/level2-sponsorBook4.glb");
+useGLTF.preload(`${baseImageUrl}/assets/3d/level2-sponsorBook4.glb`);
