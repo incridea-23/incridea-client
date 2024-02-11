@@ -63,24 +63,24 @@ const ProfileInfo: FC<{
         { length: levels + 1 },
         (_, i) => (i + 1) * 10
       );
-      console.log(newLevelThresholds);
       // Calculate the user's current level based on the thresholds
       let level = 0;
       let totalPoints = 0;
+      let levelPoints = 0;
       for (let i = 0; i < newLevelThresholds.length; i++) {
         if (totalXp >= totalPoints) {
           level++;
           totalPoints += newLevelThresholds[i];
+          levelPoints = newLevelThresholds[i];
         } else {
           break;
         }
       }
-
       setLevel(level-1);
       setXp(totalXp);
       setUser(userXp.data.getUserXp?.data[0]?.user.id);
       setNeedMore(totalPoints - totalXp);
-      setProgress(100 - ((totalPoints - totalXp) / totalPoints) * 100);
+      setProgress(((levelPoints-totalPoints + totalXp) / levelPoints) * 100);
     }
   }, [userXp.data]);
 
@@ -89,6 +89,7 @@ const ProfileInfo: FC<{
       levelPoints: number;
       name: string;
       count: number;
+      createdAt: string;
     };
   }
   const { data: Leaderboard, loading: leaderboardLoading } = useQuery(
@@ -117,18 +118,24 @@ const ProfileInfo: FC<{
         const levelPoints: number = item.level.point;
         const userName: string = item.user.name;
         const levelCount: number = 1;
+        const createdAt: string = item.createdAt;
 
         // Check if the user ID is already in the userTotalPoints object
         if (userTotalPoints[userId]) {
           // If yes, add the level points to the existing total
           userTotalPoints[userId].levelPoints += levelPoints;
           userTotalPoints[userId].count += levelCount;
+          //store only the latest date
+          if (createdAt > userTotalPoints[userId].createdAt) {
+            userTotalPoints[userId].createdAt = createdAt;
+          }
         } else {
           // If no, create a new entry for the user ID
           userTotalPoints[userId] = {
             levelPoints,
             name: userName,
             count: 1,
+            createdAt: createdAt,
           };
         }
       });
@@ -139,15 +146,18 @@ const ProfileInfo: FC<{
           ...data,
         })
       );
-
       // Sort the array in descending order based on total points
       userTotalPointsArray.sort((a, b) => b.levelPoints - a.levelPoints);
-      console.log(userTotalPointsArray);
-      // get current user's rank
+      //also sort based on the latest date but points should be primary
+      userTotalPointsArray.sort((a, b) => {
+        if (a.levelPoints === b.levelPoints) {
+          return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+        }
+        return b.levelPoints - a.levelPoints;
+      });
       const currentUserRank = userTotalPointsArray.findIndex(
-        (user) => user.userId === userId
+        (item) => item.userId === userId
       );
-      console.log(currentUserRank);
       setRank(currentUserRank + 1);
     }
   }, [Leaderboard, userId]);
