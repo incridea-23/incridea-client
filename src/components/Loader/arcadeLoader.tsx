@@ -2,6 +2,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Image from "next/image";
+import { baseImageUrl } from "@/src/utils/url";
 export default function ArcadeLoader() {
   const landingContainer = useRef(null);
   useGSAP(
@@ -35,7 +36,7 @@ export default function ArcadeLoader() {
       className=" min-h-screen w-full flex justify-center items-center  z-[999] absolute top-0 left-0"
     >
       <Image
-        src={"/assets/landing/landing@2x.png"}
+        src={`/assets/landing/landing@2x.png`}
         alt="UI Incridea 2024"
         width={1920}
         height={1080}
@@ -48,7 +49,7 @@ export default function ArcadeLoader() {
             height={482}
             width={256}
             className="w-full h-full rounded-lg"
-            src="/assets/gif/nosignal.gif"
+            src={`${baseImageUrl}/assets/gif/nosignal.gif`}
             alt="no signal"
             priority
           />

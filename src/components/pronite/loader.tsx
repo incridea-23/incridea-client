@@ -1,3 +1,4 @@
+import { baseImageUrl } from "@/src/utils/url";
 import Image from "next/image";
 
 export default function Loader({ loading }: { loading: boolean }) {
@@ -11,7 +12,7 @@ export default function Loader({ loading }: { loading: boolean }) {
       }}
     >
       <Image
-        src="/assets/loader/dodLogo.png"
+        src={`${baseImageUrl}/assets/loader/dodLogo.png`}
         alt=""
         height={180}
         width={180}

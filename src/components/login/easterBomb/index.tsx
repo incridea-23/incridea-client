@@ -1,8 +1,9 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { baseImageUrl } from "@/src/utils/url";
 
-const bombSrc: string = "/assets/png/bomb.png";
-const explodeGIFSrc: string = "/assets/gif/explodeGIF.gif";
+const bombSrc: string = `${baseImageUrl}/assets/png/bomb.png`;
+const explodeGIFSrc: string = `${baseImageUrl}/assets/gif/explodeGIF.gif`;
 
 const getPosition: () => number = () => {
   return Math.floor(Math.random() * 80) + 10;
