@@ -155,7 +155,7 @@ const TeamCard = ({
                 <Button
                   fullWidth
                   intent="success"
-                  className="mt-2"
+                  className="mt-2 items-center justify-center !font-sans font-bold"
                   disabled={sdkLoading}
                   onClick={() => {
                     team.members.length >= team.event.minTeamSize
