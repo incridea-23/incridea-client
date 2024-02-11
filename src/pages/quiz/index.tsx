@@ -5,7 +5,7 @@ export default function Quiz() {
     <>
       <h1>Quiz</h1>
       <div className="flex justify-evenly min-h-screen self-center">
-        <AttemptQuiz id={"3"} />
+        <AttemptQuiz id={3} teamId="" />
       </div>
     </>
   );

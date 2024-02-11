@@ -1,6 +1,8 @@
 import {
   CreateFtibSubmissionDocument,
   CreateMcqSubmissionDocument,
+  GetFitbSubmissionByTeamIdDocument,
+  GetMcqSubmissionByTeamIdDocument,
   GetQuestionByIdDocument,
   GetQuestionIdsDocument,
   GetQuizByEventDocument,
@@ -16,6 +18,7 @@ export default function AttemptQuiz({
   teamId: string;
 }) {
   id = 3;
+  teamId = "30";
   const {
     data: QuestionIds,
     loading: loadingIds,
@@ -47,8 +50,30 @@ export default function AttemptQuiz({
     },
   });
 
+  const {
+    data: McqSub,
+    loading: loadingMCQSub,
+    error: getMcqSubError,
+  } = useQuery(GetMcqSubmissionByTeamIdDocument, {
+    variables: {
+      questionId: questionId,
+      teamId: teamId,
+    },
+  });
+
+  const {
+    data: FITBSub,
+    loading: loadingFITBSub,
+    error: getFITBSubError,
+  } = useQuery(GetFitbSubmissionByTeamIdDocument, {
+    variables: {
+      questionId: questionId,
+      teamId: teamId,
+    },
+  });
+
   const [
-    createMcqSubmission,
+    createOrUpdateMcqSubmission,
     { loading: loadingMCQSubmission, error: MCQSubmissionErrorj },
   ] = useMutation(CreateMcqSubmissionDocument, {
     variables: {
@@ -59,7 +84,7 @@ export default function AttemptQuiz({
   });
 
   const [
-    createFitbSubmission,
+    createOrUpdateFitbSubmission,
     { loading: loadingFitbSubmission, error: FitbSubmissionErrorj },
   ] = useMutation(CreateFtibSubmissionDocument, {
     variables: {
@@ -68,13 +93,14 @@ export default function AttemptQuiz({
       teamId,
     },
   });
+
   const handleNext = (nextQue: number) => {
     // handle next question
     if (
       question?.getQuestionById.__typename === "QueryGetQuestionByIdSuccess" &&
       question.getQuestionById.data.questionType === "MCQ"
     )
-      createMcqSubmission()
+      createOrUpdateMcqSubmission()
         .then((res) => {
           document.getElementById("q" + nextQue)?.click();
           //click next question
@@ -87,7 +113,7 @@ export default function AttemptQuiz({
       question?.getQuestionById.__typename === "QueryGetQuestionByIdSuccess" &&
       question.getQuestionById.data.questionType === "FITB"
     )
-      createFitbSubmission()
+      createOrUpdateFitbSubmission()
         .then((res) => {
           document.getElementById("q" + nextQue)?.click();
           //click next question
@@ -116,6 +142,12 @@ export default function AttemptQuiz({
                   <input
                     type="text"
                     onChange={(e) => setSetFitbValue(e.target.value)}
+                    defaultValue={
+                      FITBSub?.getFITBSubmissionByTeamId.__typename ===
+                      "QueryGetFITBSubmissionByTeamIdSuccess"
+                        ? FITBSub.getFITBSubmissionByTeamId.data.value
+                        : ""
+                    }
                   />
                 ) : (
                   question.getQuestionById.data.options.map((option) => (
@@ -129,10 +161,18 @@ export default function AttemptQuiz({
                             : "checkbox"
                         }
                         onChange={(e) => {
-                          setOptionId(e.target.value);
+                          setOptionId(option.id);
                         }}
                         id={option.id}
                         name={option.id}
+                        defaultChecked={
+                          McqSub?.getMCQSubmissionByTeamId.__typename ===
+                            "QueryGetMCQSubmissionByTeamIdSuccess" &&
+                          McqSub.getMCQSubmissionByTeamId.data.OptionId ===
+                            option.id
+                            ? true
+                            : false
+                        }
                       />
                       <label htmlFor={option.id}>{option.value}</label>
                     </div>

@@ -1,10 +1,5 @@
-query GetMCQSubmissionByTeamId(
-  $questionId: String!
-  $teamId: String!
-  $questionId1: String!
-  $teamId1: String!
-) {
-  getMCQSubmissionByTeamId(questionId: $questionId1, teamId: $teamId1) {
+query GetMCQSubmissionByTeamId($questionId: String!, $teamId: String!) {
+  getMCQSubmissionByTeamId(questionId: $questionId, teamId: $teamId) {
     ... on Error {
       __typename
       message
