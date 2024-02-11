@@ -21,7 +21,7 @@ export default function AddParticipantModal({ eventId }: { eventId: string }) {
     let promise = organizerRegisterSolo({
       variables: {
         eventId,
-        userId: userId.startsWith('INC23-') ? pidToId(userId) : userId,
+        userId: userId.startsWith('INC24-') ? pidToId(userId) : userId,
       },
     }).then((res) => {
       if (
@@ -79,7 +79,7 @@ export default function AddParticipantModal({ eventId }: { eventId: string }) {
             <input
               type="text"
               className=" border w-full    rounded-lg   block p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
-              placeholder="INC23-0069"
+              placeholder="INC24-0069"
               value={userId}
               onChange={(e) => setUserId(e.target.value)}
             />
