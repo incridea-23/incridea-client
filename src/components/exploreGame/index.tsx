@@ -18,7 +18,7 @@ import {
   platformDimensions,
   platformSpriteDimensions,
 } from "./gameConstants";
-import { baseImageUrl } from "@/src/utils/url";
+import { baseImageUrl, baseAudioUrl } from "@/src/utils/url";
 
 const fps: number = 60;
 const actionKeys: string[] = [];
@@ -46,7 +46,7 @@ const ExploreGame = () => {
     if (isMutedRef.current) {
       return;
     }
-    const isJump = path === "/audio/jump.mp3" ? true : false;
+    const isJump = path === `${baseAudioUrl}/audio/jump.mp3` ? true : false;
     if (isJump && audioElement === "jump") {
       return;
     }
@@ -190,7 +190,7 @@ const ExploreGame = () => {
     if (player.current.x < boundary.right) {
       player.current.x += velocity.current.x;
     }
-    movementSoundTrigger("/audio/XMovement.mp3", 300);
+    movementSoundTrigger(`${baseAudioUrl}/audio/XMovement.mp3`, 300);
   }
 
   function MoveLeft() {
@@ -203,11 +203,11 @@ const ExploreGame = () => {
     if (player.current.x > boundary.left) {
       player.current.x -= velocity.current.x;
     }
-    movementSoundTrigger("/audio/XMovement.mp3", 300);
+    movementSoundTrigger(`${baseAudioUrl}/audio/XMovement.mp3`, 300);
   }
 
   function Jump() {
-    movementSoundTrigger("/audio/jump.mp3", 250);
+    movementSoundTrigger(`${baseAudioUrl}/audio/jump.mp3`, 250);
     audioElement = "jump";
     if (isGrounded) {
       velocity.current.y = -Math.sqrt(
@@ -448,7 +448,7 @@ const ExploreGame = () => {
       // Standing on the ground
       if (audioElement !== "ground") {
         audioElement = "ground";
-        movementSoundTrigger("/audio/thud.mp3", 300);
+        movementSoundTrigger(`${baseAudioUrl}/audio/thud.mp3`, 300);
       }
       isGrounded = true;
       player.current.y = window.innerHeight * 1.62 - player.current.height;
@@ -475,7 +475,7 @@ const ExploreGame = () => {
       isGrounded = true;
       if (audioElement !== "left") {
         audioElement = "left";
-        movementSoundTrigger("/audio/thump.mp3", 300);
+        movementSoundTrigger(`${baseAudioUrl}/audio/thump.mp3`, 300);
       }
 
       if (showScheduleFlag) {
@@ -526,7 +526,7 @@ const ExploreGame = () => {
       // Standing on the right platform
       if (audioElement !== "right") {
         audioElement = "right";
-        movementSoundTrigger("/audio/thump.mp3", 300);
+        movementSoundTrigger(`${baseAudioUrl}/audio/thump.mp3`, 300);
       }
       isGrounded = true;
       if (showRuleBookFlag) {
@@ -576,7 +576,7 @@ const ExploreGame = () => {
       // Standing on the central platform
       if (audioElement !== "middle") {
         audioElement = "middle";
-        movementSoundTrigger("/audio/thump.mp3", 300);
+        movementSoundTrigger(`${baseAudioUrl}/audio/thump.mp3`, 300);
       }
       isGrounded = true;
       if (showAboutFlag) {
@@ -606,7 +606,7 @@ const ExploreGame = () => {
       velocity.current.y = 0;
 
       /* ######### EASTER EGG GOES HERE ######### */
-      movementSoundTrigger("/audio/thud.mp3", 300);
+      movementSoundTrigger(`${baseAudioUrl}/audio/thud.mp3`, 300);
       handleAddXp();
       //replace with xp sound
       return;
@@ -749,7 +749,7 @@ const ExploreGame = () => {
       <ExploreNav />
       <AudioPlayer
         mainThemeAudioRef={mainThemeAudioRef}
-        mainTheme="/audio/Level1MainTheme.mp3"
+        mainTheme={`${baseAudioUrl}/audio/Level1MainTheme.mp3`}
         isMuted={isMuted}
         setIsMuted={setIsMuted}
       ></AudioPlayer>

@@ -12,6 +12,7 @@ import * as THREE from "three";
 import { GLTF } from "three-stdlib";
 import ProniteAnnotation from "./proniteAnnotation";
 import Timer from "./timer";
+import { baseAudioUrl } from "@/src/utils/url";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -127,7 +128,9 @@ const Scene2: React.FC<Scene2Props> = ({
 
   const playSecondAudio = () => {
     if (!isMuted) {
-      netherSound.current = new Audio("/audio/level3/nether.mp3");
+      netherSound.current = new Audio(
+        `${baseAudioUrl}/audio/level3/nether.mp3`
+      );
       netherSound.current.volume = 0.5;
       netherSound.current.play();
       playedSecondAudioRef.current = true;

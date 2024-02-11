@@ -6,7 +6,7 @@ import { IoMdClose } from "react-icons/io";
 import HTMLFlipBook from "react-pageflip";
 import useStore from "../store/store";
 import styles from "./bookModal.module.css";
-import { baseImageUrl } from "@/src/utils/url";
+import { baseAudioUrl, baseImageUrl } from "@/src/utils/url";
 import { VikingHell } from "@/src/pages/_app";
 interface BookModalType {
   isMuted: boolean;
@@ -31,7 +31,7 @@ const BookModal: React.FC<BookModalType> = ({ isMuted, mainThemeAudioRef }) => {
   const sponsorFlag = useStore((state) => state.sponsor);
 
   useEffect(() => {
-    const audio = new Audio("/audio/level2/pirates.mp3");
+    const audio = new Audio(`${baseAudioUrl}/audio/level2/pirates.mp3`);
     audio.volume = 0.3;
     let mainRef = mainThemeAudioRef;
     if (isMuted) {

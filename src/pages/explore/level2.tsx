@@ -20,6 +20,7 @@ import studio from "@theatre/studio";
 import dynamic from "next/dynamic";
 import scene1 from "../../../public/assets/3d/state4.json";
 import AudioPlayer from "@/src/components/explore/AudioPlayer";
+import { baseAudioUrl } from "@/src/utils/url";
 
 const Scene1 = dynamic(() => import("@/src/components/scene1"), {
   ssr: false,
@@ -64,7 +65,7 @@ const App = () => {
     <div className="w-full h-screen">
       <AudioPlayer
         mainThemeAudioRef={mainThemeAudioRef}
-        mainTheme="/audio/level2/main.mp3"
+        mainTheme={`${baseAudioUrl}/audio/level2/main.mp3`}
         isMuted={isMuted}
         setIsMuted={setIsMuted}
       ></AudioPlayer>

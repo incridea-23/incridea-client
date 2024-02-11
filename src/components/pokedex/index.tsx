@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
 import useStore from "../store/store";
-import { baseImageUrl } from "@/src/utils/url";
+import { baseAudioUrl, baseImageUrl } from "@/src/utils/url";
 
 interface DexProps {
   data?: Array<{ id: string; name: string; image: string }>;
@@ -65,7 +65,7 @@ const Pokedex: React.FC<DexProps> = ({
   };
 
   useEffect(() => {
-    const audio = new Audio("/audio/level2/pokemon.mp3");
+    const audio = new Audio(`${baseAudioUrl}/audio/level2/pokemon.mp3`);
     audio.volume = 0.3;
     let mainRef = mainThemeAudioRef;
     if (isMuted) {

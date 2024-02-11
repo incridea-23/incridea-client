@@ -1,6 +1,7 @@
 import AudioPlayer from "@/src/components/explore/AudioPlayer";
 import ExploreNav from "@/src/components/explore/exploreNav";
 import Scene2 from "@/src/components/scene2";
+import { baseAudioUrl } from "@/src/utils/url";
 import { ScrollControls, useScroll } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
@@ -16,7 +17,7 @@ export default function Level3() {
     <div className="w-full h-screen overflow-y-scroll">
       <AudioPlayer
         mainThemeAudioRef={mainThemeAudioRef}
-        mainTheme="/audio/level3/main.mp3"
+        mainTheme={`${baseAudioUrl}/audio/level3/main.mp3`}
         isMuted={muted}
         setIsMuted={setIsMuted}
       />

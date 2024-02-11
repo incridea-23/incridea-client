@@ -8,7 +8,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Dhvani from "@/src/components/pronites/dhvani";
 import Nakash from "@/src/components/pronites/nakash";
-import { baseImageUrl } from "@/src/utils/url";
+import { baseImageUrl, baseAudioUrl } from "@/src/utils/url";
 import Loader from "@/src/components/pronite/loader";
 import { useProgress } from "@react-three/drei";
 import Info from "@/src/components/pronites/info";
@@ -18,13 +18,13 @@ const artists = [
     name: "Dhvani Bhanushali",
     time: "23rd Feb @ 7PM",
     imageSrc: `${baseImageUrl}/assets/jpeg/DhvaniBhanushali.jpeg`,
-    audioSrc: "/assets/mp3/DhvaniBhanushali.mp3",
+    audioSrc: `${baseAudioUrl}/assets/mp3/DhvaniBhanushali.mp3`,
   },
   {
     name: "Nakash Aziz",
     time: "24th Feb @ 7PM",
     imageSrc: `${baseImageUrl}/assets/jpeg/Nakash.jpeg`,
-    audioSrc: "/assets/mp3/NakashAziz.mp3",
+    audioSrc: `${baseAudioUrl}/assets/mp3/NakashAziz.mp3`,
   },
 ];
 
@@ -163,7 +163,7 @@ export default function App() {
 function DhvaniText(props: { position: [x: number, y: number, z: number] }) {
   const [video] = useState(() =>
     Object.assign(document.createElement("video"), {
-      src: "/assets/mp4/dhvani.mp4",
+      src: `${baseAudioUrl}/assets/mp4/dhvani.mp4`,
       crossOrigin: "Anonymous",
       loop: true,
       muted: true,
@@ -207,7 +207,7 @@ function DhvaniText(props: { position: [x: number, y: number, z: number] }) {
 function NakashText(props: { position: [x: number, y: number, z: number] }) {
   const [video] = useState(() =>
     Object.assign(document.createElement("video"), {
-      src: "/assets/mp4/nakash.mp4",
+      src: `${baseAudioUrl}/assets/mp4/nakash.mp4`,
       crossOrigin: "Anonymous",
       loop: true,
       muted: true,
@@ -251,8 +251,8 @@ function NakashText(props: { position: [x: number, y: number, z: number] }) {
 
 function Ground() {
   const [floor, normal] = useTexture([
-    "/assets/pronite/SurfaceImperfections003_1K_var1.jpg",
-    "/assets/pronite/SurfaceImperfections003_1K_Normal.jpg",
+    `${baseImageUrl}/assets/pronite/SurfaceImperfections003_1K_var1.jpg`,
+    `${baseImageUrl}/assets/pronite/SurfaceImperfections003_1K_Normal.jpg`,
   ]);
   return (
     <mesh rotation={[-Math.PI / 2, 0, Math.PI / 2]}>
