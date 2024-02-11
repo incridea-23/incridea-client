@@ -83,7 +83,7 @@ const LeaderBoard: NextPage = () => {
         }
         return b.levelPoints - a.levelPoints;
       });
-      // Limit to the top 100 entries
+      // Limit to the top 15 entries
       const top15Users = userTotalPointsArray.slice(0, 15);
       setSortedLeaderboard(top15Users);
     }
