@@ -270,4 +270,14 @@ const TeamMembers = [
     quote: "Should have taken arts",
     avatar: "",
   },
+  {
+    name: "Vasoon R Rai",
+    role: "Frontend",
+    instagram: "https://www.instagram.com/_rai_vasoon_20?igsh=MXNnNWxhOWEwbnplbA%3D%3D&utm_source=qr",
+    github: "https://www.youtube.com/watch?v=wh9QLjk3M2k&t=380s",
+    linkedin: "https://www.linkedin.com/in/sourav-bangera-278a45227/",
+    image: "",
+    quote: "Designers shooting for usable is like a chef shooting for edible.",
+    avatar: "",
+  }
 ];

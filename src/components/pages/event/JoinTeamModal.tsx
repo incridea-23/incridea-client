@@ -76,7 +76,7 @@ const JoinTeamModal = () => {
               onChange={(e) => setTeamId(e.target.value)}
               name="teamName"
               id="teamName"
-              placeholder="T23-10902"
+              placeholder="T24-10902"
               required
               className="w-full bg-primary-600 px-2 py-1 focus:outline-none focus:ring ring-primary-200/40 rounded-full"
             />
