@@ -314,7 +314,7 @@ const Quiz = ({ id }: { id: string }) => {
   return (
     <Dashboard>
       <input
-        className="text-xl font-medium mt-4 w-60 rounded-2xl bg-gray-900/80 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-30 outline-none p-3 px-4"
+        className="text-xl font-medium mt-4 w-60 rounded-2xl bg-gray-900/70 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-30 outline-none p-3 px-4"
         placeholder="Enter quiz title"
         defaultValue={
           QuizData?.getQuizByEvent.__typename === "QueryGetQuizByEventSuccess"
@@ -327,7 +327,7 @@ const Quiz = ({ id }: { id: string }) => {
           return (
             <div key={index} className="flex flex-col px-4">
               <div className="flex flex-col md:flex-row py-4 gap-4">
-                <div className="flex flex-col items-start rounded-3xl bg-gray-900/60 w-full h-full md:p-4 px-8">
+                <div className="flex flex-col items-start rounded-3xl bg-gray-900/40 w-full h-full md:p-4 px-8">
                   <h1 className="text-xl font-medium mt-6 font-gilroy ">
                     Enter the Question
                   </h1>
@@ -337,7 +337,7 @@ const Quiz = ({ id }: { id: string }) => {
                       <input
                         placeholder="enter the question..."
                         defaultValue={question.question}
-                        className="w-full h-20 rounded-3xl px-4 bg-slate-600 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
+                        className="w-full h-20 rounded-3xl px-4 bg-slate-600/20 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
                         type="text"
                         onChange={(e) =>
                           setQuestion((prev) => {
@@ -354,7 +354,7 @@ const Quiz = ({ id }: { id: string }) => {
                     <div className="flex flex-row items-center gap-8">
                       <input
                         defaultValue={0}
-                        className=" h-12 w-12 text-center rounded-3xl bg-slate-600 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
+                        className=" h-12 w-12 text-center rounded-3xl bg-slate-600/20 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
                         type="text"
                         onChange={(e) =>
                           setQuestion((prev) => {
@@ -376,7 +376,7 @@ const Quiz = ({ id }: { id: string }) => {
                       </label>
                       <input
                         defaultValue={0}
-                        className="h-12 text-center w-12 rounded-3xl px-2 bg-slate-600 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
+                        className="h-12 text-center w-12 rounded-3xl px-2 bg-slate-600/20 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
                         type="text"
                         onChange={(e) =>
                           setQuestion((prev) => {
@@ -494,7 +494,7 @@ const Quiz = ({ id }: { id: string }) => {
                     </Button>
                   </div>
                 </div>
-                <div className="flex flex-row  md:flex-col justify-around items-center p-4 rounded-2xl bg-gray-900/60">
+                <div className="flex flex-row  md:flex-col justify-around items-center p-4 rounded-2xl bg-gray-900/40">
                   <CiCirclePlus
                     onClick={addQuestion}
                     className="text-3xl hover:bg-slate-800 hover:rounded-lg"
