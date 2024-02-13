@@ -312,7 +312,7 @@ const Quiz = ({ id }: { id: string }) => {
   };
 
   return (
-    <Dashboard>
+    <div className="min-h-screen overflow-x-hidden overflow-y-auto bg-gradient-to-b from-primary-600 to-primary-500 text-gray-100  pt-24 sm:p-10 sm:pt-20 bodyFont px-4">
       <input
         className="text-xl font-medium mt-4 w-60 rounded-2xl bg-gray-900/70 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-30 outline-none p-3 px-4"
         placeholder="Enter quiz title"
@@ -327,7 +327,7 @@ const Quiz = ({ id }: { id: string }) => {
           return (
             <div key={index} className="flex flex-col px-4">
               <div className="flex flex-col md:flex-row py-4 gap-4">
-                <div className="flex flex-col items-start rounded-3xl bg-gray-900/40 w-full h-full md:p-4 px-8">
+                <div className="flex flex-col items-start border border-primary-200/70 rounded-3xl bg-primary-700  w-full h-full md:p-4 px-8">
                   <h1 className="text-xl font-medium mt-6 font-gilroy ">
                     Enter the Question
                   </h1>
@@ -494,7 +494,7 @@ const Quiz = ({ id }: { id: string }) => {
                     </Button>
                   </div>
                 </div>
-                <div className="flex flex-row  md:flex-col justify-around items-center p-4 rounded-2xl bg-gray-900/40">
+                <div className="flex flex-row  md:flex-col justify-around items-center p-4 border border-primary-200/70 rounded-3xl bg-primary-700">
                   <CiCirclePlus
                     onClick={addQuestion}
                     className="text-3xl hover:bg-slate-800 hover:rounded-lg"
@@ -515,7 +515,7 @@ const Quiz = ({ id }: { id: string }) => {
       <div onClick={addQuestion} className="cursor-pointer">
         <CiCirclePlus className="text-2xl hover:bg-slate-800 hover:rounded-lg" />
       </div>
-    </Dashboard>
+    </div>
   );
 };
 
