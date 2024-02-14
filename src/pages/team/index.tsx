@@ -134,7 +134,7 @@ const TeamMembers = [
     avatar: "",
   },
   {
-    name: "Keethan NS",
+    name: "Keerthan NS",
     role: "Full Stack",
     instagram: "https://www.instagram.com/keerthan_ns",
     github: "https://github.com/keerthan-ns",
@@ -276,7 +276,7 @@ const TeamMembers = [
     instagram: "https://www.instagram.com/_rai_vasoon_20?igsh=MXNnNWxhOWEwbnplbA%3D%3D&utm_source=qr",
     github: "https://www.youtube.com/watch?v=wh9QLjk3M2k&t=380s",
     linkedin: "https://www.linkedin.com/in/sourav-bangera-278a45227/",
-    image: "",
+    image: "/team/vasoon_ltxcjr.jpg",
     quote: "Designers shooting for usable is like a chef shooting for edible.",
     avatar: "",
   }
