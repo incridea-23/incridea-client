@@ -45,7 +45,8 @@ function RoundsTab({
               {/* search bar  */}
               <div className="flex mb-4 z-10 bg-gray-900 p-3 sticky top-0 flex-col-reverse md:flex-row gap-2">
               
-          <CreateQuizModal rounds={rounds} eventId={eventId} eventType={eventType} />
+          <CreateQuizModal roundNo={event.roundNo.toString()} eventId={event.eventId}  />
+                  
             
           
         

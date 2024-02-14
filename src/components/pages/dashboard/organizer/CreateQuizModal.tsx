@@ -1,20 +1,25 @@
-import { FC, useRef, useState } from "react";
+import { FC, FormEventHandler, useRef, useState } from "react";
 import { EventByOrganizerQuery } from "@/src/generated/generated";
 import { CreateQuizDocument } from "@/src/generated/generated";
 import Button from "@/src/components/button";
 import { MdQuiz } from "react-icons/md";
 import Modal from "@/src/components/modal";
+import useWindowSize from "@/src/hooks/useWindowSize";
+import { useMutation } from "@apollo/client";
+import event from "@/src/pages/event/[slug]";
+import createToast from "@/src/components/toast";
 
 const CreateQuizModal: FC<{
-        rounds: EventByOrganizerQuery["eventByOrganizer"][0]["rounds"],
+  roundNo: string,
         eventId: string,
-        eventType: string,
-}> = () => {
+        
+}> = ({roundNo,eventId}) => {
     const [showModal, setShowModal] = useState(false);
     const [quizName, setQuizName] = useState("");
     const [quizDescription, setQuizDescription] = useState("");
     const [quizPassword, setQuizPassword] = useState("");
     const [quizDuration, setQuizDuration] = useState("");
+    const windowSize=useWindowSize();
 
     const toISOStringWithTimezone = (date: Date) => {
         const tzOffset = -date.getTimezoneOffset();
@@ -53,7 +58,49 @@ const CreateQuizModal: FC<{
         endTime: new Date(2024, 2, 24, 22, 30).toString(),
         id: "",
       });
-    
+
+      const [createQuiz, {data:createQuizData}] = useMutation(CreateQuizDocument);
+
+      // const handleUpdate = () => {
+      //   let promise = createQuiz({
+      //     variables: {
+      //       eventId: eventId,
+      //       name: quizName,
+      //       description: quizDescription,
+      //       password: quizPassword,
+      //       duration: quizDuration,
+      //       startTime: quiz.startTime,
+      //       endTime: quiz.endTime,
+      //     },
+      //   }).then((res) => {
+      //     if (res.data?.createQuiz.__typename !== "MutationCreateQuizSuccess") {
+      //       if (res.data?.createQuiz.__typename !== undefined) {
+      //         createToast(
+      //           Promise.reject(res.data?.createQuiz.message),
+      //           res.data?.createQuiz.message
+      //         );
+      //       }
+      //       return Promise.reject("Error could update status");
+      //     }
+      //   });
+        // createToast(promise, "Updating Status...");
+
+        const handleQuiz = async (e:any) => {
+          e.preventDefault();
+          createQuiz({
+            variables:{
+              name: quizName,
+              description: quizDescription,
+              startTime: quiz.startTime,
+              endTime: quiz.endTime,
+             eventId:eventId,
+             roundId:roundNo,
+             password:quizPassword,
+            },
+          });
+          
+        };
+
   return (
     <>
       <Button onClick={()=>setShowModal(true)} intent="secondary" size={"small"} className="text-xs">
@@ -63,8 +110,8 @@ const CreateQuizModal: FC<{
 
       <Modal title={`Create Quiz`} showModal={showModal}
         onClose={handleCloseModal}
-        size={'md'}>
-                  <div className="flex flex-col items-center justify-center w-full mx-4 mb-4">
+        size={windowSize?.width && windowSize?.width<600?"medium":"md"}>
+                  <div className="flex flex-col items-center justify-center mx-4 mb-2">
                   <div className="flex flex-col items-center w-full mx-3">
                             <p className="m-2 w-full">Quiz Name</p>
                             <input
@@ -169,7 +216,7 @@ const CreateQuizModal: FC<{
                 }
               />
             </div>
-            <Button size={"small"} className="mt-2 self-center" >Create Quiz</Button>
+            <Button size={"small"} className="mt-2 self-center" onClick={(e)=>handleQuiz(e)}>Create Quiz</Button>
                   </div>
                   </Modal>
     </>
