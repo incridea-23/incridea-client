@@ -1,19 +1,19 @@
-import Dashboard from '@/src/components/layout/dashboard';
-import Criterias from '@/src/components/pages/dashboard/judge/Criterias';
-import SelectedTeamList from '@/src/components/pages/dashboard/judge/SelectedTeamList';
-import TeamList from '@/src/components/pages/dashboard/judge/TeamList';
-import Spinner from '@/src/components/spinner';
+import Dashboard from "@/src/components/layout/dashboard";
+import Criterias from "@/src/components/pages/dashboard/judge/Criterias";
+import SelectedTeamList from "@/src/components/pages/dashboard/judge/SelectedTeamList";
+import TeamList from "@/src/components/pages/dashboard/judge/TeamList";
+import Spinner from "@/src/components/spinner";
 import {
   JudgeGetTeamsByRoundDocument,
   RoundByJudgeDocument,
   WinnersByEventDocument,
-} from '@/src/generated/generated';
-import { useAuth } from '@/src/hooks/useAuth';
-import { useQuery, useSubscription } from '@apollo/client';
-import { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-import { Toaster } from 'react-hot-toast';
+} from "@/src/generated/generated";
+import { useAuth } from "@/src/hooks/useAuth";
+import { useQuery, useSubscription } from "@apollo/client";
+import { NextPage } from "next";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
+import { Toaster } from "react-hot-toast";
 
 type Props = {};
 
@@ -22,19 +22,16 @@ const Judge: NextPage = (props: Props) => {
   const { user, loading } = useAuth();
   const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
   const [selectionMode, setSelectionMode] = useState<boolean>(false);
-  const {
-    data,
-    loading: EventLoading,
-  } = useQuery(RoundByJudgeDocument, {
+  const { data, loading: EventLoading } = useQuery(RoundByJudgeDocument, {
     skip: !user || loading,
   });
 
   const roundNo =
-    data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess'
+    data?.roundByJudge.__typename === "QueryRoundByJudgeSuccess"
       ? data.roundByJudge.data.roundNo
       : null;
   const eventId =
-    data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess'
+    data?.roundByJudge.__typename === "QueryRoundByJudgeSuccess"
       ? data.roundByJudge.data.eventId
       : null;
 
@@ -48,7 +45,7 @@ const Judge: NextPage = (props: Props) => {
       skip:
         !user ||
         loading ||
-        !(data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess'),
+        !(data?.roundByJudge.__typename === "QueryRoundByJudgeSuccess"),
     }
   );
 
@@ -61,7 +58,7 @@ const Judge: NextPage = (props: Props) => {
       skip:
         !eventId ||
         !(
-          data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess' &&
+          data?.roundByJudge.__typename === "QueryRoundByJudgeSuccess" &&
           data?.roundByJudge.data.roundNo ===
             data.roundByJudge.data.event.rounds.length
         ),
@@ -69,7 +66,7 @@ const Judge: NextPage = (props: Props) => {
   );
 
   const isCompleted =
-    (data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess' &&
+    (data?.roundByJudge.__typename === "QueryRoundByJudgeSuccess" &&
       data.roundByJudge.data.event.rounds.find(
         (round) => roundNo === round.roundNo
       )?.completed) ||
@@ -83,12 +80,12 @@ const Judge: NextPage = (props: Props) => {
     );
 
   if (!user) {
-    router.push('/login');
+    router.push("/login");
     return <div>Redirecting...</div>;
   }
 
-  if (user.role !== 'JUDGE') {
-    router.push('/profile');
+  if (user.role !== "JUDGE") {
+    router.push("/profile");
     return <div>Redirecting...</div>;
   }
 
@@ -96,16 +93,16 @@ const Judge: NextPage = (props: Props) => {
     <Dashboard>
       <Toaster />
       <div
-        className={isCompleted ? 'pointer-events-none opacity-30 relative' : ''}
+        className={isCompleted ? "pointer-events-none opacity-30 relative" : ""}
       >
         <div className="relative px-4 sm:px-10 py-4 flex flex-wrap justify-between items-center">
           <h1 className="text-2xl sm:text-3xl mb-3">
             Hello <span className="font-semibold">{user?.name}</span>!
           </h1>
           <h1 className="text-2xl sm:text-3xl mb-3">
-            {data?.roundByJudge.__typename === 'QueryRoundByJudgeSuccess' && (
+            {data?.roundByJudge.__typename === "QueryRoundByJudgeSuccess" && (
               <span>
-                Round {data.roundByJudge.data.roundNo} of{' '}
+                Round {data.roundByJudge.data.roundNo} of{" "}
                 {data.roundByJudge.data.event.name}
               </span>
             )}
@@ -125,7 +122,7 @@ const Judge: NextPage = (props: Props) => {
             ) : (
               <>
                 {data?.roundByJudge.__typename ===
-                  'QueryRoundByJudgeSuccess' && (
+                  "QueryRoundByJudgeSuccess" && (
                   <TeamList
                     data={TeamsData}
                     loading={TeamsLoading}
@@ -154,7 +151,7 @@ const Judge: NextPage = (props: Props) => {
                 {selectionMode ? (
                   <>
                     {data?.roundByJudge.__typename ===
-                      'QueryRoundByJudgeSuccess' &&
+                      "QueryRoundByJudgeSuccess" &&
                       TeamsData && (
                         <SelectedTeamList
                           eventId={data.roundByJudge.data.eventId}
@@ -173,7 +170,7 @@ const Judge: NextPage = (props: Props) => {
                 ) : selectedTeam ? (
                   <>
                     {data?.roundByJudge.__typename ===
-                      'QueryRoundByJudgeSuccess' && (
+                      "QueryRoundByJudgeSuccess" && (
                       <Criterias
                         selectedTeam={selectedTeam}
                         eventId={data?.roundByJudge.data.eventId}

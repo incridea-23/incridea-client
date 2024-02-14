@@ -15,6 +15,7 @@ import { HiOutlineMinusCircle, HiOutlineDuplicate } from "react-icons/hi";
 import { MdDeleteOutline } from "react-icons/md";
 import { ImRadioUnchecked } from "react-icons/im";
 import Button from "@/src/components/button";
+import createToast from "@/src/components/toast";
 const Quiz = ({ id }: { id: string }) => {
   const {
     data: QuizData,
@@ -25,6 +26,34 @@ const Quiz = ({ id }: { id: string }) => {
       eventId: 3,
     },
   });
+
+  const [uploading, setUploading] = useState(false);
+
+  const handleUpload = (file: File, type: "option" | "question") => {
+    const formData = new FormData();
+    formData.append("image", file);
+    const url = `https://incridea-pai3.onrender.com/${type}/image/upload`;
+    setUploading(true);
+    const promise = fetch(url, {
+      method: "POST",
+      body: formData,
+      mode: "cors",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setOption((prevValue) => {
+          if (prevValue) return { ...prevValue, value: res.url };
+        });
+        setUploading(false);
+      })
+      .catch((err) => {
+        setUploading(false);
+      });
+    createToast(promise, "Uploading image...");
+  };
 
   type questionsType = {
     __typename?: "Question" | undefined;
@@ -42,7 +71,17 @@ const Quiz = ({ id }: { id: string }) => {
     }[];
   }[];
 
-  const [Questions, setQuestions] = useState<questionsType>([]);
+  const [Questions, setQuestions] = useState<questionsType>([
+    {
+      id: "",
+      image: "",
+      negativePoint: 0,
+      point: 0,
+      question: "",
+      questionType: "",
+      options: [],
+    },
+  ]);
   const [Loading, setLoading] = useState(false);
 
   const [Question, setQuestion] = useState<{
@@ -512,9 +551,6 @@ const Quiz = ({ id }: { id: string }) => {
             </div>
           );
         })}
-      <div onClick={addQuestion} className="cursor-pointer">
-        <CiCirclePlus className="text-2xl hover:bg-slate-800 hover:rounded-lg" />
-      </div>
     </div>
   );
 };
