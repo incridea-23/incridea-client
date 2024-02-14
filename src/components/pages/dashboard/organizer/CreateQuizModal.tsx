@@ -1,18 +1,17 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { FC, Fragment, useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
 import { EventByOrganizerQuery } from "@/src/generated/generated";
-import { IoClose } from "react-icons/io5";
-import RoundsSidebar from "./RoundsSidebar";
+import { CreateQuizDocument } from "@/src/generated/generated";
 import Button from "@/src/components/button";
-import { AiFillSetting } from "react-icons/ai";
 import { MdQuiz } from "react-icons/md";
+import Modal from "@/src/components/modal";
 
 const CreateQuizModal: FC<{
         rounds: EventByOrganizerQuery["eventByOrganizer"][0]["rounds"],
         eventId: string,
         eventType: string,
 }> = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [quizName, setQuizName] = useState("");
 
     const toISOStringWithTimezone = (date: Date) => {
         const tzOffset = -date.getTimezoneOffset();
@@ -38,13 +37,9 @@ const CreateQuizModal: FC<{
     
       const checkOutTimeRef = useRef<HTMLInputElement>(null);
 
-    const closeModal = () => {
-        setIsOpen(false);
-    };
-
-    const openModal = () => {
-        setIsOpen(true);
-    };
+      const handleCloseModal = () => {
+        setShowModal(false);
+      };
 
     const [quiz, setQuiz] = useState({
         hotelId: 1,
@@ -56,84 +51,53 @@ const CreateQuizModal: FC<{
     
   return (
     <>
-      <Button onClick={openModal} intent="secondary" size={"small"} className="text-xs">
+      <Button onClick={()=>setShowModal(true)} intent="secondary" size={"small"} className="text-xs">
         <MdQuiz className="text-lg" />
         Create Quiz
       </Button>
 
-      <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0">
-            <div className="fixed inset-0 bg-black/25 backdrop-blur-sm" />
-          </Transition.Child>
-
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95">
-                <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-gray-700/70 text-gray-100 backdrop-blur-xl text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title
-                    as="div"
-                    className="flex justify-between items-center md:p-6 p-5">
-                    <h3 className="text-lg font-medium leading-6 text-white">
-                       Create Quiz
-                    </h3>
-                    <button
-                      className="hover:text-white text-gray-400 transition-colors"
-                      onClick={closeModal}>
-                      <IoClose size="1.4rem" />
-                    </button>
-                  </Dialog.Title>
-                  <div className="flex flex-col items-start w-full mx-4 mb-12">
-                  <div className="flex flex-col items-start w-full mx-3">
-                            <p className="m-2">Quiz Name</p>
+      <Modal title={`Create Quiz`} showModal={showModal}
+        onClose={handleCloseModal}
+        size={'md'}>
+                  <div className="flex flex-col items-center justify-center w-full mx-4 mb-4">
+                  <div className="flex flex-col items-center w-full mx-3">
+                            <p className="m-2 w-full">Quiz Name</p>
                             <input
                                 type="text" 
                                 id="name" 
                                 className=" border text-sm rounded-lg  block w-11/12 p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500" 
                                 placeholder="Quiz name..." 
                                
-                                value=""
+                                onChange={(e) => {
+                                  setQuizName(e.target.value);
+                                }}
+                                value={quizName}
                                 required
                             />
                         </div>  
-                        <div className="flex flex-col items-start w-full mx-3">
-                            <p className="m-2">Quiz Description</p>
+                        <div className="flex flex-col items-center w-full mx-3">
+                            <p className="m-2 w-full">Quiz Description</p>
                             <input
                                 type="text" 
                                 id="name" 
                                 className=" border text-sm rounded-lg   block w-11/12 p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500" 
                                 placeholder="Quiz description..." 
-                                value=""
-                                required
+                               
                             />
                         </div>  
-                        <div className="flex flex-col items-start w-full mx-3">
-                            <p className="m-2">Create Password</p>
+                        <div className="flex flex-col items-center w-full mx-3">
+                            <p className="m-2 w-full">Create Password</p>
                             <input
                                 type="password" 
                                 id="name" 
                                 className=" border text-sm rounded-lg   block w-11/12 p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500" 
-                                placeholder="enter the password..." 
+                                placeholder="Enter the password..." 
                                 value=""
                                 required
                             />
                         </div> 
-                        <div className="flex flex-col items-start w-full mx-3">
-                            <p className="m-2">Quiz Duration</p>
+                        <div className="flex flex-col items-center w-full mx-3">
+                            <p className="m-2 w-full">Quiz Duration</p>
                             <input
                                 type="text" 
                                 id="name" 
@@ -143,15 +107,15 @@ const CreateQuizModal: FC<{
                                 required
                             />
                         </div> 
-                        <div className="flex flex-col items-start w-full mx-3">
-              <p  className="m-2">
-                From Date
+                        <div className="flex flex-col items-center w-full mx-3">
+              <p  className="m-2 w-full">
+                Start Date-Time
               </p>
               <input
                 required
                 type="datetime-local"
                 id="checkInTime"
-                className="w-full mt-1 p-1 bg-inherit border-b border-gray-400 dark:[color-scheme:dark]"
+                className=" border text-sm rounded-lg   block w-11/12 p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
                 value={toISOStringWithTimezone(
                   new Date(quiz.checkInTime)
                 ).slice(0, 16)}
@@ -167,16 +131,16 @@ const CreateQuizModal: FC<{
                 }}
               />
             </div>
-            <div className="flex flex-col items-start w-full mx-3">
-              <p  className="m-2">
-                To Date
+            <div className="flex flex-col items-center w-full mx-3">
+              <p  className="m-2 w-full">
+              End Date-Time
               </p>
               <input
                 ref={checkOutTimeRef}
                 required
                 type="datetime-local"
                 id="checkOutTime"
-                className="w-full mt-1 p-1 bg-inherit border-b border-gray-400 dark:[color-scheme:dark]"
+                className=" border text-sm rounded-lg   block w-11/12 p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
                 value={toISOStringWithTimezone(
                   new Date(quiz.checkOutTime)
                 ).slice(0, 16)}
@@ -190,13 +154,9 @@ const CreateQuizModal: FC<{
                 }
               />
             </div>
+            <Button size={"small"} className="mt-2 self-center" >Create Quiz</Button>
                   </div>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition>
+                  </Modal>
     </>
   );
 };
