@@ -12,6 +12,9 @@ const CreateQuizModal: FC<{
 }> = () => {
     const [showModal, setShowModal] = useState(false);
     const [quizName, setQuizName] = useState("");
+    const [quizDescription, setQuizDescription] = useState("");
+    const [quizPassword, setQuizPassword] = useState("");
+    const [quizDuration, setQuizDuration] = useState("");
 
     const toISOStringWithTimezone = (date: Date) => {
         const tzOffset = -date.getTimezoneOffset();
@@ -35,17 +38,19 @@ const CreateQuizModal: FC<{
         );
       };
     
-      const checkOutTimeRef = useRef<HTMLInputElement>(null);
+      const endTimeRef = useRef<HTMLInputElement>(null);
 
       const handleCloseModal = () => {
         setShowModal(false);
       };
 
     const [quiz, setQuiz] = useState({
-        hotelId: 1,
-        gender: "",
-        checkInTime: new Date(2024, 2, 22, 9, 30).toString(),
-        checkOutTime: new Date(2024, 2, 24, 22, 30).toString(),
+        name: "",
+        description: "",
+        password: "",
+        duration: "",
+        startTime: new Date(2024, 2, 22, 9, 30).toString(),
+        endTime: new Date(2024, 2, 24, 22, 30).toString(),
         id: "",
       });
     
@@ -82,7 +87,11 @@ const CreateQuizModal: FC<{
                                 id="name" 
                                 className=" border text-sm rounded-lg   block w-11/12 p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500" 
                                 placeholder="Quiz description..." 
-                               
+                                onChange={(e) => {
+                                  setQuizDescription(e.target.value);
+                                }}
+                                value={quizDescription}
+                                
                             />
                         </div>  
                         <div className="flex flex-col items-center w-full mx-3">
@@ -92,7 +101,10 @@ const CreateQuizModal: FC<{
                                 id="name" 
                                 className=" border text-sm rounded-lg   block w-11/12 p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500" 
                                 placeholder="Enter the password..." 
-                                value=""
+                                value={quizPassword}
+                                onChange={(e) => {
+                                  setQuizPassword(e.target.value);
+                                }}
                                 required
                             />
                         </div> 
@@ -103,7 +115,10 @@ const CreateQuizModal: FC<{
                                 id="name" 
                                 className=" border text-sm rounded-lg   block w-11/12 p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500" 
                                 placeholder="Quiz duration..." 
-                                value=""
+                                value={quizDuration}
+                                onChange={(e) => {
+                                  setQuizDuration(e.target.value);
+                                }}
                                 required
                             />
                         </div> 
@@ -114,18 +129,18 @@ const CreateQuizModal: FC<{
               <input
                 required
                 type="datetime-local"
-                id="checkInTime"
+                id="startTime"
                 className=" border text-sm rounded-lg   block w-11/12 p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
                 value={toISOStringWithTimezone(
-                  new Date(quiz.checkInTime)
+                  new Date(quiz.startTime)
                 ).slice(0, 16)}
                 onChange={(e) => {
-                  if (checkOutTimeRef.current)
-                    checkOutTimeRef.current.min = e.target.value;
+                  if (endTimeRef.current)
+                  endTimeRef.current.min = e.target.value;
                   setQuiz((prevValue) => {
                     return {
                       ...prevValue,
-                      checkInTime: e.target.value.toString(),
+                      startTime: e.target.value.toString(),
                     };
                   });
                 }}
@@ -136,19 +151,19 @@ const CreateQuizModal: FC<{
               End Date-Time
               </p>
               <input
-                ref={checkOutTimeRef}
+                ref={endTimeRef}
                 required
                 type="datetime-local"
-                id="checkOutTime"
+                id="endTime"
                 className=" border text-sm rounded-lg   block w-11/12 p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
                 value={toISOStringWithTimezone(
-                  new Date(quiz.checkOutTime)
+                  new Date(quiz.endTime)
                 ).slice(0, 16)}
                 onChange={(e) =>
                   setQuiz((prevValue) => {
                     return {
                       ...prevValue,
-                      checkOutTime: e.target.value.toString(),
+                      endTime: e.target.value.toString(),
                     };
                   })
                 }
