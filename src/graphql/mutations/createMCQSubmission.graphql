@@ -1,5 +1,5 @@
 mutation CreateMCQSubmission(
-  $optionId: String!
+  $optionId: [String!]!
   $questionId: String!
   $teamId: String!
 ) {

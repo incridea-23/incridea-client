@@ -1,0 +1,15 @@
+subscription GetTimer($eventId: Int!) {
+  getTimer(eventId: $eventId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on SubscriptionGetTimerSuccess {
+      __typename
+      data {
+        quizId
+        remainingTime
+      }
+    }
+  }
+}

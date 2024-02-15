@@ -6,8 +6,10 @@ import {
   GetQuestionByIdDocument,
   GetQuestionIdsDocument,
   GetQuizByEventDocument,
+  GetTimerDocument,
 } from "@/src/generated/generated";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery, useSubscription } from "@apollo/client";
+import { m } from "framer-motion";
 import { use, useEffect, useRef, useState } from "react";
 
 export default function AttemptQuiz({
@@ -28,7 +30,7 @@ export default function AttemptQuiz({
   const [questionId, setQuestionId] = useState<string>("");
   const [fitbValue, setSetFitbValue] = useState<string>("");
   const [questionNo, setQuestionNo] = useState<number>(1);
-  const [optionId, setOptionId] = useState<string>("");
+  const [optionId, setOptionId] = useState<string[]>([]);
 
   useEffect(() => {
     setQuestionId(
@@ -61,6 +63,23 @@ export default function AttemptQuiz({
     },
   });
 
+  const { data: QuizTimeData, loading: LoadingQuizTimer } = useSubscription(
+    GetTimerDocument,
+    {
+      variables: {
+        eventId: id,
+      },
+    }
+  );
+
+  useEffect(() => {
+    setOptionId(
+      (McqSub?.getMCQSubmissionByTeamId.__typename ===
+        "QueryGetMCQSubmissionByTeamIdSuccess" &&
+        McqSub.getMCQSubmissionByTeamId.data.map((o) => o.OptionId)) ||
+        []
+    );
+  }, [McqSub]);
   const {
     data: FITBSub,
     loading: loadingFITBSub,
@@ -81,6 +100,12 @@ export default function AttemptQuiz({
       optionId: optionId,
       teamId,
     },
+    refetchQueries: [
+      {
+        query: GetMcqSubmissionByTeamIdDocument,
+        variables: { questionId: questionId, teamId: teamId },
+      },
+    ],
   });
 
   const [
@@ -92,17 +117,27 @@ export default function AttemptQuiz({
       value: fitbValue,
       teamId,
     },
+    refetchQueries: [GetFitbSubmissionByTeamIdDocument],
   });
 
-  const handleNext = (nextQue: number) => {
-    // handle next question
+  const handleNext = () => {
     if (
       question?.getQuestionById.__typename === "QueryGetQuestionByIdSuccess" &&
-      question.getQuestionById.data.questionType === "MCQ"
+      (question.getQuestionById.data.questionType === "MCQ" ||
+        question.getQuestionById.data.questionType === "MMCQ")
     )
       createOrUpdateMcqSubmission()
         .then((res) => {
-          if (nextQue === -1) document.getElementById("q" + nextQue)?.click();
+          if (
+            QuestionIds?.getQuizByEvent.__typename ===
+              "QueryGetQuizByEventSuccess" &&
+            QuestionIds.getQuizByEvent.data[0].questions
+          )
+            if (
+              questionNo < QuestionIds.getQuizByEvent.data[0]?.questions?.length
+            ) {
+              document.getElementById("q" + (questionNo + 1))?.click();
+            }
           //click next question
         })
         .catch((err) => {
@@ -115,7 +150,16 @@ export default function AttemptQuiz({
     )
       createOrUpdateFitbSubmission()
         .then((res) => {
-          if (nextQue === -1) document.getElementById("q" + nextQue)?.click();
+          if (
+            QuestionIds?.getQuizByEvent.__typename ===
+              "QueryGetQuizByEventSuccess" &&
+            QuestionIds.getQuizByEvent.data[0].questions
+          )
+            if (
+              questionNo < QuestionIds.getQuizByEvent.data[0]?.questions?.length
+            ) {
+              document.getElementById("q" + (questionNo + 1))?.click();
+            }
           //click next question
         })
         .catch((err) => {
@@ -126,103 +170,135 @@ export default function AttemptQuiz({
 
   return (
     <>
-      {question?.getQuestionById.__typename ===
-        "QueryGetQuestionByIdSuccess" && (
-        <div className="min-h-[50vh] max-h-[50vh] overflow-y-scroll self-center justify-between px-9 w-screen flex">
-          {/* question side */}
-          {(loadingIds ||
-            loadingQuestion ||
-            loadingMCQSub ||
-            loadingFITBSub) && <div>Loading...</div>}
-          <div className="border rounded min-w-[75%]">
-            <div>
-              <p>Question:</p>
-              <p>{question?.getQuestionById?.data?.question}</p>
+      {loadingIds || loadingQuestion || loadingMCQSub || loadingFITBSub ? (
+        <div>Loading...</div>
+      ) : (
+        question?.getQuestionById.__typename ===
+          "QueryGetQuestionByIdSuccess" && (
+          <div className="min-h-[50vh] max-h-[50vh] overflow-y-scroll self-center justify-between px-9 w-screen flex">
+            <h1>
+              {QuizTimeData?.getTimer?.__typename ===
+                "SubscriptionGetTimerSuccess" &&
+                QuizTimeData.getTimer.data.remainingTime}
+              mins
+            </h1>
+            {/* question side */}
+            <div className="border rounded min-w-[75%]">
               <div>
-                {question.getQuestionById.__typename ===
-                  "QueryGetQuestionByIdSuccess" &&
-                question.getQuestionById.data.questionType === "FITB" ? (
-                  <input
-                    type="text"
-                    onChange={(e) => setSetFitbValue(e.target.value)}
-                    defaultValue={
-                      FITBSub?.getFITBSubmissionByTeamId.__typename ===
-                      "QueryGetFITBSubmissionByTeamIdSuccess"
-                        ? FITBSub.getFITBSubmissionByTeamId.data.value
-                        : ""
-                    }
-                  />
-                ) : (
-                  question.getQuestionById.data.options.map((option) => (
-                    <div className="p-3 m-3 border rounded" key={option.id}>
-                      <input
-                        type={
-                          question.getQuestionById.__typename ===
-                            "QueryGetQuestionByIdSuccess" &&
-                          question.getQuestionById.data.questionType === "MCQ"
-                            ? "radio"
-                            : "checkbox"
-                        }
-                        onChange={(e) => {
-                          setOptionId(option.id);
-                        }}
-                        id={option.id}
-                        name={option.id}
-                        defaultChecked={
-                          McqSub?.getMCQSubmissionByTeamId.__typename ===
-                            "QueryGetMCQSubmissionByTeamIdSuccess" &&
-                          McqSub.getMCQSubmissionByTeamId.data.OptionId ===
-                            option.id
-                            ? true
-                            : false
-                        }
-                      />
-                      <label htmlFor={option.id}>{option.value}</label>
-                    </div>
-                  ))
-                )}
+                <p>Question:</p>
+                <p>{question?.getQuestionById?.data?.question}</p>
+                <div>
+                  {question.getQuestionById.__typename ===
+                    "QueryGetQuestionByIdSuccess" &&
+                  question.getQuestionById.data.questionType === "FITB" ? (
+                    <input
+                      type="text"
+                      onChange={(e) => setSetFitbValue(e.target.value)}
+                      defaultValue={
+                        FITBSub?.getFITBSubmissionByTeamId.__typename ===
+                        "QueryGetFITBSubmissionByTeamIdSuccess"
+                          ? FITBSub.getFITBSubmissionByTeamId.data.value
+                          : ""
+                      }
+                    />
+                  ) : question.getQuestionById.data.questionType === "MMCQ" ? (
+                    question.getQuestionById.data.options.map((option) => {
+                      return (
+                        <div className="p-3 m-3 border rounded" key={option.id}>
+                          <input
+                            type={"checkbox"}
+                            onChange={(e) => {
+                              if (e.target.checked)
+                                return setOptionId((prev) => {
+                                  return prev.includes(option.id)
+                                    ? prev
+                                    : [...prev, option.id];
+                                });
+                              setOptionId((prev) =>
+                                prev.filter((o) => o !== option.id)
+                              );
+                              console.log(e.target.checked, optionId);
+                            }}
+                            id={option.id}
+                            name={option.id}
+                            defaultChecked={
+                              McqSub?.getMCQSubmissionByTeamId.__typename ===
+                                "QueryGetMCQSubmissionByTeamIdSuccess" &&
+                              McqSub.getMCQSubmissionByTeamId.data.find(
+                                (o) => o.OptionId === option.id
+                              )
+                                ? true
+                                : false
+                            }
+                          />
+                          <label htmlFor={option.id}>{option.value}</label>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    question.getQuestionById.data.options.map((option) => {
+                      return (
+                        <div className="p-3 m-3 border rounded" key={option.id}>
+                          <input
+                            onChange={(e) => setOptionId([e.target.value])}
+                            type={"radio"}
+                            value={option.id}
+                            name={id + "MCQ"}
+                            defaultChecked={
+                              McqSub?.getMCQSubmissionByTeamId.__typename ===
+                                "QueryGetMCQSubmissionByTeamIdSuccess" &&
+                              McqSub.getMCQSubmissionByTeamId.data.findIndex(
+                                (o) => o.OptionId === option.id
+                              ) !== -1
+                                ? true
+                                : false
+                            }
+                          />
+                          <label htmlFor={option.id}>{option.value}</label>
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+                <button onClick={handleNext}>
+                  {QuestionIds?.getQuizByEvent.__typename ===
+                    "QueryGetQuizByEventSuccess" &&
+                  QuestionIds.getQuizByEvent.data[0].questions &&
+                  QuestionIds.getQuizByEvent.data[0]?.questions?.length >
+                    questionNo
+                    ? "Next"
+                    : "Submit"}
+                </button>
               </div>
-              <button onClick={() => handleNext(questionNo + 1)}>
-                {QuestionIds?.getQuizByEvent.__typename ===
-                  "QueryGetQuizByEventSuccess" &&
-                QuestionIds.getQuizByEvent.data[0].questions &&
-                QuestionIds.getQuizByEvent.data[0]?.questions?.length >
-                  questionNo
-                  ? "Next"
-                  : "Submit"}
-              </button>
             </div>
-          </div>
 
-          {/* question pallet */}
-          <div className="flex p-3 bg-blue-400 rounded max-w-[50%]">
-            {
-              // question pallet
-              QuestionIds?.getQuizByEvent.__typename ===
-                "QueryGetQuizByEventSuccess" &&
-                QuestionIds.getQuizByEvent.data[0].questions?.map(
-                  (question, index) => (
-                    <div
-                      id={"q" + (index + 1).toString()}
-                      key={question.id}
-                      onClick={() => {
-                        setQuestionId(question.id);
-                        setQuestionNo(index + 1);
-                      }}
-                    >
+            {/* question pallet */}
+            <div className="flex p-3 bg-blue-400 rounded max-w-[50%]">
+              {
+                // question pallet
+                QuestionIds?.getQuizByEvent.__typename ===
+                  "QueryGetQuizByEventSuccess" &&
+                  QuestionIds.getQuizByEvent.data[0].questions?.map(
+                    (question, index) => (
                       <button
+                        id={"q" + (index + 1).toString()}
+                        key={question.id}
+                        onClick={() => {
+                          setQuestionId(question.id);
+                          setQuestionNo(index + 1);
+                        }}
                         className={`p-2 bg-white rounded m-2 hover:bg-gray-200 hover:scale-105 ${
                           question.id === questionId && "bg-red-900"
                         } `}
                       >
                         {index + 1}
                       </button>
-                    </div>
+                    )
                   )
-                )
-            }
+              }
+            </div>
           </div>
-        </div>
+        )
       )}
     </>
   );
