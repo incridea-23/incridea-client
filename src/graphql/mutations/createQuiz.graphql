@@ -1,4 +1,4 @@
-mutation CreateQuiz($description: String!, $endTime: String!, $eventId: String!, $name: String!, $password: String!, $roundId: String!, $startTime: String!) {
+mutation CreateQuiz($description: String!, $endTime: String!, $eventId: Int!, $name: String!, $password: String!, $roundId: Int!, $startTime: String!) {
   createQuiz(
     description: $description
     endTime: $endTime

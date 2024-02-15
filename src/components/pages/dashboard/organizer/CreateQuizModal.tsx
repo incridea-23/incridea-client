@@ -10,8 +10,8 @@ import event from "@/src/pages/event/[slug]";
 import createToast from "@/src/components/toast";
 
 const CreateQuizModal: FC<{
-  roundNo: string,
-        eventId: string,
+  roundNo: number,
+        eventId: number,
         
 }> = ({roundNo,eventId}) => {
     const [showModal, setShowModal] = useState(false);
@@ -89,13 +89,13 @@ const CreateQuizModal: FC<{
           e.preventDefault();
           createQuiz({
             variables:{
-              name: quizName,
-              description: quizDescription,
-              startTime: quiz.startTime,
-              endTime: quiz.endTime,
-             eventId:eventId,
-             roundId:roundNo,
-             password:quizPassword,
+            name: quizName,
+            description: quizDescription,
+            startTime: quiz.startTime,
+            endTime: quiz.endTime,
+            eventId:eventId,
+            roundId:roundNo,
+            password:quizPassword,
             },
           });
           
