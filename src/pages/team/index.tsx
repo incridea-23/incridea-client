@@ -288,6 +288,6 @@ const TeamMembers = [
     linkedin: "https://www.linkedin.com/in/yuvraj-bhardawaj-3b12a6237",
     image: "",
     quote: "Radhe Radhe",
-    avatar: "",
+    avatar: "/team/yuvraj_k4q3vq.jpg",
   }
 ];
