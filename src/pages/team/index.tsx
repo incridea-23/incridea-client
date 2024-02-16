@@ -279,5 +279,15 @@ const TeamMembers = [
     image: "/team/vasoon_ltxcjr.jpg",
     quote: "Designers shooting for usable is like a chef shooting for edible.",
     avatar: "",
+  },
+  {
+    name: "Yuvraj Bhardawaj",
+    role: "Frontend",
+    instagram: "hhttps://www.youtube.com/watch?v=wh9QLjk3M2k&t=380s",
+    github: "https://github.com/YuvrajBhardawaj",
+    linkedin: "https://www.linkedin.com/in/yuvraj-bhardawaj-3b12a6237",
+    image: "",
+    quote: "Radhe Radhe",
+    avatar: "/team/yuvraj_k4q3vq.jpg",
   }
 ];

@@ -117,6 +117,13 @@ const ViewTeamModal: FC<{
 
                     <div className="flex flex-col gap-1">
                       <span className="text-gray-400 text-sm flex items-center gap-1">
+                        Name
+                      </span>
+                      {member.user.college?.name}
+                    </div>
+
+                    <div className="flex flex-col gap-1">
+                      <span className="text-gray-400 text-sm flex items-center gap-1">
                         Email
                         <MdOutlineMail />
                       </span>
