@@ -356,7 +356,7 @@ const Quiz = ({ id }: { id: string }) => {
         className="text-xl font-medium mt-4 w-60 rounded-2xl bg-gray-900/70 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-30 outline-none p-3 px-4"
         placeholder="Enter quiz title"
         defaultValue={
-          QuizData?.getQuizByEvent.__typename === "QueryGetQuizByEventSuccess"
+          QuizData?.getQuizByEvent?.__typename === "QueryGetQuizByEventSuccess"
             ? QuizData.getQuizByEvent.data[0].name
             : ""
         }

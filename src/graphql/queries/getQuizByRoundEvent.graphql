@@ -1,0 +1,19 @@
+query GetQuizByRoundEvent($eventId: Int = 10, $roundNo: Int = 10) {
+  getQuizByRoundEvent(eventId: $eventId, roundNo: $roundNo) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on QueryGetQuizByRoundEventSuccess {
+      __typename
+      data {
+        description
+        password
+        endTime
+        eventId
+        id
+        name
+      }
+    }
+  }
+}

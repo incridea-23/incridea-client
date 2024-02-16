@@ -1,13 +1,14 @@
 import { FC, FormEventHandler, useRef, useState } from "react";
-import { EventByOrganizerQuery } from "@/src/generated/generated";
+import { EventByOrganizerQuery, GetQuizByRoundEventDocument } from "@/src/generated/generated";
 import { CreateQuizDocument } from "@/src/generated/generated";
 import Button from "@/src/components/button";
 import { MdQuiz } from "react-icons/md";
 import Modal from "@/src/components/modal";
 import useWindowSize from "@/src/hooks/useWindowSize";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import event from "@/src/pages/event/[slug]";
 import createToast from "@/src/components/toast";
+import QuizControlPanel from "./QuizControlPanel";
 
 const CreateQuizModal: FC<{
   roundNo: number;
@@ -61,45 +62,62 @@ const CreateQuizModal: FC<{
   const [createQuiz, { data: createQuizData }] =
     useMutation(CreateQuizDocument);
 
-  // const handleUpdate = () => {
-  //   let promise = createQuiz({
-  //     variables: {
-  //       eventId: eventId,
-  //       name: quizName,
-  //       description: quizDescription,
-  //       password: quizPassword,
-  //       duration: quizDuration,
-  //       startTime: quiz.startTime,
-  //       endTime: quiz.endTime,
-  //     },
-  //   }).then((res) => {
-  //     if (res.data?.createQuiz.__typename !== "MutationCreateQuizSuccess") {
-  //       if (res.data?.createQuiz.__typename !== undefined) {
-  //         createToast(
-  //           Promise.reject(res.data?.createQuiz.message),
-  //           res.data?.createQuiz.message
-  //         );
-  //       }
-  //       return Promise.reject("Error could update status");
-  //     }
-  //   });
-  // createToast(promise, "Updating Status...");
+  const {data:quizData, loading:quizLoading, error:quizError} = useQuery(GetQuizByRoundEventDocument,{
+    variables: {
+      eventId: eventId,
+      roundNo: roundNo
+    }
+  })
 
-  const handleQuiz = async (e: any) => {
-    e.preventDefault();
-    createQuiz({
+  const handleQuiz = () => {
+    let promise = createQuiz({
       variables: {
         name: quizName,
-        description: quizDescription,
-        startTime: quiz.startTime,
-        endTime: quiz.endTime,
-        eventId: eventId.toString(),
-        roundId: roundNo.toString(),
-        password: quizPassword,
+              description: quizDescription,
+              startTime: quiz.startTime,
+              endTime: quiz.endTime,
+              eventId: eventId.toString(),
+              roundId: roundNo.toString(),
+              password: quizPassword,
       },
+    }).then((res) => {
+      if (res.data?.createQuiz.__typename !== "MutationCreateQuizSuccess") {
+        if (res.data?.createQuiz.__typename !== undefined) {
+          createToast(
+            Promise.reject(res.data?.createQuiz.message),
+            res.data?.createQuiz.message
+          );
+        }
+        return Promise.reject("Quiz creation failed");
+      }
     });
+  createToast(promise, "Creating quiz...");
   };
+  // const handleQuiz = async (e: any) => {
+  //   e.preventDefault();
+  //   createQuiz({
+  //     variables: {
+  //       name: quizName,
+  //       description: quizDescription,
+  //       startTime: quiz.startTime,
+  //       endTime: quiz.endTime,
+  //       eventId: eventId.toString(),
+  //       roundId: roundNo.toString(),
+  //       password: quizPassword,
+  //     },
+  //   });
+  //   createToast(Promise.resolve("Creating Quiz..."), "Creating Quiz...");
+  // };
 
+if(quizData?.getQuizByRoundEvent?.__typename === "QueryGetQuizByRoundEventSuccess" && quizData?.getQuizByRoundEvent.data){
+  return (
+    <QuizControlPanel
+      // quizId={Number(quizData.getQuizByRoundEvent.data[0].id)}
+      eventId={eventId}
+      roundNo={roundNo}
+    />
+  )
+}
   return (
     <>
       <Button
@@ -163,7 +181,7 @@ const CreateQuizModal: FC<{
           <div className="flex flex-col items-center w-full mx-3">
             <p className="m-2 w-full">Quiz Duration</p>
             <input
-              type="text"
+              type="number"
               id="name"
               className=" border text-sm rounded-lg   block w-11/12 p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
               placeholder="Quiz duration..."
@@ -221,7 +239,7 @@ const CreateQuizModal: FC<{
           <Button
             size={"small"}
             className="mt-2 self-center"
-            onClick={(e) => handleQuiz(e)}
+            onClick={() => handleQuiz()}
           >
             Create Quiz
           </Button>
