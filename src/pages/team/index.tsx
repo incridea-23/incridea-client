@@ -283,11 +283,11 @@ const TeamMembers = [
   {
     name: "Yuvraj Bhardawaj",
     role: "Frontend",
-    instagram: "hhttps://www.youtube.com/watch?v=wh9QLjk3M2k&t=380s",
+    instagram: "https://www.youtube.com/watch?v=wh9QLjk3M2k&t=380s",
     github: "https://github.com/YuvrajBhardawaj",
     linkedin: "https://www.linkedin.com/in/yuvraj-bhardawaj-3b12a6237",
-    image: "",
+    image: "/team/yuvraj_k4q3vq.jpg",
     quote: "Radhe Radhe",
-    avatar: "/team/yuvraj_k4q3vq.jpg",
+    avatar: "",
   }
 ];
