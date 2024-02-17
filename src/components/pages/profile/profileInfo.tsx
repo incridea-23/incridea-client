@@ -47,7 +47,7 @@ const ProfileInfo: FC<{
 
   const userXp = useQuery(GetUserXpDocument, {});
 
-  const techTeamPid = [11,15,2,1,10,9,509,59,4,8,13,16,291];
+  const techTeamPid = [11,15,2,1,10,9,509,59,4,8,13,16,291,74];
 
   useEffect(() => {
     if (
