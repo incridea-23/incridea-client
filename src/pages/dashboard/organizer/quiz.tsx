@@ -137,9 +137,23 @@ const Quiz = ({ id }: { id: string }) => {
   useEffect(() => {
     if (
       !LoadingQuizData &&
-      QuizData?.getQuizByEvent.__typename === "QueryGetQuizByEventSuccess"
+      QuizData?.getQuizByEvent.__typename === "QueryGetQuizByEventSuccess" &&
+      QuizData.getQuizByEvent.data[0].questions
     )
-      setQuestions(QuizData.getQuizByEvent.data[0].questions || []);
+      setQuestions(
+        (QuizData.getQuizByEvent.data[0].questions?.length > 0 &&
+          QuizData.getQuizByEvent.data[0].questions) || [
+          {
+            id: "",
+            image: "",
+            negativePoint: 0,
+            point: 0,
+            question: "",
+            questionType: "",
+            options: [],
+          },
+        ]
+      );
   }, [QuizData]);
 
   useEffect(() => {
@@ -357,7 +371,7 @@ const Quiz = ({ id }: { id: string }) => {
         placeholder="Enter quiz title"
         defaultValue={
           QuizData?.getQuizByEvent?.__typename === "QueryGetQuizByEventSuccess"
-            ? QuizData.getQuizByEvent.data[0].name
+            ? QuizData.getQuizByEvent.data[0].name?.toString()
             : ""
         }
       />

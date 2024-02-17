@@ -1,0 +1,15 @@
+mutation PauseOrResumeQuiz($action: String!, $eventId: Int!) {
+  pauseOrResumeQuiz(action: $action, eventId: $eventId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationPauseOrResumeQuizSuccess {
+      __typename
+      data {
+        quizId
+        remainingTime
+      }
+    }
+  }
+}

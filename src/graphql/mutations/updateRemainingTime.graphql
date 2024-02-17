@@ -1,0 +1,15 @@
+mutation UpdateRemainingTime($eventId: Int!, $incrementValue: Int!) {
+  addTime(eventId: $eventId, incrementValue: $incrementValue) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationAddTimeSuccess {
+      __typename
+      data {
+        quizId
+        remainingTime
+      }
+    }
+  }
+}

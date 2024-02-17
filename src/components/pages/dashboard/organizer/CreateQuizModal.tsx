@@ -1,5 +1,8 @@
 import { FC, FormEventHandler, useRef, useState } from "react";
-import { EventByOrganizerQuery, GetQuizByRoundEventDocument } from "@/src/generated/generated";
+import {
+  EventByOrganizerQuery,
+  GetQuizByRoundEventDocument,
+} from "@/src/generated/generated";
 import { CreateQuizDocument } from "@/src/generated/generated";
 import Button from "@/src/components/button";
 import { MdQuiz } from "react-icons/md";
@@ -59,29 +62,35 @@ const CreateQuizModal: FC<{
     id: "",
   });
 
-  const [createQuiz, { data: createQuizData }] =
-    useMutation(CreateQuizDocument,{
+  const [createQuiz, { data: createQuizData }] = useMutation(
+    CreateQuizDocument,
+    {
       refetchQueries: ["GetQuizByRoundEvent"],
       awaitRefetchQueries: true,
-    });
+    }
+  );
 
-  const {data:quizData, loading:quizLoading, error:quizError} = useQuery(GetQuizByRoundEventDocument,{
+  const {
+    data: quizData,
+    loading: quizLoading,
+    error: quizError,
+  } = useQuery(GetQuizByRoundEventDocument, {
     variables: {
       eventId: eventId,
-      roundNo: roundNo
-    }
-  })
+      roundNo: roundNo,
+    },
+  });
 
   const handleQuiz = () => {
     let promise = createQuiz({
       variables: {
         name: quizName,
-              description: quizDescription,
-              startTime: quiz.startTime,
-              endTime: quiz.endTime,
-              eventId: eventId.toString(),
-              roundId: roundNo.toString(),
-              password: quizPassword,
+        description: quizDescription,
+        startTime: quiz.startTime,
+        endTime: quiz.endTime,
+        eventId: eventId.toString(),
+        roundId: roundNo.toString(),
+        password: quizPassword,
       },
     }).then((res) => {
       if (res.data?.createQuiz.__typename !== "MutationCreateQuizSuccess") {
@@ -94,7 +103,7 @@ const CreateQuizModal: FC<{
         return Promise.reject("Quiz creation failed");
       }
     });
-  createToast(promise, "Creating quiz...");
+    createToast(promise, "Creating quiz...");
   };
   // const handleQuiz = async (e: any) => {
   //   e.preventDefault();
@@ -112,15 +121,19 @@ const CreateQuizModal: FC<{
   //   createToast(Promise.resolve("Creating Quiz..."), "Creating Quiz...");
   // };
 
-if(quizData?.getQuizByRoundEvent?.__typename === "QueryGetQuizByRoundEventSuccess" && quizData?.getQuizByRoundEvent.data[0]?.password){
-  return (
-    <QuizControlPanel
-      // quizId={Number(quizData.getQuizByRoundEvent.data[0].id)}
-      eventId={eventId}
-      roundNo={roundNo}
-    />
-  )
-}
+  if (
+    quizData?.getQuizByRoundEvent?.__typename ===
+      "QueryGetQuizByRoundEventSuccess" &&
+    quizData?.getQuizByRoundEvent.data[0]
+  ) {
+    return (
+      <QuizControlPanel
+        // quizId={Number(quizData.getQuizByRoundEvent.data[0].id)}
+        eventId={eventId}
+        roundNo={roundNo}
+      />
+    );
+  }
   return (
     <>
       <Button
