@@ -60,7 +60,10 @@ const CreateQuizModal: FC<{
   });
 
   const [createQuiz, { data: createQuizData }] =
-    useMutation(CreateQuizDocument);
+    useMutation(CreateQuizDocument,{
+      refetchQueries: ["GetQuizByRoundEvent"],
+      awaitRefetchQueries: true,
+    });
 
   const {data:quizData, loading:quizLoading, error:quizError} = useQuery(GetQuizByRoundEventDocument,{
     variables: {
@@ -109,7 +112,7 @@ const CreateQuizModal: FC<{
   //   createToast(Promise.resolve("Creating Quiz..."), "Creating Quiz...");
   // };
 
-if(quizData?.getQuizByRoundEvent?.__typename === "QueryGetQuizByRoundEventSuccess" && quizData?.getQuizByRoundEvent.data){
+if(quizData?.getQuizByRoundEvent?.__typename === "QueryGetQuizByRoundEventSuccess" && quizData?.getQuizByRoundEvent.data[0]?.password){
   return (
     <QuizControlPanel
       // quizId={Number(quizData.getQuizByRoundEvent.data[0].id)}

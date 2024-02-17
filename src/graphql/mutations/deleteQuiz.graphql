@@ -1,0 +1,8 @@
+mutation DeleteQuiz($quizId: String!) {
+  deleteQuiz(quizId: $quizId) {
+    ... on Error {
+      __typename
+      message
+    }
+  }
+}

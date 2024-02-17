@@ -1,0 +1,23 @@
+mutation UpdateQuizDuration($duration: Int!, $quizId: String!) {
+  updateQuizDuration(duration: $duration, quizId: $quizId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationUpdateQuizDurationSuccess {
+      __typename
+      data {
+        allowAttempts
+        description
+        duration
+        endTime
+        eventId
+        id
+        name
+        password
+        roundNo
+        startTime
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+mutation UpdateQuizStatus($password: String!, $quizId: String!, $allowAttempts: Boolean!) {
+  updateQuizStatus(
+    allowAttempts: $allowAttempts
+    password: $password
+    quizId: $quizId
+  ) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationUpdateQuizStatusSuccess {
+      __typename
+      data {
+        description
+        duration
+        allowAttempts
+        endTime
+        eventId
+        id
+        name
+        password
+        roundNo
+        startTime
+      }
+    }
+  }
+}
