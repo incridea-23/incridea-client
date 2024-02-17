@@ -9,6 +9,7 @@ query GetQuizByRoundEvent($eventId: Int = 10, $roundNo: Int = 10) {
       data {
         description
         password
+        duration
         endTime
         eventId
         id

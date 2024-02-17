@@ -26,6 +26,8 @@ const QuizControlPanel:FC<{
       roundNo: roundNo
       }
     })
+
+    
   
 
     const toISOStringWithTimezone = (date: Date) => {
@@ -71,9 +73,9 @@ const QuizControlPanel:FC<{
     size={windowSize?.width && windowSize?.width < 600 ? "medium" : "md"}
   >
     <div className="flex flex-col items-center justify-center mx-4 mb-2 py-2">
-      <div className="flex flex-col items-center justify-center gap-4">
+      <div className="flex flex-col items-center justify-center gap-4 py-4">
         <h1 className="text-2xl font-bold">Quiz Password</h1>
-          <div className="font-semibold w-full text-center py-2 rounded-3xl bg-slate-600/20 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none selection:select-all " onClick={()=>
+          <div className="font-bold w-full text-center py-1 rounded-lg bg-slate-600/20 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none select-all shadow-2xl drop-shadow-lg shadow-black" onClick={()=>
            navigator.clipboard.writeText(quizData?.getQuizByRoundEvent?.__typename=="QueryGetQuizByRoundEventSuccess"? quizData?.getQuizByRoundEvent?.data[0]?.password ?? "":"")
             .then(() => {
               toast.success(
@@ -88,14 +90,38 @@ const QuizControlPanel:FC<{
               )
             })
          }>{quizData?.getQuizByRoundEvent?.__typename=="QueryGetQuizByRoundEventSuccess"?quizData?.getQuizByRoundEvent?.data[0]?.password ?? "":""}</div>
-        <div></div>
+        
         </div>
-           <Button
-        size={"small"}
-        className="mt-2 self-center"
-      >
-        Update Quiz
-      </Button>
+        <hr className="w-full my-4 text-slate-600"/>
+        <div className="flex flex-col gap-4 justify-center items-center">
+        <h1 className="text-2xl font-bold text-center">Add Duration</h1>
+        <div className="flex flex-row gap-4 font-semibold">
+          <button className="border-2 border-slate-400 rounded-lg p-2 hover:bg-slate-800">+2</button>
+          <button className="border-2 border-slate-400 rounded-lg p-2 hover:bg-slate-800">+5</button>
+          <button className="border-2 border-slate-400 rounded-lg p-2 hover:bg-slate-800">+10</button>
+          <button className="border-2 border-slate-400 rounded-lg p-2 hover:bg-slate-800">+20</button>
+          <button className="border-2 border-slate-400 rounded-lg p-2 hover:bg-slate-800">+30</button>
+        </div>
+        <div className="flex flex-col justify-center items-center gap-4">
+        <h1 className="text-2xl font-bold text-center">Duration Left</h1>
+        <div className="font-bold w-20 text-center py-2 rounded-lg bg-slate-600/20 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none select-all shadow-2xl drop-shadow-lg shadow-black">{quizData?.getQuizByRoundEvent?.__typename=="QueryGetQuizByRoundEventSuccess"?quizData?.getQuizByRoundEvent?.data[0]?.duration ?? "":""}</div>
+        </div>
+        <hr className="w-full my-4 text-slate-600"/>
+        </div>
+        <div className="flex flex-col gap-4 py-4">
+        <h1 className="text-2xl font-bold text-center py-2">Edit Quiz</h1>
+         <div className="flex row gap-8">
+          <Button size={"small"}>Edit Quiz</Button> 
+          <Button size={"small"}>Delete Quiz</Button> 
+         </div>
+        </div>
+         <hr className="w-full my-2 text-slate-600"/>
+         <div className="flex flex-col justify-center items-center gap-4">
+         <h1 className="text-2xl font-bold text-center py-2">Start/Resume Quiz</h1>
+         <div className="flex row gap-8">
+          <Button size={"small"}>Start Quiz</Button> 
+         </div>
+         </div>
     </div>
   </Modal>
   </>
