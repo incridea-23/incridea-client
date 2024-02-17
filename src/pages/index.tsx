@@ -1,21 +1,21 @@
-import Image from "next/image";
-import { FC, useEffect, useLayoutEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import Button from "../components/button";
-import Link from "next/link";
-import { BsFillSuitHeartFill } from "react-icons/bs";
-import Parallax from "parallax-js";
-import Arcade from "../components/svg/arcade";
-import { VikingHell } from "./_app";
-import { NextRouter, useRouter } from "next/router";
-import { useAuth } from "../hooks/useAuth";
 import { useQuery } from "@apollo/client";
-import { GetUserXpDocument } from "../generated/generated";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import Image from "next/image";
+import Link from "next/link";
+import { NextRouter, useRouter } from "next/router";
+import Parallax from "parallax-js";
+import { FC, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { BsFillSuitHeartFill } from "react-icons/bs";
+import ArcadeLoader from "../components/Loader/arcadeLoader";
+import Button from "../components/button";
 import CountDown from "../components/pages/countdown";
 import Spinner from "../components/spinner";
-import ArcadeLoader from "../components/Loader/arcadeLoader";
+import Arcade from "../components/svg/arcade";
+import { GetUserXpDocument } from "../generated/generated";
+import { useAuth } from "../hooks/useAuth";
 import { baseImageUrl } from "../utils/url";
+import { VikingHell } from "./_app";
 
 export default function Landing() {
   const landingContainer = useRef(null);
@@ -56,38 +56,47 @@ export default function Landing() {
 }
 
 export const HomeFooter = () => {
+  const [show, setShow] = useState(true);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setShow(!show);
+    }, 5000);
+
+    return () => clearTimeout(timeout);
+  }, [show]);
   return (
     <footer className="absolute w-full text-gray-200 bottom-0 flex flex-col gap-2 md:gap-4">
-      <ul className="flex flex-wrap whitespace-nowrap flex-row flex-1 gap-2 md:gap-5 justify-center text-xs sm:text-xs items-center ">
-        <li className="text-white hover:text-gray-300 transition-colors duration-300">
-          <Link href="/privacy">Privacy Policy</Link>
-        </li>
-        |
-        <li className="text-white hover:text-gray-300 transition-colors duration-300">
-          <Link href="/rules">Terms & Conditions</Link>
-        </li>
-        |
-        <li className="text-white hover:text-gray-300 transition-colors duration-300">
-          <Link href="/guidelines">Guidelines</Link>
-        </li>
-        |
-        <li className="text-white hover:text-gray-300 transition-colors duration-300">
-          <Link href="/refund">Refund Policy</Link>
-        </li>
-        {/* |
-            <li className="text-gray-300 hover:text-gray-100">
-              <Link href="/about">About</Link>
-            </li> */}
-      </ul>
-      <p className="text-center text-xs pb-3">
-        <Link
-          className="flex justify-center items-center tracking-normal transition-all hover:tracking-widest hover:text-gray-300"
-          href="/team"
-        >
-          Made with <BsFillSuitHeartFill className="mx-2" /> by Technical Team
-        </Link>
-        © Incridea 2024
-      </p>
+      {show && (
+        <ul className="flex flex-wrap whitespace-nowrap flex-row flex-1 gap-2 md:gap-5 justify-center text-xs sm:text-xs items-center mb-5">
+          <li className="text-white hover:text-gray-300 transition-colors duration-300">
+            <Link href="/privacy">Privacy Policy</Link>
+          </li>
+          |
+          <li className="text-white hover:text-gray-300 transition-colors duration-300">
+            <Link href="/rules">Terms & Conditions</Link>
+          </li>
+          |
+          <li className="text-white hover:text-gray-300 transition-colors duration-300">
+            <Link href="/guidelines">Guidelines</Link>
+          </li>
+          |
+          <li className="text-white hover:text-gray-300 transition-colors duration-300">
+            <Link href="/refund">Refund Policy</Link>
+          </li>
+        </ul>
+      )}
+      {!show && (
+        <p className="text-center text-xs pb-3">
+          <Link
+            className="flex justify-center items-center tracking-normal transition-all hover:tracking-widest hover:text-gray-300"
+            href="/team"
+          >
+            Made with <BsFillSuitHeartFill className="mx-2" /> by Technical Team
+          </Link>
+          © Incridea 2024
+        </p>
+      )}
     </footer>
   );
 };
