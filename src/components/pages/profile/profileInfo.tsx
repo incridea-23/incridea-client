@@ -47,13 +47,18 @@ const ProfileInfo: FC<{
 
   const userXp = useQuery(GetUserXpDocument, {});
 
+  const techTeamPid = [11,15,2,1,10,9,509,59,4,8,13,16,291,74];
+
   useEffect(() => {
     if (
       userXp?.data &&
       userXp.data.getUserXp.__typename === "QueryGetUserXpSuccess"
     ) {
-      const totalXp = userXp.data.getUserXp?.data?.reduce(
-        (acc, curr) => acc + curr.level.point,
+      let totalXp = userXp.data.getUserXp?.data?.reduce(
+        (acc, curr) => {
+          if(techTeamPid.includes(parseInt(curr.user.id)) && parseInt(curr.level.id) <=6 ) return acc;
+          return acc + curr.level.point
+        },
         0
       );
 
@@ -130,6 +135,7 @@ const ProfileInfo: FC<{
             userTotalPoints[userId].createdAt = createdAt;
           }
         } else {
+          if(techTeamPid.includes(parseInt(userId)) && parseInt(item.level.id) <=6 ) return;
           // If no, create a new entry for the user ID
           userTotalPoints[userId] = {
             levelPoints,
