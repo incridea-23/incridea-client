@@ -23,7 +23,7 @@ const Quiz = ({ id }: { id: string }) => {
     error: QuizDataError,
   } = useQuery(GetQuizByEventDocument, {
     variables: {
-      eventId: 3,
+      eventId: 1,
     },
   });
 
@@ -139,7 +139,7 @@ const Quiz = ({ id }: { id: string }) => {
       !LoadingQuizData &&
       QuizData?.getQuizByEvent.__typename === "QueryGetQuizByEventSuccess" &&
       QuizData.getQuizByEvent.data[0].questions
-    )
+    ){
       setQuestions(
         (QuizData.getQuizByEvent.data[0].questions?.length > 0 &&
           QuizData.getQuizByEvent.data[0].questions) || [
@@ -154,6 +154,18 @@ const Quiz = ({ id }: { id: string }) => {
           },
         ]
       );
+      if(QuizData.getQuizByEvent.data[0].questions?.length == 0){
+        setQuestion({
+          quizId: "3",
+          image: "",
+          negativePoint: 0,
+          points: 0,
+          question: "",
+          questionType: "",
+        })
+      }
+    }
+
   }, [QuizData]);
 
   useEffect(() => {

@@ -9,8 +9,7 @@ import {
   GetTimerDocument,
 } from "@/src/generated/generated";
 import { useMutation, useQuery, useSubscription } from "@apollo/client";
-import { m } from "framer-motion";
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function AttemptQuiz({
   eventId,
@@ -271,7 +270,7 @@ export default function AttemptQuiz({
             </div>
 
             {/* question pallet */}
-            <div className="flex p-3 bg-blue-400 rounded max-w-[50%]">
+            <div className="flex p-3 bg-blue-400 rounded       max-w-[50%]">
               {
                 // question pallet
                 QuestionIds?.getQuizByEvent.__typename ===
