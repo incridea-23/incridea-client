@@ -345,7 +345,7 @@ const AccommodationForm: FunctionComponent = () => {
               <Switch.Label className="ml-4">AC</Switch.Label>
             </div>
           </Switch.Group> */}
-            <div className="w-full">
+            {/* <div className="w-full">
               <label htmlFor="checkInTime" className="mb-2 text-sm block">
                 From Date
               </label>
@@ -391,7 +391,7 @@ const AccommodationForm: FunctionComponent = () => {
                   })
                 }
               />
-            </div>
+            </div> */}
             <div>
               <label className="block mb-2 text-sm text-white">Upload ID</label>
               <input
