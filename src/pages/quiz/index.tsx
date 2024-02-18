@@ -1,4 +1,4 @@
-import AttemptQuiz from "@/src/components/pages/event/AttemptQuiz";
+import AttemptQuiz from "@/src/components/pages/event/AttemptQuiz2";
 import Page404 from "../404";
 import { useRouter } from "next/router";
 

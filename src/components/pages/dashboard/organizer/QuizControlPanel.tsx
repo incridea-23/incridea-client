@@ -362,7 +362,11 @@ const QuizControlPanel: FC<{
             <div className="flex row gap-8">
               <Button
                 size={"small"}
-                onClick={() => router.push("/dashboard/organizer/quiz")}
+                onClick={() =>
+                  router.push(
+                    `/dashboard/organizer/quiz?eventId=${eventId}&roundId=${roundNo}`
+                  )
+                }
               >
                 Edit Quiz
               </Button>
