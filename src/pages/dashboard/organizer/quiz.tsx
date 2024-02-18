@@ -23,7 +23,7 @@ import Image from "next/image";
 const Quiz = () => {
   const router = useRouter();
   const { eventId, roundId } = router.query;
-  if (!eventId || !roundId) return <Page404 />;
+  
   const {
     data: QuizData,
     loading: LoadingQuizData,
@@ -148,6 +148,8 @@ const Quiz = () => {
         query: GetQuizDataByEventRoundDocument,
         variables: {
           eventId: Number(eventId),
+          roundId: Number(roundId),
+          type: "organizer",
         },
       },
     ],
@@ -460,7 +462,7 @@ const Quiz = () => {
         // handle error
       });
   };
-
+  if (!eventId || !roundId) return <Page404 />;
   return (
     <div className="min-h-screen overflow-x-hidden overflow-y-auto bg-gradient-to-b from-primary-600 to-primary-500 text-gray-100  pt-24 sm:p-10 sm:pt-20 bodyFont px-4">
       <input
