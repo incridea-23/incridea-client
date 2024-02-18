@@ -78,8 +78,8 @@ const UserEvents: FC<{
                               round.Quiz?.id && round.Quiz.allowAttempts
                           ) && (
                             <div>
-                             {/* href={`/quiz?eventId=${event.id}&teamId=${ */}
-                            {/* //     event.teams.find(
+                              {/* href={`/quiz?eventId=${event.id}&teamId=${ */}
+                              {/* //     event.teams.find(
                             //       (team) =>
                             //         team.members.findIndex(
                             //           (member) => member.user.id === userId
@@ -87,11 +87,25 @@ const UserEvents: FC<{
                             //     )?.id
                             //   }`}
                             // >Attempt Quiz */}
-                               <AttemptQuizModal eventId={Number(event.id)} roundNo={event.rounds[0].roundNo} /> 
-                             </div>
-                            
+                              <AttemptQuizModal
+                                eventId={Number(event.id)}
+                                roundNo={
+                                  event.rounds.find(
+                                    (round) => round.Quiz?.allowAttempts == true
+                                  )?.roundNo || -1
+                                }
+                                teamId={
+                                  event.teams.find(
+                                    (team) =>
+                                      team.members.findIndex(
+                                        (member) => member.user.id === userId
+                                      ) !== -1
+                                  )?.id || ""
+                                }
+                              />
+                            </div>
                           )}
-                       </>
+                        </>
                       );
                     })}
                 </div>

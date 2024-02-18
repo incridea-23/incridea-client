@@ -1,5 +1,6 @@
 import { FC, FormEventHandler, useRef, useState } from "react";
 import {
+  CheckPasswordDocument,
   EventByOrganizerQuery,
   GetQuizByRoundEventDocument,
 } from "@/src/generated/generated";
@@ -11,56 +12,45 @@ import useWindowSize from "@/src/hooks/useWindowSize";
 import { useMutation, useQuery } from "@apollo/client";
 import createToast from "@/src/components/toast";
 import Spinner from "../../spinner";
+import { useRouter } from "next/router";
 
 const AttemptQuizModal: FC<{
   roundNo: number;
   eventId: number;
-}> = ({ roundNo, eventId }) => {
+  teamId: string;
+}> = ({ roundNo, eventId, teamId }) => {
   const [showModal, setShowModal] = useState(false);
   const [password, setPassword] = useState("");
   const windowSize = useWindowSize();
-  
+
   const handleCloseModal = () => {
     setShowModal(false);
   };
 
+  const router = useRouter();
   const {
-    data: attemptQuiz,
+    data,
     loading: quizLoading,
-    error: quizError,
-  } = useQuery(GetQuizByRoundEventDocument, {
+    error,
+  } = useQuery(CheckPasswordDocument, {
     variables: {
-      eventId: eventId,
-      roundNo: roundNo,
+      eventId,
+      roundId: roundNo,
+      password,
     },
   });
-
   const handleQuiz = () => {
-    let promise = attemptQuiz({
-      variables: {
-        eventId: eventId.toString(),
-        roundId: roundNo.toString(),
-        password: quizPassword,
-      },
-    }).then((res) => {
-      if (res.data?.createQuiz.__typename !== "MutationCreateQuizSuccess") {
-        if (res.data?.createQuiz.__typename !== undefined) {
-          createToast(
-            Promise.reject(res.data?.createQuiz.message),
-            res.data?.createQuiz.message
-          );
-        }
-        return Promise.reject("Quiz creation failed");
-      }
-    });
-    createToast(promise, "Creating quiz...");
+    if (
+      data?.checkPassword.__typename === "QueryCheckPasswordSuccess" &&
+      data.checkPassword.data.status
+    ) {
+      sessionStorage.setItem("quizPassword", password);
+      router.push(
+        `/quiz?eventId=${eventId}&roundId=${roundNo}&teamId=${teamId}`
+      );
+    }
   };
 
-  if (quizLoading) {
-    return (
-      <Spinner />
-    );
-  }
   return (
     <>
       <Button
@@ -80,9 +70,10 @@ const AttemptQuizModal: FC<{
         size={windowSize?.width && windowSize?.width < 600 ? "medium" : "md"}
       >
         <div className="flex flex-col items-center justify-center my-6 gap-2">
-         
           <div className="flex flex-col items-center w-full gap-4 mx-3">
-            <p className="w-full text-center text-xl font-semibold">Enter the Quiz Password</p>
+            <p className="w-full text-center text-xl font-semibold">
+              Enter the Quiz Password
+            </p>
             <input
               type="password"
               id="name"

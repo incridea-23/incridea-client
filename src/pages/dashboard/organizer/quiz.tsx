@@ -183,7 +183,7 @@ const Quiz = () => {
         (QuizData.getQuizDataByEventRound.data.questions?.length > 0 &&
           QuizData.getQuizDataByEventRound.data.questions) || [
           {
-            id: QuizData.getQuizDataByEventRound.data.id,
+            id: "",
             image: "",
             negativePoint: 0,
             point: 0,

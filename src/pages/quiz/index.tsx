@@ -5,11 +5,15 @@ import { useRouter } from "next/router";
 export default function Quiz() {
   const params = useRouter();
 
-  const { eventId, teamId } = params.query;
-  if (eventId && teamId) {
+  const { eventId, teamId, roundId } = params.query;
+  if (eventId && teamId && roundId) {
     return (
       <div className="min-h-screen overflow-x-hidden overflow-y-auto bg-gradient-to-b from-primary-600 to-primary-500 text-gray-100  pt-24 sm:p-10 sm:pt-20 bodyFont px-4">
-        <AttemptQuiz eventId={Number(eventId)} teamId={teamId as string} />
+        <AttemptQuiz
+          eventId={Number(eventId)}
+          teamId={teamId as string}
+          roundId={Number(roundId)}
+        />
       </div>
     );
   } else {
