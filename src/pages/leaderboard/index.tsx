@@ -8,6 +8,7 @@ import Image from "next/image";
 import { NextPage } from "next";
 import styles from "@/src/components/event/styles.module.css";
 import { baseImageUrl } from "@/src/utils/url";
+import { UserByIdDocument } from "@/src/generated/generated";
 
 const LeaderBoard: NextPage = () => {
   interface UserTotalPoints {
@@ -32,6 +33,7 @@ const LeaderBoard: NextPage = () => {
     }[]
   >([]);
 
+  const techTeamPid = [11,15,2,1,10,9,509,59,4,8,13,16,291,74];
   useEffect(() => {
     if (
       Leaderboard?.getXpLeaderboard.__typename ===
@@ -56,6 +58,7 @@ const LeaderBoard: NextPage = () => {
             userTotalPoints[userId].createdAt = createdAt;
           }
         } else {
+          if(techTeamPid.includes(parseInt(userId)) && parseInt(item.level.id) <=6 ) return;
           // If no, create a new entry for the user ID
           userTotalPoints[userId] = {
             levelPoints,
@@ -83,7 +86,7 @@ const LeaderBoard: NextPage = () => {
         }
         return b.levelPoints - a.levelPoints;
       });
-      // Limit to the top 100 entries
+      // Limit to the top 15 entries
       const top15Users = userTotalPointsArray.slice(0, 15);
       setSortedLeaderboard(top15Users);
     }
