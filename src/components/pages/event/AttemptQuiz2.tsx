@@ -168,15 +168,27 @@ export default function AttemptQuiz({
   else
     return (
       <>
+      {/* Quiz Title */}
+      <div className="flex gap-4 items-center">
+
         <h1 className="text-3xl md:text-4xl md:py-2 font-semibold">Quiz Title</h1>
+        <h1 className="text-sm font-semibold w-fit rounded-2xl border font-gilroy border-primary-200/70 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-30 outline-none p-1 px-4">
+              {QuizTimeData?.getTimer?.__typename ===
+                "SubscriptionGetTimerSuccess" &&
+                QuizTimeData.getTimer.data.remainingTime}
+              mins
+            </h1>
+                </div>
         <div className="flex flex-row justify-center container">
         {question?.getQuestionById.__typename ===
           "QueryGetQuestionByIdSuccess" && (
           <div className="flex flex-col  text-white mt-4 min-w-[85%]">
+            {/* Quiz Question */}
             <div className="border border-primary-200/70 text-gray-300 md:w-[85%]  font-gilroy font-semibold p-4 px-4 rounded-3xl bg-primary-700">{question?.getQuestionById?.data?.question} 
-            
+            {/* Quiz Image */}
             {question?.getQuestionById?.data?.image && <Image src={question?.getQuestionById?.data?.image} alt="question" height="100" width="175" className="border border-primary-200/70 mt-4"/>}
             </div> 
+            {/* FITB or MMCQ or MCQ */}
             <div className="mx-4">
                 {question.getQuestionById.__typename ===
                   "QueryGetQuestionByIdSuccess" &&
@@ -283,6 +295,7 @@ export default function AttemptQuiz({
                   })
                 )}
               </div>
+              {/* Next or Submit */}
               <Button
                 onClick={() => handleNext()}
                 size={"small"}
@@ -299,6 +312,7 @@ export default function AttemptQuiz({
               </Button>
             </div>
           )}
+
           <div className=" p-3 border rounded-2xl h-fit border-primary-200/70 text-gray-300 bg-gradient-to-b from-primary-600 to-primary-700 hidden md:flex w-[40%]">
             {
               // question pallet

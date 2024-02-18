@@ -6,7 +6,7 @@ import { FC } from "react";
 import { RegisterdEventsDocument } from "@/src/generated/generated";
 import { MdOutlineExplore } from "react-icons/md";
 import { FaExternalLinkAlt } from "react-icons/fa";
-
+import AttemptQuizModal from "./AttemptQuizModal";
 const UserEvents: FC<{
   userId: string;
 }> = ({ userId }) => {
@@ -66,7 +66,7 @@ const UserEvents: FC<{
                     events?.registeredEvents.data?.map((event, i) => {
                       console.log(event);
                       return (
-                        <div>
+                        <>
                           <EventCard
                             key={i}
                             teams={event.teams}
@@ -77,20 +77,21 @@ const UserEvents: FC<{
                             (round) =>
                               round.Quiz?.id && round.Quiz.allowAttempts
                           ) && (
-                            <Link
-                              href={`/quiz?eventId=${event.id}&teamId=${
-                                event.teams.find(
-                                  (team) =>
-                                    team.members.findIndex(
-                                      (member) => member.user.id === userId
-                                    ) !== -1
-                                )?.id
-                              }`}
-                            >
-                              Attempt Quiz
-                            </Link>
+                            <div>
+                             {/* href={`/quiz?eventId=${event.id}&teamId=${ */}
+                            {/* //     event.teams.find(
+                            //       (team) =>
+                            //         team.members.findIndex(
+                            //           (member) => member.user.id === userId
+                            //         ) !== -1
+                            //     )?.id
+                            //   }`}
+                            // >Attempt Quiz */}
+                               <AttemptQuizModal eventId={Number(event.id)} roundNo={event.rounds[0].roundNo} /> 
+                             </div>
+                            
                           )}
-                        </div>
+                       </>
                       );
                     })}
                 </div>
