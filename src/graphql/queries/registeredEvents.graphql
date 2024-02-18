@@ -17,6 +17,7 @@ query RegisterdEvents {
           roundNo
           Quiz {
             id
+            allowAttempts
           }
         }
         teams {

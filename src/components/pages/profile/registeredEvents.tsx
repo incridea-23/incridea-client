@@ -73,7 +73,10 @@ const UserEvents: FC<{
                             event={event}
                             userId={userId}
                           />
-                          {event.rounds.find((round) => round.Quiz?.id) && (
+                          {event.rounds.find(
+                            (round) =>
+                              round.Quiz?.id && round.Quiz.allowAttempts
+                          ) && (
                             <Link
                               href={`/quiz?eventId=${event.id}&teamId=${
                                 event.teams.find(

@@ -18,6 +18,7 @@ import Button from "@/src/components/button";
 import createToast from "@/src/components/toast";
 import { useRouter } from "next/router";
 import Page404 from "../../404";
+import Image from "next/image";
 const Quiz = () => {
   const router = useRouter();
   const { eventId, roundId } = router.query;
@@ -206,7 +207,18 @@ const Quiz = () => {
 
   const duplicate = (index: number) => {
     setQuestions((temp) => {
-      return [...temp, temp[index]];
+      return [...temp, { ...temp[index], id: "" }];
+    });
+    setQuestion({
+      quizId:
+        QuizData?.getQuizByEvent?.__typename === "QueryGetQuizByEventSuccess"
+          ? QuizData.getQuizByEvent.data[0].id
+          : "",
+      image: Questions[index].image || "",
+      negativePoint: Questions[index].negativePoint,
+      points: Questions[index].point,
+      question: Questions[index].question,
+      questionType: Questions[index].questionType,
     });
   };
 
@@ -226,7 +238,9 @@ const Quiz = () => {
           "MutationDeleteQuestionSuccess"
         ) {
           setLoading(true);
-          setQuestions((temp) => [...temp.filter((question) => question.id)]);
+          setQuestions((temp) =>
+            temp.filter((question) => question.id !== questionId)
+          );
           setLoading(false);
         }
         // show success toast
@@ -407,8 +421,36 @@ const Quiz = () => {
   const deleteOption = (id: string) => {
     deleteOptionMutation({
       variables: { id },
-      refetchQueries: [GetQuizByEventDocument],
-    });
+    })
+      .then((res) => {
+        if (
+          res.data?.deleteOption.__typename === "MutationDeleteOptionSuccess" &&
+          res.data.deleteOption.data
+        ) {
+          const prev = Questions;
+          setQuestions(
+            prev.map((question) => {
+              if (
+                res.data?.deleteOption.__typename ===
+                  "MutationDeleteOptionSuccess" &&
+                res.data.deleteOption.data &&
+                question.id === res.data.deleteOption.data?.questionId
+              ) {
+                return {
+                  ...question,
+                  options: question.options.filter(
+                    (option) => option.id !== id
+                  ),
+                };
+              }
+              return question;
+            })
+          );
+        }
+      })
+      .catch((error) => {
+        // handle error
+      });
   };
 
   return (
@@ -486,7 +528,7 @@ const Quiz = () => {
                       />
                       <label
                         htmlFor="points"
-                        className="ms-2 text-sm font-semibold text-gray-900 dark:text-gray-300"
+                        className="ms-2 text-sm font-semibold text-white dark:text-gray-300"
                       >
                         Points
                       </label>
@@ -515,7 +557,7 @@ const Quiz = () => {
                       />
                       <label
                         htmlFor="negativePoints"
-                        className="ms-2 text-sm font-semibold text-gray-900 dark:text-gray-300"
+                        className="ms-2 text-sm font-semibold text-white dark:text-gray-300"
                       >
                         Negative Points
                       </label>
@@ -596,25 +638,37 @@ const Quiz = () => {
                         >
                           <div className="flex flex-row items-center justify-center gap-8 w-full">
                             <ImRadioUnchecked className="text-lg" />
-                            <input
-                              defaultValue={option.value}
-                              className="w-full h-12 rounded-3xl px-4 bg-slate-600 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
-                              onChange={(e) =>
-                                setOption((prev) => {
-                                  if (prev)
-                                    return {
-                                      ...prev,
+                            {option.value.startsWith(
+                              "https://res.cloudinary.com"
+                            ) ? (
+                              <Image
+                                src={option.value}
+                                alt="optionImage"
+                                height={100}
+                                width={100}
+                              />
+                            ) : (
+                              <input
+                                defaultValue={option.value}
+                                key={option.id}
+                                className="w-full h-12 rounded-3xl px-4 bg-slate-600 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
+                                onChange={(e) =>
+                                  setOption((prev) => {
+                                    if (prev)
+                                      return {
+                                        ...prev,
+                                        questionId: question.id,
+                                        value: e.target.value,
+                                      };
+                                    setOption({
                                       questionId: question.id,
                                       value: e.target.value,
-                                    };
-                                  setOption({
-                                    questionId: question.id,
-                                    value: e.target.value,
-                                    isAnswer: false,
-                                  });
-                                })
-                              }
-                            />
+                                      isAnswer: false,
+                                    });
+                                  })
+                                }
+                              />
+                            )}
                           </div>
                           <HiOutlineMinusCircle
                             onClick={() => deleteOption(option.id)}
