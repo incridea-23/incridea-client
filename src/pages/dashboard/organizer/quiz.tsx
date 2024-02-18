@@ -4,7 +4,7 @@ import {
   CreateQuestionDocument,
   DeleteOptionDocument,
   DeleteQuestionDocument,
-  GetQuizByEventDocument,
+  GetQuizDataByEventRoundDocument,
   UpdateOptionDocument,
   UpdateQuestionDocument,
 } from "@/src/generated/generated";
@@ -27,9 +27,12 @@ const Quiz = () => {
     data: QuizData,
     loading: LoadingQuizData,
     error: QuizDataError,
-  } = useQuery(GetQuizByEventDocument, {
+  } = useQuery(GetQuizDataByEventRoundDocument, {
     variables: {
       eventId: Number(eventId),
+      roundId: Number(roundId),
+      type: "organizer",
+      password: "",
     },
   });
 
@@ -105,8 +108,9 @@ const Quiz = () => {
   const [Questions, setQuestions] = useState<questionsType>([
     {
       id:
-        (QuizData?.getQuizByEvent.__typename === "QueryGetQuizByEventSuccess" &&
-          QuizData.getQuizByEvent.data[0].id) ||
+        (QuizData?.getQuizDataByEventRound.__typename ===
+          "QueryGetQuizDataByEventRoundSuccess" &&
+          QuizData.getQuizDataByEventRound.data.id) ||
         "",
       image: "",
       negativePoint: 0,
@@ -140,7 +144,7 @@ const Quiz = () => {
     variables: Question,
     refetchQueries: [
       {
-        query: GetQuizByEventDocument,
+        query: GetQuizDataByEventRoundDocument,
         variables: {
           eventId: Number(eventId),
         },
@@ -171,14 +175,15 @@ const Quiz = () => {
   useEffect(() => {
     if (
       !LoadingQuizData &&
-      QuizData?.getQuizByEvent.__typename === "QueryGetQuizByEventSuccess" &&
-      QuizData.getQuizByEvent.data[0].questions
+      QuizData?.getQuizDataByEventRound.__typename ===
+        "QueryGetQuizDataByEventRoundSuccess" &&
+      QuizData.getQuizDataByEventRound.data.questions
     ) {
       setQuestions(
-        (QuizData.getQuizByEvent.data[0].questions?.length > 0 &&
-          QuizData.getQuizByEvent.data[0].questions) || [
+        (QuizData.getQuizDataByEventRound.data.questions?.length > 0 &&
+          QuizData.getQuizDataByEventRound.data.questions) || [
           {
-            id: QuizData.getQuizByEvent.data[0].id,
+            id: QuizData.getQuizDataByEventRound.data.id,
             image: "",
             negativePoint: 0,
             point: 0,
@@ -188,9 +193,9 @@ const Quiz = () => {
           },
         ]
       );
-      if (QuizData.getQuizByEvent.data[0].questions?.length == 0) {
+      if (QuizData.getQuizDataByEventRound.data.questions?.length == 0) {
         setQuestion({
-          quizId: QuizData.getQuizByEvent.data[0].id,
+          quizId: QuizData.getQuizDataByEventRound.data.id,
           image: "",
           negativePoint: 0,
           points: 0,
@@ -211,8 +216,9 @@ const Quiz = () => {
     });
     setQuestion({
       quizId:
-        QuizData?.getQuizByEvent?.__typename === "QueryGetQuizByEventSuccess"
-          ? QuizData.getQuizByEvent.data[0].id
+        QuizData?.getQuizDataByEventRound?.__typename ===
+        "QueryGetQuizDataByEventRoundSuccess"
+          ? QuizData.getQuizDataByEventRound.data.id
           : "",
       image: Questions[index].image || "",
       negativePoint: Questions[index].negativePoint,
@@ -322,8 +328,9 @@ const Quiz = () => {
 
       return setQuestion({
         quizId:
-          QuizData?.getQuizByEvent?.__typename === "QueryGetQuizByEventSuccess"
-            ? QuizData.getQuizByEvent.data[0].id
+          QuizData?.getQuizDataByEventRound?.__typename ===
+          "QueryGetQuizDataByEventRoundSuccess"
+            ? QuizData.getQuizDataByEventRound.data.id
             : "",
         image: "",
         negativePoint: 0,
@@ -369,7 +376,7 @@ const Quiz = () => {
         variables: {
           id: optionId,
           value: Option?.value,
-          isAnswer: Option?.isAnswer,
+          isAnswer: Option?.isAnswer ? true : false,
         },
       })
         .then((res) => {
@@ -459,8 +466,9 @@ const Quiz = () => {
         className="text-xl font-medium mt-4 w-60 rounded-2xl bg-gray-900/70 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-30 outline-none p-3 px-4"
         placeholder="Enter quiz title"
         defaultValue={
-          QuizData?.getQuizByEvent?.__typename === "QueryGetQuizByEventSuccess"
-            ? QuizData.getQuizByEvent.data[0].name?.toString()
+          QuizData?.getQuizDataByEventRound?.__typename ===
+          "QueryGetQuizDataByEventRoundSuccess"
+            ? QuizData.getQuizDataByEventRound.data.name?.toString()
             : ""
         }
       />

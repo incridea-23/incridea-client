@@ -1,6 +1,16 @@
-query GetQuestionIds($eventId: Int!) {
-  getQuizByEvent(eventId: $eventId) {
-    ... on QueryGetQuizByEventSuccess {
+query GetQuestionIds(
+  $eventId: Int!
+  $roundId: Int!
+  $password: String!
+  $type: String = "participant"
+) {
+  getQuizDataByEventRound(
+    eventId: $eventId
+    roundId: $roundId
+    password: $password
+    type: $type
+  ) {
+    ... on QueryGetQuizDataByEventRoundSuccess {
       __typename
       data {
         questions {

@@ -1,4 +1,4 @@
-query GetQuizByRoundEvent($eventId: Int = 10, $roundNo: Int = 10) {
+query GetQuizByRoundEvent($eventId: Int!, $roundNo: Int!) {
   getQuizByRoundEvent(eventId: $eventId, roundNo: $roundNo) {
     ... on Error {
       __typename

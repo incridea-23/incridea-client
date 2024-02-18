@@ -1,4 +1,4 @@
-mutation UpdateOption($id: String!, $isAnswer: Boolean, $value: String) {
+mutation UpdateOption($id: String!, $isAnswer: Boolean!, $value: String) {
   updateOption(id: $id, isAnswer: $isAnswer, value: $value) {
     ... on Error {
       __typename
