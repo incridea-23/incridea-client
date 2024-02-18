@@ -32,6 +32,7 @@ export default function AttemptQuiz({
       eventId,
       roundId,
       password: sessionStorage.getItem("quizPassword") as string,
+      teamId: Number(teamId),
     },
   });
 

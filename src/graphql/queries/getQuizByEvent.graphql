@@ -1,12 +1,14 @@
 query GetQuizDataByEventRound(
   $eventId: Int!
   $roundId: Int!
+  $teamId: Int = -1
   $password: String!
   $type: String!
 ) {
   getQuizDataByEventRound(
     eventId: $eventId
     roundId: $roundId
+    teamId: $teamId
     password: $password
     type: $type
   ) {
