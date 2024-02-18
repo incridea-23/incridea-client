@@ -9,8 +9,7 @@ import {
   GetTimerDocument,
 } from "@/src/generated/generated";
 import { useMutation, useQuery, useSubscription } from "@apollo/client";
-import { m } from "framer-motion";
-import { use, useEffect, useRef, useState } from "react";
+import {useEffect,useState} from "react";
 
 export default function AttemptQuiz({
   id,
@@ -19,7 +18,7 @@ export default function AttemptQuiz({
   id: number;
   teamId: string;
 }) {
-  id = 3;
+  id = 1;
   teamId = "30";
   const {
     data: QuestionIds,
@@ -190,7 +189,7 @@ export default function AttemptQuiz({
                 <div>
                   {question.getQuestionById.__typename ===
                     "QueryGetQuestionByIdSuccess" &&
-                  question.getQuestionById.data.questionType === "FITB" ? (
+                   question.getQuestionById.data.questionType === "FITB" ? (
                     <input
                       type="text"
                       onChange={(e) => setSetFitbValue(e.target.value)}
@@ -201,7 +200,7 @@ export default function AttemptQuiz({
                           : ""
                       }
                     />
-                  ) : question.getQuestionById.data.questionType === "MMCQ" ? (
+                   ) : question.getQuestionById.data.questionType === "MMCQ" ? (
                     question.getQuestionById.data.options.map((option) => {
                       return (
                         <div className="p-3 m-3 border rounded" key={option.id}>
@@ -235,7 +234,7 @@ export default function AttemptQuiz({
                         </div>
                       );
                     })
-                  ) : (
+                   ) : (
                     question.getQuestionById.data.options.map((option) => {
                       return (
                         <div className="p-3 m-3 border rounded" key={option.id}>
@@ -258,22 +257,23 @@ export default function AttemptQuiz({
                         </div>
                       );
                     })
-                  )}
-                </div>
-                <button onClick={handleNext}>
-                  {QuestionIds?.getQuizByEvent.__typename ===
+                   )}
+                   </div>
+                   <button onClick={handleNext}>
+                   {QuestionIds?.getQuizByEvent.__typename ===
                     "QueryGetQuizByEventSuccess" &&
-                  QuestionIds.getQuizByEvent.data[0].questions &&
-                  QuestionIds.getQuizByEvent.data[0]?.questions?.length >
+                   QuestionIds.getQuizByEvent.data[0].questions &&
+                   QuestionIds.getQuizByEvent.data[0]?.questions?.length >
                     questionNo
                     ? "Next"
-                    : "Submit"}
-                </button>
-              </div>
-            </div>
+                    : "Submit"
+                    }
+                   </button>
+                    </div>
+                    </div>
 
-            {/* question pallet */}
-            <div className="flex p-3 bg-blue-400 rounded max-w-[50%]">
+                    {/* question pallet */}
+             <div className="flex p-3 bg-blue-400 rounded       max-w-[50%]">
               {
                 // question pallet
                 QuestionIds?.getQuizByEvent.__typename ===
@@ -295,7 +295,7 @@ export default function AttemptQuiz({
                       </button>
                     )
                   )
-              }
+            }
             </div>
           </div>
         )
