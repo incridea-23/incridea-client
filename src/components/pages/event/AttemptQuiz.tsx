@@ -13,19 +13,17 @@ import { m } from "framer-motion";
 import { use, useEffect, useRef, useState } from "react";
 
 export default function AttemptQuiz({
-  id,
+  eventId,
   teamId,
 }: {
-  id: number;
+  eventId: number;
   teamId: string;
 }) {
-  id = 3;
-  teamId = "30";
   const {
     data: QuestionIds,
     loading: loadingIds,
     error: getIdsError,
-  } = useQuery(GetQuestionIdsDocument, { variables: { eventId: id } });
+  } = useQuery(GetQuestionIdsDocument, { variables: { eventId } });
 
   const [questionId, setQuestionId] = useState<string>("");
   const [fitbValue, setSetFitbValue] = useState<string>("");
@@ -67,7 +65,7 @@ export default function AttemptQuiz({
     GetTimerDocument,
     {
       variables: {
-        eventId: id,
+        eventId,
       },
     }
   );
@@ -243,7 +241,7 @@ export default function AttemptQuiz({
                             onChange={(e) => setOptionId([e.target.value])}
                             type={"radio"}
                             value={option.id}
-                            name={id + "MCQ"}
+                            name={eventId + "MCQ"}
                             defaultChecked={
                               McqSub?.getMCQSubmissionByTeamId.__typename ===
                                 "QueryGetMCQSubmissionByTeamIdSuccess" &&

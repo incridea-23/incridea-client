@@ -7,7 +7,7 @@ mutation UpdateRemainingTime($eventId: Int!, $incrementValue: Int!) {
     ... on MutationAddTimeSuccess {
       __typename
       data {
-        quizId
+        started
         remainingTime
       }
     }
