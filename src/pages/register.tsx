@@ -71,7 +71,7 @@ const Register: NextPage = () => {
                 user?.college?.id !== "1" && (
                   <div className="px-4 flex flex-col md:flex-row justify-between">
               <div className="flex items-center justify-center text-center text-md">
-                We provide accommodation for external participants {"("}Deadline: 16th February 2024{")"}
+                We provide accommodation for external participants
               </div>
               <Link
                 href={"/accommodation"}
