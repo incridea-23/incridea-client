@@ -176,15 +176,15 @@ import Spinner from "../../spinner";
     else
     return (
       <>
-        <h1 className="text-3xl md:text-4xl md:py-4 font-semibold">Quiz Title</h1>
-        <div className="flex flex-row justify-center">
+        <h1 className="text-3xl md:text-4xl md:py-2 font-semibold">Quiz Title</h1>
+        <div className="flex flex-row justify-center container">
         {question?.getQuestionById.__typename ===
           "QueryGetQuestionByIdSuccess" && (
-          <div className="flex flex-col  text-white mt-4">
-            <div className="border border-primary-200/70 text-gray-300 md:w-[85%] font-gilroy font-semibold p-4 px-4 rounded-3xl bg-primary-700">{question?.getQuestionById?.data?.question} Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur, temporibus.
+          <div className="flex flex-col  text-white mt-4 min-w-[85%]">
+            <div className="border border-primary-200/70 text-gray-300 md:w-[85%]  font-gilroy font-semibold p-4 px-4 rounded-3xl bg-primary-700">{question?.getQuestionById?.data?.question} 
             
+            {question?.getQuestionById?.data?.image && <Image src={question?.getQuestionById?.data?.image} alt="question" height="100" width="175" className="border border-primary-200/70 mt-4"/>}
             </div> 
-            {question?.getQuestionById?.data?.image && <Image src={question?.getQuestionById?.data?.image} alt="question" height="100" width="100" className="border border-primary-200/70"/>}
             <div className="mx-4">
                 {question.getQuestionById.__typename ===
                   "QueryGetQuestionByIdSuccess" &&
@@ -237,7 +237,7 @@ import Spinner from "../../spinner";
                 ) : (
                   question.getQuestionById.data.options.map((option) => {
                     return (
-                      <div className="p-4 my-4 md:my-6 border font-semibold font-gilroy border-primary-200/40 rounded-full bg-primary-600 hover:bg-primary-700 md:w-[60%] w-full space-x-4 cursor-pointer" key={option.id}>
+                      <div className="p-4 my-4 md:my-6 border font-semibold font-gilroy border-primary-200/40 rounded-full bg-primary-600 hover:bg-primary-700 md:w-[60%] w-full space-x-4 cursor-pointer" key={option.id} >
                         <input
                           onChange={(e) => setOptionId([e.target.value])}
                           type={"radio"}
