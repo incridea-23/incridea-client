@@ -7,7 +7,7 @@ mutation PauseOrResumeQuiz($action: String!, $eventId: Int!) {
     ... on MutationPauseOrResumeQuizSuccess {
       __typename
       data {
-        quizId
+        started
         remainingTime
       }
     }

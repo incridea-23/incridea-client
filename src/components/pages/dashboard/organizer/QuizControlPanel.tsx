@@ -1,13 +1,15 @@
 import Button from "@/src/components/button";
 import Modal from "@/src/components/modal";
 import useWindowSize from "@/src/hooks/useWindowSize";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery, useSubscription } from "@apollo/client";
 import {
   GetQuizByRoundEventDocument,
   UpdateQuizStatusDocument,
   DeleteQuizDocument,
   UpdateQuizDurationDocument,
   UpdateRemainingTimeDocument,
+  GetTimerDocument,
+  PauseOrResumeQuizDocument,
 } from "@/src/generated/generated";
 import { FC, useState } from "react";
 import { MdQuiz } from "react-icons/md";
@@ -38,6 +40,15 @@ const QuizControlPanel: FC<{
     },
   });
 
+  const { data: QuizTimeData, loading: LoadingQuizTimer } = useSubscription(
+    GetTimerDocument,
+    {
+      variables: {
+        eventId: 1,
+      },
+    }
+  );
+
   const [
     updateQuizStatus,
     {
@@ -47,6 +58,18 @@ const QuizControlPanel: FC<{
     },
   ] = useMutation(UpdateQuizStatusDocument, {
     refetchQueries: ["GetQuizByRoundEvent"],
+    awaitRefetchQueries: true,
+  });
+
+  const [
+    pauseOrResumeQuiz,
+    {
+      data: pauseOrResumeData,
+      loading: pauseOrResumeLoading,
+      error: pauseOrResumeError,
+    },
+  ] = useMutation(PauseOrResumeQuizDocument, {
+    refetchQueries: [],
     awaitRefetchQueries: true,
   });
 
@@ -112,10 +135,9 @@ const QuizControlPanel: FC<{
             : "",
         allowAttempts:
           quizData?.getQuizByRoundEvent?.__typename ==
-          "QueryGetQuizByRoundEventSuccess"
-            ? quizData?.getQuizByRoundEvent?.data[0]?.allowAttempts
-              ? false
-              : true
+            "QueryGetQuizByRoundEventSuccess" &&
+          quizData?.getQuizByRoundEvent?.data[0]?.allowAttempts
+            ? false
             : true,
         quizId:
           quizData?.getQuizByRoundEvent?.__typename ==
@@ -136,6 +158,29 @@ const QuizControlPanel: FC<{
           );
         }
         return Promise.reject("Quiz creation failed");
+      }
+    });
+    createToast(promise, "Updating quiz status...");
+  };
+
+  const pauseOrResumeHandler = (action: "pause" | "resume") => {
+    let promise = pauseOrResumeQuiz({
+      variables: {
+        action,
+        eventId,
+      },
+    }).then((res) => {
+      if (
+        res.data?.pauseOrResumeQuiz?.__typename !==
+        "MutationPauseOrResumeQuizSuccess"
+      ) {
+        if (res.data?.pauseOrResumeQuiz?.__typename !== undefined) {
+          createToast(
+            Promise.reject(res.data?.pauseOrResumeQuiz.message),
+            res.data?.pauseOrResumeQuiz.message
+          );
+        }
+        return Promise.reject("Action failed");
       }
     });
     createToast(promise, "Updating quiz status...");
@@ -317,7 +362,11 @@ const QuizControlPanel: FC<{
             <div className="flex row gap-8">
               <Button
                 size={"small"}
-                onClick={() => router.push("/dashboard/organizer/quiz")}
+                onClick={() =>
+                  router.push(
+                    `/dashboard/organizer/quiz?eventId=${eventId}&roundId=${roundNo}`
+                  )
+                }
               >
                 Edit Quiz
               </Button>
@@ -329,7 +378,7 @@ const QuizControlPanel: FC<{
           <hr className="w-full my-2 text-slate-600" />
           <div className="flex flex-col justify-center items-center gap-4 pt-4">
             <h1 className="text-2xl font-bold text-center py-2">
-              Start/Resume Quiz
+              Start/Stop Quiz
             </h1>
             <div className="flex row gap-8">
               <Button size={"small"} onClick={() => updateQuiz()}>
@@ -343,6 +392,36 @@ const QuizControlPanel: FC<{
               </Button>
             </div>
           </div>
+
+          {quizData?.getQuizByRoundEvent?.__typename ==
+            "QueryGetQuizByRoundEventSuccess" &&
+            quizData?.getQuizByRoundEvent?.data[0]?.allowAttempts && (
+              <div className="flex flex-col justify-center items-center gap-4 pt-4">
+                <h1 className="text-2xl font-bold text-center py-2">
+                  Pause/Resume Quiz
+                </h1>
+                <div className="flex row gap-8">
+                  <Button
+                    size={"small"}
+                    onClick={() =>
+                      pauseOrResumeHandler(
+                        QuizTimeData?.getTimer?.__typename ==
+                          "SubscriptionGetTimerSuccess" &&
+                          QuizTimeData?.getTimer?.data.started
+                          ? "pause"
+                          : "resume"
+                      )
+                    }
+                  >
+                    {QuizTimeData?.getTimer?.__typename ==
+                      "SubscriptionGetTimerSuccess" &&
+                    QuizTimeData?.getTimer?.data.started
+                      ? "Pause Quiz"
+                      : "Resume Quiz"}
+                  </Button>
+                </div>
+              </div>
+            )}
         </div>
       </Modal>
     </>

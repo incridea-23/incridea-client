@@ -15,6 +15,10 @@ query RegisterdEvents {
         rounds {
           date
           roundNo
+          Quiz {
+            id
+            allowAttempts
+          }
         }
         teams {
           id

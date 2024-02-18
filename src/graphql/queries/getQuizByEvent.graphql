@@ -3,6 +3,7 @@ query GetQuizByEvent($eventId: Int!) {
     ... on QueryGetQuizByEventSuccess {
       __typename
       data {
+        id
         name
         questions {
           id

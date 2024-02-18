@@ -16,23 +16,34 @@ import { MdDeleteOutline } from "react-icons/md";
 import { ImRadioUnchecked } from "react-icons/im";
 import Button from "@/src/components/button";
 import createToast from "@/src/components/toast";
-const Quiz = ({ id }: { id: string }) => {
+import { useRouter } from "next/router";
+import Page404 from "../../404";
+import Image from "next/image";
+const Quiz = () => {
+  const router = useRouter();
+  const { eventId, roundId } = router.query;
+  if (!eventId || !roundId) return <Page404 />;
   const {
     data: QuizData,
     loading: LoadingQuizData,
     error: QuizDataError,
   } = useQuery(GetQuizByEventDocument, {
     variables: {
-      eventId: 1,
+      eventId: Number(eventId),
     },
   });
 
   const [uploading, setUploading] = useState(false);
 
-  const handleUpload = (file: File, type: "option" | "question") => {
+  const handleUpload = (
+    file: File,
+    type: "option" | "question",
+    id: string
+  ) => {
     const formData = new FormData();
     formData.append("image", file);
-    const url = `https://incridea-pai3.onrender.com/${type}/image/upload`;
+    // const url = `https://incridea-pai3.onrender.com/${type}/image/upload`;
+    const url = `http://localhost:4000/${type}/image/upload`;
     setUploading(true);
     const promise = fetch(url, {
       method: "POST",
@@ -44,9 +55,29 @@ const Quiz = ({ id }: { id: string }) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        setOption((prevValue) => {
-          if (prevValue) return { ...prevValue, value: res.url };
-        });
+        type === "option"
+          ? setOption((prev) => {
+              if (prev)
+                return {
+                  ...prev,
+                  questionId: id,
+                  value: res.url,
+                };
+              setOption({
+                questionId: id,
+                value: res.url,
+                isAnswer: false,
+              });
+            })
+          : setQuestion((prev) => {
+              if (prev)
+                return {
+                  ...prev,
+                  image: res.url,
+                };
+              return prev;
+            });
+        type === "question" ? createQuestion(id) : saveOption(id);
         setUploading(false);
       })
       .catch((err) => {
@@ -73,7 +104,10 @@ const Quiz = ({ id }: { id: string }) => {
 
   const [Questions, setQuestions] = useState<questionsType>([
     {
-      id: "",
+      id:
+        (QuizData?.getQuizByEvent.__typename === "QueryGetQuizByEventSuccess" &&
+          QuizData.getQuizByEvent.data[0].id) ||
+        "",
       image: "",
       negativePoint: 0,
       point: 0,
@@ -108,7 +142,7 @@ const Quiz = ({ id }: { id: string }) => {
       {
         query: GetQuizByEventDocument,
         variables: {
-          eventId: 3,
+          eventId: Number(eventId),
         },
       },
     ],
@@ -139,33 +173,32 @@ const Quiz = ({ id }: { id: string }) => {
       !LoadingQuizData &&
       QuizData?.getQuizByEvent.__typename === "QueryGetQuizByEventSuccess" &&
       QuizData.getQuizByEvent.data[0].questions
-    ){
+    ) {
       setQuestions(
         (QuizData.getQuizByEvent.data[0].questions?.length > 0 &&
           QuizData.getQuizByEvent.data[0].questions) || [
           {
-            id: "",
+            id: QuizData.getQuizByEvent.data[0].id,
             image: "",
             negativePoint: 0,
             point: 0,
             question: "",
-            questionType: "",
+            questionType: "MCQ",
             options: [],
           },
         ]
       );
-      if(QuizData.getQuizByEvent.data[0].questions?.length == 0){
+      if (QuizData.getQuizByEvent.data[0].questions?.length == 0) {
         setQuestion({
-          quizId: "3",
+          quizId: QuizData.getQuizByEvent.data[0].id,
           image: "",
           negativePoint: 0,
           points: 0,
           question: "",
-          questionType: "",
-        })
+          questionType: "MCQ",
+        });
       }
     }
-
   }, [QuizData]);
 
   useEffect(() => {
@@ -174,7 +207,18 @@ const Quiz = ({ id }: { id: string }) => {
 
   const duplicate = (index: number) => {
     setQuestions((temp) => {
-      return [...temp, temp[index]];
+      return [...temp, { ...temp[index], id: "" }];
+    });
+    setQuestion({
+      quizId:
+        QuizData?.getQuizByEvent?.__typename === "QueryGetQuizByEventSuccess"
+          ? QuizData.getQuizByEvent.data[0].id
+          : "",
+      image: Questions[index].image || "",
+      negativePoint: Questions[index].negativePoint,
+      points: Questions[index].point,
+      question: Questions[index].question,
+      questionType: Questions[index].questionType,
     });
   };
 
@@ -194,7 +238,9 @@ const Quiz = ({ id }: { id: string }) => {
           "MutationDeleteQuestionSuccess"
         ) {
           setLoading(true);
-          setQuestions((temp) => [...temp.filter((question) => question.id)]);
+          setQuestions((temp) =>
+            temp.filter((question) => question.id !== questionId)
+          );
           setLoading(false);
         }
         // show success toast
@@ -275,7 +321,10 @@ const Quiz = ({ id }: { id: string }) => {
       ]);
 
       return setQuestion({
-        quizId: "3",
+        quizId:
+          QuizData?.getQuizByEvent?.__typename === "QueryGetQuizByEventSuccess"
+            ? QuizData.getQuizByEvent.data[0].id
+            : "",
         image: "",
         negativePoint: 0,
         points: 0,
@@ -372,8 +421,36 @@ const Quiz = ({ id }: { id: string }) => {
   const deleteOption = (id: string) => {
     deleteOptionMutation({
       variables: { id },
-      refetchQueries: [GetQuizByEventDocument],
-    });
+    })
+      .then((res) => {
+        if (
+          res.data?.deleteOption.__typename === "MutationDeleteOptionSuccess" &&
+          res.data.deleteOption.data
+        ) {
+          const prev = Questions;
+          setQuestions(
+            prev.map((question) => {
+              if (
+                res.data?.deleteOption.__typename ===
+                  "MutationDeleteOptionSuccess" &&
+                res.data.deleteOption.data &&
+                question.id === res.data.deleteOption.data?.questionId
+              ) {
+                return {
+                  ...question,
+                  options: question.options.filter(
+                    (option) => option.id !== id
+                  ),
+                };
+              }
+              return question;
+            })
+          );
+        }
+      })
+      .catch((error) => {
+        // handle error
+      });
   };
 
   return (
@@ -398,7 +475,12 @@ const Quiz = ({ id }: { id: string }) => {
                   </h1>
 
                   <div className="flex flex-col md:flex-row list-disc justify-between items-center mt-4 w-full gap-8">
-                    <div className="flex flex-row w-full">
+                    <div
+                      onBlur={() => {
+                        createQuestion(question.id ? question.id : null);
+                      }}
+                      className="flex flex-row w-full"
+                    >
                       <input
                         placeholder="enter the question..."
                         defaultValue={question.question}
@@ -408,12 +490,16 @@ const Quiz = ({ id }: { id: string }) => {
                           setQuestion((prev) => {
                             if (prev)
                               return { ...prev, question: e.target.value };
-                            return prev;
+                            return {
+                              quizId: "",
+                              image: question.image || "",
+                              negativePoint: question.negativePoint || 0,
+                              points: Number(e.target.value) || 0,
+                              question: e.target.value || "",
+                              questionType: question.questionType,
+                            };
                           })
                         }
-                        onBlur={() => {
-                          createQuestion(question.id ? question.id : null);
-                        }}
                       />
                     </div>
                     <div className="flex flex-row items-center gap-8">
@@ -428,14 +514,21 @@ const Quiz = ({ id }: { id: string }) => {
                                 ...prev,
                                 points: Number(e.target.value),
                               };
-                            return prev;
+                            return {
+                              quizId: "",
+                              image: question.image || "",
+                              negativePoint: question.negativePoint || 0,
+                              points: Number(e.target.value) || 0,
+                              question: question.question || "",
+                              questionType: question.questionType,
+                            };
                           })
                         }
                         name="points"
                       />
                       <label
                         htmlFor="points"
-                        className="ms-2 text-sm font-semibold text-gray-900 dark:text-gray-300"
+                        className="ms-2 text-sm font-semibold text-white dark:text-gray-300"
                       >
                         Points
                       </label>
@@ -450,28 +543,74 @@ const Quiz = ({ id }: { id: string }) => {
                                 ...prev,
                                 negativePoint: Number(e.target.value),
                               };
-                            return prev;
+                            return {
+                              quizId: "",
+                              image: question.image || "",
+                              points: question.point || 0,
+                              negativePoint: Number(e.target.value) || 0,
+                              question: question.question || "",
+                              questionType: question.questionType,
+                            };
                           })
                         }
                         name="negativePoints"
                       />
                       <label
                         htmlFor="negativePoints"
-                        className="ms-2 text-sm font-semibold text-gray-900 dark:text-gray-300"
+                        className="ms-2 text-sm font-semibold text-white dark:text-gray-300"
                       >
                         Negative Points
                       </label>
-                      <CiImageOn className="text-5xl" />
+                      <div>
+                        <label className="block mb-2 text-sm text-white">
+                          <CiImageOn className="text-3xl mx-8 cursor-pointer" />
+                        </label>
+                        <input
+                          required
+                          type="file"
+                          id="image"
+                          className="file:mr-4 file:py-2.5 file:rounded-r-none file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:transition-colors file:cursor-pointer file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border w-full text-sm rounded-lg block  bg-gray-600 border-gray-600 placeholder-slate-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
+                          onChange={(e) => {
+                            setQuestion((prev) => {
+                              if (prev)
+                                return {
+                                  ...prev,
+                                  image: e.target.value,
+                                };
+                              return {
+                                quizId: "",
+                                image: "",
+                                negativePoint: question.negativePoint || 0,
+                                points: question.point || 0,
+                                question: question.question || "",
+                                questionType: question.questionType,
+                              };
+                            });
+                            handleUpload(
+                              e.target.files![0],
+                              "question",
+                              question.id
+                            );
+                          }}
+                        />
+                      </div>
                       <select
                         name="type"
                         className="border-0 text-sm rounded-lg block  px-8 py-2 bg-slate-700 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-60 border-gray-900 placeholder-gray-800 text-white focus:outline-none focus:ring-2 ring-gray-500"
                         id=""
-                        defaultValue={question.questionType}
+                        defaultValue={question.questionType || "MCQ"}
                         onChange={(e) =>
                           setQuestion((prev) => {
                             if (prev)
                               return { ...prev, questionType: e.target.value };
-                            return prev;
+                            return {
+                              quizId: "",
+                              image: question.image || "",
+                              negativePoint: question.negativePoint || 0,
+                              points: question.point || 0,
+                              question: question.question || "",
+                              questionType: e.target.value,
+                            };
                           })
                         }
                       >
@@ -493,37 +632,66 @@ const Quiz = ({ id }: { id: string }) => {
                         <div
                           className="flex flex-row items-center  gap-4"
                           key={index}
+                          onBlur={() =>
+                            saveOption(option.id ? option.id : null)
+                          }
                         >
                           <div className="flex flex-row items-center justify-center gap-8 w-full">
                             <ImRadioUnchecked className="text-lg" />
-                            <input
-                              defaultValue={option.value}
-                              className="w-full h-12 rounded-3xl px-4 bg-slate-600 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
-                              onChange={(e) =>
-                                setOption((prev) => {
-                                  if (prev)
-                                    return {
-                                      ...prev,
+                            {option.value.startsWith(
+                              "https://res.cloudinary.com"
+                            ) ? (
+                              <Image
+                                src={option.value}
+                                alt="optionImage"
+                                height={100}
+                                width={100}
+                              />
+                            ) : (
+                              <input
+                                defaultValue={option.value}
+                                key={option.id}
+                                className="w-full h-12 rounded-3xl px-4 bg-slate-600 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
+                                onChange={(e) =>
+                                  setOption((prev) => {
+                                    if (prev)
+                                      return {
+                                        ...prev,
+                                        questionId: question.id,
+                                        value: e.target.value,
+                                      };
+                                    setOption({
                                       questionId: question.id,
                                       value: e.target.value,
-                                    };
-                                  setOption({
-                                    questionId: question.id,
-                                    value: e.target.value,
-                                    isAnswer: false,
-                                  });
-                                })
-                              }
-                              onBlur={() =>
-                                saveOption(option.id ? option.id : null)
-                              }
-                            />
+                                      isAnswer: false,
+                                    });
+                                  })
+                                }
+                              />
+                            )}
                           </div>
                           <HiOutlineMinusCircle
                             onClick={() => deleteOption(option.id)}
                             className="text-3xl hover:bg-slate-800 hover:rounded-lg"
                           />
-                          <CiImageOn className="text-3xl mx-8 cursor-pointer" />
+                          <div>
+                            <label className="block mb-2 text-sm text-white">
+                              <CiImageOn className="text-3xl mx-8 cursor-pointer" />
+                            </label>
+                            <input
+                              required
+                              type="file"
+                              id="image"
+                              className="file:mr-4 file:py-2.5 file:rounded-r-none file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:transition-colors file:cursor-pointer file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border w-full text-sm rounded-lg block  bg-gray-600 border-gray-600 placeholder-slate-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
+                              onChange={(e) =>
+                                handleUpload(
+                                  e.target.files![0],
+                                  "option",
+                                  question.id
+                                )
+                              }
+                            />
+                          </div>
                           <div className="flex items-center gap-4">
                             <input
                               checked

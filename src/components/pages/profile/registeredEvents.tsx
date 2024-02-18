@@ -63,14 +63,36 @@ const UserEvents: FC<{
                 <div className="pb-5 flex flex-wrap justify-center items-stretch gap-5">
                   {events?.registeredEvents.__typename ===
                     "QueryRegisteredEventsSuccess" &&
-                    events?.registeredEvents.data?.map((event, i) => (
-                      <EventCard
-                        key={i}
-                        teams={event.teams}
-                        event={event}
-                        userId={userId}
-                      />
-                    ))}
+                    events?.registeredEvents.data?.map((event, i) => {
+                      console.log(event);
+                      return (
+                        <div>
+                          <EventCard
+                            key={i}
+                            teams={event.teams}
+                            event={event}
+                            userId={userId}
+                          />
+                          {event.rounds.find(
+                            (round) =>
+                              round.Quiz?.id && round.Quiz.allowAttempts
+                          ) && (
+                            <Link
+                              href={`/quiz?eventId=${event.id}&teamId=${
+                                event.teams.find(
+                                  (team) =>
+                                    team.members.findIndex(
+                                      (member) => member.user.id === userId
+                                    ) !== -1
+                                )?.id
+                              }`}
+                            >
+                              Attempt Quiz
+                            </Link>
+                          )}
+                        </div>
+                      );
+                    })}
                 </div>
               </div>
             </div>

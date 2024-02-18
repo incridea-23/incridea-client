@@ -7,7 +7,7 @@ subscription GetTimer($eventId: Int!) {
     ... on SubscriptionGetTimerSuccess {
       __typename
       data {
-        quizId
+        started
         remainingTime
       }
     }
