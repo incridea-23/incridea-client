@@ -469,18 +469,18 @@ const Quiz = () => {
           return (
             <div key={index} className="flex flex-col px-4">
               <div className="flex flex-col md:flex-row py-4 gap-4">
-                <div className="flex flex-col items-start border border-primary-200/70 rounded-3xl bg-primary-700  w-full h-full md:p-4 px-8">
+                <div
+                  onBlur={() => {
+                    createQuestion(question.id ? question.id : null);
+                  }}
+                  className="flex flex-col items-start border border-primary-200/70 rounded-3xl bg-primary-700  w-full h-full md:p-4 px-8"
+                >
                   <h1 className="text-xl font-medium mt-6 font-gilroy ">
                     Enter the Question
                   </h1>
 
                   <div className="flex flex-col md:flex-row list-disc justify-between items-center mt-4 w-full gap-8">
-                    <div
-                      onBlur={() => {
-                        createQuestion(question.id ? question.id : null);
-                      }}
-                      className="flex flex-row w-full"
-                    >
+                    <div className="flex flex-row w-full">
                       <input
                         placeholder="enter the question..."
                         defaultValue={question.question}
@@ -494,7 +494,7 @@ const Quiz = () => {
                               quizId: "",
                               image: question.image || "",
                               negativePoint: question.negativePoint || 0,
-                              points: Number(e.target.value) || 0,
+                              points: question.point || 0,
                               question: e.target.value || "",
                               questionType: question.questionType,
                             };
@@ -504,7 +504,8 @@ const Quiz = () => {
                     </div>
                     <div className="flex flex-row items-center gap-8">
                       <input
-                        defaultValue={0}
+                        key={question.id}
+                        defaultValue={question.point}
                         className=" h-12 w-12 text-center rounded-3xl bg-slate-600/20 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
                         type="text"
                         onChange={(e) =>
@@ -533,7 +534,8 @@ const Quiz = () => {
                         Points
                       </label>
                       <input
-                        defaultValue={0}
+                        defaultValue={question.negativePoint}
+                        key={question.id + "negative"}
                         className="h-12 text-center w-12 rounded-3xl px-2 bg-slate-600/20 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-20 outline-none"
                         type="text"
                         onChange={(e) =>
@@ -694,18 +696,34 @@ const Quiz = () => {
                           </div>
                           <div className="flex items-center gap-4">
                             <input
-                              checked
-                              id="bordered-radio-2"
-                              type="radio"
-                              value=""
-                              name="bordered-radio"
-                              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                              onSelect={() =>
-                                setOption((prev) => {
-                                  if (prev) return { ...prev, isAnswer: true };
-                                  return prev;
-                                })
+                              key={option.id}
+                              defaultChecked={option.isAnswer}
+                              type={
+                                question.questionType === "MCQ"
+                                  ? "radio"
+                                  : "checkbox"
                               }
+                              value=""
+                              name={
+                                question.questionType === "MCQ"
+                                  ? "isAnswer"
+                                  : ""
+                              }
+                              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                              onChange={(e) => {
+                                console.log(e.target.checked);
+                                e.target.checked
+                                  ? setOption({
+                                      isAnswer: true,
+                                      questionId: question.id,
+                                      value: option.value,
+                                    })
+                                  : setOption({
+                                      isAnswer: false,
+                                      questionId: question.id,
+                                      value: option.value,
+                                    });
+                              }}
                             />
                             <label
                               htmlFor="bordered-radio-2"
