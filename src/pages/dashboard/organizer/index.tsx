@@ -20,18 +20,16 @@ const Organizer: NextPage = () => {
     router.push("/login");
     return <div>Redirecting...</div>;
   }
-  if (user && user.role !== "ORGANIZER") router.push("/profile");
 
   return (
     <Dashboard>
       <Toaster />
       <div className="relative top-14 md:top-0 p-2">
-        <h1 className="text-3xl mb-3">
+        <h1 className="text-3xl mb-3 ">
           Hello <span className="font-semibold">{user?.name}</span>!
         </h1>
         <OrganizerTab organizerId={user.id} />
       </div>
-
     </Dashboard>
   );
 };
