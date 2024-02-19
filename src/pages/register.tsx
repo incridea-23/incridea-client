@@ -43,51 +43,6 @@ const Register: NextPage = () => {
           Before you roll the dice, read through the list of T&C, and register
           yourself for the fest by clicking the button below.
         </h5>
-
-        {user?.college?.id !== "1" && <div className="bodyFont md:px-10 px-5 md:mt-8 mt-6 max-w-7xl mx-auto bg-white/20 rounded-sm md:py-7 py-4">
-          {loadingAccommodation ? (
-            <Spinner className="text-[#dd5c6e]" intent={"white"} />
-          ) : userDetails?.accommodationRequestsByUser[0]?.status ? (
-            <div>
-              <div className="px-4 flex flex-col md:flex-row justify-between">
-                <div className="flex justify-center text-md">
-                  We are processing your request. Please bear with us.
-                </div>
-                <Button
-                  onClick={() => {
-                    setShowModal(true);
-                  }}
-                  size={"small"}
-                  className="w-max mt-3 md:mt-0 self-end"
-                >
-                  <IoEye />
-                  View Request
-                </Button>
-              </div>
-            </div>
-          ) : (
-            <>
-              {
-                user?.college?.id !== "1" && (
-                  <div className="px-4 flex flex-col md:flex-row justify-between">
-              <div className="flex items-center justify-center text-center text-md">
-                We provide accommodation for external participants
-              </div>
-              <Link
-                href={"/accommodation"}
-                className="flex justify-center items-center"
-              >
-                <Button size={"medium"} className="w-max mt-3 md:mt-0">
-                  Accommodate
-                </Button>
-              </Link>
-            </div>
-                )
-              }
-            </>
-          )}
-        </div>}
-
         <div className="bodyFont md:px-10 px-5 md:mt-8 mt-6 max-w-7xl mx-auto bg-white/20 rounded-sm md:py-7 py-4">
           <h2 className="font-semibold md:text-2xl text-base">
             Terms and Conditions
