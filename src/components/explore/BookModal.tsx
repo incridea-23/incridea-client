@@ -90,7 +90,7 @@ const BookModal: React.FC<BookModalType> = ({ isMuted, mainThemeAudioRef }) => {
                     alt={page.name}
                     width={300}
                     height={300}
-                    className="w-24 h-24"
+                    className="w-24 h-24 object-contain"
                   />
                   <div className="flex flex-col text-center">
                     <span className="text-[0.6rem] font-semibold text-amber-800">

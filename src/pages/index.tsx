@@ -109,8 +109,8 @@ export const Menu: FC<{
     { href: "/pronites", target: "Pronite" },
     { href: "/gallery", target: "Gallery" },
     { href: "/about", target: "About" },
+    { href: "/sponsors", target: "Sponsors" },
     // TODO: remember to change in mainMenuModal.tsx
-    // { href: "/sponsors", target: "Sponsors" },
   ];
 
   const { user, loading, error } = useAuth();
