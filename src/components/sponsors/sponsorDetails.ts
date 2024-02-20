@@ -1,28 +1,89 @@
 type Sponsor = {
     name: string,
-    tier?: string,
+    title?: string,
     desc?: string,
     websiteURL: string,
-    imageURL: string,
+    logo: string,
 }
 
 const sponsors: Sponsor[] = [
     {
         "name": "Centro",
-        "tier": "Official Fashion Partners",
+        "title": "Official Fashion Partners",
         "desc": "",
         "websiteURL": "https://www.reliancecentro.store/",
-        "imageURL": "/sponsors/centro.jpg"
+        "logo": "/sponsors/centro.jpg"
     },
     {
         "name": "Zeus Fitness Club",
-        "tier": "Official Fitness Partners",
+        "title": "Official Fitness Partners",
         "desc": "",
         "websiteURL": "https://www.zeusfitnessclub.com/",
-        "imageURL": "/sponsors/zeus.jpg"
-    }
-
-
+        "logo": "/sponsors/zeus.jpg"
+    },
+    {
+        "name": "Zeus Fitness Club",
+        "title": "Official Fitness Partners",
+        "desc": "",
+        "websiteURL": "https://www.zeusfitnessclub.com/",
+        "logo": "/sponsors/zeus.jpg"
+    },
+    {
+        "name": "Zeus Fitness Club",
+        "title": "Official Fitness Partners",
+        "desc": "",
+        "websiteURL": "https://www.zeusfitnessclub.com/",
+        "logo": "/sponsors/zeus.jpg"
+    },
+    {
+        "name": "Zeus Fitness Club",
+        "title": "Official Fitness Partners",
+        "desc": "",
+        "websiteURL": "https://www.zeusfitnessclub.com/",
+        "logo": "/sponsors/zeus.jpg"
+    },
+    {
+        "name": "Zeus Fitness Club",
+        "title": "Official Fitness Partners",
+        "desc": "",
+        "websiteURL": "https://www.zeusfitnessclub.com/",
+        "logo": "/sponsors/zeus.jpg"
+    },
+    {
+        "name": "Zeus Fitness Club",
+        "title": "Official Fitness Partners",
+        "desc": "",
+        "websiteURL": "https://www.zeusfitnessclub.com/",
+        "logo": "/sponsors/zeus.jpg"
+    },
+    {
+        "name": "Zeus Fitness Club",
+        "title": "Official Fitness Partners",
+        "desc": "",
+        "websiteURL": "https://www.zeusfitnessclub.com/",
+        "logo": "/sponsors/zeus.jpg"
+    },
+    {
+        "name": "Zeus Fitness Club",
+        "title": "Official Fitness Partners",
+        "desc": "",
+        "websiteURL": "https://www.zeusfitnessclub.com/",
+        "logo": "/sponsors/zeus.jpg"
+    },
+    {
+        "name": "Zeus Fitness Club",
+        "title": "Official Fitness Partners",
+        "desc": "",
+        "websiteURL": "https://www.zeusfitnessclub.com/",
+        "logo": "/sponsors/zeus.jpg"
+    },
+    {
+        "name": "Zeus Fitness Club",
+        "title": "Official Fitness Partners",
+        "desc": "",
+        "websiteURL": "https://www.zeusfitnessclub.com/",
+        "logo": "/sponsors/zeus.jpg"
+    },
 ]
 
 export default sponsors;

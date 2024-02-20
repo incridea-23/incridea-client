@@ -3,6 +3,7 @@ import React from "react";
 import Button from "../../button";
 import { FiExternalLink } from "react-icons/fi";
 import { Sponsor } from "../sponsorDetails";
+import { baseImageUrl } from "@/src/utils/url";
 
 type SponsorCardProps = {
   sponsor: Sponsor;
@@ -21,7 +22,7 @@ const SponsorCard: React.FunctionComponent<SponsorCardProps> = ({
     >
       <div className="relative h-52 w-52 aspect-square flex justify-center items-center">
         <Image
-          src={sponsor?.imageURL}
+          src={`${baseImageUrl}/sponsors/${sponsor.logo}`}
           fill={true}
           alt={sponsor?.name + " logo"}
           className="rounded-2xl object-cover"
@@ -30,7 +31,9 @@ const SponsorCard: React.FunctionComponent<SponsorCardProps> = ({
       <div className="flex flex-col items-center justify-between gap-7 w-full h-full">
         <div className="flex flex-col justify-between items-center gap-2">
           <h2 className="text-3xl text-center">{sponsor?.name}</h2>
-          <h3 className="text-xl text-center text-white/70">{sponsor?.tier}</h3>
+          <h3 className="text-xl text-center text-white/70">
+            {sponsor?.title}
+          </h3>
         </div>
         <p className="text-center text-slate-300">{sponsor?.desc}</p>
         <a href={sponsor.websiteURL} target="_blank" rel="noreferrer">

@@ -18,7 +18,6 @@ const Sponsors: NextPage = () => {
   const pathLengthRef = useRef<number>(8500);
   const [scrollYProgress, setScrollYProgress] = useState<number>(0);
 
-  // strokeDashArray = [minLengthOfSVGPath, maxLengthOfSVGPath]
   const strokeDashArray = useRef<number[]>([0, 2850]);
 
   useGSAP(() => {
@@ -44,7 +43,7 @@ const Sponsors: NextPage = () => {
 
   return (
     <ReactLenis root>
-      <div className="trigger py-16 px-10 flex flex-col items-center justify-center overflow-clip w-full relative bg-gradient-to-b from-[#7628d0] to-primary-400 page-container">
+      <div className="trigger w-screen py-16 px-10 flex flex-col items-center justify-center overflow-clip relative bg-gradient-to-b from-[#7628d0] to-primary-400 page-container">
         <svg
           className="absolute xl:w-screen xl:h-auto md:h[200%] h-[300%] top-0"
           viewBox="0 0 804 1782"
