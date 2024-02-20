@@ -146,6 +146,7 @@ export default function AttemptQuiz({
     )
       document.getElementById("q" + (questionNo + 1))?.click();
   }, [mcqSubmitData, fitbSubmitData]);
+
   const handleNext = () => {
     if (
       question?.getQuestionById.__typename === "QueryGetQuestionByIdSuccess" &&
@@ -174,7 +175,18 @@ export default function AttemptQuiz({
     loadingMCQSubmission ||
     loadingFitbSubmission
   )
-    return <Spinner />;
+    return (
+      <div
+        style={{ pointerEvents: "all" }}
+        className="fixed w-full h-full top-0 left-0 z-[9999]"
+      >
+        <div className="relative w-full h-full">
+          <div className="absolute w-40 h-40 rounded-xl bg-slate-500/50 top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4">
+            <Spinner className="text-pink-600" />
+          </div>
+        </div>
+      </div>
+    );
   else
     return (
       <>
