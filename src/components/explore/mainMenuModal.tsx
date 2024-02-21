@@ -166,7 +166,7 @@ const Menu: React.FunctionComponent<{
     { href: "/pronites", target: "Pronite" },
     { href: "/gallery", target: "Gallery" },
     { href: "/about", target: "About" },
-    // { href: "/sponsors", target: "Sponsors" },
+    { href: "/sponsors", target: "Sponsors" },
   ];
 
   const { user, loading, error } = useAuth();

@@ -8,25 +8,13 @@ import useStore from "../store/store";
 import styles from "./bookModal.module.css";
 import { baseAudioUrl, baseImageUrl } from "@/src/utils/url";
 import { VikingHell } from "@/src/pages/_app";
+import sponsors from "../sponsors/sponsorDetails";
 interface BookModalType {
   isMuted: boolean;
   mainThemeAudioRef: React.MutableRefObject<HTMLAudioElement | null>;
 }
 
 const BookModal: React.FC<BookModalType> = ({ isMuted, mainThemeAudioRef }) => {
-  const sponsors = [
-    {
-      logo: `/sponsors/centro.jpg`,
-      name: "Centro",
-      title: "Official Fashion Partners",
-    },
-    {
-      logo: `/sponsors/zeus.jpg`,
-      name: "Zeus Fitness Club",
-      title: "Official Fitness Partners",
-    },
-  ];
-
   const setSponsorFlag = useStore((state) => state.setSponsor);
   const sponsorFlag = useStore((state) => state.sponsor);
 
@@ -61,7 +49,7 @@ const BookModal: React.FC<BookModalType> = ({ isMuted, mainThemeAudioRef }) => {
           minHeight={225}
           maxHeight={600}
           drawShadow={true}
-          flippingTime={500}
+          flippingTime={1000}
           usePortrait={true}
           startZIndex={0}
           autoSize={true}
@@ -98,11 +86,11 @@ const BookModal: React.FC<BookModalType> = ({ isMuted, mainThemeAudioRef }) => {
               >
                 <div className="flex flex-col gap-2 w-full h-full justify-center items-center">
                   <Image
-                    src={page.logo}
+                    src={`${baseImageUrl}/sponsors/${page.logo}`}
                     alt={page.name}
                     width={300}
                     height={300}
-                    className="w-24 h-24"
+                    className="w-24 h-24 object-contain"
                   />
                   <div className="flex flex-col text-center">
                     <span className="text-[0.6rem] font-semibold text-amber-800">
