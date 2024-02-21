@@ -1,0 +1,14 @@
+mutation SubmitQuiz($quizId: String = "", $teamId: String = "") {
+  submitQuiz(quizId: $quizId, teamId: $teamId) {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on MutationSubmitQuizSuccess {
+      __typename
+      data {
+        id
+      }
+    }
+  }
+}
