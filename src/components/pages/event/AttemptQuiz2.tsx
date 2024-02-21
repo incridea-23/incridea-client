@@ -105,7 +105,7 @@ export default function AttemptQuiz({
     {
       data: mcqSubmitData,
       loading: loadingMCQSubmission,
-      error: MCQSubmissionErrorj,
+      error: MCQSubmissionError,
     },
   ] = useMutation(CreateMcqSubmissionDocument, {
     variables: {
@@ -145,6 +145,9 @@ export default function AttemptQuiz({
       questionNo < QuestionIds.getQuizDataByEventRound.data?.questions?.length
     )
       document.getElementById("q" + (questionNo + 1))?.click();
+    else {
+      //submit
+    }
   }, [mcqSubmitData, fitbSubmitData]);
 
   const handleNext = () => {
