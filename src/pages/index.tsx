@@ -84,6 +84,10 @@ export const HomeFooter = () => {
           <li className="text-white hover:text-gray-300 transition-colors duration-300">
             <Link href="/refund">Refund Policy</Link>
           </li>
+          |
+          <li className="text-white hover:text-gray-300 transition-colors duration-300">
+            <Link href="/contact">Contact Us</Link>
+          </li>
         </ul>
       )}
       {!show && (
