@@ -46,8 +46,13 @@ const Contact: NextPage = () => {
           </div>
           <p className="mt-2">
             <p>
-              NMAM Institute of Technology, Part of Nitte Education Trust,
-              Nitte, Karkala Taluk, Udupi, Karnataka, India - 574110
+              NMAM Institute of Technology, Nitte, Karkala Taluk, Udupi,
+              Karnataka, India - 574110
+            </p>
+            <p>
+              A unit of Nitte (Deemed to be University), Nitte Education Trust
+              6th Floor, University Enclave, Medical Sciences Complex,
+              Deralakatte, Mangaluru - 575018 Karnataka, India
             </p>
           </p>
         </div>
