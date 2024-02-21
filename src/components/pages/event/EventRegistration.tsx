@@ -22,10 +22,12 @@ function EventRegistration({
   eventId,
   type,
   fees,
+  
 }: {
   eventId: Event["id"];
   type: Event["eventType"];
   fees: Event["fees"];
+  
 }) {
   const { loading, user, status } = useAuth();
   const router = useRouter();
@@ -34,11 +36,11 @@ function EventRegistration({
   if (loading) return null;
   return (
     <>
-      {eventId === "29" || eventId === "50" ? (
+      {eventId === "29" || eventId === "50" || eventId === '78' || eventId === '72' || eventId === '74' || eventId === '75'|| eventId === '77' || eventId === '79' || eventId === '80' ? (
         <div className="bg-green-500/30 border border-green-500 backdrop-blur-3xl w-full flex justify-center p-1 rounded-full">
-          {eventId === "29"
-            ? "Event is open on all 3 days"
-            : "Event is only open for N.M.A.M.I.T faculties"}
+            {
+               eventId === '78' ? '23 Feb 2024, 9am - 12pm': eventId === '50' ? 'Event is only open for N.M.A.M.I.T faculties': 'Exhibition open all 3 days'
+            }
         </div>
       ) : !user ? (
         <Link
