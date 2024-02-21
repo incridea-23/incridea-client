@@ -91,6 +91,7 @@ const CreateQuizModal: FC<{
         eventId: eventId.toString(),
         roundId: roundNo.toString(),
         password: quizPassword,
+        duration: Number(quizDuration),
       },
     }).then((res) => {
       if (res.data?.createQuiz.__typename !== "MutationCreateQuizSuccess") {
@@ -201,7 +202,7 @@ const CreateQuizModal: FC<{
               id="name"
               className=" border text-sm rounded-lg   block w-11/12 p-2.5 bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 ring-gray-500"
               placeholder="Quiz duration..."
-              value={quizDuration}
+              defaultValue={quizDuration}
               onChange={(e) => {
                 setQuizDuration(e.target.value);
               }}
