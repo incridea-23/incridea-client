@@ -196,6 +196,7 @@ function event({ event, error }: { event: Event; error: String }) {
                 </div>
                 <div className={`w-full flex justify-center order-1 mt-3`}>
                   <EventRegistration
+                    
                     fees={event.fees}
                     eventId={event.id}
                     type={event.eventType}

@@ -16,14 +16,16 @@ export const QRCodeScanner: React.FC<{
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+
   const { ref } = useZxing({
-    onResult: (result) => {
+    onDecodeResult: (result) => {
       setResult(result.getText());
     },
-    onError: (error) => {
+    onDecodeError(error) {
       setError(error.message);
     },
   });
+
 
   const stopCamera = () => {
     const stream = ref.current?.srcObject as MediaStream;
@@ -35,7 +37,7 @@ export const QRCodeScanner: React.FC<{
 
   const startCamera = () => {
     // start the camera again
-    navigator.mediaDevices
+   void navigator.mediaDevices
       .getUserMedia({ video: { facingMode: "environment" } })
       .then((stream) => {
         const video = ref.current;
@@ -49,6 +51,7 @@ export const QRCodeScanner: React.FC<{
     setResult(null);
     setError(null);
   };
+console.log(result)
 
   return (
     <div className="flex flex-col items-center relative">
