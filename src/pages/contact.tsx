@@ -46,8 +46,8 @@ const Contact: NextPage = () => {
           </div>
           <p className="mt-2">
             <p>
-              NMAM Institute of Technology, Nitte, Karkala Taluk, Udupi,
-              Karnataka, India - 574110
+              NMAM Institute of Technology, Part of Nitte Education Trust,
+              Nitte, Karkala Taluk, Udupi, Karnataka, India - 574110
             </p>
           </p>
         </div>
