@@ -287,15 +287,7 @@ const ProfileInfo: FC<{
                   View Request
                 </Button>
               ) : (
-                <Button
-                  intent={"success"}
-                  size={"large"}
-                  onClick={() => router.push("/accommodation")}
-                  className="!rounded-full w-full bodyFont !tracking-normal !text-sm justify-center"
-                >
-                  <RiHotelBedLine className="inline-block mr-1" />
-                  Accommodation
-                </Button>
+              <></>
               )
             ) : null}
             <Button
