@@ -871,7 +871,7 @@ const ExploreGame = () => {
             href={
               showRuleBook
                 ? "https://drive.google.com/file/d/1H43LJXI4E-HELku71b9NLOBRoDpmxuHk/view?usp=drive_link"
-                : ""
+                : "https://drive.google.com/file/d/1oqBkgCtTzA3asYb1UUKmUE092fRiobJG/view?usp=drive_link"
             }
             className="flex w-full justify-center py-4 bg-orange-500 rounded-xl"
             download

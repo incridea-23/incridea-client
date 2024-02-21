@@ -104,7 +104,6 @@ const Explore = () => {
           if (blackScreenRef.current)
             blackScreenRef.current.style.display = "none";
           setClickThru(false);
-          e.target.unMute();
         }}
         onPause={(e) => {
           e.target.playVideo();

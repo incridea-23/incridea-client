@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { MdCall, MdMail } from "react-icons/md";
+import { MdCall, MdLocationOn, MdMail } from "react-icons/md";
 
 const Contact: NextPage = () => {
   return (
@@ -39,6 +39,16 @@ const Contact: NextPage = () => {
             <a href="tel:96863 56123" className="hover:underline">
               96863 56123
             </a>
+          </p>
+          <div className="font-semibold md:text-2xl text-base mt-5 flex items-center space-x-2">
+            <MdLocationOn />
+            <a>Address</a>
+          </div>
+          <p className="mt-2">
+            <p>
+              NMAM Institute of Technology, Part of Nitte Education Trust,
+              Nitte, Karkala Taluk, Udupi, Karnataka, India - 574110
+            </p>
           </p>
         </div>
       </div>

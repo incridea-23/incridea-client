@@ -294,6 +294,16 @@ const Events: NextPage<{ data: PublishedEventsQuery["publishedEvents"] }> = ({
                     </button>
                   </a>
                 </div>
+                <div>
+                  <a
+                    href="https://drive.google.com/file/d/1oqBkgCtTzA3asYb1UUKmUE092fRiobJG/view?usp=sharing"
+                    download
+                  >
+                    <button className="inline-flex shrink-0 gap-2 text-sm md:text-lg whitespace-nowrap bg-black/30 border border-primary-200/80 items-center w-full justify-center rounded-full px-4 py-2 h-[40px] text-white">
+                      Schedule
+                    </button>
+                  </a>
+                </div>
                 <div className="flex flex-col md:flex-row justify-center items-center gap-4">
                   <Menu
                     as={"div"}

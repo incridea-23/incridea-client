@@ -84,6 +84,10 @@ export const HomeFooter = () => {
           <li className="text-white hover:text-gray-300 transition-colors duration-300">
             <Link href="/refund">Refund Policy</Link>
           </li>
+          |
+          <li className="text-white hover:text-gray-300 transition-colors duration-300">
+            <Link href="/contact">Contact Us</Link>
+          </li>
         </ul>
       )}
       {!show && (
@@ -109,8 +113,8 @@ export const Menu: FC<{
     { href: "/pronites", target: "Pronite" },
     { href: "/gallery", target: "Gallery" },
     { href: "/about", target: "About" },
+    { href: "/sponsors", target: "Sponsors" },
     // TODO: remember to change in mainMenuModal.tsx
-    // { href: "/sponsors", target: "Sponsors" },
   ];
 
   const { user, loading, error } = useAuth();
