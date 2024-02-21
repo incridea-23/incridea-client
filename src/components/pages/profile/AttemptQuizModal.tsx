@@ -48,6 +48,13 @@ const AttemptQuizModal: FC<{
       router.push(
         `/quiz?eventId=${eventId}&roundId=${roundNo}&teamId=${teamId}`
       );
+    } else {
+      createToast(
+        new Promise((resolve, reject) => {
+          reject();
+        }),
+        "Invalid Password"
+      );
     }
   };
 
@@ -82,6 +89,11 @@ const AttemptQuizModal: FC<{
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                if (e.code === "Enter") {
+                  handleQuiz();
+                }
               }}
               required
             />
