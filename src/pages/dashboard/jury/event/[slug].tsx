@@ -19,6 +19,7 @@ import { CSVLink } from "react-csv";
 import Modal from "@/src/components/modal";
 import Button from "@/src/components/button";
 import ViewTeamModal from "@/src/components/pages/dashboard/jury/ViewTeamModal";
+import ViewWinners from "@/src/components/pages/dashboard/jury/viewWinners";
 
 const Jury: NextPage<{ slug: string }> = (props) => {
   const { user, loading, error } = useAuth();
@@ -113,6 +114,19 @@ const RoundTabs = ({
             )}
           </Tab>
         ))}
+        <Tab className="focus:outline-none" key="winners">
+          {({ selected }) => (
+            <button
+              className={` sm:px-5 transition-colors whitespace-nowrap sm:py-4 sm:text-lg text-base p-3 font-semibold ${
+                selected
+                  ? "bg-gray-900 shadow-lg shadow-black text-white"
+                  : "bg-transparent hover:bg-gray-800/60 text-white"
+              }`}
+            >
+              <span>Winners</span>
+            </button>
+          )}
+        </Tab>
       </Tab.List>
       <Tab.Panels>
         {rounds.map((round) => (
@@ -120,6 +134,9 @@ const RoundTabs = ({
             <RoundTable eventId={eventId} roundNo={round.roundNo} />
           </Tab.Panel>
         ))}
+        <Tab.Panel key={`winners`}>
+          <ViewWinners eventId={eventId} />
+        </Tab.Panel>
       </Tab.Panels>
     </Tab.Group>
   );
