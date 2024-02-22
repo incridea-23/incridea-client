@@ -235,7 +235,7 @@ export const HomeUi: FC<{
 
   return (
     <>
-      <CountDown />
+      {/* <CountDown /> */}
       <section
         id="scene"
         className="relative bg-gradient-to-b min-h-screen from-[#00002a] via-[#1c23bb] to-pink-800/50"

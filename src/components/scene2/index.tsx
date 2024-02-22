@@ -226,7 +226,7 @@ const Scene2: React.FC<Scene2Props> = ({
           material={materials.Tree}
           position={[-21.183, -3.707, 4.183]}
         />
-        <Timer position={[-17.75, 1.1, 2.5]} rotation={[0, 0, 0]} />
+        {/* <Timer position={[-17.75, 1.1, 2.5]} rotation={[0, 0, 0]} /> */}
         <mesh
           name="dice1"
           castShadow
