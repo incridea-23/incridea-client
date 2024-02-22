@@ -16,6 +16,9 @@ import { StatusBadge } from "..";
 import { NextPage, NextPageContext } from "next";
 import { useState } from "react";
 import { CSVLink } from "react-csv";
+import Modal from "@/src/components/modal";
+import Button from "@/src/components/button";
+import ViewTeamModal from "@/src/components/pages/dashboard/jury/ViewTeamModal";
 
 const Jury: NextPage<{ slug: string }> = (props) => {
   const { user, loading, error } = useAuth();
@@ -205,6 +208,8 @@ const JudgeTable = ({
     return data;
   };
 
+  const [modal, setModal] = useState(false);
+
   return (
     <Tab.Group>
       <Tab.List className="w-full items-center gap-5 p-2 flex bg-gray-300/20 text-white">
@@ -266,9 +271,14 @@ const JudgeTable = ({
                 key={team.teamId}
                 className="bg-white/10 md:rounded-none rounded-lg md:p-4  p-3 flex flex-col md:flex-row md:items-center items-start md:justify-evenly w-full md:text-center mb-3 md:my-0"
               >
-                <div className="basis-1/3 py-0.5 text-center text-lg">
+                <div
+                  onClick={() => setModal(true)}
+                  className="basis-1/3 py-0.5 text-center text-lg"
+                >
                   {team.teamName}
                 </div>
+                <ViewTeamModal teamId={team.teamId} teamName={team.teamName} />
+
                 {team.judges
                   .find((j) => j.judgeId === judge.judgeId)
                   ?.criteria.map((criteria) => (
