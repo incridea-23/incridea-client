@@ -44,16 +44,21 @@ const Contact: NextPage = () => {
             <MdLocationOn />
             <a>Address</a>
           </div>
-          <p className="mt-2">
-            <p>
-              NMAM Institute of Technology, Nitte, Karkala Taluk, Udupi,
-              Karnataka, India - 574110
-            </p>
-            <p>
-              A unit of Nitte (Deemed to be University), Nitte Education Trust
-              6th Floor, University Enclave, Medical Sciences Complex,
-              Deralakatte, Mangaluru - 575018 Karnataka, India
-            </p>
+          <p className="mt-2 flex flex-col gap-3">
+            <div className="">
+              <p>NMAM Institute of Technology,</p>
+              <p>Nitte, Karkala Taluk, Udupi,</p>
+              <p>Karnataka, India - 574110</p>
+            </div>
+            <div className="">
+              <p>
+                A unit of Nitte (Deemed to be University), Nitte Education Trust
+              </p>
+              <p>6th Floor, University Enclave,</p>
+              <p>Medical Sciences Complex,</p>
+              <p>Deralakatte, Mangaluru - 575018</p>
+              <p>Karnataka, India</p>
+            </div>
           </p>
         </div>
       </div>
