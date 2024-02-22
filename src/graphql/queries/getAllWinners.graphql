@@ -1,0 +1,25 @@
+query GetAllWinners {
+  allWinners {
+    ... on Error {
+      __typename
+      message
+    }
+    ... on QueryAllWinnersSuccess {
+      __typename
+      data {
+        type
+        team {
+          members {
+            user {
+              name
+              phoneNumber
+            }
+          }
+          event {
+            name
+          }
+        }
+      }
+    }
+  }
+}

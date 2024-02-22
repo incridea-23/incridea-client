@@ -105,7 +105,7 @@ const TeamMembers = [
   },
   {
     name: "Nandan R Pai",
-    role: "Frontend",
+    role: "Full Stack",
     instagram: "https://www.instagram.com/nandanpi__/",
     github: "https://github.com/nandanpi",
     linkedin: "https://www.linkedin.com/in/nandanpai09",
@@ -273,7 +273,8 @@ const TeamMembers = [
   {
     name: "Vasoon R Rai",
     role: "Frontend",
-    instagram: "https://www.instagram.com/_rai_vasoon_20?igsh=MXNnNWxhOWEwbnplbA%3D%3D&utm_source=qr",
+    instagram:
+      "https://www.instagram.com/_rai_vasoon_20?igsh=MXNnNWxhOWEwbnplbA%3D%3D&utm_source=qr",
     github: "https://www.youtube.com/watch?v=wh9QLjk3M2k&t=380s",
     linkedin: "https://www.linkedin.com/in/sourav-bangera-278a45227/",
     image: "/team/vasoon_ltxcjr.jpg",
@@ -289,5 +290,5 @@ const TeamMembers = [
     image: "/team/yuvraj_k4q3vq.jpg",
     quote: "Radhe Radhe",
     avatar: "",
-  }
+  },
 ];
