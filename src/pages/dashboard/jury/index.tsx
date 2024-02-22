@@ -6,17 +6,41 @@ import Dashboard from "@/src/components/layout/dashboard";
 import { Toaster } from "react-hot-toast";
 import { useQuery } from "@apollo/client";
 import {
+  Criteria,
+  Judge,
+  Maybe,
   PublishedEventsDocument,
   PublishedEventsQuery,
+  Round,
+  Scalars,
+  WinnersByEventDocument,
 } from "@/src/generated/generated";
 import Events from "../../events";
 import Link from "next/link";
 import { Menu } from "@headlessui/react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { IoPeopleOutline } from "react-icons/io5";
+import { GetAllWinnersDocument } from "@/src/generated/generated";
+import { BiDownload } from "react-icons/bi";
 
 function Jury() {
   const { user, loading, error } = useAuth();
+  // function fetchWinners(eventId: string) {
+  //   const { data: winners, loading: winnersLoading } = useQuery(
+  //     WinnersByEventDocument,
+  //     {
+  //       variables: {
+  //         eventId: eventId!,
+  //       },
+  //       skip: !eventId,
+  //     }
+  //   );
+  //   return winners;
+  // }
+  const { data: allWinners, loading: allWinnersLoading } = useQuery(
+    GetAllWinnersDocument
+  );
+  console.log(allWinners);
   const router = useRouter();
   const {
     data: Events,
@@ -40,7 +64,14 @@ function Jury() {
   ];
 
   const dayFilters = ["ALL", "DAY 1", "DAY 2", "DAY 3"];
-  const categoryFilters = ["ALL", "TECHNICAL", "NON_TECHNICAL", "CORE","SPECIAL"];
+  const categoryFilters = [
+    "ALL",
+    "TECHNICAL",
+    "NON_TECHNICAL",
+    "CORE",
+    "SPECIAL",
+  ];
+
   const [currentBranchFilter, setCurrentBranchFilter] =
     useState<(typeof branchFilters)[number]>("ALL");
   const [currentDayFilter, setCurrentDayFilter] =
@@ -87,7 +118,6 @@ function Jury() {
       );
     }
     setFilteredEvents(tempFilteredEvents);
-    console.log(tempFilteredEvents);
   }, [currentBranchFilter, currentDayFilter, currentCategoryFilter, Events]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -113,6 +143,54 @@ function Jury() {
     setCurrentCategoryFilter("ALL");
     setFilteredEvents(Events?.publishedEvents || []);
   };
+
+  function DownloadWinnersCSV() {
+    let csv = "Event Name,Participant Name, Position, Phone no,";
+    // {
+    //   allWinners?.allWinners.__typename === "QueryAllWinnersSuccess" &&
+    //     allWinners?.allWinners.data.map((winner) => {
+    //       winner.event.winner?.map((w) => {
+    //         w.team.members.map((member) => {
+    //           csv +=
+    //             "\n" +
+    //             winner.event.name +
+    //             "," +
+    //             member.user.name +
+    //             "," +
+    //             w.type +
+    //             "," +
+    //             member.user.phoneNumber;
+    //         });
+    //       });
+    //     });
+    // }
+    {
+      allWinners?.allWinners.__typename === "QueryAllWinnersSuccess" &&
+        allWinners?.allWinners.data.map((winner) => {
+          winner.team.members.map((member) => {
+            csv +=
+              "\n" +
+              winner.team.event.name +
+              "," +
+              member.user.name +
+              "," +
+              winner.type +
+              "," +
+              member.user.phoneNumber;
+          });
+        });
+    }
+
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    a.download = `${currentDayFilter} Winners.csv`;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
 
   // --------------------------------------------------
 
@@ -216,6 +294,13 @@ function Jury() {
                 </Menu.Items>
               </Menu>
             </div>
+            <button
+              onClick={DownloadWinnersCSV}
+              className="border border-white py-2 px-4 rounded-xl flex gap-x-2 items-center"
+            >
+              <BiDownload />
+              Winners
+            </button>
           </div>
           <div className="lg:flex lg:w-[800px] gap-3 mx-auto  hidden  font-semibold">
             {categoryFilters.map((filter) => (
@@ -440,4 +525,24 @@ export const StatusBadge = ({ status }: { status: string }) => {
       </div>
     );
   return null;
+};
+
+type customRound = {
+  completed: Scalars["Boolean"];
+  criteria?: Maybe<Criteria[]> | undefined;
+  date?: Maybe<Scalars["DateTime"]>;
+  event: Event;
+  eventId: Scalars["ID"];
+  judges: Array<Judge>;
+  roundNo: Scalars["Int"];
+  selectStatus: Scalars["Boolean"];
+};
+
+const isCompleted = (rounds: customRound[]) => {
+  const totalRounds = rounds.length;
+  let completedRounds = 0;
+  rounds.forEach((round) => {
+    if (round.completed === true) completedRounds++;
+  });
+  return totalRounds === completedRounds;
 };
