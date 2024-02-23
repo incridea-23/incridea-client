@@ -15,8 +15,11 @@ query GetAllWinners {
               phoneNumber
             }
           }
-          event {
-            name
+        }
+        event {
+          name
+          rounds {
+            date
           }
         }
       }
