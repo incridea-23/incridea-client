@@ -146,38 +146,51 @@ function Jury() {
 
   function DownloadWinnersCSV() {
     let csv = "Event Name,Participant Name, Position, Phone no,";
-    // {
-    //   allWinners?.allWinners.__typename === "QueryAllWinnersSuccess" &&
-    //     allWinners?.allWinners.data.map((winner) => {
-    //       winner.event.winner?.map((w) => {
-    //         w.team.members.map((member) => {
-    //           csv +=
-    //             "\n" +
-    //             winner.event.name +
-    //             "," +
-    //             member.user.name +
-    //             "," +
-    //             w.type +
-    //             "," +
-    //             member.user.phoneNumber;
-    //         });
-    //       });
-    //     });
-    // }
     {
       allWinners?.allWinners.__typename === "QueryAllWinnersSuccess" &&
         allWinners?.allWinners.data.map((winner) => {
-          winner.team.members.map((member) => {
-            csv +=
-              "\n" +
-              winner.team.event.name +
-              "," +
-              member.user.name +
-              "," +
-              winner.type +
-              "," +
-              member.user.phoneNumber;
-          });
+          if (
+            currentDayFilter === "DAY 1" ||
+            currentDayFilter === "DAY 2" ||
+            currentDayFilter === "DAY 3"
+          ) {
+            if (
+              new Date(
+                currentDayFilter === "DAY 1"
+                  ? "2024-02-22"
+                  : currentDayFilter === "DAY 2"
+                  ? "2024-02-23"
+                  : "2024-02-24"
+              ).getDate() ===
+              new Date(
+                winner.event.rounds[winner.event.rounds.length - 1].date
+              ).getDate()
+            ) {
+              winner.team.members.map((member) => {
+                csv +=
+                  "\n" +
+                  winner.event.name +
+                  "," +
+                  member.user.name +
+                  "," +
+                  winner.type +
+                  "," +
+                  member.user.phoneNumber;
+              });
+            }
+          } else {
+            winner.team.members.map((member) => {
+              csv +=
+                "\n" +
+                winner.event.name +
+                "," +
+                member.user.name +
+                "," +
+                winner.type +
+                "," +
+                member.user.phoneNumber;
+            });
+          }
         });
     }
 
