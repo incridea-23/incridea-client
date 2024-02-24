@@ -75,8 +75,9 @@ const Register: NextPage = () => {
             about the guidelines and regulations
           </div>
           <Button
-            onClick={() => makePayment(setLoading)}
-            className="flex gap-2 mt-8 mb-4"
+            onClick={() => {}}
+            disabled
+            className="flex gap-2 mt-8 mb-4 disabled"
           >
             Register Now
             {loading && (
