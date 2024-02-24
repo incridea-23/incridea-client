@@ -18,6 +18,10 @@ query GetAllWinners {
         }
         event {
           name
+          branch {
+            name
+            id
+          }
           rounds {
             date
           }
