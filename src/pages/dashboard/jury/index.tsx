@@ -149,47 +149,100 @@ function Jury() {
     {
       allWinners?.allWinners.__typename === "QueryAllWinnersSuccess" &&
         allWinners?.allWinners.data.map((winner) => {
-          if (
-            currentDayFilter === "DAY 1" ||
-            currentDayFilter === "DAY 2" ||
-            currentDayFilter === "DAY 3"
-          ) {
+          if (currentBranchFilter === "CORE") {
             if (
-              new Date(
-                currentDayFilter === "DAY 1"
-                  ? "2024-02-22"
-                  : currentDayFilter === "DAY 2"
-                  ? "2024-02-23"
-                  : "2024-02-24"
-              ).getDate() ===
-              new Date(
-                winner.event.rounds[winner.event.rounds.length - 1].date
-              ).getDate()
+              currentDayFilter === "DAY 1" ||
+              currentDayFilter === "DAY 2" ||
+              currentDayFilter === "DAY 3"
             ) {
-              winner.team.members.map((member) => {
-                csv +=
-                  "\n" +
-                  winner.event.name +
-                  "," +
-                  member.user.name +
-                  "," +
-                  winner.type +
-                  "," +
-                  member.user.phoneNumber;
-              });
+              if (
+                new Date(
+                  currentDayFilter === "DAY 1"
+                    ? "2024-02-22"
+                    : currentDayFilter === "DAY 2"
+                    ? "2024-02-23"
+                    : "2024-02-24"
+                ).getDate() ===
+                new Date(
+                  winner.event.rounds[winner.event.rounds.length - 1].date
+                ).getDate()
+              ) {
+                if (winner.event.branch.name === "CORE") {
+                  winner.team.members.map((member) => {
+                    csv +=
+                      "\n" +
+                      winner.event.name +
+                      "," +
+                      member.user.name +
+                      "," +
+                      winner.type +
+                      "," +
+                      member.user.phoneNumber;
+                  });
+                }
+              }
+            } else {
+              if (winner.event.branch.name === "CORE") {
+                winner.team.members.map((member) => {
+                  csv +=
+                    "\n" +
+                    winner.event.name +
+                    "," +
+                    member.user.name +
+                    "," +
+                    winner.type +
+                    "," +
+                    member.user.phoneNumber;
+                });
+              }
             }
           } else {
-            winner.team.members.map((member) => {
-              csv +=
-                "\n" +
-                winner.event.name +
-                "," +
-                member.user.name +
-                "," +
-                winner.type +
-                "," +
-                member.user.phoneNumber;
-            });
+            if (
+              currentDayFilter === "DAY 1" ||
+              currentDayFilter === "DAY 2" ||
+              currentDayFilter === "DAY 3"
+            ) {
+              if (
+                new Date(
+                  currentDayFilter === "DAY 1"
+                    ? "2024-02-22"
+                    : currentDayFilter === "DAY 2"
+                    ? "2024-02-23"
+                    : "2024-02-24"
+                ).getDate() ===
+                new Date(
+                  winner.event.rounds[winner.event.rounds.length - 1].date
+                ).getDate()
+              ) {
+                if (winner.event.branch.name !== "CORE") {
+                  winner.team.members.map((member) => {
+                    csv +=
+                      "\n" +
+                      winner.event.name +
+                      "," +
+                      member.user.name +
+                      "," +
+                      winner.type +
+                      "," +
+                      member.user.phoneNumber;
+                  });
+                }
+              }
+            } else {
+              if (winner.event.branch.name !== "CORE") {
+                winner.team.members.map((member) => {
+                  csv +=
+                    "\n" +
+                    winner.event.name +
+                    "," +
+                    member.user.name +
+                    "," +
+                    winner.type +
+                    "," +
+                    member.user.phoneNumber;
+                });
+              }
+            }
           }
         });
     }
@@ -199,7 +252,9 @@ function Jury() {
     const a = document.createElement("a");
     a.style.display = "none";
     a.href = url;
-    a.download = `${currentDayFilter} Winners.csv`;
+    a.download = `${currentDayFilter} ${
+      currentBranchFilter === "ALL" ? "Branch" : "Core"
+    } Winners.csv`;
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(url);
