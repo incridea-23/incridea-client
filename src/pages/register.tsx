@@ -74,20 +74,17 @@ const Register: NextPage = () => {
             </Link>{" "}
             about the guidelines and regulations
           </div>
-          {/*<Button
+          <Button
             onClick={() => {}}
             disabled
             className="flex gap-2 mt-8 mb-4 disabled"
-          >*/}
-           <Button
-            onClick={() => makePayment(setLoading)}
-            className="flex gap-2 mt-8 mb-4"
           >
             Register Now
             {loading && (
               <Spinner className="w-fit" size={"small"} intent={"white"} />
             )}{" "}
           </Button>
+          <h2 className="text-xs md:text-sm mt-2 text-gray-100">Registration are closed.</h2>
           <h1 className="text-xs md:text-sm mt-2 text-gray-100">
             By clicking the above button, you agree to the mentioned terms and
             conditions
