@@ -37,28 +37,28 @@ const sponsors: Sponsor[] = [
     },
     {
         "name": "SL Shet Gold & Diamond House",
-        "title": "Core Title Sposor for Tulu Tulipu",
+        "title": "Core Title Sponsor for Tulu Tulipu",
         "desc": "For exquisite jewelry, S L Shet Gold & Diamond House in Mangalore has been a prominent name. With extensive experience in the gems and jewellery industry, this establishment has gained recognition for its stunning designs and collections.Renowned for its handpicked and exclusive designs showcased in its gold and diamond jewellery collections, the fine craftsmanship accentuates each precious piece.Catering to a wide range of tastes and is suitable for special occasions like weddings and ceremonies.It's undoubtedly one of the premier jewellery destinations in Mangalore.",
         "websiteURL": "",
         "logo": "S_L_Shet_Logo.png"
     },
     {
         "name": "Paramvah Studios",
-        "title": "Core Title Sposor for Navarasa",
+        "title": "Core Title Sponsor for Navarasa",
         "desc": "Paramvah Studios: A world-class production house dedicated to creating memorable films and characters using the latest technologies and top creative talents.More than just a name, Paramvah represents the first vibration, symbolizing a commitment to pushing boundaries and thinking outside the box.Passion drives every project, providing a creative space where imagination thrives and freedom reigns.Join Paramvah studios on a journey that paves the way for new talents and groundbreaking storytelling.",
         "websiteURL": "",
         "logo": "PARAMVAH_STUDIOS.png"
     },
     {
         "name": "Dew Drops",
-        "title": "Core Title Sposor for Art Duet",
+        "title": "Core Title Sponsor for Art Duet",
         "desc": "Dew Drops Jungle Resort is designed to offer a harmonious blend of comfort and rustic charm. The tastefully adorned cottages and rooms guarantee a cozy stay for Dew Drops Jungle Resort guests.The resort presents a variety of exciting activities and experiences.Embark on an exhilarating safari through the enchanting jungle, and partake in heart- pounding water sports such as water rafting, kayaking, and river crossing, all amidst the abundant biodiversity enveloping the retreat.",
         "websiteURL": "",
         "logo": "DD_LOGO_DANDELI.PNG"
     },
     {
         "name": "Nandini",
-        "title": "Core Title Sposor for Usaravalli",
+        "title": "Core Title Sponsor for Usaravalli",
         "desc": "Indulge in the pure goodness of Nandini, your go-to destination for premium dairy products. With a legacy of excellence spanning decades, Nandini brings you the finest selection of milk, curd, ghee, and more, straight from the farm to your table.Their commitment to quality and freshness ensures every sip and bite is a delight.Elevate your culinary experience with Nandini ? the taste of tradition and purity.",
         "websiteURL": "",
         "logo": "Nandini.png"
@@ -72,7 +72,7 @@ const sponsors: Sponsor[] = [
     },
     {
         "name": "PVR INOX Cinemas",
-        "title": "Core Title Sposor for Movidea",
+        "title": "Core Title Sponsor for Movidea",
         "desc": "Experience the magic of cinema like never before with PVR Inox Ltd, the epitome of entertainment excellence.With a rich legacy spanning over two decades, PVR Inox is synonymous with innovation and quality in the Indian multiplex industry.Pioneering the multiplex revolution in 1997, PVR Cinemas continues to redefine the movie- watching experience with state - of - the - art facilities and a diverse range of films.With 1712 screens across 359 properties in 114 cities, PVR Inox promises unforgettable moments for cinephiles everywhere.Step into the world of cinematic bliss with PVR Inox.",
         "websiteURL": "",
         "logo": "PVR_INOX.jpg"
@@ -86,21 +86,21 @@ const sponsors: Sponsor[] = [
     },
     {
         "name": "DLithe",
-        "title": "Core Title Sposor for Tech Advent",
+        "title": "Core Title Sponsor for Tech Advent",
         "desc": "DLithe: Revolutionizing EdTech since 2018. Specializing in Embedded Systems, Robotics, IoT, Cyber Security, and AI, DLithe bridges academia and industry.With 8 development centers and a focus on 360-degree learning, students are empowered, and hiring for IT companies is streamlined.Proudly bootstrapped, DLithe's commitment is to build an agile workforce for the future. Join the innovation journey with DLithe.",
         "websiteURL": "",
         "logo": "Dlithe.png"
     },
     {
         "name": "Coca Cola",
-        "title": "Core Title Sposor for Vibe",
+        "title": "Core Title Sponsor for Vibe",
         "desc": "Coca-Cola: The iconic refreshment that has delighted taste buds for generations. With its timeless taste and effervescent fizz, Coca- Cola is more than just a beverage - it symbolizes joy, togetherness, and unforgettable moments.Whether you're enjoying a cold can on a hot summer day or sipping from a glass bottle at a celebration, Coca - Cola is there to uplift and refresh.Join the millions who have made Coca - Cola their drink of choice and experience the taste of happiness today.",
         "websiteURL": "",
         "logo": "Coca-Cola_logo.png"
     },
     {
         "name": "Tattoo Tattva",
-        "title": "Executive Sponsors",
+        "title": "Executive Sponsor",
         "desc": "Tattoo Tattva, a prominent tattoo startup rooted in the vibrant city of Bangalore, stands as a beacon of artistic expression and individuality. As proud executive sponsors of Incridea'24, Tattoo Tattva fervently advocates for innovation and creativity. Elevate your self-expression with Tattoo Tattva – where art meets passion.",
         "websiteURL": "https://www.instagram.com/tattoo_tattva/",
         "logo": "tattoo_tattva_logo.png"
