@@ -7,4 +7,4 @@ export const baseImageUrl =
 // export const baseImageUrl = "/";
 
 export const baseAudioUrl =
-  "https://res.cloudinary.com/daufwc1ph/image/upload/v1709646134/";
+  "https://res.cloudinary.com/daufwc1ph/video/upload/v1709646134/";
